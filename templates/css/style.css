@@ -1,0 +1,240 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+section {
+    margin-top: 50px;
+}
+
+section:last-of-type {
+    margin-bottom: 50px;
+}
+
+a {
+    color: black;
+}
+
+.card .custom-bg {
+    background: rgb(141, 161, 141);
+    color: white;
+    text-shadow: 0 1px 1px black;
+}
+
+.card-body span {
+    padding: 5px;
+}
+
+a:hover {
+    color: rgb(141, 161, 141);
+    text-decoration: none;
+}
+
+.container-fluid,
+.row {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    /* padding: 1em !important; */
+}
+
+.fixed {
+    margin-bottom: 100px;
+}
+
+.navbar {
+    /* text-shadow: 0 1px 1px rgba(0, 0, 0, 0.315); */
+    font-weight: bold;
+}
+
+.navbar-brand {
+    font-family: 'Satisfy', cursive;
+    text-shadow: none;
+    font-weight: normal;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.header {
+    margin: 0;
+    height: auto;
+    max-width: 100%;
+    background: #fcfff4;
+    /* Old browsers */
+    background: -moz-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.bg-navbar {
+    background: #fcfff4;
+    /* Old browsers */
+    background: -moz-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    box-shadow: 0px 15px 10px -10px rgba(0, 0, 0, 0.315);
+}
+
+.header .header-items {
+    margin-top: 50px;
+    padding-bottom: 10px;
+}
+
+.header h4 {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.btn {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.315);
+    -webkit-transition: 500ms ease-in-out;
+    -moz-transition: 500ms ease-in-out;
+    transition: 500ms ease-in-out;
+}
+
+.btn:hover {
+    box-shadow: none;
+}
+
+.searchBar {
+    margin-top: 50px;
+}
+
+input[type="search"] {
+    height: 50px;
+    /* font-family: 'Leckerli One', cursive; */
+    width: 100%;
+    border: none;
+    font-style: italic;
+    padding: 20px;
+    color: #928F8F;
+    text-align: left;
+    border-radius: 5px;
+    margin-top: 0px;
+    /* box-shadow: 2px 11px 15px #535252; */
+    -webkit-transition: 400ms ease-in-out;
+    -moz-transition: 400ms ease-in-out;
+    transition: 400ms ease-in-out;
+}
+
+input[type="search"]:hover {
+    box-shadow: 0px 15px 10px -10px rgba(0, 0, 0, 0.315);
+}
+
+input[type="search"]:focus {
+    box-shadow: 0px 15px 10px -10px rgba(0, 0, 0, 0.315);
+    outline: none;
+}
+
+.title {
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+
+.title h6 {
+    font-size: 9px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.title .more {
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.box {
+    height: auto;
+    max-width: 200px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    -webkit-transition: 400ms ease-in-out;
+    -moz-transition: 400ms ease-in-out;
+    transition: 400ms ease-in-out;
+}
+
+.box:hover {
+    box-shadow: 0px 15px 10px -10px #0e0e0e;
+}
+
+.box a,
+.title a {
+    color: black;
+    font-weight: bold;
+    -webkit-transition: 400ms ease-in;
+    -moz-transition: 400ms ease-in;
+    transition: 400ms ease-in;
+}
+
+.title a:hover {
+    color: rgb(105, 228, 160);
+    text-decoration: none;
+    padding: 3px;
+}
+
+.box a:hover {
+    color: rgb(105, 228, 160);
+    text-decoration: none;
+}
+
+.box p {
+    /* background: #b3bead77; */
+    font-weight: bold;
+    border-bottom: 1px solid darkgray;
+}
+
+.box .reactions,
+.box a {
+    font-size: 9px;
+}
+
+.box .reactions span {
+    margin-right: 5px;
+    /* text-shadow: 0 1px 1px black; */
+}
+
+footer {
+    background: rgba(211, 211, 211, 0.116);
+}
+
+.footer-items {
+    border-bottom: 1px solid rgb(207, 207, 207);
+    height: auto;
+    margin: 10px 0;
+}
+
+.footer-social a {
+    text-decoration: none;
+    text-align: center;
+    color: darkgray;
+}
+
+.profile {
+    margin-top: 50px;
+}
+
+.recipe-title {
+    margin-top: 20px;
+}
+
+.catalog {
+    min-height: 450px;
+}
+
+.catalog h6 {
+    margin-top: 50px;
+}
