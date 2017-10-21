@@ -305,3 +305,11 @@ footer {
         font-size: 14px;
     }
 }
+
+@media screen and (max-width: 1300px) and (min-width: 990px) {
+    .col-lg-9 {
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+    }
+}
