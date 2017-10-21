@@ -231,10 +231,77 @@ footer {
     margin-top: 20px;
 }
 
-.catalog {
+
+/* .catalog {
     min-height: 450px;
-}
+} */
 
 .catalog h6 {
     margin-top: 50px;
+}
+
+.card-body {
+    position: relative;
+}
+
+.card-body .tag {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 15px 0 0 15px;
+    background: rgb(141, 161, 141);
+    color: white;
+    -webkit-transition: 400ms ease-in;
+    -moz-transition: 400ms ease-in;
+    transition: 400ms ease-in;
+    box-shadow: 0 2px 2px #0e0e0e98;
+}
+
+.card-body .tag:hover,
+.card-body .tag:focus {
+    box-shadow: none;
+}
+
+.add-new-item {
+    background: rgb(240, 237, 237);
+    padding: 10px 0;
+}
+
+.direction {
+    background: rgb(235, 235, 235);
+    padding: 10px;
+}
+
+.card-columns .card {
+    -webkit-transition: 400ms ease-in;
+    -moz-transition: 400ms ease-in;
+    transition: 400ms ease-in;
+}
+
+.card-columns span {
+    color: #868e96;
+    text-align: center !important;
+}
+
+.recipe-image {
+    max-height: 400px;
+}
+
+.red {
+    color: #bd2130;
+}
+
+.blue {
+    color: #0062cc;
+}
+
+@media screen and (max-width: 990px) {
+    .card-columns {
+        margin-top: 150px;
+    }
+    .card-columns h4 {
+        font-size: 14px;
+    }
 }
