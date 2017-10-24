@@ -1,29 +1,29 @@
 $(document).ready(function() {
-    $('.animate').on('mouseenter', function() {
+    $('.animate').bind('mouseenter click focus', function() {
         $(this).addClass('animated pulse');
     });
 
-    $('.animate').on('mouseleave', function() {
+    $('.animate').bind('mouseleave', function() {
         $(this).removeClass('animated pulse');
     });
 
-    $('#favorite').on('mouseenter', function() {
-        $(this).removeClass('fa-heart-o').addClass('fa-heart animated bounceIn red fa-3x');
+    $('#favorite').bind('mouseenter click focus', function() {
+        $(this).removeClass('fa-heart-o').addClass('fa-heart animated bounceIn flash red fa-3x');
     });
 
     $('#favorite').on('mouseleave', function() {
-        $(this).removeClass('fa-heart animated bounceIn red fa-3x').addClass('fa-heart-o');
+        $(this).removeClass('fa-heart animated bounceIn flash red fa-3x').addClass('fa-heart-o');
     });
 
-    $('#like').on('mouseenter', function() {
-        $(this).removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up animated bounceIn blue');
+    $('#like').bind('mouseenter click focus', function() {
+        $(this).removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up animated bounceIn flash blue');
     });
 
     $('#like').on('mouseleave', function() {
-        $(this).removeClass('fa-thumbs-up animated bounceIn blue').addClass('fa-thumbs-o-up');
+        $(this).removeClass('fa-thumbs-up animated bounceIn flash blue').addClass('fa-thumbs-o-up');
     });
 
-    $('#dislike').on('mouseenter', function() {
+    $('#dislike').bind('mouseenter click focus', function() {
         $(this).removeClass('fa-thumbs-o-down').addClass('fa-thumbs-down animated bounceIn blue');
     });
 
@@ -69,4 +69,4 @@ $(document).ready(function() {
 
         ]
     });
-})
+});
