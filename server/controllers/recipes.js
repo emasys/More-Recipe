@@ -12,7 +12,7 @@ class moreRecipe {
    */
   constructor() {
     this.count = 0;
-    this.updated = 'updated';
+    this.updated = false;
     this.created = 201;
     this.ok = 200;
     this.notFound = 404;
@@ -87,15 +87,19 @@ class moreRecipe {
     const getArr = input => input.split(',');
     const ingr = getArr(arr);
     const direct = req.body.direction;
+    let updated = false;
     db.forEach((item) => {
       if (item.id === recipeId) {
         item.title = FoodTitle;
         item.ingredients = ingr;
         item.direction = direct;
-        res.status(201).send('updated');
+        updated = true;
       }
     });
-    res.status(404 || this.notFound).send('not found');
+    if (updated) {
+      return res.sendStatus(204);
+    }
+    res.send('not found');
   }
 
   /**
