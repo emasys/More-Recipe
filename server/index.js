@@ -1,23 +1,33 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
-import router from './routes/routes';
+import moreRecipes from './controllers/recipes';
+
+const recipes = new moreRecipes();
 
 const app = express();
-
-// Allow all requests from all domains & localhost
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'POST, GET');
-  next();
-});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
-app.use('/', router);
 
+app.route('/api/recipes')
+  .get(recipes.getRecipes)
+  .post(recipes.postRecipes);
+app.route('/api/recipes/:id')
+  .put(recipes.updateRecipe)
+  .delete(recipes.deleteRecipe);
+app.route('/api/recipes/:id/reviews')
+  .post(recipes.postReviews);
+app.route('/api/recipe?sort=upvotes&order=des')
+  .get(recipes.getRecipes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
+app.get('/*', (req, res) => {
+  res.send('welcome to more recipes');
+});
+
+app.listen(8000, () => {
+  console.log('App listening on port 8000!');
+});
+
+export default app;
