@@ -1,11 +1,11 @@
 {
-    "name": "more-recipe-user-api",
+    "name": "more-recipe",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "mocha --require babel-register test/test.js",
-        "start": "nodemon --require babel-register index.js"
+        "test": "mocha --require babel-register server/test/test.js",
+        "start": "nodemon --require babel-register server/index.js"
     },
     "author": "Ndukwe Emmanuel",
     "license": "ISC",
