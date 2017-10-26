@@ -35,7 +35,7 @@ describe('PUT/recipe:id Update any recipe', () => {
     request(app)
       .put(`/api/recipes/${recipe.id}`)
       .send(editRecipe)
-      .expect('updated')
+      .expect(204)
       .end(done);
   });
 });
@@ -50,8 +50,9 @@ describe('GET/ recipes', () => {
 
   it('should return 200 status code', (done) => {
     request(app)
-      .get('/api/recipes')
+      .get('/api/recipes?sort=upvotes&order=des')
       .expect(200)
       .end(done);
   });
 });
+

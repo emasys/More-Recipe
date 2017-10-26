@@ -26,8 +26,7 @@ app.get('/*', (req, res) => {
   res.send('welcome to more recipes');
 });
 
-app.listen(8000, () => {
-  console.log('App listening on port 8000!');
-});
+const PORT = process.env.PORT || 8080;
+app.listen(PORT);
 
 export default app;
