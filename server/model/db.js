@@ -1,7 +1,6 @@
 const data = [
   {
-    id: 1,
-    name: 'emmy nd',
+    id: "aec6958e-69ae-4c1e-9394-1b4d5fd54401",
     title: 'how to cook beans',
     ingredients: ['water', 'salt', 'peper'],
     direction: 'boil the beans and add salt to taste',
@@ -20,11 +19,10 @@ const data = [
     ]
   },
   {
-    id: 2,
-    name: 'john smith',
-    title: 'how to cook beans',
-    ingredients: ['water', 'salt', 'peper'],
-    direction: 'boil the beans and add salt to taste',
+    id: "aec6958e-69ae-4c1e-9394-1b4d5fd54402",
+    title: 'how to cook rice',
+    ingredients: ['water', 'salt'],
+    direction: 'boil the rice and add salt to taste',
     upvote: 19,
     downvote: 2,
     favourite: 0,
@@ -40,11 +38,10 @@ const data = [
     ]
   },
   {
-    id: 3,
-    name: 'john doe',
-    title: 'how to cook beans',
+    id: "aec6958e-69ae-4c1e-9394-1b4d5fd54403",
+    title: 'how to cook yam',
     ingredients: ['water', 'salt', 'peper'],
-    direction: 'boil the beans and add salt to taste',
+    direction: 'boil the yam and add salt to taste',
     upvote: 40,
     downvote: 2,
     favourite: 0,
