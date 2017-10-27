@@ -3,3 +3,4 @@
 /.eslintrc.js
 /server/node_modules
 /server/validators.js
+/package4.json
