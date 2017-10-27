@@ -7,6 +7,9 @@
         "test": "mocha --require babel-register server/test/test.js",
         "start": "nodemon --require babel-register server/index.js"
     },
+    "engines": {
+        "node": "8.3.0"
+      },
     "author": "Ndukwe Emmanuel",
     "license": "ISC",
     "dependencies": {
@@ -24,8 +27,10 @@
         "babel-core": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "chai-http": "^3.0.0",
+        "coveralls": "^3.0.0",
         "eslint": "^4.9.0",
         "eslint-config-airbnb-base": "^12.1.0",
-        "eslint-plugin-import": "^2.8.0"
+        "eslint-plugin-import": "^2.8.0",
+        "mocha-lcov-reporter": "^1.3.0"
     }
 }

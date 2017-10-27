@@ -97,7 +97,7 @@ class moreRecipe {
       }
     });
     if (updated) {
-      return res.sendStatus(204);
+      return res.sendStatus(204 || this.updated);
     }
     res.send('not found');
   }
