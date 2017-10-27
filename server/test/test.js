@@ -40,6 +40,21 @@ describe('PUT/recipe:id Update any recipe', () => {
   });
 });
 
+describe('DELETE/recipe:id', () => {
+  it('should be able to delete a recipe with it\'s id', (done) => {
+    const recipe = {
+      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401',
+      title: 'how to cook beans',
+      ingredients: 'water,salt,peper',
+      direction: 'boil the beans and add salt to taste',
+    };
+    request(app)
+      .del(`/api/recipes/${recipe.id}`)
+      .expect(204)
+      .end(done);
+  });
+});
+
 describe('GET/ recipes', () => {
   it('should return 200 status code api/recipe', (done) => {
     request(app)
