@@ -97,9 +97,9 @@ class moreRecipe {
       }
     });
     if (updated) {
-      return res.sendStatus(204 || this.updated);
+      return res.status(204 || this.updated).send('updated');
     }
-    res.send('not found');
+    res.status(404).send('not found');
   }
 
   /**
@@ -110,14 +110,18 @@ class moreRecipe {
    * @memberof moreRecipe
    */
   deleteRecipe(req, res) {
+    let deleted = false;
     const recipeId = req.params.id;
     db.forEach((item, index) => {
       if (item.id === recipeId) {
         db.splice(index, 1);
-        res.sendStatus(200 || this.ok);
+        deleted = true;
       }
     });
-    res.sendStatus(501);
+    if (deleted) {
+      return res.status(204 || this.ok).send('deleted');
+    }
+    res.sendStatus(404);
   }
 
   /**
