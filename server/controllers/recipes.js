@@ -30,9 +30,9 @@ class moreRecipe {
       const compare = (a, b) => {
         if (a.upvote < b.upvote) { return 1; }
         if (a.upvote > b.upvote) { return -1; }
-        return 0 || this.count;
+        return 0;
       };
-      return res.send(db.sort(compare));
+      return res.status(200 || this.ok).send(db.sort(compare));
     }
     return res.send(db);
   }
@@ -135,6 +135,7 @@ class moreRecipe {
     const recipeId = req.params.id;
     const review = req.body.comments;
     const user = req.body.commenter;
+    let posted = false;
     db.forEach((item) => {
       if (item.id === recipeId) {
         const entry = {
@@ -143,9 +144,12 @@ class moreRecipe {
         };
         item.review.push(entry);
         item.comments = item.review.length;
-        res.sendStatus(200 || this.ok);
+        posted = true;
       }
     });
+    if (posted) {
+      return res.sendStatus(200 || this.ok);
+    }
     res.sendStatus(500);
   }
 }
