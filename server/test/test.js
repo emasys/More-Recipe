@@ -16,6 +16,19 @@ describe('POST/ recipes', () => {
       .expect(201)
       .end(done);
   });
+
+  it('should return 501 status code for api/recipe if one of the required field is empty', (done) => {
+    const recipe = {
+      title: 'how to cook something',
+      ingredients: 'water',
+      direction: 'just do it',
+    };
+    request(app)
+      .post('/api/recipes')
+      .send(recipe)
+      .expect(501)
+      .end(done);
+  });
 });
 
 describe('PUT/recipe:id Update any recipe', () => {
@@ -67,6 +80,13 @@ describe('GET/ recipes', () => {
     request(app)
       .get('/api/recipes?sort=upvotes&order=des')
       .expect(200)
+      .end(done);
+  });
+
+  it('should return 404 status code if you try to access an invalid endpoint', (done) => {
+    request(app)
+      .get('/api/recip')
+      .expect(404)
       .end(done);
   });
 });
