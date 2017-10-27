@@ -67,9 +67,9 @@ class moreRecipe {
         (typeof (data.category) === 'string' && data.category !== '')
     ) {
       db.push(data);
-      res.sendStatus(201 || this.created);
+      res.status(201 || this.created).send({ success: true });
     } else {
-      res.sendStatus(501);
+      res.status(501).send({ success: false });
     }
   }
 
@@ -97,9 +97,9 @@ class moreRecipe {
       }
     });
     if (updated) {
-      return res.status(204 || this.updated).send('updated');
+      return res.status(202 || this.updated).send({ status: 'accepted' });
     }
-    res.status(404).send('not found');
+    res.status(404).send({ success: false });
   }
 
   /**
@@ -119,9 +119,9 @@ class moreRecipe {
       }
     });
     if (deleted) {
-      return res.status(204 || this.ok).send('deleted');
+      return res.status(204 || this.ok).send({ status: 'deleted' });
     }
-    res.sendStatus(404);
+    res.status(404).send({ success: false });
   }
 
   /**
@@ -148,9 +148,9 @@ class moreRecipe {
       }
     });
     if (posted) {
-      return res.sendStatus(200 || this.ok);
+      return res.status(200 || this.ok).send({ success: true });
     }
-    res.sendStatus(501);
+    res.sendStatus(501).send({ success: false });
   }
 }
 
