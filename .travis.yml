@@ -1,9 +1,12 @@
 language: node_js
 node_js:
- - "8.3.0"
-branches:
-  only:
-    - develop
+  - stable
+
+install:
+  - npm install
+
 script:
- - npm test
-after_success: npm run coverage
+  - npm test
+
+after_success: 
+  - npm run coverage
