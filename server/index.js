@@ -11,6 +11,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT');
+  next();
+});
+
 app.route('/api/recipes')
   .get(recipes.getRecipes)
   .post(recipes.postRecipes);
@@ -19,8 +26,7 @@ app.route('/api/recipes/:id')
   .delete(recipes.deleteRecipe);
 app.route('/api/recipes/:id/reviews')
   .post(recipes.postReviews);
-app.route('/api/recipe?sort=upvotes&order=des')
-  .get(recipes.getRecipes);
+
 
 app.get('/*', (req, res) => {
   res.send('welcome to more recipes');
