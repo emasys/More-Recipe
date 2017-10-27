@@ -150,7 +150,7 @@ class moreRecipe {
     if (posted) {
       return res.sendStatus(200 || this.ok);
     }
-    res.sendStatus(500);
+    res.sendStatus(501);
   }
 }
 
