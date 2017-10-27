@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">78.95% </span>
+        <span class="strong">96.05% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>60/76</span>
+        <span class='fraction'>73/76</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">67.5% </span>
+        <span class="strong">80% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>27/40</span>
+        <span class='fraction'>32/40</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.71% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/7</span>
+        <span class='fraction'>7/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">77.78% </span>
+        <span class="strong">95.83% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>56/72</span>
+        <span class='fraction'>69/72</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -231,7 +231,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -335,25 +335,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -493,25 +493,25 @@ class moreRecipe {
    * @memberof moreRecipe
    */
   postReviews(req, res) {
-    const recipeId = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
-    const review = <span class="cstat-no" title="statement not covered" >req.body.comments;</span>
-    const user = <span class="cstat-no" title="statement not covered" >req.body.commenter;</span>
-    let posted = <span class="cstat-no" title="statement not covered" >false;</span>
-<span class="cstat-no" title="statement not covered" >    db.forEach(<span class="fstat-no" title="function not covered" >(</span>item) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (item.id === recipeId) {</span>
-        const entry = <span class="cstat-no" title="statement not covered" >{</span>
+    const recipeId = req.params.id;
+    const review = req.body.comments;
+    const user = req.body.commenter;
+    let posted = false;
+    db.forEach((item) =&gt; {
+      if (item.id === recipeId) {
+        const entry = {
           comment: review,
           commenter: user
         };
-<span class="cstat-no" title="statement not covered" >        item.review.push(entry);</span>
-<span class="cstat-no" title="statement not covered" >        item.comments = item.review.length;</span>
-<span class="cstat-no" title="statement not covered" >        posted = true;</span>
+        item.review.push(entry);
+        item.comments = item.review.length;
+        posted = true;
       }
     });
-<span class="cstat-no" title="statement not covered" >    if (posted) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.sendStatus(200 || this.ok);</span>
+    if (posted) {
+      return res.sendStatus(200 || <span class="branch-1 cbranch-no" title="branch not covered" >this.ok);</span>
     }
-<span class="cstat-no" title="statement not covered" >    res.sendStatus(500);</span>
+    res.sendStatus(500);
   }
 }
 &nbsp;
@@ -523,7 +523,7 @@ export default moreRecipe;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 27 2017 12:11:12 GMT+0100 (W. Central Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 27 2017 12:28:54 GMT+0100 (W. Central Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

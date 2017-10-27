@@ -31,6 +31,38 @@ describe('POST/ recipes', () => {
   });
 });
 
+describe('POST/ reviews', () => {
+  it('should return 201 status code for a successful comment', (done) => {
+    const recipe = {
+      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401'
+    };
+    const newComment = {
+      comments: 'nice work',
+      commenter: 'jane doe'
+    };
+    request(app)
+      .post(`/api/recipes/${recipe.id}/reviews`)
+      .send(newComment)
+      .expect(200)
+      .end(done);
+  });
+
+  it('should return 501 status code for an unsuccessful comment', (done) => {
+    const recipe = {
+      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401121' // made the id invalid
+    };
+    const newComment = {
+      comments: 'nice work',
+      commenter: 'jane doe'
+    };
+    request(app)
+      .post(`/api/recipes/${recipe.id}/reviews`)
+      .send(newComment)
+      .expect(501)
+      .end(done);
+  });
+});
+
 describe('PUT/recipe:id Update any recipe', () => {
   it('should be able to update a recipe with it\'s id', (done) => {
     const recipe = {
@@ -49,6 +81,26 @@ describe('PUT/recipe:id Update any recipe', () => {
       .put(`/api/recipes/${recipe.id}`)
       .send(editRecipe)
       .expect(204)
+      .end(done);
+  });
+
+  it('should fail to update a recipe with a wrong id', (done) => {
+    const recipe = {
+      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd544065',
+      title: 'how to cook beans',
+      ingredients: 'water,salt,peper',
+      direction: 'boil the beans and add salt to taste',
+    };
+
+    const editRecipe = {
+      title: 'how to cook something else',
+      ingredients: 'water, salt, peper',
+      direction: 'boil the beans and add salt to taste',
+    };
+    request(app)
+      .put(`/api/recipes/${recipe.id}`)
+      .send(editRecipe)
+      .expect(404)
       .end(done);
   });
 });
