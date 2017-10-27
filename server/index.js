@@ -29,7 +29,7 @@ app.route('/api/recipes/:id/reviews')
 
 
 app.get('/*', (req, res) => {
-  res.send('welcome to more recipes');
+  res.status(404).send({ error: 'Sorry the page you\'re looking for does not exist' });
 });
 
 const PORT = process.env.PORT || 8080;
