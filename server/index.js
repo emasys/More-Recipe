@@ -18,18 +18,21 @@ app.all('/*', (req, res, next) => {
   next();
 });
 
-app.route('/api/recipes')
+app.route('/api/v1/recipes')
   .get(recipes.getRecipes)
   .post(recipes.postRecipes);
-app.route('/api/recipes/:id')
+app.route('/api/v1/recipes/:id')
   .put(recipes.updateRecipe)
   .delete(recipes.deleteRecipe);
-app.route('/api/recipes/:id/reviews')
+app.route('/api/v1/recipes/:id/reviews')
   .post(recipes.postReviews);
 
 
 app.get('/*', (req, res) => {
-  res.status(404).send({ error: 'Sorry the page you\'re looking for does not exist' });
+  res.status(404).send({
+    error: 'Sorry the page you\'re looking for does not exist',
+    availableRoutes: '/api/v1/recipes, /api/v1/recipes/id, /api/v1/recipes/id/reviews'
+  });
 });
 
 const PORT = process.env.PORT || 8080;
