@@ -80,7 +80,7 @@ describe('PUT/recipe:id Update any recipe', () => {
     request(app)
       .put(`/api/recipes/${recipe.id}`)
       .send(editRecipe)
-      .expect(204)
+      .expect(202)
       .end(done);
   });
 
