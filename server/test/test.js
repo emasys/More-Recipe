@@ -11,7 +11,7 @@ describe('POST/ recipes', () => {
       category: 'none'
     };
     request(app)
-      .post('/api/recipes')
+      .post('/api/v1/recipes')
       .send(recipe)
       .expect(201)
       .end(done);
@@ -24,7 +24,7 @@ describe('POST/ recipes', () => {
       direction: 'just do it',
     };
     request(app)
-      .post('/api/recipes')
+      .post('/api/v1/recipes')
       .send(recipe)
       .expect(501)
       .end(done);
@@ -41,7 +41,7 @@ describe('POST/ reviews', () => {
       commenter: 'jane doe'
     };
     request(app)
-      .post(`/api/recipes/${recipe.id}/reviews`)
+      .post(`/api/v1/recipes/${recipe.id}/reviews`)
       .send(newComment)
       .expect(200)
       .end(done);
@@ -56,7 +56,7 @@ describe('POST/ reviews', () => {
       commenter: 'jane doe'
     };
     request(app)
-      .post(`/api/recipes/${recipe.id}/reviews`)
+      .post(`/api/v1/recipes/${recipe.id}/reviews`)
       .send(newComment)
       .expect(501)
       .end(done);
@@ -78,7 +78,7 @@ describe('PUT/recipe:id Update any recipe', () => {
       direction: 'boil the beans and add salt to taste',
     };
     request(app)
-      .put(`/api/recipes/${recipe.id}`)
+      .put(`/api/v1/recipes/${recipe.id}`)
       .send(editRecipe)
       .expect(204)
       .end(done);
@@ -98,7 +98,7 @@ describe('PUT/recipe:id Update any recipe', () => {
       direction: 'boil the beans and add salt to taste',
     };
     request(app)
-      .put(`/api/recipes/${recipe.id}`)
+      .put(`/api/v1/recipes/${recipe.id}`)
       .send(editRecipe)
       .expect(404)
       .end(done);
@@ -114,7 +114,7 @@ describe('DELETE/recipe:id', () => {
       direction: 'boil the beans and add salt to taste',
     };
     request(app)
-      .del(`/api/recipes/${recipe.id}`)
+      .del(`/api/v1/recipes/${recipe.id}`)
       .expect(204)
       .end(done);
   });
@@ -123,14 +123,14 @@ describe('DELETE/recipe:id', () => {
 describe('GET/ recipes', () => {
   it('should return 200 status code api/recipe', (done) => {
     request(app)
-      .get('/api/recipes')
+      .get('/api/v1/recipes')
       .expect(200)
       .end(done);
   });
 
   it('should return 200 status code', (done) => {
     request(app)
-      .get('/api/recipes?sort=upvotes&order=des')
+      .get('/api/v1/recipes?sort=upvotes&order=des')
       .expect(200)
       .end(done);
   });
