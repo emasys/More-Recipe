@@ -7,28 +7,25 @@ $(document).ready(function() {
         $(this).removeClass('animated pulse');
     });
 
-    $('#favorite').bind('mouseenter click focus', function() {
-        $(this).removeClass('fa-heart-o').addClass('fa-heart animated bounceIn flash red fa-3x');
+    
+    
+
+    $('#favorite').on('click', function() {
+        $(this).toggleClass('fa-heart-o').toggleClass('fa-heart animated bounceIn flash red fa-3x');
     });
 
-    $('#favorite').on('mouseleave', function() {
-        $(this).removeClass('fa-heart animated bounceIn flash red fa-3x').addClass('fa-heart-o');
+    $('#like').on('click', function() {
+        if($('#dislike').hasClass('animated')){
+            $('#dislike').removeClass('fa-thumbs-down animated bounceIn flash blue').addClass('fa-thumbs-o-down');
+        };
+        $(this).toggleClass('fa-thumbs-o-up').toggleClass('fa-thumbs-up animated bounceIn flash blue');
     });
 
-    $('#like').bind('mouseenter click focus', function() {
-        $(this).removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up animated bounceIn flash blue');
-    });
-
-    $('#like').on('mouseleave', function() {
-        $(this).removeClass('fa-thumbs-up animated bounceIn flash blue').addClass('fa-thumbs-o-up');
-    });
-
-    $('#dislike').bind('mouseenter click focus', function() {
-        $(this).removeClass('fa-thumbs-o-down').addClass('fa-thumbs-down animated bounceIn blue');
-    });
-
-    $('#dislike').on('mouseleave', function() {
-        $(this).removeClass('fa-thumbs-down animated bounceIn blue').addClass('fa-thumbs-o-down');
+    $('#dislike').on('click', function() {
+        if($('#like').hasClass('animated')){
+            $('#like').removeClass('fa-thumbs-up animated bounceIn flash blue').addClass('fa-thumbs-o-up');
+        }
+        $(this).toggleClass('fa-thumbs-o-down').toggleClass('fa-thumbs-down animated bounceIn blue');
     });
 
 
@@ -69,4 +66,9 @@ $(document).ready(function() {
 
         ]
     });
+
+    $('.animate-catalog').scrolla({
+        mobile: false,
+        once: true
+      });
 });

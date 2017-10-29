@@ -190,6 +190,11 @@ input[type="search"]:focus {
   text-decoration: none;
 }
 
+.box img {
+  max-height: 400px;
+  max-width: 440px;
+}
+
 .box p {
   /* background: #b3bead77; */
   font-weight: bold;
@@ -295,6 +300,11 @@ footer {
   cursor: pointer;
 }
 
+#favorite:hover,
+#like:hover,
+#dislike:hover{
+  text-shadow: 0px 2px 2px #0e0e0e98;
+}
 .red {
   color: #bd2130;
 }
