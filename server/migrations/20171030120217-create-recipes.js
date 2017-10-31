@@ -29,6 +29,9 @@ module.exports = {
       views: {
         type: Sequelize.INTEGER
       },
+      reaction: {
+        type: Sequelize.STRING
+      },
       category: {
         type: Sequelize.STRING
       },

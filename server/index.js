@@ -27,6 +27,10 @@ app.route('/api/v1/users/signin')
 app.route('/api/v1/all/recipes')
   .get(Recipes.listRecipes)
   .post(jwt.verifyToken, Recipes.addRecipe);
+app.route('/api/recipes/upvote/:recipeId')
+  .post(jwt.verifyToken, Recipes.upvote);
+app.route('/api/recipes/downvote/:recipeId')
+  .post(jwt.verifyToken, Recipes.downvote);
 app.route('/api/v1/fav/recipes/:userId')
   .get(jwt.verifyToken, Favorite.listFavorites);
 app.route('/api/v1/fav/recipes')
