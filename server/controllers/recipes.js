@@ -1,158 +1,154 @@
-import uuid from 'node-uuid';
-import db from '../model/db';
+import Validator from 'validatorjs';
+import { Users, Recipes, Reviews } from '../models';
 
 /**
  * parent class
  * @class moreRecipe
  */
-class moreRecipe {
+class moreRecipes {
   /**
-   * Creates an instance of moreRecipe.
-   * @memberof moreRecipe
+   * Add a new recipe to the catalog
+   *
+   * @param {any} req
+   * @param {any} res
    */
-  constructor() {
-    this.count = 0;
-    this.updated = false;
-    this.created = 201;
-    this.ok = 200;
-    this.notFound = 404;
-  }
-  /**
-   *
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns request or response object
-   * @memberof moreRecipe
-   */
-  getRecipes(req, res) {
-    if (req.query.sort && req.query.order) {
-      const compare = (a, b) => {
-        if (a.upvote < b.upvote) { return 1; }
-        if (a.upvote > b.upvote) { return -1; }
-        return 0;
-      };
-      return res.status(200 || this.ok).send(db.sort(compare));
-    }
-    return res.send(db);
-  }
-
-  /**
-   *
-   *
-   * @param {object} req
-   * @param {object} res
-   * @memberof moreRecipe
-   */
-  postRecipes(req, res) {
-    const data = {};
-    data.id = uuid.v4();
-    data.title = req.body.title;
-    const arr = req.body.ingredients;
-    const getArr = input => input.split(',');
-    data.ingredients = getArr(arr);
-    data.direction = req.body.direction;
-    data.upvote = Math.floor(Math.random() * 30);
-    data.downvote = 0;
-    data.favourite = 0;
-    data.comments = 0;
-    data.views = 0;
-    data.category = req.body.category;
-    data.image = 'uploadedImg.jpg';
-    data.review = [];
-    if (
-      (typeof (data.title) === 'string' && data.title !== '') &&
-        (typeof (data.ingredients) === 'object' && data.ingredients !== '') &&
-        (typeof (data.direction) === 'string' && data.direction !== '') &&
-        (typeof (data.category) === 'string' && data.category !== '')
-    ) {
-      db.push(data);
-      res.status(201 || this.created).send({ success: true });
+  static addRecipe(req, res) {
+    const request = req.body;
+    const validator = new Validator(request, Recipes.createRules());
+    if (validator.passes()) {
+      Users.findById(req.decoded.id)
+        .then((user) => {
+          if (!user) {
+            return res.status(404).send({ success: false, error: 'User not found' });
+          }
+          return Recipes.create({
+            name: request.name,
+            direction: request.direction,
+            userId: req.decoded.id,
+            ingredients: request.ingredients,
+            upvote: request.upvote,
+            downvote: request.downvote
+          })
+            .then(recipe => res.status(201).send({ success: true, recipe }))
+            .catch(error => res.status(404).send({ success: false, error: error.error }));
+        })
+        .catch(error => res.status(404).send(error));
     } else {
-      res.status(501).send({ success: false });
+      return res.status(401).send({ validatorMessage: validator.errors.all() });
     }
   }
-
-  /**
-   * edit recipe items
-   *
-   * @param {object} req
-   * @param {object} res
-   * @memberof moreRecipe
-   */
-  updateRecipe(req, res) {
-    const recipeId = req.params.id;
-    const FoodTitle = req.body.title;
-    const arr = req.body.ingredients;
-    const getArr = input => input.split(',');
-    const ingr = getArr(arr);
-    const direct = req.body.direction;
-    let updated = false;
-    db.forEach((item) => {
-      if (item.id === recipeId) {
-        item.title = FoodTitle;
-        item.ingredients = ingr;
-        item.direction = direct;
-        updated = true;
-      }
-    });
-    if (updated) {
-      return res.status(202 || this.updated).send({ status: 'accepted' });
-    }
-    res.status(404).send({ success: false });
-  }
-
   /**
    *
    *
+   * @static
    * @param {object} req
    * @param {object} res
-   * @memberof moreRecipe
+   * @returns
+   * @memberof moreRecipes
    */
-  deleteRecipe(req, res) {
-    let deleted = false;
-    const recipeId = req.params.id;
-    db.forEach((item, index) => {
-      if (item.id === recipeId) {
-        db.splice(index, 1);
-        deleted = true;
-      }
-    });
-    if (deleted) {
-      return res.status(204 || this.ok).send({ status: 'deleted' });
-    }
-    res.status(404).send({ success: false });
+  static listRecipes(req, res) {
+    return Recipes
+      .findAll({
+        include: [{
+          model: Reviews,
+          as: 'reviews',
+        }],
+      })
+      .then(recipes => res.status(200).send({ success: true, recipes }))
+      .catch(error => res.status(400).send({success: false, error }));
   }
 
   /**
-   *
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns
+ * @memberof moreRecipes
+ */
+  static getRecipe(req, res) {
+    return Recipes
+      .findById(req.params.recipeId, {
+        include: [{
+          model: Reviews,
+          as: 'reviews',
+        }]
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          res.status(404).send({ success: false, status: 'Recipes not found' });
+        }
+        return recipe
+          .update({ views: recipe.views + 1 });// increment views by 1
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          res.status(404).send({ success: false, status: 'Recipes not found' });
+        }
+        if (req.decoded && req.decoded.id && req.decoded.id === recipe.userId) recipe.views = 1;
+        res.status(200).send({ success: true, recipe });
+      })
+      .catch(error => res.status(400).send({ success: false, error }));
+  }
+
+
+  /**
+   * Update Recipe values
    *
    * @param {object} req
    * @param {object} res
-   * @memberof moreRecipe
+   * @returns
    */
-  postReviews(req, res) {
-    const recipeId = req.params.id;
-    const review = req.body.comments;
-    const user = req.body.commenter;
-    let posted = false;
-    db.forEach((item) => {
-      if (item.id === recipeId) {
-        const entry = {
-          comment: review,
-          commenter: user
-        };
-        item.review.push(entry);
-        item.comments = item.review.length;
-        posted = true;
-      }
-    });
-    if (posted) {
-      return res.status(200 || this.ok).send({ success: true });
-    }
-    res.sendStatus(501).send({ success: false });
+  static updateRecipe(req, res) {
+    return Recipes
+      .findById(req.params.recipeId, {
+        include: [{
+          model: Reviews,
+          as: 'reviews',
+        }]
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            success: false,
+            status: 'Recipe Not Found',
+          });
+        }
+        return recipe
+          .update({
+            name: req.body.name || recipe.name,
+            direction: req.body.direction || recipe.direction,
+            ingredients: req.body.ingredients || recipe.ingredients,
+          })
+          .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+          .catch(error => res.status(400).send({ success: false, error }));
+      })
+      .catch(error => res.status(400).send(error));
+  }
+
+
+  /**
+   * Delete a Recipe from the catalog
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns
+   */
+  static deleteRecipe(req, res) {
+    return Recipes
+      .findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          res.status(404).json({ success: false, status: 'Recipe not found' });
+        }
+        return recipe
+          .destroy()
+          .then(() => res.status(200).send({ success: true, status: 'Recipe deleted' }))
+          .catch(error => res.status(400).send({ error }));
+      })
+      .catch(error => res.status(400).send({ error }));
   }
 }
 
-export default moreRecipe;
-
+export default moreRecipes;

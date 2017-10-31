@@ -1,9 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
-import moreRecipes from './controllers/recipes';
-
-const recipes = new moreRecipes();
+import Recipes from './controllers/recipes';
+import Users from './controllers/users';
+import Reviews from './controllers/reviews';
+import Favorite from './controllers/favorite';
+import jwt from './middleware/jwt';
 
 const app = express();
 
@@ -18,20 +20,28 @@ app.all('/*', (req, res, next) => {
   next();
 });
 
-app.route('/api/v1/recipes')
-  .get(recipes.getRecipes)
-  .post(recipes.postRecipes);
-app.route('/api/v1/recipes/:id')
-  .put(recipes.updateRecipe)
-  .delete(recipes.deleteRecipe);
-app.route('/api/v1/recipes/:id/reviews')
-  .post(recipes.postReviews);
+app.route('/api/v1/users/signup')
+  .post(Users.signUp);
+app.route('/api/v1/users/signin')
+  .post(Users.signIn);
+app.route('/api/v1/all/recipes')
+  .get(Recipes.listRecipes)
+  .post(jwt.verifyToken, Recipes.addRecipe);
+app.route('/api/v1/fav/recipes/:userId')
+  .get(jwt.verifyToken, Favorite.listFavorites);
+app.route('/api/v1/fav/recipes')
+  .post(jwt.verifyToken, Favorite.addFavorite);
+app.route('/api/v1/recipes/:recipeId')
+  .put(jwt.verifyToken, Recipes.updateRecipe)
+  .delete(jwt.verifyToken, Recipes.deleteRecipe)
+  .get(jwt.verifyToken, Recipes.getRecipe);
+app.route('/api/v1/recipes/:recipeId/reviews')
+  .post(jwt.verifyToken, Reviews.addReview);
 
 
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.status(404).send({
-    error: 'Sorry the page you\'re looking for does not exist',
-    availableRoutes: '/api/v1/recipes, /api/v1/recipes/id, /api/v1/recipes/id/reviews'
+    error: 'Sorry the page you\'re looking for does not exist'
   });
 });
 
