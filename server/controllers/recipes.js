@@ -55,7 +55,7 @@ class moreRecipes {
         }],
       })
       .then(recipes => res.status(200).send({ success: true, recipes }))
-      .catch(error => res.status(400).send({success: false, error }));
+      .catch(error => res.status(400).send({ success: false, error }));
   }
 
   /**
@@ -120,6 +120,85 @@ class moreRecipes {
             name: req.body.name || recipe.name,
             direction: req.body.direction || recipe.direction,
             ingredients: req.body.ingredients || recipe.ingredients,
+          })
+          .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+          .catch(error => res.status(400).send({ success: false, error }));
+      })
+      .catch(error => res.status(400).send(error));
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns a new value for upvote
+   * @memberof moreRecipes
+   */
+  static upvote(req, res) {
+    return Recipes
+      .findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            success: false,
+            status: 'Recipe Not Found',
+          });
+        } else if (req.decoded.id) {
+          let x = recipe.reaction;
+          x = x.split(',');
+          if (x.indexOf(String(req.decoded.id)) !== -1) {
+            return res.status(501).send({
+              success: false,
+              status: 'You have already reacted',
+            });
+          }
+        }
+        return recipe
+          .update({
+            upvote: recipe.upvote + 1,
+            reaction: `${recipe.reaction + req.decoded.id},`,
+          })
+          .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+          .catch(error => res.status(400).send({ success: false, error }));
+      })
+      .catch(error => res.status(400).send(error));
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns a new value for downvote
+   * @memberof moreRecipes
+   */
+  static downvote(req, res) {
+    return Recipes
+      .findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({
+            success: false,
+            status: 'Recipe Not Found',
+          });
+        }
+
+        if (req.decoded.id) {
+          let x = recipe.reaction;
+          x = x.split(',');
+          if (x.indexOf(String(req.decoded.id)) !== -1) {
+            return res.status(501).send({
+              success: false,
+              status: 'You have already reacted',
+            });
+          }
+        }
+        return recipe
+          .update({
+            downvote: recipe.downvote + 1,
+            reaction: `${recipe.reaction + req.decoded.id},`,
           })
           .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
           .catch(error => res.status(400).send({ success: false, error }));

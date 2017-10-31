@@ -26,11 +26,15 @@ export default (sequelize, DataTypes) => {
     },
     upvote: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      defaultValue: 0
     },
     downvote: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      defaultValue: 0
+    },
+    reaction: {
+      type: DataTypes.STRING,
+      defaultValue: ','
     },
     views: {
       type: DataTypes.INTEGER,
