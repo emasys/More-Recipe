@@ -28,7 +28,7 @@ export default class protectRoute {
         Users.findById(decoded.id)
           .then((user) => {
             if (!user) {
-              return Promise.reject(new Error('Unrecognised token'));
+              return res.status(404).send({ error: 'user not found' })
             }
             req.decoded = decoded;
             return next();

@@ -50,6 +50,9 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`app runnig on port ${PORT}`);  
+});
+
 
 export default app;

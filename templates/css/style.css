@@ -53,13 +53,19 @@ a:hover {
 .navbar-brand {
   font-family: 'Satisfy', cursive;
   text-shadow: none;
-  font-weight: normal;
+  font-weight: bolder;
 }
 
 .navbar-toggler {
   border: none;
 }
 
+.text-shadowed{
+  text-shadow: 0 2px 2px black;
+}
+.text-shadowed code, .text-shadowed a{
+  text-shadow: none;
+}
 .navbar-toggler:focus {
   outline: none;
 }
@@ -68,19 +74,42 @@ a:hover {
   margin: 0;
   height: auto;
   max-width: 100%;
-  background: #ffb1aa; /* Old browsers */
-  background: -moz-linear-gradient(45deg, #ffb1aa 10%, #ffb1aa 27%, #ff8a82 42%, #cf0404 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb1aa', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
+  color: white;
+  background: 
+  /* top, transparent red */ 
+  linear-gradient(90deg,
+    rgba(255, 0, 0, 0.45), 
+    rgba(255, 0, 0, 0.5),
+    rgba(255, 0, 0, 0.8),
+    rgba(255, 0, 0, 0.9),
+    rgba(255, 0, 0, 1),
+    rgba(255, 0, 0, 1),
+    rgba(255, 0, 0, 1)
+  ),
+  /* bottom, image */
+  url('../img/bannerBg.fw.png') no-repeat;
+ }
   
-
+.form-items {
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.315);
+}
 .bg-navbar {
-background: #ffb1aa; /* Old browsers */
-background: -moz-linear-gradient(45deg, #ffb1aa 10%, #ffb1aa 27%, #ff8a82 42%, #cf0404 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb1aa', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background: 
+  /* top, transparent red */ 
+  linear-gradient(90deg,
+    rgba(255, 0, 0, 0.45), 
+    rgba(255, 0, 0, 0.5),
+    rgba(255, 0, 0, 0.9),
+    rgba(255, 0, 0, 1),
+    rgba(255, 0, 0, 1),
+    rgba(255, 0, 0, 1),
+    rgba(255, 0, 0, 1)
+  ),
+  /* bottom, image */
+  url('../img/bannerBg.fw.png') no-repeat;
 }
 
 .header .header-items {
@@ -115,6 +144,7 @@ input[type="search"] {
   font-style: italic;
   padding: 20px;
   color: #928F8F;
+  background: rgba(255, 255, 255, 0.356);
   text-align: left;
   border-radius: 5px;
   margin-top: 0px;
@@ -123,14 +153,17 @@ input[type="search"] {
   transition: 400ms ease-in-out;
 }
 
-input[type="search"]:hover {
+input[type="search"]:hover, input[type="search"]:focus  {
   box-shadow: 0px 15px 10px -10px rgba(0, 0, 0, 0.315);
+  background: rgb(255, 255, 255);
+  outline: none;  
+  
 }
 
-input[type="search"]:focus {
+/* input[type="search"]:focus {
   box-shadow: 0px 15px 10px -10px rgba(0, 0, 0, 0.315);
   outline: none;
-}
+} */
 
 .title {
   text-transform: uppercase;
@@ -173,13 +206,13 @@ input[type="search"]:focus {
 }
 
 .title a:hover {
-  color: rgb(105, 228, 160);
+  color: rgb(141, 161, 141);
   text-decoration: none;
   padding: 3px;
 }
 
 .box a:hover {
-  color: rgb(105, 228, 160);
+  color: rgb(141, 161, 141);
   text-decoration: none;
 }
 
@@ -310,11 +343,49 @@ footer {
   font-size: 11px;
 }
 
+.description{
+  opacity: 0.0000000001;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  padding: 5px;
+  color: white;
+  background: rgba(0, 0, 0, 0.7)
+}
+
+.description:hover{
+  opacity: 1;
+}
 
 /* .reaction-snippet {
     background: lightgray;
 } */
 
+.recipe-item-section{
+  background: rgba(255, 255, 255, 1);
+  padding: 20px 0; 
+  border-radius: 1px;
+  box-shadow: 0 6px 10px #0e0e0e98;
+}
+.recipe-item-section:last-of-type{
+  /* border-top: 1px solid rgb(114, 114, 114); */
+}
+.card-link{
+  position: relative;
+  padding: 5px;
+}
+.card-link em{
+  color: white;
+  font-style: normal;
+  background: rgb(112, 5, 5);
+  padding: 1px 5px;
+  font-size: 9px;
+  border-radius: 20%;
+  position: absolute;
+  top: 11px;
+  left: -7px;
+  z-index: 1;
+}
 @media screen and (max-width: 990px) {
   #catalog {
     margin-top: 150px;

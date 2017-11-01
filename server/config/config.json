@@ -1,3 +1,4 @@
+
 {
   "development": {
     "username": "emasys",
@@ -8,11 +9,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "emasys",
-    "password": "root",
-    "database": "recipe-prod",
-    "host": "127.0.0.1",
-    "port": 5432,
+   "DATABASE_URL": "postgres://fojfhngytiwpwm:9dbfdac46a64ad7b2fee0fc179d72e979ac834a86b07400a1454976cfe790130@ec2-50-17-201-204.compute-1.amazonaws.com:5432/dd10s9plku6s8u",
     "dialect": "postgres"
   }
 }
