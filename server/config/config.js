@@ -22,6 +22,7 @@ const config = {
     operatorsAliases: false
   },
   production: {
+    DATABASE_URL: 'postgres://fwcmuunqrrgzhs:c58124fa6fb480a20412448dd53398e817b647a8efc73393b5f47318d8ed4530@ec2-54-163-230-219.compute-1.amazonaws.com:5432/dc3k4ur6e95cbl',
     username: 'emasys',
     password: 'root',
     database: 'database_production',
