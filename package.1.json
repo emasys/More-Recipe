@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env nyc mocha server/test/test.js --timeout 10000",
-    "s:test": "set mocha --require babel-register  server/test/test.js",
+    "s:test": "set NODE_ENV=test-l&& mocha --require babel-register  server/test/test.js",
     "start": "node --require babel-register server/index.js",
     "start:dev": "nodemon --require babel-register server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

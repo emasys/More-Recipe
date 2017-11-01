@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
     },
     bio: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false
     },
   });
 
@@ -52,6 +52,7 @@ export default (sequelize, DataTypes) => {
       firstName: 'required|alpha',
       lastName: 'required|alpha',
       email: 'required|email',
+      bio: 'required',
       password: 'required|min:8'
     };
   };

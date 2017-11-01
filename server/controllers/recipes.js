@@ -47,6 +47,13 @@ class moreRecipes {
    * @memberof moreRecipes
    */
   static listRecipes(req, res) {
+    if ((req.query.sort) && (req.query.order)) {
+      return Recipes
+        .findAll({ limit: 10, order: [['upvote', 'DESC']] })
+        .then(recipes => res.status(200).json({ success: true, recipes }))
+        .catch(() => res.status(400));
+    }
+
     return Recipes
       .findAll({
         include: [{
@@ -64,7 +71,7 @@ class moreRecipes {
  * @static
  * @param {object} req
  * @param {object} res
- * @returns
+ * @returns a single recipe and increment views count
  * @memberof moreRecipes
  */
   static getRecipe(req, res) {

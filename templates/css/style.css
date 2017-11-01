@@ -68,26 +68,19 @@ a:hover {
   margin: 0;
   height: auto;
   max-width: 100%;
-  background: #fcfff4;
-  /* Old browsers */
-  background: -moz-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}
+  background: #ffb1aa; /* Old browsers */
+  background: -moz-linear-gradient(45deg, #ffb1aa 10%, #ffb1aa 27%, #ff8a82 42%, #cf0404 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb1aa', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
+  
 
 .bg-navbar {
-  background: #fcfff4;
-  /* Old browsers */
-  background: -moz-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(45deg, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  box-shadow: 0px 15px 10px -10px rgba(0, 0, 0, 0.315);
+background: #ffb1aa; /* Old browsers */
+background: -moz-linear-gradient(45deg, #ffb1aa 10%, #ffb1aa 27%, #ff8a82 42%, #cf0404 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg, #ffb1aa 10%,#ffb1aa 27%,#ff8a82 42%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb1aa', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .header .header-items {

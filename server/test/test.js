@@ -1,145 +1,136 @@
-// import request from 'supertest';
 import request from 'supertest';
+// import dotEnv from 'dotenv';
+import jwtDecode from 'jwt-decode';
+import { assert, expect } from 'chai';
 import app from '../index';
+import test from '../seeders/seeds';
 
-describe('POST/ recipes', () => {
-  it('should return 201 status code for api/recipe', (done) => {
-    const recipe = {
-      title: 'how to cook something',
-      ingredients: 'water',
-      direction: 'just do it',
-      category: 'none'
-    };
+let recipeToken;
+
+// dotEnv.config();
+
+describe('GET/ test if the invalid routes are working', () => {
+  it('should return status code 404 and a message "page not found"', (done) => {
     request(app)
-      .post('/api/v1/recipes')
-      .send(recipe)
+      .get('/api/v1/users/misplaced')
+      .expect(404)
+      .expect((res) => {
+        expect(res.body).to.include({
+          error: 'page not found'
+        });
+      })
+      .end(done);
+  });
+});
+describe('POST/ add new user', () => {
+  before(test.emptyUserTable);
+  before(test.addUser);
+
+  describe('Test case for empty firstName field', () => {
+    it('should return status code 401 when firstName input field is empty', (done) => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(test.setUserInput('', 'Jane', 'Jane23', 'John\'s wife', 'runtown@gmail.com', 'password', 'password'))
+        .expect(401)
+        .end(done);
+    });
+  });
+
+  describe('Test for invalid inputs', () => {
+    it('should return status code 401 if firstName input is not a string', (done) => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(test.setUserInput(1234, 'Jane', 'John\'s wife', 'runtown@gmail.com', 'password', 'password'))
+        .expect(401)
+        .end(done);
+    });
+  });
+
+  describe('Test for a successful entry', () => {
+    it('should return status code 201 if data is saved into the database', (done) => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(test.setUserInput('Doe', 'Jane', 'John\'s wife', 'janedoe@gmail.com', 'password', 'password'))
+        .expect(201)
+        .end(done);
+    });
+  });
+
+  describe('Test for invalid email address', () => {
+    it('should return status code 401 if email input format is not valid', (done) => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(test.setUserInput('jane', 'Jane', 'John\'s wife', 'janedoe@gamil', 'password', 'password'))
+        .expect(401)
+        .end(done);
+    });
+  });
+});
+
+describe('POST/ New user can sign in', () => {
+  before(test.emptyUserTable);
+  before(test.addUser);
+
+  it('should return status code 400 and a message if the email format is invalid', (done) => {
+    request(app)
+      .post('/api/v1/users/signin')
+      .send(test.setLogin('emasys', 'password'))
+      .expect(400)
+      .end(done);
+  });
+
+  it('should return status code 404 if the email does not exist', (done) => {
+    request(app)
+      .post('/api/v1/users/signin')
+      .send(test.setLogin('emasys@gmail.com', 'password'))
+      .expect(404)
+      .end(done);
+  });
+
+  it('should return 201 and a decoded token if credentials are correct.', (done) => {
+    request(app)
+      .post('/api/v1/users/signin')
+      .send(test.setLogin('emasysnd@gmail.com', 'password'))
       .expect(201)
-      .end(done);
-  });
-
-  it('should return 501 status code for api/recipe if one of the required field is empty', (done) => {
-    const recipe = {
-      title: 'how to cook something',
-      ingredients: 'water',
-      direction: 'just do it',
-    };
-    request(app)
-      .post('/api/v1/recipes')
-      .send(recipe)
-      .expect(501)
-      .end(done);
+      .end((err, res) => {
+        if (err) return done(err);
+        assert.exists(res.body);
+        const decodedToken = jwtDecode(res.body.token);
+        assert.equal(decodedToken.firstName, 'Ndukwe');
+        done();
+      });
   });
 });
 
-describe('POST/ reviews', () => {
-  it('should return 201 status code for a successful comment', (done) => {
-    const recipe = {
-      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401'
-    };
-    const newComment = {
-      comments: 'nice work',
-      commenter: 'jane doe'
-    };
+describe('Test cases for recipes', () => {
+  // let userId;
+  before(test.emptyUserTable);
+  before(test.emptyRecipeTable);
+  before(test.addUser);
+  before(test.addRecipe);
+
+  before((done) => {
     request(app)
-      .post(`/api/v1/recipes/${recipe.id}/reviews`)
-      .send(newComment)
+      .post('/api/v1/users/signin')
+      .send(test.setLogin('emasysnd@gmail.com', 'password'))
       .expect(200)
-      .end(done);
+      .end((err, res) => {
+        if (err) return done(err);
+        recipeToken = res.body.token;
+        done();
+      });
   });
 
-  it('should return 501 status code for an unsuccessful comment', (done) => {
-    const recipe = {
-      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401121' // made the id invalid
-    };
-    const newComment = {
-      comments: 'nice work',
-      commenter: 'jane doe'
-    };
-    request(app)
-      .post(`/api/v1/recipes/${recipe.id}/reviews`)
-      .send(newComment)
-      .expect(501)
-      .end(done);
-  });
-});
-
-describe('PUT/recipe:id Update any recipe', () => {
-  it('should be able to update a recipe with it\'s id', (done) => {
-    const recipe = {
-      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401',
-      title: 'how to cook beans',
-      ingredients: 'water,salt,peper',
-      direction: 'boil the beans and add salt to taste',
-    };
-
-    const editRecipe = {
-      title: 'how to cook something else',
-      ingredients: 'water, salt, peper',
-      direction: 'boil the beans and add salt to taste',
-    };
-    request(app)
-      .put(`/api/v1/recipes/${recipe.id}`)
-      .send(editRecipe)
-      .expect(202)
-      .end(done);
-  });
-
-  it('should fail to update a recipe with a wrong id', (done) => {
-    const recipe = {
-      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd544065',
-      title: 'how to cook beans',
-      ingredients: 'water,salt,peper',
-      direction: 'boil the beans and add salt to taste',
-    };
-
-    const editRecipe = {
-      title: 'how to cook something else',
-      ingredients: 'water, salt, peper',
-      direction: 'boil the beans and add salt to taste',
-    };
-    request(app)
-      .put(`/api/v1/recipes/${recipe.id}`)
-      .send(editRecipe)
-      .expect(404)
-      .end(done);
-  });
-});
-
-describe('DELETE/recipe:id', () => {
-  it('should be able to delete a recipe with it\'s id', (done) => {
-    const recipe = {
-      id: 'aec6958e-69ae-4c1e-9394-1b4d5fd54401',
-      title: 'how to cook beans',
-      ingredients: 'water,salt,peper',
-      direction: 'boil the beans and add salt to taste',
-    };
-    request(app)
-      .del(`/api/v1/recipes/${recipe.id}`)
-      .expect(204)
-      .end(done);
-  });
-});
-
-describe('GET/ recipes', () => {
-  it('should return 200 status code api/recipe', (done) => {
-    request(app)
-      .get('/api/v1/recipes')
-      .expect(200)
-      .end(done);
-  });
-
-  it('should return 200 status code', (done) => {
-    request(app)
-      .get('/api/v1/recipes?sort=upvotes&order=des')
-      .expect(200)
-      .end(done);
-  });
-
-  it('should return 404 status code if you try to access an invalid endpoint', (done) => {
-    request(app)
-      .get('/api/recip')
-      .expect(404)
-      .end(done);
+  describe('POST/ add a new recipe', () => {
+    describe('validate user', () => {
+      it('should return a status code of 400 if user is not authorized', (done) => {
+        request(app)
+          .post('api/v1/recipes')
+          .send(test.setRecipeInput('Beancake', 'bean, pepper, onion', 'just grind the beans and boil'))
+          .expect(404)
+          .end(done);
+      });
+    });
   });
 });
 

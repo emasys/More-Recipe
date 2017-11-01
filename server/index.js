@@ -24,7 +24,7 @@ app.route('/api/v1/users/signup')
   .post(Users.signUp);
 app.route('/api/v1/users/signin')
   .post(Users.signIn);
-app.route('/api/v1/all/recipes')
+app.route('/api/v1/recipes')
   .get(Recipes.listRecipes)
   .post(jwt.verifyToken, Recipes.addRecipe);
 app.route('/api/recipes/upvote/:recipeId')
@@ -45,7 +45,7 @@ app.route('/api/v1/recipes/:recipeId/reviews')
 
 app.get('*', (req, res) => {
   res.status(404).send({
-    error: 'Sorry the page you\'re looking for does not exist'
+    error: 'page not found'
   });
 });
 
