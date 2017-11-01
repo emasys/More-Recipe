@@ -47,6 +47,7 @@
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.19.0",
+    "sequelize-cli": "^3.0.0",
     "supertest": "^3.0.0",
     "validatorjs": "^3.13.5"
   },
