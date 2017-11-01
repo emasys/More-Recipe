@@ -43,7 +43,7 @@ app.route('/api/v1/recipes/:recipeId/reviews')
   .post(jwt.verifyToken, Reviews.addReview);
 
 
-app.get('*', (req, res) => {
+app.use('*', (req, res) => {
   res.status(404).send({
     error: 'page not found'
   });
