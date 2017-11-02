@@ -39,6 +39,10 @@ export default (sequelize, DataTypes) => {
     views: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    viewed: {
+      type: DataTypes.STRING,
+      defaultValue: ','
     }
   });
 

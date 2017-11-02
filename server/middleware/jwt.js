@@ -23,42 +23,22 @@ export default class protectRoute {
     if (token) {
       jwt.verify(token, jwtSecret, (error, decoded) => {
         if (error) {
-          return res.status(401).json({ message: 'Invalid authorization token' });
+          return res.status(401).send({ message: 'Invalid authorization token' });
         }
         Users.findById(decoded.id)
           .then((user) => {
             if (!user) {
-              return res.status(404).send({ error: 'user not found' })
+              return res.status(404).send({ error: 'user not found' });
             }
             req.decoded = decoded;
             return next();
           })
-          .catch(err => res.status(404).json(err));
+          .catch(err => res.status(404).send(err));
       });
     } else {
       res.status(403).json({
         message: 'Token not provided'
       });
     }
-  }
-  /**
- *
- *
- * @static
- * @param {any} req
- * @param {any} res
- * @param {any} next
- * @memberof protectRoute
- */
-  static verifyUser(req, res, next) {
-    Users.findById(req.params.id)
-      .then((user) => {
-        if (!user) {
-          req.user = user;
-          return next();
-        }
-        return res.status(404).json({ message: 'User not found' });
-      })
-      .catch(error => res.status(500).json({ error: error.message }));
   }
 }

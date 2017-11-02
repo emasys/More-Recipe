@@ -32,6 +32,9 @@ module.exports = {
       reaction: {
         type: Sequelize.STRING
       },
+      viewed: {
+        type: Sequelize.STRING
+      },
       category: {
         type: Sequelize.STRING
       },
