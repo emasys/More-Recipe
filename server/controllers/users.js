@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import Validator from 'validatorjs';
+import dotenv from 'dotenv';
 import { Users } from '../models';
-import config from '../config/config';
 
-const jwtSecret = config.jwtSecretKey;
-
+dotenv.config();
 
 /**
  *
@@ -43,6 +42,7 @@ export default class {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             bio: req.body.bio,
+
           })
             .then((newUser) => {
               return res.status(201).send({ success: true, newUser });
@@ -76,15 +76,15 @@ export default class {
     })
       .then((user) => {
         if (!user) {
-          return Promise.reject(new Error('User not found'));
+          return res.status(404).send({ success: false, error: 'user not found' });
         }
         if (!user.comparePassword(user, request.password)) {
           return res.status(400).send({ status: 'Invalid email/password' });
         }
         const data = _.pick(user, ['id', 'firstName']);
-        const token = jwt.sign(data, jwtSecret);
+        const token = jwt.sign(data, process.env.JWT_SECRET);
         return res.status(201).send({ success: true, token, });
       })
-      .catch(error => res.send(error));
+      .catch(error => res.send({ success: 'false', message: error }));
   }
 }

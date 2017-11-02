@@ -33,12 +33,16 @@ export default (sequelize, DataTypes) => {
       defaultValue: 0
     },
     reaction: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: ','
     },
     views: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    viewed: {
+      type: DataTypes.STRING,
+      defaultValue: ','
     }
   });
 
@@ -55,16 +59,16 @@ export default (sequelize, DataTypes) => {
   };
   Recipes.createRules = () => {
     return {
-      name: 'required|min:4',
-      direction: 'required|min:4',
-      ingredients: 'required|min:3'
+      name: 'required',
+      direction: 'required',
+      ingredients: 'required'
     };
   };
   Recipes.updateRules = () => {
     return {
-      name: 'required|min:4',
-      direction: 'required|min:4',
-      ingredients: 'required|min:3'
+      name: 'required',
+      direction: 'required',
+      ingredients: 'required'
     };
   };
   return Recipes;

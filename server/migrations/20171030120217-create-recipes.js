@@ -30,6 +30,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       reaction: {
+        type: Sequelize.TEXT
+      },
+      viewed: {
         type: Sequelize.STRING
       },
       category: {

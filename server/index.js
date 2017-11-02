@@ -8,6 +8,8 @@ import Favorite from './controllers/favorite';
 import jwt from './middleware/jwt';
 
 const app = express();
+const PORT = process.env.PORT || 8080;
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,12 +26,12 @@ app.route('/api/v1/users/signup')
   .post(Users.signUp);
 app.route('/api/v1/users/signin')
   .post(Users.signIn);
-app.route('/api/v1/all/recipes')
+app.route('/api/v1/recipes')
   .get(Recipes.listRecipes)
   .post(jwt.verifyToken, Recipes.addRecipe);
-app.route('/api/recipes/upvote/:recipeId')
+app.route('/api/v1/recipes/upvote/:recipeId')
   .post(jwt.verifyToken, Recipes.upvote);
-app.route('/api/recipes/downvote/:recipeId')
+app.route('/api/v1/recipes/downvote/:recipeId')
   .post(jwt.verifyToken, Recipes.downvote);
 app.route('/api/v1/fav/recipes/:userId')
   .get(jwt.verifyToken, Favorite.listFavorites);
@@ -43,13 +45,15 @@ app.route('/api/v1/recipes/:recipeId/reviews')
   .post(jwt.verifyToken, Reviews.addReview);
 
 
-app.get('*', (req, res) => {
+app.use('*', (req, res) => {
   res.status(404).send({
-    error: 'Sorry the page you\'re looking for does not exist'
+    error: 'page not found'
   });
 });
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`app running on port ${PORT}`);  
+});
+
 
 export default app;
