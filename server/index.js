@@ -8,6 +8,8 @@ import Favorite from './controllers/favorite';
 import jwt from './middleware/jwt';
 
 const app = express();
+const PORT = process.env.PORT || 8080;
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,9 +51,8 @@ app.use('*', (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`app runnig on port ${PORT}`);  
+  console.log(`app running on port ${PORT}`);  
 });
 
 

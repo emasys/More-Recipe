@@ -32,13 +32,13 @@ export default class FavoriteRecipes {
           userId: req.decoded.id
         });
       })
-      .then((favorited) => {
-        return res.status(200).send({
-          message: 'favorited',
-          success: true,
-          data: favorited
-        });
-      })
+      // .then((favorited) => {
+      //   return res.status(200).send({
+      //     message: 'favorited',
+      //     success: true,
+      //     data: favorited
+      //   });
+      // })
       .catch(error => res.status(400).send({
         success: false,
         error: error.errors

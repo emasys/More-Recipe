@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { Users } from '../models';
-import config from '../config/config';
 
-const jwtSecret = config.jwtSecretKey;
+dotenv.config();
 /**
  *
  *
@@ -12,7 +12,6 @@ const jwtSecret = config.jwtSecretKey;
 export default class protectRoute {
   /**
    *
-   *
    * @param {any} req
    * @param {any} res
    * @param {any} next
@@ -21,7 +20,7 @@ export default class protectRoute {
   static verifyToken(req, res, next) {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
-      jwt.verify(token, jwtSecret, (error, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
         if (error) {
           return res.status(401).send({ message: 'Invalid authorization token' });
         }
@@ -42,3 +41,4 @@ export default class protectRoute {
     }
   }
 }
+

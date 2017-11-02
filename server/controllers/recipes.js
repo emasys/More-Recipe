@@ -167,10 +167,18 @@ class moreRecipes {
           let x = recipe.reaction;
           x = x.split(',');
           if (x.indexOf(String(req.decoded.id)) !== -1) {
-            return res.status(501).send({
-              success: false,
-              status: 'You have already reacted',
-            });
+            const removeId = x.indexOf(String(req.decoded.id));
+            if (removeId > -1) {
+              x.splice(removeId, 1);
+            }
+            recipe.reaction = x.join(',');
+            return recipe
+              .update({
+                upvote: recipe.upvote - 1,
+                reaction: `${recipe.reaction},`,
+              })
+              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .catch(error => res.status(400).send({ success: false, error }));
           }
         }
         return recipe
@@ -202,16 +210,22 @@ class moreRecipes {
             success: false,
             status: 'Recipe Not Found',
           });
-        }
-
-        if (req.decoded.id) {
+        } else if (req.decoded.id) {
           let x = recipe.reaction;
           x = x.split(',');
           if (x.indexOf(String(req.decoded.id)) !== -1) {
-            return res.status(501).send({
-              success: false,
-              status: 'You have already reacted',
-            });
+            const removeId = x.indexOf(String(req.decoded.id));
+            if (removeId > -1) {
+              x.splice(removeId, 1);
+            }
+            recipe.reaction = x.join(',');
+            return recipe
+              .update({
+                downvote: recipe.downvote - 1,
+                reaction: `${recipe.reaction},`,
+              })
+              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .catch(error => res.status(400).send({ success: false, error }));
           }
         }
         return recipe

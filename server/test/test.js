@@ -1,7 +1,7 @@
 import request from 'supertest';
 // import dotEnv from 'dotenv';
 import jwtDecode from 'jwt-decode';
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import app from '../index';
 import test from '../seeders/seeds';
 
@@ -30,7 +30,7 @@ describe('POST/ add new user', () => {
     it('should return status code 401 when firstName input field is empty', (done) => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(test.setUserInput('', 'Jane', 'Jane23', 'John\'s wife', 'runtown@gmail.com', 'password', 'password'))
+        .send(test.setUserInput('', 'Jane', 'John\'s wife', 'runtown@gmail.com', 'password', 'password'))
         .expect(401)
         .end(done);
     });

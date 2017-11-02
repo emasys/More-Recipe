@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       reaction: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       viewed: {
         type: Sequelize.STRING
