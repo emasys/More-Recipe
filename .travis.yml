@@ -11,4 +11,4 @@ install:
  - npm install pg
  - npm install pg-hstore
 script:
- - sequelize db:migrate --env test
+ - sequelize db:migrate --env production
