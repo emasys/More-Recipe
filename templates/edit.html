@@ -46,10 +46,11 @@
         </nav>
       </div>
       <div class="row header-items justify-content-center">
-        <div class="col-lg-6 col-sm-10 text-center">
-          <h4>Food title</h4>
+        <div class="col-lg-6 col-sm-10 text-center text-shadowed">
+          <h6>Food title</h6>
           <p>
-
+              description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus hic amet, quia numquam odio distinctio? Molestiae iste beatae nobis autem quas? Optio quas ratione quos. Atque molestiae delectus vero quas!
+              
           </p>
         </div>
       </div>
@@ -57,66 +58,112 @@
   </section>
 
   <section class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-4 col-sm-12 mr-5 mb-5 recipe-image">
-        <figure>
-          <img src="img/recipe-image-legacy-id--1035651_10.jpg" alt="foodie" class="img-fluid rounded">
-          <figcaption>food title</figcaption>
-        </figure>
-        <a href="#" class="btn btn-danger btn-sm " role="button">category</a>
-        <div class="reaction-snippet mt-4">
-          <span class="text-center card-link float-left">
-              <i class="fa fa-heart red fa-2x" aria-hidden="true"></i><br>200
-          </span>
-
-
-          <span class="text-center float-right  card-link">
-            <i class="fa fa-comment  fa-2x" aria-hidden="true"></i><br>4
-          </span>
-          <span class="text-center float-right card-link">
-              <i class="fa fa-thumbs-up blue fa-2x" aria-hidden="true"></i><br>50
-          </span>
-
-          <span class="text-center float-right mr-2 card-link">
-              <i class="fa fa-thumbs-down blue fa-2x" aria-hidden="true"></i><br>23
-          </span>
-          <span class="text-center float-right  card-link">
-            <i class="fa fa-eye  fa-2x" aria-hidden="true"></i><br>2.1k
-          </span>
-
-
+      <div class="row justify-content-center recipe-item-section">
+        <div class="col-lg-4 col-sm-12  mb-5 recipe-image">
+          <figure>
+            <img src="img/recipe-image-legacy-id--1035651_10.jpg" alt="foodie" class="img-fluid rounded">
+            <figcaption>some recipe title</figcaption>
+          </figure>
+          <div class="d-inline">
+                <span class="text-center card-link">
+                      <i class="fa fa-heart-o fa-2x" aria-hidden="true" id="favorite"></i>
+                      <em class="bg-dark">205</em>
+                  </span>
+                <span class="text-center card-link m-1">
+                    <i class="fa fa-eye  fa-2x" aria-hidden="true"></i>
+                    <em class="bg-primary">1.3k</em>
+                  </span>
+                
+                  <span class="text-center card-link m-1">
+                      <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" id="like" ></i>
+                      <em class="bg-success">30</em>
+                  </span>
+                <span class="text-center card-link m-1">
+                        <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" id="dislike"></i>
+                        <em class="bg-danger">3</em>
+                    </span>
+               
+                  <span class="text-center card-link m-1">
+                      <i class="fa fa-comment-o  fa-2x" aria-hidden="true"></i>
+                      <em class="bg-dark">4</em>
+                    </span>
+          </div>
+          <div class="mt-3">
+              <a href="#" class="btn btn-danger btn-sm" role="button">category</a>
+          </div>
+          
+          
+        </div>
+        <div class="col-1">
+  
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <h5 class="text-muted">Ingredients</h5>
+          <hr>
+          <div class="pb-3">
+            <ul class="list-group">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Morbi leo risus</li>
+              <li class="list-group-item">Porta ac consectetur ac</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+          </div>
+          <h5 class="text-muted">Directions</h5>
+          <hr>
+          <div class="p-3 direction rounded">
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus hic amet, quia numquam odio distinctio? Molestiae iste beatae nobis autem quas? Optio quas ratione quos. Atque molestiae delectus vero quas!
+            </p>
+          </div>
         </div>
       </div>
-      <div class="col-lg-6 col-sm-12 ">
-        <h5 class="text-muted">Ingredients <small>
-            <a href="#" class="card-link btn btn-secondary btn-sm ml-2 " role="button">
-                <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-              <a href="#" class="card-link btn btn-danger btn-sm " role="button">
-                <i class="fa fa-trash " aria-hidden="true"></i> Delete</a>  
-        </small></h5>
-        <hr>
-        <div class="pb-3">
-          <ul class="list-group">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-          </ul>
+      <div class="row justify-content-center mt-2 recipe-item-section">
+        <div class="col-12">
+          <h5 class="text-center text-muted">Reviews</h5>
+          <hr>
         </div>
-        <h5 class="text-muted">Directions</h5>
-        <hr>
-        <div class="p-3 direction rounded">
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus hic amet, quia numquam odio distinctio? Molestiae iste beatae nobis autem quas? Optio quas ratione quos. Atque molestiae delectus vero quas!
-          </p>
+        <div class="col-lg-4 col-sm-12 mr-5 recipe-image">
+          <form id="signin">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <textarea class="form-control" id="FormControlTextarea" rows="4"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-dark">Submit</button>
+          </form>
+        </div>
+        <div class="col-lg-6 col-sm-12 ">
+          <div class="direction rounded my-2">
+            <blockquote class="blockquote">
+              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+              <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            </blockquote>
+          </div>
+          <div class="direction rounded my-2">
+            <blockquote class="blockquote">
+              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+              <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            </blockquote>
+          </div>
+          <div class="direction rounded my-2">
+            <blockquote class="blockquote">
+              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+              <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            </blockquote>
+          </div>
+          <div class="direction rounded my-2">
+            <blockquote class="blockquote">
+              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+              <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            </blockquote>
+          </div>
         </div>
       </div>
-    </div>
-
-
-
-  </section>
+      <a href="#!" class="btn btn-danger rounded-circle" id="floating-delete"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>  
+      <a href="#!" class="btn btn-info rounded-circle" id="floating-edit"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>  
+    </section>
+ 
 
   <footer class="container-fluid">
     <div class="container ">

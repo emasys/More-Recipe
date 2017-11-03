@@ -14,10 +14,10 @@ export default class FavoriteRecipes {
      * @param {object} res
      */
   static addFavorite(req, res) {
-    Favorite.findOne({
+    return Favorite.findOne({
       where: {
-        recipeId: req.body.recipeId,
-        userId: req.decoded.id // fetch from jwt
+        recipeId: req.params.recipeId,
+        userId: req.decoded.id
       }
     })
       .then((favorite) => {
@@ -28,17 +28,17 @@ export default class FavoriteRecipes {
           });
         }
         return Favorite.create({
-          recipeId: req.body.recipeId,
+          recipeId: req.params.recipeId,
           userId: req.decoded.id
-        });
+        })
+          .then((favorited) => {
+            return res.status(200).send({
+              message: 'favorited',
+              success: true,
+              data: favorited
+            });
+          });
       })
-      // .then((favorited) => {
-      //   return res.status(200).send({
-      //     message: 'favorited',
-      //     success: true,
-      //     data: favorited
-      //   });
-      // })
       .catch(error => res.status(400).send({
         success: false,
         error: error.errors

@@ -1,6 +1,14 @@
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("floating-icon").style.display = "block";
+    } else {
+        document.getElementById("floating-icon").style.display = "none";
+    }
+}
+
 $(document).ready(function() {
-    $('body').fadeTo(1, 0);
-    $('body').fadeTo(1000, 1);
     $('.animate').bind('mouseenter click focus', function() {
         $(this).addClass('animated pulse');
     });
@@ -10,24 +18,14 @@ $(document).ready(function() {
     });
 
     $('.description').bind('mouseenter focus', function() {
-        $(this).addClass('animated fadeInUp');
+        $(this).fadeTo(400, 1);
     });
+
 
     $('.description').on('mouseleave', function() {
-        $(this).removeClass('animated fadeInUp')
+        $(this).fadeTo(400, 0.0000000001);
     });
 
-    
-
-    // let now = 0;
-    // let int = self.setInterval("changeBG()", 1000);
-    // let imgSrc = ["../img/bannerBg.fw.png", "../img/bannerBg.fw.png", "../img/bannerBg.fw.png", ];
-
-    // const changeBG = () => {
-    //     //array of backgrounds
-    //     now = (now+1) % array.length ;
-    //     $('.header').css('color','yellow');
-    // }
     
 
     $('#favorite').on('click', function() {
@@ -48,43 +46,7 @@ $(document).ready(function() {
         $(this).toggleClass('fa-thumbs-o-down').toggleClass('fa-thumbs-down animated bounceIn blue');
     });
 
-
-   
-    // $('.slides').slick({
-    //     dots: false,
-    //     infinite: true,
-    //     speed: 300,
-    //     autoplay: true,
-    //     autoplaySpeed: 3000,
-    //     arrow: false,
-    //     slidesToShow: 5,
-    //     slidesToScroll: 1,
-    //     responsive: [{
-    //             breakpoint: 1024,
-    //             settings: {
-    //                 slidesToShow: 3,
-    //                 slidesToScroll: 1,
-    //                 infinite: false,
-    //                 dots: false
-    //             }
-    //         },
-    //         {
-    //             breakpoint: 600,
-    //             settings: {
-    //                 slidesToShow: 3,
-    //                 slidesToScroll: 1
-    //             }
-    //         },
-    //         {
-    //             breakpoint: 480,
-    //             settings: {
-    //                 slidesToShow: 2,
-    //                 slidesToScroll: 1
-    //             }
-    //         }
-
-    //     ]
-    // });
+$('#editable-select').editableSelect();
 
     $('.animate-catalog').scrolla({
         mobile: false,

@@ -41,4 +41,61 @@ To run Tests...
 $ npm test
 ```
 
-### More Feautures will be added soon 
+## Api Routes
+
+### API endpoints for users to create accounts and login to the application:
+  ```sh
+    POST: /api/v1/v1/users/signup 
+    POST: /api/v1/v1/users/signin
+  ```
+### An API route that allows authenticated user to add a recipe:
+  ```sh
+    POST: /api/v1/recipes
+  ```
+### An API route that allows any user to get list of all recipe:
+  ```sh
+    GET: /api/v1/recipes
+  ```
+### An API route that allows authenticated user to modify a recipe they added
+  ```sh
+     PUT: /api/v1/recipes/<recipeId>
+  ```
+### An API route that allows authenticated user to view a recipe they added
+  ```sh
+     GET: /api/v1/recipes/<recipeId>
+  ```
+### An API route that allows authenticated user to delete a recipe they added
+  ```sh
+     DELETE: /api/v1/recipes/<recipeId>
+  ```
+### An API route that allows a user to get all the recipes in the application
+  ```sh
+     GET: /api/v1/recipes
+  ```
+### An API route that allows an authenticated user post a review for a recipe
+  ```sh
+     POST: /api/v1/recipes/<recipeId>/reviews
+  ```
+### An API route that allows an authenticated user to get all his/her favorite recipes
+  ```sh
+    GET: /api/v1/users/recipes/<userId>/fav
+  ```
+### An API route that allows an authenticated user to add add a recipe to his/her favorite list
+  ```sh
+    POST: /api/v1/users/recipes/<recipeId>/fav
+  ```
+
+### An API route that allows an authenticated user to upvote a recipes
+  ```sh
+    GET: /api/v1/recipes/upvote/<recipeId>
+  ```
+### An API route that allows an authenticated user to downvote a recipes
+```sh
+  GET: /api/v1/recipes/downvote/<recipeId>
+```
+### An API route that allows a user to get just recipes with the most upvotes
+  ```sh
+     GET: /api/v1/recipes?sort=upvotes&order=desc
+  ```
+
+### More features to be added soon

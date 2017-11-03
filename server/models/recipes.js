@@ -16,10 +16,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       defaultValue: 'none'
     },
-    favorite: {
-      type: DataTypes.TEXT,
-      defaultValue: 0
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -32,18 +28,18 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    reaction: {
+    reactionUp: {
+      type: DataTypes.TEXT,
+      defaultValue: ','
+    },
+    reactionDown: {
       type: DataTypes.TEXT,
       defaultValue: ','
     },
     views: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 1
     },
-    viewed: {
-      type: DataTypes.STRING,
-      defaultValue: ','
-    }
   });
 
   Recipes.associate = (models) => {
