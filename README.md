@@ -87,11 +87,11 @@ $ npm test
 
 ### An API route that allows an authenticated user to upvote a recipes
   ```sh
-    GET: /api/v1/recipes/upvote/<recipeId>
+    POST: /api/v1/recipes/upvote/<recipeId>
   ```
 ### An API route that allows an authenticated user to downvote a recipes
 ```sh
-  GET: /api/v1/recipes/downvote/<recipeId>
+  POST: /api/v1/recipes/downvote/<recipeId>
 ```
 ### An API route that allows a user to get just recipes with the most upvotes
   ```sh

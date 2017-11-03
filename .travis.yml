@@ -1,17 +1,14 @@
 language: node_js
 node_js:
- - "8.3.0"
-branches:
-  only:
-    - develop
+  -  stable
 services:
-  - postgresql
+ - postgresql
 before_script:
-  - psql -c 'create database recipeTest;' -U postgres 
+ - psql -c 'create database recipes_test;' -U postgres 
 install:
-  - npm install sequelize
-  - npm install sequelize-cli
-  - npm install pg
-  - npm install pg-hstore
+ - npm install sequelize
+ - npm install sequelize-cli
+ - npm install pg
+ - npm install pg-hstore
 script:
-  - sequelize db:migrate --env test
+ - sequelize db:migrate --env production
