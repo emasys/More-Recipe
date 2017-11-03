@@ -31,7 +31,7 @@ Clone this repo, install the dependencies and devDependencies and start the serv
 
 ```sh
 $ cd More-Recipe
-$ npm install -d
+$ npm install 
 $ npm start
 ```
 
@@ -45,8 +45,8 @@ $ npm test
 
 ### API endpoints for users to create accounts and login to the application:
   ```sh
-    POST: /api/v1/v1/users/signup 
-    POST: /api/v1/v1/users/signin
+    POST: /api/v1/users/signup 
+    POST: /api/v1/users/signin
   ```
 ### An API route that allows authenticated user to add a recipe:
   ```sh
