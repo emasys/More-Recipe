@@ -1,11 +1,11 @@
 import request from 'supertest';
 // import dotEnv from 'dotenv';
 import jwtDecode from 'jwt-decode';
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import app from '../index';
 import test from '../seeders/seeds';
 
-let recipeToken;
+// let recipeToken;
 
 // dotEnv.config();
 
@@ -102,35 +102,35 @@ describe('POST/ New user can sign in', () => {
   });
 });
 
-describe('Test cases for recipes', () => {
-  // let userId;
-  before(test.emptyUserTable);
-  before(test.emptyRecipeTable);
-  before(test.addUser);
-  before(test.addRecipe);
+// describe('Test cases for recipes', () => {
+//   // let userId;
+//   before(test.emptyUserTable);
+//   before(test.emptyRecipeTable);
+//   before(test.addUser);
+//   before(test.addRecipe);
 
-  before((done) => {
-    request(app)
-      .post('/api/v1/users/signin')
-      .send(test.setLogin('emasysnd@gmail.com', 'password'))
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        recipeToken = res.body.token;
-        done();
-      });
-  });
+//   before((done) => {
+//     request(app)
+//       .post('/api/v1/users/signin')
+//       .send(test.setLogin('emasysnd@gmail.com', 'password'))
+//       .expect(200)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         recipeToken = res.body.token;
+//         done();
+//       });
+//   });
 
-  describe('POST/ add a new recipe', () => {
-    describe('validate user', () => {
-      it('should return a status code of 400 if user is not authorized', (done) => {
-        request(app)
-          .post('api/v1/recipes')
-          .send(test.setRecipeInput('Beancake', 'bean, pepper, onion', 'just grind the beans and boil'))
-          .expect(404)
-          .end(done);
-      });
-    });
-  });
-});
+//   describe('POST/ add a new recipe', () => {
+//     describe('validate user', () => {
+//       it('should return a status code of 400 if user is not authorized', (done) => {
+//         request(app)
+//           .post('api/v1/recipes')
+//           .send(test.setRecipeInput('Beancake', 'bean, pepper, onion', 'just grind the beans and boil'))
+//           .expect(404)
+//           .end(done);
+//       });
+//     });
+//   });
+// });
 

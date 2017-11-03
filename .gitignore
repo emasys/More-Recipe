@@ -7,3 +7,4 @@
 /server/battleground.js
 /server/config/config.js
 /server/.env
+.env
