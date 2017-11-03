@@ -30,7 +30,7 @@ describe('POST/ add new user', () => {
     it('should return status code 401 when firstName input field is empty', (done) => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(test.setUserInput('', 'Jane', 'John\'s wife', 'runtown@gmail.com', 'password', 'password'))
+        .send(test.setUserInput('', 'Jane', 'John\'s wife', 'janedoe@gmail.com', 'password', 'password'))
         .expect(401)
         .end(done);
     });
@@ -40,7 +40,7 @@ describe('POST/ add new user', () => {
     it('should return status code 401 if firstName input is not a string', (done) => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(test.setUserInput(1234, 'Jane', 'John\'s wife', 'runtown@gmail.com', 'password', 'password'))
+        .send(test.setUserInput(1234, 'Jane', 'John\'s wife', 'janedoe@gmail.com', 'password', 'password'))
         .expect(401)
         .end(done);
     });
