@@ -38,12 +38,8 @@ export default (sequelize, DataTypes) => {
     },
     views: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 1
     },
-    viewed: {
-      type: DataTypes.TEXT,
-      defaultValue: ','
-    }
   });
 
   Recipes.associate = (models) => {

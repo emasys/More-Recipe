@@ -86,26 +86,19 @@ class moreRecipes {
           res.status(404).send({ success: false, status: 'Recipes not found' });
         }
         if (req.decoded.id) {
-          let x = recipe.viewed;
-          x = x.split(',');
-          if (x.indexOf(String(req.decoded.id)) === -1) {
+          if (req.decoded.id !== recipe.userId) {
             return recipe
               .update({
                 views: recipe.views + 1,
-                viewed: recipe.viewed + (req.decoded.id === recipe.userId ? req.decoded.id : '')
-              });// increment views by 1 only once, if user created it
+              });
           }
+          return recipe
+            .update({
+              views: recipe.views,
+            });
         }
-        return recipe
-          .update({
-            views: recipe.views,
-          });// increment views by 1 everytime others view the recipe
       })
       .then((recipe) => {
-        if (!recipe) {
-          res.status(404).send({ success: false, status: 'Recipe not found' });
-        }
-        if (req.decoded && req.decoded.id && req.decoded.id === recipe.userId) recipe.views = 1;
         res.status(200).send({ success: true, recipe });
       })
       .catch(error => res.status(400).send({ success: false, error }));
@@ -163,7 +156,7 @@ class moreRecipes {
             success: false,
             status: 'Recipe Not Found',
           });
-        } 
+        }
         if (req.decoded.id) {
           let x = recipe.reactionUp;
           x = x.split(',');

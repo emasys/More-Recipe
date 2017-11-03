@@ -35,9 +35,6 @@ module.exports = {
       reactionDown: {
         type: Sequelize.TEXT
       },
-      viewed: {
-        type: Sequelize.STRING
-      },
       category: {
         type: Sequelize.STRING
       },
