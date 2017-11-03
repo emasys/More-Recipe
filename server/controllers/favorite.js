@@ -16,7 +16,7 @@ export default class FavoriteRecipes {
   static addFavorite(req, res) {
     Favorite.findOne({
       where: {
-        recipeId: req.body.recipeId,
+        recipeId: req.params.recipeId,
         userId: req.decoded.id // fetch from jwt
       }
     })
@@ -28,7 +28,7 @@ export default class FavoriteRecipes {
           });
         }
         return Favorite.create({
-          recipeId: req.body.recipeId,
+          recipeId: req.params.recipeId,
           userId: req.decoded.id
         });
       })

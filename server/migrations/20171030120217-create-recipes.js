@@ -29,7 +29,10 @@ module.exports = {
       views: {
         type: Sequelize.INTEGER
       },
-      reaction: {
+      reactionUp: {
+        type: Sequelize.TEXT
+      },
+      reactionDown: {
         type: Sequelize.TEXT
       },
       viewed: {

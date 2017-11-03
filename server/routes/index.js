@@ -1,26 +1,17 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
-import Recipes from './controllers/recipes';
-import Users from './controllers/users';
-import Reviews from './controllers/reviews';
-import Favorite from './controllers/favorite';
-import jwt from './middleware/jwt';
+import Recipes from '../controllers/recipes';
+import Users from '../controllers/users';
+import Reviews from '../controllers/reviews';
+import Favorite from '../controllers/favorite';
+import jwt from '../middleware/jwt';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
-
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT');
-  next();
-});
 
 app.route('/api/v1/users/signup')
   .post(Users.signUp);
@@ -44,16 +35,5 @@ app.route('/api/v1/recipes/:recipeId')
 app.route('/api/v1/recipes/:recipeId/reviews')
   .post(jwt.verifyToken, Reviews.addReview);
 
-
-app.use('*', (req, res) => {
-  res.status(404).send({
-    error: 'page not found'
-  });
-});
-
-app.listen(PORT, () => {
-  console.log(`app running on port ${PORT}`);  
-});
-
-
 export default app;
+

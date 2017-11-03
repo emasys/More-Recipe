@@ -16,10 +16,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       defaultValue: 'none'
     },
-    favorite: {
-      type: DataTypes.TEXT,
-      defaultValue: 0
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -32,7 +28,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    reaction: {
+    reactionUp: {
+      type: DataTypes.TEXT,
+      defaultValue: ','
+    },
+    reactionDown: {
       type: DataTypes.TEXT,
       defaultValue: ','
     },
@@ -41,7 +41,7 @@ export default (sequelize, DataTypes) => {
       defaultValue: 0
     },
     viewed: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: ','
     }
   });

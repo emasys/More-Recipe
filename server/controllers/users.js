@@ -81,8 +81,10 @@ export default class {
         if (!user.comparePassword(user, request.password)) {
           return res.status(400).send({ status: 'Invalid email/password' });
         }
-        const data = _.pick(user, ['id', 'firstName']);
-        const token = jwt.sign(data, process.env.JWT_SECRET);
+        const payload = _.pick(user, ['id', 'firstName']);
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: 1440 // expires in 24 hours
+        });
         return res.status(201).send({ success: true, token, });
       })
       .catch(error => res.send({ success: 'false', message: error }));
