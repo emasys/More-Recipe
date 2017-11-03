@@ -10,7 +10,7 @@
   "test": {
     "username": "emasys",
     "password": "root",
-    "database": "recipe-test",
+    "database": "recipeTest",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
