@@ -22,10 +22,10 @@ export default class FavoriteRecipes {
     })
       .then((favorite) => {
         if (favorite) {
-          return res.status(404).send({
-            message: 'favorited Already',
-            success: false
-          });
+          return favorite
+          .destroy()
+          .then(() => res.status(200).send({ success: true, status: 'Recipe deleted' }))
+          .catch(error => res.status(400).send({ error }));
         }
         return Favorite.create({
           recipeId: req.params.recipeId,

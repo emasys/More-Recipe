@@ -30,10 +30,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       reactionUp: {
-        type: Sequelize.TEXT
+        type : Sequelize.ARRAY(Sequelize.INTEGER)
       },
       reactionDown: {
-        type: Sequelize.TEXT
+        type : Sequelize.ARRAY(Sequelize.INTEGER)
       },
       category: {
         type: Sequelize.STRING

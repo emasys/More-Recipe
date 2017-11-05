@@ -29,12 +29,12 @@ export default (sequelize, DataTypes) => {
       defaultValue: 0
     },
     reactionUp: {
-      type: DataTypes.TEXT,
-      defaultValue: ','
+      type : DataTypes.ARRAY(DataTypes.INTEGER), 
+      defaultValue: []
     },
     reactionDown: {
-      type: DataTypes.TEXT,
-      defaultValue: ','
+      type : DataTypes.ARRAY(DataTypes.INTEGER), 
+      defaultValue: []
     },
     views: {
       type: DataTypes.INTEGER,
