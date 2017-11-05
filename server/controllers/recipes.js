@@ -158,30 +158,50 @@ class moreRecipes {
           });
         }
         if (req.decoded.id) {
-          let x = recipe.reactionUp;
-          x = x.split(',');
-          if (x.indexOf(String(req.decoded.id)) !== -1) {
-            const removeId = x.indexOf(String(req.decoded.id));
+          let reactionUp = recipe.reactionUp;
+          let reactionDown = recipe.reactionDown;
+          if (reactionUp.indexOf(Number(req.decoded.id)) !== -1) {//already reacted
+            let removeId = reactionUp.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
-              x.splice(removeId, 1);
+              reactionUp.splice(removeId, 1);
             }
-            recipe.reactionUp = x.join(',');
             return recipe
               .update({
                 upvote: recipe.upvote - 1,
-                reactionUp: `${recipe.reactionUp},`,
+                reactionUp: recipe.reactionUp,
+              })
+              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .catch(error => res.status(400).send({ success: false, error }));
+          } else if (reactionUp.indexOf(Number(req.decoded.id)) === -1 && 
+          reactionDown.indexOf(Number(req.decoded.id)) !== -1) {//already reacted
+            let removeId = reactionDown.indexOf(Number(req.decoded.id));
+            if (removeId > -1) {
+              reactionDown.splice(removeId, 1);
+            }
+            recipe.reactionUp.push(req.decoded.id);
+            return recipe
+              .update({
+                upvote: recipe.upvote + 1,
+                downvote: recipe.downvote - 1,
+                reactionUp: recipe.reactionUp,
+                reactionDown: reactionDown
               })
               .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           }
+          
+          else{
+            recipe.reactionUp.push(req.decoded.id);
+            return recipe
+            .update({
+              upvote: recipe.upvote + 1,
+              reactionUp: recipe.reactionUp,
+            })
+            .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+            .catch(error => res.status(400).send({ success: false, error }));
+          }
         }
-        return recipe
-          .update({
-            upvote: recipe.upvote + 1,
-            reactionUp: `${recipe.reactionUp + req.decoded.id},`,
-          })
-          .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
-          .catch(error => res.status(400).send({ success: false, error }));
+        
       })
       .catch(error => res.status(400).send(error));
   }
@@ -197,42 +217,61 @@ class moreRecipes {
    */
   static downvote(req, res) {
     return Recipes
-      .findById(req.params.recipeId)
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).send({
-            success: false,
-            status: 'Recipe Not Found',
-          });
-        } else if (req.decoded.id) {
-          let x = recipe.reactionDown;
-          x = x.split(',');
-          let y = recipe.reactionUp;
-          y = y.split(',');
-          if (x.indexOf(String(req.decoded.id)) !== -1 && y.indexOf(String(req.decoded.id))) {
-            const removeId = x.indexOf(String(req.decoded.id));
-            if (removeId > -1) {
-              x.splice(removeId, 1);
-            }
-            recipe.reactionDown = x.join(',');
-            return recipe
-              .update({
-                downvote: recipe.downvote - 1,
-                reactionDown: `${recipe.reactionDown},`,
-              })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
-              .catch(error => res.status(400).send({ success: false, error }));
+    .findById(req.params.recipeId)
+    .then((recipe) => {
+      if (!recipe) {
+        return res.status(404).send({
+          success: false,
+          status: 'Recipe Not Found',
+        });
+      }
+      if (req.decoded.id) {
+        let reactionUp = recipe.reactionUp;
+        let reactionDown = recipe.reactionDown;
+        if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {//already reacted
+          let removeId = reactionDown.indexOf(Number(req.decoded.id));
+          if (removeId > -1) {
+            reactionDown.splice(removeId, 1);
           }
+          return recipe
+            .update({
+              downvote: recipe.downvote - 1,
+              reactionDown: recipe.reactionDown,
+            })
+            .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+            .catch(error => res.status(400).send({ success: false, error }));
+        } else if (reactionDown.indexOf(Number(req.decoded.id)) === -1 && 
+        reactionUp.indexOf(Number(req.decoded.id)) !== -1) {//already reacted
+          let removeId = reactionUp.indexOf(Number(req.decoded.id));
+          if (removeId > -1) {
+            reactionUp.splice(removeId, 1);
+          }
+          recipe.reactionDown.push(req.decoded.id);
+          return recipe
+            .update({
+              upvote: recipe.upvote - 1,
+              downvote: recipe.downvote + 1,
+              reactionDown: recipe.reactionDown,
+              reactionUp: reactionUp
+            })
+            .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+            .catch(error => res.status(400).send({ success: false, error }));
         }
-        return recipe
+        
+        else{
+          recipe.reactionDown.push(req.decoded.id);
+          return recipe
           .update({
-            downvote: recipe.downvote + 1,
-            reactionDown: `${recipe.reactionDown + req.decoded.id},`,
+            downvote: recipe.upvote + 1,
+            reactionDown: recipe.reactionDown,
           })
           .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
           .catch(error => res.status(400).send({ success: false, error }));
-      })
-      .catch(error => res.status(400).send(error));
+        }
+      }
+      
+    })
+    .catch(error => res.status(400).send(error));
   }
 
 
