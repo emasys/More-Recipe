@@ -15,13 +15,13 @@
 
 
 language: node_js
-node_js: "stable"
+node_js: stable
 branches:
   only:
     - client
 script:
-  - npm test
-  - sequelize db:migrate
+  - sequelize db:migrate --env test
+  - npm test  
 services:
   - postgresql
 env:
