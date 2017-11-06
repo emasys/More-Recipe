@@ -18,7 +18,7 @@ language: node_js
 node_js: "stable"
 branches:
   only:
-    - server
+    - client
 script:
   - npm test
   - sequelize db:migrate
