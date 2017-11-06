@@ -21,6 +21,7 @@ branches:
     - server
 script:
   - npm test
+  - sequelize db:migrate
 services:
   - postgresql
 env:
