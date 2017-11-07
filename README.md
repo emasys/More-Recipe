@@ -97,5 +97,11 @@ $ npm test
   ```sh
      GET: /api/v1/recipes?sort=upvotes&order=desc
   ```
+### An API route that allows only an admin to manipulate the list of all users
+  ```sh
+     GET: /api/v1/users
+     PUT: /api/v1/users/<userId>
+     DELETE: /api/v1/users/<userId>
+  ```
 
 ### More features to be added soon
