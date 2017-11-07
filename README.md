@@ -103,8 +103,5 @@ $ npm test
      PUT: /api/v1/users/<userId>
      DELETE: /api/v1/users/<userId>
   ```
-### Heroku link
-```sh
-https://more-recipe-api.herokuapp.com/
-```
+
 ### More features to be added soon
