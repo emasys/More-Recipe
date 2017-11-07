@@ -36,7 +36,7 @@
                   <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="user.html">Profile</a>
+                  <a class="dropdown-item" href="profile.html">Profile</a>
                   <a class="dropdown-item" href="#signin">Sign in</a>
                 </div>
               </li>
@@ -45,11 +45,14 @@
         </nav>
       </div>
       <div class="row header-items justify-content-center">
-        <div class="col-lg-6 col-sm-10 text-center">
+        <div class="col-lg-6 col-sm-10 text-center text-shadowed">
           <h4>Food title</h4>
           <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste magnam sequi libero nulla ducimus a enim, saepe ex earum? Provident ullam ex aperiam architecto quod, voluptate ut culpa veritatis omnis.
+          </p>
+          <p>
             by
-            <a href="user.html" class="btn btn-secondary btn-sm " role="button">John Doe</a>
+            <a href="user.html">John Doe</a>
           </p>
         </div>
       </div>
@@ -57,33 +60,41 @@
   </section>
 
   <section class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center recipe-item-section">
       <div class="col-lg-4 col-sm-12  mb-5 recipe-image">
         <figure>
           <img src="img/recipe-image-legacy-id--1035651_10.jpg" alt="foodie" class="img-fluid rounded">
-          <figcaption>food title</figcaption>
+          <figcaption>some recipe title</figcaption>
         </figure>
-        <a href="#" class="btn btn-danger btn-sm " role="button">category</a>
-        <div class="reaction-snippet mt-4">
-          <span class="text-center card-link float-left">
-                <i class="fa fa-heart-o fa-2x" aria-hidden="true" id="favorite"></i>
-            </span>
-          <span class="text-center float-right card-link">
-              <i class="fa fa-eye  fa-2x" aria-hidden="true"></i><br>2.1k
-            </span>
-          <span class="text-center float-right  card-link">
-              <i class="fa fa-comment-o  fa-2x" aria-hidden="true"></i><br>4
-            </span>
-          <span class="text-center float-right mr-2 card-link">
-                  <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" id="dislike"></i>
-                  <br>23
-              </span>
-          <span class="text-center float-right mr-2 card-link">
-                <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" id="like" ></i>
-                <br>50
-            </span>
-
+        <div class="d-inline">
+              <span class="text-center card-link">
+                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" id="favorite"></i>
+                    <em class="bg-dark">205</em>
+                </span>
+              <span class="text-center card-link m-1">
+                  <i class="fa fa-eye  fa-2x" aria-hidden="true"></i>
+                  <em class="bg-primary">1.3k</em>
+                </span>
+              
+                <span class="text-center card-link m-1">
+                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" id="like" ></i>
+                    <em class="bg-success">30</em>
+                </span>
+              <span class="text-center card-link m-1">
+                      <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" id="dislike"></i>
+                      <em class="bg-danger">3</em>
+                  </span>
+             
+                <span class="text-center card-link m-1">
+                    <i class="fa fa-comment-o  fa-2x" aria-hidden="true"></i>
+                    <em class="bg-dark">4</em>
+                  </span>
         </div>
+        <div class="mt-3">
+            <a href="#" class="btn btn-danger btn-sm" role="button">category</a>
+        </div>
+        
+        
       </div>
       <div class="col-1">
 
@@ -109,44 +120,44 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center mt-5">
-      <div class="col-10">
+    <div class="row justify-content-center mt-2 recipe-item-section">
+      <div class="col-12">
         <h5 class="text-center text-muted">Reviews</h5>
         <hr>
       </div>
       <div class="col-lg-4 col-sm-12 mr-5 recipe-image">
         <form id="signin">
           <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12 col-sm-12">
               <textarea class="form-control" id="FormControlTextarea" rows="4"></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-secondary">Submit</button>
+          <button type="submit" class="btn btn-dark">Submit</button>
         </form>
       </div>
       <div class="col-lg-6 col-sm-12 ">
         <div class="direction rounded my-2">
           <blockquote class="blockquote">
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            <footer class="blockquote-footer"> <a href="user.html"> John Wick</a> </footer>
           </blockquote>
         </div>
         <div class="direction rounded my-2">
           <blockquote class="blockquote">
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            <footer class="blockquote-footer"> <a href="user.html"> John Wick</a> </footer>
           </blockquote>
         </div>
         <div class="direction rounded my-2">
           <blockquote class="blockquote">
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            <footer class="blockquote-footer"> <a href="user.html"> John Wick</a> </footer>
           </blockquote>
         </div>
         <div class="direction rounded my-2">
           <blockquote class="blockquote">
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer"> <a href="profile.html"> John Wick</a> </footer>
+            <footer class="blockquote-footer"> <a href="user.html"> John Wick</a> </footer>
           </blockquote>
         </div>
       </div>
