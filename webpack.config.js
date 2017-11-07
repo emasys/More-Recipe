@@ -106,7 +106,6 @@ module.exports = {
   devServer: {
     contentBase: APP_FOLDER,
     compress: true,
-    inline: true,
-    port: 7070
+    inline: true
   }
 };

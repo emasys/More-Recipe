@@ -45,8 +45,11 @@ export default class {
 
           })
             .then((newUser) => {
-              return res.status(201).send({ success: true, newUser });
+              const data = _.pick(newUser, ['id', 'firstName', 'lastName']);
+              const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 1440 });
+              return res.status(201).send({ success: true, user: data, token: token });
             })
+             
             .catch(error => res.status(500).send({ success: false, error }));
         })
         .catch((error) => {
@@ -56,7 +59,64 @@ export default class {
       return res.status(401).send({ success: false, status: validator.errors.all() });
     }
   }
+/**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns 
+ */
+static getUsers(req, res){
+    return Users
+    .findAll({})
+    .then(users => res.status(200).send({ success: true, users }))
+    .catch(error => res.status(400).send({ success: false, error }));
+  }
 
+  static updateUser(req, res) {
+    return Users
+      .findById(req.params.userId, {})
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({
+            success: false,
+            status: 'user Not Found',
+          });
+        }
+        return user
+          .update({
+            firstName: req.body.firstName || user.firstName,
+            lastName: req.body.lastName || user.lastName,
+            bio: req.body.bio || user.bio,
+          })
+          .then(() => res.status(200).send({ success: true, status: 'updated' })) 
+          .catch(error => res.status(400).send({ success: false, error }));
+      })
+      .catch(error => res.status(400).send(error));
+  }
+/**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns 
+ */
+static deleteUser(req, res) {
+  return Users
+    .findById(req.params.userId)
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ success: false, status: 'user not found' });
+      }
+      return user
+        .destroy()
+        .then(() => res.status(200).send({ success: true, status: 'user deleted' }))
+        .catch(error => res.status(400).send({ error }));
+    })
+    .catch(error => res.status(400).send({ error }));
+}
   /**
    * Log in user and validate user request
    * @param {object} req

@@ -9,5 +9,7 @@
 /server/.env
 .env
 /server/middleware/helper.js
-/server/routes
 /clientxx
+/webpack.config1.js
+/webpack.dev.config.js
+/webpack.prod.config.js
