@@ -15,14 +15,11 @@ const generateList = ({ catalog }) => {
           data-delay="0.1s"
           data-offset="100"
         >
-          <Link to="item_id.html">
+          <Link to={`recipe/${item.id}`}>
             <div className="card animate">
               <div className="description">
                 <h6>Description</h6>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-                magnam sequi libero nulla ducimus a enim, saepe ex earum?
-                Provident ullam ex aperiam architecto quod, voluptate ut culpa
-                veritatis omnis.
+                {item.description}
               </div>
               <img
                 className="card-img-top"
@@ -38,7 +35,7 @@ const generateList = ({ catalog }) => {
                 </h6>
                 <span>
                   <i className="fa fa-heart-o" aria-hidden="true" />
-                  200
+                  {item.favorite}
                 </span>
                 <span>
                   <i className="fa fa-thumbs-o-up" aria-hidden="true" />
