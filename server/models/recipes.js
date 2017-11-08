@@ -12,6 +12,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     category: {
       type: DataTypes.TEXT,
       defaultValue: 'none'
@@ -29,20 +33,28 @@ export default (sequelize, DataTypes) => {
       defaultValue: 0
     },
     reactionUp: {
-      type : DataTypes.ARRAY(DataTypes.INTEGER), 
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       defaultValue: []
     },
     reactionDown: {
-      type : DataTypes.ARRAY(DataTypes.INTEGER), 
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       defaultValue: []
     },
     views: {
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
+    comments: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    favorite: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   });
 
-  Recipes.associate = (models) => {
+  Recipes.associate = models => {
     Recipes.belongsTo(models.Users, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
@@ -52,12 +64,18 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'recipeId',
       as: 'reviews'
     });
+
+    Recipes.hasMany(models.Favorite, {
+      foreignKey: 'recipeId',
+      as: 'favorites'
+    });
   };
   Recipes.createRules = () => {
     return {
       name: 'required',
       direction: 'required',
-      ingredients: 'required'
+      ingredients: 'required',
+      description: 'required'
     };
   };
   Recipes.updateRules = () => {
