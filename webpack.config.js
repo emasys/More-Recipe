@@ -104,6 +104,7 @@ module.exports = {
     poll: true
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: APP_FOLDER,
     compress: true,
     inline: true

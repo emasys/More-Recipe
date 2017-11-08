@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import routes from './routes/index';
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

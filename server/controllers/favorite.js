@@ -20,29 +20,31 @@ export default class FavoriteRecipes {
         userId: req.decoded.id
       }
     })
-      .then((favorite) => {
+      .then(favorite => {
         if (favorite) {
-          return favorite
-          .destroy()
-          .then(() => res.status(200).send({ success: true, status: 'Recipe deleted' }))
-          .catch(error => res.status(400).send({ error }));
+          return res.status(404).json({
+            code: 404,
+            message: 'This recipe is already your favorite'
+          });
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
           userId: req.decoded.id
-        })
-          .then((favorited) => {
-            return res.status(200).send({
-              message: 'favorited',
-              success: true,
-              data: favorited
-            });
-          });
+        });
       })
-      .catch(error => res.status(400).send({
-        success: false,
-        error: error.errors
-      }));
+      .then(isFavorite => {
+        return res.status(200).json({
+          code: 200,
+          message: 'Recipe successfully made your favorite',
+          data: isFavorite
+        });
+      })
+      .catch(error =>
+        res.status(400).json({
+          message: 'An error occured during this operation',
+          error: error.errors
+        })
+      );
   }
 
   /**
@@ -54,13 +56,17 @@ export default class FavoriteRecipes {
   static listFavorites(req, res) {
     Favorite.findAll({
       where: { userId: req.params.userId },
-      include: [{
-        model: Recipes,
-      }]
+      include: [
+        {
+          model: Recipes
+        }
+      ]
     })
-      .then((favorites) => {
+      .then(favorites => {
         return res.status(200).send({ success: true, favorites });
       })
-      .catch(error => res.status(400).send({ success: false, error: error.message }));
+      .catch(error =>
+        res.status(400).send({ success: false, error: error.message })
+      );
   }
 }

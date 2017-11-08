@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import promise from 'redux-promise';
+import reducers from './reducers';
 import '../style/index.scss';
-import Header from './components/header';
-import Footer from './components/footer';
-import TopRecipes from './components/cat_home';
+import App from './components/app';
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-	}
+const store = applyMiddleware(promise)(createStore);
 
-	render() {
-		return (
-			<div>
-				<Header/>
-				<TopRecipes/>
-				<Footer/>
-			</div>
-		);
-	}
-}
-
-render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Provider store={store(reducers)}>
+    <App/>
+</Provider>, document.getElementById('root'));

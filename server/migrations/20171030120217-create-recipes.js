@@ -14,6 +14,9 @@ module.exports = {
       direction: {
         type: Sequelize.STRING
       },
+      description: {
+        type: Sequelize.STRING
+      },
       ingredients: {
         type: Sequelize.STRING
       },
@@ -26,14 +29,17 @@ module.exports = {
       favorite: {
         type: Sequelize.INTEGER
       },
+      comments: {
+        type: Sequelize.INTEGER
+      },
       views: {
         type: Sequelize.INTEGER
       },
       reactionUp: {
-        type : Sequelize.ARRAY(Sequelize.INTEGER)
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       reactionDown: {
-        type : Sequelize.ARRAY(Sequelize.INTEGER)
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       category: {
         type: Sequelize.STRING
@@ -52,12 +58,12 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          as: 'userId',
-        },
-      },
+          as: 'userId'
+        }
+      }
     });
   },
-  down: (queryInterface) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Recipes');
   }
 };

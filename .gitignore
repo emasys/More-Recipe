@@ -10,6 +10,6 @@
 .env
 /server/middleware/helper.js
 /clientxx
-/webpack.config1.js
-/webpack.dev.config.js
-/webpack.prod.config.js
+webpack.config1.js
+webpack.dev.config.js
+webpack.prod.config.js

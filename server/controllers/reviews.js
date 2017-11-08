@@ -20,16 +20,21 @@ export default class reviews {
     const validator = new Validator(request, Reviews.createRules());
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId)
-        .then((recipe) => {
+        .then(recipe => {
           if (!recipe) {
-            return res.status(404).send({ success: false, status: 'Recipe not found' });
+            return res
+              .status(404)
+              .send({ success: false, status: 'Recipe not found' });
           }
+          recipe.update({
+            comments: recipe.comment + 1
+          });
           return Reviews.create({
             content: req.body.content,
             recipeId: req.params.recipeId,
             userId: req.decoded.id
           })
-            .then((reviewedRecipe) => {
+            .then(reviewedRecipe => {
               return res.status(201).send({ success: true, reviewedRecipe });
             })
             .catch(error => res.status(404).send(error));
