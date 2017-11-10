@@ -27,39 +27,48 @@ export default class {
     const validator = new Validator(request, Users.signUpRules());
     if (validator.passes()) {
       if (request.confirmPassword !== request.password) {
-        return res.status(401).send({ success: false, status: 'Your password didn\'t match' });
+        return res
+          .status(401)
+          .send({ success: false, status: "Your password didn't match" });
       }
       Users.findOne({
         where: { email: request.email }
       })
-        .then((user) => {
+        .then(user => {
           if (user) {
-            return res.status(406).send({ success: false, status: 'email already exist in our database' });
+            return res.status(406).send({
+              success: false,
+              status: 'email already exist in our database'
+            });
           }
           Users.create({
             email: req.body.email,
             password: req.body.password,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            bio: req.body.bio,
-
+            bio: req.body.bio
           })
-            .then((newUser) => {
+            .then(newUser => {
               const data = _.pick(newUser, ['id', 'firstName', 'lastName']);
-              const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 1440 });
-              return res.status(201).send({ success: true, user: data, token: token });
+              const token = jwt.sign(data, process.env.JWT_SECRET, {
+                expiresIn: 1440
+              });
+              return res
+                .status(201)
+                .send({ success: true, user: data, token: token });
             })
-             
             .catch(error => res.status(500).send({ success: false, error }));
         })
-        .catch((error) => {
+        .catch(error => {
           return res.status(500).send({ success: false, error: error.status });
         });
     } else {
-      return res.status(401).send({ success: false, status: validator.errors.all() });
+      return res
+        .status(401)
+        .send({ success: false, status: validator.errors.all() });
     }
   }
-/**
+  /**
  * 
  * 
  * @static
@@ -67,35 +76,64 @@ export default class {
  * @param {any} res 
  * @returns 
  */
-static getUsers(req, res){
-    return Users
-    .findAll({})
-    .then(users => res.status(200).send({ success: true, users }))
-    .catch(error => res.status(400).send({ success: false, error }));
+  static getUsers(req, res) {
+    return Users.findAll({})
+      .then(users => res.status(200).send({ success: true, users }))
+      .catch(error => res.status(400).send({ success: false, error }));
   }
-
+  /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns a user profile
+ */
+  static getOneUser(req, res) {
+    return Users.findById(req.params.userId, {})
+      .then(user => {
+        const data = _.pick(user, [
+          'id',
+          'firstName',
+          'lastName',
+          'bio',
+          'email'
+        ]);
+        res.status(200).send({ success: true, data });
+      })
+      .catch(error => res.status(400).send({ success: false, error }));
+  }
+  /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns 
+ */
   static updateUser(req, res) {
-    return Users
-      .findById(req.params.userId, {})
-      .then((user) => {
+    return Users.findById(req.params.userId, {})
+      .then(user => {
         if (!user) {
           return res.status(404).send({
             success: false,
-            status: 'user Not Found',
+            status: 'user Not Found'
           });
         }
         return user
           .update({
             firstName: req.body.firstName || user.firstName,
             lastName: req.body.lastName || user.lastName,
-            bio: req.body.bio || user.bio,
+            bio: req.body.bio || user.bio
           })
-          .then(() => res.status(200).send({ success: true, status: 'updated' })) 
+          .then(() =>
+            res.status(200).send({ success: true, status: 'updated' })
+          )
           .catch(error => res.status(400).send({ success: false, error }));
       })
       .catch(error => res.status(400).send(error));
   }
-/**
+  /**
  * 
  * 
  * @static
@@ -103,20 +141,21 @@ static getUsers(req, res){
  * @param {any} res 
  * @returns 
  */
-static deleteUser(req, res) {
-  return Users
-    .findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        res.status(404).json({ success: false, status: 'user not found' });
-      }
-      return user
-        .destroy()
-        .then(() => res.status(200).send({ success: true, status: 'user deleted' }))
-        .catch(error => res.status(400).send({ error }));
-    })
-    .catch(error => res.status(400).send({ error }));
-}
+  static deleteUser(req, res) {
+    return Users.findById(req.params.userId)
+      .then(user => {
+        if (!user) {
+          res.status(404).json({ success: false, status: 'user not found' });
+        }
+        return user
+          .destroy()
+          .then(() =>
+            res.status(200).send({ success: true, status: 'user deleted' })
+          )
+          .catch(error => res.status(400).send({ error }));
+      })
+      .catch(error => res.status(400).send({ error }));
+  }
   /**
    * Log in user and validate user request
    * @param {object} req
@@ -134,9 +173,11 @@ static deleteUser(req, res) {
         email: request.email
       }
     })
-      .then((user) => {
+      .then(user => {
         if (!user) {
-          return res.status(404).send({ success: false, error: 'user not found' });
+          return res
+            .status(404)
+            .send({ success: false, error: 'user not found' });
         }
         if (!user.comparePassword(user, request.password)) {
           return res.status(400).send({ status: 'Invalid email/password' });
@@ -145,7 +186,7 @@ static deleteUser(req, res) {
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: 1440 // expires in 24 hours
         });
-        return res.status(201).send({ success: true, token, });
+        return res.status(201).send({ success: true, token });
       })
       .catch(error => res.send({ success: 'false', message: error }));
   }

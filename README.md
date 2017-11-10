@@ -97,6 +97,10 @@ $ npm test
   ```sh
      GET: /api/v1/recipes?sort=upvotes&order=desc
   ```
+### An API route that allows users to get a user profile of anyone
+```sh
+    GET: /api/v1/users/1
+```
 ### An API route that allows only an admin to manipulate the list of all users
   ```sh
      GET: /api/v1/users

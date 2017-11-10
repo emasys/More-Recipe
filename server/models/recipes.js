@@ -5,8 +5,8 @@ export default (sequelize, DataTypes) => {
       allowNull: false
     },
     ingredients: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.ARRAY(DataTypes.TEXT),
+      defaultValue: []
     },
     direction: {
       type: DataTypes.TEXT,

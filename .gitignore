@@ -9,7 +9,9 @@
 /server/.env
 .env
 /server/middleware/helper.js
-/clientxx
+/clientx
 webpack.config1.js
 webpack.dev.config.js
 webpack.prod.config.js
+/webpack1.config.js
+/client/src/playground

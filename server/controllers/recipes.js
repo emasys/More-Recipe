@@ -14,6 +14,8 @@ class moreRecipes {
    */
   static addRecipe(req, res) {
     const request = req.body;
+    const arr = req.body.ingredients;
+    const getArr = input => input.split(',');
     const validator = new Validator(request, Recipes.createRules());
     if (validator.passes()) {
       Users.findById(req.decoded.id)
@@ -28,7 +30,7 @@ class moreRecipes {
             direction: request.direction,
             userId: req.decoded.id,
             description: request.description,
-            ingredients: request.ingredients
+            ingredients: getArr(arr)
           })
             .then(recipe => res.status(201).send({ success: true, recipe }))
             .catch(error =>
@@ -123,6 +125,8 @@ class moreRecipes {
    * @returns
    */
   static updateRecipe(req, res) {
+    const arr = req.body.ingredients;
+    const getArr = input => input.split(',');
     return Recipes.findById(req.params.recipeId, {
       include: [
         {
@@ -142,7 +146,8 @@ class moreRecipes {
           .update({
             name: req.body.name || recipe.name,
             direction: req.body.direction || recipe.direction,
-            ingredients: req.body.ingredients || recipe.ingredients
+            description: req.body.description || recipe.description,
+            ingredients: getArr(arr) || recipe.ingredients
           })
           .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
           .catch(error => res.status(400).send({ success: false, error }));

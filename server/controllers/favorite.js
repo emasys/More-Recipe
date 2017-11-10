@@ -22,21 +22,18 @@ export default class FavoriteRecipes {
     })
       .then(favorite => {
         if (favorite) {
-          return res.status(404).json({
-            code: 404,
-            message: 'This recipe is already your favorite'
-          });
+          return favorite
+            .destroy()
+            .then(() =>
+              res.status(200).send({ success: true, status: 'unfavorited' })
+            )
+            .catch(error => res.status(400).send({ error }));
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
           userId: req.decoded.id
-        });
-      })
-      .then(isFavorite => {
-        return res.status(200).json({
-          code: 200,
-          message: 'Recipe successfully made your favorite',
-          data: isFavorite
+        }).then(isFavorite => {
+          return res.status(200).send({ success: true, status: 'favorited' });
         });
       })
       .catch(error =>
