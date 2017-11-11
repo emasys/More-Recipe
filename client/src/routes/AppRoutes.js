@@ -9,6 +9,7 @@ import Favorites from '../components/favorites';
 import NotFound from '../components/notfound';
 import Playground from '../playground/app';
 import Signup from '../components/signup.js';
+import Signin from '../components/signin.js';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -18,6 +19,7 @@ const AppRoutes = () => (
         <Route path="/catalog" exact component={Catalog} />
         <Route path="/favorites" component={Favorites} />
         <Route path="/signup" component={Signup} />
+        <Route path="/signin" component={Signin} />
         <Route path="/808" component={Playground} />
         <Route component={NotFound} />
       </Switch>

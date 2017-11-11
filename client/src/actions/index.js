@@ -49,3 +49,26 @@ export const signUp = data => {
   //   });
   return { type: 'SIGN_UP', payload };
 };
+
+export const signIn = data => {
+  const userInfo = qs.stringify(data);
+  console.log(userInfo);
+  const payload = fetch(
+    `${URL}/users/signin`,
+
+    {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: userInfo
+    }
+  )
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+
+  return { type: 'SIGN_IN', payload };
+};
