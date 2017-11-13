@@ -15,7 +15,7 @@ const generateList = ({ catalog }) => {
           data-delay="0.1s"
           data-offset="100"
         >
-          <Link to={`/${item.id}`}>
+          <Link to={`/recipe/${item.id}`}>
             <div className="card animate">
               <div className="description">
                 <h6>Description</h6>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { signIn } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// import _ from 'lodash';
 
 class SignIn extends Component {
   constructor(props) {
@@ -14,10 +15,6 @@ class SignIn extends Component {
     this.emailChanged = this.emailChanged.bind(this);
     this.pwChanged = this.pwChanged.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    // this.signup(this.state);
   }
 
   emailChanged(e) {
@@ -34,10 +31,18 @@ class SignIn extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state);
-    this.props.history.push('/catalog');
+
+    this.props.history.push('/profile');
   }
   render() {
+    // let _props = this.props.signin;
     const { password, email } = this.state;
+
+    // if (Object.keys(_props).length) {
+    //   window.localStorage.setItem('token', _props.user.token);
+
+    //   console.log(_props.user.token);
+    // }
     return (
       <section className="container ">
         <div className="row justify-content-center">
@@ -89,9 +94,9 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ signIn }, dispatch)
 });
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
-    user: state.signin
+    signin: state.signin
   };
 };
 

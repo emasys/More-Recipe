@@ -6,10 +6,10 @@ export default (state = {}, action) => {
         allRecipes: action.payload
       };
       break;
-    case 'RECIPE':
+    case 'RECIPES_ITEM':
       return {
         ...state,
-        oneRecipe: action.payload
+        recipeItem: action.payload
       };
 
     default:

@@ -184,7 +184,7 @@ export default class {
         }
         const payload = _.pick(user, ['id', 'firstName']);
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: 1440 // expires in 24 hours
+          expiresIn: 10080
         });
         return res.status(201).send({ success: true, token });
       })
