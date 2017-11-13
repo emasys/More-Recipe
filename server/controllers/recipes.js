@@ -30,6 +30,7 @@ class moreRecipes {
             direction: request.direction,
             userId: req.decoded.id,
             description: request.description,
+            category: request.category,
             ingredients: getArr(arr)
           })
             .then(recipe => res.status(201).send({ success: true, recipe }))

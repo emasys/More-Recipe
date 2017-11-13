@@ -25,7 +25,7 @@ class Recipe_item extends Component {
           <RecipeItems reactions={this.props.recipes.recipeItem} />
           <RecipeIngredients ingredients={this.props.recipes.recipeItem} />
         </div>
-        <Reviews reviews={this.props.recipes.recipeItem}/>
+        <Reviews id={this.props.match.params.id} />
       </section>
     );
   }

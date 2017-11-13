@@ -3,9 +3,13 @@ export default (sequelize, DataTypes) => {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    user: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
-  Reviews.associate = (models) => {
+  Reviews.associate = models => {
     Reviews.belongsTo(models.Users, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
@@ -17,7 +21,7 @@ export default (sequelize, DataTypes) => {
   };
   Reviews.createRules = () => {
     return {
-      content: 'required',
+      content: 'required'
     };
   };
   return Reviews;

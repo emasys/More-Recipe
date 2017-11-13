@@ -12,11 +12,13 @@ import Signup from '../components/signup';
 import Signin from '../components/signin';
 import Profile from '../components/profile';
 import RecipeItem from '../containers/recipe_item';
+import AddRecipe from '../containers/addRecipe';
 
 const AppRoutes = () => (
   <BrowserRouter>
     <div>
       <Switch>
+        <Route path="/recipe/:id" component={RecipeItem} />
         <Route path="/" exact component={App} />
         <Route path="/catalog" exact component={Catalog} />
         <Route path="/favorites" component={Favorites} />
@@ -24,7 +26,7 @@ const AppRoutes = () => (
         <Route path="/signin" component={Signin} />
         <Route path="/808" component={Playground} />
         <Route path="/profile" component={Profile} />
-        <Route path="/recipe/:id" component={RecipeItem} />
+        <Route path="/new" component={AddRecipe} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

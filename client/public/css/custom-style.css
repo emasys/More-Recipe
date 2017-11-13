@@ -1,7 +1,8 @@
 body {
     padding: 0;
     margin: 0;
-    background: url('../img/bg.fw.png');
+    background: url('../img/bg3 .fw.png') center center no-repeat;
+    background-size: cover;
 }
 
 section {

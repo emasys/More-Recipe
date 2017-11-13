@@ -3,6 +3,7 @@ import axios from 'axios';
 // import storeLocal from 'perform-local-storage';
 
 const URL = 'http://localhost:8081/api/v1';
+const xtoken = window.localStorage.getItem('token');
 
 export const getRecipes = () => {
   const payload = axios.get(`${URL}/recipes`).then(response => {
@@ -53,9 +54,10 @@ export const signIn = data => {
 
   return { type: 'SIGN_IN', payload };
 };
-export const postReview = data => {
+export const postReview = (data, id) => {
   const review = qs.stringify(data);
-  const payload = fetch(`${URL}recipes/${data.id}/reviews?token=${xtoken}`, {
+  console.log(review);
+  const payload = fetch(`${URL}/recipes/${id}/reviews?token=${xtoken}`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -69,6 +71,25 @@ export const postReview = data => {
     });
 
   return { type: 'REVIEW', payload };
+};
+
+export const addRecipe = data => {
+  const recipe = qs.stringify(data);
+  console.log(recipe);
+  const payload = fetch(`${URL}/recipes?token=${xtoken}`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: recipe
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+
+  return { type: 'NEW_RECIPE', payload };
 };
 
 export const setFavorite = id => {
@@ -91,7 +112,6 @@ export const setFavorite = id => {
 };
 
 export const getRecipeItem = id => {
-  const xtoken = window.localStorage.getItem('token');
   const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
     method: 'GET'
   })
