@@ -5,6 +5,7 @@ import axios from 'axios';
 const URL = 'http://localhost:8081/api/v1';
 const xtoken = window.localStorage.getItem('token');
 
+//Fetch All recipes
 export const getRecipes = () => {
   const payload = axios.get(`${URL}/recipes`).then(response => {
     return response.data;
@@ -13,6 +14,7 @@ export const getRecipes = () => {
   return { type: 'RECIPES', payload };
 };
 
+//Create a new user
 export const signUp = data => {
   const userInfo = qs.stringify(data);
   // console.log(userInfo);
@@ -36,6 +38,7 @@ export const signUp = data => {
   return { type: 'SIGN_UP', payload };
 };
 
+//Login
 export const signIn = data => {
   const userInfo = qs.stringify(data);
   // console.log(userInfo);
@@ -54,6 +57,8 @@ export const signIn = data => {
 
   return { type: 'SIGN_IN', payload };
 };
+
+//Post a review
 export const postReview = (data, id) => {
   const review = qs.stringify(data);
   console.log(review);
@@ -73,6 +78,7 @@ export const postReview = (data, id) => {
   return { type: 'REVIEW', payload };
 };
 
+//Add a recipe
 export const addRecipe = data => {
   const recipe = qs.stringify(data);
   console.log(recipe);
@@ -92,15 +98,13 @@ export const addRecipe = data => {
   return { type: 'NEW_RECIPE', payload };
 };
 
+//Add Favorite
 export const setFavorite = id => {
-  // const userInfo = qs.stringify(data);
-  // console.log(userInfo);
-  const payload = fetch(`${URL}recipes/${id}/fav?token=${xtoken}`, {
+  const payload = fetch(`${URL}/recipes/${id}/fav?token=${xtoken}`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-    // body: userInfo
   })
     .then(res => res.json())
     .then(res => {
@@ -111,6 +115,7 @@ export const setFavorite = id => {
   return { type: 'SET_FAVORITE', payload };
 };
 
+//Get a single recipe
 export const getRecipeItem = id => {
   const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
     method: 'GET'
@@ -121,4 +126,17 @@ export const getRecipeItem = id => {
       return res;
     });
   return { type: 'RECIPES_ITEM', payload };
+};
+
+//GET favorite status of a user
+export const getFavStatus = id => {
+  const payload = fetch(`${URL}/recipes/${id}/favStatus?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+  return { type: 'GET_FAV_STATUS', payload };
 };

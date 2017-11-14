@@ -5,13 +5,16 @@ import signin from './signinReducer';
 import favorite from './favoriteReducer';
 import review from './reviewReducer';
 import new_recipe from './addRecipe';
+import favStatus from './getFavStatus';
+
 const rootReducer = combineReducers({
   recipes,
   signup,
   signin,
   favorite,
   review,
-  new_recipe
+  new_recipe,
+  favStatus
 });
 
 export default rootReducer;

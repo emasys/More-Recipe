@@ -15,9 +15,11 @@ class Reviews extends Component {
     this.resetState = this.resetState.bind(this);
   }
 
-  componentDidMount() {
-    this.resetState();
-    this.props.getRecipeItem(this.props.id);
+  componentWillMount() {
+    // this.props.getRecipeItem(this.props.id);
+  }
+  componentDidUpdate() {
+    // this.props.getRecipeItem(this.props.id);
   }
 
   resetState() {
@@ -27,13 +29,13 @@ class Reviews extends Component {
   }
 
   handleForm(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const data = this.state;
     console.log(data);
     const id = this.props.recipes.recipeItem.recipe.id;
     this.props.postReview(data, id);
-    this.props.getRecipeItem(id);
-    this.componentDidMount();
+    // this.props.getRecipeItem(id);
+    this.resetState();
   }
   txChanged(e) {
     this.setState({
@@ -49,7 +51,6 @@ class Reviews extends Component {
           <div className="direction rounded my-2" key={index}>
             <blockquote className="blockquote">
               <p className="mb-0">{comment.content}</p>
-              {console.log(comment)}
               <footer className="blockquote-footer">
                 {' '}
                 <a href="user.html"> {comment.user}</a>
@@ -100,7 +101,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     review: state.review,
     recipes: state.recipes

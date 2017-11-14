@@ -22,7 +22,10 @@ class Recipe_item extends Component {
     return (
       <section className="container">
         <div className="row justify-content-center recipe-item-section">
-          <RecipeItems reactions={this.props.recipes.recipeItem} />
+          <RecipeItems
+            reactions={this.props.recipes.recipeItem}
+            id={this.props.match.params.id}
+          />
           <RecipeIngredients ingredients={this.props.recipes.recipeItem} />
         </div>
         <Reviews id={this.props.match.params.id} />

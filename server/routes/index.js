@@ -28,12 +28,13 @@ export default routes => {
     jwt.verifyToken,
     Reviews.addReview
   );
-  routes.get(
-    '/api/v1/recipes/:userId/fav',
-    jwt.verifyToken,
-    Favorite.listFavorites
-  );
+  routes.get('/api/v1/recipes/fav', jwt.verifyToken, Favorite.listFavorites);
   routes.get('/api/v1/recipes', Recipes.listRecipes);
+  routes.get(
+    '/api/v1/recipes/:recipeId/favStatus',
+    jwt.verifyToken,
+    Favorite.favoriteStatus
+  );
   routes.get('/api/v1/users', jwt.checkAdmin, jwt.verifyToken, Users.getUsers);
   routes.get('/api/v1/users/:userId', Users.getOneUser);
   routes.get('/api/v1/recipes/:recipeId', jwt.verifyToken, Recipes.getRecipe);
