@@ -16,9 +16,10 @@ class RecipeItems extends Component {
   }
 
   favIt() {
-    this.props.setFavorite(this.props.id);
-    this.props.getFavStatus(this.props.id);
-    this.componentDidMount();
+    this.props.setFavorite(this.props.id).then(res => {
+      this.props.getFavStatus(this.props.id);
+      this.componentDidMount();
+    });
   }
 
   generateItems({ reactions }) {

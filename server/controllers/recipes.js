@@ -156,6 +156,25 @@ class moreRecipes {
       .catch(error => res.status(400).send(error));
   }
   /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns the reaction status of a user
+ * @memberof moreRecipes
+ */
+  static checkReactions(req, res) {
+    return Recipes.findById(req.params.recipeId)
+      .then(recipe => {
+        if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
+          return res.status(200).send({ success: true });
+        }
+        return res.status(200).send({ success: false });
+      })
+      .catch(error => res.status(400).send({ status: 'recipe not found' }));
+  }
+  /**
    *
    *
    * @static
@@ -187,7 +206,7 @@ class moreRecipes {
                 upvote: recipe.upvote - 1,
                 reactionUp: recipe.reactionUp
               })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .then(() => res.status(200).send({ success: false, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           } else if (
             reactionUp.indexOf(Number(req.decoded.id)) === -1 &&
@@ -206,7 +225,7 @@ class moreRecipes {
                 reactionUp: recipe.reactionUp,
                 reactionDown: reactionDown
               })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           } else {
             recipe.reactionUp.push(req.decoded.id);
@@ -215,7 +234,7 @@ class moreRecipes {
                 upvote: recipe.upvote + 1,
                 reactionUp: recipe.reactionUp
               })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           }
         }

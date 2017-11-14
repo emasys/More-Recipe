@@ -29,12 +29,12 @@ class Reviews extends Component {
   }
 
   handleForm(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const data = this.state;
-    console.log(data);
     const id = this.props.recipes.recipeItem.recipe.id;
-    this.props.postReview(data, id);
-    // this.props.getRecipeItem(id);
+    this.props.postReview(data, id).then(res => {
+      this.props.getRecipeItem(id);
+    });
     this.resetState();
   }
   txChanged(e) {

@@ -18,17 +18,13 @@ export const getRecipes = () => {
 export const signUp = data => {
   const userInfo = qs.stringify(data);
   // console.log(userInfo);
-  const payload = fetch(
-    `${URL}/users/signup`,
-
-    {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: userInfo
-    }
-  )
+  const payload = fetch(`${URL}/users/signup`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: userInfo
+  })
     .then(res => res.json())
     .then(res => {
       // console.log(res);
@@ -61,7 +57,6 @@ export const signIn = data => {
 //Post a review
 export const postReview = (data, id) => {
   const review = qs.stringify(data);
-  console.log(review);
   const payload = fetch(`${URL}/recipes/${id}/reviews?token=${xtoken}`, {
     method: 'post',
     headers: {
@@ -71,7 +66,6 @@ export const postReview = (data, id) => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
 
@@ -81,7 +75,6 @@ export const postReview = (data, id) => {
 //Add a recipe
 export const addRecipe = data => {
   const recipe = qs.stringify(data);
-  console.log(recipe);
   const payload = fetch(`${URL}/recipes?token=${xtoken}`, {
     method: 'post',
     headers: {
@@ -91,7 +84,6 @@ export const addRecipe = data => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
 
@@ -108,11 +100,38 @@ export const setFavorite = id => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
 
   return { type: 'SET_FAVORITE', payload };
+};
+
+//upvote
+export const upvote = id => {
+  const payload = fetch(`${URL}/recipes/upvote/${id}?token=${xtoken}`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    });
+  return { type: 'UPVOTE', payload };
+};
+
+//GET reaction status of a user
+export const getUpvStatus = id => {
+  const payload = fetch(`${URL}/recipes/upvoteReaction/${id}?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+  return { type: 'GET_UPV_STATUS', payload };
 };
 
 //Get a single recipe
@@ -122,7 +141,6 @@ export const getRecipeItem = id => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
   return { type: 'RECIPES_ITEM', payload };
@@ -135,7 +153,6 @@ export const getFavStatus = id => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
   return { type: 'GET_FAV_STATUS', payload };

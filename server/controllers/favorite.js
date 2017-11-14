@@ -61,7 +61,7 @@ export default class FavoriteRecipes {
     })
       .then(favorites => {
         if (favorites.length > 0) {
-          return res.status(200).send({ success: true, favorites });
+          return res.status(200).send({ success: true });
         }
         return res.status(200).send({ success: false });
       })

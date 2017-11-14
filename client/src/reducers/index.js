@@ -6,6 +6,7 @@ import favorite from './favoriteReducer';
 import review from './reviewReducer';
 import new_recipe from './addRecipe';
 import favStatus from './getFavStatus';
+import votes from './voteReducer';
 
 const rootReducer = combineReducers({
   recipes,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   favorite,
   review,
   new_recipe,
-  favStatus
+  favStatus,
+  votes
 });
 
 export default rootReducer;

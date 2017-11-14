@@ -13,6 +13,11 @@ export default routes => {
     jwt.verifyToken,
     Recipes.upvote
   );
+  routes.get(
+    '/api/v1/recipes/upvoteReaction/:recipeId',
+    jwt.verifyToken,
+    Recipes.checkReactions
+  );
   routes.post(
     '/api/v1/recipes/downvote/:recipeId',
     jwt.verifyToken,
