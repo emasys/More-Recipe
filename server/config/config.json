@@ -8,8 +8,8 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "emasys",
-    "password": "root",
+    "username": "postgres",
+    "password": null,
     "database": "recipe-test",
     "host": "127.0.0.1",
     "port": 5432,
