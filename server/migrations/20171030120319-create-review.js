@@ -11,6 +11,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
+      user: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -41,7 +45,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Reviews');
   }
 };
