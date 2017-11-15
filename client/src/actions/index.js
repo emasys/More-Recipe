@@ -27,7 +27,8 @@ export const signUp = data => {
   })
     .then(res => res.json())
     .then(res => {
-      // console.log(res);
+      console.log(res);
+      window.localStorage.setItem('token', res.token);
       return res;
     });
 
@@ -70,6 +71,27 @@ export const postReview = (data, id) => {
     });
 
   return { type: 'REVIEW', payload };
+};
+
+//search for recipes
+export const searchRecipes = data => {
+  console.log(data);
+  const query = qs.stringify(data);
+  console.log(query);
+  const payload = fetch(`${URL}/recipes/search?token=${xtoken}`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: query
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+
+  return { type: 'SEARCH', payload };
 };
 
 //Add a recipe

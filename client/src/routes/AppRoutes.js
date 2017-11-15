@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 //components
 import App from '../components/app';
 import Footer from '../components/footer';
-import Catalog from '../containers/Catalog';
+import Catalog from '../containers/catalog';
 import Favorites from '../components/favorites';
 import NotFound from '../components/notfound';
 import Playground from '../playground/app';

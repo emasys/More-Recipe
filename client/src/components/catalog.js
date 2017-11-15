@@ -1,10 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from './searchBar';
 
 const generateList = ({ catalog }) => {
+  console.log(catalog.recipes);
   if (catalog) {
-    console.log(catalog.recipes);
+    // console.log(catalog.recipes);
+    if (catalog.recipes.length < 1) {
+      return (
+        <div style={{ height: '600px' }} className="text-center">
+          <h1>Your query returned no result</h1>
+          <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true" />
+          <p>Perhaps you should cross-check your spellings</p>
+        </div>
+      );
+    }
     return catalog.recipes.map((item, index) => {
       return (
         <div
@@ -63,12 +72,7 @@ const generateList = ({ catalog }) => {
 };
 const Catalog = props => {
   return (
-    <div>
-      <SearchBar />
-      <section className="container" id="catalog">
-        <div className="row justify-content-center">{generateList(props)}</div>
-      </section>
-    </div>
+    <div className="row justify-content-center">{generateList(props)}</div>
   );
 };
 

@@ -3,11 +3,16 @@ import { Link, NavLink } from 'react-router-dom';
 
 class Header extends Component {
   render() {
+    const headerImg = {
+      background: `linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)), 
+      url('../img/Food.jpg') no-repeat center center`,
+      backgroundSize: 'cover'
+    };
     return (
       <section className="container-fluid ">
-        <div className="header">
+        <div className="header" style={headerImg}>
           <div className="container">
-            <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
+            <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
               <Link className="navbar-brand" to="/">
                 More Recipes
               </Link>

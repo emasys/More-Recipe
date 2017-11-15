@@ -70,7 +70,31 @@ class moreRecipes {
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
-
+  /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns result of search query
+ * @memberof moreRecipes
+ */
+  static SearchRecipe(req, res) {
+    return Recipes.findAll({
+      where: {
+        $or: [
+          { name: { ilike: `%${req.body.query}%` } },
+          { direction: { ilike: `%${req.body.query}%` } },
+          { description: { ilike: `%${req.body.query}%` } },
+          { ingredients: { $contains: [`${req.body.query}`] } }
+        ]
+      }
+    })
+      .then(recipes => {
+        return res.status(200).send({ recipes });
+      })
+      .catch(error => res.status(400).send({ success: false, error }));
+  }
   /**
  *
  *

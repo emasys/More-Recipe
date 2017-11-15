@@ -26,6 +26,7 @@ class Recipe_item extends Component {
     this.favIt = this.favIt.bind(this);
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
+    this.reRender = this.reRender.bind(this);
   }
 
   componentDidMount() {
@@ -37,21 +38,26 @@ class Recipe_item extends Component {
     this.props.getRecipeItem(this.props.match.params.id);
   }
 
+  reRender() {
+    this.props.getUpvStatus(this.props.match.params.id);
+    this.props.getFavStatus(this.props.match.params.id);
+  }
   favIt() {
-    this.props.setFavorite(this.props.match.params.id).then(res => {
+    this.props.setFavorite(this.props.match.params.id).then(() => {
       this.props.getFavStatus(this.props.match.params.id);
       this.componentDidMount();
     });
   }
 
   upvote() {
-    this.props.upvote(this.props.match.params.id).then(res => {
+    this.props.upvote(this.props.match.params.id).then(() => {
       this.componentDidMount();
+      // this.reRender();
     });
   }
 
   downvote() {
-    this.props.downvote(this.props.match.params.id).then(res => {
+    this.props.downvote(this.props.match.params.id).then(() => {
       this.componentDidMount();
     });
   }
@@ -96,7 +102,7 @@ class Recipe_item extends Component {
             </span>
 
             <span className="text-center card-link m-1" onClick={this.upvote}>
-              {console.log(this.props.votes.votes)}
+              {/* {console.log(this.props.votes.votes)} */}
               <i
                 className={`fa ${this.props.votes.votes.upvote.success
                   ? 'fa-thumbs-up animated bounceIn flash blue'
@@ -109,7 +115,7 @@ class Recipe_item extends Component {
             <span className="text-center card-link m-1" onClick={this.downvote}>
               <i
                 className={`fa ${this.props.votes.votes.downvote.success
-                  ? 'fa-thumbs-down animated bounceIn flash blue'
+                  ? 'fa-thumbs-down animated bounceIn flash red'
                   : 'fa-thumbs-o-down'} fa-2x`}
                 aria-hidden="true"
                 id="dislike"

@@ -5,11 +5,16 @@ export default (state = {}, action) => {
         ...state,
         allRecipes: action.payload
       };
-      break;
     case 'RECIPES_ITEM':
       return {
         ...state,
         recipeItem: action.payload
+      };
+
+    case 'SEARCH':
+      return {
+        ...state,
+        search: action.payload
       };
 
     default:
