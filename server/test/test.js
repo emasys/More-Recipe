@@ -12,7 +12,7 @@ import test from '../seeders/seeds';
 describe('GET/ test if the invalid routes are working', () => {
   it('should return status code 404 and a message "page not found"', (done) => {
     request(app)
-      .get('/api/v1/users/misplaced')
+      .get('/api/v1/recipe/misplaced')
       .expect(404)
       .expect((res) => {
         expect(res.body).to.include({

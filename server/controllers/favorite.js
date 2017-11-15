@@ -43,6 +43,32 @@ export default class FavoriteRecipes {
         })
       );
   }
+  /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns favorite status of recipe
+ * @memberof FavoriteRecipes
+ */
+  static favoriteStatus(req, res) {
+    return Favorite.findAll({
+      where: {
+        userId: req.decoded.id,
+        recipeId: req.params.recipeId
+      }
+    })
+      .then(favorites => {
+        if (favorites.length > 0) {
+          return res.status(200).send({ success: true });
+        }
+        return res.status(200).send({ success: false });
+      })
+      .catch(error =>
+        res.status(400).send({ success: false, error: error.message })
+      );
+  }
 
   /**
      * List all favorited recipes
@@ -52,7 +78,7 @@ export default class FavoriteRecipes {
      */
   static listFavorites(req, res) {
     Favorite.findAll({
-      where: { userId: req.params.userId },
+      where: { userId: req.decoded.id },
       include: [
         {
           model: Recipes

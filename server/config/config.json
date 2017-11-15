@@ -9,8 +9,10 @@
   },
   "test": {
     "username": "postgres",
-    "password": "root",
-    "database": "travis",
+    "password": null,
+    "database": "recipe-test",
+    "host": "127.0.0.1",
+    "port": 5432,
     "dialect": "postgres"
   },
   "production": {
