@@ -3,12 +3,18 @@ export default (state = {}, action) => {
     case 'UPVOTE':
       return {
         ...state,
-        votes: action.payload
+        upvote: action.payload
+      };
+
+    case 'DOWNVOTE':
+      return {
+        ...state,
+        downvote: action.payload
       };
     case 'GET_UPV_STATUS':
       return {
         ...state,
-        upvotes: action.payload
+        votes: action.payload
       };
 
     default:

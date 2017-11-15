@@ -168,9 +168,33 @@ class moreRecipes {
     return Recipes.findById(req.params.recipeId)
       .then(recipe => {
         if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
-          return res.status(200).send({ success: true });
+          res.status(200).send({
+            upvote: {
+              success: true
+            },
+            downvote: {
+              success: false
+            }
+          });
+        } else if (recipe.reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
+          res.status(200).send({
+            upvote: {
+              success: false
+            },
+            downvote: {
+              success: true
+            }
+          });
+        } else {
+          res.status(200).send({
+            upvote: {
+              success: false
+            },
+            downvote: {
+              success: false
+            }
+          });
         }
-        return res.status(200).send({ success: false });
       })
       .catch(error => res.status(400).send({ status: 'recipe not found' }));
   }

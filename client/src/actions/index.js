@@ -121,6 +121,21 @@ export const upvote = id => {
   return { type: 'UPVOTE', payload };
 };
 
+//downvote
+export const downvote = id => {
+  const payload = fetch(`${URL}/recipes/downvote/${id}?token=${xtoken}`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    });
+  return { type: 'DOWNVOTE', payload };
+};
+
 //GET reaction status of a user
 export const getUpvStatus = id => {
   const payload = fetch(`${URL}/recipes/upvoteReaction/${id}?token=${xtoken}`, {
@@ -128,7 +143,6 @@ export const getUpvStatus = id => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
   return { type: 'GET_UPV_STATUS', payload };

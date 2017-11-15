@@ -4,6 +4,7 @@ import {
   setFavorite,
   getFavStatus,
   upvote,
+  downvote,
   getUpvStatus
 } from '../actions';
 import { bindActionCreators } from 'redux';
@@ -24,6 +25,7 @@ class Recipe_item extends Component {
     this.generateItems = this.generateItems.bind(this);
     this.favIt = this.favIt.bind(this);
     this.upvote = this.upvote.bind(this);
+    this.downvote = this.downvote.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +46,12 @@ class Recipe_item extends Component {
 
   upvote() {
     this.props.upvote(this.props.match.params.id).then(res => {
+      this.componentDidMount();
+    });
+  }
+
+  downvote() {
+    this.props.downvote(this.props.match.params.id).then(res => {
       this.componentDidMount();
     });
   }
@@ -88,8 +96,9 @@ class Recipe_item extends Component {
             </span>
 
             <span className="text-center card-link m-1" onClick={this.upvote}>
+              {console.log(this.props.votes.votes)}
               <i
-                className={`fa ${this.props.votes.upvotes.success
+                className={`fa ${this.props.votes.votes.upvote.success
                   ? 'fa-thumbs-up animated bounceIn flash blue'
                   : 'fa-thumbs-o-up'} fa-2x`}
                 aria-hidden="true"
@@ -97,9 +106,11 @@ class Recipe_item extends Component {
               />
               <em className="bg-success">{upvote}</em>
             </span>
-            <span className="text-center card-link m-1">
+            <span className="text-center card-link m-1" onClick={this.downvote}>
               <i
-                className="fa fa-thumbs-o-down fa-2x"
+                className={`fa ${this.props.votes.votes.downvote.success
+                  ? 'fa-thumbs-down animated bounceIn flash blue'
+                  : 'fa-thumbs-o-down'} fa-2x`}
                 aria-hidden="true"
                 id="dislike"
               />
@@ -140,7 +151,7 @@ class Recipe_item extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.votes);
+  // console.log(state);
   return {
     recipes: state.recipes,
     favorite: state.favorite,
@@ -150,7 +161,14 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
-    { getRecipeItem, setFavorite, getFavStatus, upvote, getUpvStatus },
+    {
+      getRecipeItem,
+      setFavorite,
+      getFavStatus,
+      upvote,
+      getUpvStatus,
+      downvote
+    },
     dispatch
   )
 });
