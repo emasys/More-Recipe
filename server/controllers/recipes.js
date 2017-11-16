@@ -30,6 +30,7 @@ class moreRecipes {
             direction: request.direction,
             userId: req.decoded.id,
             description: request.description,
+            category: request.category,
             ingredients: getArr(arr)
           })
             .then(recipe => res.status(201).send({ success: true, recipe }))
@@ -69,7 +70,31 @@ class moreRecipes {
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
-
+  /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns result of search query
+ * @memberof moreRecipes
+ */
+  static SearchRecipe(req, res) {
+    return Recipes.findAll({
+      where: {
+        $or: [
+          { name: { ilike: `%${req.body.query}%` } },
+          { direction: { ilike: `%${req.body.query}%` } },
+          { description: { ilike: `%${req.body.query}%` } },
+          { ingredients: { $contains: [`${req.body.query}`] } }
+        ]
+      }
+    })
+      .then(recipes => {
+        return res.status(200).send({ recipes });
+      })
+      .catch(error => res.status(400).send({ success: false, error }));
+  }
   /**
  *
  *
@@ -155,6 +180,49 @@ class moreRecipes {
       .catch(error => res.status(400).send(error));
   }
   /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns the reaction status of a user
+ * @memberof moreRecipes
+ */
+  static checkReactions(req, res) {
+    return Recipes.findById(req.params.recipeId)
+      .then(recipe => {
+        if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
+          res.status(200).send({
+            upvote: {
+              success: true
+            },
+            downvote: {
+              success: false
+            }
+          });
+        } else if (recipe.reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
+          res.status(200).send({
+            upvote: {
+              success: false
+            },
+            downvote: {
+              success: true
+            }
+          });
+        } else {
+          res.status(200).send({
+            upvote: {
+              success: false
+            },
+            downvote: {
+              success: false
+            }
+          });
+        }
+      })
+      .catch(error => res.status(400).send({ status: 'recipe not found' }));
+  }
+  /**
    *
    *
    * @static
@@ -186,7 +254,7 @@ class moreRecipes {
                 upvote: recipe.upvote - 1,
                 reactionUp: recipe.reactionUp
               })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .then(() => res.status(200).send({ success: false, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           } else if (
             reactionUp.indexOf(Number(req.decoded.id)) === -1 &&
@@ -205,7 +273,7 @@ class moreRecipes {
                 reactionUp: recipe.reactionUp,
                 reactionDown: reactionDown
               })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           } else {
             recipe.reactionUp.push(req.decoded.id);
@@ -214,7 +282,7 @@ class moreRecipes {
                 upvote: recipe.upvote + 1,
                 reactionUp: recipe.reactionUp
               })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+              .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           }
         }

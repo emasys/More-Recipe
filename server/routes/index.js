@@ -13,6 +13,7 @@ export default routes => {
     jwt.verifyToken,
     Recipes.upvote
   );
+
   routes.post(
     '/api/v1/recipes/downvote/:recipeId',
     jwt.verifyToken,
@@ -23,17 +24,24 @@ export default routes => {
     jwt.verifyToken,
     Favorite.addFavorite
   );
+  routes.post('/api/v1/recipes/search', jwt.verifyToken, Recipes.SearchRecipe);
   routes.post(
     '/api/v1/recipes/:recipeId/reviews',
     jwt.verifyToken,
     Reviews.addReview
   );
   routes.get(
-    '/api/v1/recipes/:userId/fav',
+    '/api/v1/recipes/upvoteReaction/:recipeId',
     jwt.verifyToken,
-    Favorite.listFavorites
+    Recipes.checkReactions
   );
+  routes.get('/api/v1/recipes/fav', jwt.verifyToken, Favorite.listFavorites);
   routes.get('/api/v1/recipes', Recipes.listRecipes);
+  routes.get(
+    '/api/v1/recipes/:recipeId/favStatus',
+    jwt.verifyToken,
+    Favorite.favoriteStatus
+  );
   routes.get('/api/v1/users', jwt.checkAdmin, jwt.verifyToken, Users.getUsers);
   routes.get('/api/v1/users/:userId', Users.getOneUser);
   routes.get('/api/v1/recipes/:recipeId', jwt.verifyToken, Recipes.getRecipe);
