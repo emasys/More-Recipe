@@ -19,6 +19,13 @@ module.exports = {
       }
     ]
   },
+  // exclude: {
+  //   exclude: [
+  //     'client/public/js/jquery-3.2.1.min.js',
+  //     'client/public/js/jquery-editable-select.js',
+  //     'client/public/js/script.js'
+  //   ]
+  // },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'client/public'),
