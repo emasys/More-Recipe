@@ -67,7 +67,7 @@ install:
   - npm install pg
   - npm install pg-hstore
 before_script:
-- psql -c 'create database recipe-test;' -U postgres
+- psql -c 'create database recipe_test;' -U postgres
 - psql -c "CREATE USER emasys WITH PASSWORD 'root';" -U postgres
 - sequelize db:migrate
 script: npm test
