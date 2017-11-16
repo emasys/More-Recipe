@@ -105,6 +105,10 @@ a {
     font-weight: bolder;
 }
 
+.nav-link {
+    font-family: $font_family_1;
+}
+
 .navbar-toggler {
     border: none;
     &:focus {
@@ -116,7 +120,7 @@ a {
 // url('../img/Food.jpg') no-repeat center center;
 .header {
     margin: 0;
-    padding-top: 100px;
+    padding-top: 50px;
     min-height: 400px;
     max-width: 100%;
     color: $color_2;
@@ -132,6 +136,10 @@ a {
 
 .bg-orange {
     background: rgb(238, 171, 26)
+}
+
+.bolden {
+    font-style: bolder;
 }
 
 .form-items {
@@ -158,6 +166,11 @@ a {
 
 .searchBar {
     margin-top: 50px;
+}
+
+.error-message {
+    height: 600px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
 input[type="search"] {
@@ -274,6 +287,13 @@ footer {
     margin-top: 50px;
 }
 
+.catalog-wrapper {
+    background: rgba(255, 255, 255, 0.74);
+    padding: 30px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.205);
+}
+
 .recipe-title {
     margin-top: 20px;
 }
@@ -281,6 +301,12 @@ footer {
 .catalog {
     h6 {
         margin-top: 50px;
+    }
+}
+
+.hvr-icon-buzz-out {
+    &:before {
+        content: "\f2bd";
     }
 }
 
@@ -329,6 +355,9 @@ footer {
 
 .red {
     color: $color_8;
+    &:hover {
+        color: red;
+    }
 }
 
 .blue {
@@ -430,4 +459,5 @@ footer {
 
 .text-shadowed {
     text-shadow: 0 2px 2px black;
+    font: bolder
 }

@@ -54,12 +54,13 @@ class moreRecipes {
    */
   static listRecipes(req, res) {
     if (req.query.sort && req.query.order) {
-      return Recipes.findAll({ limit: 10, order: [['upvote', 'DESC']] })
+      return Recipes.findAll({ limit: 12, order: [['upvote', 'DESC']] })
         .then(recipes => res.status(200).json({ success: true, recipes }))
         .catch(() => res.status(400));
     }
 
     return Recipes.findAll({
+      limit: req.params.page,
       include: [
         {
           model: Reviews,
@@ -70,6 +71,21 @@ class moreRecipes {
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
+
+  // static NextListRecipes(req, res) {
+  //   return Recipes.findAll({
+  //     limit: 10,
+  //     offset: req.body.offset,
+  //     include: [
+  //       {
+  //         model: Reviews,
+  //         as: 'reviews'
+  //       }
+  //     ]
+  //   })
+  //     .then(recipes => res.status(200).send({ success: true, recipes }))
+  //     .catch(error => res.status(400).send({ success: false, error }));
+  // }
   /**
  * 
  * 

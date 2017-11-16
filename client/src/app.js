@@ -8,6 +8,7 @@ import reducers from './reducers';
 import reduxPromise from 'redux-promise';
 import AppRoutes from './routes/AppRoutes';
 import 'normalize.css/normalize.css';
+import 'hover.css/css/hover-min.css';
 import './styles/styles.scss';
 
 const store = applyMiddleware(reduxPromise)(createStore);

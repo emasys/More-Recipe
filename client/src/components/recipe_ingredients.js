@@ -20,7 +20,7 @@ const getDirection = ({ ingredients }) => {
 };
 const Ingredients = props => {
   return (
-    <div className="col-lg-6 col-sm-12">
+    <div className="col-lg-5 col-sm-12">
       <h5 className="text-muted">Ingredients</h5>
       <hr />
       <div className="pb-3">

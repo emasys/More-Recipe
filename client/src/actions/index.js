@@ -6,11 +6,14 @@ const URL = 'http://localhost:8081/api/v1';
 const xtoken = window.localStorage.getItem('token');
 
 //Fetch All recipes
-export const getRecipes = () => {
-  const payload = axios.get(`${URL}/recipes`).then(response => {
-    return response.data;
-    return response.status;
-  });
+export const getRecipes = (page, query = '') => {
+  const payload = axios
+    .get(`${URL}/recipes/page/${page}${query}`)
+    .then(response => {
+      // console.log(response.data);
+      return response.data;
+      return response.status;
+    });
   return { type: 'RECIPES', payload };
 };
 
@@ -72,6 +75,24 @@ export const postReview = (data, id) => {
 
   return { type: 'REVIEW', payload };
 };
+
+//Pagination, view next page
+// export const getNextPage = data => {
+//   const next = qs.stringify(data);
+//   const payload = fetch(`${URL}/recipes/next?token=${xtoken}`, {
+//     method: 'post',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     body: next
+//   })
+//     .then(res => res.json())
+//     .then(res => {
+//       return res;
+//     });
+
+//   return { type: 'NEXT', payload };
+// };
 
 //search for recipes
 export const searchRecipes = data => {

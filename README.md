@@ -70,7 +70,7 @@ $ npm test
   ```
 ### An API route that allows a user to get all the recipes in the application
   ```sh
-     GET: /api/v1/recipes
+     GET: /api/v1/recipes/page/<limit>
   ```
 ### An API route that allows an authenticated user post a review for a recipe
   ```sh
@@ -95,7 +95,7 @@ $ npm test
 ```
 ### An API route that allows a user to get just recipes with the most upvotes
   ```sh
-     GET: /api/v1/recipes?sort=upvotes&order=desc
+     GET: /api/v1/recipes/page/<limit>?sort=upvotes&order=desc
   ```
 ### An API route that allows users to get a user profile of anyone
 ```sh
