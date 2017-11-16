@@ -38,17 +38,37 @@
 #  - sh -e /etc/init.d/xvfb start
 # after_success: npm run coverage
 
+# language: node_js
+# node_js: 
+#    -  "8.3.0"
+# services:
+#   - postgresql
+# before_script:
+#   - psql -c 'create database more_recipes_test;' -U postgres 
+# install:
+#   - npm install sequelize
+#   - npm install sequelize-cli
+#   - npm install pg
+#   - npm install pg-hstore
+# script:
+#   - sequelize db:migrate --env test
+
 language: node_js
-node_js: 
-   -  "8.3.0"
+node_js:
+- "stable"
+install: npm install
 services:
-  - postgresql
-before_script:
-  - psql -c 'create database more_recipes_test;' -U postgres 
+- postgresql
+env:
+- NODE_ENV=test
 install:
   - npm install sequelize
   - npm install sequelize-cli
   - npm install pg
   - npm install pg-hstore
-script:
-  - sequelize db:migrate --env test
+before_script:
+- psql -c 'create database recipe-test;' -U postgres
+- psql -c "CREATE USER emasys WITH PASSWORD 'root';" -U postgres
+- sequelize db:migrate
+script: npm test
+after_success: npm run coverage
