@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
-class SearchBar extends Component {
+class Navbar extends Component {
   render() {
     return (
       <section className="container-fluid fixed">
         <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
           <div className="container">
-            <a className="navbar-brand mr-3" href="index.html">
+            <Link className="navbar-brand text-white" to="/">
               More Recipes
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -20,48 +21,31 @@ class SearchBar extends Component {
             >
               <span className="navbar-toggler-icon" />
             </button>
-            <form className=" col-lg-9 col-md-12 col-sm-12 text-center p-0 m-0">
-              <input
-                type="search"
-                name="search"
-                placeholder="search..."
-              />
-            </form>
+            {/* <form className=" col-lg-9 col-md-12 col-sm-12 text-center p-0 m-0">
+              <input type="search" name="search" placeholder="search..." />
+            </form> */}
             <div
               className="collapse navbar-collapse justify-content-end"
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav">
-                <li className="nav-item dropdown active">
-                  <a
-                    className="nav-link dropdown-toggl"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                <li className="nav-item ">
+                  <NavLink
+                    className="nav-link text-light"
+                    activeClassName="active"
+                    to="/catalog"
                   >
-                    Catalog
-                  </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <a className="dropdown-item" href="catalog.html#like">
-                      Most Liked
-                    </a>
-                    <a className="dropdown-item" href="catalog.html#fav">
-                      Most Favorited
-                    </a>
-                    <a className="dropdown-item" href="catalog.html#new">
-                      Latest
-                    </a>
-                  </div>
+                    <i class="fa fa-archive fa-2x " aria-hidden="true" />
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="fav.html">
-                    Favorites
-                  </a>
+                  <NavLink
+                    className="nav-link "
+                    activeClassName="active"
+                    to="/favorites"
+                  >
+                    <i className="fa fa-heart fa-2x red" aria-hidden="true" />
+                  </NavLink>
                 </li>
                 <li className="nav-item dropdown">
                   <a
@@ -78,15 +62,15 @@ class SearchBar extends Component {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    <a className="dropdown-item" href="profile.html">
+                    <Link className="dropdown-item" to="/profile">
                       Profile
-                    </a>
-                    <a className="dropdown-item" href="signin.html">
+                    </Link>
+                    <Link className="dropdown-item" to="/signin">
                       Sign in
-                    </a>
-                    <a className="dropdown-item" href="signup.html">
+                    </Link>
+                    <Link className="dropdown-item" to="/signup">
                       Sign up
-                    </a>
+                    </Link>
                   </div>
                 </li>
               </ul>
@@ -98,4 +82,4 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export default Navbar;

@@ -7,10 +7,16 @@ const generateList = ({ catalog }) => {
     // console.log(catalog.recipes);
     if (catalog.recipes.length < 1) {
       return (
-        <div style={{ height: '600px' }} className="text-center">
-          <h1>Your query returned no result</h1>
-          <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true" />
-          <p>Perhaps you should cross-check your spellings</p>
+        <div className="text-center error-message">
+          <div className="catalog-wrapper">
+            <img src="../img/logo.png" alt="logo" />
+            <h4 className="p-3 m-2">
+              We Know this is embarrassing, but we don't understand your query{' '}
+            </h4>
+            <p className="p-3 m-2">
+              Perhaps you should cross-check your spellings
+            </p>
+          </div>
         </div>
       );
     }

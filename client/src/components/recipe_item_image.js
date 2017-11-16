@@ -36,12 +36,12 @@ class RecipeItems extends Component {
       } = reactions.recipe;
 
       return (
-        <div className="">
+        <div className="col-lg-6 col-sm-12  mb-5 bg-dark">
           <figure>
             <img
               src="../../../img/e5bf6d96d76b37f6da3351b4bff7b0e9--african-vegan-recipes-vegan-african-food.jpg"
               alt="foodie"
-              className="img-fluid rounded"
+              className="img-fluid rounded w-100"
             />
             <figcaption>{name}</figcaption>
           </figure>
@@ -98,11 +98,7 @@ class RecipeItems extends Component {
     }
   }
   render() {
-    return (
-      <div className="col-lg-4 col-sm-12  mb-5 recipe-image">
-        {this.generateItems(this.props)}
-      </div>
-    );
+    return <div className="">{this.generateItems(this.props)}</div>;
   }
 }
 
