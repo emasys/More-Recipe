@@ -15,3 +15,8 @@ webpack.dev.config.js
 webpack.prod.config.js
 /webpack1.config.js
 /client/src/playground
+/client/src/components/test.js
+/client/src/containers/recipe_item_test.js
+/client/src/components/recipe_item_image.js
+/client/src/containers/Catalog.js
+/client/src/containers/Catalog_test.js

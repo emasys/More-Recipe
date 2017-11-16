@@ -101,11 +101,16 @@ $ npm test
 ```sh
     GET: /api/v1/users/1
 ```
-### An API route that allows only an admin to manipulate the list of all users
+### API routes that allows only an admin to manipulate the list of all users
   ```sh
      GET: /api/v1/users
      PUT: /api/v1/users/<userId>
      DELETE: /api/v1/users/<userId>
   ```
+
+### An API route that allows users to search for recipes by any keyword
+```sh
+    POST: /api/v1/recipes/search
+```
 
 ### More features to be added soon

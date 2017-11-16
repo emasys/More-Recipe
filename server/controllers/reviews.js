@@ -32,7 +32,8 @@ export default class reviews {
           return Reviews.create({
             content: req.body.content,
             recipeId: req.params.recipeId,
-            userId: req.decoded.id
+            userId: req.decoded.id,
+            user: req.decoded.firstName
           })
             .then(reviewedRecipe => {
               return res.status(201).send({ success: true, reviewedRecipe });
