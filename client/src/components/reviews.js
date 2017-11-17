@@ -65,7 +65,7 @@ class Reviews extends Component {
   render() {
     const { content } = this.state;
     return (
-      <div className="row justify-content-center mt-2 recipe-item-section">
+      <div className="row justify-content-center mt-2 catalog-wrapper">
         <div className="col-12">
           <h5 className="text-center text-muted">Reviews</h5>
           <hr />

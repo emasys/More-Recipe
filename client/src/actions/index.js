@@ -17,6 +17,19 @@ export const getRecipes = (page, query = '') => {
   return { type: 'RECIPES', payload };
 };
 
+//Get a single recipe
+export const getRecipeItem = id => {
+  const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+  return { type: 'RECIPES_ITEM', payload };
+};
+
 //Create a new user
 export const signUp = data => {
   const userInfo = qs.stringify(data);
@@ -189,18 +202,6 @@ export const getUpvStatus = id => {
       return res;
     });
   return { type: 'GET_UPV_STATUS', payload };
-};
-
-//Get a single recipe
-export const getRecipeItem = id => {
-  const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
-    method: 'GET'
-  })
-    .then(res => res.json())
-    .then(res => {
-      return res;
-    });
-  return { type: 'RECIPES_ITEM', payload };
 };
 
 //GET favorite status of a user

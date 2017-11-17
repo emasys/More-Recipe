@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { signIn } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,7 +10,9 @@ class SignIn extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: '',
+      showErrMessage: 'hide'
     };
 
     this.emailChanged = this.emailChanged.bind(this);
@@ -30,32 +33,55 @@ class SignIn extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signIn(this.state);
-
-    this.props.history.push('/profile');
+    this.props.signIn(this.state).then(() => {
+      console.log(this.props.signin.user);
+      if (this.props.signin.user.success) {
+        this.props.history.push('/profile');
+      }
+      if (this.props.signin.user.status) {
+        this.setState({
+          error: 'An error ocurred',
+          showErrMessage: 'show'
+        });
+        console.log('An error occurred');
+      }
+    });
   }
   render() {
-    // let _props = this.props.signin;
     const { password, email } = this.state;
-
-    // if (Object.keys(_props).length) {
-    //   window.localStorage.setItem('token', _props.user.token);
-
-    //   console.log(_props.user.token);
-    // }
     return (
       <section className="container ">
         <div className="row justify-content-center">
-          <div className="col-lg-4 col-sm-12 form-items">
-            <form id="signin" onSubmit={this.handleSubmit}>
+          <div className="col-lg-4 col-sm-12 ">
+            <div
+              className={`alert alert-danger alert-dismissible fade ${this.state
+                .showErrMessage}`}
+              role="alert"
+            >
+              <strong>Error!</strong> invalid credentials
+              <button
+                type="button"
+                className="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form
+              id="signin"
+              className="form-items"
+              onSubmit={this.handleSubmit}
+            >
               <div className="form-row">
                 <div className="form-group col-12">
-                  <label for="inputEmail4" className="col-form-label">
+                  <label htmlFor="inputEmail4" className="col-form-label">
                     Email
                   </label>
                   <input
                     type="email"
                     value={email}
+                    required
                     onChange={this.emailChanged}
                     className="form-control"
                     id="inputEmail4"
@@ -65,11 +91,12 @@ class SignIn extends Component {
               </div>
               <div className="form-row">
                 <div className="form-group col-md-12">
-                  <label for="inputPassword4" className="col-form-label">
+                  <label htmlFor="inputPassword4" className="col-form-label">
                     Password
                   </label>
                   <input
                     type="password"
+                    required
                     onChange={this.pwChanged}
                     className="form-control"
                     id="inputPassword4"
@@ -79,10 +106,10 @@ class SignIn extends Component {
               </div>
               <button type="submit" className="btn btn-dark">
                 Sign in
-              </button>
-              <a href="signup.html" className="btn btn-dark">
+              </button>&nbsp;
+              <Link to="/signup" className="btn btn-dark">
                 Sign up
-              </a>
+              </Link>
             </form>
           </div>
         </div>

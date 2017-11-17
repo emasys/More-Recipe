@@ -1,3 +1,6 @@
+const defaultState = {
+  success: false
+};
 export default (state = {}, action) => {
   switch (action.type) {
     case 'RECIPES':

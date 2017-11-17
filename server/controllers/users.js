@@ -51,7 +51,7 @@ export default class {
             .then(newUser => {
               const data = _.pick(newUser, ['id', 'firstName', 'lastName']);
               const token = jwt.sign(data, process.env.JWT_SECRET, {
-                expiresIn: 1440
+                expiresIn: '7d'
               });
               return res
                 .status(201)
@@ -166,7 +166,9 @@ export default class {
     const request = req.body;
     const validator = new Validator(request, Users.signInRules());
     if (validator.fails()) {
-      return res.status(400).send({ status: validator.errors.all() });
+      return res
+        .status(400)
+        .send({ success: false, status: validator.errors.all() });
     }
     Users.findOne({
       where: {
@@ -177,14 +179,16 @@ export default class {
         if (!user) {
           return res
             .status(404)
-            .send({ success: false, error: 'user not found' });
+            .send({ success: false, status: 'user not found' });
         }
         if (!user.comparePassword(user, request.password)) {
-          return res.status(400).send({ status: 'Invalid email/password' });
+          return res
+            .status(400)
+            .send({ success: false, status: 'Invalid email/password' });
         }
         const payload = _.pick(user, ['id', 'firstName']);
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: 10080
+          expiresIn: '7d'
         });
         return res.status(201).send({ success: true, token });
       })
