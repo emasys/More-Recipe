@@ -49,7 +49,12 @@ export default class {
             bio: req.body.bio
           })
             .then(newUser => {
-              const data = _.pick(newUser, ['id', 'firstName', 'lastName']);
+              const data = _.pick(newUser, [
+                'id',
+                'firstName',
+                'lastName',
+                'email'
+              ]);
               const token = jwt.sign(data, process.env.JWT_SECRET, {
                 expiresIn: '7d'
               });

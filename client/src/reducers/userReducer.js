@@ -5,7 +5,12 @@ export default (state = {}, action) => {
         ...state,
         user: action.payload
       };
-      break;
+
+    case 'USER_INFO':
+      return {
+        ...state,
+        userInfo: action.payload
+      };
 
     default:
       return state;

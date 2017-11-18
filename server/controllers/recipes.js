@@ -71,6 +71,25 @@ class moreRecipes {
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
+  /**
+ * 
+ * 
+ * @static
+ * @param {any} req 
+ * @param {any} res 
+ * @returns list of recipes of a particular user
+ * @memberof moreRecipes
+ */
+  static listPrivateRecipes(req, res) {
+    return Recipes.findAll({
+      limit: req.params.limit || 5,
+      where: {
+        userId: req.decoded.id
+      }
+    })
+      .then(recipes => res.status(200).send({ success: true, recipes }))
+      .catch(error => res.status(400).send({ success: false, error }));
+  }
 
   // static NextListRecipes(req, res) {
   //   return Recipes.findAll({

@@ -1,6 +1,3 @@
-const defaultState = {
-  success: false
-};
 export default (state = {}, action) => {
   switch (action.type) {
     case 'RECIPES':
@@ -12,6 +9,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         recipeItem: action.payload
+      };
+    case 'USER_RECIPES':
+      return {
+        ...state,
+        userRecipes: action.payload
       };
 
     case 'SEARCH':

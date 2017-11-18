@@ -10,9 +10,7 @@ export const getRecipes = (page, query = '') => {
   const payload = axios
     .get(`${URL}/recipes/page/${page}${query}`)
     .then(response => {
-      // console.log(response.data);
       return response.data;
-      return response.status;
     });
   return { type: 'RECIPES', payload };
 };
@@ -24,10 +22,36 @@ export const getRecipeItem = id => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res;
     });
   return { type: 'RECIPES_ITEM', payload };
+};
+
+//Get user specific recipes
+export const getUserRecipes = limit => {
+  const payload = fetch(`${URL}/recipes/yours/${limit}?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'USER_RECIPES', payload };
+};
+
+//Get a specific user
+export const getUserInfo = id => {
+  const payload = fetch(`${URL}/users/${id}?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'USER_INFO', payload };
 };
 
 //Create a new user
@@ -43,7 +67,7 @@ export const signUp = data => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       window.localStorage.setItem('token', res.token);
       return res;
     });
@@ -109,9 +133,9 @@ export const postReview = (data, id) => {
 
 //search for recipes
 export const searchRecipes = data => {
-  console.log(data);
+  // console.log(data);
   const query = qs.stringify(data);
-  console.log(query);
+  // console.log(query);
   const payload = fetch(`${URL}/recipes/search?token=${xtoken}`, {
     method: 'post',
     headers: {
@@ -121,7 +145,7 @@ export const searchRecipes = data => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res;
     });
 

@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import _ from 'lodash';
 
+//components
+import Navbar from './navbar';
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class SignIn extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      console.log(this.props.signin.user);
+      // console.log(this.props.signin.user);
       if (this.props.signin.user.success) {
         this.props.history.push('/profile');
       }
@@ -43,7 +45,7 @@ class SignIn extends Component {
           error: 'An error ocurred',
           showErrMessage: 'show'
         });
-        console.log('An error occurred');
+        // console.log('An error occurred');
       }
     });
   }
@@ -51,6 +53,7 @@ class SignIn extends Component {
     const { password, email } = this.state;
     return (
       <section className="container ">
+        <Navbar />
         <div className="row justify-content-center">
           <div className="col-lg-4 col-sm-12 ">
             <div

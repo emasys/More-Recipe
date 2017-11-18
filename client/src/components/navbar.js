@@ -7,8 +7,8 @@ const logout = () => {
 
 const auth = () => {
   const login = localStorage.getItem('token');
-  console.log(login);
-  console.log('navbar');
+  // console.log(login);
+  // console.log('navbar');
   if (login) {
     return (
       <Link className="dropdown-item" onClick={logout} to="/">
