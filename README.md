@@ -113,4 +113,9 @@ $ npm test
     POST: /api/v1/recipes/search
 ```
 
+### An API route that allows users to only their own recipes
+```sh
+    GET: /api/v1/recipes/yours/<limit>
+```
+
 ### More features to be added soon
