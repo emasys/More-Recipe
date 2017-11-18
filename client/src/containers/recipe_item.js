@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import jwt_decode from 'jwt-decode';
+import { Link } from 'react-router-dom';
 import {
   getRecipeItem,
   setFavorite,
@@ -14,34 +16,39 @@ import { connect } from 'react-redux';
 import RecipeItems from '../components/recipe_item_image';
 import RecipeIngredients from '../components/recipe_ingredients';
 import Reviews from '../components/reviews';
+import Navbar from '../components/navbar';
 
+const token = window.localStorage.getItem('token');
+const decoded = jwt_decode(token);
+// console.log(decoded);
 class Recipe_item extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      vote: false
+      vote: false,
+      edit: false
     };
     this.generateItems = this.generateItems.bind(this);
     this.favIt = this.favIt.bind(this);
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
-    this.reRender = this.reRender.bind(this);
   }
 
   componentDidMount() {
-    // this.setState({
-    //   vote: this.props.votes.upvotes.success
-    // });
     this.props.getUpvStatus(this.props.match.params.id);
     this.props.getFavStatus(this.props.match.params.id);
-    this.props.getRecipeItem(this.props.match.params.id);
+    this.props.getRecipeItem(this.props.match.params.id).then(() => {
+      const id = this.props.recipes.recipeItem.recipe.userId;
+      console.log(id, decoded.id);
+      if (decoded.id === id) {
+        this.setState({
+          edit: true
+        });
+      }
+    });
   }
 
-  reRender() {
-    this.props.getUpvStatus(this.props.match.params.id);
-    this.props.getFavStatus(this.props.match.params.id);
-  }
   favIt() {
     this.props.setFavorite(this.props.match.params.id).then(() => {
       this.props.getFavStatus(this.props.match.params.id);
@@ -52,7 +59,6 @@ class Recipe_item extends Component {
   upvote() {
     this.props.upvote(this.props.match.params.id).then(() => {
       this.componentDidMount();
-      // this.reRender();
     });
   }
 
@@ -84,7 +90,7 @@ class Recipe_item extends Component {
               className="img-fluid rounded"
             />
             <figcaption>{name}</figcaption>
-            <div className="d-inline">
+            <div className="d-inline mt-3">
               <span className="text-center card-link" onClick={this.favIt}>
                 <i
                   className={`fa  ${this.props.favStatus.favStatus.success
@@ -95,11 +101,6 @@ class Recipe_item extends Component {
                 />
                 <em className="bg-dark">{favorite}</em>
               </span>
-              {/* <span className="text-center card-link m-1">
-                <i className="fa fa-eye  fa-2x" aria-hidden="true" />
-                <em className="bg-primary">{views}</em>
-              </span> */}
-
               <span className="text-center card-link m-1" onClick={this.upvote}>
                 {/* {console.log(this.props.votes.votes)} */}
                 <i
@@ -125,15 +126,10 @@ class Recipe_item extends Component {
                 <em className="bg-danger">{downvote}</em>
               </span>
 
-              {/* <span className="text-center card-link m-1">
-                <i className="fa fa-comment-o  fa-2x" aria-hidden="true" />
-                <em className="bg-dark">{comments}</em>
-              </span> */}
-
-              <span className="m-1 float-right">
-                <a href="#" className="btn btn-danger btn-lg" role="button">
-                  CATEGORY{' '}
-                  <i className="fa fa-chevron-right" aria-hidden="true" />{' '}
+              <span className="m-1 float-right d-inline">
+                <i className="fa fa-tag " aria-hidden="true" />
+                <a href="#!" className="">
+                  {` `}
                   {category}
                 </a>
               </span>
@@ -145,15 +141,36 @@ class Recipe_item extends Component {
   }
   render() {
     return (
-      <section className="container">
-        <div className="row justify-content-center recipe-item-section">
-          <div className="col-lg-6 col-sm-12  mb-5 recipe-image">
-            {this.generateItems(this.props.recipes.recipeItem)}
+      <div>
+        <Navbar />
+        <section className="container">
+          <div className="row justify-content-center catalog-wrapper">
+            <div className="col-lg-6 col-sm-12  mb-5 recipe-image">
+              {this.generateItems(this.props.recipes.recipeItem)}
+            </div>
+            <RecipeIngredients ingredients={this.props.recipes.recipeItem} />
           </div>
-          <RecipeIngredients ingredients={this.props.recipes.recipeItem} />
-        </div>
-        <Reviews id={this.props.match.params.id} />
-      </section>
+          <Reviews id={this.props.match.params.id} />
+          <button
+            href="#"
+            className={`btn btn-danger rounded-circle ${this.state.edit
+              ? 'd-block'
+              : 'd-none'}`}
+            id="floating-delete"
+          >
+            <i className="fa fa-trash fa-2x" aria-hidden="true" />
+          </button>
+          <button
+            href="#!"
+            className={`btn btn-info rounded-circle ${this.state.edit
+              ? 'd-block'
+              : 'd-none'}`}
+            id="floating-edit"
+          >
+            <i className="fa fa-pencil fa-2x" aria-hidden="true" />
+          </button>
+        </section>
+      </div>
     );
   }
 }

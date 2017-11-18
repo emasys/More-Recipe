@@ -36,6 +36,11 @@ export default routes => {
     jwt.verifyToken,
     Recipes.checkReactions
   );
+  routes.get(
+    '/api/v1/recipes/yours/:limit',
+    jwt.verifyToken,
+    Recipes.listPrivateRecipes
+  );
   routes.get('/api/v1/recipes/fav', jwt.verifyToken, Favorite.listFavorites);
   routes.get('/api/v1/recipes/page/:page', Recipes.listRecipes);
   routes.get(

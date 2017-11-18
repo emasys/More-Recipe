@@ -87,7 +87,7 @@ class App extends Component {
                   to="/catalog"
                   className="btn btn-dark hvr-icon-wobble-horizontal"
                 >
-                  see all
+                  see all recipes{` `}
                 </Link>
               </h5>
             </div>

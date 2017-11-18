@@ -10,6 +10,11 @@ export default (state = {}, action) => {
         ...state,
         recipeItem: action.payload
       };
+    case 'USER_RECIPES':
+      return {
+        ...state,
+        userRecipes: action.payload
+      };
 
     case 'SEARCH':
       return {

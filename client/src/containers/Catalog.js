@@ -20,6 +20,8 @@ class Catalog extends Component {
     this.searchBar = this.searchBar.bind(this);
     this.search = this.search.bind(this);
     this.nextPage = this.nextPage.bind(this);
+    this.auth = this.auth.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +53,38 @@ class Catalog extends Component {
   nextPage() {
     this.componentDidMount();
   }
+  logout() {
+    localStorage.removeItem('token');
+  }
+  auth() {
+    const login = localStorage.getItem('token');
+    console.log(login);
+    console.log('navbar');
+    if (login) {
+      return (
+        <Link className="dropdown-item" onClick={this.logout} to="/">
+          <i className="fa fa-sign-out" aria-hidden="true" />
+          {` `}
+          Logout
+        </Link>
+      );
+    } else {
+      return (
+        <h6>
+          <Link className="dropdown-item" to="/signin">
+            <i className="fa fa-sign-in" aria-hidden="true" />
+            {` `}
+            Sign in
+          </Link>
+          <Link className="dropdown-item" to="/signup">
+            <i className="fa fa-user-plus" aria-hidden="true" />
+            {` `}
+            Sign up
+          </Link>
+        </h6>
+      );
+    }
+  }
   render() {
     const { search } = this.state;
     return (
@@ -59,7 +93,7 @@ class Catalog extends Component {
           <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
             <div className="container">
               <Link className="navbar-brand text-white" to="/">
-                More Recipes
+                MoreRecipes
               </Link>
               <button
                 className="navbar-toggler"
@@ -95,7 +129,9 @@ class Catalog extends Component {
                       activeClassName="active"
                       to="/catalog"
                     >
-                      <i class="fa fa-archive fa-2x " aria-hidden="true" />
+                      <i className="material-icons fa-2x" aria-hidden="true">
+                        &#xE8EF;
+                      </i>
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -104,7 +140,7 @@ class Catalog extends Component {
                       activeClassName="active"
                       to="/favorites"
                     >
-                      <i className="fa fa-heart fa-2x red" aria-hidden="true" />
+                      <i className="material-icons fa-2x red">&#xE87D;</i>
                     </NavLink>
                   </li>
                   <li className="nav-item dropdown">
@@ -116,24 +152,18 @@ class Catalog extends Component {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      <i
-                        className="fa fa-user-circle fa-2x"
-                        aria-hidden="true"
-                      />
+                      <i className="material-icons fa-2x">&#xE853;</i>
                     </a>
                     <div
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
                       <Link className="dropdown-item" to="/profile">
+                        <i className="fa fa-user-circle" aria-hidden="true" />
+                        {` `}
                         Profile
                       </Link>
-                      <Link className="dropdown-item" to="/signin">
-                        Sign in
-                      </Link>
-                      <Link className="dropdown-item" to="/signup">
-                        Sign up
-                      </Link>
+                      {this.auth()}
                     </div>
                   </li>
                 </ul>
@@ -141,7 +171,7 @@ class Catalog extends Component {
             </div>
           </nav>
         </section>
-        <section className="container" id="catalog">
+        <section className="container catalog-wrapper" id="catalog">
           <CatalogList catalog={this.state.All_recipes} />
           <div className="text-center">
             <button

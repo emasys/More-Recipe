@@ -318,6 +318,7 @@ footer {
 .direction {
     background: rgb(235, 235, 235);
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .card-columns {
@@ -436,7 +437,7 @@ footer {
 #floating-edit {
     display: block;
     position: fixed;
-    bottom: 80px;
+    top: 80px;
     right: 30px;
     z-index: 2000;
     border: none;
@@ -448,7 +449,7 @@ footer {
 #floating-delete {
     display: block;
     position: fixed;
-    bottom: 20px;
+    top: 120px;
     right: 30px;
     z-index: 2000;
     border: none;

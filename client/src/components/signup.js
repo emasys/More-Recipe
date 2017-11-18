@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { signUp } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+//component
+import Navbar from './navbar';
 
 class Signup extends Component {
   constructor(props) {
@@ -74,6 +78,7 @@ class Signup extends Component {
     } = this.state;
     return (
       <section className="container ">
+        <Navbar />
         <div className="row justify-content-center">
           <div className="col-lg-8 col-sm-12 form-items">
             <form onSubmit={this.handleSubmit}>
@@ -169,9 +174,10 @@ class Signup extends Component {
               <button type="submit" className="btn btn-dark">
                 Sign up
               </button>
-              <a href="signin.html" className="btn btn-dark">
+              {` `}
+              <Link to="/signin" className="btn btn-dark">
                 Sign up
-              </a>
+              </Link>
             </form>
           </div>
         </div>
