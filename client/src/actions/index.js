@@ -54,6 +54,19 @@ export const getUserInfo = id => {
   return { type: 'USER_INFO', payload };
 };
 
+//Get user favorites
+export const getFavs = () => {
+  const payload = fetch(`${URL}/recipes/fav?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'GET_FAVORITES', payload };
+};
+
 //Create a new user
 export const signUp = data => {
   const userInfo = qs.stringify(data);

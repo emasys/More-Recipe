@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { getRecipes, searchRecipes } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 
 //component
 import CatalogList from '../components/catalog';
@@ -25,6 +26,21 @@ class Catalog extends Component {
   }
 
   componentDidMount() {
+    // $(document).ready(function() {
+    //   $('.animate').bind('mouseenter click focus', function() {
+    //     $(this).addClass('animated pulse');
+    //   });
+    //   $('.animate').bind('mouseleave', function() {
+    //     $(this).removeClass('animated pulse');
+    //   });
+    //   $('.description').bind('mouseenter focus', function() {
+    //     $(this).fadeTo(400, 1);
+    //   });
+    //   $('.description').on('mouseleave', function() {
+    //     $(this).fadeTo(400, 0.0000000001);
+    //   });
+    // });
+
     this.props.getRecipes(this.state.page_limit).then(() => {
       this.setState(prevState => {
         return {

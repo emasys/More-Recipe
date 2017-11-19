@@ -20,3 +20,4 @@ webpack.prod.config.js
 /client/src/components/recipe_item_image.js
 /client/src/containers/Catalog.js
 /client/src/containers/Catalog_test.js
+/client/src/containers/favorites.js

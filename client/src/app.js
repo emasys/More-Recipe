@@ -10,6 +10,7 @@ import AppRoutes from './routes/AppRoutes';
 import 'normalize.css/normalize.css';
 import 'hover.css/css/hover-min.css';
 import './styles/styles.scss';
+import './script.js';
 
 const store = applyMiddleware(reduxPromise)(createStore);
 
