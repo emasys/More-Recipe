@@ -39,6 +39,7 @@ class Favorites extends Component {
         );
       }
       return fav.userFav.favorites.map((item, index) => {
+        console.log(item);
         return (
           <div
             key={index}
@@ -51,7 +52,7 @@ class Favorites extends Component {
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
                 <Link
-                  to={`/recipe/${item.RecipeId}`}
+                  to={`/recipe/${item.recipeId}`}
                   onMouseEnter={this.hoverIn}
                   onMouseLeave={this.hoverOut}
                 >

@@ -140,11 +140,6 @@ class Profile extends Component {
             <div className="col-lg-7 col-sm-12 recipe-lists">
               <h2 className="fresh-title">Recipes </h2>
               <hr />
-              <Link className="btn btn-dark btn-lg  " role="button" to="/new">
-                Add New Recipes
-              </Link>
-
-              <hr />
               <div className="row justify-content-center">
                 {this.generateRecipes(this.props.user)}
               </div>

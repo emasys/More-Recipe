@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import $ from 'jquery';
-import { findDOMNode } from 'react-dom';
+// import $ from 'jquery';
+// import { findDOMNode } from 'react-dom';
 import Fade from 'react-reveal/Fade';
 
 class Catalog extends Component {

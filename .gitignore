@@ -21,3 +21,4 @@ webpack.prod.config.js
 /client/src/containers/Catalog.js
 /client/src/containers/Catalog_test.js
 /client/src/containers/favorites.js
+/client/src/components/auth.js

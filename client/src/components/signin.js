@@ -38,7 +38,7 @@ class SignIn extends Component {
     this.props.signIn(this.state).then(() => {
       // console.log(this.props.signin.user);
       if (this.props.signin.user.success) {
-        this.props.history.push('/profile');
+        this.props.history.push('/');
       }
       if (this.props.signin.user.status) {
         this.setState({

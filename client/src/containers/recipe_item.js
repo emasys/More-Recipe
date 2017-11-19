@@ -19,7 +19,10 @@ import Reviews from '../components/reviews';
 import Navbar from '../components/navbar';
 
 const token = window.localStorage.getItem('token');
-const decoded = jwt_decode(token);
+let decoded = '';
+if (token) {
+  decoded = jwt_decode(token);
+}
 // console.log(decoded);
 class Recipe_item extends Component {
   constructor(props) {

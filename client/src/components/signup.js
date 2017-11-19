@@ -65,7 +65,7 @@ class Signup extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signUp(this.state);
-    this.props.history.push('/profile');
+    this.props.history.push('/');
   }
   render() {
     const {
@@ -79,9 +79,107 @@ class Signup extends Component {
     return (
       <section className="container ">
         <Navbar />
-        <div className="row justify-content-center">
-          <div className="col-lg-8 col-sm-12 form-items">
+        <div className="row justify-content-center mt-80">
+          <div className="catalog-wrapper">
             <form onSubmit={this.handleSubmit}>
+              <ul className="form row">
+                <li className="col-lg-6 col-sm-12">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="First Name"
+                    className="col-lg-11 col-sm-12"
+                    name="firstName"
+                    id="inputFName"
+                    value={firstName}
+                    onChange={this.fnChanged}
+                  />
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Last Name"
+                    className="col-lg-11 col-sm-12"
+                    name="lastName"
+                    value={lastName}
+                    onChange={this.lnChanged}
+                    id="inputLName"
+                  />
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>email</label>
+                  <input
+                    type="email"
+                    required
+                    className="col-lg-11 col-sm-12"
+                    name="email"
+                    value={email}
+                    onChange={this.emailChanged}
+                    id="inputEmail"
+                    placeholder="example@example.com"
+                  />
+                </li>
+                <li className="special col-lg-6 col-sm-12">
+                  <label>Country</label>
+                  <select className="col-lg-11 col-sm-12 ">
+                    <option value="Nigeria">Nigeria</option>
+                  </select>
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>
+                    Password
+                    <code>8-20 characters</code>
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    className="col-lg-11 col-sm-12"
+                    name="password"
+                    value={password}
+                    onChange={this.pwChanged}
+                    id="inputPassword4"
+                    placeholder="**********"
+                  />
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    required
+                    className="col-lg-11 col-sm-12"
+                    value={confirmPassword}
+                    onChange={this.cpChanged}
+                    name="confirmPassword"
+                    id="inputPassword4"
+                    placeholder="**********"
+                  />
+                </li>
+                <li className=" col-lg-6 col-sm-12">
+                  <label>Bio</label>
+                  <textarea
+                    className="col-lg-11 col-sm-12"
+                    id="FormControlTextarea"
+                    value={bio}
+                    onChange={this.bioChanged}
+                    name="bio"
+                    rows="4"
+                  />
+                </li>
+
+                <li className=" col-12 ">
+                  <input
+                    type="submit"
+                    value="submit"
+                    id="submit"
+                    className="bg-dark"
+                  />
+                </li>
+              </ul>
+            </form>
+            {/* <form onSubmit={this.handleSubmit}>
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <label htmlFor="inputFName" className="col-form-label">
@@ -96,8 +194,8 @@ class Signup extends Component {
                     onChange={this.fnChanged}
                     placeholder="First name"
                   />
-                </div>
-                <div className="form-group col-md-6">
+                </div> */}
+            {/* <div className="form-group col-md-6">
                   <label htmlFor="inputLName" className="col-form-label">
                     Last Name
                   </label>
@@ -110,9 +208,9 @@ class Signup extends Component {
                     id="inputLName"
                     placeholder="Last Name"
                   />
-                </div>
-              </div>
-              <div className="form-row">
+                </div> */}
+            {/* </div> */}
+            {/* <div className="form-row">
                 <div className="form-group col-md-4">
                   <label htmlFor="inputEmail4" className="col-form-label">
                     Email
@@ -126,13 +224,15 @@ class Signup extends Component {
                     id="inputEmail4"
                     placeholder="Email"
                   />
-                </div>
-                <div className="form-group col-md-4">
+                </div> */}
+            {/* <div className="form-group col-md-4">
                   <label htmlFor="inputPassword4" className="col-form-label">
                     Password
                     <code>8-20 characters</code>
                   </label>
                   <input
+                    <code>8-20 characters</code>
+                    
                     type="password"
                     name="password"
                     value={password}
@@ -141,8 +241,8 @@ class Signup extends Component {
                     id="inputPassword4"
                     placeholder="**********"
                   />
-                </div>
-                <div className="form-group col-md-4">
+                </div> */}
+            {/* <div className="form-group col-md-4">
                   <label htmlFor="inputPassword4" className="col-form-label">
                     Confirm Password
                   </label>
@@ -178,7 +278,7 @@ class Signup extends Component {
               <Link to="/signin" className="btn btn-dark">
                 Sign up
               </Link>
-            </form>
+            </form> */}
           </div>
         </div>
       </section>

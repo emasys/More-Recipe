@@ -1,37 +1,55 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const logout = () => {
   localStorage.removeItem('token');
 };
 
 const auth = () => {
-  const login = localStorage.getItem('token');
-  // console.log(login);
-  // console.log('navbar');
+  const login = window.localStorage.getItem('token');
   if (login) {
-    return (
-      <Link className="dropdown-item" onClick={logout} to="/">
-        <i className="fa fa-sign-out" aria-hidden="true" />
-        {` `}
-        Logout
-      </Link>
-    );
-  } else {
-    return (
-      <h6>
-        <Link className="dropdown-item" to="/signin">
-          <i className="fa fa-sign-in" aria-hidden="true" />
-          {` `}
-          Sign in
-        </Link>
-        <Link className="dropdown-item" to="/signup">
-          <i className="fa fa-user-plus" aria-hidden="true" />
-          {` `}
-          Sign up
-        </Link>
-      </h6>
-    );
+    const decoded = jwt_decode(login);
+    console.log(decoded);
+    console.log('navbar stuff');
+  }
+
+  try {
+    if (login) {
+      const decoded = jwt_decode(login);
+
+      return (
+        <h6>
+          <Link className="dropdown-item" to={`/profile/${decoded.id}`}>
+            <i className="fa fa-user-circle" aria-hidden="true" />
+            {` `}
+            Profile
+          </Link>
+          <Link className="dropdown-item" onClick={logout} to="/">
+            <i className="fa fa-sign-out" aria-hidden="true" />
+            {` `}
+            Logout
+          </Link>
+        </h6>
+      );
+    } else {
+      return (
+        <h6>
+          <Link className="dropdown-item" to="/signin">
+            <i className="fa fa-sign-in" aria-hidden="true" />
+            {` `}
+            Sign in
+          </Link>
+          <Link className="dropdown-item" to="/signup">
+            <i className="fa fa-user-plus" aria-hidden="true" />
+            {` `}
+            Sign up
+          </Link>
+        </h6>
+      );
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 class Navbar extends Component {
@@ -95,11 +113,6 @@ class Navbar extends Component {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    <Link className="dropdown-item" to="/profile">
-                      <i className="fa fa-user-circle" aria-hidden="true" />
-                      {` `}
-                      Profile
-                    </Link>
                     {auth()}
                   </div>
                 </li>

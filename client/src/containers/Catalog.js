@@ -3,7 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { getRecipes, searchRecipes } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import $ from 'jquery';
+import jwt_decode from 'jwt-decode';
+
+// import Script from 'react-load-script';
 
 //component
 import CatalogList from '../components/catalog';
@@ -74,15 +76,21 @@ class Catalog extends Component {
   }
   auth() {
     const login = localStorage.getItem('token');
-    console.log(login);
-    console.log('navbar');
     if (login) {
+      const decoded = jwt_decode(login);
       return (
-        <Link className="dropdown-item" onClick={this.logout} to="/">
-          <i className="fa fa-sign-out" aria-hidden="true" />
-          {` `}
-          Logout
-        </Link>
+        <h6>
+          <Link className="dropdown-item" to={`/profile/${decoded.id}`}>
+            <i className="fa fa-user-circle" aria-hidden="true" />
+            {` `}
+            Profile
+          </Link>
+          <Link className="dropdown-item" onClick={this.logout} to="/">
+            <i className="fa fa-sign-out" aria-hidden="true" />
+            {` `}
+            Logout
+          </Link>
+        </h6>
       );
     } else {
       return (
@@ -101,6 +109,7 @@ class Catalog extends Component {
       );
     }
   }
+
   render() {
     const { search } = this.state;
     return (
@@ -174,11 +183,6 @@ class Catalog extends Component {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      <Link className="dropdown-item" to="/profile">
-                        <i className="fa fa-user-circle" aria-hidden="true" />
-                        {` `}
-                        Profile
-                      </Link>
                       {this.auth()}
                     </div>
                   </li>
