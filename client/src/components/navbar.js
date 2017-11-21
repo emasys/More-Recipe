@@ -10,8 +10,8 @@ const auth = () => {
   const login = window.localStorage.getItem('token');
   if (login) {
     const decoded = jwt_decode(login);
-    console.log(decoded);
-    console.log('navbar stuff');
+    // console.log(decoded);
+    // console.log('navbar stuff');
   }
 
   try {
@@ -49,14 +49,17 @@ const auth = () => {
       );
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 class Navbar extends Component {
   render() {
     return (
       <section className="container-fluid fixed">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
+        <nav
+          className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar"
+          style={{ zIndex: 1000 }}
+        >
           <div className="container">
             <Link className="navbar-brand text-white" to="/">
               {/* <img src="/img/favicon.fw.png" alt="favicon" /> */}

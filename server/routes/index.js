@@ -51,7 +51,7 @@ export default routes => {
   routes.get('/api/v1/users', jwt.checkAdmin, jwt.verifyToken, Users.getUsers);
   routes.get('/api/v1/users/:userId', Users.getOneUser);
   routes.get('/api/v1/recipes/:recipeId', jwt.verifyToken, Recipes.getRecipe);
-  routes.put(
+  routes.post(
     '/api/v1/recipes/:recipeId',
     jwt.verifyToken,
     Recipes.updateRecipe

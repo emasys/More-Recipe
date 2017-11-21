@@ -15,6 +15,11 @@ export default (state = {}, action) => {
         ...state,
         userRecipes: action.payload
       };
+    case 'EDIT_RECIPE':
+      return {
+        ...state,
+        updateRecipes: action.payload
+      };
 
     case 'SEARCH':
       return {

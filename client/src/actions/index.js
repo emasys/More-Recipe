@@ -1,5 +1,6 @@
 import qs from 'qs';
 import axios from 'axios';
+// import fetch from 'isomorphic-fetch';
 // import storeLocal from 'perform-local-storage';
 
 const URL = 'http://localhost:8081/api/v1';
@@ -67,6 +68,31 @@ export const getFavs = () => {
   return { type: 'GET_FAVORITES', payload };
 };
 
+//edit recipe
+export const editRecipe = (data, id) => {
+  const x = {
+    name: 'new name',
+    description: 'new desc',
+    direction: 'new direction',
+    ingredients: 'new ingredient'
+  };
+  const info = qs.stringify(data);
+  console.log(info);
+  const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
+    method: 'Post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: info
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+
+  return { type: 'EDIT_RECIPE', payload };
+};
 //Create a new user
 export const signUp = data => {
   const userInfo = qs.stringify(data);
@@ -125,24 +151,6 @@ export const postReview = (data, id) => {
 
   return { type: 'REVIEW', payload };
 };
-
-//Pagination, view next page
-// export const getNextPage = data => {
-//   const next = qs.stringify(data);
-//   const payload = fetch(`${URL}/recipes/next?token=${xtoken}`, {
-//     method: 'post',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//     },
-//     body: next
-//   })
-//     .then(res => res.json())
-//     .then(res => {
-//       return res;
-//     });
-
-//   return { type: 'NEXT', payload };
-// };
 
 //search for recipes
 export const searchRecipes = data => {

@@ -11,8 +11,11 @@ app.use(logger('dev'));
 
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'X-Requested-With, Content-Type, Accept, x-access-token'
+  );
+  res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTION');
   next();
 });
 
@@ -24,7 +27,7 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`app running on port ${PORT}`);  
+  console.log(`app running on port ${PORT}`);
 });
 
 export default app;

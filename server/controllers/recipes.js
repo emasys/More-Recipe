@@ -187,14 +187,7 @@ class moreRecipes {
   static updateRecipe(req, res) {
     const arr = req.body.ingredients;
     const getArr = input => input.split(',');
-    return Recipes.findById(req.params.recipeId, {
-      include: [
-        {
-          model: Reviews,
-          as: 'reviews'
-        }
-      ]
-    })
+    return Recipes.findById(req.params.recipeId, {})
       .then(recipe => {
         if (!recipe) {
           return res.status(404).send({
