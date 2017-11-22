@@ -61,6 +61,7 @@ class moreRecipes {
 
     return Recipes.findAll({
       limit: req.params.page,
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: Reviews,

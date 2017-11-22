@@ -8,6 +8,7 @@ import {
   upvote,
   downvote,
   editRecipe,
+  delRecipe,
   getUpvStatus
 } from '../actions';
 import { bindActionCreators } from 'redux';
@@ -36,6 +37,7 @@ class Recipe_item extends Component {
       vote: false,
       edit: false,
       open: false,
+      deleteRecipe: false,
       name: '',
       ingredients: '',
       direction: '',
@@ -51,7 +53,7 @@ class Recipe_item extends Component {
     this.directionChanged = this.directionChanged.bind(this);
     this.nameChanged = this.nameChanged.bind(this);
     this.ingChanged = this.ingChanged.bind(this);
-    // this.changed = this.changed.bind(this);
+    this.delRecipe = this.delRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -78,12 +80,26 @@ class Recipe_item extends Component {
     });
   }
 
+  delRecipe() {
+    console.log('reached');
+    this.props.delRecipe(this.props.match.params.id).then(() => {
+      this.props.history.push('/catalog');
+    });
+  }
   onOpenModal = () => {
     this.setState({ open: true });
   };
 
   onCloseModal = () => {
     this.setState({ open: false });
+  };
+
+  onOpenDeleteModal = () => {
+    this.setState({ deleteRecipe: true });
+  };
+
+  onCloseDeleteModal = () => {
+    this.setState({ deleteRecipe: false });
   };
   favIt() {
     this.props.setFavorite(this.props.match.params.id).then(() => {
@@ -272,7 +288,7 @@ class Recipe_item extends Component {
   }
   render() {
     // const { openFirstModal, openSecondModal } = this.state;
-    const { open } = this.state;
+    const { open, deleteRecipe } = this.state;
 
     return (
       <div>
@@ -281,6 +297,27 @@ class Recipe_item extends Component {
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Edit Recipe</h2>
           {this.getEditForm()}
+        </Modal>
+        <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
+          <div className="text-center mt-10">
+            <h4>Delete Recipe?</h4>
+            <h2 className="mt-5">
+              Are you sure you want to delete this recipe?
+            </h2>
+            <h4>This action cannot be revoked</h4>
+            <button
+              className="btn btn-block btn-success"
+              onClick={this.delRecipe}
+            >
+              Yes
+            </button>
+            <button
+              className="btn btn-block btn-danger"
+              onClick={this.onCloseDeleteModal}
+            >
+              No
+            </button>
+          </div>
         </Modal>
         <section className="container">
           <div className="row justify-content-center catalog-wrapper">
@@ -291,7 +328,7 @@ class Recipe_item extends Component {
           </div>
           <Reviews id={this.props.match.params.id} />
           <button
-            onClick={this.onOpenModal}
+            onClick={this.onOpenDeleteModal}
             href="#"
             className={`btn btn-danger rounded-circle ${this.state.edit
               ? 'd-block'
@@ -334,7 +371,8 @@ const mapDispatchToProps = dispatch => ({
       upvote,
       getUpvStatus,
       downvote,
-      editRecipe
+      editRecipe,
+      delRecipe
     },
     dispatch
   )

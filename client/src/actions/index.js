@@ -207,6 +207,22 @@ export const setFavorite = id => {
   return { type: 'SET_FAVORITE', payload };
 };
 
+//Delete Recipe
+export const delRecipe = id => {
+  const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    });
+
+  return { type: 'DELETE_RECIPE', payload };
+};
+
 //upvote
 export const upvote = id => {
   const payload = fetch(`${URL}/recipes/upvote/${id}?token=${xtoken}`, {

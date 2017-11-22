@@ -27,6 +27,12 @@ export default (state = {}, action) => {
         search: action.payload
       };
 
+    case 'DELETE_RECIPE':
+      return {
+        ...state,
+        del_recipe: action.payload
+      };
+
     default:
       return state;
   }
