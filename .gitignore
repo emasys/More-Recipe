@@ -25,3 +25,5 @@ webpack.prod.config.js
 /uploads
 /my-uploads
 /client/public/img
+/.eslintignore
+/yarn-error.log

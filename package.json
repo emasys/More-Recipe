@@ -78,6 +78,7 @@
     "react-responsive-modal": "^2.0.0",
     "react-reveal": "^0.7.3",
     "react-router-dom": "^4.2.2",
+    "react-tooltip": "^3.4.0",
     "redux": "^3.7.2",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",

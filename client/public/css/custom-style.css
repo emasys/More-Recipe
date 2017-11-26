@@ -105,6 +105,19 @@ select:focus {
     border: 1px solid rgb(216, 183, 73);
 }
 
+.crop-text {
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.img-box {
+    height: 200px;
+    width: 100%;
+}
+
 .form .special {
     margin: 10px 0 0 0;
     padding: 0;

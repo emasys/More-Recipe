@@ -18,16 +18,12 @@ import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 
 // components
+import Auth from '../components/auth';
 import RecipeItems from '../components/recipe_item_image';
 import RecipeIngredients from '../components/recipe_ingredients';
 import Reviews from '../components/reviews';
 import Navbar from '../components/navbar';
 
-const token = window.localStorage.getItem('token');
-let decoded = '';
-if (token) {
-  decoded = jwt_decode(token);
-}
 // console.log(decoded);
 class Recipe_item extends Component {
   constructor(props) {
@@ -56,20 +52,7 @@ class Recipe_item extends Component {
     this.delRecipe = this.delRecipe.bind(this);
   }
 
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   if (!decoded) {
-  //     console.log('reached2');
-  //     console.log(this.props);
-  //     this.props.history.push('/signin');
-  //   }
-  // };
-
   componentDidMount() {
-    if (!decoded) {
-      console.log('reached');
-      console.log(this.props);
-      this.props.history.push('/signin');
-    }
     this.props.getUpvStatus(this.props.match.params.id);
     this.props.getFavStatus(this.props.match.params.id);
 
@@ -83,7 +66,7 @@ class Recipe_item extends Component {
       } = this.props.recipes.recipeItem.recipe;
       console.log(ingredients.join(','));
 
-      if (decoded.id === id) {
+      if (Auth.userID() === id) {
         this.setState({
           edit: true,
           name,

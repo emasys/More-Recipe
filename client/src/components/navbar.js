@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import ReactTooltip from 'react-tooltip';
+import Auth from './auth.js';
 
 class Navbar extends Component {
   constructor(props) {
@@ -8,48 +9,40 @@ class Navbar extends Component {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    Auth.logout();
   }
 
-  auth() {
-    const login = window.localStorage.getItem('token');
-    console.log('reached', login);
-    try {
-      if (login) {
-        const decoded = jwt_decode(login);
-
-        return (
-          <h6>
-            <Link className="dropdown-item" to={`/profile/${decoded.id}`}>
-              <i className="fa fa-user-circle" aria-hidden="true" />
-              {` `}
-              Profile
-            </Link>
-            <Link className="dropdown-item" onClick={this.logout} to="/">
-              <i className="fa fa-sign-out" aria-hidden="true" />
-              {` `}
-              Logout
-            </Link>
-          </h6>
-        );
-      } else {
-        return (
-          <h6>
-            <Link className="dropdown-item" to="/signin">
-              <i className="fa fa-sign-in" aria-hidden="true" />
-              {` `}
-              Sign in
-            </Link>
-            <Link className="dropdown-item" to="/signup">
-              <i className="fa fa-user-plus" aria-hidden="true" />
-              {` `}
-              Sign up
-            </Link>
-          </h6>
-        );
-      }
-    } catch (error) {
-      // console.log(error);
+  navLinks() {
+    if (Auth.loggedIn()) {
+      return (
+        <h6>
+          <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
+            <i className="fa fa-user-circle" aria-hidden="true" />
+            {` `}
+            Profile
+          </Link>
+          <a className="dropdown-item" onClick={this.logout} href="/">
+            <i className="fa fa-sign-out" aria-hidden="true" />
+            {` `}
+            Logout
+          </a>
+        </h6>
+      );
+    } else {
+      return (
+        <h6>
+          <Link className="dropdown-item" to="/signin">
+            <i className="fa fa-sign-in" aria-hidden="true" />
+            {` `}
+            Sign in
+          </Link>
+          <Link className="dropdown-item" to="/signup">
+            <i className="fa fa-user-plus" aria-hidden="true" />
+            {` `}
+            Sign up
+          </Link>
+        </h6>
+      );
     }
   }
   render() {
@@ -80,11 +73,28 @@ class Navbar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav">
+                {Auth.loggedIn() ? (
+                  <li className="nav-item ">
+                    <NavLink
+                      className="nav-link text-light"
+                      activeClassName="active"
+                      to="/new"
+                      data-tip="Add new recipe"
+                    >
+                      <i className="material-icons fa-2x" aria-hidden="true">
+                        add_to_photos
+                      </i>
+                    </NavLink>
+                  </li>
+                ) : (
+                  ''
+                )}
                 <li className="nav-item ">
                   <NavLink
                     className="nav-link text-light"
                     activeClassName="active"
                     to="/catalog"
+                    data-tip="Catalog"
                   >
                     <i className="material-icons fa-2x" aria-hidden="true">
                       &#xE8EF;
@@ -96,6 +106,7 @@ class Navbar extends Component {
                     className="nav-link "
                     activeClassName="active"
                     to="/favorites"
+                    data-tip="Your favorites"
                   >
                     <i className="material-icons fa-2x red">&#xE87D;</i>
                   </NavLink>
@@ -115,10 +126,11 @@ class Navbar extends Component {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    {this.auth()}
+                    {this.navLinks()}
                   </div>
                 </li>
               </ul>
+              <ReactTooltip place="bottom" type="dark" effect="float" />
             </div>
           </div>
         </nav>

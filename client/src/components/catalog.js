@@ -16,43 +16,14 @@ class Catalog extends Component {
     this.hoverOut = this.hoverOut.bind(this);
   }
 
-  componentDidMount() {
-    // const script = document.createElement('script');
-    // script.src =
-    //   'https://raw.githubusercontent.com/emasys/More-Recipe/develop/client/public/js/script.js';
-    // // script.async = true;
-    // document.body.appendChild(script);
-    // const el = findDOMNode(this.refs.toggle);
-    // $(el).hide();
-    // $(el).bind('mouseenter click focus', function() {
-    //   $(this).addClass('animated pulse');
-    // });
-  }
+  componentDidMount() {}
 
   hoverIn() {
     console.log('hovered');
-    // document.querySelector('.animate').classList.add('animated', 'pulse');
-    // this.setState({
-    //   hover: 'animated pulse'
-    // });
-
-    // $('.animate').bind('mouseenter click focus', function() {
-    //   $(this).addClass('animated pulse');
-    // });
-    // $('.animate').bind('mouseleave', function() {
-    //   $(this).removeClass('animated pulse');
-    // });
-    // $('.description').bind('mouseenter focus', function() {
-    //   $(this).fadeTo(400, 1);
-    // });
-    // $('.description').on('mouseleave', function() {
-    //   $(this).fadeTo(400, 0.0000000001);
-    // });
   }
 
   hoverOut() {
     console.log('hovered out');
-    // document.querySelector('.animate').classList.remove('animated', 'pulse');
   }
   generateList({ catalog }) {
     if (catalog) {
@@ -90,15 +61,12 @@ class Catalog extends Component {
                   onMouseLeave={this.hoverOut}
                 >
                   <div className={`card animate`}>
-                    <div className="description">
-                      <h6>Description</h6>
-                      {item.description}
-                    </div>
                     <img
-                      className="card-img-top"
-                      src="../../../img/e5bf6d96d76b37f6da3351b4bff7b0e9--african-vegan-recipes-vegan-african-food.jpg"
+                      className="card-img-top img-box"
+                      src={`../../../img/uploads/${item.foodImg}`}
                       alt="Card image cap"
                     />
+
                     <div className="card-body p-0 text-center social-icons">
                       <a href="#">
                         <span className="tag bg-danger">{item.category}</span>
@@ -106,6 +74,9 @@ class Catalog extends Component {
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.name}
                       </h6>
+                      <div className="card-body p-0 text-center">
+                        <p className="crop-text">{item.description}</p>
+                      </div>
                       <span>
                         <i className="fa fa-heart-o" aria-hidden="true" />
                         {item.favorite}

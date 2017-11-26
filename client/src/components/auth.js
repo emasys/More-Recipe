@@ -1,29 +1,25 @@
-const auth = () => {
-  const login = localStorage.getItem('token');
-  console.log(login);
-  console.log('navbar');
-  if (login) {
-    return (
-      <Link className="dropdown-item" onClick={logout} to="/">
-        <i className="fa fa-sign-out" aria-hidden="true" />
-        {` `}
-        Logout
-      </Link>
-    );
-  } else {
-    return (
-      <h6>
-        <Link className="dropdown-item" to="/signin">
-          <i className="fa fa-sign-in" aria-hidden="true" />
-          {` `}
-          Sign in
-        </Link>
-        <Link className="dropdown-item" to="/signup">
-          <i className="fa fa-user-plus" aria-hidden="true" />
-          {` `}
-          Sign up
-        </Link>
-      </h6>
-    );
+import jwt_decode from 'jwt-decode';
+
+const login = window.localStorage.getItem('token');
+let decoded = '';
+
+class Auth {
+  static logout() {
+    localStorage.removeItem('token');
   }
-};
+
+  static loggedIn() {
+    if (login) {
+      decoded = jwt_decode(login);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static userID() {
+    return decoded.id;
+  }
+}
+
+export default Auth;

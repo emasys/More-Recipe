@@ -6,10 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>More Recipe</title>
   <script src="/js/jquery-3.2.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.animate').bind('mouseenter click focus', function() {
+        $(this).addClass('animated pulse');
+      });
+      $('.animate').bind('mouseleave', function() {
+        $(this).removeClass('animated pulse');
+      });
+      $('.description').bind('mouseenter focus', function() {
+        $(this).fadeTo(400, 1);
+      });
+      $('.description').on('mouseleave', function() {
+        $(this).fadeTo(400, 0.0000000001);
+      });
+    });
+  </script>
   <script src="/js/popper.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/script.js"></script>
-
   <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/css/jquery-editable-select.css">

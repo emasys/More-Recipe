@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addRecipe } from '../actions';
 
+//component
+import Navbar from '../components/navbar';
+
 class AddRecipe extends Component {
   constructor(props) {
     super(props);
@@ -35,93 +38,9 @@ class AddRecipe extends Component {
   render() {
     return (
       <section className="container ">
-        <div className="row justify-content-center">
+        <Navbar />
+        <div className="row justify-content-center mt-80">
           <div className="catalog-wrapper p-15">
-            {/* <form onSubmit={this.handleForm}>
-              <div className="form-row">
-                <div className="form-group col-12">
-                  <label htmlFor="inputRecipe" className="col-form-label">
-                    Recipe Name
-                  </label>
-                  <input
-                    type="text"
-                    name="recipe"
-                    className="form-control"
-                    id="inputRecipe"
-                    placeholder="Name of recipe"
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-12">
-                  <label htmlFor="ingredients" className="col-form-label">
-                    Ingredients
-                  </label>
-                  <textarea
-                    placeholder="Add your ingredients and separate with a comma ','"
-                    className="form-control"
-                    id="ingredients"
-                    rows="4"
-                    name="ingredients"
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-12">
-                  <label htmlFor="direction">Direction</label>
-                  <textarea
-                    className="form-control"
-                    placeholder="how to make it happen"
-                    id="direction"
-                    rows="4"
-                    name="direction"
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-12">
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    className="form-control"
-                    placeholder="Tell us about the food"
-                    id="description"
-                    rows="4"
-                    name="description"
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label htmlFor="category" className="col-form-label">
-                    Category
-                  </label>
-                  <select
-                    className="form-control custom-select"
-                    id="editable-select"
-                    name="category"
-                  >
-                    <option value="vegetarian">Vegetarian</option>
-                    <option value="others">Add yours</option>
-                  </select>
-                </div>
-                <div className="form-group col-md-6">
-                  <label htmlFor="file" className="col-form-label">
-                    Upload Image
-                  </label>
-                  <label className="custom-file">
-                    <input
-                      type="file"
-                      id="file"
-                      className="custom-file-input"
-                    />
-                    <span className="custom-file-control" />
-                  </label>
-                </div>
-              </div>
-              <button type="submit" className="btn btn-dark btn-block">
-                Add New Recipe
-              </button>
-            </form> */}
             <form onSubmit={this.handleForm}>
               <ul className="form row">
                 <li className="col-lg-6 col-sm-12">

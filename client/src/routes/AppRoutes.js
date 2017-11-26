@@ -14,21 +14,43 @@ import Profile from '../components/profile';
 import RecipeItem from '../containers/recipe_item';
 import AddRecipe from '../containers/addRecipe';
 import User from '../components/user';
+import Auth from '../components/auth';
 
 const AppRoutes = () => (
   <BrowserRouter>
     <div>
       <Switch>
-        <Route path="/recipe/:id" component={RecipeItem} />
-        <Route path="/profile/:id" component={Profile} />
-        <Route path="/user/:id" component={User} />
+        <Route
+          path={Auth.loggedIn() ? `/recipe/:id` : `/notfound`}
+          component={RecipeItem}
+        />
+        <Route
+          path={Auth.loggedIn() ? `/profile/:id` : `/notfound`}
+          component={Profile}
+        />
+        <Route
+          path={Auth.loggedIn() ? `/user/:id` : `/notfound`}
+          component={User}
+        />
         <Route path="/" exact component={App} />
-        <Route path="/catalog" exact component={Catalog} />
-        <Route path="/favorites" component={Favorites} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={Signin} />
+        <Route path="/catalog" component={Catalog} />
+        <Route
+          path={Auth.loggedIn() ? `/favorites` : `/notfound`}
+          component={Favorites}
+        />
+        <Route
+          path={!Auth.loggedIn() ? `/signup` : `/notfound`}
+          component={Signup}
+        />
+        <Route
+          path={!Auth.loggedIn() ? `/signin` : `/notfound`}
+          component={Signin}
+        />
         <Route path="/808" component={Playground} />
-        <Route path="/new" component={AddRecipe} />
+        <Route
+          path={Auth.loggedIn() ? `/new` : `/notfound`}
+          component={AddRecipe}
+        />
         <Route component={NotFound} />
       </Switch>
       <Footer />
