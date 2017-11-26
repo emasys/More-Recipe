@@ -14,6 +14,10 @@ class moreRecipes {
    */
   static addRecipe(req, res) {
     const request = req.body;
+    if (req.file) {
+      request.foodImg = req.file.filename;
+      console.log(req.file);
+    }
     const arr = req.body.ingredients;
     const getArr = input => input.split(',');
     const validator = new Validator(request, Recipes.createRules());
@@ -31,6 +35,7 @@ class moreRecipes {
             userId: req.decoded.id,
             description: request.description,
             category: request.category,
+            foodImg: request.foodImg,
             ingredients: getArr(arr)
           })
             .then(recipe => res.status(201).send({ success: true, recipe }))

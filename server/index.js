@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import routes from './routes/index';
+
 import cors from 'cors';
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -23,6 +24,10 @@ app.all('*', (req, res, next) => {
 });
 
 routes(app);
+// app.post('/profile', upload.single('avatar'), function(req, res, next) {
+//   console.log(req.file);
+//   console.log(req.body);
+// });
 app.use('*', (req, res) => {
   res.status(404).send({
     error: 'page not found'

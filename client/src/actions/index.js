@@ -1,6 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
 // import fetch from 'isomorphic-fetch';
+import 'whatwg-fetch';
 // import storeLocal from 'perform-local-storage';
 
 const URL = 'http://localhost:8081/api/v1';
@@ -95,14 +96,20 @@ export const editRecipe = (data, id) => {
 };
 //Create a new user
 export const signUp = data => {
+  const formData = new FormData();
+  for (let key in data) {
+    console.log(key, data[key]);
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  console.log(formData);
   const userInfo = qs.stringify(data);
   // console.log(userInfo);
   const payload = fetch(`${URL}/users/signup`, {
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: userInfo
+    body: formData
   })
     .then(res => res.json())
     .then(res => {
@@ -175,16 +182,22 @@ export const searchRecipes = data => {
 
 //Add a recipe
 export const addRecipe = data => {
-  const recipe = qs.stringify(data);
+  const formData = new FormData();
+  for (let key in data) {
+    console.log(key, data[key]);
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  console.log(formData);
   const payload = fetch(`${URL}/recipes?token=${xtoken}`, {
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: recipe
+    body: formData
   })
     .then(res => res.json())
     .then(res => {
+      console.log(res);
       return res;
     });
 

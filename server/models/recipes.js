@@ -17,8 +17,11 @@ export default (sequelize, DataTypes) => {
       allowNull: false
     },
     category: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       defaultValue: 'none'
+    },
+    foodImg: {
+      type: DataTypes.STRING
     },
     userId: {
       type: DataTypes.INTEGER,

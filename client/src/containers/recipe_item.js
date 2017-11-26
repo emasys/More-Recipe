@@ -47,7 +47,7 @@ class Recipe_item extends Component {
     this.favIt = this.favIt.bind(this);
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
-    this.getEditForm = this.getEditForm.bind(this);
+    // this.getEditForm = this.getEditForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.descriptionChanged = this.descriptionChanged.bind(this);
     this.directionChanged = this.directionChanged.bind(this);
@@ -56,9 +56,23 @@ class Recipe_item extends Component {
     this.delRecipe = this.delRecipe.bind(this);
   }
 
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (!decoded) {
+  //     console.log('reached2');
+  //     console.log(this.props);
+  //     this.props.history.push('/signin');
+  //   }
+  // };
+
   componentDidMount() {
+    if (!decoded) {
+      console.log('reached');
+      console.log(this.props);
+      this.props.history.push('/signin');
+    }
     this.props.getUpvStatus(this.props.match.params.id);
     this.props.getFavStatus(this.props.match.params.id);
+
     this.props.getRecipeItem(this.props.match.params.id).then(() => {
       const id = this.props.recipes.recipeItem.recipe.userId;
       const {
@@ -68,6 +82,7 @@ class Recipe_item extends Component {
         direction
       } = this.props.recipes.recipeItem.recipe;
       console.log(ingredients.join(','));
+
       if (decoded.id === id) {
         this.setState({
           edit: true,
@@ -145,7 +160,13 @@ class Recipe_item extends Component {
   }
   getEditForm() {
     if (this.props.recipes) {
+      if (this.props.recipes.recipeItem.message) {
+        this.props.history.push('/signin');
+      }
       if (this.props.recipes.recipeItem) {
+        if (this.props.recipes.recipeItem.message) {
+          return this.props.history.push('/signin');
+        }
         const {
           id,
           name,
@@ -225,14 +246,16 @@ class Recipe_item extends Component {
         downvote,
         favorite,
         category,
-        upvote
+        upvote,
+        foodImg
       } = reactions.recipe;
+      console.log(foodImg);
 
       return (
         <div className="">
           <figure>
             <img
-              src="../../../img/e5bf6d96d76b37f6da3351b4bff7b0e9--african-vegan-recipes-vegan-african-food.jpg"
+              src={`../../../img/uploads/${foodImg}`}
               alt="foodie"
               className="img-fluid rounded"
             />
@@ -296,7 +319,7 @@ class Recipe_item extends Component {
 
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Edit Recipe</h2>
-          {this.getEditForm()}
+          {/* {this.getEditForm()} */}
         </Modal>
         <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">

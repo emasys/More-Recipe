@@ -1,7 +1,8 @@
 import request from 'supertest';
 // import dotEnv from 'dotenv';
 import jwtDecode from 'jwt-decode';
-import { assert, expect } from 'chai';
+// import { assert, expect } from 'chai';
+import expect from 'expect';
 import app from '../index';
 import test from '../seeders/seeds';
 
@@ -15,7 +16,7 @@ describe('GET/ test if the invalid routes are working', () => {
       .get('/api/v1/recipe/misplaced')
       .expect(404)
       .expect(res => {
-        expect(res.body).to.include({
+        expect(res.body).toEqual({
           error: 'page not found'
         });
       })
@@ -64,15 +65,24 @@ describe('POST/ add new user', () => {
     });
   });
 
-  // describe('Test for a successful entry', () => {
-  //   it('should return status code 201 if data is saved into the database', (done) => {
-  //     request(app)
-  //       .post('/api/v1/users/signup')
-  //       .send(test.setUserInput('Doe', 'Jane', 'John\'s wife', 'janedoe@gmail.com', 'password', 'password'))
-  //       .expect(201)
-  //       .end(done);
-  //   });
-  // });
+  describe('Test for a successful entry', () => {
+    it('should return status code 201 if data is saved into the database', done => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(
+          test.setUserInput(
+            'Doe',
+            'Jane',
+            "John's wife",
+            'janedoe@gmail.com',
+            'password',
+            'password'
+          )
+        )
+        .expect(201)
+        .end(done);
+    });
+  });
 
   describe('Test for invalid email address', () => {
     it('should return status code 401 if email input format is not valid', done => {
