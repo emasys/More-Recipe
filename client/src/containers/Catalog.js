@@ -3,8 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { getRecipes, searchRecipes } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import jwt_decode from 'jwt-decode';
-
+import Auth from '../components/auth';
 // import Script from 'react-load-script';
 
 //component
@@ -23,26 +22,11 @@ class Catalog extends Component {
     this.searchBar = this.searchBar.bind(this);
     this.search = this.search.bind(this);
     this.nextPage = this.nextPage.bind(this);
-    this.auth = this.auth.bind(this);
+    this.navLinks = this.navLinks.bind(this);
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
-    // $(document).ready(function() {
-    //   $('.animate').bind('mouseenter click focus', function() {
-    //     $(this).addClass('animated pulse');
-    //   });
-    //   $('.animate').bind('mouseleave', function() {
-    //     $(this).removeClass('animated pulse');
-    //   });
-    //   $('.description').bind('mouseenter focus', function() {
-    //     $(this).fadeTo(400, 1);
-    //   });
-    //   $('.description').on('mouseleave', function() {
-    //     $(this).fadeTo(400, 0.0000000001);
-    //   });
-    // });
-
     this.props.getRecipes(this.state.page_limit).then(() => {
       this.setState(prevState => {
         return {
@@ -72,24 +56,23 @@ class Catalog extends Component {
     this.componentDidMount();
   }
   logout() {
-    localStorage.removeItem('token');
+    Auth.logout();
   }
-  auth() {
-    const login = localStorage.getItem('token');
-    if (login) {
-      const decoded = jwt_decode(login);
+
+  navLinks() {
+    if (Auth.loggedIn()) {
       return (
         <h6>
-          <Link className="dropdown-item" to={`/profile/${decoded.id}`}>
+          <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
             <i className="fa fa-user-circle" aria-hidden="true" />
             {` `}
             Profile
           </Link>
-          <Link className="dropdown-item" onClick={this.logout} to="/">
+          <a className="dropdown-item" onClick={this.logout} href="/">
             <i className="fa fa-sign-out" aria-hidden="true" />
             {` `}
             Logout
-          </Link>
+          </a>
         </h6>
       );
     } else {
@@ -148,6 +131,22 @@ class Catalog extends Component {
                 id="navbarSupportedContent"
               >
                 <ul className="navbar-nav">
+                  {Auth.loggedIn() ? (
+                    <li className="nav-item ">
+                      <NavLink
+                        className="nav-link text-light"
+                        activeClassName="active"
+                        to="/new"
+                        data-tip="Add new recipe"
+                      >
+                        <i className="material-icons fa-2x" aria-hidden="true">
+                          add_to_photos
+                        </i>
+                      </NavLink>
+                    </li>
+                  ) : (
+                    ''
+                  )}
                   <li className="nav-item ">
                     <NavLink
                       className="nav-link text-light"
@@ -183,7 +182,7 @@ class Catalog extends Component {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      {this.auth()}
+                      {this.navLinks()}
                     </div>
                   </li>
                 </ul>

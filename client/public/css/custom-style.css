@@ -1,70 +1,70 @@
 body {
-    padding: 0;
-    margin: 0;
-    background: url('../img/bgp.fw.png') center center;
+  padding: 0;
+  margin: 0;
+  background: url('../img/bgp.fw.png') center center;
 }
 
 @media screen and (max-width: 990px) {
-    #catalog {
-        margin-top: 150px;
-    }
-    .catalog h4 {
-        font-size: 14px;
-    }
-    input[type="search"] {
-        height: 10px !important;
-        width: 100%;
-    }
+  #catalog {
+    margin-top: 150px;
+  }
+  .catalog h4 {
+    font-size: 14px;
+  }
+  input[type="search"] {
+    height: 10px !important;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1300px) and (min-width: 990px) {
-    .col-lg-9 {
-        -ms-flex: 0 0 66.666667%;
-        flex: 0 0 66.666667%;
-        max-width: 66.666667%;
-    }
+  .col-lg-9 {
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
 }
 
 .wrapper {
-    height: auto;
-    width: 700px;
-    margin: 50px auto;
-    -webkit-box-shadow: 0px 0px 13px 1px rgba(228, 235, 231, 1);
-    -moz-box-shadow: 0px 0px 13px 1px rgba(228, 235, 231, 1);
-    box-shadow: 0px 0px 13px 1px rgba(228, 235, 231, 1);
+  height: auto;
+  width: 700px;
+  margin: 50px auto;
+  -webkit-box-shadow: 0px 0px 13px 1px rgba(228, 235, 231, 1);
+  -moz-box-shadow: 0px 0px 13px 1px rgba(228, 235, 231, 1);
+  box-shadow: 0px 0px 13px 1px rgba(228, 235, 231, 1);
 }
 
 .headers {
-    height: 300px;
-    width: 100%;
-    background-color: #036868;
-    padding: 50px 10px;
+  height: 300px;
+  width: 100%;
+  background-color: #036868;
+  padding: 50px 10px;
 }
 
 .headers p {
-    margin: 30px 20px;
+  margin: 30px 20px;
 }
 
 .form {
-    margin: 10px auto;
-    max-width: 550px;
-    padding: 20px 12px 10px 20px;
-    font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  margin: 10px auto;
+  max-width: 550px;
+  padding: 20px 12px 10px 20px;
+  font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 .form li {
-    padding: 0;
-    display: block;
-    list-style: none;
-    margin: 10px 0 0 0;
+  padding: 0;
+  display: block;
+  list-style: none;
+  margin: 10px 0 0 0;
 }
 
 .form label {
-    margin: 20px 0 3px 0;
-    padding: 0px;
-    display: block;
-    font-weight: 600;
-    color: #353333;
+  margin: 20px 0 3px 0;
+  padding: 0px;
+  display: block;
+  font-weight: 600;
+  color: #353333;
 }
 
 .form input[type=text],
@@ -78,18 +78,18 @@ body {
 .form input[type=email],
 textarea,
 select {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    border: 1px solid lightgray;
-    padding: 12px;
-    margin: 0px;
-    font-size: 16px;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-    outline: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid lightgray;
+  padding: 12px;
+  margin: 0px;
+  font-size: 16px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
 }
 
 .form input[type=text]:focus,
@@ -102,40 +102,35 @@ select {
 .form input[type=url]:focus,
 .form input[type=email]:focus,
 select:focus {
-    border: 1px solid rgb(216, 183, 73);
+  border: 1px solid rgb(216, 183, 73);
 }
 
 .crop-text {
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-}
-
-.img-box {
-    height: 200px;
-    width: 100%;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .form .special {
-    margin: 10px 0 0 0;
-    padding: 0;
+  margin: 10px 0 0 0;
+  padding: 0;
 }
 
 .form .mesh {
-    display: inline;
-    border: 1px solid red;
-    padding: 13px;
+  display: inline;
+  border: 1px solid red;
+  padding: 13px;
 }
 
 .form .special select {
-    /* border: 1px solid lightgray; */
-    padding: 11px;
-    background: transparent;
-    margin: 0px;
-    font-size: 16px;
-    /* width: 20%; */
+  /* border: 1px solid lightgray; */
+  padding: 11px;
+  background: transparent;
+  margin: 0px;
+  font-size: 16px;
+  /* width: 20%; */
 }
 
 
@@ -144,40 +139,40 @@ select:focus {
 } */
 
 .form .special input[type=text] {
-    padding: 12px;
-    border-right: 1px solid lightgray;
-    border-left: 0;
-    border-bottom: 1px solid lightgray;
-    border-top: 1px solid lightgray;
-    margin: 0 !important;
-    font-size: 16px;
+  padding: 12px;
+  border-right: 1px solid lightgray;
+  border-left: 0;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  margin: 0 !important;
+  font-size: 16px;
 }
 
 .form .special input[type=text]:focus {
-    padding: 12px;
-    border: 1px solid #6AAD4B;
-    margin: 0 !important;
-    font-size: 16px;
+  padding: 12px;
+  border: 1px solid #6AAD4B;
+  margin: 0 !important;
+  font-size: 16px;
 }
 
 .form input[type=submit],
 .form input[type=button] {
-    background: #6AAD4B;
-    padding: 12px;
-    border: none;
-    color: #fff;
-    width: 100%;
-    margin-top: 50px;
-    font-size: 16px;
+  background: #6AAD4B;
+  padding: 12px;
+  border: none;
+  color: #fff;
+  width: 100%;
+  margin-top: 50px;
+  font-size: 16px;
 }
 
 .form input[type=submit]:hover,
 .form input[type=button]:hover {
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 .form .required {
-    color: red;
+  color: red;
 }

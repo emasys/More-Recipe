@@ -55,16 +55,12 @@ class Catalog extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link
-                  to={`/recipe/${item.id}`}
-                  onMouseEnter={this.hoverIn}
-                  onMouseLeave={this.hoverOut}
-                >
+                <Link to={`/recipes/${item.id}`} className=" hvr-bounce-out">
                   <div className={`card animate`}>
                     <img
                       className="card-img-top img-box"
                       src={`../../../img/uploads/${item.foodImg}`}
-                      alt="Card image cap"
+                      alt="recipe image"
                     />
 
                     <div className="card-body p-0 text-center social-icons">
@@ -74,7 +70,7 @@ class Catalog extends Component {
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.name}
                       </h6>
-                      <div className="card-body p-0 text-center">
+                      <div className="card-body p-5 text-left bg-light">
                         <p className="crop-text">{item.description}</p>
                       </div>
                       <span>

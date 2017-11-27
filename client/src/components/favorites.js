@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
+import Auth from './auth';
 
 //components
 // import Catalog from './catalog';
@@ -39,7 +40,6 @@ class Favorites extends Component {
         );
       }
       return fav.userFav.favorites.map((item, index) => {
-        console.log(item);
         return (
           <div
             key={index}
@@ -53,17 +53,12 @@ class Favorites extends Component {
               <Fade bottom>
                 <Link
                   to={`/recipe/${item.recipeId}`}
-                  onMouseEnter={this.hoverIn}
-                  onMouseLeave={this.hoverOut}
+                  className=" hvr-bounce-out"
                 >
                   <div className={`card animate`}>
-                    <div className="description">
-                      <h6>Description</h6>
-                      {item.Recipe.description}
-                    </div>
                     <img
-                      className="card-img-top"
-                      src="../../../img/e5bf6d96d76b37f6da3351b4bff7b0e9--african-vegan-recipes-vegan-african-food.jpg"
+                      className="card-img-top img-box"
+                      src={`../../../img/uploads/${item.Recipe.foodImg}`}
                       alt="Card image cap"
                     />
                     <div className="card-body p-0 text-center social-icons">
@@ -75,6 +70,9 @@ class Favorites extends Component {
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.Recipe.name}
                       </h6>
+                      <div className="card-body p-5 text-left bg-light text-dark">
+                        <p className="crop-text">{item.Recipe.description}</p>
+                      </div>
                       <span>
                         <i className="fa fa-heart-o" aria-hidden="true" />
                         {item.Recipe.favorite}

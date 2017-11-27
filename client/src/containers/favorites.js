@@ -4,6 +4,7 @@ import { getFavs, searchRecipes } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import Auth from '../components/auth';
 
 //component
 import CatalogList from '../components/catalog';
@@ -54,26 +55,23 @@ class Catalog extends Component {
     this.componentDidMount();
   }
   logout() {
-    localStorage.removeItem('token');
+    Auth.logout();
   }
-  auth() {
-    const login = localStorage.getItem('token');
-    console.log(login);
-    console.log('navbar');
-    if (login) {
-      const decoded = jwt_decode(login);
+
+  navLinks() {
+    if (Auth.loggedIn()) {
       return (
         <h6>
-          <Link className="dropdown-item" to={`/profile/${decoded.id}`}>
+          <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
             <i className="fa fa-user-circle" aria-hidden="true" />
             {` `}
             Profile
           </Link>
-          <Link className="dropdown-item" onClick={logout} to="/">
+          <a className="dropdown-item" onClick={this.logout} href="/">
             <i className="fa fa-sign-out" aria-hidden="true" />
             {` `}
             Logout
-          </Link>
+          </a>
         </h6>
       );
     } else {
@@ -131,6 +129,22 @@ class Catalog extends Component {
                 id="navbarSupportedContent"
               >
                 <ul className="navbar-nav">
+                  {Auth.loggedIn() ? (
+                    <li className="nav-item ">
+                      <NavLink
+                        className="nav-link text-light"
+                        activeClassName="active"
+                        to="/new"
+                        data-tip="Add new recipe"
+                      >
+                        <i className="material-icons fa-2x" aria-hidden="true">
+                          add_to_photos
+                        </i>
+                      </NavLink>
+                    </li>
+                  ) : (
+                    ''
+                  )}
                   <li className="nav-item ">
                     <NavLink
                       className="nav-link text-light"
@@ -166,7 +180,7 @@ class Catalog extends Component {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      {this.auth()}
+                      {this.navLinks()}
                     </div>
                   </li>
                 </ul>

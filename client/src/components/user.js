@@ -27,6 +27,7 @@ class Profile extends Component {
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
     this.props.getUserRecipes(this.state.limit).then(() => {
+      console.log(this.props.userInfo);
       this.setState(prevState => {
         return {
           limit: prevState.limit + 6
@@ -49,15 +50,15 @@ class Profile extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link to={`/recipe/${item.id}`}>
+                <Link to={`/recipe/${item.id}`} className="hvr-bounce-out">
                   <div className="card animate">
                     <div className="description">
                       <h6>Description</h6>
                       {item.description}
                     </div>
                     <img
-                      className="card-img-top"
-                      src="../../../img/e5bf6d96d76b37f6da3351b4bff7b0e9--african-vegan-recipes-vegan-african-food.jpg"
+                      className="card-img-top profile-img-box"
+                      src={`../../../img/uploads/${item.foodImg}`}
                       alt="Card image cap"
                     />
                     <div className="card-body p-0 text-center social-icons">
@@ -101,25 +102,33 @@ class Profile extends Component {
   generateUserInfo(data) {
     if (data) {
       // console.log(data.data);
-      const { id, firstName, lastName, bio, email } = data.data;
+      const {
+        id,
+        firstName,
+        lastName,
+        bio,
+        email,
+        avatar,
+        country
+      } = data.data;
       return (
         <div className="col-lg-4 col-sm-12 mr-5 mb-10">
           <img
-            src="/img/Profile_avatar_placeholder_large.png"
+            src={`/img/uploads/${avatar}.png`}
             alt="foodie"
             className="img-fluid rounded mb-3"
           />
-          <div className="bg-dark rounded p-5 text-white">
-            <h4>Name: {`${firstName} ${lastName}`}</h4>
-            <p>email: {email}</p>
+          <div className="bg-light rounded p-10">
+            <h2 className="mb-10 bolder">{`${firstName} ${lastName}`}</h2>
             <p>
-              <i className="fa fa-map-marker" aria-hidden="true" /> Nigeria
-            </p>
-            <hr />
-            <p>
-              Bio
-              <hr />
               {bio}
+              <hr />
+            </p>
+            <p>
+              <i className="fa fa-envelope" aria-hidden="true" /> {email}
+            </p>
+            <p className=" text-capitalize">
+              <i className="fa fa-map-marker" aria-hidden="true" /> {country}
             </p>
           </div>
         </div>
@@ -138,8 +147,12 @@ class Profile extends Component {
           <div className="row justify-content-center">
             {this.generateUserInfo(this.props.userInfo)}
             <div className="col-lg-7 col-sm-12 recipe-lists">
-              <h2 className="fresh-title">Recipes </h2>
+              <div className="clearfix">
+                <h2 className="fresh-title float-left clearfix">Recipes </h2>
+              </div>
+
               <hr />
+
               <div className="row justify-content-center">
                 {this.generateRecipes(this.props.user)}
               </div>

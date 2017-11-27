@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { signIn } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -38,7 +38,9 @@ class SignIn extends Component {
     this.props.signIn(this.state).then(() => {
       // console.log(this.props.signin.user);
       if (this.props.signin.user.success) {
-        this.props.history.push('/');
+        // this.props.history.push('/');
+        console.log('done');
+        return (window.location.href = '/');
       }
       if (this.props.signin.user.status) {
         this.setState({
@@ -57,8 +59,9 @@ class SignIn extends Component {
         <div className="row justify-content-center">
           <div className="col-lg-4 col-sm-12 ">
             <div
-              className={`alert alert-danger alert-dismissible fade ${this.state
-                .showErrMessage}`}
+              className={`alert alert-danger alert-dismissible fade ${
+                this.state.showErrMessage
+              }`}
               role="alert"
             >
               <strong>Error!</strong> invalid credentials
