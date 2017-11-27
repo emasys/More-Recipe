@@ -1,44 +1,57 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
+import Auth from './auth.js';
 
-const logout = () => {
-  localStorage.removeItem('token');
-};
-
-const auth = () => {
-  const login = localStorage.getItem('token');
-  // console.log(login);
-  // console.log('navbar');
-  if (login) {
-    return (
-      <Link className="dropdown-item" onClick={logout} to="/">
-        <i className="fa fa-sign-out" aria-hidden="true" />
-        {` `}
-        Logout
-      </Link>
-    );
-  } else {
-    return (
-      <h6>
-        <Link className="dropdown-item" to="/signin">
-          <i className="fa fa-sign-in" aria-hidden="true" />
-          {` `}
-          Sign in
-        </Link>
-        <Link className="dropdown-item" to="/signup">
-          <i className="fa fa-user-plus" aria-hidden="true" />
-          {` `}
-          Sign up
-        </Link>
-      </h6>
-    );
-  }
-};
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  logout() {
+    Auth.logout();
+  }
+
+  navLinks() {
+    if (Auth.loggedIn()) {
+      return (
+        <h6>
+          <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
+            <i className="fa fa-user-circle" aria-hidden="true" />
+            {` `}
+            Profile
+          </Link>
+          <a className="dropdown-item" onClick={this.logout} href="/">
+            <i className="fa fa-sign-out" aria-hidden="true" />
+            {` `}
+            Logout
+          </a>
+        </h6>
+      );
+    } else {
+      return (
+        <h6>
+          <Link className="dropdown-item" to="/signin">
+            <i className="fa fa-sign-in" aria-hidden="true" />
+            {` `}
+            Sign in
+          </Link>
+          <Link className="dropdown-item" to="/signup">
+            <i className="fa fa-user-plus" aria-hidden="true" />
+            {` `}
+            Sign up
+          </Link>
+        </h6>
+      );
+    }
+  }
   render() {
     return (
       <section className="container-fluid fixed">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
+        <nav
+          className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar"
+          style={{ zIndex: 1000 }}
+        >
           <div className="container">
             <Link className="navbar-brand text-white" to="/">
               {/* <img src="/img/favicon.fw.png" alt="favicon" /> */}
@@ -60,11 +73,28 @@ class Navbar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav">
+                {Auth.loggedIn() ? (
+                  <li className="nav-item ">
+                    <NavLink
+                      className="nav-link text-light"
+                      activeClassName="active"
+                      to="/new"
+                      data-tip="Add new recipe"
+                    >
+                      <i className="material-icons fa-2x" aria-hidden="true">
+                        add_to_photos
+                      </i>
+                    </NavLink>
+                  </li>
+                ) : (
+                  ''
+                )}
                 <li className="nav-item ">
                   <NavLink
                     className="nav-link text-light"
                     activeClassName="active"
                     to="/catalog"
+                    data-tip="Catalog"
                   >
                     <i className="material-icons fa-2x" aria-hidden="true">
                       &#xE8EF;
@@ -76,6 +106,7 @@ class Navbar extends Component {
                     className="nav-link "
                     activeClassName="active"
                     to="/favorites"
+                    data-tip="Your favorites"
                   >
                     <i className="material-icons fa-2x red">&#xE87D;</i>
                   </NavLink>
@@ -95,15 +126,11 @@ class Navbar extends Component {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    <Link className="dropdown-item" to="/profile">
-                      <i className="fa fa-user-circle" aria-hidden="true" />
-                      {` `}
-                      Profile
-                    </Link>
-                    {auth()}
+                    {this.navLinks()}
                   </div>
                 </li>
               </ul>
+              <ReactTooltip place="bottom" type="dark" effect="float" />
             </div>
           </div>
         </nav>

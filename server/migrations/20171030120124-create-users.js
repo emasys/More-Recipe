@@ -22,6 +22,12 @@ module.exports = {
       bio: {
         type: Sequelize.STRING
       },
+      country: {
+        type: Sequelize.STRING
+      },
+      avatar: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -32,7 +38,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Users');
   }
 };

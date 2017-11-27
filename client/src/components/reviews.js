@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { postReview, getRecipeItem } from '../actions';
+import { Link } from 'react-router-dom';
 
 class Reviews extends Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Reviews extends Component {
   getReview(reviews) {
     if (reviews) {
       const comments = reviews.recipe.reviews;
+      console.log(comments);
       return comments.map((comment, index) => {
         return (
           <div className="direction rounded my-2" key={index}>
@@ -53,7 +55,7 @@ class Reviews extends Component {
               <p className="mb-0">{comment.content}</p>
               <footer className="blockquote-footer">
                 {' '}
-                <a href="user.html"> {comment.user}</a>
+                <Link to={`/user/${comment.userId}`}> {comment.user}</Link>
               </footer>
             </blockquote>
           </div>

@@ -6,6 +6,12 @@ export default (state = {}, action) => {
         fav: action.payload
       };
 
+    case 'GET_FAVORITES':
+      return {
+        ...state,
+        userFav: action.payload
+      };
+
     default:
       return state;
   }

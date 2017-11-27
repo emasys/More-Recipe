@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { getRecipes, searchRecipes } from '../actions';
+import { getFavs, searchRecipes } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import Auth from '../components/auth';
-// import Script from 'react-load-script';
 
 //component
 import CatalogList from '../components/catalog';
@@ -22,16 +22,15 @@ class Catalog extends Component {
     this.searchBar = this.searchBar.bind(this);
     this.search = this.search.bind(this);
     this.nextPage = this.nextPage.bind(this);
-    this.navLinks = this.navLinks.bind(this);
+    this.auth = this.auth.bind(this);
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
-    this.props.getRecipes(this.state.page_limit).then(() => {
+    this.props.getFavs().then(() => {
       this.setState(prevState => {
         return {
-          All_recipes: this.props.recipes.allRecipes,
-          page_limit: prevState.page_limit + 12
+          All_recipes: this.props.favorites
         };
       });
     });
@@ -92,7 +91,6 @@ class Catalog extends Component {
       );
     }
   }
-
   render() {
     const { search } = this.state;
     return (

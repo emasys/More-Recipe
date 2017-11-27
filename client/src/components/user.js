@@ -149,13 +149,6 @@ class Profile extends Component {
             <div className="col-lg-7 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h2 className="fresh-title float-left clearfix">Recipes </h2>
-                <Link
-                  className="btn btn-dark float-right clearfix"
-                  role="button"
-                  to="/new"
-                >
-                  Add New Recipes
-                </Link>
               </div>
 
               <hr />

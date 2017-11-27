@@ -18,5 +18,9 @@ webpack.prod.config.js
 /client/src/components/test.js
 /client/src/containers/recipe_item_test.js
 /client/src/components/recipe_item_image.js
-/client/src/containers/Catalog.js
 /client/src/containers/Catalog_test.js
+/uploads
+/my-uploads
+/client/public/img
+/.eslintignore
+/yarn-error.log

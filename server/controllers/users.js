@@ -24,6 +24,11 @@ export default class {
    */
   static signUp(req, res) {
     const request = req.body;
+    // console.log(req.file);
+    if (req.file) {
+      request.avatar = req.file.fieldname;
+      console.log(request);
+    }
     const validator = new Validator(request, Users.signUpRules());
     if (validator.passes()) {
       if (request.confirmPassword !== request.password) {
@@ -41,19 +46,14 @@ export default class {
               status: 'email already exist in our database'
             });
           }
-          Users.create({
-            email: req.body.email,
-            password: req.body.password,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            bio: req.body.bio
-          })
+          Users.create(request)
             .then(newUser => {
               const data = _.pick(newUser, [
                 'id',
                 'firstName',
                 'lastName',
-                'email'
+                'email',
+                'avatar'
               ]);
               const token = jwt.sign(data, process.env.JWT_SECRET, {
                 expiresIn: '7d'
@@ -102,7 +102,9 @@ export default class {
           'firstName',
           'lastName',
           'bio',
-          'email'
+          'email',
+          'country',
+          'avatar'
         ]);
         res.status(200).send({ success: true, data });
       })

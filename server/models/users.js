@@ -22,6 +22,14 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     bio: {
       type: DataTypes.TEXT,
       allowNull: false

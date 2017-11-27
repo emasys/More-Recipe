@@ -1,5 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
+// import fetch from 'isomorphic-fetch';
+import 'whatwg-fetch';
 // import storeLocal from 'perform-local-storage';
 
 const URL = 'http://localhost:8081/api/v1';
@@ -54,16 +56,60 @@ export const getUserInfo = id => {
   return { type: 'USER_INFO', payload };
 };
 
+//Get user favorites
+export const getFavs = () => {
+  const payload = fetch(`${URL}/recipes/fav?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'GET_FAVORITES', payload };
+};
+
+//edit recipe
+export const editRecipe = (data, id) => {
+  const x = {
+    name: 'new name',
+    description: 'new desc',
+    direction: 'new direction',
+    ingredients: 'new ingredient'
+  };
+  const info = qs.stringify(data);
+  console.log(info);
+  const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
+    method: 'Post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: info
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
+
+  return { type: 'EDIT_RECIPE', payload };
+};
 //Create a new user
 export const signUp = data => {
+  const formData = new FormData();
+  for (let key in data) {
+    console.log(key, data[key]);
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  console.log(formData);
   const userInfo = qs.stringify(data);
   // console.log(userInfo);
   const payload = fetch(`${URL}/users/signup`, {
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: userInfo
+    body: formData
   })
     .then(res => res.json())
     .then(res => {
@@ -113,24 +159,6 @@ export const postReview = (data, id) => {
   return { type: 'REVIEW', payload };
 };
 
-//Pagination, view next page
-// export const getNextPage = data => {
-//   const next = qs.stringify(data);
-//   const payload = fetch(`${URL}/recipes/next?token=${xtoken}`, {
-//     method: 'post',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//     },
-//     body: next
-//   })
-//     .then(res => res.json())
-//     .then(res => {
-//       return res;
-//     });
-
-//   return { type: 'NEXT', payload };
-// };
-
 //search for recipes
 export const searchRecipes = data => {
   // console.log(data);
@@ -154,16 +182,22 @@ export const searchRecipes = data => {
 
 //Add a recipe
 export const addRecipe = data => {
-  const recipe = qs.stringify(data);
+  const formData = new FormData();
+  for (let key in data) {
+    console.log(key, data[key]);
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  console.log(formData);
   const payload = fetch(`${URL}/recipes?token=${xtoken}`, {
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: recipe
+    body: formData
   })
     .then(res => res.json())
     .then(res => {
+      console.log(res);
       return res;
     });
 
@@ -184,6 +218,22 @@ export const setFavorite = id => {
     });
 
   return { type: 'SET_FAVORITE', payload };
+};
+
+//Delete Recipe
+export const delRecipe = id => {
+  const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    });
+
+  return { type: 'DELETE_RECIPE', payload };
 };
 
 //upvote

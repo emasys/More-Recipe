@@ -10,21 +10,7 @@ import Navbar from './navbar';
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      bio: ''
-    };
 
-    this.fnChanged = this.fnChanged.bind(this);
-    this.lnChanged = this.lnChanged.bind(this);
-    this.emailChanged = this.emailChanged.bind(this);
-    this.bioChanged = this.bioChanged.bind(this);
-    this.pwChanged = this.pwChanged.bind(this);
-    this.cpChanged = this.cpChanged.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -32,152 +18,123 @@ class Signup extends Component {
     // this.signup(this.state);
   }
 
-  fnChanged(e) {
-    this.setState({
-      firstName: e.target.value
-    });
-  }
-  lnChanged(e) {
-    this.setState({
-      lastName: e.target.value
-    });
-  }
-  emailChanged(e) {
-    this.setState({
-      email: e.target.value
-    });
-  }
-  pwChanged(e) {
-    this.setState({
-      password: e.target.value
-    });
-  }
-  cpChanged(e) {
-    this.setState({
-      confirmPassword: e.target.value
-    });
-  }
-  bioChanged(e) {
-    this.setState({
-      bio: e.target.value
-    });
-  }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signUp(this.state);
-    this.props.history.push('/profile');
+    const file = document.querySelector('input[type=file]').files[0];
+    const data = {
+      firstName: e.target.elements.fname.value,
+      lastName: e.target.elements.lname.value,
+      email: e.target.elements.email.value,
+      password: e.target.elements.pass.value,
+      confirmPassword: e.target.elements.cpass.value,
+      bio: e.target.elements.bio.value,
+      country: e.target.elements.country.value,
+      avatar: file
+    };
+    this.props.signUp(data);
+    console.log(data);
+    // this.props.history.push('/');
   }
   render() {
-    const {
-      bio,
-      confirmPassword,
-      email,
-      firstName,
-      lastName,
-      password
-    } = this.state;
     return (
       <section className="container ">
         <Navbar />
-        <div className="row justify-content-center">
-          <div className="col-lg-8 col-sm-12 form-items">
+        <div className="row justify-content-center mt-80">
+          <div className="catalog-wrapper">
             <form onSubmit={this.handleSubmit}>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label htmlFor="inputFName" className="col-form-label">
-                    First Name
-                  </label>
+              <ul className="form row">
+                <li className="col-lg-6 col-sm-12">
+                  <label>First Name</label>
                   <input
                     type="text"
-                    className="form-control"
-                    name="firstName"
+                    required
+                    placeholder="First Name"
+                    className="col-lg-11 col-sm-12"
+                    name="fname"
                     id="inputFName"
-                    value={firstName}
-                    onChange={this.fnChanged}
-                    placeholder="First name"
                   />
-                </div>
-                <div className="form-group col-md-6">
-                  <label htmlFor="inputLName" className="col-form-label">
-                    Last Name
-                  </label>
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>Last Name</label>
                   <input
                     type="text"
-                    name="lastName"
-                    value={lastName}
-                    onChange={this.lnChanged}
-                    className="form-control"
-                    id="inputLName"
+                    required
                     placeholder="Last Name"
+                    className="col-lg-11 col-sm-12"
+                    name="lname"
+                    id="inputLName"
                   />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-4">
-                  <label htmlFor="inputEmail4" className="col-form-label">
-                    Email
-                  </label>
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>email</label>
                   <input
                     type="email"
+                    required
+                    className="col-lg-11 col-sm-12"
                     name="email"
-                    value={email}
-                    onChange={this.emailChanged}
-                    className="form-control"
-                    id="inputEmail4"
-                    placeholder="Email"
+                    id="inputEmail"
+                    placeholder="example@example.com"
                   />
-                </div>
-                <div className="form-group col-md-4">
-                  <label htmlFor="inputPassword4" className="col-form-label">
+                </li>
+                <li className="special col-lg-6 col-sm-12">
+                  <label>Country</label>
+                  <select name="country" className="col-lg-11 col-sm-12 ">
+                    <option value="nigeria">Nigeria</option>
+                  </select>
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>
                     Password
                     <code>8-20 characters</code>
                   </label>
                   <input
                     type="password"
-                    name="password"
-                    value={password}
-                    onChange={this.pwChanged}
-                    className="form-control"
+                    required
+                    className="col-lg-11 col-sm-12"
+                    name="pass"
                     id="inputPassword4"
                     placeholder="**********"
                   />
-                </div>
-                <div className="form-group col-md-4">
-                  <label htmlFor="inputPassword4" className="col-form-label">
-                    Confirm Password
-                  </label>
+                </li>
+                <li className="col-lg-6 col-sm-12">
+                  <label>Confirm Password</label>
                   <input
                     type="password"
-                    value={confirmPassword}
-                    onChange={this.cpChanged}
-                    name="confirmPassword"
-                    className="form-control"
+                    required
+                    className="col-lg-11 col-sm-12"
+                    name="cpass"
                     id="inputPassword4"
                     placeholder="**********"
                   />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group col-md-12">
-                  <label htmlFor="FormControlTextarea">Bio</label>
+                </li>
+                <li className=" col-lg-6 col-sm-12">
+                  <label>Bio</label>
                   <textarea
-                    className="form-control"
+                    className="col-lg-11 col-sm-12"
                     id="FormControlTextarea"
-                    value={bio}
-                    onChange={this.bioChanged}
                     name="bio"
                     rows="4"
                   />
-                </div>
-              </div>
-              <button type="submit" className="btn btn-dark">
-                Sign up
-              </button>
-              {` `}
-              <Link to="/signin" className="btn btn-dark">
-                Sign up
-              </Link>
+                </li>
+                <li className=" col-lg-6 col-sm-12">
+                  <label>Upload Avatar</label>
+                  <input
+                    type="file"
+                    name="avatar"
+                    id="avatar"
+                    className="btn btn-dark"
+                  />
+                </li>
+
+                <li className=" col-12 ">
+                  <input
+                    type="submit"
+                    value="submit"
+                    id="submit"
+                    className="bg-dark btn hovered"
+                  />
+                </li>
+              </ul>
             </form>
           </div>
         </div>

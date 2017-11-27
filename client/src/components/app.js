@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import Script from 'react-load-script';
 // import Header from './header';
 import Catalog from '../containers/catalog';
 import { Link } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { connect } from 'react-redux';
 //component
 import CatalogList from '../components/catalog';
 import Navbar from './navbar';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +49,7 @@ class App extends Component {
     });
     this.componentDidMount();
   }
+
   render() {
     const { search } = this.state;
     const headerImg = {
@@ -62,17 +65,12 @@ class App extends Component {
             <div className="row header-items justify-content-center">
               <div className="col-lg-6 col-sm-10 text-center">
                 <img src="../img/logo.png" alt="logo" />
-                <p className=" text-shadowed bolden mt-2">
-                  More Recipes provides a platform for you to share the awesome
-                  and exciting recipe ideas you have invented or learnt. feel
-                  free to Browse through amazing recipes from around the world,
-                  or &nbsp;<Link
-                    to="/signup"
-                    className="btn btn-dark hvr-icon-buzz-out"
-                    role="button"
-                  >
-                    Sign Up&nbsp;
-                  </Link>&nbsp;to post yours.
+                <p className=" mt-5 text-dark bg-mirror header-title">
+                  “I hate the notion of a secret recipe. Recipes are by nature
+                  derivative and meant to be shared that is how they improve,
+                  are changed, how new ideas are formed. To stop a recipe in
+                  it's tracks, to label it "secret" just seems mean.” ― Molly
+                  Wizenberg
                 </p>
               </div>
             </div>
@@ -81,7 +79,7 @@ class App extends Component {
         <section className="container catalog-wrapper" id="catalog">
           <div className="col-12">
             <div className="clearfix">
-              <h5 className="float-left">Top Recipes Today</h5>
+              <h4 className="float-left fresh-title">Top Recipes Today</h4>
               <h5 className="float-right">
                 <Link
                   to="/catalog"
