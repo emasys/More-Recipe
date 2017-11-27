@@ -39,7 +39,6 @@ class SignIn extends Component {
       // console.log(this.props.signin.user);
       if (this.props.signin.user.success) {
         // this.props.history.push('/');
-        console.log('done');
         return (window.location.href = '/');
       }
       if (this.props.signin.user.status) {

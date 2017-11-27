@@ -109,17 +109,21 @@ class Profile extends Component {
         bio,
         email,
         avatar,
+        moniker,
         country
       } = data.data;
       return (
         <div className="col-lg-4 col-sm-12 mr-5 mb-10">
           <img
-            src={`/img/uploads/${avatar}.png`}
+            src={`/img/uploads/${avatar}`}
             alt="foodie"
             className="img-fluid rounded mb-3"
           />
           <div className="bg-light rounded p-10">
-            <h2 className="mb-10 bolder">{`${firstName} ${lastName}`}</h2>
+            <h2 className="mb-10 bolder">
+              {`${firstName} ${lastName} `}
+              (<small className="header-title">{moniker}</small>)
+            </h2>
             <p>
               {bio}
               <hr />

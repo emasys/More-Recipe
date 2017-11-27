@@ -3,6 +3,7 @@ import { signUp } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 //component
 import Navbar from './navbar';
@@ -22,18 +23,85 @@ class Signup extends Component {
     e.preventDefault();
     const file = document.querySelector('input[type=file]').files[0];
     const data = {
-      firstName: e.target.elements.fname.value,
-      lastName: e.target.elements.lname.value,
-      email: e.target.elements.email.value,
-      password: e.target.elements.pass.value,
-      confirmPassword: e.target.elements.cpass.value,
-      bio: e.target.elements.bio.value,
-      country: e.target.elements.country.value,
+      firstName: e.target.elements.fname.value.trim(),
+      lastName: e.target.elements.lname.value.trim(),
+      email: e.target.elements.email.value.trim(),
+      password: e.target.elements.pass.value.trim(),
+      confirmPassword: e.target.elements.cpass.value.trim(),
+      bio: e.target.elements.bio.value.trim(),
+      moniker: e.target.elements.moniker.value.trim(),
+      country: e.target.elements.country.value.trim(),
       avatar: file
     };
-    this.props.signUp(data);
-    console.log(data);
+    const re = /\d/;
+    let submit_data = 0;
+    if (re.test(data.lastName) || data.lastName === '') {
+      document.querySelector('#lastname_error').innerHTML =
+        'Please enter a valid name';
+    } else {
+      document.querySelector('#lastname_error').innerHTML = '';
+      submit_data += 1;
+    }
+    if (re.test(data.firstName) || data.firstName === '') {
+      document.querySelector('#firstname_error').innerHTML =
+        'Please enter a valid name';
+    } else {
+      document.querySelector('#firstname_error').innerHTML = '';
+      submit_data += 1;
+    }
+    if (data.moniker === '') {
+      document.querySelector('#moniker_error').innerHTML =
+        'This field is required';
+    } else {
+      document.querySelector('#moniker_error').innerHTML = '';
+      submit_data += 1;
+    }
+    if (data.email === '') {
+      document.querySelector('#email_error').innerHTML =
+        'Please enter a valid email address';
+    } else {
+      document.querySelector('#email_error').innerHTML = '';
+      submit_data += 1;
+    }
+
+    if (data.password.length < 8) {
+      document.querySelector('#password_error').innerHTML =
+        'Please enter a valid password not less than 8 characters';
+    } else {
+      document.querySelector('#password_error').innerHTML = '';
+      submit_data += 1;
+    }
+
+    if (!_.isEqual(data.password, data.confirmPassword)) {
+      document.querySelector('#cp_error').innerHTML =
+        'Your password did not match';
+    } else {
+      document.querySelector('#cp_error').innerHTML = '';
+      submit_data += 1;
+    }
+
+    console.log(submit_data);
+    if (submit_data === 6) {
+      this.props.signUp(data).then(() => {
+        if (this.props.user.user.success) {
+          return (window.location.href = '/');
+        } else {
+          switch (this.props.user.user.target) {
+            case 'email':
+              document.querySelector('#email_error').innerHTML =
+                'Your email address already exist in our database';
+              break;
+            case 'moniker':
+              document.querySelector('#moniker_error').innerHTML =
+                'Your username already exist in our database';
+              break;
+          }
+        }
+      });
+    }
+
     // this.props.history.push('/');
+    // return (window.location.href = '/');
   }
   render() {
     return (
@@ -51,8 +119,8 @@ class Signup extends Component {
                     placeholder="First Name"
                     className="col-lg-11 col-sm-12"
                     name="fname"
-                    id="inputFName"
                   />
+                  <div className="text-danger" id="firstname_error" />
                 </li>
                 <li className="col-lg-6 col-sm-12">
                   <label>Last Name</label>
@@ -64,9 +132,10 @@ class Signup extends Component {
                     name="lname"
                     id="inputLName"
                   />
+                  <div className="text-danger" id="lastname_error" />
                 </li>
                 <li className="col-lg-6 col-sm-12">
-                  <label>email</label>
+                  <label>Email</label>
                   <input
                     type="email"
                     required
@@ -75,18 +144,23 @@ class Signup extends Component {
                     id="inputEmail"
                     placeholder="example@example.com"
                   />
-                </li>
-                <li className="special col-lg-6 col-sm-12">
-                  <label>Country</label>
-                  <select name="country" className="col-lg-11 col-sm-12 ">
-                    <option value="nigeria">Nigeria</option>
-                  </select>
+                  <div className="text-danger" id="email_error" />
                 </li>
                 <li className="col-lg-6 col-sm-12">
-                  <label>
-                    Password
-                    <code>8-20 characters</code>
-                  </label>
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    required
+                    className="col-lg-11 col-sm-12"
+                    name="moniker"
+                    id="inputEmail"
+                    placeholder="johnnyDoe23"
+                  />
+                  <div className="text-danger" id="moniker_error" />
+                </li>
+
+                <li className="col-lg-6 col-sm-12">
+                  <label>Password</label>
                   <input
                     type="password"
                     required
@@ -95,6 +169,7 @@ class Signup extends Component {
                     id="inputPassword4"
                     placeholder="**********"
                   />
+                  <div className="text-danger" id="password_error" />
                 </li>
                 <li className="col-lg-6 col-sm-12">
                   <label>Confirm Password</label>
@@ -106,15 +181,13 @@ class Signup extends Component {
                     id="inputPassword4"
                     placeholder="**********"
                   />
+                  <div className="text-danger" id="cp_error" />
                 </li>
-                <li className=" col-lg-6 col-sm-12">
-                  <label>Bio</label>
-                  <textarea
-                    className="col-lg-11 col-sm-12"
-                    id="FormControlTextarea"
-                    name="bio"
-                    rows="4"
-                  />
+                <li className="special col-lg-6 col-sm-12">
+                  <label>Country</label>
+                  <select name="country" className="col-lg-11 col-sm-12 ">
+                    <option value="nigeria">Nigeria</option>
+                  </select>
                 </li>
                 <li className=" col-lg-6 col-sm-12">
                   <label>Upload Avatar</label>
@@ -122,7 +195,18 @@ class Signup extends Component {
                     type="file"
                     name="avatar"
                     id="avatar"
+                    required
                     className="btn btn-dark"
+                  />
+                </li>
+                <li className=" col-lg-6 col-sm-12">
+                  <label>Bio</label>
+                  <textarea
+                    className="col-lg-11 col-sm-12"
+                    id="FormControlTextarea"
+                    name="bio"
+                    required
+                    rows="4"
                   />
                 </li>
 
@@ -148,6 +232,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
+  console.log(state.signup);
   return {
     user: state.signup
   };

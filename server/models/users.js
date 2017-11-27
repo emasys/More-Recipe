@@ -18,6 +18,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    moniker: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -33,13 +38,13 @@ export default (sequelize, DataTypes) => {
     bio: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
+    }
   });
 
-  Users.associate = (models) => {
+  Users.associate = models => {
     Users.hasMany(models.Recipes, {
       foreignKey: 'userId',
-      as: 'recipeItems',
+      as: 'recipeItems'
     });
   };
 
@@ -49,7 +54,7 @@ export default (sequelize, DataTypes) => {
   /**
    * Hook for hashing password
    */
-  Users.hook('beforeCreate', (user) => {
+  Users.hook('beforeCreate', user => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(user.password, salt);
     user.password = hash;
@@ -61,6 +66,7 @@ export default (sequelize, DataTypes) => {
       lastName: 'required|alpha',
       email: 'required|email',
       bio: 'required',
+      moniker: 'required',
       password: 'required|min:8'
     };
   };

@@ -26,7 +26,7 @@ export default class {
     const request = req.body;
     // console.log(req.file);
     if (req.file) {
-      request.avatar = req.file.fieldname;
+      request.avatar = req.file.filename;
       console.log(request);
     }
     const validator = new Validator(request, Users.signUpRules());
@@ -43,26 +43,48 @@ export default class {
           if (user) {
             return res.status(406).send({
               success: false,
+              target: 'email',
               status: 'email already exist in our database'
             });
           }
-          Users.create(request)
-            .then(newUser => {
-              const data = _.pick(newUser, [
-                'id',
-                'firstName',
-                'lastName',
-                'email',
-                'avatar'
-              ]);
-              const token = jwt.sign(data, process.env.JWT_SECRET, {
-                expiresIn: '7d'
-              });
-              return res
-                .status(201)
-                .send({ success: true, user: data, token: token });
+
+          Users.findOne({
+            where: { moniker: request.moniker }
+          })
+            .then(user => {
+              if (user) {
+                return res.status(406).send({
+                  success: false,
+                  target: 'moniker',
+                  status: 'moniker already exist in our database'
+                });
+              }
+              Users.create(request)
+                .then(newUser => {
+                  const data = _.pick(newUser, [
+                    'id',
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'avatar',
+                    'moniker'
+                  ]);
+                  const token = jwt.sign(data, process.env.JWT_SECRET, {
+                    expiresIn: '7d'
+                  });
+                  return res
+                    .status(201)
+                    .send({ success: true, user: data, token: token });
+                })
+                .catch(error =>
+                  res.status(500).send({ success: false, error })
+                );
             })
-            .catch(error => res.status(500).send({ success: false, error }));
+            .catch(error => {
+              return res
+                .status(500)
+                .send({ success: false, error: error.status });
+            });
         })
         .catch(error => {
           return res.status(500).send({ success: false, error: error.status });
@@ -74,26 +96,26 @@ export default class {
     }
   }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns 
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   static getUsers(req, res) {
     return Users.findAll({})
       .then(users => res.status(200).send({ success: true, users }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns a user profile
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns a user profile
+   */
   static getOneUser(req, res) {
     return Users.findById(req.params.userId, {})
       .then(user => {
@@ -104,20 +126,21 @@ export default class {
           'bio',
           'email',
           'country',
-          'avatar'
+          'avatar',
+          'moniker'
         ]);
         res.status(200).send({ success: true, data });
       })
       .catch(error => res.status(400).send({ success: false, error }));
   }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns 
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   static updateUser(req, res) {
     return Users.findById(req.params.userId, {})
       .then(user => {
@@ -141,13 +164,13 @@ export default class {
       .catch(error => res.status(400).send(error));
   }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns 
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   static deleteUser(req, res) {
     return Users.findById(req.params.userId)
       .then(user => {
