@@ -16,12 +16,6 @@ class Reviews extends Component {
     this.resetState = this.resetState.bind(this);
   }
 
-  componentWillMount() {
-    // this.props.getRecipeItem(this.props.id);
-  }
-  componentDidUpdate() {
-    // this.props.getRecipeItem(this.props.id);
-  }
 
   resetState() {
     this.setState({

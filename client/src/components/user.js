@@ -26,14 +26,16 @@ class Profile extends Component {
 
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
-    this.props.getUserRecipes(this.state.limit).then(() => {
-      console.log(this.props.userInfo);
-      this.setState(prevState => {
-        return {
-          limit: prevState.limit + 6
-        };
+    this.props
+      .getUserRecipes(this.state.limit, this.props.match.params.id)
+      .then(() => {
+        console.log(this.props.userInfo);
+        this.setState(prevState => {
+          return {
+            limit: prevState.limit + 6
+          };
+        });
       });
-    });
   }
 
   generateRecipes(data) {
@@ -109,7 +111,8 @@ class Profile extends Component {
         bio,
         email,
         avatar,
-        country
+        country,
+        moniker
       } = data.data;
       return (
         <div className="col-lg-4 col-sm-12 mr-5 mb-10">
@@ -119,7 +122,10 @@ class Profile extends Component {
             className="img-fluid rounded mb-3"
           />
           <div className="bg-light rounded p-10">
-            <h2 className="mb-10 bolder">{`${firstName} ${lastName}`}</h2>
+            <h2 className="mb-10 bolder">
+              {`${firstName} ${lastName} `}
+              (<small className="header-title">{moniker}</small>)
+            </h2>
             <p>
               {bio}
               <hr />

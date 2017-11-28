@@ -19,7 +19,7 @@ class moreRecipes {
       console.log(req.file);
     }
     const arr = req.body.ingredients;
-    const getArr = input => input.split(',');
+    const getArr = input => input.trim().split(/\s*,\s*/);
     const validator = new Validator(request, Recipes.createRules());
     if (validator.passes()) {
       Users.findById(req.decoded.id)
@@ -78,19 +78,19 @@ class moreRecipes {
       .catch(error => res.status(400).send({ success: false, error }));
   }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns list of recipes of a particular user
- * @memberof moreRecipes
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns list of recipes of a particular user
+   * @memberof moreRecipes
+   */
   static listPrivateRecipes(req, res) {
     return Recipes.findAll({
       limit: req.params.limit || 5,
       where: {
-        userId: req.decoded.id
+        userId: req.params.id
       }
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
@@ -112,21 +112,22 @@ class moreRecipes {
   //     .catch(error => res.status(400).send({ success: false, error }));
   // }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns result of search query
- * @memberof moreRecipes
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns result of search query
+   * @memberof moreRecipes
+   */
+
   static SearchRecipe(req, res) {
     return Recipes.findAll({
       where: {
         $or: [
           { name: { ilike: `%${req.body.query}%` } },
-          { direction: { ilike: `%${req.body.query}%` } },
-          { description: { ilike: `%${req.body.query}%` } },
+          // { direction: { ilike: `%${req.body.query}%` } },
+          // { description: { ilike: `%${req.body.query}%` } },
           { ingredients: { $contains: [`${req.body.query}`] } }
         ]
       }
@@ -137,14 +138,14 @@ class moreRecipes {
       .catch(error => res.status(400).send({ success: false, error }));
   }
   /**
- *
- *
- * @static
- * @param {object} req
- * @param {object} res
- * @returns a single recipe and increment views count
- * @memberof moreRecipes
- */
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns a single recipe and increment views count
+   * @memberof moreRecipes
+   */
   static getRecipe(req, res) {
     return Recipes.findById(req.params.recipeId, {
       include: [
@@ -192,7 +193,7 @@ class moreRecipes {
    */
   static updateRecipe(req, res) {
     const arr = req.body.ingredients;
-    const getArr = input => input.split(',');
+    const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {})
       .then(recipe => {
         if (!recipe) {
@@ -214,14 +215,14 @@ class moreRecipes {
       .catch(error => res.status(400).send(error));
   }
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns the reaction status of a user
- * @memberof moreRecipes
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns the reaction status of a user
+   * @memberof moreRecipes
+   */
   static checkReactions(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then(recipe => {

@@ -12,6 +12,12 @@ export default (state = {}, action) => {
         userInfo: action.payload
       };
 
+    case 'USER_PROFILE':
+      return {
+        ...state,
+        userProfile: action.payload
+      };
+
     default:
       return state;
   }

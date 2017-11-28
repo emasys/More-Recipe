@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUserRecipes, getUserInfo } from '../actions';
 import Fade from 'react-reveal/Fade';
+import Auth from './auth';
 
 //component
 import Navbar from './navbar';
@@ -26,7 +27,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
-    this.props.getUserRecipes(this.state.limit).then(() => {
+    this.props.getUserRecipes(this.state.limit, Auth.userID()).then(() => {
       console.log(this.props.userInfo);
       this.setState(prevState => {
         return {

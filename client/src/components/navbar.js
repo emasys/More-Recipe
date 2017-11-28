@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { getUserInfo } from '../actions';
+import { getProfile } from '../actions';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import Auth from './auth.js';
@@ -12,8 +12,8 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
-    if (Auth.userID) {
-      this.props.getUserInfo(Auth.userID());
+    if (Auth.userID()) {
+      this.props.getProfile(Auth.userID());
     }
   }
 
@@ -173,13 +173,13 @@ class Navbar extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getUserInfo }, dispatch)
+  ...bindActionCreators({ getProfile }, dispatch)
 });
 
 const mapStateToProps = state => {
-  console.log(state.signin.userInfo);
+  console.log(state.signin.userProfile);
   return {
-    user: state.signin.userInfo
+    user: state.signin.userProfile
   };
 };
 

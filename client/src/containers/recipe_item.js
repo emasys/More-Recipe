@@ -9,7 +9,8 @@ import {
   downvote,
   editRecipe,
   delRecipe,
-  getUpvStatus
+  getUpvStatus,
+  getUserInfo
 } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -55,7 +56,6 @@ class Recipe_item extends Component {
   componentDidMount() {
     this.props.getUpvStatus(this.props.match.params.id);
     this.props.getFavStatus(this.props.match.params.id);
-
     this.props.getRecipeItem(this.props.match.params.id).then(() => {
       const id = this.props.recipes.recipeItem.recipe.userId;
       const {
@@ -64,8 +64,7 @@ class Recipe_item extends Component {
         description,
         direction
       } = this.props.recipes.recipeItem.recipe;
-      console.log(ingredients.join(','));
-
+      this.props.getUserInfo(id);
       if (Auth.userID() === id) {
         this.setState({
           edit: true,
@@ -336,7 +335,10 @@ class Recipe_item extends Component {
             <div className="col-lg-6 col-sm-12  mb-5 recipe-image">
               {this.generateItems(this.props.recipes.recipeItem)}
             </div>
-            <RecipeIngredients ingredients={this.props.recipes.recipeItem} />
+            <RecipeIngredients
+              ingredients={this.props.recipes.recipeItem}
+              data={this.props.userInfo}
+            />
           </div>
           <Reviews id={this.props.match.params.id} />
           <button
@@ -371,7 +373,8 @@ const mapStateToProps = state => {
     recipes: state.recipes,
     favorite: state.favorite,
     favStatus: state.favStatus,
-    votes: state.votes
+    votes: state.votes,
+    userInfo: state.signin.userInfo
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -384,7 +387,8 @@ const mapDispatchToProps = dispatch => ({
       getUpvStatus,
       downvote,
       editRecipe,
-      delRecipe
+      delRecipe,
+      getUserInfo
     },
     dispatch
   )

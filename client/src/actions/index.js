@@ -31,8 +31,8 @@ export const getRecipeItem = id => {
 };
 
 //Get user specific recipes
-export const getUserRecipes = limit => {
-  const payload = fetch(`${URL}/recipes/yours/${limit}?token=${xtoken}`, {
+export const getUserRecipes = (limit, id) => {
+  const payload = fetch(`${URL}/recipes/yours/${limit}/${id}?token=${xtoken}`, {
     method: 'GET'
   })
     .then(res => res.json())
@@ -54,6 +54,19 @@ export const getUserInfo = id => {
       return res;
     });
   return { type: 'USER_INFO', payload };
+};
+
+//user profile
+export const getProfile = id => {
+  const payload = fetch(`${URL}/users/${id}?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'USER_PROFILE', payload };
 };
 
 //Get user favorites

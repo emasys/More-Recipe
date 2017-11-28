@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { getRecipes, searchRecipes } from '../actions';
+import { getRecipes, searchRecipes, getProfile } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Auth from '../components/auth';
@@ -27,6 +27,9 @@ class Catalog extends Component {
   }
 
   componentDidMount() {
+    if (Auth.userID()) {
+      this.props.getProfile(Auth.userID());
+    }
     this.props.getRecipes(this.state.page_limit).then(() => {
       this.setState(prevState => {
         return {
@@ -168,16 +171,39 @@ class Catalog extends Component {
                     </NavLink>
                   </li>
                   <li className="nav-item dropdown">
-                    <a
-                      className="nav-link "
-                      href="#"
-                      id="navbarDropdownMenuLink"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="material-icons fa-2x">&#xE853;</i>
-                    </a>
+                    {Auth.loggedIn() ? (
+                      <a
+                        className="nav-link "
+                        href="#"
+                        id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <img
+                          src={`/img/uploads/${
+                            this.props.user
+                              ? this.props.user.data.avatar.length > 10
+                                ? this.props.user.data.avatar
+                                : 'icon.svg'
+                              : 'icon.svg'
+                          }`}
+                          alt="avatar"
+                          className="fa-2x img-icon rounded-circle"
+                        />
+                      </a>
+                    ) : (
+                      <a
+                        className="nav-link "
+                        href="#"
+                        id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="material-icons fa-2x">&#xE853;</i>
+                      </a>
+                    )}
                     <div
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdownMenuLink"
@@ -207,14 +233,15 @@ class Catalog extends Component {
 }
 const mapStateToProps = state => {
   // console.log(state.recipes);
-  return { recipes: state.recipes };
+  return { recipes: state.recipes, user: state.signin.userProfile };
 };
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
       getRecipes,
-      searchRecipes
+      searchRecipes,
+      getProfile
     },
     dispatch
   )

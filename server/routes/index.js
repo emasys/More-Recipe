@@ -56,7 +56,7 @@ export default routes => {
     Recipes.checkReactions
   );
   routes.get(
-    '/api/v1/recipes/yours/:limit',
+    '/api/v1/recipes/yours/:limit/:id',
     jwt.verifyToken,
     Recipes.listPrivateRecipes
   );

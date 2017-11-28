@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const generateList = ({ ingredients }) => {
   if (ingredients) {
@@ -29,10 +30,28 @@ const getTitle = ({ ingredients }) => {
     return ingredients.recipe.name;
   }
 };
+
+const getUsername = ({ data }) => {
+  if (data) {
+    return data.data.moniker;
+  }
+};
+
+const getUserId = ({ data }) => {
+  if (data) {
+    return data.data.id;
+  }
+};
 const Ingredients = props => {
   return (
     <div className="col-lg-5 col-sm-12">
       <h2 className="fresh-title">{getTitle(props)}</h2>
+      <small className="text-capitalize">
+        A recipe by{' '}
+        <Link className=" bolder text-info" to={`/user/${getUserId(props)}`}>
+          {getUsername(props)}
+        </Link>
+      </small>
       <hr />
       <h5 className="text-muted">Description</h5>
       <div className="pb-3">
