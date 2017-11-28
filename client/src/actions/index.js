@@ -105,17 +105,21 @@ export const signUp = data => {
   }
 
   console.log(formData);
-  const userInfo = qs.stringify(data);
-  // console.log(userInfo);
   const payload = fetch(`${URL}/users/signup`, {
     method: 'post',
     body: formData
   })
     .then(res => res.json())
     .then(res => {
-      // console.log(res);
       window.localStorage.setItem('token', res.token);
-      return res;
+      const jwtbug = window.localStorage.getItem('token');
+      if (jwtbug.length > 9) {
+        console.log(res);
+        return res;
+      } else {
+        window.localStorage.removeItem('token');
+        return res;
+      }
     });
 
   return { type: 'SIGN_UP', payload };
@@ -135,7 +139,12 @@ export const signIn = data => {
     .then(res => res.json())
     .then(res => {
       window.localStorage.setItem('token', res.token);
-      return res;
+      const jwtbug = window.localStorage.getItem('token');
+      if (jwtbug.length > 9) {
+        return res;
+      } else {
+        window.localStorage.removeItem('token');
+      }
     });
 
   return { type: 'SIGN_IN', payload };

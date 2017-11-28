@@ -15,10 +15,6 @@ class Signup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // this.signup(this.state);
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     const file = document.querySelector('input[type=file]').files[0];
@@ -33,7 +29,7 @@ class Signup extends Component {
       country: e.target.elements.country.value.trim(),
       avatar: file
     };
-    const re = /\d/;
+    const re = /[\s\d]/;
     let submit_data = 0;
     if (re.test(data.lastName) || data.lastName === '') {
       document.querySelector('#lastname_error').innerHTML =
@@ -108,9 +104,18 @@ class Signup extends Component {
       <section className="container ">
         <Navbar />
         <div className="row justify-content-center mt-80">
-          <div className="catalog-wrapper">
+          <div className="col-lg-6 col-sm-12 text-center ">
+            <img src="../img/logo.png" alt="logo" />
+            <p className=" mt-5 text-dark bg-mirror header-title">
+              “I hate the notion of a secret recipe. Recipes are by nature
+              derivative and meant to be shared that is how they improve, are
+              changed, how new ideas are formed. To stop a recipe in it's
+              tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
+            </p>
+          </div>
+          <div className="catalog-wrapper col-lg-6 justify-content-center  col-sm-12">
             <form onSubmit={this.handleSubmit}>
-              <ul className="form row">
+              <ul className="form row pl-5">
                 <li className="col-lg-6 col-sm-12">
                   <label>First Name</label>
                   <input
@@ -195,11 +200,10 @@ class Signup extends Component {
                     type="file"
                     name="avatar"
                     id="avatar"
-                    required
-                    className="btn btn-dark"
+                    className=" form-control-file"
                   />
                 </li>
-                <li className=" col-lg-6 col-sm-12">
+                <li className=" col-lg-12 col-sm-12">
                   <label>Bio</label>
                   <textarea
                     className="col-lg-11 col-sm-12"

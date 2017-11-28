@@ -27,7 +27,6 @@ export default class {
     // console.log(req.file);
     if (req.file) {
       request.avatar = req.file.filename;
-      console.log(request);
     }
     const validator = new Validator(request, Users.signUpRules());
     if (validator.passes()) {
@@ -216,7 +215,16 @@ export default class {
             .status(400)
             .send({ success: false, status: 'Invalid email/password' });
         }
-        const payload = _.pick(user, ['id', 'firstName']);
+        const payload = _.pick(user, [
+          'id',
+          'firstName',
+          'lastName',
+          'bio',
+          'email',
+          'country',
+          'avatar',
+          'moniker'
+        ]);
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: '7d'
         });

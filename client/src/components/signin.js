@@ -36,7 +36,6 @@ class SignIn extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      // console.log(this.props.signin.user);
       if (this.props.signin.user.success) {
         // this.props.history.push('/');
         return (window.location.href = '/');
@@ -53,9 +52,18 @@ class SignIn extends Component {
   render() {
     const { password, email } = this.state;
     return (
-      <section className="container ">
+      <section className="container mt-100 mb-100 ">
         <Navbar />
         <div className="row justify-content-center">
+          <div className="col-lg-8 col-sm-12 text-center ">
+            <img src="../img/logo.png" alt="logo" />
+            <p className=" mt-5 text-dark bg-mirror header-title">
+              “I hate the notion of a secret recipe. Recipes are by nature
+              derivative and meant to be shared that is how they improve, are
+              changed, how new ideas are formed. To stop a recipe in it's
+              tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
+            </p>
+          </div>
           <div className="col-lg-4 col-sm-12 ">
             <div
               className={`alert alert-danger alert-dismissible fade ${
@@ -78,43 +86,41 @@ class SignIn extends Component {
               className="form-items"
               onSubmit={this.handleSubmit}
             >
-              <div className="form-row">
-                <div className="form-group col-12">
-                  <label htmlFor="inputEmail4" className="col-form-label">
-                    Email
-                  </label>
+              <ul className="form row">
+                <li className="col-lg-12 col-sm-12">
+                  <label>Email</label>
                   <input
                     type="email"
-                    value={email}
                     required
+                    value={email}
                     onChange={this.emailChanged}
-                    className="form-control"
-                    id="inputEmail4"
-                    placeholder="Email"
+                    className="col-lg-12 col-sm-12"
+                    name="email"
+                    id="inputEmail"
+                    placeholder="example@example.com"
                   />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputPassword4" className="col-form-label">
-                    Password
-                  </label>
+                </li>
+                <li className="col-lg-12 col-sm-12">
+                  <label>Password</label>
                   <input
                     type="password"
                     required
                     onChange={this.pwChanged}
-                    className="form-control"
-                    id="inputPassword4"
-                    placeholder="Password"
+                    className="col-lg-12 col-sm-12"
+                    name="pass"
+                    id="inputPassword"
+                    placeholder="**********"
                   />
-                </div>
-              </div>
-              <button type="submit" className="btn btn-dark">
-                Sign in
-              </button>&nbsp;
-              <Link to="/signup" className="btn btn-dark">
-                Sign up
-              </Link>
+                </li>
+                <li className="col-lg-12 col-sm-12">
+                  <button type="submit" className="btn btn-dark btn-lg ">
+                    Sign in
+                  </button>&nbsp;
+                  <Link to="/signup" className="btn btn-dark btn-lg">
+                    Sign up
+                  </Link>
+                </li>
+              </ul>
             </form>
           </div>
         </div>

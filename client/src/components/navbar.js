@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { getUserInfo } from '../actions';
+import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import Auth from './auth.js';
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    if (Auth.userID) {
+      this.props.getUserInfo(Auth.userID());
+    }
   }
 
   logout() {
@@ -112,16 +121,40 @@ class Navbar extends Component {
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
-                  <a
-                    className="nav-link "
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="material-icons fa-2x">&#xE853;</i>
-                  </a>
+                  {Auth.loggedIn() ? (
+                    <a
+                      className="nav-link "
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src={`/img/uploads/${
+                          this.props.user
+                            ? this.props.user.data.avatar.length > 10
+                              ? this.props.user.data.avatar
+                              : 'icon.svg'
+                            : 'icon.svg'
+                        }`}
+                        alt="avatar"
+                        className="fa-2x img-icon rounded-circle"
+                      />
+                    </a>
+                  ) : (
+                    <a
+                      className="nav-link "
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i className="material-icons fa-2x">&#xE853;</i>
+                    </a>
+                  )}
+
                   <div
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
@@ -139,4 +172,15 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getUserInfo }, dispatch)
+});
+
+const mapStateToProps = state => {
+  console.log(state.signin.userInfo);
+  return {
+    user: state.signin.userInfo
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

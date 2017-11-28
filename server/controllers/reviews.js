@@ -21,6 +21,7 @@ export default class reviews {
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId)
         .then(recipe => {
+          console.log(req.decoded);
           if (!recipe) {
             return res
               .status(404)
@@ -36,6 +37,7 @@ export default class reviews {
             user: req.decoded.moniker
           })
             .then(reviewedRecipe => {
+              console.log(reviewedRecipe);
               return res.status(201).send({ success: true, reviewedRecipe });
             })
             .catch(error => res.status(404).send(error));

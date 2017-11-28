@@ -246,9 +246,11 @@ class Recipe_item extends Component {
             <div className="d-inline mt-3">
               <span className="text-center card-link" onClick={this.favIt}>
                 <i
-                  className={`fa  ${this.props.favStatus.favStatus.success
-                    ? 'fa-heart red animated bounceIn flash'
-                    : 'fa-heart-o'} fa-2x`}
+                  className={`fa  ${
+                    this.props.favStatus.favStatus.success
+                      ? 'fa-heart red animated bounceIn flash'
+                      : 'fa-heart gray'
+                  } fa-2x`}
                   aria-hidden="true"
                   id="favorite"
                 />
@@ -257,9 +259,11 @@ class Recipe_item extends Component {
               <span className="text-center card-link m-1" onClick={this.upvote}>
                 {/* {console.log(this.props.votes.votes)} */}
                 <i
-                  className={`fa ${this.props.votes.votes.upvote.success
-                    ? 'fa-thumbs-up animated bounceIn flash blue'
-                    : 'fa-thumbs-o-up'} fa-2x`}
+                  className={`fa ${
+                    this.props.votes.votes.upvote.success
+                      ? 'fa-thumbs-up animated bounceIn flash blue'
+                      : 'fa-thumbs-up gray'
+                  } fa-2x`}
                   aria-hidden="true"
                   id="like"
                 />
@@ -270,9 +274,11 @@ class Recipe_item extends Component {
                 onClick={this.downvote}
               >
                 <i
-                  className={`fa ${this.props.votes.votes.downvote.success
-                    ? 'fa-thumbs-down animated bounceIn flash red'
-                    : 'fa-thumbs-o-down'} fa-2x`}
+                  className={`fa ${
+                    this.props.votes.votes.downvote.success
+                      ? 'fa-thumbs-down animated bounceIn flash red'
+                      : 'fa-thumbs-down gray'
+                  } fa-2x`}
                   aria-hidden="true"
                   id="dislike"
                 />
@@ -336,9 +342,9 @@ class Recipe_item extends Component {
           <button
             onClick={this.onOpenDeleteModal}
             href="#"
-            className={`btn btn-danger rounded-circle ${this.state.edit
-              ? 'd-block'
-              : 'd-none'}`}
+            className={`btn btn-danger rounded-circle ${
+              this.state.edit ? 'd-block' : 'd-none'
+            }`}
             id="floating-delete"
           >
             <i className="fa fa-trash fa-2x" aria-hidden="true" />
@@ -346,9 +352,9 @@ class Recipe_item extends Component {
           <button
             onClick={this.onOpenModal}
             href="#!"
-            className={`btn btn-info rounded-circle ${this.state.edit
-              ? 'd-block'
-              : 'd-none'}`}
+            className={`btn btn-info rounded-circle ${
+              this.state.edit ? 'd-block' : 'd-none'
+            }`}
             id="floating-edit"
           >
             <i className="fa fa-pencil fa-2x" aria-hidden="true" />
