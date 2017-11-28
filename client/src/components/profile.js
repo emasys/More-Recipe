@@ -135,6 +135,14 @@ class Profile extends Component {
             <p className=" text-capitalize">
               <i className="fa fa-map-marker" aria-hidden="true" /> {country}
             </p>
+            {Auth.moniker() === 'admin' ? (
+              <Link to="/manageUsers" className="btn btn-lg btn-light">
+                {' '}
+                Manage Users
+              </Link>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       );

@@ -14,14 +14,14 @@ dotenv.config();
  */
 export default class protectRoute {
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns 
- * @memberof protectRoute
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   * @memberof protectRoute
+   */
   static checkAdmin(req, res, next) {
     const token =
       req.body.token || req.query.token || req.headers['x-access-token'];
@@ -31,7 +31,7 @@ export default class protectRoute {
       }
       Users.findAll({})
         .then(user => {
-          if (decoded.id !== 3) {
+          if (decoded.moniker !== 'admin') {
             //in this case the user with id = 3 is the admin
             return res.status(401).send({
               success: false,

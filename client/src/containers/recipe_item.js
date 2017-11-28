@@ -307,7 +307,7 @@ class Recipe_item extends Component {
 
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Edit Recipe</h2>
-          {/* {this.getEditForm()} */}
+          {this.getEditForm()}
         </Modal>
         <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">

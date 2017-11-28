@@ -69,6 +69,31 @@ export const getProfile = id => {
   return { type: 'USER_PROFILE', payload };
 };
 
+export const deleteUser = id => {
+  const payload = fetch(`${URL}/users/${id}?token=${xtoken}`, {
+    method: 'DELETE'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'DELETE_USER', payload };
+};
+
+//fetch all users
+export const getAllUsers = () => {
+  const payload = fetch(`${URL}/users?token=${xtoken}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
+      // console.log(res);
+      return res;
+    });
+  return { type: 'ALL_USERS', payload };
+};
+
 //Get user favorites
 export const getFavs = () => {
   const payload = fetch(`${URL}/recipes/fav?token=${xtoken}`, {

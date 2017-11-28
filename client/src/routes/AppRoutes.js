@@ -15,6 +15,7 @@ import RecipeItem from '../containers/recipe_item';
 import AddRecipe from '../containers/addRecipe';
 import User from '../components/user';
 import Auth from '../components/auth';
+import Management from '../components/manage_users';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -27,7 +28,18 @@ const AppRoutes = () => (
         <Route path={`/signup`} component={Signup} />
         <Route path={`/signin`} component={Signin} />
         <Route path={`/addnew`} component={AddRecipe} />
-
+        <Route path={`/user_management`} component={Management} />
+        <Route
+          exact
+          path="/manageUsers"
+          render={() => {
+            if (!Auth.moniker() === 'admin') {
+              return <Redirect to={`/`} />;
+            } else {
+              return <Redirect to={`/user_management`} />;
+            }
+          }}
+        />
         <Route
           exact
           path="/favorites"
