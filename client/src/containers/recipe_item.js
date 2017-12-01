@@ -119,8 +119,17 @@ class Recipe_item extends Component {
     });
   }
   handleSubmit(e) {
-    // e.preventDefault();
-    this.props.editRecipe(this.state, this.props.match.params.id);
+    e.preventDefault();
+    let data = {
+      name: e.target.elements.recipe.value,
+      ingredients: e.target.elements.ingredients.value,
+      direction: e.target.elements.direction.value,
+      description: e.target.elements.description.value
+    };
+    this.props.editRecipe(data, this.props.match.params.id).then(() => {
+      this.componentDidMount();
+      this.onCloseModal();
+    });
   }
   nameChanged(e) {
     this.setState({
@@ -175,6 +184,7 @@ class Recipe_item extends Component {
             <textarea
               className="col-lg-11 col-sm-12"
               id="FormControlTextarea"
+              name="ingredients"
               value={ingredients}
               onChange={this.ingChanged}
               rows="4"
@@ -185,7 +195,8 @@ class Recipe_item extends Component {
             <textarea
               className="col-lg-11 col-sm-12"
               id="FormControlTextarea"
-              value={direction}
+              name="direction"
+              defaultValue={direction}
               onChange={this.directionChanged}
               rows="4"
             />
@@ -198,7 +209,7 @@ class Recipe_item extends Component {
               id="FormControlTextarea"
               value={description}
               onChange={this.descriptionChanged}
-              name="bio"
+              name="description"
               rows="4"
             />
           </li>
@@ -248,7 +259,6 @@ class Recipe_item extends Component {
                 <em className="bg-dark">{favorite}</em>
               </span>
               <span className="text-center card-link m-1" onClick={this.upvote}>
-                {/* {console.log(this.props.votes.votes)} */}
                 <i
                   className={`fa ${
                     this.props.votes.votes.upvote.success
@@ -278,10 +288,10 @@ class Recipe_item extends Component {
 
               <span className="m-1 float-right d-inline">
                 <i className="fa fa-tag " aria-hidden="true" />
-                <a href="#!" className="">
+                <Link to={`/category/${category}`}>
                   {` `}
                   {category}
-                </a>
+                </Link>
               </span>
             </div>
           </figure>
@@ -290,7 +300,6 @@ class Recipe_item extends Component {
     }
   }
   render() {
-    // const { openFirstModal, openSecondModal } = this.state;
     const { open, deleteRecipe } = this.state;
 
     return (

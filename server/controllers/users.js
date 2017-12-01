@@ -24,10 +24,7 @@ export default class {
    */
   static signUp(req, res) {
     const request = req.body;
-    // console.log(req.file);
-    if (req.file) {
-      request.avatar = req.file.filename;
-    }
+
     const validator = new Validator(request, Users.signUpRules());
     if (validator.passes()) {
       if (request.confirmPassword !== request.password) {

@@ -131,13 +131,13 @@ class Navbar extends Component {
                       aria-expanded="false"
                     >
                       <img
-                        src={`/img/uploads/${
+                        src={
                           this.props.user
                             ? this.props.user.data.avatar.length > 10
                               ? this.props.user.data.avatar
                               : 'icon.svg'
                             : 'icon.svg'
-                        }`}
+                        }
                         alt="avatar"
                         className="fa-2x img-icon rounded-circle"
                       />

@@ -43,10 +43,13 @@ class Reviews extends Component {
       console.log(comments);
       return comments.map((comment, index) => {
         return (
-          <div className="direction rounded my-2" key={index}>
+          <div
+            className="direction p-15 bg-light text-dark rounded my-2"
+            key={index}
+          >
             <blockquote className="blockquote">
               <p className="mb-0">{comment.content}</p>
-              <footer className="blockquote-footer">
+              <footer className="blockquote-footer d-inline bg-transparent">
                 {' '}
                 <Link to={`/user/${comment.userId}`}> {comment.user}</Link>
               </footer>

@@ -32,7 +32,6 @@ class AddRecipe extends Component {
       description: e.target.elements.description.value,
       category: e.target.elements.category.value
     };
-    const file = document.querySelector('input[type=file]').files[0];
     const { files } = this.state;
     // Push all the axios request promise into a single array
     const uploaders = files.map(file => {
@@ -40,11 +39,10 @@ class AddRecipe extends Component {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('tags', `morerecipe`);
-      formData.append('upload_preset', config.UPLOAD_PRESET); // Replace the preset name with your own
-      formData.append('api_key', config.API_KEY); // Replace API key with your own Cloudinary key
+      formData.append('upload_preset', config.UPLOAD_PRESET);
+      formData.append('api_key', config.API_KEY);
       formData.append('timestamp', (Date.now() / 1000) | 0);
 
-      // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
       return axios
         .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
           headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -52,7 +50,6 @@ class AddRecipe extends Component {
         .then(response => {
           const resdata = response.data;
           data.foodImg = resdata.secure_url;
-          console.log(data);
         });
     });
 
@@ -79,14 +76,6 @@ class AddRecipe extends Component {
   handleDropRejected(...args) {
     return console.log('reject', args);
   }
-  // uploadWidget() {
-  //   cloudinary.openUploadWidget(
-  //     { cloud_name: 'emasys', upload_preset: 'PRESET', tags: ['xmas'] },
-  //     function(error, result) {
-  //       console.log(result);
-  //     }
-  //   );
-  // }
 
   render() {
     const { preview } = this.state;
@@ -148,22 +137,14 @@ class AddRecipe extends Component {
                   <div className="col-lg-11 col-sm-12">
                     <Dropzone
                       onDrop={this.handleDrop}
-                      accept="image/jpeg,image/jpg,image/tiff,image/gif"
+                      accept="image/jpeg,image/jpg,image/tiff,image/gif,image/png"
                       multiple={false}
                       onDropRejected={this.handleDropRejected}
                       className=" p-10 text-center dropzone bg-light"
                     >
-                      Drag a file here or click to upload your display image
+                      Drag a file here or click to upload an image of your food
                     </Dropzone>
                   </div>
-
-                  {/* <label>Upload Image</label>
-                  <input
-                    type="file"
-                    name="foodImg"
-                    id="foodImg"
-                    className="btn btn-dark"
-                  /> */}
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   {preview && (

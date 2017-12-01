@@ -18,16 +18,10 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 export default routes => {
-  routes.post('/api/v1/users/signup', upload.single('avatar'), Users.signUp);
+  routes.post('/api/v1/users/signup', Users.signUp);
   routes.post('/api/v1/users/signin', Users.signIn);
-  routes.post(
-    '/api/v1/recipes',
-    jwt.verifyToken,
-    upload.single('foodImg'),
-    Recipes.addRecipe
-  );
-  routes.post('/fileIt', upload.single('avatar'), jwt.HandleFile);
-  // routes.post('/api/v1/recipes/next', Recipes.NextListRecipes);
+  routes.post('/api/v1/recipes', jwt.verifyToken, Recipes.addRecipe);
+  routes.post('/api/v1/recipes/category/:limit', Recipes.listRecipeCategory);
   routes.post(
     '/api/v1/recipes/upvote/:recipeId',
     jwt.verifyToken,

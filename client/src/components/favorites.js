@@ -58,15 +58,15 @@ class Favorites extends Component {
                   <div className={`card animate`}>
                     <img
                       className="card-img-top img-box"
-                      src={`../../../img/uploads/${item.Recipe.foodImg}`}
+                      src={item.Recipe.foodImg}
                       alt="Card image cap"
                     />
                     <div className="card-body p-0 text-center social-icons">
-                      <a href="#">
+                      <Link to={`/category/${item.Recipe.category}`}>
                         <span className="tag bg-danger">
                           {item.Recipe.category}
                         </span>
-                      </a>
+                      </Link>
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.Recipe.name}
                       </h6>

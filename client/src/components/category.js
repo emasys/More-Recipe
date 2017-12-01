@@ -1,49 +1,43 @@
-import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-// import $ from 'jquery';
-// import { findDOMNode } from 'react-dom';
+import { getCategory } from '../actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
+import Auth from './auth';
 
-class Catalog extends Component {
+//components
+// import Catalog from './catalog';
+import Navbar from './navbar';
+class Category extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      hover: ''
-    };
     this.generateList = this.generateList.bind(this);
-    this.hoverIn = this.hoverIn.bind(this);
-    this.hoverOut = this.hoverOut.bind(this);
   }
 
-  componentDidMount() {}
-
-  hoverIn() {
-    console.log('hovered');
+  componentDidMount() {
+    const data = {
+      category: this.props.match.params.cat
+    };
+    this.props.getCategory(data, 12);
   }
 
-  hoverOut() {
-    console.log('hovered out');
-  }
-  generateList({ catalog }) {
-    if (catalog) {
-      console.log(catalog);
-      if (catalog.recipes.length < 1) {
+  generateList(cat) {
+    console.log(this.props.match.params.cat);
+    if (cat.category) {
+      console.log(cat.category.recipes);
+      if (cat.category.recipes.length < 1) {
         return (
           <div className="text-center error-message">
             <div className="catalog-wrapper">
               <img src="../img/logo.png" alt="logo" />
-              <h4 className="p-3 m-2">
-                We Know this is embarrassing, but we don't understand your query{' '}
-              </h4>
-              <p className="p-3 m-2">
-                Perhaps you should cross-check your spellings
-              </p>
+              <h4 className="p-3 m-2">There is nothing to display here </h4>
             </div>
           </div>
         );
       }
-      return catalog.recipes.map((item, index) => {
+      return cat.category.recipes.map((item, index) => {
         return (
           <div
             key={index}
@@ -55,14 +49,13 @@ class Catalog extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link to={`/recipes/${item.id}`} className=" hvr-bounce-out">
+                <Link to={`/recipe/${item.id}`} className=" hvr-bounce-out">
                   <div className={`card animate`}>
                     <img
                       className="card-img-top img-box"
                       src={item.foodImg}
-                      alt="recipe image"
+                      alt="Card image cap"
                     />
-
                     <div className="card-body p-0 text-center social-icons">
                       <Link to={`/category/${item.category}`}>
                         <span className="tag bg-danger">{item.category}</span>
@@ -70,7 +63,7 @@ class Catalog extends Component {
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.name}
                       </h6>
-                      <div className="card-body p-5 text-left bg-light">
+                      <div className="card-body p-5 text-left bg-light text-dark">
                         <p className="crop-text">{item.description}</p>
                       </div>
                       <span>
@@ -105,11 +98,28 @@ class Catalog extends Component {
   }
   render() {
     return (
-      <div className="row justify-content-center">
-        {this.generateList(this.props)}
+      <div>
+        <Navbar />
+        <div className="mt-80 mb-3">
+          <div className="container catalog-wrapper" id="catalog">
+            <div className="row justify-content-center">
+              {this.generateList(this.props.category)}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default Catalog;
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getCategory }, dispatch)
+});
+
+const mapStateToProps = state => {
+  console.log(state.recipes);
+  return {
+    category: state.recipes
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

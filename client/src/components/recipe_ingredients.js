@@ -16,7 +16,7 @@ const generateList = ({ ingredients }) => {
 
 const getDirection = ({ ingredients }) => {
   if (ingredients) {
-    return <p>{ingredients.recipe.direction}</p>;
+    return <p className=" p-15">{ingredients.recipe.direction}</p>;
   }
 };
 
@@ -55,7 +55,7 @@ const Ingredients = props => {
       <hr />
       <h5 className="text-muted">Description</h5>
       <div className="pb-3">
-        <ul className="list-group">{getDescription(props)}</ul>
+        <div className="bg-light p-15">{getDescription(props)}</div>
       </div>
       <hr />
       <h5 className="text-muted">Ingredients</h5>
@@ -65,7 +65,9 @@ const Ingredients = props => {
       </div>
       <h5 className="text-muted">Directions</h5>
       <hr />
-      <div className="p-3 direction rounded">{getDirection(props)}</div>
+      <div className="p-3 direction rounded  bg-light">
+        {getDirection(props)}
+      </div>
     </div>
   );
 };

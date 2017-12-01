@@ -16,12 +16,14 @@ import AddRecipe from '../containers/addRecipe';
 import User from '../components/user';
 import Auth from '../components/auth';
 import Management from '../components/manage_users';
+import Category from '../components/category';
 
 const AppRoutes = () => (
   <BrowserRouter>
     <div>
       <Switch>
         <Route path={`/recipe/:id`} component={RecipeItem} />
+        <Route path={`/category/:cat`} component={Category} />
         <Route path={`/dashboard/:id`} component={Profile} />
         <Route path={`/userInfo/:id`} component={User} />
         <Route path={`/favorite`} component={Favorites} />

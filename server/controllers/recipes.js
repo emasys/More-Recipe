@@ -14,10 +14,6 @@ class moreRecipes {
    */
   static addRecipe(req, res) {
     const request = req.body;
-    if (req.file) {
-      request.foodImg = req.file.filename;
-      console.log(req.file);
-    }
     const arr = req.body.ingredients;
     const getArr = input => input.trim().split(/\s*,\s*/);
     const validator = new Validator(request, Recipes.createRules());
@@ -73,6 +69,26 @@ class moreRecipes {
           as: 'reviews'
         }
       ]
+    })
+      .then(recipes => res.status(200).send({ success: true, recipes }))
+      .catch(error => res.status(400).send({ success: false, error }));
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   * @memberof moreRecipes
+   */
+  static listRecipeCategory(req, res) {
+    return Recipes.findAll({
+      limit: req.params.limit,
+      where: {
+        category: req.body.category
+      },
+      order: [['createdAt', 'DESC']]
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));

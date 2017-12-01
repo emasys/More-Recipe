@@ -106,15 +106,33 @@ export const getFavs = () => {
     });
   return { type: 'GET_FAVORITES', payload };
 };
+/**
+ *
+ *
+ * @param {any} data
+ * @param {any} id
+ * @returns
+ */
+export const getCategory = (data, limit) => {
+  const info = qs.stringify(data);
+  console.log(info);
+  const payload = fetch(`${URL}/recipes/category/${limit}?token=${xtoken}`, {
+    method: 'Post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: info
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res;
+    });
 
+  return { type: 'GET_CATEGORY', payload };
+};
 //edit recipe
 export const editRecipe = (data, id) => {
-  const x = {
-    name: 'new name',
-    description: 'new desc',
-    direction: 'new direction',
-    ingredients: 'new ingredient'
-  };
   const info = qs.stringify(data);
   console.log(info);
   const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
@@ -134,18 +152,13 @@ export const editRecipe = (data, id) => {
 };
 //Create a new user
 export const signUp = data => {
-  const formData = new FormData();
-  for (let key in data) {
-    console.log(key, data[key]);
-    if (data.hasOwnProperty(key)) {
-      formData.append(key, data[key]);
-    }
-  }
-
-  console.log(formData);
+  const info = qs.stringify(data);
   const payload = fetch(`${URL}/users/signup`, {
-    method: 'post',
-    body: formData
+    method: 'Post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: info
   })
     .then(res => res.json())
     .then(res => {
@@ -229,25 +242,20 @@ export const searchRecipes = data => {
 
 //Add a recipe
 export const addRecipe = data => {
-  const formData = new FormData();
-  for (let key in data) {
-    console.log(key, data[key]);
-    if (data.hasOwnProperty(key)) {
-      formData.append(key, data[key]);
-    }
-  }
-
-  console.log(formData);
+  const query = qs.stringify(data);
+  // console.log(query);
   const payload = fetch(`${URL}/recipes?token=${xtoken}`, {
     method: 'post',
-    body: formData
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: query
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res;
     });
-
   return { type: 'NEW_RECIPE', payload };
 };
 

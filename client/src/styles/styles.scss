@@ -296,9 +296,8 @@ footer {
 }
 
 .direction {
-    background: rgb(235, 235, 235);
-    padding: 10px;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .card-columns {
@@ -318,6 +317,15 @@ footer {
     &:hover {
         text-shadow: 0px 2px 2px black;
     }
+}
+
+.crop-text {
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    min-height: 70px;
 }
 
 #like {
