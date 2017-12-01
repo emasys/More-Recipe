@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addRecipe } from '../actions';
+import Dropzone from 'react-dropzone';
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
+import axios from 'axios';
+import config from '../config';
 
 //component
 import Navbar from '../components/navbar';
@@ -10,22 +14,54 @@ class AddRecipe extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { preview: null, files: null, fileURL: null };
     this.handleForm = this.handleForm.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
+    this.handleDropRejected = this.handleDropRejected.bind(this);
+    // this.uploadWidget = this.uploadWidget.bind(this);
+    this.sendData = this.sendData.bind(this);
   }
+
+  sendData(e) {}
   handleForm(e) {
     e.preventDefault();
-    const file = document.querySelector('input[type=file]').files[0];
-
-    const data = {
+    let data = {
       name: e.target.elements.recipe.value,
       ingredients: e.target.elements.ingredients.value,
       direction: e.target.elements.direction.value,
       description: e.target.elements.description.value,
-      category: e.target.elements.category.value,
-      foodImg: file
+      category: e.target.elements.category.value
     };
-    this.props.addRecipe(data);
-    this.componentDidUpdate();
+    const file = document.querySelector('input[type=file]').files[0];
+    const { files } = this.state;
+    // Push all the axios request promise into a single array
+    const uploaders = files.map(file => {
+      // Initial FormData
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('tags', `morerecipe`);
+      formData.append('upload_preset', config.UPLOAD_PRESET); // Replace the preset name with your own
+      formData.append('api_key', config.API_KEY); // Replace API key with your own Cloudinary key
+      formData.append('timestamp', (Date.now() / 1000) | 0);
+
+      // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+      return axios
+        .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => {
+          const resdata = response.data;
+          data.foodImg = resdata.secure_url;
+          console.log(data);
+        });
+    });
+
+    axios.all(uploaders).then(() => {
+      // ... perform after upload is successful operation
+      console.log('upload complete');
+      this.props.addRecipe(data);
+      this.componentDidUpdate();
+    });
   }
   componentDidUpdate() {
     if (this.props.new_recipe.new_recipe) {
@@ -35,7 +71,25 @@ class AddRecipe extends Component {
       }
     }
   }
+  handleDrop(files) {
+    const [{ preview }] = files;
+    console.log(files);
+    this.setState({ preview, files });
+  }
+  handleDropRejected(...args) {
+    return console.log('reject', args);
+  }
+  // uploadWidget() {
+  //   cloudinary.openUploadWidget(
+  //     { cloud_name: 'emasys', upload_preset: 'PRESET', tags: ['xmas'] },
+  //     function(error, result) {
+  //       console.log(result);
+  //     }
+  //   );
+  // }
+
   render() {
+    const { preview } = this.state;
     return (
       <section className="container ">
         <Navbar />
@@ -48,6 +102,7 @@ class AddRecipe extends Component {
                   <input
                     type="text"
                     name="recipe"
+                    required
                     className="col-lg-11 col-sm-12"
                     id="inputRecipe"
                     placeholder="Name of recipe"
@@ -62,6 +117,7 @@ class AddRecipe extends Component {
                     className="col-lg-11 col-sm-12"
                     id="ingredients"
                     rows="4"
+                    required
                     name="ingredients"
                   />
                 </li>
@@ -72,6 +128,7 @@ class AddRecipe extends Component {
                     placeholder="how to make it happen"
                     id="direction"
                     rows="4"
+                    required
                     name="direction"
                   />
                 </li>
@@ -82,8 +139,40 @@ class AddRecipe extends Component {
                     placeholder="how to make it happen"
                     id="description"
                     rows="4"
+                    required
                     name="description"
                   />
+                </li>
+
+                <li className=" col-lg-6 col-sm-12">
+                  <div className="col-lg-11 col-sm-12">
+                    <Dropzone
+                      onDrop={this.handleDrop}
+                      accept="image/jpeg,image/jpg,image/tiff,image/gif"
+                      multiple={false}
+                      onDropRejected={this.handleDropRejected}
+                      className=" p-10 text-center dropzone bg-light"
+                    >
+                      Drag a file here or click to upload your display image
+                    </Dropzone>
+                  </div>
+
+                  {/* <label>Upload Image</label>
+                  <input
+                    type="file"
+                    name="foodImg"
+                    id="foodImg"
+                    className="btn btn-dark"
+                  /> */}
+                </li>
+                <li className="special col-lg-6 col-sm-12">
+                  {preview && (
+                    <img
+                      src={preview}
+                      className="col-lg-11 col-sm-12"
+                      alt="image preview"
+                    />
+                  )}
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   <label>Category</label>
@@ -92,17 +181,6 @@ class AddRecipe extends Component {
                     <option value="others">Add yours</option>
                   </select>
                 </li>
-
-                <li className=" col-lg-6 col-sm-12">
-                  <label>Upload Image</label>
-                  <input
-                    type="file"
-                    name="foodImg"
-                    id="foodImg"
-                    className="btn btn-dark"
-                  />
-                </li>
-
                 <li className=" col-12 ">
                   <input
                     type="submit"

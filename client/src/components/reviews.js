@@ -16,7 +16,6 @@ class Reviews extends Component {
     this.resetState = this.resetState.bind(this);
   }
 
-
   resetState() {
     this.setState({
       content: ''
@@ -96,7 +95,7 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ postReview, getRecipeItem }, dispatch)
 });
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     review: state.review,
     recipes: state.recipes

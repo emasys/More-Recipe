@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import {
   getRecipeItem,
   setFavorite,
@@ -15,6 +16,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import Modal from 'react-responsive-modal';
+import ReactTooltip from 'react-tooltip';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 
@@ -142,13 +144,7 @@ class Recipe_item extends Component {
   }
   getEditForm() {
     if (this.props.recipes) {
-      if (this.props.recipes.recipeItem.message) {
-        this.props.history.push('/signin');
-      }
       if (this.props.recipes.recipeItem) {
-        if (this.props.recipes.recipeItem.message) {
-          return this.props.history.push('/signin');
-        }
         const {
           id,
           name,
@@ -236,12 +232,8 @@ class Recipe_item extends Component {
       return (
         <div className="">
           <figure>
-            <img
-              src={`../../../img/uploads/${foodImg}`}
-              alt="foodie"
-              className="img-fluid rounded"
-            />
-            <figcaption>{name}</figcaption>
+            <img src={foodImg} alt="foodie" className="img-fluid rounded" />
+            <figcaption className="text-center bolder">{name}</figcaption>
             <div className="d-inline mt-3">
               <span className="text-center card-link" onClick={this.favIt}>
                 <i
@@ -344,6 +336,7 @@ class Recipe_item extends Component {
           <button
             onClick={this.onOpenDeleteModal}
             href="#"
+            data-tip="Delete recipe"
             className={`btn btn-danger rounded-circle ${
               this.state.edit ? 'd-block' : 'd-none'
             }`}
@@ -354,6 +347,7 @@ class Recipe_item extends Component {
           <button
             onClick={this.onOpenModal}
             href="#!"
+            data-tip="Edit recipe"
             className={`btn btn-info rounded-circle ${
               this.state.edit ? 'd-block' : 'd-none'
             }`}
@@ -361,6 +355,7 @@ class Recipe_item extends Component {
           >
             <i className="fa fa-pencil fa-2x" aria-hidden="true" />
           </button>
+          <ReactTooltip place="bottom" type="dark" effect="float" />
         </section>
       </div>
     );
