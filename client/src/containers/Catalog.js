@@ -115,7 +115,7 @@ class Catalog extends Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <i class="fa fa-bars text-orange" aria-hidden="true" />
+                <i className="fa fa-bars text-orange" aria-hidden="true" />
               </button>
               <form
                 onSubmit={this.search}
@@ -148,10 +148,7 @@ class Catalog extends Component {
                         >
                           add_to_photos
                         </i>
-                        <span className="d-lg-none">
-                          <i className="fa fa-plus " /> {` `}
-                          Add new recipe
-                        </span>
+                        <span className="d-lg-none">Add new recipe</span>
                       </NavLink>
                     </li>
                   ) : (
@@ -162,19 +159,13 @@ class Catalog extends Component {
                       <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                         &#xE8EF;
                       </i>
-                      <span className="d-lg-none">
-                        <i className="fa fa-list " /> {` `}
-                        Catalog
-                      </span>
+                      <span className="d-lg-none">Catalog</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink className="nav-link " activeClassName="active" to="/favorites">
                       <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
-                      <span className="d-lg-none text-white">
-                        <i className="fa fa-heart red " /> {` `}
-                        Favorites
-                      </span>{' '}
+                      <span className="d-lg-none text-white">Favorites</span>{' '}
                     </NavLink>
                   </li>
                   <li className="nav-item dropdown">

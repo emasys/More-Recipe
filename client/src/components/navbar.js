@@ -92,10 +92,7 @@ class Navbar extends Component {
                       <i className="material-icons fa-2x d-sm-none d-lg-inline" aria-hidden="true">
                         add_to_photos
                       </i>
-                      <span className="d-lg-none">
-                        <i className="fa fa-plus " /> {` `}
-                        Add new recipe
-                      </span>
+                      <span className="d-lg-none">Add new recipe</span>
                     </NavLink>
                   </li>
                 ) : (
@@ -111,10 +108,7 @@ class Navbar extends Component {
                     <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                       &#xE8EF;
                     </i>
-                    <span className="d-lg-none">
-                      <i className="fa fa-list " /> {` `}
-                      Catalog
-                    </span>
+                    <span className="d-lg-none">Catalog</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -125,10 +119,7 @@ class Navbar extends Component {
                     data-tip="Your favorites"
                   >
                     <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
-                    <span className="d-lg-none text-white">
-                      <i className="fa fa-heart red " /> {` `}
-                      Favorites
-                    </span>
+                    <span className="d-lg-none text-white">Favorites</span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">

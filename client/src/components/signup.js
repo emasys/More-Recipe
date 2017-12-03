@@ -11,6 +11,7 @@ import config from '../config';
 
 //component
 import Navbar from './Navbar';
+import Countries, { countries } from './CountryList';
 
 class SignUp extends Component {
   constructor(props) {
@@ -148,9 +149,6 @@ class SignUp extends Component {
         }
       });
     }
-
-    // this.props.history.push('/');
-    // return (window.location.href = '/');
   }
   render() {
     const { preview, status } = this.state;
@@ -167,7 +165,11 @@ class SignUp extends Component {
               recipe in it's tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
             </p>
             <p>
-              If you already have an account, <Link to="/signin" className="btn btn-lg btn-outline-dark"> Sign In</Link>
+              If you already have an account,{' '}
+              <Link to="/signin" className="btn btn-lg btn-outline-dark">
+                {' '}
+                Sign In
+              </Link>
             </p>
           </div>
           <div className="catalog-wrapper col-lg-6 justify-content-center  col-sm-12">
@@ -246,9 +248,11 @@ class SignUp extends Component {
                   <div className="text-danger" id="cp_error" />
                 </li>
                 <li className="special col-lg-6 col-sm-12">
-                  <label>Country</label>
                   <select name="country" className="col-lg-11 col-sm-12 ">
-                    <option value="nigeria">Nigeria</option>
+                    <label>Country</label>
+                    {countries.map(country => {
+                      return <option value={country.name}>{country.name}</option>;
+                    })}
                   </select>
                 </li>
                 <li className="special col-lg-6 col-sm-12">
