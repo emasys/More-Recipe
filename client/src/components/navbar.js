@@ -185,7 +185,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  console.log(state.signin.userProfile);
   return {
     user: state.signin.userProfile,
   };

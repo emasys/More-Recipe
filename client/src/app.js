@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 import reducers from './reducers';
-// import thunk from 'redux-thunk';
 import reduxPromise from 'redux-promise';
 import AppRoutes from './routes/AppRoutes';
 import 'normalize.css/normalize.css';
@@ -17,5 +16,5 @@ ReactDOM.render(
   <Provider store={store(reducers)}>
     <AppRoutes />
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );

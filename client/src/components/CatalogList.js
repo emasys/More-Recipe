@@ -1,32 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Fade from 'react-reveal/Fade';
 
 class CatalogList extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       hover: '',
     };
     this.generateList = this.generateList.bind(this);
-    this.hoverIn = this.hoverIn.bind(this);
-    this.hoverOut = this.hoverOut.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
-  componentDidMount() {}
-
-  hoverIn() {
-    console.log('hovered');
-  }
-
-  hoverOut() {
-    console.log('hovered out');
+  redirect(target) {
+    this.context.router.push(target);
   }
   generateList({ catalog }) {
     if (catalog) {
-      console.log(catalog);
       if (catalog.recipes.length < 1) {
         return (
           <div className="text-center error-message">
@@ -52,14 +44,12 @@ class CatalogList extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link to={`/recipes/${item.id}`} className=" hvr-push">
+                <Link to={`/recipe/${item.id}`} className=" hvr-push">
                   <div className={`card animate`}>
                     <img className="card-img-top img-box" src={item.foodImg} alt="recipe image" />
 
                     <div className="card-body p-0 text-center social-icons">
-                      <Link to={`/category/${item.category}`}>
-                        <span className="tag bg-danger">{item.category}</span>
-                      </Link>
+                      <span className="tag bg-danger">{item.category}</span>
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.name}
                       </h6>

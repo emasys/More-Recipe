@@ -28,7 +28,6 @@ import RecipeIngredients from '../components/Ingredients';
 import Reviews from '../components/Reviews';
 import Navbar from '../components/Navbar';
 
-// console.log(decoded);
 class RecipeItem extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +75,6 @@ class RecipeItem extends Component {
   }
 
   delRecipe() {
-    console.log('reached');
     this.props.delRecipe(this.props.match.params.id).then(() => {
       this.props.history.push('/catalog');
     });
@@ -229,7 +227,6 @@ class RecipeItem extends Component {
         upvote,
         foodImg,
       } = reactions.recipe;
-      console.log(foodImg);
 
       return (
         <div className="">
@@ -348,7 +345,6 @@ class RecipeItem extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     recipes: state.recipes,
     favorite: state.favorite,

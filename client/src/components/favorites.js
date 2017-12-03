@@ -57,9 +57,7 @@ class Favorites extends Component {
                       alt="Card image cap"
                     />
                     <div className="card-body p-0 text-center social-icons">
-                      <Link to={`/category/${item.Recipe.category}`}>
-                        <span className="tag bg-danger">{item.Recipe.category}</span>
-                      </Link>
+                      <span className="tag bg-danger">{item.Recipe.category}</span>
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.Recipe.name}
                       </h6>

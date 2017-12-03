@@ -46,6 +46,14 @@ module.exports = {
 
   devtool: 'cheap-module-eval-source-map',
   devServer: {
+    host: process.env.HOST,
+    port: process.env.PORT,
+    proxy: {
+      '/api/v1/**': {
+        target: 'http://[::1]:8081',
+        secure: false
+      }
+    },
     contentBase: path.join(__dirname, 'client/public'),
     historyApiFallback: true
   }

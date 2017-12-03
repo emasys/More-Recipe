@@ -58,9 +58,7 @@ class UserProfile extends Component {
                       alt="Card image cap"
                     />
                     <div className="card-body p-0 text-center social-icons">
-                      <Link to={`/category/${item.category}`}>
-                        <span className="tag bg-danger">{item.category}</span>
-                      </Link>
+                      <span className="tag bg-danger">{item.category}</span>
                       <h6 className="card-title custom-bg bg-secondary p-2 m-0 text-truncate ">
                         {item.name}
                       </h6>

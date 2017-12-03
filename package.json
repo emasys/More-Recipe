@@ -7,6 +7,10 @@
     "type": "git",
     "url": "https://github.com/emasys/More-Recipe.git"
   },
+  "engines": {
+        "node": "8.3.0",
+        "npm": "5.3.0"
+    },
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "dev-server": "webpack-dev-server",

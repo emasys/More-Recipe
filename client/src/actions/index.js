@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'whatwg-fetch';
 // import storeLocal from 'perform-local-storage';
 
-const URL = 'http://localhost:8081/api/v1';
+const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
 
 //Fetch All recipes
