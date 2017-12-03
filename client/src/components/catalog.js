@@ -47,7 +47,7 @@ class Catalog extends Component {
         return (
           <div
             key={index}
-            className="col-lg-3 col-sm-10 mb-3  col-md-4 animate-catalog"
+            className="col-lg-3 col-sm-7 mb-3  col-md-4 animate-catalog"
             data-animate="bounceIn"
             data-duration="1.0s"
             data-delay="0.1s"
@@ -55,7 +55,7 @@ class Catalog extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link to={`/recipes/${item.id}`} className=" hvr-bounce-out">
+                <Link to={`/recipes/${item.id}`} className=" hvr-push">
                   <div className={`card animate`}>
                     <img
                       className="card-img-top img-box"

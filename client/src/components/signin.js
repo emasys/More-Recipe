@@ -14,7 +14,7 @@ class SignIn extends Component {
       email: '',
       password: '',
       error: '',
-      showErrMessage: 'hide'
+      showErrMessage: 'hide',
     };
 
     this.emailChanged = this.emailChanged.bind(this);
@@ -24,18 +24,20 @@ class SignIn extends Component {
 
   emailChanged(e) {
     this.setState({
-      email: e.target.value
+      email: e.target.value,
     });
   }
   pwChanged(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
+      console.log(this.props.signin);
+
       if (this.props.signin.user.success) {
         // this.props.history.push('/');
         return (window.location.href = '/');
@@ -43,7 +45,7 @@ class SignIn extends Component {
       if (this.props.signin.user.status) {
         this.setState({
           error: 'An error ocurred',
-          showErrMessage: 'show'
+          showErrMessage: 'show',
         });
         // console.log('An error occurred');
       }
@@ -58,34 +60,22 @@ class SignIn extends Component {
           <div className="col-lg-8 col-sm-12 text-center ">
             <img src="../img/logo.png" alt="logo" />
             <p className=" mt-5 text-dark bg-mirror header-title">
-              “I hate the notion of a secret recipe. Recipes are by nature
-              derivative and meant to be shared that is how they improve, are
-              changed, how new ideas are formed. To stop a recipe in it's
-              tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
+              “I hate the notion of a secret recipe. Recipes are by nature derivative and meant to
+              be shared that is how they improve, are changed, how new ideas are formed. To stop a
+              recipe in it's tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
             </p>
           </div>
           <div className="col-lg-4 col-sm-12 ">
             <div
-              className={`alert alert-danger alert-dismissible fade ${
-                this.state.showErrMessage
-              }`}
+              className={`alert alert-danger alert-dismissible fade ${this.state.showErrMessage}`}
               role="alert"
             >
               <strong>Error!</strong> invalid credentials
-              <button
-                type="button"
-                className="close"
-                data-dismiss="alert"
-                aria-label="Close"
-              >
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form
-              id="signin"
-              className="form-items"
-              onSubmit={this.handleSubmit}
-            >
+            <form id="signin" className="form-items" onSubmit={this.handleSubmit}>
               <ul className="form row">
                 <li className="col-lg-12 col-sm-12">
                   <label>Email</label>
@@ -129,12 +119,12 @@ class SignIn extends Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ signIn }, dispatch)
+  ...bindActionCreators({ signIn }, dispatch),
 });
 
 const mapStateToProps = state => {
   return {
-    signin: state.signin
+    signin: state.signin,
   };
 };
 

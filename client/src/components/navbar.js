@@ -62,8 +62,7 @@ class Navbar extends Component {
           style={{ zIndex: 1000 }}
         >
           <div className="container">
-            <Link className="navbar-brand text-white" to="/">
-              {/* <img src="/img/favicon.fw.png" alt="favicon" /> */}
+            <Link className="navbar-brand bolder text-orange" to="/">
               MoreRecipes
             </Link>
             <button
@@ -75,7 +74,7 @@ class Navbar extends Component {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon" />
+              <i class="fa fa-bars text-orange" aria-hidden="true" />
             </button>
             <div
               className="collapse navbar-collapse justify-content-end"
@@ -90,9 +89,16 @@ class Navbar extends Component {
                       to="/new"
                       data-tip="Add new recipe"
                     >
-                      <i className="material-icons fa-2x" aria-hidden="true">
+                      <i
+                        className="material-icons fa-2x d-sm-none d-lg-inline"
+                        aria-hidden="true"
+                      >
                         add_to_photos
                       </i>
+                      <span className="d-lg-none">
+                        <i className="fa fa-plus " /> {` `}
+                        Add new recipe
+                      </span>
                     </NavLink>
                   </li>
                 ) : (
@@ -105,9 +111,16 @@ class Navbar extends Component {
                     to="/catalog"
                     data-tip="Catalog"
                   >
-                    <i className="material-icons fa-2x" aria-hidden="true">
+                    <i
+                      className="material-icons fa-2x  d-sm-none d-lg-inline"
+                      aria-hidden="true"
+                    >
                       &#xE8EF;
                     </i>
+                    <span className="d-lg-none">
+                      <i className="fa fa-list " /> {` `}
+                      Catalog
+                    </span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -117,7 +130,13 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className="material-icons fa-2x red">&#xE87D;</i>
+                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">
+                      &#xE87D;
+                    </i>
+                    <span className="d-lg-none text-white">
+                      <i className="fa fa-heart red " /> {` `}
+                      Favorites
+                    </span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">

@@ -13,29 +13,23 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      limit: 6
+      limit: 6,
     };
     this.generateRecipes = this.generateRecipes.bind(this);
     this.generateUserInfo = this.generateUserInfo.bind(this);
     this.viewMore = this.viewMore.bind(this);
   }
 
-  componentWillMount = () => {
-    console.log('refreshed');
-  };
-
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
-    this.props
-      .getUserRecipes(this.state.limit, this.props.match.params.id)
-      .then(() => {
-        console.log(this.props.userInfo);
-        this.setState(prevState => {
-          return {
-            limit: prevState.limit + 6
-          };
-        });
+    this.props.getUserRecipes(this.state.limit, this.props.match.params.id).then(() => {
+      console.log(this.props.userInfo);
+      this.setState(prevState => {
+        return {
+          limit: prevState.limit + 6,
+        };
       });
+    });
   }
 
   generateRecipes(data) {
@@ -104,16 +98,7 @@ class Profile extends Component {
   generateUserInfo(data) {
     if (data) {
       // console.log(data.data);
-      const {
-        id,
-        firstName,
-        lastName,
-        bio,
-        email,
-        avatar,
-        country,
-        moniker
-      } = data.data;
+      const { id, firstName, lastName, bio, email, avatar, country, moniker } = data.data;
       return (
         <div className="col-lg-4 col-sm-12 mr-5 mb-10">
           <img src={avatar} alt="foodie" className="img-fluid rounded mb-3" />
@@ -175,10 +160,10 @@ const mapStateToProps = state => {
   console.log(state.recipes.userRecipes);
   return {
     user: state.recipes.userRecipes,
-    userInfo: state.signin.userInfo
+    userInfo: state.signin.userInfo,
   };
 };
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getUserRecipes, getUserInfo }, dispatch)
+  ...bindActionCreators({ getUserRecipes, getUserInfo }, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

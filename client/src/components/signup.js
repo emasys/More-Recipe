@@ -18,7 +18,8 @@ class Signup extends Component {
 
     this.state = {
       preview: null,
-      files: null
+      files: null,
+      status: 'fade',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
@@ -45,55 +46,33 @@ class Signup extends Component {
       confirmPassword: e.target.elements.cpass.value.trim(),
       bio: e.target.elements.bio.value.trim(),
       moniker: e.target.elements.moniker.value.trim(),
-      country: e.target.elements.country.value.trim()
+      country: e.target.elements.country.value.trim(),
     };
-    const { files } = this.state;
-    // Push all the axios request promise into a single array
-    const uploaders = files.map(file => {
-      // Initial FormData
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('tags', `avatar`);
-      formData.append('upload_preset', config.UPLOAD_PRESET);
-      formData.append('api_key', config.API_KEY);
-      formData.append('timestamp', (Date.now() / 1000) | 0);
 
-      return axios
-        .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => {
-          const resdata = response.data;
-          data.avatar = resdata.secure_url;
-        });
-    });
+    const { files } = this.state;
 
     const re = /[\s\d]/;
     let submit_data = 0;
     if (re.test(data.lastName) || data.lastName === '') {
-      document.querySelector('#lastname_error').innerHTML =
-        'Please enter a valid name';
+      document.querySelector('#lastname_error').innerHTML = 'Please enter a valid name';
     } else {
       document.querySelector('#lastname_error').innerHTML = '';
       submit_data += 1;
     }
     if (re.test(data.firstName) || data.firstName === '') {
-      document.querySelector('#firstname_error').innerHTML =
-        'Please enter a valid name';
+      document.querySelector('#firstname_error').innerHTML = 'Please enter a valid name';
     } else {
       document.querySelector('#firstname_error').innerHTML = '';
       submit_data += 1;
     }
     if (data.moniker === '') {
-      document.querySelector('#moniker_error').innerHTML =
-        'This field is required';
+      document.querySelector('#moniker_error').innerHTML = 'This field is required';
     } else {
       document.querySelector('#moniker_error').innerHTML = '';
       submit_data += 1;
     }
     if (data.email === '') {
-      document.querySelector('#email_error').innerHTML =
-        'Please enter a valid email address';
+      document.querySelector('#email_error').innerHTML = 'Please enter a valid email address';
     } else {
       document.querySelector('#email_error').innerHTML = '';
       submit_data += 1;
@@ -108,41 +87,73 @@ class Signup extends Component {
     }
 
     if (!_.isEqual(data.password, data.confirmPassword)) {
-      document.querySelector('#cp_error').innerHTML =
-        'Your password did not match';
+      document.querySelector('#cp_error').innerHTML = 'Your password did not match';
     } else {
       document.querySelector('#cp_error').innerHTML = '';
       submit_data += 1;
     }
 
-    axios.all(uploaders).then(() => {
-      console.log(submit_data);
+    // Push all the axios request promise into a single array
+    let uploaders = null;
+    if (files) {
+      uploaders = files.map(file => {
+        // Initial FormData
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('tags', `avatar`);
+        formData.append('upload_preset', config.UPLOAD_PRESET);
+        formData.append('api_key', config.API_KEY);
+        formData.append('timestamp', (Date.now() / 1000) | 0);
 
-      if (submit_data === 6) {
-        this.props.signUp(data).then(() => {
-          if (this.props.user.user.success) {
-            return (window.location.href = '/');
-          } else {
-            switch (this.props.user.user.target) {
-              case 'email':
-                document.querySelector('#email_error').innerHTML =
-                  'Your email address already exist in our database';
-                break;
-              case 'moniker':
-                document.querySelector('#moniker_error').innerHTML =
-                  'Your username already exist in our database';
-                break;
+        return axios
+          .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          })
+          .then(response => {
+            const resdata = response.data;
+            data.avatar = resdata.secure_url;
+          });
+      });
+    }
+    if (uploaders) {
+      axios.all(uploaders).then(() => {
+        console.log(submit_data);
+
+        if (submit_data === 6) {
+          this.setState({
+            status: 'show',
+          });
+          this.props.signUp(data).then(() => {
+            if (this.props.user.user.success) {
+              return (window.location.href = '/');
+            } else {
+              switch (this.props.user.user.target) {
+                case 'email':
+                  document.querySelector('#email_error').innerHTML =
+                    'Your email address already exist in our database';
+                  this.setState({
+                    status: 'fade',
+                  });
+                  break;
+                case 'moniker':
+                  document.querySelector('#moniker_error').innerHTML =
+                    'Your username already taken';
+                  this.setState({
+                    status: 'fade',
+                  });
+                  break;
+              }
             }
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+    }
 
     // this.props.history.push('/');
     // return (window.location.href = '/');
   }
   render() {
-    const { preview } = this.state;
+    const { preview, status } = this.state;
 
     return (
       <section className="container ">
@@ -151,10 +162,9 @@ class Signup extends Component {
           <div className="col-lg-6 col-sm-12 text-center ">
             <img src="../img/logo.png" alt="logo" />
             <p className=" mt-5 text-dark bg-mirror header-title">
-              “I hate the notion of a secret recipe. Recipes are by nature
-              derivative and meant to be shared that is how they improve, are
-              changed, how new ideas are formed. To stop a recipe in it's
-              tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
+              “I hate the notion of a secret recipe. Recipes are by nature derivative and meant to
+              be shared that is how they improve, are changed, how new ideas are formed. To stop a
+              recipe in it's tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
             </p>
           </div>
           <div className="catalog-wrapper col-lg-6 justify-content-center  col-sm-12">
@@ -254,6 +264,7 @@ class Signup extends Component {
                       onDrop={this.handleDrop}
                       accept="image/jpeg,image/jpg,image/tiff,image/gif,image/png"
                       multiple={false}
+                      required
                       onDropRejected={this.handleDropRejected}
                       className=" p-10 text-center dropzone bg-light"
                     >
@@ -270,11 +281,7 @@ class Signup extends Component {
                 </li>
                 <li className=" col-lg-6 col-sm-12">
                   {preview && (
-                    <img
-                      src={preview}
-                      className="col-lg-11 col-sm-12"
-                      alt="image preview"
-                    />
+                    <img src={preview} className="col-lg-11 col-sm-12" alt="image preview" />
                   )}
                 </li>
 
@@ -283,8 +290,12 @@ class Signup extends Component {
                     type="submit"
                     value="submit"
                     id="submit"
-                    className="bg-dark btn hovered"
+                    className="btn bg-dark btn hovered"
                   />
+                </li>
+                <li className={`col-12 text-center ${status}`}>
+                  <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+                  <span className="sr-only">Loading...</span>
                 </li>
               </ul>
             </form>
@@ -296,13 +307,13 @@ class Signup extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ signUp }, dispatch)
+  ...bindActionCreators({ signUp }, dispatch),
 });
 
 const mapStateToProps = state => {
   console.log(state.signup);
   return {
-    user: state.signup
+    user: state.signup,
   };
 };
 

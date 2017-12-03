@@ -1,28 +1,15 @@
-/**
- *
- * 
- * @class response
- */
-export default class response {
-  /**
-   * 
-   * 
-   * @static
-   * @returns error 404 status and message
-   * @memberof response
-   */
-  static err404(code) {
-    switch (code) {
-      case 404:
-        return res.status(code).send({ success: false, message: 'Not Found' });
-        break;
-      case 201:
-      return res.status(code).send({success: true, message: 'created'})
-    
-      default:
-        break;
-    }
-  }
-}
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
+export const signToken = (data) => {
+  return jwt.sign(data, process.env.JWT_SECRET, {
+    expiresIn: '365d',
+  });
+};
+
+export const setStatus = (res, message, code) => {
+  console.log('reached');
+  return res.status(code).json(message);
+};

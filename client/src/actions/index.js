@@ -37,7 +37,7 @@ export const getUserRecipes = (limit, id) => {
   })
     .then(res => res.json())
     .then(res => {
-      // console.log(res);
+      console.log(res);
       return res;
     });
   return { type: 'USER_RECIPES', payload };
@@ -50,7 +50,7 @@ export const getUserInfo = id => {
   })
     .then(res => res.json())
     .then(res => {
-      // console.log(res);
+      console.log(res);
       return res;
     });
   return { type: 'USER_INFO', payload };
@@ -195,6 +195,7 @@ export const signIn = data => {
         return res;
       } else {
         window.localStorage.removeItem('token');
+        return res;
       }
     });
 

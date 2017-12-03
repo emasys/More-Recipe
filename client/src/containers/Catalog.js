@@ -103,7 +103,7 @@ class Catalog extends Component {
         <section className="container-fluid fixed">
           <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
             <div className="container">
-              <Link className="navbar-brand text-white" to="/">
+              <Link className="navbar-brand bolder text-orange" to="/">
                 MoreRecipes
               </Link>
               <button
@@ -115,7 +115,7 @@ class Catalog extends Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span className="navbar-toggler-icon" />
+                <i class="fa fa-bars text-orange" aria-hidden="true" />
               </button>
               <form
                 onSubmit={this.search}
@@ -142,9 +142,16 @@ class Catalog extends Component {
                         to="/new"
                         data-tip="Add new recipe"
                       >
-                        <i className="material-icons fa-2x" aria-hidden="true">
+                        <i
+                          className="material-icons fa-2x d-sm-none d-lg-inline"
+                          aria-hidden="true"
+                        >
                           add_to_photos
                         </i>
+                        <span className="d-lg-none">
+                          <i className="fa fa-plus " /> {` `}
+                          Add new recipe
+                        </span>
                       </NavLink>
                     </li>
                   ) : (
@@ -156,9 +163,16 @@ class Catalog extends Component {
                       activeClassName="active"
                       to="/catalog"
                     >
-                      <i className="material-icons fa-2x" aria-hidden="true">
+                      <i
+                        className="material-icons fa-2x  d-sm-none d-lg-inline"
+                        aria-hidden="true"
+                      >
                         &#xE8EF;
                       </i>
+                      <span className="d-lg-none">
+                        <i className="fa fa-list " /> {` `}
+                        Catalog
+                      </span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -167,7 +181,13 @@ class Catalog extends Component {
                       activeClassName="active"
                       to="/favorites"
                     >
-                      <i className="material-icons fa-2x red">&#xE87D;</i>
+                      <i className="material-icons fa-2x red d-sm-none d-lg-inline">
+                        &#xE87D;
+                      </i>
+                      <span className="d-lg-none text-white">
+                        <i className="fa fa-heart red " /> {` `}
+                        Favorites
+                      </span>{' '}
                     </NavLink>
                   </li>
                   <li className="nav-item dropdown">
@@ -216,15 +236,17 @@ class Catalog extends Component {
             </div>
           </nav>
         </section>
-        <section className="container catalog-wrapper" id="catalog">
-          <CatalogList catalog={this.state.All_recipes} />
-          <div className="text-center">
-            <button
-              className="btn btn-dark hvr-grow-shadow"
-              onClick={this.nextPage}
-            >
-              View More
-            </button>
+        <section className="container" id="catalog">
+          <div className="catalog-wrapper">
+            <CatalogList catalog={this.state.All_recipes} />
+            <div className="text-center">
+              <button
+                className="btn btn-outline-dark hvr-grow-shadow"
+                onClick={this.nextPage}
+              >
+                View More
+              </button>
+            </div>
           </div>
         </section>
       </div>

@@ -9,12 +9,13 @@ import config from '../config';
 
 //component
 import Navbar from '../components/navbar';
+// import { recipeCategory } from '../components/RecipeCategories';
 
 class AddRecipe extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { preview: null, files: null, fileURL: null };
+    this.state = { preview: null, files: null, fileURL: null, status: 'fade' };
     this.handleForm = this.handleForm.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDropRejected = this.handleDropRejected.bind(this);
@@ -30,8 +31,11 @@ class AddRecipe extends Component {
       ingredients: e.target.elements.ingredients.value,
       direction: e.target.elements.direction.value,
       description: e.target.elements.description.value,
-      category: e.target.elements.category.value
+      category: e.target.elements.category.value,
     };
+    this.setState({
+      status: 'show',
+    });
     const { files } = this.state;
     // Push all the axios request promise into a single array
     const uploaders = files.map(file => {
@@ -45,7 +49,7 @@ class AddRecipe extends Component {
 
       return axios
         .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
         .then(response => {
           const resdata = response.data;
@@ -55,6 +59,7 @@ class AddRecipe extends Component {
 
     axios.all(uploaders).then(() => {
       // ... perform after upload is successful operation
+
       console.log('upload complete');
       this.props.addRecipe(data);
       this.componentDidUpdate();
@@ -78,7 +83,31 @@ class AddRecipe extends Component {
   }
 
   render() {
-    const { preview } = this.state;
+    const { preview, status } = this.state;
+    const recipeCategory = [
+      'Breakfast',
+      'Brunch',
+      'Lunch',
+      'Snacks',
+      'Appetisers',
+      'Dinner',
+      'Soups',
+      'Noodles',
+      'Rice',
+      'Pasta',
+      'Meat',
+      'Poultry',
+      'Seafood',
+      'Vegetarian',
+      'Salads',
+      'Sides',
+      'Sauces',
+      'Baking',
+      'Desserts',
+      'Drinks',
+    ];
+    console.log(recipeCategory);
+
     return (
       <section className="container ">
         <Navbar />
@@ -148,27 +177,27 @@ class AddRecipe extends Component {
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   {preview && (
-                    <img
-                      src={preview}
-                      className="col-lg-11 col-sm-12"
-                      alt="image preview"
-                    />
+                    <img src={preview} className="col-lg-11 col-sm-12" alt="image preview" />
                   )}
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   <label>Category</label>
                   <select name="category" className="col-lg-11 col-sm-12 ">
-                    <option value="vegetarian">Vegetarian</option>
-                    <option value="others">Add yours</option>
+                    {recipeCategory.map(item => {
+                      return (
+                        <option value={item} className="text-capitalize">
+                          {item}
+                        </option>
+                      );
+                    })}
                   </select>
                 </li>
                 <li className=" col-12 ">
-                  <input
-                    type="submit"
-                    value="Submit"
-                    id="submit"
-                    className="bg-dark btn hovered"
-                  />
+                  <input type="submit" value="Submit" id="submit" className="bg-dark btn hovered" />
+                </li>
+                <li className={`col-12 text-center ${status}`}>
+                  <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+                  <span className="sr-only">Loading...</span>
                 </li>
               </ul>
             </form>
@@ -182,10 +211,10 @@ class AddRecipe extends Component {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    new_recipe: state.new_recipe
+    new_recipe: state.new_recipe,
   };
 };
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ addRecipe }, dispatch)
+  ...bindActionCreators({ addRecipe }, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);

@@ -65,9 +65,7 @@ const Ingredients = props => {
       </div>
       <h5 className="text-muted">Directions</h5>
       <hr />
-      <div className="p-3 direction rounded  bg-light">
-        {getDirection(props)}
-      </div>
+      <div className="p-3 direction rounded  bg-light">{getDirection(props)}</div>
     </div>
   );
 };

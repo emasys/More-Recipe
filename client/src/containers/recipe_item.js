@@ -218,7 +218,7 @@ class Recipe_item extends Component {
               type="submit"
               value="submit"
               id="submit"
-              className="btn bg-dark"
+              className="btn bg-dark hovered"
             />
           </li>
         </ul>

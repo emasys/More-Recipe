@@ -113,20 +113,7 @@ class moreRecipes {
       .catch(error => res.status(400).send({ success: false, error }));
   }
 
-  // static NextListRecipes(req, res) {
-  //   return Recipes.findAll({
-  //     limit: 10,
-  //     offset: req.body.offset,
-  //     include: [
-  //       {
-  //         model: Reviews,
-  //         as: 'reviews'
-  //       }
-  //     ]
-  //   })
-  //     .then(recipes => res.status(200).send({ success: true, recipes }))
-  //     .catch(error => res.status(400).send({ success: false, error }));
-  // }
+ 
   /**
    *
    *
