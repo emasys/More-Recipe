@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
-import Auth from './auth';
+import Auth from './Auth';
 
 //components
-// import Catalog from './catalog';
-import Navbar from './navbar';
+import Navbar from './Navbar';
+
 class Category extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ class Category extends Component {
 
   componentDidMount() {
     const data = {
-      category: this.props.match.params.cat
+      category: this.props.match.params.cat,
     };
     this.props.getCategory(data, 12);
   }
@@ -51,11 +51,7 @@ class Category extends Component {
               <Fade bottom>
                 <Link to={`/recipe/${item.id}`} className=" hvr-bounce-out">
                   <div className={`card animate`}>
-                    <img
-                      className="card-img-top img-box"
-                      src={item.foodImg}
-                      alt="Card image cap"
-                    />
+                    <img className="card-img-top img-box" src={item.foodImg} alt="Card image cap" />
                     <div className="card-body p-0 text-center social-icons">
                       <Link to={`/category/${item.category}`}>
                         <span className="tag bg-danger">{item.category}</span>
@@ -113,13 +109,13 @@ class Category extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getCategory }, dispatch)
+  ...bindActionCreators({ getCategory }, dispatch),
 });
 
 const mapStateToProps = state => {
   console.log(state.recipes);
   return {
-    category: state.recipes
+    category: state.recipes,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

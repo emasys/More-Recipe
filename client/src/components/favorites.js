@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
-import Auth from './auth';
+import Auth from './Auth';
 
 //components
 // import Catalog from './catalog';
-import Navbar from './navbar';
+import Navbar from './Navbar';
 class Favorites extends Component {
   constructor(props) {
     super(props);
@@ -32,9 +32,7 @@ class Favorites extends Component {
               <h4 className="p-3 m-2">
                 We Know this is embarrassing, but we don't understand your query{' '}
               </h4>
-              <p className="p-3 m-2">
-                Perhaps you should cross-check your spellings
-              </p>
+              <p className="p-3 m-2">Perhaps you should cross-check your spellings</p>
             </div>
           </div>
         );
@@ -51,10 +49,7 @@ class Favorites extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link
-                  to={`/recipe/${item.recipeId}`}
-                  className=" hvr-bounce-out"
-                >
+                <Link to={`/recipe/${item.recipeId}`} className=" hvr-bounce-out">
                   <div className={`card animate`}>
                     <img
                       className="card-img-top img-box"
@@ -63,9 +58,7 @@ class Favorites extends Component {
                     />
                     <div className="card-body p-0 text-center social-icons">
                       <Link to={`/category/${item.Recipe.category}`}>
-                        <span className="tag bg-danger">
-                          {item.Recipe.category}
-                        </span>
+                        <span className="tag bg-danger">{item.Recipe.category}</span>
                       </Link>
                       <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                         {item.Recipe.name}
@@ -120,13 +113,13 @@ class Favorites extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getFavs }, dispatch)
+  ...bindActionCreators({ getFavs }, dispatch),
 });
 
 const mapStateToProps = state => {
   // console.log(state);
   return {
-    favorites: state.favorite
+    favorites: state.favorite,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

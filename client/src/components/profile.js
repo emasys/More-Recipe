@@ -4,17 +4,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUserRecipes, getUserInfo } from '../actions';
 import Fade from 'react-reveal/Fade';
-import Auth from './auth';
+import Auth from './Auth';
 
 //component
-import Navbar from './navbar';
+import Navbar from './Navbar';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      limit: 6
+      limit: 6,
     };
     this.generateRecipes = this.generateRecipes.bind(this);
     this.generateUserInfo = this.generateUserInfo.bind(this);
@@ -31,7 +31,7 @@ class Profile extends Component {
       console.log(this.props.userInfo);
       this.setState(prevState => {
         return {
-          limit: prevState.limit + 6
+          limit: prevState.limit + 6,
         };
       });
     });
@@ -103,16 +103,7 @@ class Profile extends Component {
   generateUserInfo(data) {
     if (data) {
       // console.log(data.data);
-      const {
-        id,
-        firstName,
-        lastName,
-        bio,
-        email,
-        avatar,
-        moniker,
-        country
-      } = data.data;
+      const { id, firstName, lastName, bio, email, avatar, moniker, country } = data.data;
       return (
         <div className="col-lg-4 col-sm-12 mr-5 mb-10">
           <img src={avatar} alt="avatar" className="img-fluid rounded mb-3" />
@@ -158,11 +149,7 @@ class Profile extends Component {
             <div className="col-lg-7 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h2 className="fresh-title float-left clearfix">Recipes </h2>
-                <Link
-                  className="btn btn-dark float-right clearfix"
-                  role="button"
-                  to="/new"
-                >
+                <Link className="btn btn-dark float-right clearfix" role="button" to="/new">
                   Add New Recipes
                 </Link>
               </div>
@@ -189,10 +176,10 @@ const mapStateToProps = state => {
   console.log(state.recipes.userRecipes);
   return {
     user: state.recipes.userRecipes,
-    userInfo: state.signin.userInfo
+    userInfo: state.signin.userInfo,
   };
 };
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getUserRecipes, getUserInfo }, dispatch)
+  ...bindActionCreators({ getUserRecipes, getUserInfo }, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

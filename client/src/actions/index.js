@@ -37,7 +37,6 @@ export const getUserRecipes = (limit, id) => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return res;
     });
   return { type: 'USER_RECIPES', payload };
@@ -50,7 +49,7 @@ export const getUserInfo = id => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res;
     });
   return { type: 'USER_INFO', payload };
@@ -115,7 +114,7 @@ export const getFavs = () => {
  */
 export const getCategory = (data, limit) => {
   const info = qs.stringify(data);
-  console.log(info);
+  // console.log(info);
   const payload = fetch(`${URL}/recipes/category/${limit}?token=${xtoken}`, {
     method: 'Post',
     headers: {
@@ -125,7 +124,7 @@ export const getCategory = (data, limit) => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res;
     });
 
@@ -134,7 +133,7 @@ export const getCategory = (data, limit) => {
 //edit recipe
 export const editRecipe = (data, id) => {
   const info = qs.stringify(data);
-  console.log(info);
+  // console.log(info);
   const payload = fetch(`${URL}/recipes/${id}?token=${xtoken}`, {
     method: 'Post',
     headers: {
@@ -144,7 +143,7 @@ export const editRecipe = (data, id) => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res;
     });
 
@@ -165,7 +164,7 @@ export const signUp = data => {
       window.localStorage.setItem('token', res.token);
       const jwtbug = window.localStorage.getItem('token');
       if (jwtbug.length > 9) {
-        console.log(res);
+        // console.log(res);
         return res;
       } else {
         window.localStorage.removeItem('token');

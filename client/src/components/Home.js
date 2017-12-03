@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import Script from 'react-load-script';
-// import Header from './header';
 import Catalog from '../containers/catalog';
 import { Link } from 'react-router-dom';
 import { getRecipes, searchRecipes } from '../actions';
@@ -8,16 +6,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 //component
-import CatalogList from '../components/catalog';
-import Navbar from './navbar';
+import CatalogList from '../components/CatalogList';
+import Navbar from './Navbar';
 
-class App extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       search: '',
       All_recipes: '',
-      page_limit: 12
+      page_limit: 12,
     };
 
     // this.generateList = this.generateList.bind(this);
@@ -29,7 +27,7 @@ class App extends Component {
     const query = '?sort=upvotes&order=desc';
     this.props.getRecipes(this.state.page_limit, query).then(() => {
       this.setState({
-        All_recipes: this.props.recipes.allRecipes
+        All_recipes: this.props.recipes.allRecipes,
       });
     });
   }
@@ -39,13 +37,13 @@ class App extends Component {
     const data = { query: this.state.search };
     this.props.searchRecipes(data).then(() => {
       this.setState({
-        All_recipes: this.props.recipes.search
+        All_recipes: this.props.recipes.search,
       });
     });
   }
   searchBar(e) {
     this.setState({
-      search: e.target.value
+      search: e.target.value,
     });
     this.componentDidMount();
   }
@@ -55,7 +53,7 @@ class App extends Component {
     const headerImg = {
       background: `linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)), 
       url('../img/Food.jpg') no-repeat center center`,
-      backgroundSize: 'cover'
+      backgroundSize: 'cover',
     };
     return (
       <div>
@@ -66,10 +64,9 @@ class App extends Component {
               <div className="col-lg-6 col-sm-10 text-center">
                 <img src="../img/logo.png" alt="logo" />
                 <p className=" mt-5 text-dark bg-mirror header-title">
-                  “I hate the notion of a secret recipe. Recipes are by nature
-                  derivative and meant to be shared that is how they improve,
-                  are changed, how new ideas are formed. To stop a recipe in
-                  it's tracks, to label it "secret" just seems mean.” ― Molly
+                  “I hate the notion of a secret recipe. Recipes are by nature derivative and meant
+                  to be shared that is how they improve, are changed, how new ideas are formed. To
+                  stop a recipe in it's tracks, to label it "secret" just seems mean.” ― Molly
                   Wizenberg
                 </p>
               </div>
@@ -81,10 +78,7 @@ class App extends Component {
             <div className="clearfix">
               <h4 className="float-left fresh-title">Top Recipes Today</h4>
               <h5 className="float-right">
-                <Link
-                  to="/catalog"
-                  className="btn btn-dark hvr-icon-wobble-horizontal"
-                >
+                <Link to="/catalog" className="btn btn-dark hvr-icon-wobble-horizontal">
                   see all recipes{` `}
                 </Link>
               </h5>
@@ -106,9 +100,9 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
       getRecipes,
-      searchRecipes
+      searchRecipes,
     },
-    dispatch
-  )
+    dispatch,
+  ),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

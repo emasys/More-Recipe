@@ -3,11 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import { getRecipes, searchRecipes, getProfile } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Auth from '../components/auth';
+import Auth from '../components/Auth';
 // import Script from 'react-load-script';
 
 //component
-import CatalogList from '../components/catalog';
+import CatalogList from '../components/CatalogList';
 
 class Catalog extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Catalog extends Component {
     this.state = {
       search: '',
       All_recipes: '',
-      page_limit: 12
+      page_limit: 12,
     };
 
     // this.generateList = this.generateList.bind(this);
@@ -34,7 +34,7 @@ class Catalog extends Component {
       this.setState(prevState => {
         return {
           All_recipes: this.props.recipes.allRecipes,
-          page_limit: prevState.page_limit + 12
+          page_limit: prevState.page_limit + 12,
         };
       });
     });
@@ -45,13 +45,13 @@ class Catalog extends Component {
     const data = { query: this.state.search };
     this.props.searchRecipes(data).then(() => {
       this.setState({
-        All_recipes: this.props.recipes.search
+        All_recipes: this.props.recipes.search,
       });
     });
   }
   searchBar(e) {
     this.setState({
-      search: e.target.value
+      search: e.target.value,
     });
     this.componentDidMount();
   }
@@ -158,15 +158,8 @@ class Catalog extends Component {
                     ''
                   )}
                   <li className="nav-item ">
-                    <NavLink
-                      className="nav-link text-light"
-                      activeClassName="active"
-                      to="/catalog"
-                    >
-                      <i
-                        className="material-icons fa-2x  d-sm-none d-lg-inline"
-                        aria-hidden="true"
-                      >
+                    <NavLink className="nav-link text-light" activeClassName="active" to="/catalog">
+                      <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                         &#xE8EF;
                       </i>
                       <span className="d-lg-none">
@@ -176,14 +169,8 @@ class Catalog extends Component {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink
-                      className="nav-link "
-                      activeClassName="active"
-                      to="/favorites"
-                    >
-                      <i className="material-icons fa-2x red d-sm-none d-lg-inline">
-                        &#xE87D;
-                      </i>
+                    <NavLink className="nav-link " activeClassName="active" to="/favorites">
+                      <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
                       <span className="d-lg-none text-white">
                         <i className="fa fa-heart red " /> {` `}
                         Favorites
@@ -224,10 +211,7 @@ class Catalog extends Component {
                         <i className="material-icons fa-2x">&#xE853;</i>
                       </a>
                     )}
-                    <div
-                      className="dropdown-menu"
-                      aria-labelledby="navbarDropdownMenuLink"
-                    >
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                       {this.navLinks()}
                     </div>
                   </li>
@@ -240,10 +224,7 @@ class Catalog extends Component {
           <div className="catalog-wrapper">
             <CatalogList catalog={this.state.All_recipes} />
             <div className="text-center">
-              <button
-                className="btn btn-outline-dark hvr-grow-shadow"
-                onClick={this.nextPage}
-              >
+              <button className="btn btn-outline-dark hvr-grow-shadow" onClick={this.nextPage}>
                 View More
               </button>
             </div>
@@ -263,9 +244,9 @@ const mapDispatchToProps = dispatch => ({
     {
       getRecipes,
       searchRecipes,
-      getProfile
+      getProfile,
     },
-    dispatch
-  )
+    dispatch,
+  ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Catalog);

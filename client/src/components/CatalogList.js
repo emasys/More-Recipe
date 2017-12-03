@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-// import $ from 'jquery';
-// import { findDOMNode } from 'react-dom';
+
 import Fade from 'react-reveal/Fade';
 
-class Catalog extends Component {
+class CatalogList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      hover: ''
+      hover: '',
     };
     this.generateList = this.generateList.bind(this);
     this.hoverIn = this.hoverIn.bind(this);
@@ -36,9 +35,7 @@ class Catalog extends Component {
               <h4 className="p-3 m-2">
                 We Know this is embarrassing, but we don't understand your query{' '}
               </h4>
-              <p className="p-3 m-2">
-                Perhaps you should cross-check your spellings
-              </p>
+              <p className="p-3 m-2">Perhaps you should cross-check your spellings</p>
             </div>
           </div>
         );
@@ -57,11 +54,7 @@ class Catalog extends Component {
               <Fade bottom>
                 <Link to={`/recipes/${item.id}`} className=" hvr-push">
                   <div className={`card animate`}>
-                    <img
-                      className="card-img-top img-box"
-                      src={item.foodImg}
-                      alt="recipe image"
-                    />
+                    <img className="card-img-top img-box" src={item.foodImg} alt="recipe image" />
 
                     <div className="card-body p-0 text-center social-icons">
                       <Link to={`/category/${item.category}`}>
@@ -104,12 +97,8 @@ class Catalog extends Component {
     }
   }
   render() {
-    return (
-      <div className="row justify-content-center">
-        {this.generateList(this.props)}
-      </div>
-    );
+    return <div className="row justify-content-center">{this.generateList(this.props)}</div>;
   }
 }
 
-export default Catalog;
+export default CatalogList;

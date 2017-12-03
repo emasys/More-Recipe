@@ -6,9 +6,9 @@ import { getUserRecipes, getUserInfo } from '../actions';
 import Fade from 'react-reveal/Fade';
 
 //component
-import Navbar from './navbar';
+import Navbar from './Navbar';
 
-class Profile extends Component {
+class UserProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -166,4 +166,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getUserRecipes, getUserInfo }, dispatch),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

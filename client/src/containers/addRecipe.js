@@ -8,8 +8,7 @@ import axios from 'axios';
 import config from '../config';
 
 //component
-import Navbar from '../components/navbar';
-// import { recipeCategory } from '../components/RecipeCategories';
+import Navbar from '../components/Navbar';
 
 class AddRecipe extends Component {
   constructor(props) {

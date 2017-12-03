@@ -10,9 +10,9 @@ import axios from 'axios';
 import config from '../config';
 
 //component
-import Navbar from './navbar';
+import Navbar from './Navbar';
 
-class Signup extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -317,4 +317,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

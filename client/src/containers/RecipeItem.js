@@ -11,24 +11,25 @@ import {
   editRecipe,
   delRecipe,
   getUpvStatus,
-  getUserInfo
+  getUserInfo,
 } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 // import Modal from 'react-responsive-modal';
 import ReactTooltip from 'react-tooltip';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 
 // components
-import Auth from '../components/auth';
-import RecipeItems from '../components/recipe_item_image';
-import RecipeIngredients from '../components/recipe_ingredients';
-import Reviews from '../components/reviews';
-import Navbar from '../components/navbar';
+import Auth from '../components/Auth';
+import RecipeItems from '../components/RecipeItems';
+import RecipeIngredients from '../components/Ingredients';
+import Reviews from '../components/Reviews';
+import Navbar from '../components/Navbar';
 
 // console.log(decoded);
-class Recipe_item extends Component {
+class RecipeItem extends Component {
   constructor(props) {
     super(props);
 
@@ -40,7 +41,7 @@ class Recipe_item extends Component {
       name: '',
       ingredients: '',
       direction: '',
-      description: ''
+      description: '',
     };
     this.generateItems = this.generateItems.bind(this);
     this.favIt = this.favIt.bind(this);
@@ -60,12 +61,7 @@ class Recipe_item extends Component {
     this.props.getFavStatus(this.props.match.params.id);
     this.props.getRecipeItem(this.props.match.params.id).then(() => {
       const id = this.props.recipes.recipeItem.recipe.userId;
-      const {
-        ingredients,
-        name,
-        description,
-        direction
-      } = this.props.recipes.recipeItem.recipe;
+      const { ingredients, name, description, direction } = this.props.recipes.recipeItem.recipe;
       this.props.getUserInfo(id);
       if (Auth.userID() === id) {
         this.setState({
@@ -73,7 +69,7 @@ class Recipe_item extends Component {
           name,
           ingredients: ingredients.join(','),
           description,
-          direction
+          direction,
         });
       }
     });
@@ -124,7 +120,7 @@ class Recipe_item extends Component {
       name: e.target.elements.recipe.value,
       ingredients: e.target.elements.ingredients.value,
       direction: e.target.elements.direction.value,
-      description: e.target.elements.description.value
+      description: e.target.elements.description.value,
     };
     this.props.editRecipe(data, this.props.match.params.id).then(() => {
       this.componentDidMount();
@@ -133,22 +129,22 @@ class Recipe_item extends Component {
   }
   nameChanged(e) {
     this.setState({
-      name: e.target.value
+      name: e.target.value,
     });
   }
   ingChanged(e) {
     this.setState({
-      ingredients: e.target.value
+      ingredients: e.target.value,
     });
   }
   directionChanged(e) {
     this.setState({
-      direction: e.target.value
+      direction: e.target.value,
     });
   }
   descriptionChanged(e) {
     this.setState({
-      description: e.target.value
+      description: e.target.value,
     });
   }
   getEditForm() {
@@ -159,7 +155,7 @@ class Recipe_item extends Component {
           name,
           ingredients,
           direction,
-          description
+          description,
         } = this.props.recipes.recipeItem.recipe;
       }
     }
@@ -214,12 +210,7 @@ class Recipe_item extends Component {
             />
           </li>
           <li className=" col-12 ">
-            <input
-              type="submit"
-              value="submit"
-              id="submit"
-              className="btn bg-dark hovered"
-            />
+            <input type="submit" value="submit" id="submit" className="btn bg-dark hovered" />
           </li>
         </ul>
       </form>
@@ -236,7 +227,7 @@ class Recipe_item extends Component {
         favorite,
         category,
         upvote,
-        foodImg
+        foodImg,
       } = reactions.recipe;
       console.log(foodImg);
 
@@ -270,10 +261,7 @@ class Recipe_item extends Component {
                 />
                 <em className="bg-success">{upvote}</em>
               </span>
-              <span
-                className="text-center card-link m-1"
-                onClick={this.downvote}
-              >
+              <span className="text-center card-link m-1" onClick={this.downvote}>
                 <i
                   className={`fa ${
                     this.props.votes.votes.downvote.success
@@ -313,20 +301,12 @@ class Recipe_item extends Component {
         <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">
             <h4>Delete Recipe?</h4>
-            <h2 className="mt-5">
-              Are you sure you want to delete this recipe?
-            </h2>
+            <h2 className="mt-5">Are you sure you want to delete this recipe?</h2>
             <h4>This action cannot be revoked</h4>
-            <button
-              className="btn btn-block btn-success"
-              onClick={this.delRecipe}
-            >
+            <button className="btn btn-block btn-success" onClick={this.delRecipe}>
               Yes
             </button>
-            <button
-              className="btn btn-block btn-danger"
-              onClick={this.onCloseDeleteModal}
-            >
+            <button className="btn btn-block btn-danger" onClick={this.onCloseDeleteModal}>
               No
             </button>
           </div>
@@ -346,9 +326,7 @@ class Recipe_item extends Component {
             onClick={this.onOpenDeleteModal}
             href="#"
             data-tip="Delete recipe"
-            className={`btn btn-danger rounded-circle ${
-              this.state.edit ? 'd-block' : 'd-none'
-            }`}
+            className={`btn btn-danger rounded-circle ${this.state.edit ? 'd-block' : 'd-none'}`}
             id="floating-delete"
           >
             <i className="fa fa-trash fa-2x" aria-hidden="true" />
@@ -357,9 +335,7 @@ class Recipe_item extends Component {
             onClick={this.onOpenModal}
             href="#!"
             data-tip="Edit recipe"
-            className={`btn btn-info rounded-circle ${
-              this.state.edit ? 'd-block' : 'd-none'
-            }`}
+            className={`btn btn-info rounded-circle ${this.state.edit ? 'd-block' : 'd-none'}`}
             id="floating-edit"
           >
             <i className="fa fa-pencil fa-2x" aria-hidden="true" />
@@ -378,7 +354,7 @@ const mapStateToProps = state => {
     favorite: state.favorite,
     favStatus: state.favStatus,
     votes: state.votes,
-    userInfo: state.signin.userInfo
+    userInfo: state.signin.userInfo,
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -392,9 +368,9 @@ const mapDispatchToProps = dispatch => ({
       downvote,
       editRecipe,
       delRecipe,
-      getUserInfo
+      getUserInfo,
     },
-    dispatch
-  )
+    dispatch,
+  ),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Recipe_item);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeItem);

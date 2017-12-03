@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 // import _ from 'lodash';
 
 //components
-import Navbar from './navbar';
+import Navbar from './Navbar';
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class SignIn extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      console.log(this.props.signin);
+      // console.log(this.props.signin);
 
       if (this.props.signin.user.success) {
         // this.props.history.push('/');

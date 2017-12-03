@@ -2,21 +2,21 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 
 //components
-import App from '../components/app';
-import Footer from '../components/footer';
-import Catalog from '../containers/catalog';
-import Favorites from '../components/favorites';
-import NotFound from '../components/notfound';
+import Home from '../components/Home';
+import Footer from '../components/Footer';
+import Catalog from '../containers/Catalog';
+import Favorites from '../components/Favorites';
+import NotFound from '../components/Notfound';
 import Playground from '../playground/app';
-import Signup from '../components/signup';
-import Signin from '../components/signin';
-import Profile from '../components/profile';
-import RecipeItem from '../containers/recipe_item';
-import AddRecipe from '../containers/addRecipe';
-import User from '../components/user';
-import Auth from '../components/auth';
-import Management from '../components/manage_users';
-import Category from '../components/category';
+import Signup from '../components/Signup';
+import Signin from '../components/Signin';
+import Profile from '../components/Profile';
+import RecipeItem from '../containers/RecipeItem';
+import AddRecipe from '../containers/AddRecipe';
+import User from '../components/UserProfile';
+import Auth from '../components/Auth';
+import Management from '../components/ManageUsers';
+import Category from '../components/Category';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -97,9 +97,8 @@ const AppRoutes = () => (
             }
           }}
         />
-        <Route path="/" exact component={App} />
+        <Route path="/" exact component={Home} />
         <Route path="/catalog" component={Catalog} />
-
         <Route component={NotFound} />
       </Switch>
       <Footer />

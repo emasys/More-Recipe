@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getProfile } from '../actions';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import Auth from './auth.js';
+import Auth from './Auth.js';
 
 class Navbar extends Component {
   constructor(props) {
@@ -89,10 +89,7 @@ class Navbar extends Component {
                       to="/new"
                       data-tip="Add new recipe"
                     >
-                      <i
-                        className="material-icons fa-2x d-sm-none d-lg-inline"
-                        aria-hidden="true"
-                      >
+                      <i className="material-icons fa-2x d-sm-none d-lg-inline" aria-hidden="true">
                         add_to_photos
                       </i>
                       <span className="d-lg-none">
@@ -111,10 +108,7 @@ class Navbar extends Component {
                     to="/catalog"
                     data-tip="Catalog"
                   >
-                    <i
-                      className="material-icons fa-2x  d-sm-none d-lg-inline"
-                      aria-hidden="true"
-                    >
+                    <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                       &#xE8EF;
                     </i>
                     <span className="d-lg-none">
@@ -130,9 +124,7 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">
-                      &#xE87D;
-                    </i>
+                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
                     <span className="d-lg-none text-white">
                       <i className="fa fa-heart red " /> {` `}
                       Favorites
@@ -174,10 +166,7 @@ class Navbar extends Component {
                     </a>
                   )}
 
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     {this.navLinks()}
                   </div>
                 </li>
@@ -192,13 +181,13 @@ class Navbar extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getProfile }, dispatch)
+  ...bindActionCreators({ getProfile }, dispatch),
 });
 
 const mapStateToProps = state => {
   console.log(state.signin.userProfile);
   return {
-    user: state.signin.userProfile
+    user: state.signin.userProfile,
   };
 };
 

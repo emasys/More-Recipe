@@ -6,14 +6,14 @@ import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 
 //components
-import Navbar from './navbar';
+import Navbar from './Navbar';
 
-class Manage_users extends Component {
+class ManageUsers extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
     };
     this.deleteUser = this.deleteUser.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
@@ -62,11 +62,7 @@ class Manage_users extends Component {
               <td>{item.moniker}</td>
               <td>{item.email}</td>
               <td>
-                <button
-                  className="btn btn-danger"
-                  id={item.id}
-                  onClick={this.deleteUser}
-                >
+                <button className="btn btn-danger" id={item.id} onClick={this.deleteUser}>
                   Delete
                 </button>
               </td>
@@ -86,18 +82,10 @@ class Manage_users extends Component {
           <div className="text-center mt-10">
             <h4>Delete Recipe?</h4>
             <h2 className="mt-5">Are you sure you want to delete this user?</h2>
-            <button
-              id="yes"
-              className="btn btn-block btn-success"
-              onClick={this.confirmDelete}
-            >
+            <button id="yes" className="btn btn-block btn-success" onClick={this.confirmDelete}>
               Yes
             </button>
-            <button
-              id="no"
-              className="btn btn-block btn-danger"
-              onClick={this.onCloseModal}
-            >
+            <button id="no" className="btn btn-block btn-danger" onClick={this.onCloseModal}>
               No
             </button>
           </div>
@@ -127,13 +115,13 @@ class Manage_users extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getAllUsers, deleteUser }, dispatch)
+  ...bindActionCreators({ getAllUsers, deleteUser }, dispatch),
 });
 const mapStateToProps = state => {
   console.log(state.signin.allUsers);
   return {
     users: state.signin.allUsers,
-    deluser: state.signin.delUser
+    deluser: state.signin.delUser,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Manage_users);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);
