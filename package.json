@@ -19,7 +19,7 @@
     "test:client": "jest",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/index.js ",
     "s:test": "set mocha --require babel-register  server/test/test.js",
-    "start": "webpack && node --require babel-register server/index.js",
+    "start": "node --require babel-register server/index.js",
     "start:dev": "nodemon --require babel-register server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "shc": "start coverage/lcov-report/index.html"
