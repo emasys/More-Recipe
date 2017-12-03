@@ -8,30 +8,25 @@
     "url": "https://github.com/emasys/More-Recipe.git"
   },
   "engines": {
-        "node": "8.3.0",
-        "npm": "5.3.0"
-    },
+    "node": "8.3.0",
+    "npm": "5.3.0"
+  },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack",
     "dev-server": "webpack-dev-server",
     "prod": "NODE_ENV=production npm run build",
     "dev": "webpack-dev-server --watch --hot",
     "test:client": "jest",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/index.js ",
     "s:test": "set mocha --require babel-register  server/test/test.js",
-    "start": "node --require babel-register server/index.js",
+    "start": "webpack && node --require babel-register server/index.js",
     "start:dev": "nodemon --require babel-register server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "shc": "start coverage/lcov-report/index.html"
   },
   "nyc": {
-    "require": [
-      "babel-register"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
+    "require": ["babel-register"],
+    "reporter": ["lcov", "text"],
     "sourceMap": false,
     "instrument": false
   },

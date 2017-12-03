@@ -166,6 +166,9 @@ class SignUp extends Component {
               be shared that is how they improve, are changed, how new ideas are formed. To stop a
               recipe in it's tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
             </p>
+            <p>
+              If you already have an account, <Link to="/signin" className="btn btn-lg btn-outline-dark"> Sign In</Link>
+            </p>
           </div>
           <div className="catalog-wrapper col-lg-6 justify-content-center  col-sm-12">
             <form onSubmit={this.handleSubmit}>

@@ -2,16 +2,18 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import routes from './routes/index';
+import path from 'path';
 
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, './../client/public')));
 
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
