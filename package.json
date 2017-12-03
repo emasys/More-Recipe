@@ -20,7 +20,7 @@
     "test": "cross-env NODE_ENV=test nyc mocha server/test/index.js ",
     "s:test": "set mocha --require babel-register  server/test/test.js",
     "start": "node --require babel-register server/index.js",
-    "start:dev": "nodemon --require babel-register server/index.js",
+    "start:dev": "webpack && nodemon --require babel-register server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "shc": "start coverage/lcov-report/index.html"
   },
@@ -83,6 +83,7 @@
     "react-redux": "^5.0.6",
     "react-responsive-modal": "^2.0.0",
     "react-reveal": "^0.7.3",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-tooltip": "^3.4.0",
     "redux": "^3.7.2",

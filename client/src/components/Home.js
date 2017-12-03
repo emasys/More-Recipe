@@ -73,18 +73,20 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <section className="container catalog-wrapper" id="catalog">
-          <div className="col-12">
-            <div className="clearfix">
-              <h4 className="float-left fresh-title">Top Recipes Today</h4>
-              <h5 className="float-right">
-                <Link to="/catalog" className="btn btn-dark hvr-icon-wobble-horizontal">
-                  see all recipes{` `}
-                </Link>
-              </h5>
+        <section className="container " id="catalog">
+          <div className="catalog-wrapper">
+            <div className="col-12 ">
+              <div className="clearfix">
+                <h4 className="float-left fresh-title">Top Recipes Today</h4>
+                <h5 className="float-right">
+                  <Link to="/catalog" className="btn btn-dark hvr-icon-wobble-horizontal">
+                    see all recipes{` `}
+                  </Link>
+                </h5>
+              </div>
             </div>
+            <CatalogList catalog={this.state.All_recipes} />
           </div>
-          <CatalogList catalog={this.state.All_recipes} />
         </section>
       </div>
     );
