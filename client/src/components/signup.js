@@ -248,10 +248,10 @@ class SignUp extends Component {
                   <div className="text-danger" id="cp_error" />
                 </li>
                 <li className="special col-lg-6 col-sm-12">
-                  <select name="country" className="col-lg-11 col-sm-12 ">
                     <label>Country</label>
+                  <select name="country" className="col-lg-11 col-sm-12 ">
                     {countries.map(country => {
-                      return <option value={country.name}>{country.name}</option>;
+                      return <option key={country.codes} value={country.name}>{country.name}</option>;
                     })}
                   </select>
                 </li>

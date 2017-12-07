@@ -59,7 +59,7 @@ class AddRecipe extends Component {
     axios.all(uploaders).then(() => {
       // ... perform after upload is successful operation
 
-      console.log('upload complete');
+      // console.log('upload complete');
       this.props.addRecipe(data);
       this.componentDidUpdate();
     });
@@ -74,7 +74,7 @@ class AddRecipe extends Component {
   }
   handleDrop(files) {
     const [{ preview }] = files;
-    console.log(files);
+    // console.log(files);
     this.setState({ preview, files });
   }
   handleDropRejected(...args) {
@@ -105,7 +105,7 @@ class AddRecipe extends Component {
       'Desserts',
       'Drinks',
     ];
-    console.log(recipeCategory);
+    // console.log(recipeCategory);
 
     return (
       <section className="container ">
@@ -182,9 +182,9 @@ class AddRecipe extends Component {
                 <li className="special col-lg-6 col-sm-12">
                   <label>Category</label>
                   <select name="category" className="col-lg-11 col-sm-12 ">
-                    {recipeCategory.map(item => {
+                    {recipeCategory.map((item, ) => {
                       return (
-                        <option value={item} className="text-capitalize">
+                        <option value={item} key={item} className="text-capitalize">
                           {item}
                         </option>
                       );
@@ -208,7 +208,7 @@ class AddRecipe extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {
     new_recipe: state.new_recipe,
   };

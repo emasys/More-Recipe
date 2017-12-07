@@ -19,11 +19,9 @@ class moreRecipes {
     const validator = new Validator(request, Recipes.createRules());
     if (validator.passes()) {
       Users.findById(req.decoded.id)
-        .then(user => {
+        .then((user) => {
           if (!user) {
-            return res
-              .status(404)
-              .send({ success: false, error: 'User not found' });
+            return res.status(404).send({ success: false, error: 'User not found' });
           }
           return Recipes.create({
             name: request.name,
@@ -32,12 +30,10 @@ class moreRecipes {
             description: request.description,
             category: request.category,
             foodImg: request.foodImg,
-            ingredients: getArr(arr)
+            ingredients: getArr(arr),
           })
             .then(recipe => res.status(201).send({ success: true, recipe }))
-            .catch(error =>
-              res.status(401).send({ success: false, error: 'Not added' })
-            );
+            .catch(() => res.status(401).send({ success: false, error: 'Not added' }));
         })
         .catch(error => res.status(404).send(error));
     } else {
@@ -66,9 +62,9 @@ class moreRecipes {
       include: [
         {
           model: Reviews,
-          as: 'reviews'
-        }
-      ]
+          as: 'reviews',
+        },
+      ],
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
@@ -86,9 +82,9 @@ class moreRecipes {
     return Recipes.findAll({
       limit: req.params.limit,
       where: {
-        category: req.body.category
+        category: req.body.category,
       },
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
@@ -106,14 +102,13 @@ class moreRecipes {
     return Recipes.findAll({
       limit: req.params.limit || 5,
       where: {
-        userId: req.params.id
-      }
+        userId: req.params.id,
+      },
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
 
- 
   /**
    *
    *
@@ -123,19 +118,16 @@ class moreRecipes {
    * @returns result of search query
    * @memberof moreRecipes
    */
-
   static SearchRecipe(req, res) {
     return Recipes.findAll({
       where: {
         $or: [
           { name: { ilike: `%${req.body.query}%` } },
-          // { direction: { ilike: `%${req.body.query}%` } },
-          // { description: { ilike: `%${req.body.query}%` } },
-          { ingredients: { $contains: [`${req.body.query}`] } }
-        ]
-      }
+          { ingredients: { $contains: [`${req.body.query}`] } },
+        ],
+      },
     })
-      .then(recipes => {
+      .then((recipes) => {
         return res.status(200).send({ recipes });
       })
       .catch(error => res.status(400).send({ success: false, error }));
@@ -154,15 +146,15 @@ class moreRecipes {
       include: [
         {
           model: Reviews,
-          as: 'reviews'
+          as: 'reviews',
         },
         {
           model: Favorite,
-          as: 'favorites'
-        }
-      ]
+          as: 'favorites',
+        },
+      ],
     })
-      .then(recipe => {
+      .then((recipe) => {
         if (!recipe) {
           res.status(404).send({ success: false, status: 'Recipes not found' });
         }
@@ -171,17 +163,17 @@ class moreRecipes {
             return recipe.update({
               comments: recipe.reviews.length,
               favorite: recipe.favorites.length,
-              views: recipe.views + 1
+              views: recipe.views + 1,
             });
           }
           return recipe.update({
             comments: recipe.reviews.length,
             favorite: recipe.favorites.length,
-            views: recipe.views
+            views: recipe.views,
           });
         }
       })
-      .then(recipe => {
+      .then((recipe) => {
         res.status(200).send({ success: true, recipe });
       })
       .catch(error => res.status(400).send({ success: false, error }));
@@ -198,11 +190,11 @@ class moreRecipes {
     const arr = req.body.ingredients;
     const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {})
-      .then(recipe => {
+      .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
             success: false,
-            status: 'Recipe Not Found'
+            status: 'Recipe Not Found',
           });
         }
         return recipe
@@ -210,9 +202,9 @@ class moreRecipes {
             name: req.body.name || recipe.name,
             direction: req.body.direction || recipe.direction,
             description: req.body.description || recipe.description,
-            ingredients: getArr(arr) || recipe.ingredients
+            ingredients: getArr(arr) || recipe.ingredients,
           })
-          .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+          .then(() => res.status(204).send(recipe)) // Send back the updated recipe.
           .catch(error => res.status(400).send({ success: false, error }));
       })
       .catch(error => res.status(400).send(error));
@@ -228,37 +220,37 @@ class moreRecipes {
    */
   static checkReactions(req, res) {
     return Recipes.findById(req.params.recipeId)
-      .then(recipe => {
+      .then((recipe) => {
         if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
           res.status(200).send({
             upvote: {
-              success: true
+              success: true,
             },
             downvote: {
-              success: false
-            }
+              success: false,
+            },
           });
         } else if (recipe.reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
           res.status(200).send({
             upvote: {
-              success: false
+              success: false,
             },
             downvote: {
-              success: true
-            }
+              success: true,
+            },
           });
         } else {
           res.status(200).send({
             upvote: {
-              success: false
+              success: false,
             },
             downvote: {
-              success: false
-            }
+              success: false,
+            },
           });
         }
       })
-      .catch(error => res.status(400).send({ status: 'recipe not found' }));
+      .catch(() => res.status(400).send({ status: 'recipe not found' }));
   }
   /**
    *
@@ -271,26 +263,25 @@ class moreRecipes {
    */
   static upvote(req, res) {
     return Recipes.findById(req.params.recipeId)
-      .then(recipe => {
+      .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
             success: false,
-            status: 'Recipe Not Found'
+            status: 'Recipe Not Found',
           });
         }
         if (req.decoded.id) {
-          let reactionUp = recipe.reactionUp;
-          let reactionDown = recipe.reactionDown;
+          const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
-            //already reacted
-            let removeId = reactionUp.indexOf(Number(req.decoded.id));
+            // already reacted
+            const removeId = reactionUp.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionUp.splice(removeId, 1);
             }
             return recipe
               .update({
                 upvote: recipe.upvote - 1,
-                reactionUp: recipe.reactionUp
+                reactionUp: recipe.reactionUp,
               })
               .then(() => res.status(200).send({ success: false, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
@@ -298,8 +289,8 @@ class moreRecipes {
             reactionUp.indexOf(Number(req.decoded.id)) === -1 &&
             reactionDown.indexOf(Number(req.decoded.id)) !== -1
           ) {
-            //already reacted
-            let removeId = reactionDown.indexOf(Number(req.decoded.id));
+            // already reacted
+            const removeId = reactionDown.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionDown.splice(removeId, 1);
             }
@@ -309,20 +300,19 @@ class moreRecipes {
                 upvote: recipe.upvote + 1,
                 downvote: recipe.downvote - 1,
                 reactionUp: recipe.reactionUp,
-                reactionDown: reactionDown
-              })
-              .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
-              .catch(error => res.status(400).send({ success: false, error }));
-          } else {
-            recipe.reactionUp.push(req.decoded.id);
-            return recipe
-              .update({
-                upvote: recipe.upvote + 1,
-                reactionUp: recipe.reactionUp
+                reactionDown,
               })
               .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           }
+          recipe.reactionUp.push(req.decoded.id);
+          return recipe
+            .update({
+              upvote: recipe.upvote + 1,
+              reactionUp: recipe.reactionUp,
+            })
+            .then(() => res.status(200).send({ success: true, recipe })) // Send back the updated recipe.
+            .catch(error => res.status(400).send({ success: false, error }));
         }
       })
       .catch(error => res.status(400).send(error));
@@ -339,26 +329,25 @@ class moreRecipes {
    */
   static downvote(req, res) {
     return Recipes.findById(req.params.recipeId)
-      .then(recipe => {
+      .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({
             success: false,
-            status: 'Recipe Not Found'
+            status: 'Recipe Not Found',
           });
         }
         if (req.decoded.id) {
-          let reactionUp = recipe.reactionUp;
-          let reactionDown = recipe.reactionDown;
+          const { reactionDown, reactionUp } = recipe;
           if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
-            //already reacted
-            let removeId = reactionDown.indexOf(Number(req.decoded.id));
+            // already reacted
+            const removeId = reactionDown.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionDown.splice(removeId, 1);
             }
             return recipe
               .update({
                 downvote: recipe.downvote - 1,
-                reactionDown: recipe.reactionDown
+                reactionDown: recipe.reactionDown,
               })
               .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
@@ -366,8 +355,8 @@ class moreRecipes {
             reactionDown.indexOf(Number(req.decoded.id)) === -1 &&
             reactionUp.indexOf(Number(req.decoded.id)) !== -1
           ) {
-            //already reacted
-            let removeId = reactionUp.indexOf(Number(req.decoded.id));
+            // already reacted
+            const removeId = reactionUp.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionUp.splice(removeId, 1);
             }
@@ -377,20 +366,19 @@ class moreRecipes {
                 upvote: recipe.upvote - 1,
                 downvote: recipe.downvote + 1,
                 reactionDown: recipe.reactionDown,
-                reactionUp: reactionUp
-              })
-              .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
-              .catch(error => res.status(400).send({ success: false, error }));
-          } else {
-            recipe.reactionDown.push(req.decoded.id);
-            return recipe
-              .update({
-                downvote: recipe.upvote + 1,
-                reactionDown: recipe.reactionDown
+                reactionUp,
               })
               .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
               .catch(error => res.status(400).send({ success: false, error }));
           }
+          recipe.reactionDown.push(req.decoded.id);
+          return recipe
+            .update({
+              downvote: recipe.upvote + 1,
+              reactionDown: recipe.reactionDown,
+            })
+            .then(() => res.status(200).send(recipe)) // Send back the updated recipe.
+            .catch(error => res.status(400).send({ success: false, error }));
         }
       })
       .catch(error => res.status(400).send(error));
@@ -405,15 +393,13 @@ class moreRecipes {
    */
   static deleteRecipe(req, res) {
     return Recipes.findById(req.params.recipeId)
-      .then(recipe => {
+      .then((recipe) => {
         if (!recipe) {
           res.status(404).json({ success: false, status: 'Recipe not found' });
         }
         return recipe
           .destroy()
-          .then(() =>
-            res.status(200).send({ success: true, status: 'Recipe deleted' })
-          )
+          .then(() => res.status(200).send({ success: true, status: 'Recipe deleted' }))
           .catch(error => res.status(400).send({ error }));
       })
       .catch(error => res.status(400).send({ error }));
