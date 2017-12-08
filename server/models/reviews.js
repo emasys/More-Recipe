@@ -19,10 +19,6 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     });
   };
-  Reviews.createRules = () => {
-    return {
-      content: 'required'
-    };
-  };
+  
   return Reviews;
 };

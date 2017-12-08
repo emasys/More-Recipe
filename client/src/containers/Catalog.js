@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { getRecipes, searchRecipes } from '../actions';
+import { getRecipes, searchRecipes, getProfile } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Auth from '../components/auth';
+import Auth from '../components/Auth';
 // import Script from 'react-load-script';
 
 //component
-import CatalogList from '../components/catalog';
+import CatalogList from '../components/CatalogList';
 
 class Catalog extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Catalog extends Component {
     this.state = {
       search: '',
       All_recipes: '',
-      page_limit: 12
+      page_limit: 12,
     };
 
     // this.generateList = this.generateList.bind(this);
@@ -27,11 +27,14 @@ class Catalog extends Component {
   }
 
   componentDidMount() {
+    if (Auth.userID()) {
+      this.props.getProfile(Auth.userID());
+    }
     this.props.getRecipes(this.state.page_limit).then(() => {
       this.setState(prevState => {
         return {
           All_recipes: this.props.recipes.allRecipes,
-          page_limit: prevState.page_limit + 12
+          page_limit: prevState.page_limit + 12,
         };
       });
     });
@@ -42,13 +45,13 @@ class Catalog extends Component {
     const data = { query: this.state.search };
     this.props.searchRecipes(data).then(() => {
       this.setState({
-        All_recipes: this.props.recipes.search
+        All_recipes: this.props.recipes.search,
       });
     });
   }
   searchBar(e) {
     this.setState({
-      search: e.target.value
+      search: e.target.value,
     });
     this.componentDidMount();
   }
@@ -100,7 +103,7 @@ class Catalog extends Component {
         <section className="container-fluid fixed">
           <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
             <div className="container">
-              <Link className="navbar-brand text-white" to="/">
+              <Link className="navbar-brand bolder text-orange" to="/">
                 MoreRecipes
               </Link>
               <button
@@ -112,7 +115,7 @@ class Catalog extends Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span className="navbar-toggler-icon" />
+                <i className="fa fa-bars text-orange" aria-hidden="true" />
               </button>
               <form
                 onSubmit={this.search}
@@ -139,49 +142,67 @@ class Catalog extends Component {
                         to="/new"
                         data-tip="Add new recipe"
                       >
-                        <i className="material-icons fa-2x" aria-hidden="true">
+                        <i
+                          className="material-icons fa-2x d-sm-none d-lg-inline"
+                          aria-hidden="true"
+                        >
                           add_to_photos
                         </i>
+                        <span className="d-lg-none">Add new recipe</span>
                       </NavLink>
                     </li>
                   ) : (
                     ''
                   )}
                   <li className="nav-item ">
-                    <NavLink
-                      className="nav-link text-light"
-                      activeClassName="active"
-                      to="/catalog"
-                    >
-                      <i className="material-icons fa-2x" aria-hidden="true">
+                    <NavLink className="nav-link text-light" activeClassName="active" to="/catalog">
+                      <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                         &#xE8EF;
                       </i>
+                      <span className="d-lg-none">Catalog</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink
-                      className="nav-link "
-                      activeClassName="active"
-                      to="/favorites"
-                    >
-                      <i className="material-icons fa-2x red">&#xE87D;</i>
+                    <NavLink className="nav-link " activeClassName="active" to="/favorites">
+                      <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
+                      <span className="d-lg-none text-white">Favorites</span>{' '}
                     </NavLink>
                   </li>
                   <li className="nav-item dropdown">
-                    <a
-                      className="nav-link "
-                      href="#"
-                      id="navbarDropdownMenuLink"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="material-icons fa-2x">&#xE853;</i>
-                    </a>
-                    <div
-                      className="dropdown-menu"
-                      aria-labelledby="navbarDropdownMenuLink"
-                    >
+                    {Auth.loggedIn() ? (
+                      <a
+                        className="nav-link "
+                        href="#"
+                        id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <img
+                          src={
+                            this.props.user
+                              ? this.props.user.data.avatar.length > 10
+                                ? this.props.user.data.avatar
+                                : 'icon.svg'
+                              : 'icon.svg'
+                          }
+                          alt="avatar"
+                          className="fa-2x img-icon rounded-circle"
+                        />
+                      </a>
+                    ) : (
+                      <a
+                        className="nav-link "
+                        href="#"
+                        id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="material-icons fa-2x">&#xE853;</i>
+                      </a>
+                    )}
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                       {this.navLinks()}
                     </div>
                   </li>
@@ -190,15 +211,14 @@ class Catalog extends Component {
             </div>
           </nav>
         </section>
-        <section className="container catalog-wrapper" id="catalog">
-          <CatalogList catalog={this.state.All_recipes} />
-          <div className="text-center">
-            <button
-              className="btn btn-dark hvr-grow-shadow"
-              onClick={this.nextPage}
-            >
-              View More
-            </button>
+        <section className="container" id="catalog">
+          <div className="catalog-wrapper">
+            <CatalogList catalog={this.state.All_recipes} />
+            <div className="text-center">
+              <button className="btn btn-outline-dark hvr-grow-shadow" onClick={this.nextPage}>
+                View More
+              </button>
+            </div>
           </div>
         </section>
       </div>
@@ -207,16 +227,17 @@ class Catalog extends Component {
 }
 const mapStateToProps = state => {
   // console.log(state.recipes);
-  return { recipes: state.recipes };
+  return { recipes: state.recipes, user: state.signin.userProfile };
 };
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
       getRecipes,
-      searchRecipes
+      searchRecipes,
+      getProfile,
     },
-    dispatch
-  )
+    dispatch,
+  ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Catalog);

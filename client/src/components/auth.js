@@ -20,6 +20,10 @@ class Auth {
   static userID() {
     return decoded.id;
   }
+
+  static moniker() {
+    return decoded.moniker;
+  }
 }
 
 export default Auth;

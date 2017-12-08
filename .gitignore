@@ -24,3 +24,7 @@ webpack.prod.config.js
 /client/public/img
 /.eslintignore
 /yarn-error.log
+/client/src/components/searchBar.js
+/client/src/containers/favorites.js
+/client/src/components/RecipeCategories.js
+/templates
