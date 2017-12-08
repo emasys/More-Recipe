@@ -8,7 +8,7 @@ class Reviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      content: '',
     };
     this.getReview = this.getReview.bind(this);
     this.txChanged = this.txChanged.bind(this);
@@ -16,16 +16,9 @@ class Reviews extends Component {
     this.resetState = this.resetState.bind(this);
   }
 
-  componentWillMount() {
-    // this.props.getRecipeItem(this.props.id);
-  }
-  componentDidUpdate() {
-    // this.props.getRecipeItem(this.props.id);
-  }
-
   resetState() {
     this.setState({
-      content: ''
+      content: '',
     });
   }
 
@@ -40,20 +33,19 @@ class Reviews extends Component {
   }
   txChanged(e) {
     this.setState({
-      content: e.target.value
+      content: e.target.value,
     });
   }
 
   getReview(reviews) {
     if (reviews) {
       const comments = reviews.recipe.reviews;
-      console.log(comments);
       return comments.map((comment, index) => {
         return (
-          <div className="direction rounded my-2" key={index}>
+          <div className="direction p-15 bg-light text-dark rounded my-2" key={index}>
             <blockquote className="blockquote">
               <p className="mb-0">{comment.content}</p>
-              <footer className="blockquote-footer">
+              <footer className="blockquote-footer d-inline bg-transparent">
                 {' '}
                 <Link to={`/user/${comment.userId}`}> {comment.user}</Link>
               </footer>
@@ -90,22 +82,20 @@ class Reviews extends Component {
             </button>
           </form>
         </div>
-        <div className="col-lg-6 col-sm-12 ">
-          {this.getReview(this.props.recipes.recipeItem)}
-        </div>
+        <div className="col-lg-6 col-sm-12 ">{this.getReview(this.props.recipes.recipeItem)}</div>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ postReview, getRecipeItem }, dispatch)
+  ...bindActionCreators({ postReview, getRecipeItem }, dispatch),
 });
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     review: state.review,
-    recipes: state.recipes
+    recipes: state.recipes,
   };
 };
 

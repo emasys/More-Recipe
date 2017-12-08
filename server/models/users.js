@@ -18,6 +18,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    moniker: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -33,13 +38,13 @@ export default (sequelize, DataTypes) => {
     bio: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
+    }
   });
 
   Users.associate = (models) => {
     Users.hasMany(models.Recipes, {
       foreignKey: 'userId',
-      as: 'recipeItems',
+      as: 'recipeItems'
     });
   };
 
@@ -47,7 +52,7 @@ export default (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, user.password);
   };
   /**
-   * Hook for hashing password
+   * Hook for hashing password before adding into db
    */
   Users.hook('beforeCreate', (user) => {
     const salt = bcrypt.genSaltSync(10);
@@ -55,20 +60,6 @@ export default (sequelize, DataTypes) => {
     user.password = hash;
   });
 
-  Users.signUpRules = () => {
-    return {
-      firstName: 'required|alpha',
-      lastName: 'required|alpha',
-      email: 'required|email',
-      bio: 'required',
-      password: 'required|min:8'
-    };
-  };
-  Users.signInRules = () => {
-    return {
-      email: 'required|email',
-      password: 'required'
-    };
-  };
+
   return Users;
 };

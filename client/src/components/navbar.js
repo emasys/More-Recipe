@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { getProfile } from '../actions';
+import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import Auth from './auth.js';
+import Auth from './Auth.js';
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    if (Auth.userID()) {
+      this.props.getProfile(Auth.userID());
+    }
   }
 
   logout() {
@@ -53,8 +62,7 @@ class Navbar extends Component {
           style={{ zIndex: 1000 }}
         >
           <div className="container">
-            <Link className="navbar-brand text-white" to="/">
-              {/* <img src="/img/favicon.fw.png" alt="favicon" /> */}
+            <Link className="navbar-brand bolder text-orange" to="/">
               MoreRecipes
             </Link>
             <button
@@ -66,7 +74,7 @@ class Navbar extends Component {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon" />
+              <i className="fa fa-bars text-orange" aria-hidden="true" />
             </button>
             <div
               className="collapse navbar-collapse justify-content-end"
@@ -81,9 +89,10 @@ class Navbar extends Component {
                       to="/new"
                       data-tip="Add new recipe"
                     >
-                      <i className="material-icons fa-2x" aria-hidden="true">
+                      <i className="material-icons fa-2x d-sm-none d-lg-inline" aria-hidden="true">
                         add_to_photos
                       </i>
+                      <span className="d-lg-none">Add new recipe</span>
                     </NavLink>
                   </li>
                 ) : (
@@ -96,9 +105,10 @@ class Navbar extends Component {
                     to="/catalog"
                     data-tip="Catalog"
                   >
-                    <i className="material-icons fa-2x" aria-hidden="true">
+                    <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                       &#xE8EF;
                     </i>
+                    <span className="d-lg-none">Catalog</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -108,24 +118,46 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className="material-icons fa-2x red">&#xE87D;</i>
+                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
+                    <span className="d-lg-none text-white">Favorites</span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
-                  <a
-                    className="nav-link "
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="material-icons fa-2x">&#xE853;</i>
-                  </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
+                  {Auth.loggedIn() ? (
+                    <a
+                      className="nav-link "
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src={
+                          this.props.user
+                            ? this.props.user.data.avatar.length > 10
+                              ? this.props.user.data.avatar
+                              : 'icon.svg'
+                            : 'icon.svg'
+                        }
+                        alt="avatar"
+                        className="fa-2x img-icon rounded-circle"
+                      />
+                    </a>
+                  ) : (
+                    <a
+                      className="nav-link "
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i className="material-icons fa-2x">&#xE853;</i>
+                    </a>
+                  )}
+
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     {this.navLinks()}
                   </div>
                 </li>
@@ -139,4 +171,14 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getProfile }, dispatch),
+});
+
+const mapStateToProps = state => {
+  return {
+    user: state.signin.userProfile,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
