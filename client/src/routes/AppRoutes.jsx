@@ -31,6 +31,7 @@ const AppRoutes = () => {
   return(
     <BrowserRouter>
     <div>
+    <Switch>
       <Route path="/signin" component={Signin}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/" exact component={Home}/>
@@ -42,9 +43,9 @@ const AppRoutes = () => {
       <Route path="/new" component={Auth.loggedIn()? AddRecipe: Signin}/>
       <Route path="/profile/:id" component={Auth.loggedIn()? Profile: Signin}/>
       <Route path="/category/:cat" component={Category}/>
-      
-      {/* <Route path="*" component={NotFound} />  */}
-      <Footer />
+      <Route path="*" component={NotFound} /> 
+    </Switch>
+    <Footer />
     </div>
   </BrowserRouter>
   )

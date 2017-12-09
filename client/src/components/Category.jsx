@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getCategory } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
 import Auth from './Auth';
 
@@ -14,6 +14,7 @@ class Category extends Component {
     super(props);
 
     this.generateList = this.generateList.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +24,13 @@ class Category extends Component {
     this.props.getCategory(data, 12);
   }
 
+  redirect(e){
+    e = e || window.event;
+    e = e.target || e.srcElement;
+    // return this.props.history.push=(`/recipe/${e.id}`)
+  }
   generateList(cat) {
-    console.log(this.props.match.params.cat);
     if (cat.category) {
-      console.log(cat.category.recipes);
       if (cat.category.recipes.length < 1) {
         return (
           <div className="text-center error-message">
@@ -49,9 +53,9 @@ class Category extends Component {
           >
             <div style={{ overflow: 'hidden' }}>
               <Fade bottom>
-                <Link to={`/recipe/${item.id}`} className=" hvr-bounce-out">
+                <Link to={`/recipe/${item.id}`} className="hovered stuff hvr-bounce-out" name="something">
                   <div className={`card animate`}>
-                    <img className="card-img-top img-box" src={item.foodImg} alt="Card image cap" />
+                    <img className="card-img-top img-box" src={item.foodImg} alt="Card image cap" id={item.id}/>
                     <div className="card-body p-0 text-center social-icons">
                       <Link to={`/category/${item.category}`}>
                         <span className="tag bg-danger">{item.category}</span>
@@ -113,7 +117,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  console.log(state.recipes);
   return {
     category: state.recipes,
   };

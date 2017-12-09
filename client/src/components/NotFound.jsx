@@ -11,18 +11,10 @@ class NotFound extends Component {
           <div className="catalog-wrapper">
             <img src="../img/logo.png" alt="logo" />
             <h2 className="p-3 m-20">
-              We Know this is embarrassing,<br /> but you have to{' '}
-              <Link to="/signup" className="btn btn-dark hvr-icon-buzz-out" role="button">
-                Sign Up&nbsp;
-              </Link>{' '}
-              or{' '}
-              <Link to="/signin" className="btn btn-dark hvr-icon-buzz-out" role="button">
-                Sign In&nbsp;
-              </Link>{' '}
-              to continue
+              We Know this is embarrassing,<br /> but don't worry we won't judge you
             </h2>
             <h2>
-              ...Go back to{' '}
+              ...Go back{' '}
               <Link to="/" className="btn btn-dark hvr-icon-forward" role="button">
                 Home&nbsp;
               </Link>{' '}

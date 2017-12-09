@@ -26,10 +26,10 @@ class AddRecipe extends Component {
   handleForm(e) {
     e.preventDefault();
     let data = {
-      name: e.target.elements.recipe.value,
-      ingredients: e.target.elements.ingredients.value,
-      direction: e.target.elements.direction.value,
-      description: e.target.elements.description.value,
+      name: e.target.elements.recipe.value.trim(),
+      ingredients: e.target.elements.ingredients.value.trim(),
+      direction: e.target.elements.direction.value.trim(),
+      description: e.target.elements.description.value.trim(),
       category: e.target.elements.category.value,
     };
     this.setState({
@@ -60,8 +60,9 @@ class AddRecipe extends Component {
       // ... perform after upload is successful operation
 
       // console.log('upload complete');
-      this.props.addRecipe(data);
-      this.componentDidUpdate();
+      this.props.addRecipe(data).then(() => {
+        this.componentDidUpdate();
+      })
     });
   }
   componentDidUpdate() {
@@ -153,7 +154,7 @@ class AddRecipe extends Component {
                   <label htmlFor="description">Description</label>
                   <textarea
                     className="col-lg-11 col-sm-12"
-                    placeholder="how to make it happen"
+                    placeholder="Tell us about your recipe eg - origin, inspiration"
                     id="description"
                     rows="4"
                     required
