@@ -37,7 +37,7 @@ const AppRoutes = () => {
       <Route path="/catalog" exact component={Catalog}/>
       <Route path="/recipe/:id" component={Auth.loggedIn()? RecipeItem: Signin}/>
       <Route path="/user/:id" component={Auth.loggedIn()? User: Signin}/>
-      <Route path="/manageUsers" component={Auth.moniker()? RecipeItem: Signin}/>
+      <Route path="/manageUsers" component={Auth.moniker()? Management: Signin}/>
       <Route path="/favorites" component={Auth.loggedIn()? Favorites: Signin}/>
       <Route path="/new" component={Auth.loggedIn()? AddRecipe: Signin}/>
       <Route path="/profile/:id" component={Auth.loggedIn()? Profile: Signin}/>

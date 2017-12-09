@@ -42,13 +42,14 @@ class SignIn extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      // console.log(this.props.signin);
+      console.log(this.props.signin);
 
       if (this.props.signin.user.success) {
         // this.props.history.push('/');
         let linkPath = "/"
         if(this.props.match.params){
           linkPath = this.props.location.pathname
+          if(linkPath === '/signin') linkPath = '/';
         }
         return (window.location.href = linkPath);
       }

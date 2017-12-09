@@ -28,3 +28,4 @@ webpack.prod.config.js
 /client/src/containers/favorites.js
 /client/src/components/RecipeCategories.js
 /templates
+client/src/helper

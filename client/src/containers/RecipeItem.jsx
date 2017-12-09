@@ -46,7 +46,6 @@ class RecipeItem extends Component {
     this.favIt = this.favIt.bind(this);
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
-    // this.getEditForm = this.getEditForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.descriptionChanged = this.descriptionChanged.bind(this);
     this.directionChanged = this.directionChanged.bind(this);
@@ -79,19 +78,19 @@ class RecipeItem extends Component {
       this.props.history.push('/catalog');
     });
   }
-  onOpenModal = () => {
+  onOpenModal(){
     this.setState({ open: true });
   };
 
-  onCloseModal = () => {
+  onCloseModal(){
     this.setState({ open: false });
   };
 
-  onOpenDeleteModal = () => {
+  onOpenDeleteModal(){
     this.setState({ deleteRecipe: true });
   };
 
-  onCloseDeleteModal = () => {
+  onCloseDeleteModal(){
     this.setState({ deleteRecipe: false });
   };
   favIt() {

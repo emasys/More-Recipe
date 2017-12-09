@@ -108,7 +108,7 @@ class moreRecipes {
       .then(recipes => res.status(200).send({ success: true, recipes }))
       .catch(error => res.status(400).send({ success: false, error }));
   }
-
+ 
   /**
    *
    *
@@ -119,6 +119,7 @@ class moreRecipes {
    * @memberof moreRecipes
    */
   static SearchRecipe(req, res) {
+    console.log('searching '+ req.body.query);
     return Recipes.findAll({
       where: {
         $or: [
