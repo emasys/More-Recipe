@@ -8,7 +8,7 @@ import routes from './routes/index';
 
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -28,6 +28,7 @@ app.use('/api/v1/*', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/public/index.html'));
 });
+
 app.listen(PORT, () => {
   console.log(`app running on port ${PORT}`);
 });

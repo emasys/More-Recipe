@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './client/src/app.js',
+  entry: './client/src/app.jsx',
   output: {
     path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js',
@@ -18,11 +18,17 @@ module.exports = {
       Popper: ['popper.js', 'default'],
     }),
   ],
+  resolve: {
+    extensions: [
+      '.js', '.json', '.jsx', '.css', '.scss'
+    ],
+    descriptionFiles: ['package.json']
+  },
   module: {
     rules: [
       {
         loader: 'babel-loader',
-        test: /\.js$/,
+        test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
       },
       {
@@ -50,7 +56,7 @@ module.exports = {
     port: process.env.PORT,
     proxy: {
       '/api/v1/**': {
-        target: 'http://[::1]:8080',
+        target: 'http://[::1]:8081',
         secure: false,
       },
     },

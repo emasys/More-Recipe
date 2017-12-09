@@ -20,7 +20,7 @@
     "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha ./server/test/index.js --require babel-register --exit",
     "s:test": "set mocha --require babel-register  server/test/test.js",
     "start": "node --require babel-register server/index.js",
-    "start:dev": "webpack && nodemon --require babel-register server/index.js",
+    "start:dev": "nodemon --require babel-register server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "shc": "start coverage/lcov-report/index.html"
   },
@@ -78,6 +78,7 @@
     "react-reveal": "^0.7.3",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-select": "^1.1.0",
     "react-tooltip": "^3.4.0",
     "redux": "^3.7.2",
     "redux-promise": "^0.5.3",

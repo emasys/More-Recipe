@@ -28,14 +28,14 @@ export default class {
     const validator = new Validator(request, validateSignUpForm());
     if (validator.passes()) {
       if (request.confirmPassword !== request.password) {
-        setStatus(res, { success: false, status: "Your password didn't match" }, 401);
+        return setStatus(res, { success: false, status: "Your password didn't match" }, 401);
       }
       Users.findOne({
         where: { email: request.email },
       })
         .then((user) => {
           if (user) {
-            setStatus(
+            return setStatus(
               res, {
                 success: false,
                 target: 'email',
@@ -50,7 +50,7 @@ export default class {
           })
             .then((username) => {
               if (username) {
-                setStatus(
+                return setStatus(
                   res, {
                     success: false,
                     target: 'moniker',
@@ -70,7 +70,7 @@ export default class {
                     'moniker',
                   ]);
                   const token = signToken(data);
-                  setStatus(res, { success: true, user: data, token }, 201);
+                  return setStatus(res, { success: true, user: data, token }, 201);
 
                   // return res.status(201).send({ success: true, user: data, token });
                 })
@@ -118,7 +118,7 @@ export default class {
           'avatar',
           'moniker',
         ]);
-        setStatus(res, { success: true, data }, 200);
+        return setStatus(res, { success: true, data }, 200);
       })
       .catch(error => setStatus(res, { success: true, error }, 200));
   }

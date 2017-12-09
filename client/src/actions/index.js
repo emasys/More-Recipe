@@ -1,7 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
 // import fetch from 'isomorphic-fetch';
-import fetch from 'whatwg-fetch';
+import 'whatwg-fetch';
 // import storeLocal from 'perform-local-storage';
 
 const URL = '/api/v1';

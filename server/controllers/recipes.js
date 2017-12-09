@@ -265,19 +265,14 @@ class moreRecipes {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).send({
-            success: false,
-            status: 'Recipe Not Found',
-          });
+          return res.status(404).send({ success: false, status: 'Recipe Not Found', });
         }
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
             // already reacted
             const removeId = reactionUp.indexOf(Number(req.decoded.id));
-            if (removeId > -1) {
-              reactionUp.splice(removeId, 1);
-            }
+            if (removeId > -1) reactionUp.splice(removeId, 1);
             return recipe
               .update({
                 upvote: recipe.upvote - 1,

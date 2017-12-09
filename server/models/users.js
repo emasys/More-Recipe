@@ -48,15 +48,13 @@ export default (sequelize, DataTypes) => {
     });
   };
 
+  // decrypt the password before login
   Users.prototype.comparePassword = (user, password) => {
     return bcrypt.compareSync(password, user.password);
   };
-  /**
-   * Hook for hashing password before adding into db
-   */
+  // encrypt the password before saving data into database
   Users.hook('beforeCreate', (user) => {
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(user.password, salt);
+    const hash = bcrypt.hashSync(user.password);
     user.password = hash;
   });
 

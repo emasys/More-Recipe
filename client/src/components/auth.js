@@ -1,27 +1,54 @@
 import jwt_decode from 'jwt-decode';
 
-const login = window.localStorage.getItem('token');
+const login = localStorage.getItem('token');
 let decoded = '';
-
+/**
+ * 
+ * 
+ * @class Auth
+ */
 class Auth {
+  /**
+   * 
+   * 
+   * @static
+   * @memberof Auth
+   */
   static logout() {
     localStorage.removeItem('token');
   }
-
-  static loggedIn() {
+/**
+ * 
+ * 
+ * @static
+ * @returns 
+ * @memberof Auth
+ */
+static loggedIn() {
     if (login) {
       decoded = jwt_decode(login);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
-
-  static userID() {
+/**
+ * 
+ * 
+ * @static
+ * @returns 
+ * @memberof Auth
+ */
+static userID() {
     return decoded.id;
   }
-
-  static moniker() {
+/**
+ * 
+ * 
+ * @static
+ * @returns 
+ * @memberof Auth
+ */
+static moniker() {
     return decoded.moniker;
   }
 }
