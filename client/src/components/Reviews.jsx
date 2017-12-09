@@ -43,22 +43,32 @@ class Reviews extends Component {
       return comments.map((comment, index) => {
         return (
           <div className="comment-wrapper" key={index}>
-          <div className="direction mt-50 p-15 bg-light my-2" key={index}>
-            <div className="commentTitle">
-            <Link className="text-dark bolder" to={`/user/${comment.userId}`}> {comment.user}</Link>
-            <hr/>
-            </div>
-            <div className="comments m-0">
-            <p className="mb-0 text-dark">{comment.content}</p>
-            </div>
-            <div className="date bg-dark">
-            <p>
-              {comment.updatedAt.slice(0, 16).split('T').join(' ')}
-            </p>
+            <div className="direction mt-50 p-15 bg-light my-2" key={index}>
+              <div className="commentTitle">
+                <img
+                  src={comment.avatar}
+                  alt="dp"
+                  className="img-icon rounded-circle"
+                />
+                <Link className="text-dark bolder" to={`/user/${comment.userId}`}>
+                  {' '}
+                  {comment.user}
+                </Link>
+                <hr />
+              </div>
+              <div className="comments m-0">
+                <p className="mb-0 text-dark">{comment.content}</p>
+              </div>
+              <div className="date bg-dark">
+                <p>
+                  {comment.updatedAt
+                    .slice(0, 16)
+                    .split('T')
+                    .join(' ')}
+                </p>
+              </div>
             </div>
           </div>
-          </div>
-          
         );
       });
     }

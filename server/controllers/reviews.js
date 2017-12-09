@@ -33,6 +33,7 @@ export default class reviews {
             recipeId: req.params.recipeId,
             userId: req.decoded.id,
             user: req.decoded.moniker,
+            avatar: req.decoded.avatar
           })
             .then((reviewedRecipe) => {
               return res.status(201).send({ success: true, reviewedRecipe });

@@ -21,7 +21,7 @@ class ManageUsers extends Component {
     this.globalId = 0;
   }
 
-  componentDidMount = () => {
+  componentDidMount(){
     this.props.getAllUsers();
   };
 
