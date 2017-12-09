@@ -23,9 +23,7 @@ class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    console.log(this.props);
-  }
+  
   
 
   emailChanged(e) {
@@ -42,15 +40,13 @@ class SignIn extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
-      console.log(this.props.signin);
-
       if (this.props.signin.user.success) {
-        // this.props.history.push('/');
         let linkPath = "/"
         if(this.props.match.params){
           linkPath = this.props.location.pathname
           if(linkPath === '/signin') linkPath = '/';
         }
+        // return this.props.history.push(linkPath);
         return (window.location.href = linkPath);
       }
       if (this.props.signin.user.status) {
@@ -81,7 +77,7 @@ class SignIn extends Component {
               className={`alert alert-danger alert-dismissible fade ${this.state.showErrMessage}`}
               role="alert"
             >
-              <strong>Error!</strong> invalid credentials
+              <strong>Error!</strong> Your email or password is incorrect
               <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

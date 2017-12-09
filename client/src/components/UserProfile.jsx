@@ -107,8 +107,9 @@ class UserProfile extends Component {
             </h2>
             <p>
               {bio}
-              <hr />
             </p>
+            <hr />
+            
             <p>
               <i className="fa fa-envelope" aria-hidden="true" /> {email}
             </p>
@@ -155,7 +156,6 @@ class UserProfile extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.recipes.userRecipes);
   return {
     user: state.recipes.userRecipes,
     userInfo: state.signin.userInfo,

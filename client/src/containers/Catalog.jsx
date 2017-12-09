@@ -4,7 +4,6 @@ import { getRecipes, searchRecipes, getProfile } from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Auth from '../components/Auth';
-// import Script from 'react-load-script';
 
 //component
 import CatalogList from '../components/CatalogList';
@@ -18,7 +17,6 @@ class Catalog extends Component {
       page_limit: 12,
     };
 
-    // this.generateList = this.generateList.bind(this);
     this.searchBar = this.searchBar.bind(this);
     this.search = this.search.bind(this);
     this.nextPage = this.nextPage.bind(this);
