@@ -5,11 +5,8 @@ import { assert } from 'chai';
 import expect from 'expect';
 import app from '../index';
 import seed from '../seeders/seeds';
-import jwt from '../middleware/jwt';
 
 let xtoken = null;
-
-// dotEnv.config();
 
 describe('GET/ test if the invalid routes are working', () => {
   it('should return status code 404 and a message "page not found"', (done) => {
@@ -25,11 +22,9 @@ describe('GET/ test if the invalid routes are working', () => {
   });
 });
 
-
 describe('CRUD/ users', () => {
   before(seed.emptyUserTable);
   before(seed.addUser);
-  let usertoken = null;
   before((done) => { // A user should sign in before creating a creating a recipe
     request(app)
       .post('/api/v1/users/signin')
@@ -45,7 +40,7 @@ describe('CRUD/ users', () => {
     it('should return status code 401 when firstName input field is empty', (done) => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(seed.setUserInput('', 'Jane', "John's wife", 'janedoe@gmail.com', 'password', 'password'), )
+        .send(seed.setUserInput('', 'Jane', "John's wife", 'janedoe@gmail.com', 'password', 'password'))
         .expect(401)
         .end(done);
     });
@@ -92,7 +87,7 @@ describe('CRUD/ users', () => {
     it('should return status code 401 if email input format is not valid', (done) => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(seed.setUserInput('jane', 'Jane', "John's wife", 'janedoe@gamil', 'password', 'password'), )
+        .send(seed.setUserInput('jane', 'Jane', "John's wife", 'janedoe@gamil', 'password', 'password'))
         .expect(401)
         .end(done);
     });
@@ -300,7 +295,7 @@ describe('CRUD/ for recipes', () => {
         .end(done);
     });
   });
-  
+
   describe('GET/ check if a user has favorited this recipe', () => {
     it('should return a status code of 200 and "true" if a user has add the recipe to his favorite list', (done) => {
       request(app)
