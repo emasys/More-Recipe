@@ -7,9 +7,13 @@ export default (sequelize, DataTypes) => {
     user: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
-  Reviews.associate = models => {
+  Reviews.associate = (models) => {
     Reviews.belongsTo(models.Users, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
@@ -19,10 +23,6 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     });
   };
-  Reviews.createRules = () => {
-    return {
-      content: 'required'
-    };
-  };
+
   return Reviews;
 };

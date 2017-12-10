@@ -1,4 +1,5 @@
 import { Recipes, Favorite } from '../models';
+import { setStatus } from '../middleware/helper';
 
 /**
  *
@@ -20,35 +21,30 @@ export default class FavoriteRecipes {
         userId: req.decoded.id
       }
     })
-      .then(favorite => {
+      .then((favorite) => {
         if (favorite) {
           return favorite
             .destroy()
             .then(() =>
-              res.status(200).send({ success: true, status: 'unfavorited' })
-            )
-            .catch(error => res.status(400).send({ error }));
+              setStatus(res, { success: true, status: 'unfavorited' }, 200))
+            .catch(error => setStatus(res, { success: false, error }, 400));
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
           userId: req.decoded.id
-        }).then(isFavorite => {
-          return res.status(200).send({ success: true, status: 'favorited' });
+        }).then(() => {
+          setStatus(res, { success: true, status: 'favorited' }, 200);
         });
       })
       .catch(error =>
-        res.status(400).json({
-          message: 'An error occured during this operation',
-          error: error.errors
-        })
-      );
+        setStatus(res, { message: 'An error occured during this operation', error }, 400));
   }
   /**
- * 
- * 
+ *
+ *
  * @static
- * @param {any} req 
- * @param {any} res 
+ * @param {any} req
+ * @param {any} res
  * @returns favorite status of recipe
  * @memberof FavoriteRecipes
  */
@@ -59,15 +55,14 @@ export default class FavoriteRecipes {
         recipeId: req.params.recipeId
       }
     })
-      .then(favorites => {
+      .then((favorites) => {
         if (favorites.length > 0) {
           return res.status(200).send({ success: true });
         }
         return res.status(200).send({ success: false });
       })
       .catch(error =>
-        res.status(400).send({ success: false, error: error.message })
-      );
+        res.status(400).send({ success: false, error: error.message }));
   }
 
   /**
@@ -85,11 +80,10 @@ export default class FavoriteRecipes {
         }
       ]
     })
-      .then(favorites => {
+      .then((favorites) => {
         return res.status(200).send({ success: true, favorites });
       })
       .catch(error =>
-        res.status(400).send({ success: false, error: error.message })
-      );
+        res.status(400).send({ success: false, error: error.message }));
   }
 }

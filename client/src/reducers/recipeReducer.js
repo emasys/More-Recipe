@@ -20,6 +20,11 @@ export default (state = {}, action) => {
         ...state,
         updateRecipes: action.payload
       };
+    case 'GET_CATEGORY':
+      return {
+        ...state,
+        category: action.payload
+      };
 
     case 'SEARCH':
       return {

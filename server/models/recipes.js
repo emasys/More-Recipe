@@ -57,7 +57,7 @@ export default (sequelize, DataTypes) => {
     }
   });
 
-  Recipes.associate = models => {
+  Recipes.associate = (models) => {
     Recipes.belongsTo(models.Users, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'

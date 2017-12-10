@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { Users } from '../models';
-import multer from 'multer';
-const upload = multer({ dest: 'uploads/' });
+
 
 dotenv.config();
 
@@ -14,14 +13,14 @@ dotenv.config();
  */
 export default class protectRoute {
   /**
- * 
- * 
- * @static
- * @param {any} req 
- * @param {any} res 
- * @returns 
- * @memberof protectRoute
- */
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   * @memberof protectRoute
+   */
   static checkAdmin(req, res, next) {
     const token =
       req.body.token || req.query.token || req.headers['x-access-token'];
@@ -30,25 +29,21 @@ export default class protectRoute {
         return res.status(401).send({ message: 'Invalid authorization token' });
       }
       Users.findAll({})
-        .then(user => {
-          if (decoded.id !== 3) {
-            //in this case the user with id = 3 is the admin
+        .then((user) => {
+          if (decoded.moniker !== 'admin') {
+            // in this case the user with id = 3 is the admin
             return res.status(401).send({
               success: false,
               status: 'Not Authorized'
             });
           }
-          console.log(decoded.id);
+          // console.log(decoded.id);
           return next();
         })
         .catch(err => res.status(404).send(err));
     });
   }
 
-  static HandleFile(req, res, next) {
-    console.log({ file: req.file, text: req.body });
-    // next();
-  }
   /**
    *
    * @param {any} req
@@ -67,7 +62,7 @@ export default class protectRoute {
             .send({ message: 'Invalid authorization token' });
         }
         Users.findById(decoded.id)
-          .then(user => {
+          .then((user) => {
             if (!user) {
               return res.status(404).send({ error: 'user not found' });
             }

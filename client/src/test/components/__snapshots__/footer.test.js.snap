@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div>
+  <footer
+    className="container-fluid bg-dark footer-main"
+  >
+    <div
+      className="container "
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 footer-social text-center mt-100"
+        >
+          <p
+            className="text-center text-white"
+          >
+            ©2017 All rights reserved
+          </p>
+          <a
+            href="#"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-facebook-square fa-2x"
+            />
+          </a>
+           
+          <a
+            href="#"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-twitter-square fa-2x"
+            />
+          </a>
+           
+          <a
+            href="#"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-instagram fa-2x"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+`;
