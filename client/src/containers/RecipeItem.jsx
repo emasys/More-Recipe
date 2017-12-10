@@ -52,6 +52,10 @@ class RecipeItem extends Component {
     this.nameChanged = this.nameChanged.bind(this);
     this.ingChanged = this.ingChanged.bind(this);
     this.delRecipe = this.delRecipe.bind(this);
+    this.onOpenDeleteModal = this.onOpenDeleteModal.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseDeleteModal = this.onCloseDeleteModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   componentDidMount() {

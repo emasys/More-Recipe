@@ -106,7 +106,7 @@ export default class {
          * @returns a user profile
          */
   static getOneUser(req, res) {
-    return Users.findById(req.params.userId, {})
+    return Users.findById(req.params.userId)
       .then((user) => {
         const data = _.pick(user, [
           'id',
@@ -145,7 +145,7 @@ export default class {
             lastName: req.body.lastName || user.lastName,
             bio: req.body.bio || user.bio,
           })
-          .then(() => setStatus(res, { success: true, status: 'updated' }, 400))
+          .then(() => setStatus(res, { success: true, status: 'updated' }, 200))
           .catch(error => setStatus(res, { success: false, error }, 400));
       })
       .catch(error => setStatus(res, { success: false, error }, 400));
@@ -162,7 +162,7 @@ export default class {
     return Users.findById(req.params.userId)
       .then((user) => {
         if (!user) {
-          res.status(404).json({ success: false, status: 'user not found' });
+          return setStatus(res, { success: false, status: 'user not found' }, 404);
         }
         return user
           .destroy()

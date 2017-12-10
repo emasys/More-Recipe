@@ -37,7 +37,7 @@ export default class protectRoute {
               status: 'Not Authorized'
             });
           }
-          console.log(decoded.id);
+          // console.log(decoded.id);
           return next();
         })
         .catch(err => res.status(404).send(err));

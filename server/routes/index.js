@@ -4,6 +4,7 @@ import Reviews from '../controllers/reviews';
 import Favorite from '../controllers/favorite';
 import jwt from '../middleware/jwt';
 
+// routes
 export default (routes) => {
   routes.post('/api/v1/users/signup', Users.signUp);
   routes.post('/api/v1/users/signin', Users.signIn);

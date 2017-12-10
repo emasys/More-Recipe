@@ -391,7 +391,7 @@ class moreRecipes {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          res.status(404).json({ success: false, status: 'Recipe not found' });
+          return res.status(404).json({ success: false, status: 'Recipe not found' });
         }
         return recipe
           .destroy()
