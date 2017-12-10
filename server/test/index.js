@@ -6,6 +6,7 @@ import expect from 'expect';
 import app from '../index';
 import seed from '../seeders/seeds';
 
+process.env.NODE_ENV = 'test';
 let xtoken = null;
 
 describe('GET/ test if the invalid routes are working', () => {
@@ -197,7 +198,6 @@ describe('CRUD/ for recipes', () => {
     });
   });
 
-
   describe('GET/ fetch a single recipe', () => {
     it('should return a single recipe', (done) => {
       request(app)
@@ -276,6 +276,39 @@ describe('CRUD/ for recipes', () => {
     });
   });
 
+  describe('Post a review', () => {
+    it('should return a status code of 404 if a recipe to be reviewed is not found', (done) => {
+      request(app)
+        .post('/api/v1/recipes/5/reviews')
+        .send({ content: 'just added a comment' })
+        .set('x-access-token', xtoken)
+        .expect(404)
+        .end(done);
+    });
+  });
+
+  describe('Post a review', () => {
+    it('should return a status code of 401 if review is empty', (done) => {
+      request(app)
+        .post('/api/v1/recipes/1/reviews')
+        .send({ content: '' })
+        .set('x-access-token', xtoken)
+        .expect(401)
+        .end(done);
+    });
+  });
+
+  describe('Post a review', () => {
+    it('should return a status code of 401 if a review is not successfully added due to wrong keyword', (done) => {
+      request(app)
+        .post('/api/v1/recipes/1/reviews')
+        .send({ contents: 'just added a comment' })
+        .set('x-access-token', xtoken)
+        .expect(401)
+        .end(done);
+    });
+  });
+
   describe('Favorite a recipe', () => {
     it('should return a status code of 200 if a recipe is successfully favorited', (done) => {
       request(app)
@@ -302,11 +335,6 @@ describe('CRUD/ for recipes', () => {
         .get('/api/v1/recipes/1/favStatus')
         .set('x-access-token', xtoken)
         .expect(200)
-        // .expect((res) => {
-        //   expect(res.body).toInclude({
-        //     success: true
-        //   });
-        // })
         .end(done);
     });
   });

@@ -128,11 +128,7 @@
 83
 84
 85
-86
-87
-88
-89
-90</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+86</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,7 +201,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,11 +209,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Recipes, Favorite } from '../models';
@@ -250,7 +242,7 @@ export default class FavoriteRecipes {
             .destroy()
             .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt;</span></span>
               setStatus(res, { success: true, status: 'unfavorited' }, 200))
-            .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; setStatus(res, { success: false, error }, 400));</span></span>
+            .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false }, 400));</span></span>
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
@@ -259,8 +251,8 @@ export default class FavoriteRecipes {
           setStatus(res, { success: true, status: 'favorited' }, 200);
         });
       })
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt;</span></span>
-        setStatus(res, { message: 'An error occured during this operation', error }, 400));
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt;</span></span>
+        setStatus(res, { message: 'An error occured during this operation' }, 400));
   }
   /**
  *
@@ -268,7 +260,7 @@ export default class FavoriteRecipes {
  * @static
  * @param {any} req
  * @param {any} res
- * @returns favorite status of recipe
+ * @returns checks if a user viewing the recipe item page has favorited the recipe
  * @memberof FavoriteRecipes
  */
   static favoriteStatus(req, res) {
@@ -280,12 +272,11 @@ export default class FavoriteRecipes {
     })
       .then((favorites) =&gt; {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (favorites.length &gt; 0) {
-          return res.status(200).send({ success: true });
+          return setStatus(res, { success: true }, 200);
         }
-<span class="cstat-no" title="statement not covered" >        return res.status(200).send({ success: false });</span>
+<span class="cstat-no" title="statement not covered" >        return setStatus(res, { success: false }, 200);</span>
       })
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt;</span></span>
-        res.status(400).send({ success: false, error: error.message }));
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false }));</span></span>
   }
 &nbsp;
   /**
@@ -303,11 +294,8 @@ export default class FavoriteRecipes {
         }
       ]
     })
-      .then((favorites) =&gt; {
-        return res.status(200).send({ success: true, favorites });
-      })
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt;</span></span>
-        res.status(400).send({ success: false, error: error.message }));
+      .then(favorites =&gt; setStatus(res, { success: true, favorites }, 200))
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false }, 400));</span></span>
   }
 }
 &nbsp;</pre></td></tr>
@@ -316,7 +304,7 @@ export default class FavoriteRecipes {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Dec 10 2017 17:23:27 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Dec 10 2017 21:39:29 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

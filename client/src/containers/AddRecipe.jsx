@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addRecipe } from '../actions';
 import Dropzone from 'react-dropzone';
-import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
+// import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import axios from 'axios';
 import config from '../config';
 
@@ -17,12 +17,18 @@ class AddRecipe extends Component {
     this.state = { preview: null, files: null, fileURL: null, status: 'fade' };
     this.handleForm = this.handleForm.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-    this.handleDropRejected = this.handleDropRejected.bind(this);
     // this.uploadWidget = this.uploadWidget.bind(this);
     this.sendData = this.sendData.bind(this);
   }
 
-  sendData(e) {}
+  sendData() {
+    if (this.props.new_recipe.new_recipe) {
+      if (this.props.new_recipe.new_recipe.recipe) {
+        const id = this.props.new_recipe.new_recipe.recipe.id;
+        this.props.history.push(`/recipe/${id}`);
+      }
+    }
+  }
   handleForm(e) {
     e.preventDefault();
     let data = {
@@ -57,55 +63,26 @@ class AddRecipe extends Component {
     });
 
     axios.all(uploaders).then(() => {
-      // ... perform after upload is successful operation
-
+      // perform after upload is successful operation
       // console.log('upload complete');
       this.props.addRecipe(data).then(() => {
-        this.componentDidUpdate();
+        this.sendData();
       })
     });
   }
-  componentDidUpdate() {
-    if (this.props.new_recipe.new_recipe) {
-      if (this.props.new_recipe.new_recipe.recipe) {
-        const id = this.props.new_recipe.new_recipe.recipe.id;
-        this.props.history.push(`/recipe/${id}`);
-      }
-    }
-  }
+  
+  
   handleDrop(files) {
     const [{ preview }] = files;
     // console.log(files);
     this.setState({ preview, files });
   }
-  handleDropRejected(...args) {
-    return console.log('reject', args);
-  }
+ 
 
   render() {
     const { preview, status } = this.state;
-    const recipeCategory = [
-      'Breakfast',
-      'Brunch',
-      'Lunch',
-      'Snacks',
-      'Appetisers',
-      'Dinner',
-      'Soups',
-      'Noodles',
-      'Rice',
-      'Pasta',
-      'Meat',
-      'Poultry',
-      'Seafood',
-      'Vegetarian',
-      'Salads',
-      'Sides',
-      'Sauces',
-      'Baking',
-      'Desserts',
-      'Drinks',
-    ];
+    const recipeCategory = ['Breakfast','Brunch','Lunch','Snacks','Appetisers','Dinner','Soups','Noodles','Rice','Pasta',
+      'Meat','Poultry','Seafood','Vegetarian','Salads','Sides','Sauces','Baking','Desserts','Drinks'];
     // console.log(recipeCategory);
 
     return (
@@ -168,7 +145,6 @@ class AddRecipe extends Component {
                       onDrop={this.handleDrop}
                       accept="image/jpeg,image/jpg,image/tiff,image/gif,image/png"
                       multiple={false}
-                      onDropRejected={this.handleDropRejected}
                       className=" p-10 text-center dropzone bg-light"
                     >
                       Drag a file here or click to upload an image of your food

@@ -81,6 +81,17 @@ class Navbar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav">
+              <li>
+                <NavLink
+                className="nav-link text-light"
+                activeClassName="active"
+                to="/catalog"
+                data-tip="Search for recipes"
+                >
+                <i className="material-icons fa-2x d-sm-none d-lg-inline">&#xE8B6;</i>
+                <span className="d-lg-none">Search</span>
+                </NavLink>
+              </li>
                 {Auth.loggedIn() ? (
                   <li className="nav-item ">
                     <NavLink

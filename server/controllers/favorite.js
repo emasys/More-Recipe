@@ -27,7 +27,7 @@ export default class FavoriteRecipes {
             .destroy()
             .then(() =>
               setStatus(res, { success: true, status: 'unfavorited' }, 200))
-            .catch(error => setStatus(res, { success: false, error }, 400));
+            .catch(() => setStatus(res, { success: false }, 400));
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
@@ -36,8 +36,8 @@ export default class FavoriteRecipes {
           setStatus(res, { success: true, status: 'favorited' }, 200);
         });
       })
-      .catch(error =>
-        setStatus(res, { message: 'An error occured during this operation', error }, 400));
+      .catch(() =>
+        setStatus(res, { message: 'An error occured during this operation' }, 400));
   }
   /**
  *
@@ -45,7 +45,7 @@ export default class FavoriteRecipes {
  * @static
  * @param {any} req
  * @param {any} res
- * @returns favorite status of recipe
+ * @returns checks if a user viewing the recipe item page has favorited the recipe
  * @memberof FavoriteRecipes
  */
   static favoriteStatus(req, res) {
@@ -57,12 +57,11 @@ export default class FavoriteRecipes {
     })
       .then((favorites) => {
         if (favorites.length > 0) {
-          return res.status(200).send({ success: true });
+          return setStatus(res, { success: true }, 200);
         }
-        return res.status(200).send({ success: false });
+        return setStatus(res, { success: false }, 200);
       })
-      .catch(error =>
-        res.status(400).send({ success: false, error: error.message }));
+      .catch(() => setStatus(res, { success: false }));
   }
 
   /**
@@ -80,10 +79,7 @@ export default class FavoriteRecipes {
         }
       ]
     })
-      .then((favorites) => {
-        return res.status(200).send({ success: true, favorites });
-      })
-      .catch(error =>
-        res.status(400).send({ success: false, error: error.message }));
+      .then(favorites => setStatus(res, { success: true, favorites }, 200))
+      .catch(() => setStatus(res, { success: false }, 400));
   }
 }

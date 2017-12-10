@@ -71,17 +71,14 @@ export default class {
                   ]);
                   const token = signToken(data);
                   return setStatus(res, { success: true, user: data, token }, 201);
-
-                  // return res.status(201).send({ success: true, user: data, token });
                 })
-                .catch(error => res.status(500).send({ success: false, error }));
+                .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 500));
             })
-            .catch(error => res.status(500).send({ success: false, error: error.status }));
+            .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 500));
         })
-        .catch(error => res.status(500).send({ success: false, error: error.status }));
+        .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 500));
     } else {
-      setStatus(res, { success: false, status: validator.errors.all() }, 401);
-      // return res.status(401).send({ success: false, status: validator.errors.all() });
+      return setStatus(res, { success: false, status: validator.errors.all() }, 401);
     }
   }
   /**
