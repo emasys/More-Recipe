@@ -1,37 +1,32 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import path from 'path';
+import cors from 'cors';
+
 import routes from './routes/index';
 
-import cors from 'cors';
+
 const app = express();
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 
-app.all('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'X-Requested-With, Content-Type, Accept, x-access-token'
-  );
-  res.header('Access-Control-Request-Method', 'DELETE');
-  res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTION');
-  next();
-});
+app.use(express.static(path.join(__dirname, './../client/public')));
 
 routes(app);
-// app.post('/profile', upload.single('avatar'), function(req, res, next) {
-//   console.log(req.file);
-//   console.log(req.body);
-// });
-app.use('*', (req, res) => {
+
+app.use('/api/v1/*', (req, res) => {
   res.status(404).send({
-    error: 'page not found'
+    error: 'page not found',
   });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
 app.listen(PORT, () => {

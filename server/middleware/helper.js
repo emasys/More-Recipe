@@ -1,28 +1,48 @@
-/**
- *
- * 
- * @class response
- */
-export default class response {
-  /**
-   * 
-   * 
-   * @static
-   * @returns error 404 status and message
-   * @memberof response
-   */
-  static err404(code) {
-    switch (code) {
-      case 404:
-        return res.status(code).send({ success: false, message: 'Not Found' });
-        break;
-      case 201:
-      return res.status(code).send({success: true, message: 'created'})
-    
-      default:
-        break;
-    }
-  }
-}
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
+dotenv.config();
+
+export const signToken = (data) => {
+  return jwt.sign(data, process.env.JWT_SECRET, {
+    expiresIn: '365d',
+  });
+};
+
+export const setStatus = (res, message, code) => {
+  return res.status(code).json(message);
+};
+
+export const validateSignUpForm = () => {
+  return {
+    firstName: 'required|alpha',
+    lastName: 'required|alpha',
+    email: 'required|email',
+    bio: 'required',
+    moniker: 'required',
+    password: 'required|min:8',
+  };
+};
+
+export const validateSignInForm = () => {
+  return {
+    email: 'required|email',
+    password: 'required',
+  };
+};
+
+export const validateReviews = () => {
+  return {
+    content: 'required',
+  };
+};
+
+export const validateAddRecipes = () => {
+  return {
+    name: 'required',
+    direction: 'required',
+    ingredients: 'required',
+    description: 'required'
+  };
+};
 

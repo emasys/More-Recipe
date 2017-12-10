@@ -85,11 +85,7 @@ a {
 .navbar-brand {
   font-family: $font_family_1;
   text-shadow: none;
-  font-weight: bolder;
-}
-
-.nav-link {
-  font-family: $font_family_1;
+  font-size: 16px;
 }
 
 .navbar-toggler {
@@ -97,6 +93,10 @@ a {
   &:focus {
     outline: none;
   }
+}
+
+.text-orange {
+  color: rgb(245, 179, 57) !important;
 }
 
 // background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)),
@@ -116,7 +116,34 @@ a {
     font-weight: bolder;
   }
 }
+.comment-wrapper{
+  position: relative;
+}
+.commentTitle{
+  color: white !important;
+  // position: absolute;
+  border-radius: 5px;
+  // box-shadow: 2px 2px 2px rgb(136, 136, 136);
+  padding: 5px 10px;
+  // top: -20%;
+  // left: -2%;
+}
+.comments{
+  
+}
 
+.date{
+  position: absolute;
+  color: white;
+  border-radius: 10px;
+  padding: 0 5px;
+  height: 13px;
+  bottom: -5px;
+  left: 5%;
+  font-size: 11px;
+  box-sizing: border-box;
+
+}
 .bg-orange {
   background: rgb(238, 171, 26);
 }
@@ -300,9 +327,10 @@ footer {
 }
 
 .direction {
-  background: rgb(235, 235, 235);
-  padding: 10px;
   box-sizing: border-box;
+  overflow: hidden;
+  // background: rgb(134, 133, 133);
+  border-radius: 30px;
 }
 
 .card-columns {
@@ -322,6 +350,15 @@ footer {
   &:hover {
     text-shadow: 0px 2px 2px black;
   }
+}
+
+.crop-text {
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  min-height: 70px;
 }
 
 #like {
@@ -447,10 +484,44 @@ footer {
   width: 100%;
 }
 
+.dropzone {
+  height: 200px;
+  max-height: 200px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.img-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.gray {
+  color: gray;
+}
+
+.footer-main {
+  height: 300px;
+  a {
+    color: white;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .header-title {
   font-family: 'Pacifico', cursive;
   font-weight: 900;
   font-size: 24px;
+}
+
+.cover-page {
+  height: 100%;
 }
 
 .profile-img-box {
