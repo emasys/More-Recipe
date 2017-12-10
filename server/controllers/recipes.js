@@ -1,5 +1,6 @@
 import Validator from 'validatorjs';
 import { Users, Recipes, Reviews, Favorite } from '../models';
+import { validateAddRecipes } from '../middleware/helper';
 
 /**
  * parent class
@@ -16,7 +17,7 @@ class moreRecipes {
     const request = req.body;
     const arr = req.body.ingredients;
     const getArr = input => input.trim().split(/\s*,\s*/);
-    const validator = new Validator(request, Recipes.createRules());
+    const validator = new Validator(request, validateAddRecipes());
     if (validator.passes()) {
       Users.findById(req.decoded.id)
         .then((user) => {
@@ -119,7 +120,6 @@ class moreRecipes {
    * @memberof moreRecipes
    */
   static SearchRecipe(req, res) {
-    console.log('searching '+ req.body.query);
     return Recipes.findAll({
       where: {
         $or: [

@@ -125,7 +125,7 @@ class Navbar extends Component {
                 <li className="nav-item dropdown">
                   {Auth.loggedIn() ? (
                     <a
-                      className="nav-link "
+                      className="nav-link dropdown-toggle"
                       href="#"
                       id="navbarDropdownMenuLink"
                       data-toggle="dropdown"

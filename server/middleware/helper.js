@@ -36,3 +36,13 @@ export const validateReviews = () => {
     content: 'required',
   };
 };
+
+export const validateAddRecipes = () => {
+  return {
+    name: 'required',
+    direction: 'required',
+    ingredients: 'required',
+    description: 'required'
+  };
+};
+

@@ -10,13 +10,12 @@ export default (routes) => {
   routes.post('/api/v1/recipes', jwt.verifyToken, Recipes.addRecipe);
   routes.post('/api/v1/recipes/category/:limit', Recipes.listRecipeCategory);
   routes.post('/api/v1/recipes/upvote/:recipeId', jwt.verifyToken, Recipes.upvote);
-
   routes.post('/api/v1/recipes/:recipeId', jwt.verifyToken, Recipes.updateRecipe);
-
   routes.post('/api/v1/recipes/downvote/:recipeId', jwt.verifyToken, Recipes.downvote);
   routes.post('/api/v1/recipes/:recipeId/fav', jwt.verifyToken, Favorite.addFavorite);
   routes.post('/api/v1/recipeSearch', Recipes.SearchRecipe);
   routes.post('/api/v1/recipes/:recipeId/reviews', jwt.verifyToken, Reviews.addReview);
+
   routes.get('/api/v1/recipes/upvoteReaction/:recipeId', jwt.verifyToken, Recipes.checkReactions);
   routes.get('/api/v1/recipes/yours/:limit/:id', jwt.verifyToken, Recipes.listPrivateRecipes);
   routes.get('/api/v1/recipes/fav', jwt.verifyToken, Favorite.listFavorites);
