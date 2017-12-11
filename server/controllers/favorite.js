@@ -25,15 +25,13 @@ export default class FavoriteRecipes {
         if (favorite) {
           return favorite
             .destroy()
-            .then(() => setStatus(res, { success: true, status: 'unfavorited' }, 200))
-            // .catch(() => setStatus(res, { success: false, message: 'recipe not found' }, 404));
+            .then(() => setStatus(res, { success: true, status: 'unfavorited' }, 200));
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
           userId: req.decoded.id
         })
-          .then(() => setStatus(res, { success: true, status: 'favorited' }, 200))
-          // .catch(() => setStatus(res, { success: false, message: 'recipe not found' }, 404));
+          .then(() => setStatus(res, { success: true, status: 'favorited' }, 200));
       })
       .catch(() => setStatus(res, { success: false, message: 'recipe not found' }, 404));
   }
