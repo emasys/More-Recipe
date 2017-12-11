@@ -1,6 +1,6 @@
 import Validator from 'validatorjs';
 import { Recipes, Reviews } from '../models';
-import { validateReviews } from '../middleware/helper';
+import { validateReviews, setStatus } from '../middleware/helper';
 /**
  *
  *
@@ -22,9 +22,7 @@ export default class reviews {
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId)
         .then((recipe) => {
-          if (!recipe) {
-            return res.status(404).send({ success: false, status: 'Recipe not found' });
-          }
+          if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
           recipe.update({
             comments: recipe.comments + 1,
             views: recipe.views - 1
@@ -37,11 +35,13 @@ export default class reviews {
             avatar: req.decoded.avatar
           })
             .then((reviewedRecipe) => {
-              return res.status(201).send({ success: true, reviewedRecipe });
+              return setStatus(res, { success: true, reviewedRecipe }, 201);
             })
-            .catch(error => res.status(404).send(error));
+            .catch(error => res.status(400).send(error));
         })
-        .catch(error => res.status(400).send(error));
+        .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+    } else {
+      return setStatus(res, { success: false, status: validator.errors.all() }, 401);
     }
   }
 }

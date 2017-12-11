@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">78.57% </span>
+        <span class="strong">86.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>11/14</span>
+        <span class='fraction'>13/15</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>2/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">78.57% </span>
+        <span class="strong">85.71% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/14</span>
+        <span class='fraction'>12/14</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -109,14 +109,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,12 +132,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Validator from 'validatorjs';
 import { Recipes, Reviews } from '../models';
-import { validateReviews } from '../middleware/helper';
+import { validateReviews, setStatus } from '../middleware/helper';
 /**
  *
  *
@@ -158,12 +158,10 @@ export default class reviews {
   static addReview(req, res) {
     const request = req.body;
     const validator = new Validator(request, validateReviews());
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (validator.passes()) {
+    if (validator.passes()) {
       Recipes.findById(req.params.recipeId)
         .then((recipe) =&gt; {
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (!recipe) {
-<span class="cstat-no" title="statement not covered" >            return res.status(404).send({ success: false, status: 'Recipe not found' });</span>
-          }
+          if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
           recipe.update({
             comments: recipe.comments + 1,
             views: recipe.views - 1
@@ -176,11 +174,13 @@ export default class reviews {
             avatar: req.decoded.avatar
           })
             .then((reviewedRecipe) =&gt; {
-              return res.status(201).send({ success: true, reviewedRecipe });
+              return setStatus(res, { success: true, reviewedRecipe }, 201);
             })
-            .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(404).send(error));</span></span>
+            .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
         })
-        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'something went wrong' }, 400));</span></span>
+    } else {
+      return setStatus(res, { success: false, status: validator.errors.all() }, 401);
     }
   }
 }
@@ -190,7 +190,7 @@ export default class reviews {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Dec 10 2017 17:23:27 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Dec 11 2017 15:14:23 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

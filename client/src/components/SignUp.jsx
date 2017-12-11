@@ -46,13 +46,14 @@ class SignUp extends Component {
       password: e.target.elements.pass.value.trim(),
       confirmPassword: e.target.elements.cpass.value.trim(),
       bio: e.target.elements.bio.value.trim(),
-      moniker: e.target.elements.moniker.value.trim(),
+      moniker: e.target.elements.moniker.value,
       country: e.target.elements.country.value.trim(),
     };
 
     const { files } = this.state;
 
     const re = /[\s\d]/;
+    const reMoniker = /^[a-z0-9]+$/i;
     let submit_data = 0;
     if (re.test(data.lastName) || data.lastName === '') {
       document.querySelector('#lastname_error').innerHTML = 'Please enter a valid name';
@@ -66,8 +67,9 @@ class SignUp extends Component {
       document.querySelector('#firstname_error').innerHTML = '';
       submit_data += 1;
     }
-    if (data.moniker === '') {
-      document.querySelector('#moniker_error').innerHTML = 'This field is required';
+    if (!reMoniker.test(data.moniker)) {
+      console.log(reMoniker.test(data.moniker));
+      document.querySelector('#moniker_error').innerHTML = 'Alphanumeric characters only';
     } else {
       document.querySelector('#moniker_error').innerHTML = '';
       submit_data += 1;
