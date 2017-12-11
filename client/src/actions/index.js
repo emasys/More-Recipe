@@ -147,7 +147,7 @@ export const signUp = (data) => {
         dispatch({ type: 'SIGN_UP', payload: response.data });
       })
       .catch((err) => {
-        dispatch({ type: 'SIGN_UP', payload: err.response });
+        dispatch({ type: 'SIGN_UP', payload: err.response.data });
       });
   };
 };
@@ -167,7 +167,7 @@ export const signIn = (data) => {
         window.localStorage.removeItem('token');
         dispatch({ type: 'SIGN_IN', payload: response.data });
       }).catch((err) => {
-        dispatch({ type: 'SIGN_IN', payload: err.response });
+        dispatch({ type: 'SIGN_IN', payload: err.response.data });
       });
   };
 };
