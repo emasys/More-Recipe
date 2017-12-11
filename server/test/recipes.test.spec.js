@@ -30,7 +30,6 @@ describe('CRUD/ for recipes', () => {
       .expect(201)
       .end(done);
   });
-  
 
   before((done) => { // A user should sign in before creating a creating a recipe
     request(app)
