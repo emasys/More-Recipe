@@ -2,7 +2,7 @@ import Recipes from '../controllers/recipes';
 import Users from '../controllers/users';
 import Reviews from '../controllers/reviews';
 import Favorite from '../controllers/favorite';
-import jwt from '../middleware/jwt';
+import jwt from '../middleware/authorization';
 
 // routes
 export default (routes) => {

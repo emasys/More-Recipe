@@ -29,3 +29,5 @@ webpack.prod.config.js
 /client/src/components/RecipeCategories.js
 /templates
 client/src/helper
+.nyc_output
+coverage
