@@ -89,7 +89,7 @@ class Navbar extends Component {
                 data-tip="Search for recipes"
                 >
                 <i className="material-icons fa-2x d-sm-none d-lg-inline">&#xE8B6;</i>
-                <span className="d-lg-none">Search</span>
+                <span className="d-lg-none" style={{verticalAlign: "top"}}>Search</span>
                 </NavLink>
               </li>
                 {Auth.loggedIn() ? (
@@ -103,23 +103,24 @@ class Navbar extends Component {
                       <i className="material-icons fa-2x d-sm-none d-lg-inline" aria-hidden="true">
                         add_to_photos
                       </i>
-                      <span className="d-lg-none">Add new recipe</span>
+                      <span className="d-lg-none" style={{verticalAlign: "top"}}>Add new recipe</span>
                     </NavLink>
                   </li>
                 ) : (
                   ''
                 )}
-                <li className="nav-item ">
+                <li className="nav-item">
                   <NavLink
                     className="nav-link text-light"
                     activeClassName="active"
                     to="/catalog"
                     data-tip="Catalog"
+                    
                   >
                     <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                       &#xE8EF;
                     </i>
-                    <span className="d-lg-none">Catalog</span>
+                    <span className="d-lg-none" style={{verticalAlign: "top"}}>Catalog</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -130,7 +131,7 @@ class Navbar extends Component {
                     data-tip="Your favorites"
                   >
                     <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
-                    <span className="d-lg-none text-white">Favorites</span>
+                    <span className="d-lg-none text-white" style={{verticalAlign: "top"}}>Favorites</span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">

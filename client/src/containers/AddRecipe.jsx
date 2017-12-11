@@ -13,11 +13,9 @@ import Navbar from '../components/Navbar';
 class AddRecipe extends Component {
   constructor(props) {
     super(props);
-
     this.state = { preview: null, files: null, fileURL: null, status: 'fade' };
     this.handleForm = this.handleForm.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-    // this.uploadWidget = this.uploadWidget.bind(this);
     this.sendData = this.sendData.bind(this);
   }
 
@@ -38,6 +36,8 @@ class AddRecipe extends Component {
       description: e.target.elements.description.value.trim(),
       category: e.target.elements.category.value,
     };
+    
+   
     this.setState({
       status: 'show',
     });
@@ -83,8 +83,6 @@ class AddRecipe extends Component {
     const { preview, status } = this.state;
     const recipeCategory = ['Breakfast','Brunch','Lunch','Snacks','Appetisers','Dinner','Soups','Noodles','Rice','Pasta',
       'Meat','Poultry','Seafood','Vegetarian','Salads','Sides','Sauces','Baking','Desserts','Drinks'];
-    // console.log(recipeCategory);
-
     return (
       <section className="container ">
         <Navbar />
