@@ -48,7 +48,7 @@ export default class Authorization {
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
         if (error) return setStatus(res, { message: 'Invalid authorization status' }, 401);
-        Users.findById(decoded.id)
+        return Users.findById(decoded.id)
           .then((user) => {
             if (!user) return setStatus(res, { error: 'user not found' }, 404);
             req.decoded = decoded; // assign decoded data to req.decoded

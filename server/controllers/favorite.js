@@ -25,19 +25,17 @@ export default class FavoriteRecipes {
         if (favorite) {
           return favorite
             .destroy()
-            .then(() =>
-              setStatus(res, { success: true, status: 'unfavorited' }, 200))
-            .catch(() => setStatus(res, { success: false }, 400));
+            .then(() => setStatus(res, { success: true, status: 'unfavorited' }, 200))
+            // .catch(() => setStatus(res, { success: false, message: 'recipe not found' }, 404));
         }
         return Favorite.create({
           recipeId: req.params.recipeId,
           userId: req.decoded.id
-        }).then(() => {
-          setStatus(res, { success: true, status: 'favorited' }, 200);
-        });
+        })
+          .then(() => setStatus(res, { success: true, status: 'favorited' }, 200))
+          // .catch(() => setStatus(res, { success: false, message: 'recipe not found' }, 404));
       })
-      .catch(() =>
-        setStatus(res, { message: 'An error occured during this operation' }, 400));
+      .catch(() => setStatus(res, { success: false, message: 'recipe not found' }, 404));
   }
   /**
  *
@@ -51,17 +49,14 @@ export default class FavoriteRecipes {
   static favoriteStatus(req, res) {
     return Favorite.findAll({
       where: {
-        userId: req.decoded.id,
         recipeId: req.params.recipeId
       }
     })
       .then((favorites) => {
-        if (favorites.length > 0) {
-          return setStatus(res, { success: true }, 200);
-        }
+        if (favorites.length > 0) return setStatus(res, { success: true }, 200);
         return setStatus(res, { success: false }, 200);
       })
-      .catch(() => setStatus(res, { success: false }));
+      .catch(() => setStatus(res, { success: false }, 404));
   }
 
   /**
@@ -80,6 +75,6 @@ export default class FavoriteRecipes {
       ]
     })
       .then(favorites => setStatus(res, { success: true, favorites }, 200))
-      .catch(() => setStatus(res, { success: false }, 400));
+      .catch(() => setStatus(res, { success: false }, 500));
   }
 }

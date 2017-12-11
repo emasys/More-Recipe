@@ -128,7 +128,7 @@ class moreRecipes {
       },
     })
       .then(recipes => setStatus(res, { recipes }, 200))
-      .catch(() => setStatus(res, { success: false, error: 'Something went wrong' }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'Something went wrong' }, 500));
   }
   /**
    *
@@ -153,26 +153,24 @@ class moreRecipes {
       ],
     })
       .then((recipe) => {
-        if (!recipe) {
-          return setStatus(res, { success: false, status: 'Recipes not found' }, 404);
-        }
         if (req.decoded.id) {
           if (req.decoded.id !== recipe.userId) {
             return recipe.update({
               comments: recipe.reviews.length,
               favorite: recipe.favorites.length,
               views: recipe.views + 1,
-            });
+            })
+              .then(() => setStatus(res, { success: true, recipe }, 200));
           }
           return recipe.update({
             comments: recipe.reviews.length,
             favorite: recipe.favorites.length,
             views: recipe.views,
-          });
+          })
+            .then(() => setStatus(res, { success: true, recipe }, 200));
         }
       })
-      .then(recipe => setStatus(res, { success: true, recipe }, 200))
-      .catch(() => res.status(400).send({ success: false, error: 'failed to fetch recipes' }));
+      .catch(() => setStatus(res, { success: false, status: 'Recipes not found' }, 404));
   }
 
   /**
@@ -187,7 +185,6 @@ class moreRecipes {
     const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
-        if (!recipe) return setStatus(res, { success: false, status: 'Recipe Not Found' }, 404);
         return recipe
           .update({
             name: req.body.name || recipe.name,
@@ -195,10 +192,9 @@ class moreRecipes {
             description: req.body.description || recipe.description,
             ingredients: getArr(arr) || recipe.ingredients,
           })
-          .then(() => setStatus(res, { recipe }, 204)) // Send back the updated recipe.
-          .catch(() => setStatus(res, { success: false, error: 'failed to update recipe' }, 400));
+          .then(() => setStatus(res, { recipe }, 204)); // Send back the updated recipe.
       })
-      .catch(() => setStatus(res, { error: 'something went wrong' }, 400));
+      .catch(() => setStatus(res, { error: 'recipe not found' }, 404));
   }
   /**
    *
@@ -219,7 +215,7 @@ class moreRecipes {
         }
         return setStatus(res, { upvote: { success: false }, downvote: { success: false } }, 200);
       })
-      .catch(() => setStatus(res, { status: 'recipe not found' }, 400));
+      .catch(() => setStatus(res, { status: 'recipe not found' }, 404));
   }
   /**
    *
@@ -233,13 +229,10 @@ class moreRecipes {
   static upvote(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
-        if (!recipe) {
-          return setStatus(res, { success: false, status: 'Recipe Not Found', }, 404);
-        }
         if (req.decoded.id) { // check if a user is logged in
           const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
-            // already reacted and hit this route again, then "unreact"
+            // Check if a user has already upvoted, then "unupvote"
             const removeId = reactionUp.indexOf(Number(req.decoded.id));
             if (removeId > -1) reactionUp.splice(removeId, 1);
             return recipe
@@ -248,13 +241,12 @@ class moreRecipes {
                 reactionUp: recipe.reactionUp,
                 views: recipe.views - 1
               })
-              .then(() => setStatus(res, { success: false, recipe }, 200))
-              .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+              .then(() => setStatus(res, { success: false, recipe }, 200));
           } else if (
             reactionUp.indexOf(Number(req.decoded.id)) === -1 &&
             reactionDown.indexOf(Number(req.decoded.id)) !== -1
           ) {
-            // already downvoted and hit the route again, then "undownvote" then upvote
+            // check if a user has already downvoted, then cancel it and upvote instead
             const removeId = reactionDown.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionDown.splice(removeId, 1);
@@ -268,9 +260,9 @@ class moreRecipes {
                 reactionUp: recipe.reactionUp,
                 reactionDown,
               })
-              .then(() => setStatus(res, { success: true, recipe }, 200))
-              .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+              .then(() => setStatus(res, { success: true, recipe }, 200));
           }
+          // upvote if a user has not previously done so
           recipe.reactionUp.push(req.decoded.id);
           return recipe
             .update({
@@ -278,11 +270,10 @@ class moreRecipes {
               views: recipe.views - 1, // fix bug of incrementing views count after upvoting
               reactionUp: recipe.reactionUp,
             })
-            .then(() => setStatus(res, { success: true, recipe }, 200))
-            .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+            .then(() => setStatus(res, { success: true, recipe }, 200));
         }
       })
-      .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 404));
   }
 
   /**
@@ -297,11 +288,11 @@ class moreRecipes {
   static downvote(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
-        if (!recipe) return setStatus(res, { success: false, status: 'Recipe Not Found', }, 404);
+        // if (!recipe) return setStatus(res, { success: false, status: 'Recipe Not Found', }, 404);
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
           if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
-            // already reacted
+            // have downvoted
             const removeId = reactionDown.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionDown.splice(removeId, 1);
@@ -312,13 +303,12 @@ class moreRecipes {
                 views: recipe.views - 1,
                 reactionDown: recipe.reactionDown,
               })
-              .then(() => setStatus(res, { recipe }, 200)) // Send back the updated recipe.
-              .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+              .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.
           } else if (
             reactionDown.indexOf(Number(req.decoded.id)) === -1 &&
             reactionUp.indexOf(Number(req.decoded.id)) !== -1
           ) {
-            // already reacted
+            // already upvoted but not downvoted
             const removeId = reactionUp.indexOf(Number(req.decoded.id));
             if (removeId > -1) {
               reactionUp.splice(removeId, 1);
@@ -332,21 +322,21 @@ class moreRecipes {
                 reactionDown: recipe.reactionDown,
                 reactionUp,
               })
-              .then(() => setStatus(res, { recipe }, 200)) // Send back the updated recipe.
-              .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+              .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.
           }
+          // if a user has not downvoted or upvoted then increment downvote count
+          // and add userId into the reactionDown array
           recipe.reactionDown.push(req.decoded.id);
           return recipe
             .update({
-              downvote: recipe.upvote + 1,
+              downvote: recipe.downvote + 1,
               views: recipe.views - 1,
               reactionDown: recipe.reactionDown,
             })
-            .then(() => setStatus(res, { recipe }, 200)) // Send back the updated recipe.
-            .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+            .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.
         }
       })
-      .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }
 
   /**
@@ -359,13 +349,13 @@ class moreRecipes {
   static deleteRecipe(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
-        if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
+        // if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
         return recipe
           .destroy()
           .then(() => setStatus(res, { success: true, status: 'Recipe deleted' }, 200))
           .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
       })
-      .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }
 }
 

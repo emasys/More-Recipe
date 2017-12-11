@@ -105,6 +105,7 @@ export default class {
   static getOneUser(req, res) {
     return Users.findById(req.params.userId)
       .then((user) => {
+        if (!user) return setStatus(res, { success: false, message: 'User not found' }, 404);
         const data = _.pick(user, [
           'id',
           'firstName',
@@ -117,7 +118,7 @@ export default class {
         ]);
         return setStatus(res, { success: true, data }, 200);
       })
-      .catch(error => setStatus(res, { success: true, error }, 200));
+      .catch(error => setStatus(res, { success: false, error }, 500));
   }
   /**
          *
@@ -130,22 +131,15 @@ export default class {
   static updateUser(req, res) {
     return Users.findById(req.params.userId)
       .then((user) => {
-        if (!user) {
-          setStatus(res, {
-            success: false,
-            status: 'user Not Found',
-          }, 404);
-        }
         return user
           .update({
             firstName: req.body.firstName || user.firstName,
             lastName: req.body.lastName || user.lastName,
             bio: req.body.bio || user.bio,
           })
-          .then(() => setStatus(res, { success: true, status: 'updated' }, 200))
-          .catch(error => setStatus(res, { success: false, error }, 400));
+          .then(() => setStatus(res, { success: true, status: 'updated' }, 200));
       })
-      .catch(error => setStatus(res, { success: false, error }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'user not found' }, 404));
   }
   /**
          *
@@ -158,15 +152,11 @@ export default class {
   static deleteUser(req, res) {
     return Users.findById(req.params.userId)
       .then((user) => {
-        if (!user) {
-          return setStatus(res, { success: false, status: 'user not found' }, 404);
-        }
         return user
           .destroy()
-          .then(() => setStatus(res, { success: true, status: 'user deleted' }, 200))
-          .catch(error => setStatus(res, { success: false, error }, 400));
+          .then(() => setStatus(res, { success: true, status: 'user deleted' }, 200));
       })
-      .catch(error => setStatus(res, { success: false, error }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'user not found' }, 404));
   }
   /**
  *
