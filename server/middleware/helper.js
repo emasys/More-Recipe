@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 
@@ -51,5 +52,32 @@ export const validateAddRecipes = () => {
     ingredients: 'required',
     description: 'required'
   };
+};
+
+export const mailer = (moniker, email, message) => {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: process.env.EMAIL_ADDRESS,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });
+
+  // setup e-mail data with unicode symbols
+  const mailOptions = {
+    from: 'MoreRecipe ✔ <more-recipe@gmail.com>', // sender address
+    to: email, // list of receivers
+    subject: 'Activity on your recipe', // Subject line
+    text: `${moniker} ${message}`, // plaintext body
+    html: `<b>${moniker} ${message} </b>` // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log(`Message sent: ${info.response}`);
+  });
 };
 
