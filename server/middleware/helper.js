@@ -8,7 +8,14 @@ export const signToken = (data) => {
     expiresIn: '365d',
   });
 };
-
+/**
+ *
+ *
+ * @param {response} res
+ * @param {object} message
+ * @param {integer} code
+ * @returns
+ */
 export const setStatus = (res, message, code) => {
   return res.status(code).json(message);
 };

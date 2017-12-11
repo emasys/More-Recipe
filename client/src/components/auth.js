@@ -3,52 +3,52 @@ import jwt_decode from 'jwt-decode';
 const login = localStorage.getItem('token');
 let decoded = '';
 /**
- * 
- * 
+ *
+ *
  * @class Auth
  */
 class Auth {
   /**
-   * 
-   * 
+   *
+   *
    * @static
    * @memberof Auth
    */
   static logout() {
     localStorage.removeItem('token');
   }
-/**
- * 
- * 
+  /**
+ *
+ *
  * @static
- * @returns 
+ * @returns
  * @memberof Auth
  */
-static loggedIn() {
+  static loggedIn() {
     if (login) {
       decoded = jwt_decode(login);
       return true;
     }
     return false;
   }
-/**
- * 
- * 
+  /**
+ *
+ *
  * @static
- * @returns 
+ * @returns
  * @memberof Auth
  */
-static userID() {
+  static userID() {
     return decoded.id;
   }
-/**
- * 
- * 
+  /**
+ *
+ *
  * @static
- * @returns 
+ * @returns
  * @memberof Auth
  */
-static moniker() {
+  static moniker() {
     return decoded.moniker;
   }
 }
