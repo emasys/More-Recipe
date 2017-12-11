@@ -1,12 +1,20 @@
 import request from 'supertest';
 import app from '../index';
 import seed from '../seeders/seeds';
+import models from '../models';
 
 let xtoken = null;
 
 describe('CRUD/ for recipes', () => {
-  before(seed.emptyUserTable);
-  before(seed.emptyRecipeTable);
+  // before(seed.emptyUserTable);
+  // before(seed.emptyRecipeTable);
+  before((done) => {
+    models.sequelize.sync({ force: true }).then(() => {
+      done(null);
+    }).catch((errors) => {
+      done(errors);
+    });
+  });
   before(seed.addUser);
   before(seed.addRecipe);
 

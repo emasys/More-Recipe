@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import expect from 'expect';
 import app from '../index';
 import seed from '../seeders/seeds';
+import models from '../models';
 
 describe('GET/ test if the invalid routes are working', () => {
   it('should return status code 404 and a message "page not found"', (done) => {
@@ -21,7 +22,14 @@ describe('GET/ test if the invalid routes are working', () => {
 
 
 describe('SIGN_IN/ New user can sign in', () => {
-  before(seed.emptyUserTable);
+  before((done) => {
+    models.sequelize.sync({ force: true }).then(() => {
+      done(null);
+    }).catch((errors) => {
+      done(errors);
+    });
+  });
+  // before(seed.emptyUserTable);
   before(seed.addUser);
 
   it('should return status code 400 and a message if the email format is invalid', (done) => {

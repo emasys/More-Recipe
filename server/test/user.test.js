@@ -1,11 +1,19 @@
 import request from 'supertest';
 import app from '../index';
 import seed from '../seeders/seeds';
+import models from '../models';
 
 let xtoken = null;
 
 describe('CRUD/ users', () => {
-  before(seed.emptyUserTable);
+  // before(seed.emptyUserTable);
+  before((done) => {
+    models.sequelize.sync({ force: true }).then(() => {
+      done(null);
+    }).catch((errors) => {
+      done(errors);
+    });
+  });
   before(seed.addUser);
   before((done) => { // A user should sign in before creating a creating a recipe
     request(app)
