@@ -6,8 +6,6 @@ import models from '../models';
 let xtoken = null;
 
 describe('CRUD/ for recipes', () => {
-  // before(seed.emptyUserTable);
-  // before(seed.emptyRecipeTable);
   before((done) => {
     models.sequelize.sync({ force: true }).then(() => {
       done(null);
@@ -15,8 +13,24 @@ describe('CRUD/ for recipes', () => {
       done(errors);
     });
   });
-  before(seed.addUser);
-  before(seed.addRecipe);
+  before((done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send(seed.setUserInput(
+        'emasys',
+        'endy',
+        'Page Admin',
+        'emasysnd@gmail.com',
+        'password',
+        'password',
+        'Nigeria',
+        'admin',
+        'avatarurl',
+      ))
+      .expect(201)
+      .end(done);
+  });
+  
 
   before((done) => { // A user should sign in before creating a creating a recipe
     request(app)
@@ -28,6 +42,22 @@ describe('CRUD/ for recipes', () => {
         xtoken = res.body.token; // make token accessible to protected routes
         done();
       });
+  });
+
+  before((done) => {
+    request(app)
+      .post('/api/v1/recipes')
+      .send(seed.setRecipeInput(
+        'How to fry something',
+        'water, oil',
+        'just do it',
+        'local food',
+        'some url',
+        'vegetarian',
+      ))
+      .set('x-access-token', xtoken)
+      .expect(201)
+      .end(done);
   });
 
   describe('GET/ fetch all recipes', () => {
@@ -353,7 +383,6 @@ describe('CRUD/ for recipes', () => {
     });
   });
 
-  
 
   describe('Check if a user has created a recipe', () => {
     it('should return a status code of 200 if successful', (done) => {

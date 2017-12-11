@@ -14,7 +14,23 @@ describe('CRUD/ users', () => {
       done(errors);
     });
   });
-  before(seed.addUser);
+  before((done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send(seed.setUserInput(
+        'emasys',
+        'endy',
+        'Page Admin',
+        'emasysnd@gmail.com',
+        'password',
+        'password',
+        'Nigeria',
+        'admin',
+        'avatarurl',
+      ))
+      .expect(201)
+      .end(done);
+  });
   before((done) => { // A user should sign in before creating a creating a recipe
     request(app)
       .post('/api/v1/users/signin')
