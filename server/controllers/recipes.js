@@ -192,7 +192,7 @@ class moreRecipes {
             description: req.body.description || recipe.description,
             ingredients: getArr(arr) || recipe.ingredients,
           })
-          .then(() => setStatus(res, { recipe }, 204)); // Send back the updated recipe.
+          .then(() => setStatus(res, { recipe }, 201)); // Send back the updated recipe.
       })
       .catch(() => setStatus(res, { error: 'recipe not found' }, 404));
   }
@@ -239,7 +239,6 @@ class moreRecipes {
               .update({
                 upvote: recipe.upvote - 1,
                 reactionUp: recipe.reactionUp,
-                views: recipe.views - 1
               })
               .then(() => setStatus(res, { success: false, recipe }, 200));
           } else if (
@@ -256,7 +255,6 @@ class moreRecipes {
               .update({
                 upvote: recipe.upvote + 1,
                 downvote: recipe.downvote - 1,
-                views: recipe.views - 1, // fix bug of incrementing views count after upvoting
                 reactionUp: recipe.reactionUp,
                 reactionDown,
               })
@@ -267,7 +265,6 @@ class moreRecipes {
           return recipe
             .update({
               upvote: recipe.upvote + 1,
-              views: recipe.views - 1, // fix bug of incrementing views count after upvoting
               reactionUp: recipe.reactionUp,
             })
             .then(() => setStatus(res, { success: true, recipe }, 200));
@@ -300,7 +297,6 @@ class moreRecipes {
             return recipe
               .update({
                 downvote: recipe.downvote - 1,
-                views: recipe.views - 1,
                 reactionDown: recipe.reactionDown,
               })
               .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.
@@ -318,7 +314,6 @@ class moreRecipes {
               .update({
                 upvote: recipe.upvote - 1,
                 downvote: recipe.downvote + 1,
-                views: recipe.views - 1,
                 reactionDown: recipe.reactionDown,
                 reactionUp,
               })
@@ -330,7 +325,6 @@ class moreRecipes {
           return recipe
             .update({
               downvote: recipe.downvote + 1,
-              views: recipe.views - 1,
               reactionDown: recipe.reactionDown,
             })
             .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.

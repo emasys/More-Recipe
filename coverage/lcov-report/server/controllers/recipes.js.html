@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">83% </span>
+        <span class="strong">84% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>83/100</span>
+        <span class='fraction'>84/100</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">66% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>33/50</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">69.23% </span>
+        <span class="strong">71.79% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>27/39</span>
+        <span class='fraction'>28/39</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">83.33% </span>
+        <span class="strong">84.38% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>80/96</span>
+        <span class='fraction'>81/96</span>
       </div>
     </div>
   </div>
@@ -427,24 +427,24 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -569,15 +569,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -788,7 +788,7 @@ class moreRecipes {
     const arr = req.body.ingredients;
     const getArr = input =&gt; input.trim().split(/\s*,\s*/); // to convert ingredient's strings into and array with no trailing space
     const validator = new Validator(request, validateAddRecipes());
-    if (validator.passes()) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (validator.passes()) {
       Users.findById(req.decoded.id)
         .then((user) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) <span class="cstat-no" title="statement not covered" >return setStatus(res, { success: false, error: 'User not found' }, 404);</span>
@@ -806,7 +806,7 @@ class moreRecipes {
         })
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { error: 'something went wrong' }));</span></span>
     } else {
-      return setStatus(res, { error: validator.errors.all() }, 401);
+<span class="cstat-no" title="statement not covered" >      return setStatus(res, { error: validator.errors.all() }, 401);</span>
     }
   }
   /**
@@ -923,7 +923,7 @@ class moreRecipes {
     })
       .then((recipe) =&gt; {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (req.decoded.id) {
-          if (req.decoded.id !== recipe.userId) {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (req.decoded.id !== recipe.userId) {
 <span class="cstat-no" title="statement not covered" >            return recipe.update({</span>
               comments: recipe.reviews.length,
               favorite: recipe.favorites.length,
@@ -931,12 +931,12 @@ class moreRecipes {
             })
               .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: true, recipe }, 200));</span></span>
           }
-<span class="cstat-no" title="statement not covered" >          return recipe.update({</span>
+          return recipe.update({
             comments: recipe.reviews.length,
             favorite: recipe.favorites.length,
             views: recipe.views,
           })
-            .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: true, recipe }, 200));</span></span>
+            .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
         }
       })
       .catch(() =&gt; setStatus(res, { success: false, status: 'Recipes not found' }, 404));
@@ -1135,7 +1135,7 @@ export default moreRecipes;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 12 2017 15:56:11 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 12 2017 17:33:19 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

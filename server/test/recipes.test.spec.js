@@ -1,98 +1,63 @@
 import request from 'supertest';
 import app from '../index';
 import seed from '../seeders/seeds';
-import models, { Users } from '../models';
+import models from '../models';
 
 let xtoken = null;
 
 describe('CRUD/ for recipes', () => {
   before((done) => {
     models.sequelize.sync({ force: true }).then(() => {
-      Users.create({
-        firstName: 'emasys',
-        lastName: 'Emmanuel',
-        bio: 'I am a human from planet earth',
-        email: 'emasysnd@gmail.com',
-        password: 'password',
-        moniker: 'admin',
-        country: 'Nigeria',
-        avatar: 'someurl'
-      })
-        .then(() => {
-          request(app)
-            .post('/api/v1/users/signin')
-            .send({ email: 'emasysnd@gmail.com', password: 'password' })
-            .expect(200)
-            .end((err, res) => {
-              if (err) return done(err);
-              xtoken = res.body.token; // make token accessible to protected routes
-              request(app)
-                .post('/api/v1/recipes')
-                .send({
-                  userId: 2,
-                  name: 'how to cook some stuff',
-                  ingredient: 'water, salt, pepper',
-                  direction: 'just do the needful',
-                  description: 'local Nigerian food',
-                  foodImg: 'someurl',
-                  category: 'rice'
-                })
-                .set('x-access-token', xtoken)
-                .expect(201)
-                .end(() => {
-                  done();
-                });
-            });
-        });
+      done(null);
     }).catch((errors) => {
       done(errors);
     });
   });
-  // before((done) => {
-  //   request(app)
-  //     .post('/api/v1/users/signup')
-  //     .send(seed.setUserInput(
-  //       'emasys',
-  //       'endy',
-  //       'Page Admin',
-  //       'emasysnd@gmail.com',
-  //       'password',
-  //       'password',
-  //       'Nigeria',
-  //       'admin',
-  //       'avatarurl',
-  //     ))
-  //     .expect(201)
-  //     .end(() => { done(); });
-  // });
+  before((done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send(seed.setUserInput(
+        'emasys',
+        'endy',
+        'Page Admin',
+        'emasysnd@gmail.com',
+        'password',
+        'password',
+        'Nigeria',
+        'admin',
+        'avatarurl',
+      ))
+      .expect(201)
+      .end(() => { done(); });
+  });
 
-  // before((done) => { // A user should sign in before creating a creating a recipe
-  //   request(app)
-  //     .post('/api/v1/users/signin')
-  //     .send(seed.setLogin('emasysnd@gmail.com', 'password'))
-  //     .expect(200)
-  //     .end((err, res) => {
-  //       if (err) return done(err);
-  //       xtoken = res.body.token; // make token accessible to protected routes
-  //       done();
-  //     });
-  // });
+  before((done) => { // A user should sign in before creating a creating a recipe
+    request(app)
+      .post('/api/v1/users/signin')
+      .send(seed.setLogin('emasysnd@gmail.com', 'password'))
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        xtoken = res.body.token; // make token accessible to protected routes
+        done();
+      });
+  });
 
-  // before((done) => {
-  //   request(app)
-  //     .post('/api/v1/recipes')
-  //     .send(seed.setRecipeInput(
-  //       'How to fry something',
-  //       'water, oil',
-  //       'just do it',
-  //       'local food',
-  //       'some url',
-  //       'vegetarian',
-  //     ))
-  //     .set('x-access-token', xtoken)
-  //     .expect(201)
-  //     .end(() => { done(); });
-  // });
+  before((done) => {
+    request(app)
+      .post('/api/v1/recipes')
+      .send(seed.setRecipeInput(
+        'How to fry something',
+        'water, oil',
+        'just do it',
+        'local food',
+        'some url',
+        'vegetarian',
+      ))
+      .set('x-access-token', xtoken)
+      .expect(201)
+      .end(() => { done(); });
+  });
 
   describe('GET/ fetch all recipes', () => {
     it('should return all recipes in the database', (done) => {

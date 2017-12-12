@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import expect from 'expect';
 import app from '../index';
 import seed from '../seeders/seeds';
-import models, { Users } from '../models';
+import models from '../models';
 
 describe('GET/ test if the invalid routes are working', () => {
   it('should return status code 404 and a message "page not found"', (done) => {
@@ -21,69 +21,52 @@ describe('GET/ test if the invalid routes are working', () => {
 });
 
 
-describe('SIGN_UP/', () => {
+describe('SIGN_IN/ New user can sign in', () => {
   before((done) => {
     models.sequelize.sync({ force: true }).then(() => {
-      Users.create({
-        firstName: 'emasys',
-        lastName: 'Emmanuel',
-        bio: 'I am a human from planet earth',
-        email: 'emasysnd@gmail.com',
-        password: 'password',
-        moniker: 'admin',
-        country: 'Nigeria',
-        avatar: 'someurl'
-      })
-        .then(() => done())
-        .catch(err => done(err));
+      done(null);
     }).catch((errors) => {
       done(errors);
     });
   });
-  // before((done) => {
-  //   request(app)
-  //     .post('/api/v1/users/signup')
-  //     .send(seed.setUserInput(
-  //       'emasys',
-  //       'endy',
-  //       'Page Admin',
-  //       'emasysnd@gmail.com',
-  //       'password',
-  //       'password',
-  //       'Nigeria',
-  //       'admin',
-  //       'avatarurl',
-  //     ))
-  //     .expect(201)
-  //     .end(() => {
-  //       done();
-  //     });
-  // });
+  before((done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send(seed.setUserInput(
+        'emasys',
+        'endy',
+        'Page Admin',
+        'emasysnd@gmail.com',
+        'password',
+        'password',
+        'Nigeria',
+        'admin',
+        'avatarurl',
+      ))
+      .expect(201)
+      .end(done);
+  });
 
   it('should return status code 400 and a message if the email format is invalid', (done) => {
     request(app)
       .post('/api/v1/users/signin')
-      .send({ email: 'emasys', password: 'password' })
+      .send(seed.setLogin('emasys', 'password'))
       .expect(400)
-      .end(() => {
-        done();
-      });
+      .end(done);
   });
 
   it('should return status code 404 if the email does not exist', (done) => {
     request(app)
       .post('/api/v1/users/signin')
-      .send({ email: 'emasysnd2@gmail.com', password: 'password' })
+      .send(seed.setLogin('emasys@gmail.com', 'password'))
       .expect(404)
-      .end(() => {
-        done();
-      });
+      .end(done);
   });
 
   it('should return 200 and a decoded token if credentials are correct.', (done) => {
     request(app)
       .post('/api/v1/users/signin')
-      .send({ email: 'emasysnd@gmail.com', password: 'password' })
+      .send(seed.setLogin('emasysnd@gmail.com', 'password'))
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);

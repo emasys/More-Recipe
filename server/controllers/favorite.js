@@ -17,8 +17,7 @@ export default class FavoriteRecipes {
   static addFavorite(req, res) {
     return Favorite.findOne({
       where: {
-        recipeId: req.params.recipeId,
-        userId: req.decoded.id
+        recipeId: req.params.recipeId
       }
     })
       .then((favorite) => {
