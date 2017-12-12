@@ -42,7 +42,9 @@ describe('CRUD/ for recipes', () => {
                 ))
                 .set('x-access-token', xtoken)
                 .expect(201)
-                .end(() => { done(); });
+                .end(() => {
+                  done();
+                });
             });
         });
     }).catch((errors) => {
