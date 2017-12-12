@@ -6,9 +6,32 @@ import jwt from '../middleware/authorization';
 
 // routes
 export default (routes) => {
+
+/**
+ * @swagger
+ * /api/v1/recipes:
+ *   get:
+ *     tags:
+ *       - Recipes
+ *     description: Returns all recipes
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of recipes
+ *         schema:
+ *           $ref: '#/definitions/recipes'
+ */
+routes.get('/api/v1/recipes/page/:page', Recipes.listRecipes);
+// POST requests
+routes.post('/api/v1/recipes', jwt.verifyToken, Recipes.addRecipe);
+
+
+
   routes.post('/api/v1/users/signup', Users.signUp);
   routes.post('/api/v1/users/signin', Users.signIn);
-  routes.post('/api/v1/recipes', jwt.verifyToken, Recipes.addRecipe);
+
+
   routes.post('/api/v1/recipes/category/:limit', Recipes.listRecipeCategory);
   routes.post('/api/v1/recipes/upvote/:recipeId', jwt.verifyToken, Recipes.upvote);
   routes.post('/api/v1/recipes/:recipeId', jwt.verifyToken, Recipes.updateRecipe);
@@ -20,7 +43,7 @@ export default (routes) => {
   routes.get('/api/v1/recipes/upvoteReaction/:recipeId', jwt.verifyToken, Recipes.checkReactions);
   routes.get('/api/v1/recipes/yours/:limit/:id', jwt.verifyToken, Recipes.listPrivateRecipes);
   routes.get('/api/v1/recipes/fav', jwt.verifyToken, Favorite.listFavorites);
-  routes.get('/api/v1/recipes/page/:page', Recipes.listRecipes);
+  
   routes.get('/api/v1/recipes/:recipeId/favStatus', jwt.verifyToken, Favorite.favoriteStatus);
   routes.get('/api/v1/users', jwt.checkAdmin, jwt.verifyToken, Users.getUsers);
   routes.get('/api/v1/users/:userId', Users.getOneUser);
