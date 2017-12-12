@@ -44,7 +44,9 @@ describe('SIGN_IN/ New user can sign in', () => {
         'avatarurl',
       ))
       .expect(201)
-      .end(done);
+      .end(() => {
+        done();
+      });
   });
 
   it('should return status code 400 and a message if the email format is invalid', (done) => {
@@ -52,7 +54,9 @@ describe('SIGN_IN/ New user can sign in', () => {
       .post('/api/v1/users/signin')
       .send(seed.setLogin('emasys', 'password'))
       .expect(400)
-      .end(done);
+      .end(() => {
+        done();
+      });
   });
 
   it('should return status code 404 if the email does not exist', (done) => {
@@ -60,7 +64,9 @@ describe('SIGN_IN/ New user can sign in', () => {
       .post('/api/v1/users/signin')
       .send(seed.setLogin('emasys@gmail.com', 'password'))
       .expect(404)
-      .end(done);
+      .end(() => {
+        done();
+      });
   });
 
   it('should return 200 and a decoded token if credentials are correct.', (done) => {
@@ -76,6 +82,5 @@ describe('SIGN_IN/ New user can sign in', () => {
         done();
       });
   });
-
 });
 

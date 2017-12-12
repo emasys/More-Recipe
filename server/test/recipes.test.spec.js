@@ -28,7 +28,7 @@ describe('CRUD/ for recipes', () => {
         'avatarurl',
       ))
       .expect(201)
-      .end(done);
+      .end(() => { done(); });
   });
 
   before((done) => { // A user should sign in before creating a creating a recipe
@@ -56,7 +56,7 @@ describe('CRUD/ for recipes', () => {
       ))
       .set('x-access-token', xtoken)
       .expect(201)
-      .end(done);
+      .end(() => { done(); });
   });
 
   describe('GET/ fetch all recipes', () => {
