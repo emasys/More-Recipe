@@ -24,30 +24,46 @@ describe('GET/ test if the invalid routes are working', () => {
 describe('SIGN_IN/ New user can sign in', () => {
   before((done) => {
     models.sequelize.sync({ force: true }).then(() => {
-      done(null);
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(seed.setUserInput(
+          'emasys',
+          'endy',
+          'Page Admin',
+          'emasysnd@gmail.com',
+          'password',
+          'password',
+          'Nigeria',
+          'admin',
+          'avatarurl',
+        ))
+        .expect(201)
+        .end(() => {
+          done();
+        });
     }).catch((errors) => {
       done(errors);
     });
   });
-  before((done) => {
-    request(app)
-      .post('/api/v1/users/signup')
-      .send(seed.setUserInput(
-        'emasys',
-        'endy',
-        'Page Admin',
-        'emasysnd@gmail.com',
-        'password',
-        'password',
-        'Nigeria',
-        'admin',
-        'avatarurl',
-      ))
-      .expect(201)
-      .end(() => {
-        done();
-      });
-  });
+  // before((done) => {
+  //   request(app)
+  //     .post('/api/v1/users/signup')
+  //     .send(seed.setUserInput(
+  //       'emasys',
+  //       'endy',
+  //       'Page Admin',
+  //       'emasysnd@gmail.com',
+  //       'password',
+  //       'password',
+  //       'Nigeria',
+  //       'admin',
+  //       'avatarurl',
+  //     ))
+  //     .expect(201)
+  //     .end(() => {
+  //       done();
+  //     });
+  // });
 
   it('should return status code 400 and a message if the email format is invalid', (done) => {
     request(app)
