@@ -11,23 +11,22 @@ describe('CRUD/ users', () => {
     models.sequelize.sync({ force: true }).then(() => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(seed.setUserInput(
-          'emasys',
-          'endy',
-          'Page Admin',
-          'emasysnd@gmail.com',
-          'password',
-          'password',
-          'Nigeria',
-          'admin',
-          'avatarurl',
-        ))
+        .send({
+          firstName: 'Ndukwe',
+          lastName: 'Emmanuel',
+          bio: 'I am a human from planet earth',
+          email: 'emasysnd@gmail.com',
+          password: 'password',
+          moniker: 'admin',
+          country: 'Nigeria',
+          avatar: 'someurl'
+        })
         .expect(201)
         .end((err) => {
           if (!err) {
             request(app)
               .post('/api/v1/users/signin')
-              .send(seed.setLogin('emasysnd@gmail.com', 'password'))
+              .send({ email: 'emasysnd@gmail.com', password: 'password' })
               .expect(200)
               .end((err, res) => {
                 if (!err) {

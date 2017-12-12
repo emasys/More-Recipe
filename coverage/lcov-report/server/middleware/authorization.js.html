@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">76.92% </span>
+        <span class="strong">53.85% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>20/26</span>
+        <span class='fraction'>14/26</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">43.75% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>12/16</span>
+        <span class='fraction'>7/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">66.67% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/6</span>
+        <span class='fraction'>2/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">86.36% </span>
+        <span class="strong">59.09% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>19/22</span>
+        <span class='fraction'>13/22</span>
       </div>
     </div>
   </div>
@@ -132,13 +132,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,15 +152,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">36x</span>
-<span class="cline-any cline-yes">36x</span>
-<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,13 +195,13 @@ export default class Authorization {
    */
   static checkAdmin(req, res, next) {
     const token =
-      req.body.token || req.query.token || req.headers['x-access-token'];
-    jwt.verify(token, process.env.JWT_SECRET, (error, decoded) =&gt; {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (error) <span class="cstat-no" title="statement not covered" >return setStatus(res, { message: 'Invalid authorization status' }, 401);</span>
-      Users.findAll({})
-        .then(() =&gt; {
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (decoded.moniker !== 'admin') <span class="cstat-no" title="statement not covered" >return setStatus(res, { success: false, status: 'Not Authorized' }, 401);</span>
-          return next();
+<span class="cstat-no" title="statement not covered" >      req.body.token || req.query.token || req.headers['x-access-token'];</span>
+<span class="cstat-no" title="statement not covered" >    jwt.verify(token, process.env.JWT_SECRET, <span class="fstat-no" title="function not covered" >(</span>error, decoded) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (error) <span class="cstat-no" title="statement not covered" >r</span>eturn setStatus(res, { message: 'Invalid authorization status' }, 401);</span>
+<span class="cstat-no" title="statement not covered" >      Users.findAll({})</span>
+        .then(<span class="fstat-no" title="function not covered" >() =&gt; </span>{
+<span class="cstat-no" title="statement not covered" >          if (decoded.moniker !== 'admin') <span class="cstat-no" title="statement not covered" >r</span>eturn setStatus(res, { success: false, status: 'Not Authorized' }, 401);</span>
+<span class="cstat-no" title="statement not covered" >          return next();</span>
         })
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { error: 'something went wrong' }, 501));</span></span>
     });
@@ -238,7 +238,7 @@ export default class Authorization {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 12 2017 15:18:55 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 12 2017 15:56:11 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

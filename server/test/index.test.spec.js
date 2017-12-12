@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import expect from 'expect';
 import app from '../index';
 import seed from '../seeders/seeds';
-import models from '../models';
+import models, { Users } from '../models';
 
 describe('GET/ test if the invalid routes are working', () => {
   it('should return status code 404 and a message "page not found"', (done) => {
@@ -21,26 +21,21 @@ describe('GET/ test if the invalid routes are working', () => {
 });
 
 
-describe('SIGN_IN/ New user can sign in', () => {
+describe('SIGN_UP/', () => {
   before((done) => {
     models.sequelize.sync({ force: true }).then(() => {
-      request(app)
-        .post('/api/v1/users/signup')
-        .send(seed.setUserInput(
-          'emasys',
-          'endy',
-          'Page Admin',
-          'emasysnd@gmail.com',
-          'password',
-          'password',
-          'Nigeria',
-          'admin',
-          'avatarurl',
-        ))
-        .expect(201)
-        .end(() => {
-          done();
-        });
+      Users.create({
+        firstName: 'emasys',
+        lastName: 'Emmanuel',
+        bio: 'I am a human from planet earth',
+        email: 'emasysnd@gmail.com',
+        password: 'password',
+        moniker: 'admin',
+        country: 'Nigeria',
+        avatar: 'someurl'
+      })
+        .then(() => done())
+        .catch(err => done(err));
     }).catch((errors) => {
       done(errors);
     });
@@ -68,7 +63,7 @@ describe('SIGN_IN/ New user can sign in', () => {
   it('should return status code 400 and a message if the email format is invalid', (done) => {
     request(app)
       .post('/api/v1/users/signin')
-      .send(seed.setLogin('emasys', 'password'))
+      .send({ email: 'emasys', password: 'password' })
       .expect(400)
       .end(() => {
         done();
@@ -78,7 +73,7 @@ describe('SIGN_IN/ New user can sign in', () => {
   it('should return status code 404 if the email does not exist', (done) => {
     request(app)
       .post('/api/v1/users/signin')
-      .send(seed.setLogin('emasys@gmail.com', 'password'))
+      .send({ email: 'emasysnd2@gmail.com', password: 'password' })
       .expect(404)
       .end(() => {
         done();
@@ -88,7 +83,7 @@ describe('SIGN_IN/ New user can sign in', () => {
   it('should return 200 and a decoded token if credentials are correct.', (done) => {
     request(app)
       .post('/api/v1/users/signin')
-      .send(seed.setLogin('emasysnd@gmail.com', 'password'))
+      .send({ email: 'emasysnd@gmail.com', password: 'password' })
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
