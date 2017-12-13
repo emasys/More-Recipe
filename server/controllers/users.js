@@ -178,28 +178,13 @@ export default class {
     if (validator.fails()) {
       return setStatus(res, { success: false, status: validator.errors.all() }, 400);
     }
-    Users.findOne({
-      where: {
-        email: request.email,
-      },
-    })
+    Users.findOne({ where: { email: request.email } })
       .then((user) => {
-        if (!user) {
-          return setStatus(res, { success: false, status: 'user not found' }, 404);
-        }
+        if (!user) return setStatus(res, { success: false, status: 'user not found' }, 404);
         if (!user.comparePassword(user, request.password)) {
           return setStatus(res, { success: false, status: 'Invalid email/password' }, 400);
         }
-        const payload = _.pick(user, [
-          'id',
-          'firstName',
-          'lastName',
-          'bio',
-          'email',
-          'country',
-          'avatar',
-          'moniker',
-        ]);
+        const payload = _.pick(user, ['id', 'firstName', 'lastName', 'bio', 'email', 'country', 'avatar', 'moniker']);
         const token = signToken(payload);
         return setStatus(res, { success: true, token }, 200);
       })
