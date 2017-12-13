@@ -5,7 +5,8 @@ import { validateAddRecipes, setStatus } from '../middleware/helper';
 /**
  * parent class
  * @class moreRecipe
- * for a debug, just add error to all the catch() to see ugly sequelize errors i.e catch((error) => bla bla bla)
+ * for a debug, just add error to all the catch()
+ * to see ugly sequelize errors i.e catch((error) => bla bla bla)
  */
 class moreRecipes {
   /**
@@ -192,7 +193,8 @@ class moreRecipes {
             description: req.body.description || recipe.description,
             ingredients: getArr(arr) || recipe.ingredients,
           })
-          .then(() => setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+          .then(() => setStatus(res, { success: true, recipe }, 200));
+        // Send back the updated recipe.
       })
       .catch(() => setStatus(res, { error: 'recipe not found' }, 404));
   }
@@ -346,7 +348,7 @@ class moreRecipes {
         // if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
         return recipe
           .destroy()
-          .then(() => setStatus(res, { success: true, status: 'Recipe deleted' }, 200))
+          .then(() => setStatus(res, { success: true, status: 'Recipe deleted' }, 200));
       })
       .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }

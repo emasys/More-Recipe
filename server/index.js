@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import path from 'path';
 import cors from 'cors';
-import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 // Routes
 import routes from './routes/index';

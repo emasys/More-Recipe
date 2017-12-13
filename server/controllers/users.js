@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Validator from 'validatorjs';
 import dotenv from 'dotenv';
 import { Users } from '../models';
-import { setStatus, signToken, validateSignInForm, validateSignUpForm } from '../middleware/helper';
+import { setStatus, signToken, validateSignInForm, validateSignUpForm, validateUpdateUser } from '../middleware/helper';
 
 dotenv.config();
 
@@ -129,17 +129,23 @@ export default class {
          * @returns
          */
   static updateUser(req, res) {
-    return Users.findById(req.params.userId)
-      .then((user) => {
-        return user
-          .update({
-            firstName: req.body.firstName || user.firstName,
-            lastName: req.body.lastName || user.lastName,
-            bio: req.body.bio || user.bio,
-          })
-          .then(() => setStatus(res, { success: true, status: 'updated' }, 200));
-      })
-      .catch(() => setStatus(res, { success: false, error: 'user not found' }, 404));
+    const request = req.body;
+    const validator = new Validator(request, validateUpdateUser());
+    if (validator.passes()) {
+      return Users.findById(req.params.userId)
+        .then((user) => {
+          return user
+            .update({
+              firstName: request.firstName || user.firstName,
+              lastName: request.lastName || user.lastName,
+              bio: request.bio || user.bio,
+            })
+            .then(() => setStatus(res, { success: true, status: 'updated' }, 200));
+        })
+        .catch(() => setStatus(res, { success: false, error: 'user not found' }, 404));
+    }
+    // if validator returns false
+    return setStatus(res, { success: false, status: validator.errors.all() }, 400);
   }
   /**
          *
