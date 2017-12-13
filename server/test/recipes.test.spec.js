@@ -1,9 +1,11 @@
 import request from 'supertest';
+import { assert, expect } from 'chai';
 import app from '../index';
 import seed from '../seeders/seeds';
 import models from '../models';
 
 let xtoken = null;
+let secondToken = null;
 
 describe('CRUD/ for recipes', () => {
   before((done) => {
@@ -31,6 +33,24 @@ describe('CRUD/ for recipes', () => {
       .end(() => { done(); });
   });
 
+  before((done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send(seed.setUserInput(
+        'emasys',
+        'endy',
+        'second account',
+        'emasys@gmail.com',
+        'password',
+        'password',
+        'Nigeria',
+        'admin2',
+        'avatarurl',
+      ))
+      .expect(201)
+      .end(() => { done(); });
+  });
+
   before((done) => { // A user should sign in before creating a creating a recipe
     request(app)
       .post('/api/v1/users/signin')
@@ -39,6 +59,18 @@ describe('CRUD/ for recipes', () => {
       .end((err, res) => {
         if (err) return done(err);
         xtoken = res.body.token; // make token accessible to protected routes
+        done();
+      });
+  });
+
+  before((done) => { // A user should sign in before creating a creating a recipe
+    request(app)
+      .post('/api/v1/users/signin')
+      .send(seed.setLogin('emasys@gmail.com', 'password'))
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        secondToken = res.body.token; // make token accessible to protected routes
         done();
       });
   });
@@ -69,11 +101,24 @@ describe('CRUD/ for recipes', () => {
   });
 
   describe('GET/ fetch a single recipe', () => {
-    it('should return a single recipe', (done) => {
+    it('should return a single recipe without an increment in the view count', (done) => {
       request(app)
         .get('/api/v1/recipes/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .end(done);
+    });
+  });
+
+  describe('GET/ fetch a single recipe', () => {
+    it('should return a single recipe with an increment in the view count', (done) => {
+      request(app)
+        .get('/api/v1/recipes/1')
+        .set('x-access-token', secondToken)
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.include({success: true});
+        })
         .end(done);
     });
   });
@@ -135,23 +180,29 @@ describe('CRUD/ for recipes', () => {
   });
 
   describe('POST/ update an existing recipe', () => {
-    it('should return a status code of 204 if a recipe is updated', (done) => {
+    it('should return a status code of 200 if a recipe is updated', (done) => {
       request(app)
-        .post('/api/v1/recipes/1')
+        .put('/api/v1/recipes/1')
         .send(seed.setUpdateRecipe('How to fry something', 'water, oil', 'just do it', 'local food'))
         .set('x-access-token', xtoken)
-        .expect(204)
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
 
-  describe('POST/ update an existing recipe', () => {
+  describe('PUT/ update an existing recipe', () => {
     it('should return a status code of 404 if a recipe does not exist', (done) => {
       request(app)
-        .post('/api/v1/recipes/5')
+        .put('/api/v1/recipes/5')
         .send(seed.setUpdateRecipe('How to fry something', 'water, oil', 'just do it', 'local food'))
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect(res => {
+          expect(res.body).to.include({ error: 'recipe not found' });
+        })
         .end(done);
     });
   });
@@ -206,6 +257,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/1/fav')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect(res => {
+          expect(res.body).to.include({ status: 'favorited' });
+        })
         .end(done);
     });
   });
@@ -216,6 +270,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/1/fav')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect(res => {
+          expect(res.body).to.include({ status: 'unfavorited' });
+        })
         .end(done);
     });
   });
@@ -226,6 +283,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/5/fav')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect(res => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -392,6 +452,8 @@ describe('CRUD/ for recipes', () => {
         .end(done);
     });
   });
+
+
 
   describe('DELETE/ a recipe', () => {
     it('should return a status code of 200 if recipe is successfully deleted', (done) => {

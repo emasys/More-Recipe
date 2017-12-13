@@ -11,8 +11,8 @@ class moreRecipes {
   /**
    * Add a new recipe to the catalog
    *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    */
   static addRecipe(req, res) {
     const request = req.body;
@@ -73,8 +73,8 @@ class moreRecipes {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns recipes of a particular category
    * @memberof moreRecipes
    */
@@ -93,8 +93,8 @@ class moreRecipes {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns list of recipes of a particular user
    * @memberof moreRecipes
    */
@@ -106,15 +106,15 @@ class moreRecipes {
       },
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
-      .catch(() => setStatus(res, { success: false, error: 'Unable to fetch your recipes' }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'Unable to fetch your recipes' }, 500));
   }
 
   /**
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns result of search query
    * @memberof moreRecipes
    */
@@ -192,7 +192,7 @@ class moreRecipes {
             description: req.body.description || recipe.description,
             ingredients: getArr(arr) || recipe.ingredients,
           })
-          .then(() => setStatus(res, { recipe }, 201)); // Send back the updated recipe.
+          .then(() => setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
       })
       .catch(() => setStatus(res, { error: 'recipe not found' }, 404));
   }
@@ -200,8 +200,8 @@ class moreRecipes {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns the reaction status of a user once the page loads
    * @memberof moreRecipes
    */
@@ -347,7 +347,6 @@ class moreRecipes {
         return recipe
           .destroy()
           .then(() => setStatus(res, { success: true, status: 'Recipe deleted' }, 200))
-          .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
       })
       .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }

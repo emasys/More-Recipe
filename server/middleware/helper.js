@@ -29,6 +29,8 @@ export const validateSignUpForm = () => {
     bio: 'required',
     moniker: 'required',
     password: 'required|min:8',
+    country: 'required',
+    avatar: 'required'
   };
 };
 

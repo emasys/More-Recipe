@@ -72,7 +72,7 @@ export default class {
                   const token = signToken(data);
                   return setStatus(res, { success: true, user: data, token }, 201);
                 })
-                .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 500));
+                .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 400));
             })
             .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 500));
         })
