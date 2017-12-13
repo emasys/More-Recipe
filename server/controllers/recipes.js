@@ -5,14 +5,15 @@ import { validateAddRecipes, setStatus } from '../middleware/helper';
 /**
  * parent class
  * @class moreRecipe
- * for a debug, just add error to all the catch() to see ugly sequelize errors i.e catch((error) => bla bla bla)
+ * for a debug, just add error to all the catch()
+ * to see ugly sequelize errors i.e catch((error) => bla bla bla)
  */
 class moreRecipes {
   /**
    * Add a new recipe to the catalog
    *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    */
   static addRecipe(req, res) {
     const request = req.body;
@@ -73,8 +74,8 @@ class moreRecipes {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns recipes of a particular category
    * @memberof moreRecipes
    */
@@ -93,8 +94,8 @@ class moreRecipes {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns list of recipes of a particular user
    * @memberof moreRecipes
    */
@@ -106,15 +107,15 @@ class moreRecipes {
       },
     })
       .then(recipes => res.status(200).send({ success: true, recipes }))
-      .catch(() => setStatus(res, { success: false, error: 'Unable to fetch your recipes' }, 400));
+      .catch(() => setStatus(res, { success: false, error: 'Unable to fetch your recipes' }, 500));
   }
 
   /**
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns result of search query
    * @memberof moreRecipes
    */
@@ -192,7 +193,8 @@ class moreRecipes {
             description: req.body.description || recipe.description,
             ingredients: getArr(arr) || recipe.ingredients,
           })
-          .then(() => setStatus(res, { recipe }, 204)); // Send back the updated recipe.
+          .then(() => setStatus(res, { success: true, recipe }, 200));
+        // Send back the updated recipe.
       })
       .catch(() => setStatus(res, { error: 'recipe not found' }, 404));
   }
@@ -200,8 +202,8 @@ class moreRecipes {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req
+   * @param {object} res
    * @returns the reaction status of a user once the page loads
    * @memberof moreRecipes
    */
@@ -239,7 +241,6 @@ class moreRecipes {
               .update({
                 upvote: recipe.upvote - 1,
                 reactionUp: recipe.reactionUp,
-                views: recipe.views - 1
               })
               .then(() => setStatus(res, { success: false, recipe }, 200));
           } else if (
@@ -256,7 +257,6 @@ class moreRecipes {
               .update({
                 upvote: recipe.upvote + 1,
                 downvote: recipe.downvote - 1,
-                views: recipe.views - 1, // fix bug of incrementing views count after upvoting
                 reactionUp: recipe.reactionUp,
                 reactionDown,
               })
@@ -267,7 +267,6 @@ class moreRecipes {
           return recipe
             .update({
               upvote: recipe.upvote + 1,
-              views: recipe.views - 1, // fix bug of incrementing views count after upvoting
               reactionUp: recipe.reactionUp,
             })
             .then(() => setStatus(res, { success: true, recipe }, 200));
@@ -300,7 +299,6 @@ class moreRecipes {
             return recipe
               .update({
                 downvote: recipe.downvote - 1,
-                views: recipe.views - 1,
                 reactionDown: recipe.reactionDown,
               })
               .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.
@@ -318,7 +316,6 @@ class moreRecipes {
               .update({
                 upvote: recipe.upvote - 1,
                 downvote: recipe.downvote + 1,
-                views: recipe.views - 1,
                 reactionDown: recipe.reactionDown,
                 reactionUp,
               })
@@ -330,7 +327,6 @@ class moreRecipes {
           return recipe
             .update({
               downvote: recipe.downvote + 1,
-              views: recipe.views - 1,
               reactionDown: recipe.reactionDown,
             })
             .then(() => setStatus(res, { recipe }, 200)); // Send back the updated recipe.
@@ -352,8 +348,7 @@ class moreRecipes {
         // if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
         return recipe
           .destroy()
-          .then(() => setStatus(res, { success: true, status: 'Recipe deleted' }, 200))
-          .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+          .then(() => setStatus(res, { success: true, status: 'Recipe deleted' }, 200));
       })
       .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }

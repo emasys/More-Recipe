@@ -11,14 +11,13 @@ export default class FavoriteRecipes {
   /**
      * Create User favorite
      *
-     * @param {object} req
-     * @param {object} res
+     * @param {object} http request
+     * @param {object} http response
      */
   static addFavorite(req, res) {
     return Favorite.findOne({
       where: {
-        recipeId: req.params.recipeId,
-        userId: req.decoded.id
+        recipeId: req.params.recipeId
       }
     })
       .then((favorite) => {
@@ -39,8 +38,8 @@ export default class FavoriteRecipes {
  *
  *
  * @static
- * @param {any} req
- * @param {any} res
+ * @param {object} http request
+ * @param {object} http response
  * @returns checks if a user viewing the recipe item page has favorited the recipe
  * @memberof FavoriteRecipes
  */
@@ -60,8 +59,8 @@ export default class FavoriteRecipes {
   /**
      * List all favorited recipes
      *
-     * @param {object} req
-     * @param {object} res
+     * @param {object} http request
+     * @param {object} http response
      */
   static listFavorites(req, res) {
     Favorite.findAll({

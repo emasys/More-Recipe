@@ -32,7 +32,6 @@ export default class reviews {
           if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
           recipe.update({
             comments: recipe.comments + 1,
-            views: recipe.views - 1
           });
           return Reviews.create({
             content: req.body.content,

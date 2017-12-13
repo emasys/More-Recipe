@@ -52,8 +52,13 @@ export default (sequelize, DataTypes) => {
   Users.prototype.comparePassword = (user, password) => {
     return bcrypt.compareSync(password, user.password);
   };
-  // encrypt the password before saving data into database
-  Users.hook('beforeCreate', (user) => {
+  // encrypt the password before saving data into database while signing up
+  Users.beforeCreate((user) => {
+    const hash = bcrypt.hashSync(user.password);
+    user.password = hash;
+  });
+  // encrypt the password before update data already in the database
+  Users.beforeUpdate((user) => {
     const hash = bcrypt.hashSync(user.password);
     user.password = hash;
   });

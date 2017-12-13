@@ -30,5 +30,5 @@ webpack.prod.config.js
 /templates
 client/src/helper
 .nyc_output
-coverage
+/coverage
 server/playground

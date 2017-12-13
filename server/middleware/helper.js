@@ -20,7 +20,11 @@ export const signToken = (data) => {
 export const setStatus = (res, message, code) => {
   return res.status(code).json(message);
 };
-
+/**
+ * validaates the fields below using validatorjs
+ *
+ * @returns error if all expectations are not satisfied
+ */
 export const validateSignUpForm = () => {
   return {
     firstName: 'required|alpha',
@@ -29,9 +33,16 @@ export const validateSignUpForm = () => {
     bio: 'required',
     moniker: 'required',
     password: 'required|min:8',
+    country: 'required',
+    avatar: 'required'
   };
 };
 
+/**
+ * validaates the fields below using validatorjs
+ *
+ * @returns error if all expectations are not satisfied
+ */
 export const validateSignInForm = () => {
   return {
     email: 'required|email',
@@ -39,21 +50,49 @@ export const validateSignInForm = () => {
   };
 };
 
+/**
+ * validates the field below using validatorjs
+ *
+ * @returns error if all expectations are not satisfied
+ */
 export const validateReviews = () => {
   return {
     content: 'required',
   };
 };
 
+/**
+ * validates the fields below using validatorjs
+ *
+ * @returns error if all expectations are not satisfied
+ */
 export const validateAddRecipes = () => {
   return {
-    name: 'required',
+    name: 'required|alpha',
     direction: 'required',
     ingredients: 'required',
     description: 'required'
   };
 };
 
+/**
+ * validates the fields below using validatorjs
+ *
+ * @returns error if all expectations are not satisfied
+ */
+export const validateUpdateUser = () => {
+  return {
+    firstName: 'required|alpha',
+    lastName: 'required|alpha',
+    bio: 'required'
+  };
+};
+
+/**
+ * sends a mail to the creator of the recipe if a new activity occurs eg: new reviews
+ *
+ * @returns error if all expectations are not satisfied
+ */
 export const mailer = (moniker, email, message) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -69,7 +108,7 @@ export const mailer = (moniker, email, message) => {
     to: email, // list of receivers
     subject: 'Activity on your recipe', // Subject line
     text: `${moniker} ${message}`, // plaintext body
-    html: `<b>${moniker} ${message} </b>` // html body
+    html: `${moniker} <b>${message} </b>` // html body
   };
 
   // send mail with defined transport object
