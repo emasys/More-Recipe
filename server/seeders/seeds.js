@@ -27,13 +27,15 @@ export default {
   },
 
   // User authentication
-
   emptyUserTable(done) {
     Users.destroy({ truncate: true, cascade: true, restartIdentity: true })
       .then(() => done())
       .catch(err => done(err));
   },
-  setUserInput(firstName, lastName, bio, email, password, confirmPassword, country, moniker, avatar) {
+  setUserInput(
+    firstName, lastName, bio, email, password, confirmPassword,
+    country, moniker, avatar
+  ) {
     return {
       firstName,
       lastName,

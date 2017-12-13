@@ -1,70 +1,15 @@
-# # language: node_js
-# # node_js:
-# #   -  stable
-# # services:
-# #  - postgresql
-# # before_script:
-# #  - psql -c 'create database recipes_test;' -U postgres 
-# # install:
-# #  - npm install sequelize
-# #  - npm install sequelize-cli
-# #  - npm install pg
-# #  - npm install pg-hstore
-# # script:
-# #  - sequelize db:migrate --env production
-
-
-# language: node_js
-# node_js: 8.3.0
-# branches:
-#   only:
-#     - client
-# script:
-#   - npm test  
-# services:
-#   - postgresql
-# env:
-#   - JWT_SECRET=kdbckjsbaajdfjafda
-# before_script:
-#   - psql -c 'CREATE DATABASE recipe-test;' -U postgres
-# install:
-#  - npm install sequelize
-#  - npm install sequelize-cli
-#  - npm install pg
-#  - npm install pg-hstore
-# before_install:
-#  - export CHROME_BIN=/usr/bin/google-chrome
-#  - export DISPLAY=:99.0
-#  - sh -e /etc/init.d/xvfb start
-# after_success: npm run coverage
-
-# language: node_js
-# node_js: 
-#    -  "8.3.0"
-# services:
-#   - postgresql
-# before_script:
-#   - psql -c 'create database more_recipes_test;' -U postgres 
-# install:
-#   - npm install sequelize
-#   - npm install sequelize-cli
-#   - npm install pg
-#   - npm install pg-hstore
-# script:
-#   - sequelize db:migrate --env test
-
 language: node_js
 node_js:
-- "stable"
+  - '8'
 install: npm install
 services:
-- postgresql
+  - postgresql
 env:
-- NODE_ENV=test
+  - NODE_ENV=test
 before_script:
-- psql -c 'create database recipe_test;' -U postgres
-- psql -c "CREATE USER emasys WITH PASSWORD 'root';" -U postgres
-- sequelize db:migrate:undo:all
-- sequelize db:migrate
-script: npm test
-after_success: npm run coverage
+  - psql -c 'create database recipe_test;' -U postgres
+  - psql -c "CREATE USER emasys WITH PASSWORD 'root';" -U postgres
+  - 'sequelize db:migrate:undo:all'
+  - 'sequelize db:migrate'
+after_success:
+  - npm run coverage

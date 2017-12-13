@@ -3,12 +3,12 @@
 <head>
     <title>Code coverage report for server/controllers/recipes.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="..\..\prettify.css" />
-    <link rel="stylesheet" href="..\..\base.css" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(..\..\sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">server/controllers</a> recipes.js
+      <a href="../../index.html">All files</a> / <a href="index.html">server/controllers</a> recipes.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -398,7 +398,9 @@
 353
 354
 355
-356</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+356
+357
+358</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -415,24 +417,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -593,6 +596,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -760,7 +764,8 @@ import { validateAddRecipes, setStatus } from '../middleware/helper';
 /**
  * parent class
  * @class moreRecipe
- * for a debug, just add error to all the catch() to see ugly sequelize errors i.e catch((error) =&gt; bla bla bla)
+ * for a debug, just add error to all the catch()
+ * to see ugly sequelize errors i.e catch((error) =&gt; bla bla bla)
  */
 class moreRecipes {
   /**
@@ -947,7 +952,8 @@ class moreRecipes {
             description: req.body.description || <span class="branch-1 cbranch-no" title="branch not covered" >recipe.description,</span>
             ingredients: getArr(arr) || <span class="branch-1 cbranch-no" title="branch not covered" >recipe.i</span>ngredients,
           })
-          .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+          .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
+        // Send back the updated recipe.
       })
       .catch(() =&gt; setStatus(res, { error: 'recipe not found' }, 404));
   }
@@ -1101,7 +1107,7 @@ class moreRecipes {
         // if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
         return recipe
           .destroy()
-          .then(() =&gt; setStatus(res, { success: true, status: 'Recipe deleted' }, 200))
+          .then(() =&gt; setStatus(res, { success: true, status: 'Recipe deleted' }, 200));
       })
       .catch(() =&gt; setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }
@@ -1114,10 +1120,10 @@ export default moreRecipes;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 06:00:39 GMT+0100 (W. Central Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 18:03:24 GMT+0100 (WAT)
 </div>
 </div>
-<script src="..\..\prettify.js"></script>
+<script src="../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -1125,6 +1131,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="..\..\sorter.js"></script>
+<script src="../../sorter.js"></script>
 </body>
 </html>

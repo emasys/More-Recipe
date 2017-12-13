@@ -1,94 +1,122 @@
 import request from 'supertest';
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import app from '../index';
 import seed from '../seeders/seeds';
 import models from '../models';
 
+
 let xtoken = null;
 let secondToken = null;
 
+before((done) => {
+  models.sequelize.sync({ force: true }).then(() => {
+    done(null);
+  }).catch((errors) => {
+    done(errors);
+  });
+});
+
 describe('CRUD/ for recipes', () => {
-  before((done) => {
-    models.sequelize.sync({ force: true }).then(() => {
-      done(null);
-    }).catch((errors) => {
-      done(errors);
+  describe('SIGN_UP/ ', () => {
+    it('should register a first user and return a status code 201', (done) => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(seed.setUserInput(
+          'emasys',
+          'endy',
+          'second account',
+          'emasysnd@gmail.com',
+          'password',
+          'password',
+          'Nigeria',
+          'admin',
+          'avatarurl',
+        ))
+        .expect(201)
+        .end(done);
     });
   });
-  before((done) => {
-    request(app)
-      .post('/api/v1/users/signup')
-      .send(seed.setUserInput(
-        'emasys',
-        'endy',
-        'Page Admin',
-        'emasysnd@gmail.com',
-        'password',
-        'password',
-        'Nigeria',
-        'admin',
-        'avatarurl',
-      ))
-      .expect(201)
-      .end(() => { done(); });
+
+  describe('SIGN_UP/ ', () => {
+    it('should register a second user and return a status code 201', (done) => {
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(seed.setUserInput(
+          'emasys',
+          'endy',
+          'second account',
+          'emasys@gmail.com',
+          'password',
+          'password',
+          'Nigeria',
+          'admin2',
+          'avatarurl',
+        ))
+        .expect(201)
+        .end(done);
+    });
   });
 
-  before((done) => {
-    request(app)
-      .post('/api/v1/users/signup')
-      .send(seed.setUserInput(
-        'emasys',
-        'endy',
-        'second account',
-        'emasys@gmail.com',
-        'password',
-        'password',
-        'Nigeria',
-        'admin2',
-        'avatarurl',
-      ))
-      .expect(201)
-      .end(() => { done(); });
+  describe('SIGN_IN/ sign in a new user to generate token', () => {
+    it('should return status code 200 if a user is successfully logged in', (done) => {
+      request(app)
+        .post('/api/v1/users/signin')
+        .send(seed.setLogin('emasysnd@gmail.com', 'password'))
+        .expect(200)
+        .end((err, res) => {
+          if (!err) {
+            xtoken = res.body.token; // make token accessible to protected routes
+          }
+          done();
+        });
+    });
   });
 
-  before((done) => { // A user should sign in before creating a creating a recipe
-    request(app)
-      .post('/api/v1/users/signin')
-      .send(seed.setLogin('emasysnd@gmail.com', 'password'))
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        xtoken = res.body.token; // make token accessible to protected routes
-        done();
-      });
+  describe('SIGN_IN/ sign in a new user to generate token', () => {
+    it('should return status code 200 if a user is successfully logged in', (done) => {
+      request(app)
+        .post('/api/v1/users/signin')
+        .send(seed.setLogin('emasys@gmail.com', 'password'))
+        .expect(200)
+        .end((err, res) => {
+          if (!err) {
+            secondToken = res.body.token; // make token accessible to protected routes
+          }
+          done();
+        });
+    });
   });
 
-  before((done) => { // A user should sign in before creating a creating a recipe
-    request(app)
-      .post('/api/v1/users/signin')
-      .send(seed.setLogin('emasys@gmail.com', 'password'))
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        secondToken = res.body.token; // make token accessible to protected routes
-        done();
-      });
+  describe('GET/ test if the invalid routes are working', () => {
+    it('should return status code 404 and a message "page not found"', (done) => {
+      request(app)
+        .get('/api/v1/recipe/misplaced')
+        .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({
+            error: 'page not found',
+          });
+        })
+        .end(done);
+    });
   });
 
-  before((done) => {
-    request(app)
-      .post('/api/v1/recipes')
-      .send(seed.setRecipeInput(
-        'How to fry something',
-        'water, oil',
-        'just do it',
-        'local food',
-        'some url',
-        'vegetarian',
-      ))
-      .set('x-access-token', xtoken)
-      .expect(201)
-      .end(() => { done(); });
+  describe('POST/ add a new recipe', () => {
+    it('should return a status code of 201 if user is authorized and query is successful', (done) => {
+      request(app)
+        .post('/api/v1/recipes')
+        .send({
+          name: 'fsdfsf',
+          direction: 'hdfhdskjhfkjdsf',
+          description: 'justekjdkjkj',
+          category: 'dsfsf',
+          foodImg: 'dkjfkjbkfsdf',
+          ingredients: 'hdhasds, dsdsdsd'
+        })
+        .set('x-access-token', xtoken)
+        .expect(201)
+        .end(done);
+    });
   });
 
   describe('GET/ fetch all recipes', () => {
@@ -116,8 +144,8 @@ describe('CRUD/ for recipes', () => {
         .get('/api/v1/recipes/1')
         .set('x-access-token', secondToken)
         .expect(200)
-        .expect(res => {
-          expect(res.body).to.include({success: true});
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
         })
         .end(done);
     });
@@ -139,24 +167,6 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipeSearch')
         .send({ query: 'water' })
         .expect(200)
-        .end(done);
-    });
-  });
-
-  describe('POST/ add a new recipe', () => {
-    it('should return a status code of 201 if user is authorized and query is successful', (done) => {
-      request(app)
-        .post('/api/v1/recipes')
-        .send(seed.setRecipeInput(
-          'How to fry something',
-          'water, oil',
-          'just do it',
-          'local food',
-          'some url',
-          'vegetarian',
-        ))
-        .set('x-access-token', xtoken)
-        .expect(201)
         .end(done);
     });
   });
@@ -186,7 +196,7 @@ describe('CRUD/ for recipes', () => {
         .send(seed.setUpdateRecipe('How to fry something', 'water, oil', 'just do it', 'local food'))
         .set('x-access-token', xtoken)
         .expect(200)
-        .expect(res => {
+        .expect((res) => {
           expect(res.body).to.include({ success: true });
         })
         .end(done);
@@ -200,7 +210,7 @@ describe('CRUD/ for recipes', () => {
         .send(seed.setUpdateRecipe('How to fry something', 'water, oil', 'just do it', 'local food'))
         .set('x-access-token', xtoken)
         .expect(404)
-        .expect(res => {
+        .expect((res) => {
           expect(res.body).to.include({ error: 'recipe not found' });
         })
         .end(done);
@@ -257,7 +267,7 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/1/fav')
         .set('x-access-token', xtoken)
         .expect(200)
-        .expect(res => {
+        .expect((res) => {
           expect(res.body).to.include({ status: 'favorited' });
         })
         .end(done);
@@ -270,7 +280,7 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/1/fav')
         .set('x-access-token', xtoken)
         .expect(200)
-        .expect(res => {
+        .expect((res) => {
           expect(res.body).to.include({ status: 'unfavorited' });
         })
         .end(done);
@@ -283,7 +293,7 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/5/fav')
         .set('x-access-token', xtoken)
         .expect(404)
-        .expect(res => {
+        .expect((res) => {
           expect(res.body).to.include({ success: false });
         })
         .end(done);
@@ -452,8 +462,6 @@ describe('CRUD/ for recipes', () => {
         .end(done);
     });
   });
-
-
 
   describe('DELETE/ a recipe', () => {
     it('should return a status code of 200 if recipe is successfully deleted', (done) => {
