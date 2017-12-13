@@ -21,18 +21,12 @@ export default class reviews {
     const validator = new Validator(request, validateReviews());
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId, {
-        include: [
-          {
-            model: Users // To allow us send a notification to the creator of the recipe
-          }
-        ]
+        include: [{ model: Users }] // To allow us send a notification to the creator of the recipe
       })
         .then((recipe) => {
           const { name, User: { email } } = recipe;
           if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
-          recipe.update({
-            comments: recipe.comments + 1,
-          });
+          recipe.update({ comments: recipe.comments + 1 });
           return Reviews.create({
             content: req.body.content,
             recipeId: req.params.recipeId,
