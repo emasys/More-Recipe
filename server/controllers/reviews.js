@@ -44,7 +44,7 @@ export default class ReviewRecipe {
         })
         .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
     } else {
-      return setStatus(res, { success: false, status: validator.errors.all() }, 401);
+      return setStatus(res, { success: false, status: validator.errors.all() }, 422);
     }
   }
 }
