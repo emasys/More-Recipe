@@ -31,7 +31,7 @@ export const validateSignUpForm = () => {
     lastName: 'required|alpha',
     email: 'required|email',
     bio: 'required',
-    moniker: 'required',
+    moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
     password: 'required|min:8',
     country: 'required',
     avatar: 'required'
@@ -82,9 +82,8 @@ export const validateAddRecipes = () => {
  */
 export const validateUpdateUser = () => {
   return {
-    firstName: 'required|alpha',
-    lastName: 'required|alpha',
-    bio: 'required'
+    firstName: 'alpha',
+    lastName: 'alpha',
   };
 };
 
@@ -102,9 +101,9 @@ export const mailer = (moniker, email, message) => {
     }
   });
 
-  // setup e-mail data with unicode symbols
+  // setup e-mail data
   const mailOptions = {
-    from: 'MoreRecipe ✔ <more-recipe@gmail.com>', // sender address
+    from: 'MoreRecipe <more-recipe@gmail.com>', // sender address
     to: email, // list of receivers
     subject: 'Activity on your recipe', // Subject line
     text: `${moniker} ${message}`, // plaintext body
@@ -120,6 +119,7 @@ export const mailer = (moniker, email, message) => {
   });
 };
 
+// To be implemented later
 // export const voter = (decoded, activeKey, nonactive, recipe) => {
 //   if (decoded) {
 //     activeKey = recipe.reactionDown;

@@ -7,14 +7,16 @@ import { validateReviews, setStatus, mailer } from '../middleware/helper';
  * @export
  * @class reviews
  */
-export default class reviews {
+export default class ReviewRecipe {
   /**
    *
    *
    * @static
    * @param {object} req
    * @param {object} res
-   * @memberof reviews
+   * @memberof ReviewRecipe
+   *
+   * Review a particular recipe with a certain recipeId provided as a params
    */
   static addReview(req, res) {
     const request = req.body;

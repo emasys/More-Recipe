@@ -12,12 +12,12 @@ dotenv.config();
  * @export
  * @class
  */
-export default class {
+export default class MoreRecipeUsers {
   /**
      *
      *
-     * @param {object} req
-     * @param {object} res
+     * @param {object} http request
+     * @param {object} http response
      * @returns
      *
      * Create a new user and add into the database
@@ -35,14 +35,7 @@ export default class {
       })
         .then((user) => {
           if (user) {
-            return setStatus(
-              res, {
-                success: false,
-                target: 'email',
-                status: 'email already exist in our database',
-              },
-              406,
-            );
+            return setStatus(res, { success: false, target: 'email', status: 'email already exist in our database' }, 406);
           }
 
           Users.findOne({
@@ -50,14 +43,7 @@ export default class {
           })
             .then((username) => {
               if (username) {
-                return setStatus(
-                  res, {
-                    success: false,
-                    target: 'moniker',
-                    status: 'moniker already exist in our database',
-                  },
-                  406,
-                );
+                return setStatus(res, { success: false, target: 'moniker', status: 'moniker already exist in our database' }, 406);
               }
               Users.create(request)
                 .then((newUser) => {
@@ -85,21 +71,21 @@ export default class {
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
-         * @returns
+         * @param { object } http request
+         * @param { object } http response
+         * @returns The list of all users in the database
          */
   static getUsers(req, res) {
     return Users.findAll({})
       .then(users => setStatus(res, { success: true, users }, 200))
-      .catch(error => setStatus(res, { success: false, error }, 200));
+      .catch(error => setStatus(res, { success: false, error }, 500));
   }
   /**
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
+         * @param { object } http request
+         * @param { object } http response
          * @returns a user profile
          */
   static getOneUser(req, res) {
@@ -124,9 +110,9 @@ export default class {
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
-         * @returns
+         * @param { object } http request
+         * @param { object } http response
+         * @returns an updated user data if successful
          */
   static updateUser(req, res) {
     const request = req.body;
@@ -151,9 +137,10 @@ export default class {
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
+         * @param { object } http request
+         * @param { object } http response
          * @returns
+         *  Delete's user data from the database
          */
   static deleteUser(req, res) {
     return Users.findById(req.params.userId)
@@ -168,9 +155,9 @@ export default class {
  *
  *
  * @static
- * @param {any} req
- * @param {any} res
- * @returns
+ * @param { object } http request
+ * @param { object } http response
+ * @returns true and relevant user info, if a user successfully log's in
  */
   static signIn(req, res) {
     const request = req.body;
@@ -188,6 +175,6 @@ export default class {
         const token = signToken(payload);
         return setStatus(res, { success: true, token }, 200);
       })
-      .catch(error => setStatus(res, { success: false, status: error }, 401));
+      .catch(() => setStatus(res, { success: false, status: 'Server error' }, 500));
   }
 }

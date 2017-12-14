@@ -207,7 +207,6 @@ class SignUp extends Component {
                     required
                     className="col-lg-11 col-sm-12"
                     name="email"
-                    id="inputEmail"
                     placeholder="example@example.com"
                   />
                   <div className="text-danger" id="email_error" />
@@ -219,7 +218,6 @@ class SignUp extends Component {
                     required
                     className="col-lg-11 col-sm-12"
                     name="moniker"
-                    id="inputEmail"
                     placeholder="johnnyDoe23"
                   />
                   <div className="text-danger" id="moniker_error" />
@@ -320,7 +318,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  console.log(state.signup);
+  // console.log(state.signup);
   return {
     user: state.signup,
   };

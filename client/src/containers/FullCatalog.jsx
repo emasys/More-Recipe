@@ -8,7 +8,7 @@ import Auth from '../components/Auth';
 //component
 import CatalogList from '../components/CatalogList';
 
-class Catalog extends Component {
+class FullCatalog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -238,4 +238,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch,
   ),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
+export default connect(mapStateToProps, mapDispatchToProps)(FullCatalog);

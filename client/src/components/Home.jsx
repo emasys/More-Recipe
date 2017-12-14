@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Catalog from '../containers/catalog';
+// import Catalog from '../containers/catalog';
 import { Link } from 'react-router-dom';
 import { getRecipes, searchRecipes } from '../actions';
 import { bindActionCreators } from 'redux';

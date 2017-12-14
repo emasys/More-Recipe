@@ -58,6 +58,7 @@ export default (sequelize, DataTypes) => {
     user.password = hash;
   });
   // encrypt the password before update data already in the database
+
   Users.beforeUpdate((user) => {
     const hash = bcrypt.hashSync(user.password);
     user.password = hash;
