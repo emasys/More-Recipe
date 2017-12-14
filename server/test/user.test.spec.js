@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { expect } from 'chai';
 import app from '../index';
 import seed from '../seeders/seeds';
 
@@ -28,6 +29,9 @@ describe('CRUD/ users', () => {
         .post('/api/v1/users/signup')
         .send(seed.setUserInput('', 'Jane', "John's wife", 'janedoe@gmail.com', 'password', 'password'))
         .expect(401)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -48,6 +52,9 @@ describe('CRUD/ users', () => {
           avatar: 'someurl'
         })
         .expect(401)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -58,6 +65,9 @@ describe('CRUD/ users', () => {
         .post('/api/v1/users/signup')
         .send(seed.setUserInput('jane', 'Jane', "John's wife", 'janedoe@gamil', 'password', 'password'))
         .expect(401)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -68,6 +78,9 @@ describe('CRUD/ users', () => {
         .post('/api/v1/users/signin')
         .send(seed.setLogin('emasysnd@gmail.com', 'passwords'))
         .expect(400)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -78,6 +91,9 @@ describe('CRUD/ users', () => {
         .get('/api/v1/users')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -87,6 +103,9 @@ describe('CRUD/ users', () => {
       request(app)
         .get('/api/v1/users/1')
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -96,6 +115,9 @@ describe('CRUD/ users', () => {
       request(app)
         .get('/api/v1/users/10')
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -107,6 +129,9 @@ describe('CRUD/ users', () => {
         .send(seed.setUserInput('emasys', 'endy', 'I am emasys nd'))
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -118,6 +143,9 @@ describe('CRUD/ users', () => {
         .send(seed.setUserInput('emasys', 'endy', 'I am emasys nd'))
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -128,6 +156,9 @@ describe('CRUD/ users', () => {
         .delete('/api/v1/users/5')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -138,6 +169,9 @@ describe('CRUD/ users', () => {
         .delete('/api/v1/users/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });

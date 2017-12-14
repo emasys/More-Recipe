@@ -33,6 +33,9 @@ describe('CRUD/ for recipes', () => {
           'avatarurl',
         ))
         .expect(201)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -53,6 +56,9 @@ describe('CRUD/ for recipes', () => {
           'avatarurl',
         ))
         .expect(201)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -115,6 +121,9 @@ describe('CRUD/ for recipes', () => {
         })
         .set('x-access-token', xtoken)
         .expect(201)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -134,6 +143,9 @@ describe('CRUD/ for recipes', () => {
         .get('/api/v1/recipes/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -157,6 +169,9 @@ describe('CRUD/ for recipes', () => {
         .get('/api/v1/recipes/5')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -167,6 +182,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipeSearch')
         .send({ query: 'water' })
         .expect(200)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -185,6 +203,9 @@ describe('CRUD/ for recipes', () => {
         ))
         .set('x-access-token', 'somerandomtoken')
         .expect(401)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -224,6 +245,9 @@ describe('CRUD/ for recipes', () => {
         .send({ content: 'just added a comment' })
         .set('x-access-token', xtoken)
         .expect(201)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -235,6 +259,9 @@ describe('CRUD/ for recipes', () => {
         .send({ content: 'just added a comment' })
         .set('x-access-token', xtoken)
         .expect(400)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -246,6 +273,9 @@ describe('CRUD/ for recipes', () => {
         .send({ content: '' })
         .set('x-access-token', xtoken)
         .expect(401)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -257,6 +287,9 @@ describe('CRUD/ for recipes', () => {
         .send({ contents: 'just added a comment' })
         .set('x-access-token', xtoken)
         .expect(401)
+        .expect((err, res) => {
+          if (!err) expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -274,6 +307,19 @@ describe('CRUD/ for recipes', () => {
     });
   });
 
+  describe('GET/ check if a user has favorited this recipe', () => {
+    it('should return a status of "favorite" if a user has added the recipe to his favorite list', (done) => {
+      request(app)
+        .get('/api/v1/recipes/1/favStatus')
+        .set('x-access-token', xtoken)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'favorite' });
+        })
+        .end(done);
+    });
+  });
+
   describe('Favorite a recipe again', () => {
     it('should return a status code of 200 if a recipe is successfully unfavorited', (done) => {
       request(app)
@@ -282,6 +328,19 @@ describe('CRUD/ for recipes', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ status: 'unfavorited' });
+        })
+        .end(done);
+    });
+  });
+
+  describe('GET/ check if a user has favorited this recipe', () => {
+    it('should return a status of "not favorite" if the recipe is not in user\'s favorite list', (done) => {
+      request(app)
+        .get('/api/v1/recipes/1/favStatus')
+        .set('x-access-token', xtoken)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false, status: 'not favorite' });
         })
         .end(done);
     });
@@ -311,15 +370,6 @@ describe('CRUD/ for recipes', () => {
     });
   });
 
-  describe('GET/ check if a user has favorited this recipe', () => {
-    it('should return a status code of 200 and "true" if a user has add the recipe to his favorite list', (done) => {
-      request(app)
-        .get('/api/v1/recipes/1/favStatus')
-        .set('x-access-token', xtoken)
-        .expect(200)
-        .end(done);
-    });
-  });
 
   describe('GET/ check if a user has favorited this recipe', () => {
     it('should return a status code of 404 if the recipe is not found', (done) => {
@@ -327,16 +377,22 @@ describe('CRUD/ for recipes', () => {
         .get('/api/v1/recipes/a/favStatus')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false, status: 'recipe not found' });
+        })
         .end(done);
     });
   });
 
-  describe('Check if a user has either upvote or downvoted', () => {
+  describe('Check if a user has neither upvoted or downvoted', () => {
     it('should return a status code of 200 if user has not done any', (done) => {
       request(app)
         .get('/api/v1/recipes/upvoteReaction/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.deep.equal({ upvote: { success: false }, downvote: { success: false } });
+        })
         .end(done);
     });
   });
@@ -347,6 +403,9 @@ describe('CRUD/ for recipes', () => {
         .get('/api/v1/recipes/upvoteReaction/5')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -357,16 +416,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/upvote/1')
         .set('x-access-token', xtoken)
         .expect(200)
-        .end(done);
-    });
-  });
-
-  describe('Check if a user has upvoted', () => {
-    it('should return a status code of 200 if successful', (done) => {
-      request(app)
-        .get('/api/v1/recipes/upvoteReaction/1')
-        .set('x-access-token', xtoken)
-        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'upvoted' });
+        })
         .end(done);
     });
   });
@@ -377,6 +429,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/upvote/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'upvote cancelled' });
+        })
         .end(done);
     });
   });
@@ -388,46 +443,58 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/downvote/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'downvoted' });
+        })
         .end(done);
     });
   });
 
-  describe('Check if a user has downvoted', () => {
-    it('should return a status code of 200 if successful', (done) => {
-      request(app)
-        .get('/api/v1/recipes/upvoteReaction/1')
-        .set('x-access-token', xtoken)
-        .expect(200)
-        .end(done);
-    });
-  });
+  // describe('Check if a user has downvoted', () => {
+  //   it('should return a status code of 200 if successful', (done) => {
+  //     request(app)
+  //       .get('/api/v1/recipes/upvoteReaction/1')
+  //       .set('x-access-token', xtoken)
+  //       .expect(200)
+  //       .end(done);
+  //   });
+  // });
 
-  describe('Upvote a recipe again and again', () => {
-    it('should return a status code of 200 if a fresh upvote is successful', (done) => {
+  describe('Upvote a recipe again', () => {
+    it('should cancel the previous downvote and set upvote instead', (done) => {
       request(app)
         .post('/api/v1/recipes/upvote/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'upvoted' });
+        })
         .end(done);
     });
   });
 
   describe('Downvote a recipe', () => {
-    it('should return a status code of 200 if successful', (done) => {
+    it('should cancel the previous upvote and set downvote instead', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'downvoted' });
+        })
         .end(done);
     });
   });
 
   describe('Downvote a recipe again', () => {
-    it('should return a status code of 200 if the previous reaction is successfull cancelled out', (done) => {
+    it('should cancel the previous downvote', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'downvote cancelled' });
+        })
         .end(done);
     });
   });
@@ -438,6 +505,9 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/upvote/5')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
@@ -448,17 +518,23 @@ describe('CRUD/ for recipes', () => {
         .post('/api/v1/recipes/downvote/5')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });
 
 
-  describe('Check if a user has created a recipe', () => {
+  describe('GET the list of all user\'s recipes', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .get('/api/v1/recipes/yours/1/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -469,6 +545,9 @@ describe('CRUD/ for recipes', () => {
         .delete('/api/v1/recipes/1')
         .set('x-access-token', xtoken)
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+        })
         .end(done);
     });
   });
@@ -479,6 +558,9 @@ describe('CRUD/ for recipes', () => {
         .delete('/api/v1/recipes/5')
         .set('x-access-token', xtoken)
         .expect(404)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
         .end(done);
     });
   });

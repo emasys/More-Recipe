@@ -1,16 +1,15 @@
 import { Users, Recipes } from '../models';
 
 export default {
-  emptyRecipeTable(done) {
-    Recipes.destroy({ truncate: true, cascade: true, restartIdentity: true })
-      .then(() => done())
-      .catch(err => done(err));
-  },
   setRecipeInput(name, ingredients, direction, description, foodImg, category) {
-    return { name, ingredients, direction, description, foodImg, category };
+    return {
+      name, ingredients, direction, description, foodImg, category
+    };
   },
   setUpdateRecipe(name, ingredients, direction, description) {
-    return { name, ingredients, direction, description };
+    return {
+      name, ingredients, direction, description
+    };
   },
   addRecipe(done) {
     Recipes.create({
@@ -26,12 +25,6 @@ export default {
       .catch(err => done(err));
   },
 
-  // User authentication
-  emptyUserTable(done) {
-    Users.destroy({ truncate: true, cascade: true, restartIdentity: true })
-      .then(() => done())
-      .catch(err => done(err));
-  },
   setUserInput(
     firstName, lastName, bio, email, password, confirmPassword,
     country, moniker, avatar

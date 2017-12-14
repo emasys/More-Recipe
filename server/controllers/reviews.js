@@ -38,7 +38,7 @@ export default class reviews {
               mailer(reviewedRecipe.user, email, `has reviewed your recipe (${name})`);
               return setStatus(res, { success: true, reviewedRecipe }, 201);
             })
-            .catch(error => res.status(400).send(error));
+            .catch(() => setStatus(res, { success: false, error: 'could not complete this operation' }, 400));
         })
         .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
     } else {

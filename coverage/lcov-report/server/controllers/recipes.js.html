@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">86.87% </span>
+        <span class="strong">84.85% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>86/99</span>
+        <span class='fraction'>84/99</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68% </span>
+        <span class="strong">64% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>34/50</span>
+        <span class='fraction'>32/50</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">76.32% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>29/38</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.37% </span>
+        <span class="strong">85.26% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>83/95</span>
+        <span class='fraction'>81/95</span>
       </div>
     </div>
   </div>
@@ -399,8 +399,7 @@
 354
 355
 356
-357
-358</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+357</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -610,12 +609,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -688,7 +687,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -795,9 +793,9 @@ class moreRecipes {
             .then(recipe =&gt; setStatus(res, { success: true, recipe }, 201))
             .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'Not added' }, 401));</span></span>
         })
-        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { error: 'something went wrong' }));</span></span>
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'something went wrong' }));</span></span>
     } else {
-<span class="cstat-no" title="statement not covered" >      return setStatus(res, { error: validator.errors.all() }, 401);</span>
+<span class="cstat-no" title="statement not covered" >      return setStatus(res, { success: false, error: validator.errors.all() }, 401);</span>
     }
   }
   /**
@@ -887,7 +885,7 @@ class moreRecipes {
         ],
       },
     })
-      .then(recipes =&gt; setStatus(res, { recipes }, 200))
+      .then(recipes =&gt; setStatus(res, { success: true, recipes }, 200))
       .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'Something went wrong' }, 500));</span></span>
   }
   /**
@@ -955,7 +953,7 @@ class moreRecipes {
           .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
         // Send back the updated recipe.
       })
-      .catch(() =&gt; setStatus(res, { error: 'recipe not found' }, 404));
+      .catch(() =&gt; setStatus(res, { success: false, error: 'recipe not found' }, 404));
   }
   /**
    *
@@ -969,14 +967,14 @@ class moreRecipes {
   static checkReactions(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) =&gt; {
-        if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
-          return setStatus(res, { upvote: { success: true }, downvote: { success: false } }, 200);
-        } else if (recipe.reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
-          return setStatus(res, { upvote: { success: false }, downvote: { success: true } }, 200);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
+<span class="cstat-no" title="statement not covered" >          return setStatus(res, { upvote: { success: true }, downvote: { success: false } }, 200);</span>
+        } else <span class="missing-if-branch" title="if path not taken" >I</span>if (recipe.reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
+<span class="cstat-no" title="statement not covered" >          return setStatus(res, { upvote: { success: false }, downvote: { success: true } }, 200);</span>
         }
         return setStatus(res, { upvote: { success: false }, downvote: { success: false } }, 200);
       })
-      .catch(() =&gt; setStatus(res, { status: 'recipe not found' }, 404));
+      .catch(() =&gt; setStatus(res, { success: false, status: 'recipe not found' }, 404));
   }
   /**
    *
@@ -1001,7 +999,7 @@ class moreRecipes {
                 upvote: recipe.upvote - 1,
                 reactionUp: recipe.reactionUp,
               })
-              .then(() =&gt; setStatus(res, { success: false, recipe }, 200));
+              .then(() =&gt; setStatus(res, { success: true, recipe, status: 'upvote cancelled' }, 200));
           } else if (
             reactionUp.indexOf(Number(req.decoded.id)) === -1 &amp;&amp;
             reactionDown.indexOf(Number(req.decoded.id)) !== -1
@@ -1019,7 +1017,7 @@ class moreRecipes {
                 reactionUp: recipe.reactionUp,
                 reactionDown,
               })
-              .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
+              .then(() =&gt; setStatus(res, { success: true, recipe, status: 'upvoted' }, 200));
           }
           // upvote if a user has not previously done so
           recipe.reactionUp.push(req.decoded.id);
@@ -1028,7 +1026,7 @@ class moreRecipes {
               upvote: recipe.upvote + 1,
               reactionUp: recipe.reactionUp,
             })
-            .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
+            .then(() =&gt; setStatus(res, { success: true, recipe, status: 'upvoted' }, 200));
         }
       })
       .catch(() =&gt; setStatus(res, { success: false, error: 'something went wrong' }, 404));
@@ -1046,11 +1044,10 @@ class moreRecipes {
   static downvote(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) =&gt; {
-        // if (!recipe) return setStatus(res, { success: false, status: 'Recipe Not Found', }, 404);
         <span class="missing-if-branch" title="else path not taken" >E</span>if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
           if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
-            // have downvoted
+            // if user has downvoted before, cancel it
             const removeId = reactionDown.indexOf(Number(req.decoded.id));
             <span class="missing-if-branch" title="else path not taken" >E</span>if (removeId &gt; -1) {
               reactionDown.splice(removeId, 1);
@@ -1060,12 +1057,12 @@ class moreRecipes {
                 downvote: recipe.downvote - 1,
                 reactionDown: recipe.reactionDown,
               })
-              .then(() =&gt; setStatus(res, { recipe }, 200)); // Send back the updated recipe.
+              .then(() =&gt; setStatus(res, { success: true, recipe, status: 'downvote cancelled' }, 200)); // Send back the updated recipe.
           } else if (
             reactionDown.indexOf(Number(req.decoded.id)) === -1 &amp;&amp;
             reactionUp.indexOf(Number(req.decoded.id)) !== -1
           ) {
-            // already upvoted but not downvoted
+            // if user has not downvoted but have upvoted, then cancel upvote and set downvote
             const removeId = reactionUp.indexOf(Number(req.decoded.id));
             <span class="missing-if-branch" title="else path not taken" >E</span>if (removeId &gt; -1) {
               reactionUp.splice(removeId, 1);
@@ -1078,7 +1075,7 @@ class moreRecipes {
                 reactionDown: recipe.reactionDown,
                 reactionUp,
               })
-              .then(() =&gt; setStatus(res, { recipe }, 200)); // Send back the updated recipe.
+              .then(() =&gt; setStatus(res, { success: true, recipe, status: 'downvoted' }, 200)); // Send back the updated recipe.
           }
           // if a user has not downvoted or upvoted then increment downvote count
           // and add userId into the reactionDown array
@@ -1088,7 +1085,7 @@ class moreRecipes {
               downvote: recipe.downvote + 1,
               reactionDown: recipe.reactionDown,
             })
-            .then(() =&gt; setStatus(res, { recipe }, 200)); // Send back the updated recipe.
+            .then(() =&gt; setStatus(res, { success: true, recipe, status: 'downvoted' }, 200)); // Send back the updated recipe.
         }
       })
       .catch(() =&gt; setStatus(res, { success: false, error: 'recipe not found' }, 404));
@@ -1120,7 +1117,7 @@ export default moreRecipes;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 18:03:25 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 02:57:34 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

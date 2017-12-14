@@ -46,14 +46,15 @@ export default class FavoriteRecipes {
   static favoriteStatus(req, res) {
     return Favorite.findAll({
       where: {
+        userId: req.decoded.id,
         recipeId: req.params.recipeId
       }
     })
       .then((favorites) => {
-        if (favorites.length > 0) return setStatus(res, { success: true }, 200);
-        return setStatus(res, { success: false }, 200);
+        if (favorites.length > 0) return setStatus(res, { success: true, status: 'favorite' }, 200);
+        return setStatus(res, { success: false, status: 'not favorite' }, 200);
       })
-      .catch(() => setStatus(res, { success: false }, 404));
+      .catch(() => setStatus(res, { success: false, status: 'recipe not found' }, 404));
   }
 
   /**
