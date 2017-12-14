@@ -232,7 +232,6 @@ class SignUp extends Component {
                     required
                     className="col-lg-11 col-sm-12"
                     name="pass"
-                    id="inputPassword4"
                     placeholder="**********"
                   />
                   <div className="text-danger" id="password_error" />
@@ -244,7 +243,6 @@ class SignUp extends Component {
                     required
                     className="col-lg-11 col-sm-12"
                     name="cpass"
-                    id="inputPassword4"
                     placeholder="**********"
                   />
                   <div className="text-danger" id="cp_error" />

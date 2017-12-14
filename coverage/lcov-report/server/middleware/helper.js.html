@@ -165,7 +165,54 @@
 120
 121
 122
-123</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,7 +232,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -284,6 +331,53 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,13 +503,60 @@ export const mailer = (moniker, email, message) =&gt; {
   });
 };
 &nbsp;
+// export const voter = (decoded, activeKey, nonactive, recipe) =&gt; {
+//   if (decoded) {
+//     activeKey = recipe.reactionDown;
+//     nonactive = recipe.reactionDown;
+//     if (activeKey.indexOf(Number(decoded)) !== -1) {
+//       // have downvoted
+//       const removeId = activeKey.indexOf(Number(decoded));
+//       if (removeId &gt; -1) {
+//         activeKey.splice(removeId, 1);
+//       }
+//       return recipe
+//         .update({
+//           downvote: recipe.downvote - 1,
+//           reactionDown: recipe.reactionDown,
+//         })
+//         .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//     } else if (
+//       reactionDown.indexOf(Number(req.decoded.id)) === -1 &amp;&amp;
+//       reactionUp.indexOf(Number(req.decoded.id)) !== -1
+//     ) {
+//       // already upvoted but not downvoted
+//       const removeId = reactionUp.indexOf(Number(req.decoded.id));
+//       if (removeId &gt; -1) {
+//         reactionUp.splice(removeId, 1);
+//       }
+//       recipe.reactionDown.push(req.decoded.id);
+//       return recipe
+//         .update({
+//           upvote: recipe.upvote - 1,
+//           downvote: recipe.downvote + 1,
+//           reactionDown: recipe.reactionDown,
+//           reactionUp,
+//         })
+//         .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//     }
+//     // if a user has not downvoted or upvoted then increment downvote count
+//     // and add userId into the reactionDown array
+//     recipe.reactionDown.push(req.decoded.id);
+//     return recipe
+//       .update({
+//         downvote: recipe.downvote + 1,
+//         reactionDown: recipe.reactionDown,
+//       })
+//       .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//   }
+// };
+&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 18:03:25 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 02:57:34 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

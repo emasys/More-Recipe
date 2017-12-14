@@ -125,7 +125,7 @@ export const getCategory = (data, limit) => {
 // edit recipe
 export const editRecipe = (data, id) => {
   return (dispatch) => {
-    return axios.post(`${URL}/recipes/${id}?token=${xtoken}`, data)
+    return axios.put(`${URL}/recipes/${id}?token=${xtoken}`, data)
       .then((response) => {
         dispatch({ type: 'EDIT_RECIPE', payload: response.data });
       });

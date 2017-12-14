@@ -1,4 +1,5 @@
 /node_modules
+/coverage
 /validators.js
 /.eslintrc.js
 /server/node_modules
@@ -30,5 +31,7 @@ webpack.prod.config.js
 /templates
 client/src/helper
 .nyc_output
-/coverage
 server/playground
+coverage/lcov-report
+coverage/server
+coverage/index.html
