@@ -4,11 +4,11 @@ import { validateAddRecipes, setStatus } from '../middleware/helper';
 
 /**
  * parent class
- * @class moreRecipe
+ * @class MoreRecipe
  * for a debug, just add error to all the catch()
  * to see ugly sequelize errors i.e catch((error) => bla bla bla)
  */
-class moreRecipes {
+class MoreRecipes {
   /**
    * Add a new recipe to the catalog
    *
@@ -36,7 +36,7 @@ class moreRecipes {
             .then(recipe => setStatus(res, { success: true, recipe }, 201))
             .catch(() => setStatus(res, { success: false, error: 'Not added' }, 500));
         })
-        .catch(() => setStatus(res, { success: false, error: 'something went wrong' }));
+        .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 500));
     } else {
       return setStatus(res, { success: false, error: validator.errors.all() }, 400);
     }
@@ -48,7 +48,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static listRecipes(req, res) {
     if (req.query.sort && req.query.order) { // Get sorted (by upvote) recipe list
@@ -70,7 +70,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns recipes of a particular category
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static listRecipeCategory(req, res) {
     return Recipes.findAll({
@@ -90,7 +90,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns list of recipes of a particular user
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static listPrivateRecipes(req, res) {
     return Recipes.findAll({
@@ -110,7 +110,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns result of search query
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static SearchRecipe(req, res) {
     return Recipes.findAll({
@@ -131,7 +131,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns a single recipe and increment views count
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static getRecipe(req, res) {
     return Recipes.findById(req.params.recipeId, {
@@ -200,7 +200,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns the reaction status of a user once the page loads
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static checkReactions(req, res) {
     return Recipes.findById(req.params.recipeId)
@@ -221,7 +221,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns a new value for upvote
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static upvote(req, res) {
     return Recipes.findById(req.params.recipeId)
@@ -277,7 +277,7 @@ class moreRecipes {
    * @param {object} req
    * @param {object} res
    * @returns a new value for downvote
-   * @memberof moreRecipes
+   * @memberof MoreRecipes
    */
   static downvote(req, res) {
     return Recipes.findById(req.params.recipeId)
@@ -348,4 +348,4 @@ class moreRecipes {
   }
 }
 
-export default moreRecipes;
+export default MoreRecipes;

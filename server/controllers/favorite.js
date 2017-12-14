@@ -9,7 +9,7 @@ import { setStatus } from '../middleware/helper';
  */
 export default class FavoriteRecipes {
   /**
-     * Create User favorite
+     * Add a recipe to User favorites list
      *
      * @param {object} http request
      * @param {object} http response

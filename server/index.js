@@ -20,7 +20,7 @@ if (app.get('env') !== 'test') app.use(logger('dev')); // ignore logging in test
 // serve client-side
 app.use(express.static(path.join(__dirname, './../client/public')));
 
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(require('./middleware/mr-docs.json')));
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(require('./docs.json')));
 
 app.use('/api/v1/', routes);
 

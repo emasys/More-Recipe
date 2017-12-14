@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 //components
 import Home from '../components/Home';
 import Footer from '../components/Footer';
-import Catalog from '../containers/Catalog';
+import FullCatalog from '../containers/FullCatalog';
 import Favorites from '../components/Favorites';
 import NotFound from '../components/Notfound';
 import Playground from '../playground/app';
@@ -19,14 +19,6 @@ import Management from '../components/ManageUsers';
 import Category from '../components/Category';
 
 
- console.log(Auth.loggedIn());
- const requireAuth = (nextState, replace) => {
-  if (!loggedIn()) {
-    replace({
-      pathname: '/login'
-    })
-  }
-}
 const AppRoutes = () => {
   return(
     <BrowserRouter>
@@ -35,7 +27,7 @@ const AppRoutes = () => {
       <Route path="/signin" component={Signin}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/" exact component={Home}/>
-      <Route path="/catalog" exact component={Catalog}/>
+      <Route path="/catalog" exact component={FullCatalog}/>
       <Route path="/recipe/:id" component={Auth.loggedIn()? RecipeItem: Signin}/>
       <Route path="/user/:id" component={Auth.loggedIn()? User: Signin}/>
       <Route path="/manageUsers" component={Auth.moniker()? Management: Signin}/>
