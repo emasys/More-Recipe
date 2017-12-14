@@ -2,20 +2,18 @@ import axios from 'axios';
 
 
 const URL = '/api/v1';
-const xtoken = window.localStorage.getItem('token');
+const xtoken = localStorage.getItem('token');
 
 
 // Fetch All recipes
-export const getRecipes = (page, query = '') => {
-  return (dispatch) => {
-    return axios.get(`${URL}/recipes/page/${page}${query}`)
-      .then((response) => {
-        dispatch({ type: 'RECIPES', payload: response.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const getRecipes = (page, query = '') => (dispatch) => {
+  return axios.get(`${URL}/recipes/page/${page}${query}`)
+    .then((response) => {
+      dispatch({ type: 'RECIPES', payload: response.data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 // Get a single recipe

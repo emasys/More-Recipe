@@ -12,41 +12,13 @@ import Navbar from './Navbar.jsx';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      search: '',
-      All_recipes: '',
-      page_limit: 12,
-    };
-
-    // this.generateList = this.generateList.bind(this);
-    this.searchBar = this.searchBar.bind(this);
-    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
     const query = '?sort=upvotes&order=desc';
-    this.props.getRecipes(this.state.page_limit, query).then(() => {
-      this.setState({
-        All_recipes: this.props.recipes.allRecipes,
-      });
-    });
+    this.props.getRecipes(this.state.page_limit, query);
   }
 
-  search(e) {
-    e.preventDefault();
-    const data = { query: this.state.search };
-    this.props.searchRecipes(data).then(() => {
-      this.setState({
-        All_recipes: this.props.recipes.search,
-      });
-    });
-  }
-  searchBar(e) {
-    this.setState({
-      search: e.target.value,
-    });
-    this.componentDidMount();
-  }
 
   render() {
     const { search } = this.state;
@@ -85,7 +57,7 @@ class Home extends Component {
                 </h5>
               </div>
             </div>
-            <CatalogList catalog={this.state.All_recipes} />
+            <CatalogList catalog={this.props.recipes} />
           </div>
         </section>
       </div>
@@ -94,14 +66,13 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  return { recipes: state.recipes };
+  return { recipes: state.recipes.allRecipes };
 };
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
       getRecipes,
-      searchRecipes,
     },
     dispatch,
   ),
