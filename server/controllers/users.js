@@ -28,14 +28,14 @@ export default class MoreRecipeUsers {
     const validator = new Validator(request, validateSignUpForm());
     if (validator.passes()) {
       if (request.confirmPassword !== request.password) {
-        return setStatus(res, { success: false, status: "Your password didn't match" }, 401);
+        return setStatus(res, { success: false, status: "Your password didn't match" }, 422);
       }
       Users.findOne({
         where: { email: request.email },
       })
         .then((user) => {
           if (user) {
-            return setStatus(res, { success: false, target: 'email', status: 'email already exist in our database' }, 406);
+            return setStatus(res, { success: false, target: 'email', status: 'email already exist in our database' }, 409);
           }
 
           Users.findOne({
@@ -43,7 +43,7 @@ export default class MoreRecipeUsers {
           })
             .then((username) => {
               if (username) {
-                return setStatus(res, { success: false, target: 'moniker', status: 'moniker already exist in our database' }, 406);
+                return setStatus(res, { success: false, target: 'moniker', status: 'moniker already exist in our database' }, 409);
               }
               Users.create(request)
                 .then((newUser) => {
@@ -64,7 +64,7 @@ export default class MoreRecipeUsers {
         })
         .catch(() => setStatus(res, { success: false, error: 'record not saved' }, 500));
     } else {
-      return setStatus(res, { success: false, status: validator.errors.all() }, 401);
+      return setStatus(res, { success: false, status: validator.errors.all() }, 422);
     }
   }
   /**
@@ -131,7 +131,7 @@ export default class MoreRecipeUsers {
         .catch(() => setStatus(res, { success: false, error: 'user not found' }, 404));
     }
     // if validator returns false
-    return setStatus(res, { success: false, status: validator.errors.all() }, 400);
+    return setStatus(res, { success: false, status: validator.errors.all() }, 422);
   }
   /**
          *
@@ -171,7 +171,8 @@ export default class MoreRecipeUsers {
         if (!user.comparePassword(user, request.password)) {
           return setStatus(res, { success: false, status: 'Invalid email/password' }, 400);
         }
-        const payload = _.pick(user, ['id', 'firstName', 'lastName', 'bio', 'email', 'country', 'avatar', 'moniker']);
+        const payload = _.pick(user, ['id', 'firstName']);
+        // Added firstName to the payload for test purpose
         const token = signToken(payload);
         return setStatus(res, { success: true, token }, 200);
       })

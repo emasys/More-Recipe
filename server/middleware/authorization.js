@@ -51,7 +51,8 @@ export default class Authorization {
         return Users.findById(decoded.id)
           .then((user) => {
             if (!user) return setStatus(res, { error: 'user not found' }, 404);
-            req.decoded = decoded; // assign decoded data to req.decoded
+            // assign decoded data to req.decoded
+            req.decoded = decoded;
             return next();
           })
           .catch(() => setStatus(res, { error: 'something went wrong' }, 404));

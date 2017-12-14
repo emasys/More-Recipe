@@ -68,7 +68,7 @@ export const validateReviews = () => {
  */
 export const validateAddRecipes = () => {
   return {
-    name: 'required|alpha',
+    name: 'required',
     direction: 'required',
     ingredients: 'required',
     description: 'required'
@@ -103,11 +103,16 @@ export const mailer = (moniker, email, message) => {
 
   // setup e-mail data
   const mailOptions = {
-    from: 'MoreRecipe <more-recipe@gmail.com>', // sender address
-    to: email, // list of receivers
-    subject: 'Activity on your recipe', // Subject line
-    text: `${moniker} ${message}`, // plaintext body
-    html: `${moniker} <b>${message} </b>` // html body
+    // sender address
+    from: 'MoreRecipe <more-recipe@gmail.com>',
+    // list of receivers
+    to: email,
+    // Subject line
+    subject: 'Activity on your recipe',
+    // plaintext body
+    text: `${moniker} ${message}`,
+    // html body
+    html: `${moniker} <b>${message} </b>`
   };
 
   // send mail with defined transport object
@@ -135,7 +140,8 @@ export const mailer = (moniker, email, message) => {
 //           downvote: recipe.downvote - 1,
 //           reactionDown: recipe.reactionDown,
 //         })
-//         .then(() => setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//         .then(() => setStatus(res, { success: true, recipe }, 200));
+// Send back the updated recipe.
 //     } else if (
 //       reactionDown.indexOf(Number(req.decoded.id)) === -1 &&
 //       reactionUp.indexOf(Number(req.decoded.id)) !== -1
@@ -153,7 +159,8 @@ export const mailer = (moniker, email, message) => {
 //           reactionDown: recipe.reactionDown,
 //           reactionUp,
 //         })
-//         .then(() => setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//         .then(() => setStatus(res, { success: true, recipe }, 200));
+// Send back the updated recipe.
 //     }
 //     // if a user has not downvoted or upvoted then increment downvote count
 //     // and add userId into the reactionDown array
@@ -163,7 +170,8 @@ export const mailer = (moniker, email, message) => {
 //         downvote: recipe.downvote + 1,
 //         reactionDown: recipe.reactionDown,
 //       })
-//       .then(() => setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//       .then(() => setStatus(res, { success: true, recipe }, 200));
+// Send back the updated recipe.
 //   }
 // };
 
