@@ -9,7 +9,7 @@ const Footer = () => (
             <p className="text-center text-white">
                 &copy;2017 All rights reserved
             </p>
-            <a to="https://web.facebook.com/emasys23">
+            <a href="https://web.facebook.com/emasys23">
               <i className="fa fa-facebook-square fa-2x" aria-hidden="true" />
             </a>&nbsp;
             <a href="https://twitter.com/emasys_nd">

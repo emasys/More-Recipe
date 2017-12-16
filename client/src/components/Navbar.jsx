@@ -42,18 +42,27 @@ class Navbar extends Component {
   navLinks() {
     if (Auth.loggedIn()) {
       return (
-        <h6>
-          <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
-            <i className="fa fa-user-circle" aria-hidden="true" />
-            {` `}
-            Profile
+        <div>
+          <h6 className="dropdown-header text-center">{this.props.user? `Signed in as ${this.props.user.data.moniker}`: `loading`}</h6>
+          <div className="dropdown-divider"/>
+          <Link
+            className="dropdown-item bold"
+            to={`/profile/${Auth.userID()}`}
+          >
+           Your profile
           </Link>
-          <a className="dropdown-item" onClick={this.logout} href="/">
-            <i className="fa fa-sign-out" aria-hidden="true" />
+          <Link
+            className="dropdown-item bold"
+            to="/favorites"
+          >
+           Your favorites
+          </Link>
+          <div className="dropdown-divider"/>
+          <a className="dropdown-item bold" onClick={this.logout} href="/">
             {` `}
             Logout
           </a>
-        </h6>
+        </div>
       );
     } else {
       return (
@@ -82,7 +91,7 @@ class Navbar extends Component {
     return (
       <section className="container-fluid fixed">
         <nav
-          className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar"
+          className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
           style={{ zIndex: 1000 }}
         >
           <div className="container">
@@ -107,7 +116,7 @@ class Navbar extends Component {
               <ul className="navbar-nav">
                 <li>
                   <NavLink
-                    className="nav-link text-light"
+                    className="nav-link "
                     activeClassName="active"
                     to="/catalog"
                     data-tip="Search for recipes"
@@ -126,7 +135,7 @@ class Navbar extends Component {
                 {Auth.loggedIn() ? (
                   <li className="nav-item ">
                     <NavLink
-                      className="nav-link text-light"
+                      className="nav-link"
                       activeClassName="active"
                       to="/new"
                       data-tip="Add new recipe"
@@ -150,7 +159,7 @@ class Navbar extends Component {
                 )}
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link text-light"
+                    className="nav-link"
                     activeClassName="active"
                     to="/catalog"
                     data-tip="Catalog"
@@ -180,7 +189,7 @@ class Navbar extends Component {
                       &#xE87D;
                     </i>
                     <span
-                      className="d-lg-none text-white"
+                      className="d-lg-none"
                       style={{ verticalAlign: 'top' }}
                     >
                       Favorites
@@ -221,7 +230,7 @@ class Navbar extends Component {
                   )}
 
                   <div
-                    className="dropdown-menu"
+                    className="dropdown-menu  dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     {this.navLinks()}

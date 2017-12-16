@@ -16,7 +16,9 @@ body {
     width: 100%;
   }
 }
-
+.navbar-nav li .nav-link a {
+  color: red;
+}
 @media screen and (max-width: 575px) {
   #catalog {
     margin-top: 80px;

@@ -25,6 +25,27 @@ a {
   }
 }
 
+.nav-item{
+  color: blue !important;
+}
+.grayOut {
+  color: rgb(241, 25, 25) !important;
+}
+
+.avi{
+  min-width: 100px;
+}
+.custom-dropdown {
+  // min-width:220px;
+  // padding:15px;
+  // right: 100px;
+  font-size: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+  .dropdown-header {
+  font-size: 13px;
+  }
+}
 .hovered {
   cursor: pointer;
 }
@@ -496,8 +517,9 @@ footer {
 }
 
 .img-icon {
-  width: 35px;
-  height: 35px;
+  margin-top: 3px;
+  width: 30px;
+  height: 30px;
 }
 
 .gray {

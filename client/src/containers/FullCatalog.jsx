@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 import * as actions from '../actions';
 import Auth from '../components/auth';
 
@@ -151,18 +152,27 @@ logout() {
 navLinks() {
   if (Auth.loggedIn()) {
     return (
-      <h6>
-        <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
-          <i className="fa fa-user-circle" aria-hidden="true" />
-          {` `}
-            Profile
+      <div>
+        <h6 className="dropdown-header text-center">{this.props.user? `Signed in as ${this.props.user.data.moniker}`: `loading`}</h6>
+        <div className="dropdown-divider"/>
+        <Link
+          className="dropdown-item bold"
+          to={`/profile/${Auth.userID()}`}
+        >
+         Your profile
         </Link>
-        <a className="dropdown-item" onClick={this.logout} href="/">
-          <i className="fa fa-sign-out" aria-hidden="true" />
+        <Link
+          className="dropdown-item bold"
+          to="/favorites"
+        >
+         Your favorites
+        </Link>
+        <div className="dropdown-divider"/>
+        <a className="dropdown-item bold" onClick={this.logout} href="/">
           {` `}
-            Logout
+          Logout
         </a>
-      </h6>
+      </div>
     );
   } else {
     return (
@@ -170,17 +180,50 @@ navLinks() {
         <Link className="dropdown-item" to="/signin">
           <i className="fa fa-sign-in" aria-hidden="true" />
           {` `}
-            Sign in
+          Sign in
         </Link>
         <Link className="dropdown-item" to="/signup">
           <i className="fa fa-user-plus" aria-hidden="true" />
           {` `}
-            Sign up
+          Sign up
         </Link>
       </h6>
     );
   }
 }
+// navLinks() {
+//   if (Auth.loggedIn()) {
+//     return (
+//       <h6>
+//         <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
+//           <i className="fa fa-user-circle" aria-hidden="true" />
+//           {` `}
+//             Profile
+//         </Link>
+//         <a className="dropdown-item" onClick={this.logout} href="/">
+//           <i className="fa fa-sign-out" aria-hidden="true" />
+//           {` `}
+//             Logout
+//         </a>
+//       </h6>
+//     );
+//   } else {
+//     return (
+//       <h6>
+//         <Link className="dropdown-item" to="/signin">
+//           <i className="fa fa-sign-in" aria-hidden="true" />
+//           {` `}
+//             Sign in
+//         </Link>
+//         <Link className="dropdown-item" to="/signup">
+//           <i className="fa fa-user-plus" aria-hidden="true" />
+//           {` `}
+//             Sign up
+//         </Link>
+//       </h6>
+//     );
+//   }
+// }
   /**
  *
  *
@@ -192,7 +235,7 @@ render() {
   return (
     <div>
       <section className="container-fluid fixed">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar">
+        <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
           <div className="container">
             <Link className="navbar-brand bolder text-orange" to="/">
                 MoreRecipes
@@ -229,7 +272,7 @@ render() {
                 {Auth.loggedIn() ? (
                   <li className="nav-item ">
                     <NavLink
-                      className="nav-link text-light"
+                      className="nav-link"
                       activeClassName="active"
                       to="/new"
                       data-tip="Add new recipe"
@@ -247,7 +290,7 @@ render() {
                   ''
                 )}
                 <li className="nav-item ">
-                  <NavLink className="nav-link text-light" activeClassName="active" to="/catalog">
+                  <NavLink className="nav-link" activeClassName="active" to="/catalog" data-tip="Catalog">
                     <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
                         &#xE8EF;
                     </i>
@@ -255,15 +298,15 @@ render() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link " activeClassName="active" to="/favorites">
+                  <NavLink className="nav-link " activeClassName="active" to="/favorites" data-tip="Your favorites">
                     <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
-                    <span className="d-lg-none text-white">Favorites</span>{' '}
+                    <span className="d-lg-none">Favorites</span>{' '}
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
                   {Auth.loggedIn() ? (
                     <a
-                      className="nav-link "
+                      className="nav-link dropdown-toggle"
                       href="#"
                       id="navbarDropdownMenuLink"
                       data-toggle="dropdown"
@@ -292,11 +335,12 @@ render() {
                       <i className="material-icons fa-2x">&#xE853;</i>
                     </a>
                   )}
-                  <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     {this.navLinks()}
                   </div>
                 </li>
               </ul>
+              <ReactTooltip place="bottom" type="dark" effect="float" />
             </div>
           </div>
         </nav>
