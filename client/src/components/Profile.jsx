@@ -1,109 +1,130 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getUserRecipes, getUserInfo } from '../actions';
 import Fade from 'react-reveal/Fade';
-import Auth from './Auth';
+import * as actions from '../actions';
+import Auth from './auth';
 
 //component
 import Navbar from './Navbar';
-
+/**
+ *
+ *
+ * @class Profile
+ * @extends {Component}
+ */
 class Profile extends Component {
+  /**
+   * Creates an instance of Profile.
+   * @param {any} props
+   * @memberof Profile
+   */
   constructor(props) {
     super(props);
 
     this.state = {
       limit: 6,
+      view: false
     };
     this.generateRecipes = this.generateRecipes.bind(this);
     this.generateUserInfo = this.generateUserInfo.bind(this);
     this.viewMore = this.viewMore.bind(this);
   }
-
-  componentWillMount = () => {
-    console.log('refreshed');
-  };
-
+  /**
+   *
+   *
+   * @memberof Profile
+   * @returns {any} cdm
+   */
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
-    this.props.getUserRecipes(this.state.limit, Auth.userID()).then(() => {
-      console.log(this.props.userInfo);
-      this.setState(prevState => {
-        return {
-          limit: prevState.limit + 6,
-        };
-      });
-    });
+    this.props.getUserRecipes(this.state.limit, Auth.userID());
   }
-
+  /**
+   *
+   *
+   * @param {any} data
+   * @returns {any} jsx
+   * @memberof Profile
+   */
   generateRecipes(data) {
     if (data) {
-      return data.recipes.map((item, index) => {
-        return (
-          <div
-            key={index}
-            className="col-lg-4 col-sm-12 mb-3  col-md-4 animate-catalog"
-            data-animate="bounceIn"
-            data-duration="1.0s"
-            data-delay="0.1s"
-            data-offset="100"
-          >
-            <div style={{ overflow: 'hidden' }}>
-              <Fade bottom>
-                <Link to={`/recipe/${item.id}`} className="hvr-bounce-out">
-                  <div className="card animate">
-                    <div className="description">
-                      <h6>Description</h6>
-                      {item.description}
-                    </div>
-                    <img
-                      className="card-img-top profile-img-box"
-                      src={item.foodImg}
-                      alt="Card image cap"
-                    />
-                    <div className="card-body p-0 text-center social-icons">
-                      <span className="tag bg-danger">{item.category}</span>
-                      <h6 className="card-title custom-bg bg-secondary p-2 m-0 text-truncate ">
-                        {item.name}
-                      </h6>
-                      <span>
-                        <i className="fa fa-heart-o" aria-hidden="true" />
-                        {item.favorite}
-                      </span>
-                      <span>
-                        <i className="fa fa-thumbs-o-up" aria-hidden="true" />
-                        {item.upvote}
-                      </span>
-                      <span>
-                        <i className="fa fa-thumbs-o-down" aria-hidden="true" />
-                        {item.downvote}
-                      </span>
-                      <span>
-                        <i className="fa fa-eye" aria-hidden="true" />
-                        {item.views}
-                      </span>
-                      <span>
-                        <i className="fa fa-comment-o" aria-hidden="true" />
-                        {item.comments}
-                      </span>
-                    </div>
+      return data.recipes.map((item, index) => (
+        <div
+          key={index}
+          className="col-lg-5 col-md-6 col-sm-6 mb-3 animate-catalog"
+          data-animate="bounceIn"
+          data-duration="1.0s"
+          data-delay="0.1s"
+          data-offset="100"
+        >
+          <div style={{ overflow: 'hidden' }}>
+            <Fade bottom>
+              <Link to={`/recipe/${item.id}`} className="hvr-bounce-out">
+                <div className="card animate">
+                  <div className="description">
+                    <h6>Description</h6>
+                    {item.description}
                   </div>
-                </Link>
-              </Fade>
-            </div>
+                  <img
+                    className="card-img-top profile-img-box"
+                    src={item.foodImg}
+                    alt="Card image cap"
+                  />
+                  <div className="card-body p-0 text-center social-icons">
+                    <span className="tag bg-danger">{item.category}</span>
+                    <h6 className="card-title custom-bg bg-secondary p-2 m-0 text-truncate ">
+                      {item.name}
+                    </h6>
+                    <span>
+                      <i className="fa fa-heart-o" aria-hidden="true" />
+                      {item.favorite}
+                    </span>
+                    <span>
+                      <i className="fa fa-thumbs-o-up" aria-hidden="true" />
+                      {item.upvote}
+                    </span>
+                    <span>
+                      <i className="fa fa-thumbs-o-down" aria-hidden="true" />
+                      {item.downvote}
+                    </span>
+                    <span>
+                      <i className="fa fa-eye" aria-hidden="true" />
+                      {item.views}
+                    </span>
+                    <span>
+                      <i className="fa fa-comment-o" aria-hidden="true" />
+                      {item.comments}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </Fade>
           </div>
-        );
-      });
+        </div>
+      ));
     }
   }
-
+  /**
+   *
+   *
+   * @param {any} data
+   * @returns {any} user data
+   * @memberof Profile
+   */
   generateUserInfo(data) {
     if (data) {
-      // console.log(data.data);
-      const { id, firstName, lastName, bio, email, avatar, moniker, country } = data.data;
+      const {
+        firstName,
+        lastName,
+        bio,
+        email,
+        avatar,
+        moniker,
+        country
+      } = data.data;
       return (
-        <div className="col-lg-4 col-sm-12 mr-5 mb-10">
+        <div className="col-lg-4 col-md-4 col-sm-12 mr-5 mb-10">
           <img src={avatar} alt="avatar" className="img-fluid rounded mb-3" />
           <div className="bg-light rounded p-10">
             <h2 className="mb-10 bolder">
@@ -134,9 +155,23 @@ class Profile extends Component {
     }
   }
 
+  /**
+   *
+   *
+   * @memberof Profile
+   * @returns {any} pagination
+   */
   viewMore() {
-    this.componentDidMount();
+    this.setState(prevState => ({
+      limit: prevState.limit + 6
+    }));
   }
+  /**
+   *
+   *
+   * @memberof Profile
+   * @returns {any} render
+   */
   render() {
     return (
       <div>
@@ -144,10 +179,14 @@ class Profile extends Component {
         <section className="container profile catalog-wrapper">
           <div className="row justify-content-center">
             {this.generateUserInfo(this.props.userInfo)}
-            <div className="col-lg-7 col-sm-12 recipe-lists">
+            <div className="col-lg-7 col-md-7 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h2 className="fresh-title float-left clearfix">Recipes </h2>
-                <Link className="btn btn-dark float-right clearfix" role="button" to="/new">
+                <Link
+                  className="btn btn-dark float-right clearfix"
+                  role="button"
+                  to="/new"
+                >
                   Add New Recipes
                 </Link>
               </div>
@@ -170,14 +209,9 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state.recipes.userRecipes);
-  return {
-    user: state.recipes.userRecipes,
-    userInfo: state.signin.userInfo,
-  };
-};
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getUserRecipes, getUserInfo }, dispatch),
+const mapStateToProps = state => ({
+  user: state.recipes.userRecipes,
+  userInfo: state.signin.userInfo
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+
+export default connect(mapStateToProps, actions)(Profile);

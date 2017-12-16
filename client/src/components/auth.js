@@ -1,4 +1,4 @@
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 const login = localStorage.getItem('token');
 let decoded = '';
@@ -13,41 +13,42 @@ class Auth {
    *
    * @static
    * @memberof Auth
+   * @returns {null} null token
    */
   static logout() {
     localStorage.removeItem('token');
   }
   /**
- *
- *
- * @static
- * @returns
- * @memberof Auth
- */
+   *
+   *
+   * @static
+   * @returns {bool} boolean
+   * @memberof Auth
+   */
   static loggedIn() {
     if (login) {
-      decoded = jwt_decode(login);
+      decoded = jwtDecode(login);
       return true;
     }
     return false;
   }
   /**
- *
- *
- * @static
- * @returns
- * @memberof Auth
- */
+   *
+   *
+   * @static
+   * @returns {int} user id
+   * @memberof Auth
+   */
   static userID() {
     return decoded.id;
   }
   /**
- *
- *
- * @static
- * @returns
- * @memberof Auth
- */
+   *
+   *
+   * @static
+   * @returns { string } moniker
+   * @memberof Auth
+   */
   static moniker() {
     return decoded.moniker;
   }

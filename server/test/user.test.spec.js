@@ -15,7 +15,8 @@ describe('CRUD/ users', () => {
         .expect(200)
         .end((err, res) => {
           if (!err) {
-            xtoken = res.body.token; // make token accessible to protected routes
+            // make token accessible to protected routes
+            xtoken = res.body.token;
           }
           done();
         });
@@ -24,11 +25,11 @@ describe('CRUD/ users', () => {
 
 
   describe('Test case for empty firstName field', () => {
-    it('should return status code 401 when firstName input field is empty', (done) => {
+    it('should return status code 422 when firstName input field is empty', (done) => {
       request(app)
         .post('/api/v1/users/signup')
         .send(seed.setUserInput('', 'Jane', "John's wife", 'janedoe@gmail.com', 'password', 'password'))
-        .expect(401)
+        .expect(422)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
         })
@@ -37,7 +38,7 @@ describe('CRUD/ users', () => {
   });
 
   describe('Test for invalid inputs', () => {
-    it('should return status code 401 if firstName input is not a string', (done) => {
+    it('should return status code 422 if firstName input is not a string', (done) => {
       request(app)
         .post('/api/v1/users/signup')
         .send({
@@ -51,7 +52,7 @@ describe('CRUD/ users', () => {
           country: 'Nigeria',
           avatar: 'someurl'
         })
-        .expect(401)
+        .expect(422)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
         })
@@ -60,11 +61,11 @@ describe('CRUD/ users', () => {
   });
 
   describe('Test for invalid email address', () => {
-    it('should return status code 401 if email input format is not valid', (done) => {
+    it('should return status code 422 if email input format is not valid', (done) => {
       request(app)
         .post('/api/v1/users/signup')
         .send(seed.setUserInput('jane', 'Jane', "John's wife", 'janedoe@gamil', 'password', 'password'))
-        .expect(401)
+        .expect(422)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
         })
@@ -73,7 +74,7 @@ describe('CRUD/ users', () => {
   });
 
   describe('User signin', () => {
-    it('should return 400 if a user is not successfully logged in', (done) => {
+    it('should return 400 if a user password is wrong', (done) => {
       request(app)
         .post('/api/v1/users/signin')
         .send(seed.setLogin('emasysnd@gmail.com', 'passwords'))
@@ -92,6 +93,7 @@ describe('CRUD/ users', () => {
         .set('x-access-token', xtoken)
         .expect(200)
         .expect((res) => {
+          // console.log({token: xtoken});
           expect(res.body).to.include({ success: true });
         })
         .end(done);

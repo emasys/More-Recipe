@@ -6,7 +6,7 @@ body {
 
 @media screen and (max-width: 990px) {
   #catalog {
-    margin-top: 150px;
+    margin-top: 80px;
   }
   .catalog h4 {
     font-size: 14px;
@@ -14,6 +14,23 @@ body {
   input[type='search'] {
     height: 10px !important;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  #catalog {
+    margin-top: 80px;
+  }
+  .col-sm-9 {
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+
+  .profile .col-sm-5 {
+    -ms-flex: 0 0 50.666667%;
+    flex: 0 0 50.666667%;
+    max-width: 50.666667%;
   }
 }
 

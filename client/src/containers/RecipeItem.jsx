@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
-import jwt_decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
-import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
-import {
-  getRecipeItem,
-  setFavorite,
-  getFavStatus,
-  upvote,
-  downvote,
-  editRecipe,
-  delRecipe,
-  getUpvStatus,
-  getUserInfo,
-} from '../actions';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-// import Modal from 'react-responsive-modal';
 import ReactTooltip from 'react-tooltip';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 
+// import actions
+import * as actions from '../actions';
+
 // components
-import Auth from '../components/Auth';
-import RecipeItems from '../components/RecipeItems';
+import Auth from '../components/auth';
 import RecipeIngredients from '../components/Ingredients';
 import Reviews from '../components/Reviews';
 import Navbar from '../components/Navbar';
-
+/**
+ *
+ *
+ * @class RecipeItem
+ * @extends {Component}
+ */
 class RecipeItem extends Component {
+  /**
+   * Creates an instance of RecipeItem.
+   * @param {any} props
+   * @memberof RecipeItem
+   */
   constructor(props) {
     super(props);
 
@@ -57,64 +53,140 @@ class RecipeItem extends Component {
     this.onCloseDeleteModal = this.onCloseDeleteModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
   }
-
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {any} cdm
+ */
   componentDidMount() {
     this.props.getUpvStatus(this.props.match.params.id);
     this.props.getFavStatus(this.props.match.params.id);
     this.props.getRecipeItem(this.props.match.params.id).then(() => {
       const id = this.props.recipes.recipeItem.recipe.userId;
-      const { ingredients, name, description, direction } = this.props.recipes.recipeItem.recipe;
       this.props.getUserInfo(id);
-      if (Auth.userID() === id) {
-        this.setState({
-          edit: true,
-          name,
-          ingredients: ingredients.join(','),
-          description,
-          direction,
-        });
+    });
+  }
+  /**
+ *
+ *
+ * @param {any} nextProps
+ * @memberof RecipeItem
+ * @returns {any} cwrp
+ */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.recipes) {
+      if (nextProps.recipes.recipeItem) {
+        const id = nextProps.recipes.recipeItem.recipe.userId;
+        const {
+          ingredients, name, description, direction
+        } = nextProps.recipes.recipeItem.recipe;
+        if (Auth.userID() === id) {
+          this.setState({
+            edit: true,
+            name,
+            ingredients: ingredients.join(','),
+            description,
+            direction,
+          });
+        }
+      }
+    }
+  }
+
+
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {any} redirects a user back to catalog page after deletion
+ */
+  delRecipe() {
+    this.props.delRecipe(this.props.match.params.id).then(() => {
+      if (this.props.recipes.del_recipe.success) {
+        this.props.history.push('/catalog');
       }
     });
   }
-
-  delRecipe() {
-    this.props.delRecipe(this.props.match.params.id).then(() => {
-      this.props.history.push('/catalog');
-    });
-  }
-  onOpenModal(){
+  /**
+   *
+   *
+   * @memberof RecipeItem
+   * @returns {bool} sets modal display to true
+   */
+  onOpenModal() {
     this.setState({ open: true });
-  };
-
-  onCloseModal(){
+  }
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {bool} sets modal display to false
+ */
+  onCloseModal() {
     this.setState({ open: false });
-  };
-
-  onOpenDeleteModal(){
+  }
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {bool} sets modal display to true
+ */
+  onOpenDeleteModal() {
     this.setState({ deleteRecipe: true });
-  };
-
-  onCloseDeleteModal(){
+  }
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {bool} sets modal display to false
+ */
+  onCloseDeleteModal() {
     this.setState({ deleteRecipe: false });
-  };
+  }
+  /**
+   *
+   *
+   * @memberof RecipeItem
+   * @returns {any} add a recipe to user's favorite list
+   */
   favIt() {
     this.props.setFavorite(this.props.match.params.id).then(() => {
       this.props.getFavStatus(this.props.match.params.id);
-      this.componentDidMount();
+      this.props.getRecipeItem(this.props.match.params.id);
     });
   }
-
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {any} upvote a recipe
+ */
   upvote() {
     this.props.upvote(this.props.match.params.id).then(() => {
-      this.componentDidMount();
+      this.props.getUpvStatus(this.props.match.params.id);
+      this.props.getRecipeItem(this.props.match.params.id);
     });
   }
-
+  /**
+ *
+ *
+ * @memberof RecipeItem
+ * @returns {any} downvote a recipe
+ */
   downvote() {
     this.props.downvote(this.props.match.params.id).then(() => {
-      this.componentDidMount();
+      this.props.getUpvStatus(this.props.match.params.id);
+      this.props.getRecipeItem(this.props.match.params.id);
     });
   }
+  /**
+ *
+ *
+ * @param {any} e
+ * @memberof RecipeItem
+ * @returns {any} an updated recipe
+ */
   handleSubmit(e) {
     e.preventDefault();
     let data = {
@@ -124,30 +196,67 @@ class RecipeItem extends Component {
       description: e.target.elements.description.value,
     };
     this.props.editRecipe(data, this.props.match.params.id).then(() => {
-      this.componentDidMount();
+      this.props.getRecipeItem(this.props.match.params.id);
       this.onCloseModal();
     });
   }
+  /**
+   *
+   *
+   * @param {any} e
+   * @memberof RecipeItem
+   * @returns {any} new state
+   */
   nameChanged(e) {
     this.setState({
       name: e.target.value,
     });
   }
+  /**
+   *
+   *
+   * @param {any} e
+   * @memberof RecipeItem
+   * @returns {any} new state
+   */
   ingChanged(e) {
     this.setState({
       ingredients: e.target.value,
     });
   }
+
+  /**
+   *
+   *
+   * @param {any} e
+   * @memberof RecipeItem
+   * @returns {any} new state
+   */
   directionChanged(e) {
     this.setState({
       direction: e.target.value,
     });
   }
+
+  /**
+   *
+   *
+   * @param {any} e
+   * @memberof RecipeItem
+   * @returns {any} new state
+   */
   descriptionChanged(e) {
     this.setState({
       description: e.target.value,
     });
   }
+
+  /**
+   *
+   *
+   * @returns {any} current data in the db to be edited
+   * @memberof RecipeItem
+   */
   getEditForm() {
     if (this.props.recipes) {
       if (this.props.recipes.recipeItem) {
@@ -160,7 +269,9 @@ class RecipeItem extends Component {
         } = this.props.recipes.recipeItem.recipe;
       }
     }
-    const { name, description, direction, ingredients } = this.state;
+    const {
+      name, description, direction, ingredients
+    } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <ul className="form row">
@@ -217,13 +328,18 @@ class RecipeItem extends Component {
       </form>
     );
   }
+
+  /**
+   *
+   *
+   * @param {object} reactions
+   * @returns {any} jsx elements
+   * @memberof RecipeItem
+   */
   generateItems(reactions) {
     if (reactions) {
       const {
-        id,
         name,
-        views,
-        comments,
         downvote,
         favorite,
         category,
@@ -240,9 +356,9 @@ class RecipeItem extends Component {
               <span className="text-center card-link" onClick={this.favIt}>
                 <i
                   className={`fa  ${
-                    this.props.favStatus.favStatus.success
-                      ? 'fa-heart red animated bounceIn flash'
-                      : 'fa-heart gray'
+                    this.props.favStatus.favStatus.success ?
+                      'fa-heart red animated bounceIn flash' :
+                      'fa-heart gray'
                   } fa-2x`}
                   aria-hidden="true"
                   id="favorite"
@@ -252,9 +368,9 @@ class RecipeItem extends Component {
               <span className="text-center card-link m-1" onClick={this.upvote}>
                 <i
                   className={`fa ${
-                    this.props.votes.votes.upvote.success
-                      ? 'fa-thumbs-up animated bounceIn flash blue'
-                      : 'fa-thumbs-up gray'
+                    this.props.votes.votes.upvote.success ?
+                      'fa-thumbs-up animated bounceIn flash blue' :
+                      'fa-thumbs-up gray'
                   } fa-2x`}
                   aria-hidden="true"
                   id="like"
@@ -264,9 +380,9 @@ class RecipeItem extends Component {
               <span className="text-center card-link m-1" onClick={this.downvote}>
                 <i
                   className={`fa ${
-                    this.props.votes.votes.downvote.success
-                      ? 'fa-thumbs-down animated bounceIn flash red'
-                      : 'fa-thumbs-down gray'
+                    this.props.votes.votes.downvote.success ?
+                      'fa-thumbs-down animated bounceIn flash red' :
+                      'fa-thumbs-down gray'
                   } fa-2x`}
                   aria-hidden="true"
                   id="dislike"
@@ -287,13 +403,17 @@ class RecipeItem extends Component {
       );
     }
   }
+  /**
+   *
+   *
+   * @returns {jsx} render elements
+   * @memberof RecipeItem
+   */
   render() {
     const { open, deleteRecipe } = this.state;
-
     return (
       <div>
         <Navbar />
-
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Edit Recipe</h2>
           {this.getEditForm()}
@@ -347,29 +467,11 @@ class RecipeItem extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    recipes: state.recipes,
-    favorite: state.favorite,
-    favStatus: state.favStatus,
-    votes: state.votes,
-    userInfo: state.signin.userInfo,
-  };
-};
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      getRecipeItem,
-      setFavorite,
-      getFavStatus,
-      upvote,
-      getUpvStatus,
-      downvote,
-      editRecipe,
-      delRecipe,
-      getUserInfo,
-    },
-    dispatch,
-  ),
+const mapStateToProps = state => ({
+  recipes: state.recipes,
+  favorite: state.favorite,
+  favStatus: state.favStatus,
+  votes: state.votes,
+  userInfo: state.signin.userInfo,
 });
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeItem);
+export default connect(mapStateToProps, actions)(RecipeItem);

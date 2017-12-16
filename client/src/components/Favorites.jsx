@@ -1,99 +1,126 @@
 import React, { Component } from 'react';
-import { getFavs } from '../actions';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
-import Auth from './Auth';
+import * as actions from '../actions';
 
 //components
 // import Catalog from './catalog';
 import Navbar from './Navbar';
+/**
+ *
+ *
+ * @class Favorites
+ * @extends {Component}
+ */
 class Favorites extends Component {
+  /**
+   * Creates an instance of Favorites.
+   * @param {any} props
+   * @memberof Favorites
+   */
   constructor(props) {
     super(props);
-
     this.generateList = this.generateList.bind(this);
   }
-
+  /**
+   *
+   *
+   * @memberof Favorites
+   * @returns {any} favorite list
+   */
   componentDidMount() {
     this.props.getFavs();
   }
-
+  /**
+   *
+   *
+   * @param {any} fav
+   * @returns {any} list of favorite recipes
+   * @memberof Favorites
+   */
   generateList(fav) {
-    console.log(fav);
     if (fav.userFav) {
-      console.log(fav.userFav.favorites);
       if (fav.userFav.favorites.length < 1) {
         return (
           <div className="text-center error-message">
-            <div className="catalog-wrapper">
+            <div>
               <img src="../img/logo.png" alt="logo" />
               <h4 className="p-3 m-2">
-                There is nothing to show here
+                You don't have any favorite recipe yet
               </h4>
-              <p className="p-3 m-2">No recipe matches your description</p>
+              <p className="p-3 m-2">
+                <Link to="/catalog" className="btn btn-outline-dark">
+                  check out amazing recipes
+                </Link>
+              </p>
             </div>
           </div>
         );
       }
-      return fav.userFav.favorites.map((item, index) => {
-        return (
-          <div
-            key={index}
-            className="col-lg-3 col-sm-10 mb-3  col-md-4 animate-catalog"
-            data-animate="bounceIn"
-            data-duration="1.0s"
-            data-delay="0.1s"
-            data-offset="100"
-          >
-            <div style={{ overflow: 'hidden' }}>
-              <Fade bottom>
-                <Link to={`/recipe/${item.recipeId}`} className=" hvr-bounce-out">
-                  <div className={`card animate`}>
-                    <img
-                      className="card-img-top img-box"
-                      src={item.Recipe.foodImg}
-                      alt="Card image cap"
-                    />
-                    <div className="card-body p-0 text-center social-icons">
-                      <span className="tag bg-danger">{item.Recipe.category}</span>
-                      <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
-                        {item.Recipe.name}
-                      </h6>
-                      <div className="card-body p-5 text-left bg-light text-dark">
-                        <p className="crop-text">{item.Recipe.description}</p>
-                      </div>
-                      <span>
-                        <i className="fa fa-heart-o" aria-hidden="true" />
-                        {item.Recipe.favorite}
-                      </span>
-                      <span>
-                        <i className="fa fa-thumbs-o-up" aria-hidden="true" />
-                        {item.Recipe.upvote}
-                      </span>
-                      <span>
-                        <i className="fa fa-thumbs-o-down" aria-hidden="true" />
-                        {item.Recipe.downvote}
-                      </span>
-                      <span>
-                        <i className="fa fa-eye" aria-hidden="true" />
-                        {item.Recipe.views}
-                      </span>
-                      <span>
-                        <i className="fa fa-comment-o" aria-hidden="true" />
-                        {item.Recipe.comments}
-                      </span>
+      return fav.userFav.favorites.map((item, index) => (
+        <div
+          key={index}
+          className="col-lg-3 col-sm-10 mb-3  col-md-4 animate-catalog"
+          data-animate="bounceIn"
+          data-duration="1.0s"
+          data-delay="0.1s"
+          data-offset="100"
+        >
+          <div style={{ overflow: 'hidden' }}>
+            <Fade bottom>
+              <Link to={`/recipe/${item.recipeId}`} className=" hvr-bounce-out">
+                <div className={`card animate`}>
+                  <img
+                    className="card-img-top img-box"
+                    src={item.Recipe.foodImg}
+                    alt="Card image cap"
+                  />
+                  <div className="card-body p-0 text-center social-icons">
+                    <span className="tag bg-danger">
+                      {item.Recipe.category}
+                    </span>
+                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
+                      {item.Recipe.name}
+                    </h6>
+                    <div className="card-body p-5 text-left bg-light text-dark">
+                      <p className="crop-text">{item.Recipe.description}</p>
                     </div>
+                    <span>
+                      <i className="fa fa-heart-o" aria-hidden="true" />
+                      {item.Recipe.favorite}
+                    </span>
+                    <span>
+                      <i className="fa fa-thumbs-o-up" aria-hidden="true" />
+                      {item.Recipe.upvote}
+                    </span>
+                    <span>
+                      <i className="fa fa-thumbs-o-down" aria-hidden="true" />
+                      {item.Recipe.downvote}
+                    </span>
+                    <span>
+                      <i className="fa fa-eye" aria-hidden="true" />
+                      {item.Recipe.views}
+                    </span>
+                    <span>
+                      <i className="fa fa-comment-o" aria-hidden="true" />
+                      {item.Recipe.comments}
+                    </span>
                   </div>
-                </Link>
-              </Fade>
-            </div>
+                </div>
+              </Link>
+            </Fade>
           </div>
-        );
-      });
+        </div>
+      ));
     }
   }
+  /**
+   *
+   *
+   * @returns {any} jsx
+   * @memberof Favorites
+   */
   render() {
     return (
       <div>
@@ -110,14 +137,8 @@ class Favorites extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getFavs }, dispatch),
+const mapStateToProps = state => ({
+  favorites: state.favorite
 });
 
-const mapStateToProps = state => {
-  // console.log(state);
-  return {
-    favorites: state.favorite,
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps, actions)(Favorites);

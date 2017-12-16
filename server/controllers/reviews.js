@@ -27,7 +27,6 @@ export default class ReviewRecipe {
       })
         .then((recipe) => {
           const { name, User: { email } } = recipe;
-          if (!recipe) return setStatus(res, { success: false, status: 'Recipe not found' }, 404);
           recipe.update({ comments: recipe.comments + 1 });
           return Reviews.create({
             content: req.body.content,
@@ -40,9 +39,9 @@ export default class ReviewRecipe {
               mailer(reviewedRecipe.user, email, `has reviewed your recipe (${name})`);
               return setStatus(res, { success: true, reviewedRecipe }, 201);
             })
-            .catch(() => setStatus(res, { success: false, error: 'could not complete this operation' }, 400));
+            .catch(() => setStatus(res, { success: false, error: 'could not complete this operation' }, 500));
         })
-        .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 400));
+        .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
     } else {
       return setStatus(res, { success: false, status: validator.errors.all() }, 422);
     }

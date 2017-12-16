@@ -35,3 +35,5 @@ server/playground
 coverage/lcov-report
 coverage/server
 coverage/index.html
+client/src/components/RecipeItems.jsx
+client/src/components/header.jsx

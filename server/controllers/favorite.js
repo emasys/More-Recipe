@@ -64,6 +64,7 @@ export default class FavoriteRecipes {
      * @param {object} http response
      */
   static listFavorites(req, res) {
+    console.log({ userId: req.decoded.id });
     Favorite.findAll({
       where: { userId: req.decoded.id },
       include: [
@@ -73,6 +74,6 @@ export default class FavoriteRecipes {
       ]
     })
       .then(favorites => setStatus(res, { success: true, favorites }, 200))
-      .catch(() => setStatus(res, { success: false }, 500));
+      .catch(error => setStatus(res, { success: false, error }, 500));
   }
 }

@@ -240,6 +240,7 @@ describe('CRUD/ for recipes', () => {
 
   describe('Post a review', () => {
     it('should return a status code of 201 if a review is successfully added', (done) => {
+      // console.log(xtoken);
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ content: 'just added a comment' })
@@ -253,12 +254,12 @@ describe('CRUD/ for recipes', () => {
   });
 
   describe('Post a review', () => {
-    it('should return a status code of 400 if a recipe to be reviewed is not found', (done) => {
+    it('should return a status code of 404 if a recipe to be reviewed is not found', (done) => {
       request(app)
         .post('/api/v1/recipes/5/reviews')
         .send({ content: 'just added a comment' })
         .set('x-access-token', xtoken)
-        .expect(400)
+        .expect(404)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
         })
@@ -267,12 +268,12 @@ describe('CRUD/ for recipes', () => {
   });
 
   describe('Post a review', () => {
-    it('should return a status code of 401 if review is empty', (done) => {
+    it('should return a status code of 422 if review is empty', (done) => {
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ content: '' })
         .set('x-access-token', xtoken)
-        .expect(401)
+        .expect(422)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
         })
@@ -281,12 +282,12 @@ describe('CRUD/ for recipes', () => {
   });
 
   describe('Post a review', () => {
-    it('should return a status code of 401 if a review is not successfully added due to wrong keyword', (done) => {
+    it('should return a status code of 422 if a review is not successfully added due to wrong keyword', (done) => {
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ contents: 'just added a comment' })
         .set('x-access-token', xtoken)
-        .expect(401)
+        .expect(422)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
         })
@@ -391,7 +392,9 @@ describe('CRUD/ for recipes', () => {
         .set('x-access-token', xtoken)
         .expect(200)
         .expect((res) => {
-          expect(res.body).to.deep.equal({ upvote: { success: false }, downvote: { success: false } });
+          expect(res.body).to.deep.equal({
+            upvote: { success: false }, downvote: { success: false }
+          });
         })
         .end(done);
     });
