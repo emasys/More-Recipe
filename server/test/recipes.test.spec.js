@@ -96,7 +96,7 @@ describe('CRUD/ for recipes', () => {
   describe('GET/ test if the invalid routes are working', () => {
     it('should return status code 404 and a message "page not found"', (done) => {
       request(app)
-        .get('/api/v1/recipe/misplaced')
+        .get('/api/v1/recipesds/misplaced')
         .expect(404)
         .expect((res) => {
           expect(res.body).to.include({
@@ -131,7 +131,7 @@ describe('CRUD/ for recipes', () => {
   describe('GET/ fetch all recipes', () => {
     it('should return all recipes in the database', (done) => {
       request(app)
-        .get('/api/v1/recipes/page/2')
+        .get('/api/v1/recipes/2')
         .expect(200)
         .end(done);
     });
@@ -140,7 +140,7 @@ describe('CRUD/ for recipes', () => {
   describe('GET/ fetch a single recipe', () => {
     it('should return a single recipe without an increment in the view count', (done) => {
       request(app)
-        .get('/api/v1/recipes/1')
+        .get('/api/v1/recipe/1')
         .set('x-access-token', xtoken)
         .expect(200)
         .expect((err, res) => {
@@ -166,7 +166,7 @@ describe('CRUD/ for recipes', () => {
   describe('GET/ fetch a single recipe', () => {
     it('should return a status 404 if recipe is not found', (done) => {
       request(app)
-        .get('/api/v1/recipes/5')
+        .get('/api/v1/recipe/5')
         .set('x-access-token', xtoken)
         .expect(404)
         .expect((err, res) => {
@@ -364,7 +364,7 @@ describe('CRUD/ for recipes', () => {
   describe('Get All User\'s favortes', () => {
     it('should return a status code of 200 if all user recipes are successfully fetched', (done) => {
       request(app)
-        .get('/api/v1/recipes/fav')
+        .get('/api/v1/recipes/user/fav')
         .set('x-access-token', xtoken)
         .expect(200)
         .end(done);
