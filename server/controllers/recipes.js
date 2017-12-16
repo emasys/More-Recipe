@@ -25,9 +25,11 @@ class RecipeController {
       Users.findById(req.decoded.id)
         .then((user) => {
           if (!user) return setStatus(res, { success: false, error: 'User not found' }, 404);
+          // check if the same user is mistakenly duplicating her/her recipes
           Recipes.findOne({
             where: {
-              direction: request.direction
+              name: request.name,
+              userId: req.decoded.id
             },
           })
             .then((recipeExist) => {

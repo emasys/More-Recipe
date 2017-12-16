@@ -1,26 +1,44 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { getProfile } from '../actions';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import Auth from './Auth.js';
+import * as actions from '../actions';
+import Auth from './auth';
 
+/**
+ *
+ *
+ * @class Navbar
+ * @extends {Component}
+ */
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+  /**
+   *
+   *
+   * @memberof Navbar
+   * @returns {any} user data
+   */
   componentDidMount() {
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
   }
-
+  /**
+   *
+   *
+   * @memberof Navbar
+   * @returns {any} null token
+   */
   logout() {
     Auth.logout();
   }
 
+  /**
+   *
+   *
+   * @returns {any} navigation bar
+   * @memberof Navbar
+   */
   navLinks() {
     if (Auth.loggedIn()) {
       return (
@@ -54,6 +72,12 @@ class Navbar extends Component {
       );
     }
   }
+  /**
+   *
+   *
+   * @returns {any} jsx
+   * @memberof Navbar
+   */
   render() {
     return (
       <section className="container-fluid fixed">
@@ -81,17 +105,24 @@ class Navbar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav">
-              <li>
-                <NavLink
-                className="nav-link text-light"
-                activeClassName="active"
-                to="/catalog"
-                data-tip="Search for recipes"
-                >
-                <i className="material-icons fa-2x d-sm-none d-lg-inline">&#xE8B6;</i>
-                <span className="d-lg-none" style={{verticalAlign: "top"}}>Search</span>
-                </NavLink>
-              </li>
+                <li>
+                  <NavLink
+                    className="nav-link text-light"
+                    activeClassName="active"
+                    to="/catalog"
+                    data-tip="Search for recipes"
+                  >
+                    <i className="material-icons fa-2x d-sm-none d-lg-inline">
+                      &#xE8B6;
+                    </i>
+                    <span
+                      className="d-lg-none"
+                      style={{ verticalAlign: 'top' }}
+                    >
+                      Search
+                    </span>
+                  </NavLink>
+                </li>
                 {Auth.loggedIn() ? (
                   <li className="nav-item ">
                     <NavLink
@@ -100,10 +131,18 @@ class Navbar extends Component {
                       to="/new"
                       data-tip="Add new recipe"
                     >
-                      <i className="material-icons fa-2x d-sm-none d-lg-inline" aria-hidden="true">
+                      <i
+                        className="material-icons fa-2x d-sm-none d-lg-inline"
+                        aria-hidden="true"
+                      >
                         add_to_photos
                       </i>
-                      <span className="d-lg-none" style={{verticalAlign: "top"}}>Add new recipe</span>
+                      <span
+                        className="d-lg-none"
+                        style={{ verticalAlign: 'top' }}
+                      >
+                        Add new recipe
+                      </span>
                     </NavLink>
                   </li>
                 ) : (
@@ -115,12 +154,19 @@ class Navbar extends Component {
                     activeClassName="active"
                     to="/catalog"
                     data-tip="Catalog"
-                    
                   >
-                    <i className="material-icons fa-2x  d-sm-none d-lg-inline" aria-hidden="true">
+                    <i
+                      className="material-icons fa-2x  d-sm-none d-lg-inline"
+                      aria-hidden="true"
+                    >
                       &#xE8EF;
                     </i>
-                    <span className="d-lg-none" style={{verticalAlign: "top"}}>Catalog</span>
+                    <span
+                      className="d-lg-none"
+                      style={{ verticalAlign: 'top' }}
+                    >
+                      Catalog
+                    </span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -130,8 +176,15 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">&#xE87D;</i>
-                    <span className="d-lg-none text-white" style={{verticalAlign: "top"}}>Favorites</span>
+                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">
+                      &#xE87D;
+                    </i>
+                    <span
+                      className="d-lg-none text-white"
+                      style={{ verticalAlign: 'top' }}
+                    >
+                      Favorites
+                    </span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
@@ -146,13 +199,11 @@ class Navbar extends Component {
                     >
                       <img
                         src={
-                          this.props.user
-                            ? this.props.user.data.avatar.length > 10
-                              ? this.props.user.data.avatar
-                              : 'icon.svg'
-                            : 'icon.svg'
+                          this.props.user ?
+                            this.props.user.data.avatar :
+                            'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
                         }
-                        alt="avatar"
+                        alt="avi"
                         className="fa-2x img-icon rounded-circle"
                       />
                     </a>
@@ -169,7 +220,10 @@ class Navbar extends Component {
                     </a>
                   )}
 
-                  <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
                     {this.navLinks()}
                   </div>
                 </li>
@@ -183,14 +237,8 @@ class Navbar extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getProfile }, dispatch),
+const mapStateToProps = state => ({
+  user: state.signin.userProfile
 });
 
-const mapStateToProps = state => {
-  return {
-    user: state.signin.userProfile,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, actions)(Navbar);

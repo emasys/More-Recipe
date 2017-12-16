@@ -1,27 +1,24 @@
 import axios from 'axios';
 
-
 const URL = '/api/v1';
-const xtoken = window.localStorage.getItem('token');
+const xtoken = localStorage.getItem('token');
 
 
 // Fetch All recipes
-export const getRecipes = (page, query = '') => {
-  return (dispatch) => {
-    return axios.get(`${URL}/recipes/page/${page}${query}`)
-      .then((response) => {
-        dispatch({ type: 'RECIPES', payload: response.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const getRecipes = (page, query = '') => dispatch => {
+  axios.get(`${URL}/recipes/${page}${query}`)
+    .then((response) => {
+      dispatch({ type: 'RECIPES', payload: response.data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 // Get a single recipe
 export const getRecipeItem = (id) => {
   return (dispatch) => {
-    return axios.get(`${URL}/recipes/${id}?token=${xtoken}`)
+    return axios.get(`${URL}/recipe/${id}?token=${xtoken}`)
       .then((response) => {
         dispatch({ type: 'RECIPES_ITEM', payload: response.data });
       })
@@ -98,7 +95,7 @@ export const getAllUsers = () => {
 // Get user favorites
 export const getFavs = () => {
   return (dispatch) => {
-    return axios.get(`${URL}/recipes/fav?token=${xtoken}`)
+    return axios.get(`${URL}/recipes/user/fav?token=${xtoken}`)
       .then((response) => {
         dispatch({ type: 'GET_FAVORITES', payload: response.data });
       })
@@ -155,11 +152,9 @@ export const signUp = (data) => {
 // Login
 export const signIn = (data) => {
   return (dispatch) => {
-    console.log(data);
     return axios.post(`${URL}/users/signin`, data)
       .then((response) => {
         window.localStorage.setItem('token', response.data.token);
-        console.log(response.data.token);
         const jwtbug = window.localStorage.getItem('token');
         if (jwtbug.length > 9) {
           return dispatch({ type: 'SIGN_IN', payload: response.data });
@@ -184,17 +179,20 @@ export const postReview = (data, id) => {
       });
   };
 };
-
-export const searchRecipes = (data) => {
-  return (dispatch) => {
-    return axios.post(`${URL}/recipeSearch`, data)
-      .then((response) => {
-        dispatch({ type: 'SEARCH', payload: response.data });
-      })
-      .catch((err) => {
-        dispatch({ type: 'SEARCH', payload: err.response });
-      });
-  };
+/*
+export const fetchUser = () => async dispatch => {
+  const res = await axios.get('/api/current_user')
+  dispatch({type: FETCH_USER, payload: res.data});
+};
+*/
+export const searchRecipes = (data) => dispatch => {
+  axios.post(`${URL}/recipeSearch`, data)
+    .then((response) => {
+      dispatch({ type: 'SEARCH', payload: response.data });
+    })
+    .catch((err) => {
+      dispatch({ type: 'SEARCH', payload: err.response });
+    });
 };
 
 
@@ -232,11 +230,14 @@ export const delRecipe = (id) => {
         dispatch({ type: 'DELETE_RECIPE', payload: response.data });
       })
       .catch((err) => {
-        dispatch({ type: 'DELETE_RECIPE', payload: err.response });
+        dispatch({ type: 'DELETE_RECIPE', payload: err.response.data });
       });
   };
 };
 
+export const clear = () => dispatch => {
+  dispatch({ type: 'CLEAR_RECIPE', payload: 'cleared' });
+};
 // upvote
 export const upvote = (id) => {
   return (dispatch) => {

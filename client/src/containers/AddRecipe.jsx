@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { addRecipe } from '../actions';
 import Dropzone from 'react-dropzone';
-// import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import config from '../config';
+import * as actions from '../actions';
 
 //component
 import Navbar from '../components/Navbar';
-
+/**
+ *
+ *
+ * @class AddRecipe
+ * @extends {Component}
+ */
 class AddRecipe extends Component {
+  /**
+   * Creates an instance of AddRecipe.
+   * @param {any} props
+   * @memberof AddRecipe
+   */
   constructor(props) {
     super(props);
-    this.state = { preview: null, files: null, fileURL: null, status: 'fade' };
+    this.state = {
+      preview: null, files: null, fileURL: null, status: 'fade'
+    };
     this.handleForm = this.handleForm.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.sendData = this.sendData.bind(this);
   }
-
+  /**
+ *
+ *
+ * @memberof AddRecipe
+ * @returns {any} new recipe
+ */
   sendData() {
     if (this.props.new_recipe.new_recipe) {
       if (this.props.new_recipe.new_recipe.recipe) {
-        const id = this.props.new_recipe.new_recipe.recipe.id;
+        const { id } = this.props.new_recipe.new_recipe.recipe;
         this.props.history.push(`/recipe/${id}`);
       }
     }
   }
+
+  /**
+   *
+   *
+   * @param {any} e
+   * @returns {any} any new page after form submission
+   * @memberof AddRecipe
+   */
   handleForm(e) {
     e.preventDefault();
     let data = {
@@ -36,14 +59,20 @@ class AddRecipe extends Component {
       description: e.target.elements.description.value.trim(),
       category: e.target.elements.category.value,
     };
-    
-   
-    this.setState({
-      status: 'show',
-    });
+
     const { files } = this.state;
+    if (!files) {
+      let errorMessage = document.querySelector('#no_image');
+      errorMessage.innerHTML = 'An Image of the finished meal is required';
+      return errorMessage;
+    }
+
     // Push all the axios request promise into a single array
     const uploaders = files.map(file => {
+      document.querySelector('#no_image').innerHTML = '';
+      this.setState({
+        status: 'show',
+      });
       // Initial FormData
       const formData = new FormData();
       formData.append('file', file);
@@ -67,22 +96,34 @@ class AddRecipe extends Component {
       // console.log('upload complete');
       this.props.addRecipe(data).then(() => {
         this.sendData();
-      })
+      });
     });
   }
-  
-  
+
+  /**
+ *
+ *
+ * @param {any} files
+ * @memberof AddRecipe
+ * @returns {object} a preview of image
+ */
   handleDrop(files) {
     const [{ preview }] = files;
-    // console.log(files);
     this.setState({ preview, files });
   }
- 
 
+  /**
+ *
+ *
+ * @returns {any} jsx
+ * @memberof AddRecipe
+ */
   render() {
     const { preview, status } = this.state;
-    const recipeCategory = ['Breakfast','Brunch','Lunch','Snacks','Appetisers','Dinner','Soups','Noodles','Rice','Pasta',
-      'Meat','Poultry','Seafood','Vegetarian','Salads','Sides','Sauces','Baking','Desserts','Drinks'];
+    const recipeCategory = ['Breakfast', 'Brunch', 'Lunch', 'Snacks',
+      'Appetisers', 'Dinner', 'Soups', 'Noodles', 'Rice', 'Pasta',
+      'Meat', 'Poultry', 'Seafood', 'Vegetarian', 'Sides', 'Sauces',
+      'Baking', 'Desserts', 'Drinks', 'Salads'];
     return (
       <section className="container ">
         <Navbar />
@@ -148,6 +189,7 @@ class AddRecipe extends Component {
                       Drag a file here or click to upload an image of your food
                     </Dropzone>
                   </div>
+                  <div className="text-danger" id="no_image" />
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   {preview && (
@@ -157,13 +199,11 @@ class AddRecipe extends Component {
                 <li className="special col-lg-6 col-sm-12">
                   <label>Category</label>
                   <select name="category" className="col-lg-11 col-sm-12 ">
-                    {recipeCategory.map((item, ) => {
-                      return (
-                        <option value={item} key={item} className="text-capitalize">
-                          {item}
-                        </option>
-                      );
-                    })}
+                    {recipeCategory.map((item) => (
+                      <option value={item} key={item} className="text-capitalize">
+                        {item}
+                      </option>
+                    ))}
                   </select>
                 </li>
                 <li className=" col-12 ">
@@ -182,13 +222,9 @@ class AddRecipe extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
   // console.log(state);
-  return {
+  ({
     new_recipe: state.new_recipe,
-  };
-};
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ addRecipe }, dispatch),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);
+  });
+export default connect(mapStateToProps, actions)(AddRecipe);

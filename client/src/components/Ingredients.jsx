@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 const generateList = ({ ingredients }) => {
   if (ingredients) {
     const list = ingredients.recipe.ingredients;
-    return list.map((item, index) => {
-      return (
-        <li className="list-group-item" key={index}>
-          {item}
-        </li>
-      );
-    });
+    return list.map((item, index) => (
+      <li className="list-group-item" key={index}>
+        {item}
+      </li>
+    ));
   }
 };
 
@@ -42,32 +40,32 @@ const getUserId = ({ data }) => {
     return data.data.id;
   }
 };
-const Ingredients = props => {
-  return (
-    <div className="col-lg-5 col-sm-12">
-      <h2 className="fresh-title">{getTitle(props)}</h2>
-      <small className="text-capitalize">
+const Ingredients = props => (
+  <div className="col-lg-5 col-sm-12">
+    <h2 className="fresh-title">{getTitle(props)}</h2>
+    <small className="text-capitalize">
         A recipe by{' '}
-        <Link className=" bolder text-info" to={`/user/${getUserId(props)}`}>
-          {getUsername(props)}
-        </Link>
-      </small>
-      <hr />
-      <h5 className="text-muted">Description</h5>
-      <div className="pb-3">
-        <div className="bg-light p-15">{getDescription(props)}</div>
-      </div>
-      <hr />
-      <h5 className="text-muted">Ingredients</h5>
-      <hr />
-      <div className="pb-3">
-        <ul className="list-group">{generateList(props)}</ul>
-      </div>
-      <h5 className="text-muted">Directions</h5>
-      <hr />
-      <div className="p-3 direction rounded  bg-light">{getDirection(props)}</div>
+      <Link className=" bolder text-info" to={`/user/${getUserId(props)}`}>
+        {getUsername(props)}
+      </Link>
+    </small>
+    <hr />
+    <h5 className="text-muted">Description</h5>
+    <div className="pb-3">
+      <div className="bg-light p-15">{getDescription(props)}</div>
     </div>
-  );
-};
+    <hr />
+    <h5 className="text-muted">Ingredients</h5>
+    <hr />
+    <div className="pb-3">
+      <ul className="list-group">{generateList(props)}</ul>
+    </div>
+    <h5 className="text-muted">Directions</h5>
+    <hr />
+    <div className="p-3 direction rounded  bg-light">
+      {getDirection(props)}
+    </div>
+  </div>
+);
 
 export default Ingredients;

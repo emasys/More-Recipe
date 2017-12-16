@@ -49,11 +49,8 @@ export default class MoreRecipeUsers {
                 .then((newUser) => {
                   const data = _.pick(newUser, [
                     'id',
-                    'firstName',
-                    'lastName',
-                    'email',
-                    'avatar',
                     'moniker',
+                    'avatar'
                   ]);
                   const token = signToken(data);
                   return setStatus(res, { success: true, user: data, token }, 201);
@@ -171,8 +168,7 @@ export default class MoreRecipeUsers {
         if (!user.comparePassword(user, request.password)) {
           return setStatus(res, { success: false, status: 'Invalid email/password' }, 400);
         }
-        const payload = _.pick(user, ['id', 'firstName']);
-        // Added firstName to the payload for test purpose
+        const payload = _.pick(user, ['id', 'moniker', 'avatar']);
         const token = signToken(payload);
         return setStatus(res, { success: true, token }, 200);
       })

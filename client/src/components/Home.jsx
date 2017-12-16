@@ -1,55 +1,44 @@
 import React, { Component } from 'react';
-// import Catalog from '../containers/catalog';
 import { Link } from 'react-router-dom';
-import { getRecipes, searchRecipes } from '../actions';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as actions from '../actions';
 
 //component
-import CatalogList from '../components/CatalogList.jsx';
-import Navbar from './Navbar.jsx';
+import CatalogList from '../components/CatalogList';
+import Navbar from './Navbar';
 
+const propTypes = {
+  recipes: PropTypes.array,
+  getRecipes: PropTypes.func
+};
+
+/**
+ * Component for Home page
+ *
+ * @class Home
+ * @extends {Component}
+ */
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: '',
-      All_recipes: '',
-      page_limit: 12,
-    };
-
-    // this.generateList = this.generateList.bind(this);
-    this.searchBar = this.searchBar.bind(this);
-    this.search = this.search.bind(this);
-  }
-
+/**
+ *
+ *
+ * @memberof Home
+ *
+ * @returns {any} react lifecycle method
+ */
   componentDidMount() {
     const query = '?sort=upvotes&order=desc';
-    this.props.getRecipes(this.state.page_limit, query).then(() => {
-      this.setState({
-        All_recipes: this.props.recipes.allRecipes,
-      });
-    });
+    this.props.getRecipes(12, query);
   }
 
-  search(e) {
-    e.preventDefault();
-    const data = { query: this.state.search };
-    this.props.searchRecipes(data).then(() => {
-      this.setState({
-        All_recipes: this.props.recipes.search,
-      });
-    });
-  }
-  searchBar(e) {
-    this.setState({
-      search: e.target.value,
-    });
-    this.componentDidMount();
-  }
-
+  /**
+ *
+ *
+ * @returns {any} renders jsx elements
+ * @memberof Home
+ */
   render() {
-    const { search } = this.state;
     const headerImg = {
       background: `linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)), 
       url('../img/Food.jpg') no-repeat center center`,
@@ -85,7 +74,7 @@ class Home extends Component {
                 </h5>
               </div>
             </div>
-            <CatalogList catalog={this.state.All_recipes} />
+            <CatalogList catalog={this.props.recipes} />
           </div>
         </section>
       </div>
@@ -93,17 +82,8 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { recipes: state.recipes };
-};
+const mapStateToProps = state => ({ recipes: state.recipes.allRecipes });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      getRecipes,
-      searchRecipes,
-    },
-    dispatch,
-  ),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+Home.propTypes = propTypes;
+
+export default connect(mapStateToProps, actions)(Home);

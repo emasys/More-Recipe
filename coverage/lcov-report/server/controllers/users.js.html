@@ -221,22 +221,7 @@
 176
 177
 178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+179</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -276,13 +261,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -290,19 +268,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -394,6 +362,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -423,6 +392,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -443,12 +413,12 @@ dotenv.config();
  * @export
  * @class
  */
-export default class {
+export default class MoreRecipeUsers {
   /**
      *
      *
-     * @param {object} req
-     * @param {object} res
+     * @param {object} http request
+     * @param {object} http response
      * @returns
      *
      * Create a new user and add into the database
@@ -459,21 +429,14 @@ export default class {
     const validator = new Validator(request, validateSignUpForm());
     if (validator.passes()) {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (request.confirmPassword !== request.password) {
-<span class="cstat-no" title="statement not covered" >        return setStatus(res, { success: false, status: "Your password didn't match" }, 401);</span>
+<span class="cstat-no" title="statement not covered" >        return setStatus(res, { success: false, status: "Your password didn't match" }, 422);</span>
       }
       Users.findOne({
         where: { email: request.email },
       })
         .then((user) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (user) {
-<span class="cstat-no" title="statement not covered" >            return setStatus(</span>
-              res, {
-                success: false,
-                target: 'email',
-                status: 'email already exist in our database',
-              },
-              406,
-            );
+<span class="cstat-no" title="statement not covered" >            return setStatus(res, { success: false, target: 'email', status: 'email already exist in our database' }, 409);</span>
           }
 &nbsp;
           Users.findOne({
@@ -481,24 +444,14 @@ export default class {
           })
             .then((username) =&gt; {
               <span class="missing-if-branch" title="if path not taken" >I</span>if (username) {
-<span class="cstat-no" title="statement not covered" >                return setStatus(</span>
-                  res, {
-                    success: false,
-                    target: 'moniker',
-                    status: 'moniker already exist in our database',
-                  },
-                  406,
-                );
+<span class="cstat-no" title="statement not covered" >                return setStatus(res, { success: false, target: 'moniker', status: 'moniker already exist in our database' }, 409);</span>
               }
               Users.create(request)
                 .then((newUser) =&gt; {
                   const data = _.pick(newUser, [
                     'id',
-                    'firstName',
-                    'lastName',
-                    'email',
-                    'avatar',
                     'moniker',
+                    'avatar'
                   ]);
                   const token = signToken(data);
                   return setStatus(res, { success: true, user: data, token }, 201);
@@ -509,28 +462,28 @@ export default class {
         })
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'record not saved' }, 500));</span></span>
     } else {
-      return setStatus(res, { success: false, status: validator.errors.all() }, 401);
+      return setStatus(res, { success: false, status: validator.errors.all() }, 422);
     }
   }
   /**
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
-         * @returns
+         * @param { object } http request
+         * @param { object } http response
+         * @returns The list of all users in the database
          */
   static getUsers(req, res) {
     return Users.findAll({})
       .then(users =&gt; setStatus(res, { success: true, users }, 200))
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; setStatus(res, { success: false, error }, 200));</span></span>
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; setStatus(res, { success: false, error }, 500));</span></span>
   }
   /**
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
+         * @param { object } http request
+         * @param { object } http response
          * @returns a user profile
          */
   static getOneUser(req, res) {
@@ -555,9 +508,9 @@ export default class {
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
-         * @returns
+         * @param { object } http request
+         * @param { object } http response
+         * @returns an updated user data if successful
          */
   static updateUser(req, res) {
     const request = req.body;
@@ -576,15 +529,16 @@ export default class {
         .catch(() =&gt; setStatus(res, { success: false, error: 'user not found' }, 404));
     }
     // if validator returns false
-<span class="cstat-no" title="statement not covered" >    return setStatus(res, { success: false, status: validator.errors.all() }, 400);</span>
+<span class="cstat-no" title="statement not covered" >    return setStatus(res, { success: false, status: validator.errors.all() }, 422);</span>
   }
   /**
          *
          *
          * @static
-         * @param {any} req
-         * @param {any} res
+         * @param { object } http request
+         * @param { object } http response
          * @returns
+         *  Delete's user data from the database
          */
   static deleteUser(req, res) {
     return Users.findById(req.params.userId)
@@ -599,9 +553,9 @@ export default class {
  *
  *
  * @static
- * @param {any} req
- * @param {any} res
- * @returns
+ * @param { object } http request
+ * @param { object } http response
+ * @returns true and relevant user info, if a user successfully log's in
  */
   static signIn(req, res) {
     const request = req.body;
@@ -615,11 +569,12 @@ export default class {
         if (!user.comparePassword(user, request.password)) {
           return setStatus(res, { success: false, status: 'Invalid email/password' }, 400);
         }
-        const payload = _.pick(user, ['id', 'firstName', 'lastName', 'bio', 'email', 'country', 'avatar', 'moniker']);
+        const payload = _.pick(user, ['id', 'moniker', 'avatar']);
+        // Added firstName to the payload for test purpose
         const token = signToken(payload);
         return setStatus(res, { success: true, token }, 200);
       })
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; setStatus(res, { success: false, status: error }, 401));</span></span>
+      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, status: 'Server error' }, 500));</span></span>
   }
 }
 &nbsp;</pre></td></tr>
@@ -628,7 +583,7 @@ export default class {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 02:57:34 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Dec 15 2017 05:44:59 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

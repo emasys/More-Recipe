@@ -212,7 +212,15 @@
 167
 168
 169
-170</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+170
+171
+172
+173
+174
+175
+176
+177
+178</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,7 +240,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,7 +314,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,6 +325,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -331,6 +343,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -414,7 +430,7 @@ export const validateSignUpForm = () =&gt; {
     lastName: 'required|alpha',
     email: 'required|email',
     bio: 'required',
-    moniker: 'required',
+    moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
     password: 'required|min:8',
     country: 'required',
     avatar: 'required'
@@ -451,7 +467,7 @@ export const validateReviews = () =&gt; {
  */
 export const validateAddRecipes = () =&gt; {
   return {
-    name: 'required|alpha',
+    name: 'required',
     direction: 'required',
     ingredients: 'required',
     description: 'required'
@@ -465,9 +481,8 @@ export const validateAddRecipes = () =&gt; {
  */
 export const validateUpdateUser = () =&gt; {
   return {
-    firstName: 'required|alpha',
-    lastName: 'required|alpha',
-    bio: 'required'
+    firstName: 'alpha',
+    lastName: 'alpha',
   };
 };
 &nbsp;
@@ -485,13 +500,18 @@ export const mailer = (moniker, email, message) =&gt; {
     }
   });
 &nbsp;
-  // setup e-mail data with unicode symbols
+  // setup e-mail data
   const mailOptions = {
-    from: 'MoreRecipe ✔ &lt;more-recipe@gmail.com&gt;', // sender address
-    to: email, // list of receivers
-    subject: 'Activity on your recipe', // Subject line
-    text: `${moniker} ${message}`, // plaintext body
-    html: `${moniker} &lt;b&gt;${message} &lt;/b&gt;` // html body
+    // sender address
+    from: 'MoreRecipe &lt;more-recipe@gmail.com&gt;',
+    // list of receivers
+    to: email,
+    // Subject line
+    subject: 'Activity on your recipe',
+    // plaintext body
+    text: `${moniker} ${message}`,
+    // html body
+    html: `${moniker} &lt;b&gt;${message} &lt;/b&gt;`
   };
 &nbsp;
   // send mail with defined transport object
@@ -503,6 +523,7 @@ export const mailer = (moniker, email, message) =&gt; {
   });
 };
 &nbsp;
+// To be implemented later
 // export const voter = (decoded, activeKey, nonactive, recipe) =&gt; {
 //   if (decoded) {
 //     activeKey = recipe.reactionDown;
@@ -518,7 +539,8 @@ export const mailer = (moniker, email, message) =&gt; {
 //           downvote: recipe.downvote - 1,
 //           reactionDown: recipe.reactionDown,
 //         })
-//         .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//         .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
+// Send back the updated recipe.
 //     } else if (
 //       reactionDown.indexOf(Number(req.decoded.id)) === -1 &amp;&amp;
 //       reactionUp.indexOf(Number(req.decoded.id)) !== -1
@@ -536,7 +558,8 @@ export const mailer = (moniker, email, message) =&gt; {
 //           reactionDown: recipe.reactionDown,
 //           reactionUp,
 //         })
-//         .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//         .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
+// Send back the updated recipe.
 //     }
 //     // if a user has not downvoted or upvoted then increment downvote count
 //     // and add userId into the reactionDown array
@@ -546,7 +569,8 @@ export const mailer = (moniker, email, message) =&gt; {
 //         downvote: recipe.downvote + 1,
 //         reactionDown: recipe.reactionDown,
 //       })
-//       .then(() =&gt; setStatus(res, { success: true, recipe }, 200)); // Send back the updated recipe.
+//       .then(() =&gt; setStatus(res, { success: true, recipe }, 200));
+// Send back the updated recipe.
 //   }
 // };
 &nbsp;
@@ -556,7 +580,7 @@ export const mailer = (moniker, email, message) =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 02:57:34 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Dec 15 2017 05:44:59 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

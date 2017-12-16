@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { signIn } from '../actions';
-import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import _ from 'lodash';
+import * as actions from '../actions';
 
 //components
 import Navbar from './Navbar';
-
+/**
+ *
+ *
+ * @class SignIn
+ * @extends {Component}
+ */
 class SignIn extends Component {
+/**
+ * Creates an instance of SignIn.
+ * @param {any} props
+ * @memberof SignIn
+ */
   constructor(props) {
     super(props);
     this.state = {
@@ -22,44 +30,64 @@ class SignIn extends Component {
     this.pwChanged = this.pwChanged.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  
-  
-
+  /**
+ *
+ *
+ * @param {any} e
+ * @memberof SignIn
+ * @returns {any} email input text
+ */
   emailChanged(e) {
     this.setState({
       email: e.target.value,
     });
   }
+  /**
+ *
+ *
+ * @param {any} e
+ * @memberof SignIn
+ * @returns {any} password input text
+ */
   pwChanged(e) {
     this.setState({
       password: e.target.value,
     });
   }
-
+  /**
+ *
+ *
+ * @param {any} e
+ * @memberof SignIn
+ * @returns {any} a new page
+ */
   handleSubmit(e) {
     e.preventDefault();
     this.props.signIn(this.state).then(() => {
       if (this.props.signin.user.success) {
-        let linkPath = "/"
-        if(this.props.match.params){
-          linkPath = this.props.location.pathname
-          if(linkPath === '/signin') linkPath = '/';
+        let linkPath = "/";
+        if (this.props.match.params) {
+          linkPath = this.props.location.pathname;
+          if (linkPath === '/signin') linkPath = '/';
         }
-        // return this.props.history.push(linkPath);
-        return (window.location.href = linkPath);
+        window.location.href = linkPath;
       }
       if (this.props.signin.user.status) {
         this.setState({
           error: 'An error ocurred',
           showErrMessage: 'show',
         });
-        // console.log('An error occurred');
       }
     });
   }
+  /**
+   *
+   *
+   * @returns {any} jsx
+   * @memberof SignIn
+   */
   render() {
-    const { password, email } = this.state;
+    const { email } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
         <Navbar />
@@ -125,14 +153,9 @@ class SignIn extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ signIn }, dispatch),
+
+const mapStateToProps = state => ({
+  signin: state.signin,
 });
 
-const mapStateToProps = state => {
-  return {
-    signin: state.signin,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, actions)(SignIn);
