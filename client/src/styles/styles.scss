@@ -49,7 +49,15 @@ a {
 .hovered {
   cursor: pointer;
 }
-
+.img-wrapper{
+  position: relative;
+}
+.changeDp {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
 .card {
   .custom-bg {
     background: rgb(141, 161, 141);
@@ -517,6 +525,18 @@ footer {
 .dropzone {
   height: 200px;
   max-height: 200px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.dropzone-dp {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.623);
+  // max-height: 200px;
   width: 100%;
   cursor: pointer;
   display: flex;

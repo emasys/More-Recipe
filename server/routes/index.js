@@ -30,7 +30,7 @@ router.post('/users/signin', Users.signIn);
 router.get('/users', jwt.checkAdmin, jwt.verifyToken, Users.getUsers);
 router.get('/users/:userId', Users.getOneUser);
 
-router.put('/users/:userId', jwt.verifyToken, jwt.checkAdmin, Users.updateUser);
+router.put('/users/:userId', jwt.verifyToken, Users.updateUser);
 router.delete('/users/:userId', jwt.verifyToken, jwt.checkAdmin, Users.deleteUser);
 router.delete('/recipes/:recipeId', jwt.verifyToken, Recipes.deleteRecipe);
 

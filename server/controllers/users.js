@@ -122,8 +122,9 @@ export default class MoreRecipeUsers {
               firstName: request.firstName || user.firstName,
               lastName: request.lastName || user.lastName,
               bio: request.bio || user.bio,
+              avatar: request.avatar || user.avatar
             })
-            .then(() => setStatus(res, { success: true, status: 'updated' }, 200));
+            .then(() => setStatus(res, { success: true, status: 'updated', user }, 200));
         })
         .catch(() => setStatus(res, { success: false, error: 'user not found' }, 404));
     }
