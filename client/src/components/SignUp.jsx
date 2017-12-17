@@ -118,61 +118,30 @@ class SignUp extends Component {
       submitData += 1;
     }
 
-    // Push all the axios request promise into a single array
-    let uploaders = null;
-    if (files) {
-      uploaders = files.map(file => {
-        // Initial FormData
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('tags', `avatar`);
-        formData.append('upload_preset', config.UPLOAD_PRESET);
-        formData.append('api_key', config.API_KEY);
-        formData.append('timestamp', (Date.now() / 1000) | 0);
-
-        return axios
-          .post(
-            'https://api.cloudinary.com/v1_1/emasys/image/upload',
-            formData, {
-              headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            }
-          )
-          .then(response => {
-            const resdata = response.data;
-            data.avatar = resdata.secure_url;
-          });
+    if (submitData === 6) {
+      this.setState({
+        status: 'show',
       });
-    }
-    if (uploaders) {
-      axios.all(uploaders).then(() => {
-        console.log(submitData);
-
-        if (submitData === 6) {
-          this.setState({
-            status: 'show',
-          });
-          this.props.signUp(data).then(() => {
-            if (this.props.user.user.success) {
-              window.location.href = '/';
-            } else {
-              switch (this.props.user.user.target) {
-              case 'email':
-                document.querySelector('#email_error').innerHTML =
+      this.props.signUp(data).then(() => {
+        if (this.props.user.user.success) {
+          window.location.href = '/';
+        } else {
+          switch (this.props.user.user.target) {
+          case 'email':
+            document.querySelector('#email_error').innerHTML =
                     'Your email address already exist in our database';
-                this.setState({
-                  status: 'fade',
-                });
-                break;
-              case 'moniker':
-                document.querySelector('#moniker_error').innerHTML =
+            this.setState({
+              status: 'fade',
+            });
+            break;
+          case 'moniker':
+            document.querySelector('#moniker_error').innerHTML =
                     'Your username already taken';
-                this.setState({
-                  status: 'fade',
-                });
-                break;
-              }
-            }
-          });
+            this.setState({
+              status: 'fade',
+            });
+            break;
+          }
         }
       });
     }
@@ -184,7 +153,7 @@ class SignUp extends Component {
  * @memberof SignUp
  */
   render() {
-    const { preview, status } = this.state;
+    const { status } = this.state;
     return (
       <section className="container ">
         <Navbar />
@@ -297,25 +266,6 @@ class SignUp extends Component {
                     required
                     rows="4"
                   />
-                </li>
-                <li className=" col-lg-6 col-sm-12">
-                  <div className="col-lg-11 col-sm-12">
-                    <Dropzone
-                      onDrop={this.handleDrop}
-                      accept="image/jpeg,image/jpg,image/tiff,image/gif,image/png"
-                      multiple={false}
-                      required
-                      onDropRejected={this.handleDropRejected}
-                      className=" p-10 text-center dropzone bg-light"
-                    >
-                      Drag a file here or click to upload your display image
-                    </Dropzone>
-                  </div>
-                </li>
-                <li className=" col-lg-6 col-sm-12">
-                  {preview && (
-                    <img src={preview} className="col-lg-11 col-sm-12" alt="image preview" />
-                  )}
                 </li>
 
                 <li className=" col-12 ">

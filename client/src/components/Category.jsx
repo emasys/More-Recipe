@@ -54,13 +54,8 @@ class Category extends Component {
       if (cat.category.recipes.length < 1) {
         return (
           <div className="text-center error-message">
-            <div className="catalog-wrapper">
-              <img src="../img/logo.png" alt="logo" />
-              <h4 className="p-3 m-2">
-                {' '}
-                The content you are looking for doesn't exist anymore{' '}
-              </h4>
-            </div>
+            <img src="../img/logo.png" alt="logo" className="mt-80"/>
+            <h4 className="p-3 m-2">There's no recipe in this category yet</h4>
           </div>
         );
       }

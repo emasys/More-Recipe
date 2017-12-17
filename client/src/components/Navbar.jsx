@@ -12,6 +12,14 @@ import Auth from './auth';
  * @extends {Component}
  */
 class Navbar extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      avatar: null
+    }
+  }
   /**
    *
    *
@@ -23,6 +31,13 @@ class Navbar extends Component {
       this.props.getProfile(Auth.userID());
     }
   }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      avatar: nextProps.user.data.avatar
+    })
+  }
+  
   /**
    *
    *
@@ -42,29 +57,36 @@ class Navbar extends Component {
   navLinks() {
     if (Auth.loggedIn()) {
       return (
-        <h6>
-          <Link className="dropdown-item" to={`/profile/${Auth.userID()}`}>
-            <i className="fa fa-user-circle" aria-hidden="true" />
-            {` `}
-            Profile
+        <div>
+          <h6 className="dropdown-header text-center">{this.props.user? `Signed in as ${this.props.user.data.moniker}`: `loading`}</h6>
+          <div className="dropdown-divider"/>
+          <Link
+            className="dropdown-item bold"
+            to={`/profile/${Auth.userID()}`}
+          >
+           Your profile
           </Link>
-          <a className="dropdown-item" onClick={this.logout} href="/">
-            <i className="fa fa-sign-out" aria-hidden="true" />
+          <Link
+            className="dropdown-item bold"
+            to="/favorites"
+          >
+           Your favorites
+          </Link>
+          <div className="dropdown-divider"/>
+          <a className="dropdown-item bold" onClick={this.logout} href="/">
             {` `}
             Logout
           </a>
-        </h6>
+        </div>
       );
     } else {
       return (
         <h6>
-          <Link className="dropdown-item" to="/signin">
-            <i className="fa fa-sign-in" aria-hidden="true" />
+          <Link className="dropdown-item bold mb-2" to="/signin">
             {` `}
             Sign in
           </Link>
-          <Link className="dropdown-item" to="/signup">
-            <i className="fa fa-user-plus" aria-hidden="true" />
+          <Link className="dropdown-item bold" to="/signup">
             {` `}
             Sign up
           </Link>
@@ -79,10 +101,11 @@ class Navbar extends Component {
    * @memberof Navbar
    */
   render() {
+    const { avatar } = this.state;
     return (
       <section className="container-fluid fixed">
         <nav
-          className="navbar navbar-expand-lg navbar-light fixed-top bg-dark bg-navbar"
+          className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
           style={{ zIndex: 1000 }}
         >
           <div className="container">
@@ -107,7 +130,7 @@ class Navbar extends Component {
               <ul className="navbar-nav">
                 <li>
                   <NavLink
-                    className="nav-link text-light"
+                    className="nav-link "
                     activeClassName="active"
                     to="/catalog"
                     data-tip="Search for recipes"
@@ -126,7 +149,7 @@ class Navbar extends Component {
                 {Auth.loggedIn() ? (
                   <li className="nav-item ">
                     <NavLink
-                      className="nav-link text-light"
+                      className="nav-link"
                       activeClassName="active"
                       to="/new"
                       data-tip="Add new recipe"
@@ -150,7 +173,7 @@ class Navbar extends Component {
                 )}
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link text-light"
+                    className="nav-link"
                     activeClassName="active"
                     to="/catalog"
                     data-tip="Catalog"
@@ -180,7 +203,7 @@ class Navbar extends Component {
                       &#xE87D;
                     </i>
                     <span
-                      className="d-lg-none text-white"
+                      className="d-lg-none"
                       style={{ verticalAlign: 'top' }}
                     >
                       Favorites
@@ -199,9 +222,7 @@ class Navbar extends Component {
                     >
                       <img
                         src={
-                          this.props.user ?
-                            this.props.user.data.avatar :
-                            'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+                          avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
                         }
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
@@ -221,7 +242,7 @@ class Navbar extends Component {
                   )}
 
                   <div
-                    className="dropdown-menu"
+                    className="dropdown-menu  dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     {this.navLinks()}

@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 // import reduxPromise from 'redux-promise';
 import thunk from 'redux-thunk';
 import AppRoutes from './routes/AppRoutes';
-import 'normalize.css/normalize.css';
+// import 'normalize.css/normalize.css';
 import 'hover.css/css/hover-min.css';
 import './styles/styles.scss';
 import reducers from './reducers';

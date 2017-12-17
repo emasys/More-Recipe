@@ -33,7 +33,7 @@ export default class ReviewRecipe {
             recipeId: req.params.recipeId,
             userId: req.decoded.id,
             user: req.decoded.moniker,
-            avatar: req.decoded.avatar
+            avatar: req.decoded.avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
           })
             .then((reviewedRecipe) => {
               mailer(reviewedRecipe.user, email, `has reviewed your recipe (${name})`);
