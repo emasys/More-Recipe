@@ -40,7 +40,7 @@ class CatalogList extends Component {
           <div className="text-center error-message">
             <div className="catalog">
               <img src="../img/logo.png" alt="logo" />
-              <h4 className="p-3 m-2">...Ops</h4>
+              <h4 className="p-3 m-2">...Oops</h4>
               <p className="p-3 m-2">No recipe matches your description</p>
               <p className="p-3 m-2">
                 Try searching with a name of an ingredient

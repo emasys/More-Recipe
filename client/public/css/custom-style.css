@@ -15,10 +15,15 @@ body {
     height: 10px !important;
     width: 100%;
   }
+  .custom-fixed{
+    top: -10px !important;
+  }
 }
-.navbar-nav li .nav-link a {
-  color: red;
+
+.custom-fixed{
+  top: -5px;
 }
+
 @media screen and (max-width: 575px) {
   #catalog {
     margin-top: 80px;

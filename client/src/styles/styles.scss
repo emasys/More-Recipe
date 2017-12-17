@@ -70,7 +70,6 @@ a {
     padding: 5px;
     font-size: 12px;
     border-radius: 15px 0 0 15px;
-    background: rgb(141, 161, 141);
     color: $color_2;
     -webkit-transition: 400ms ease-in;
     -moz-transition: 400ms ease-in;
@@ -204,17 +203,27 @@ a {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
 }
-
+.category-bar{
+  margin-top: 60px;
+  margin-bottom: 20px;
+ 
+}
+.custom-bg-color{
+  background-color: rgb(240, 211, 157);
+}
+.custom-dropdown-menu{
+  font-size: 16px;
+}
 input[type='search'] {
-  height: 50px;
+  height: 30px;
   width: 100%;
-  border: none;
+  border: thin solid rgb(245, 179, 57);
   font-style: italic;
   padding: 20px;
   color: $color_4;
   text-align: left;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.39);
+  background: rgba(255, 255, 255, 0.089);
   margin-top: 0px;
   -webkit-transition: 400ms ease-in-out;
   -moz-transition: 400ms ease-in-out;

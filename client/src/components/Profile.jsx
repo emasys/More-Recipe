@@ -125,7 +125,7 @@ class Profile extends Component {
       } = data.data;
       return (
         <div className="col-lg-4 col-md-4 col-sm-12 mr-5 mb-10">
-          <img src={avatar} alt="avatar" className="img-fluid rounded mb-3" />
+          <img src={avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'} alt="avi" className="img-fluid rounded mb-3" />
           <div className="bg-light rounded p-10">
             <h2 className="mb-10 bolder">
               {`${firstName} ${lastName} `}

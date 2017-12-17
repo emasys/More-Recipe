@@ -65,8 +65,18 @@ class RecipeController {
    */
   static listRecipes(req, res) {
     // Get sorted (by upvote) recipe list
-    if (req.query.sort && req.query.order) {
-      return Recipes.findAll({ limit: 12, order: [['upvote', 'DESC']] })
+    if (req.query.sort === 'upvotes' && req.query.order) {
+      return Recipes.findAll({ limit: req.params.page, order: [['upvote', 'DESC']] })
+        .then(recipes => setStatus(res, { success: true, recipes }, 200))
+        .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 500));
+    }
+    if (req.query.sort === 'favorite' && req.query.order) {
+      return Recipes.findAll({ limit: req.params.page, order: [['favorite', 'DESC']] })
+        .then(recipes => setStatus(res, { success: true, recipes }, 200))
+        .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 500));
+    }
+    if (req.query.sort === 'views' && req.query.order) {
+      return Recipes.findAll({ limit: req.params.page, order: [['views', 'DESC']] })
         .then(recipes => setStatus(res, { success: true, recipes }, 200))
         .catch(() => setStatus(res, { success: false, error: 'something went wrong' }, 500));
     }

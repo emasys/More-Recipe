@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import * as actions from '../actions';
 
 //component
 import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
-
-const propTypes = {
-  recipes: PropTypes.array,
-  getRecipes: PropTypes.func
-};
 
 /**
  * Component for Home page
@@ -83,7 +77,4 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({ recipes: state.recipes.allRecipes });
-
-Home.propTypes = propTypes;
-
 export default connect(mapStateToProps, actions)(Home);

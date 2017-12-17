@@ -33,8 +33,7 @@ export const validateSignUpForm = () => {
     bio: 'required',
     moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
     password: 'required|min:8',
-    country: 'required',
-    avatar: 'required'
+    country: 'required'
   };
 };
 

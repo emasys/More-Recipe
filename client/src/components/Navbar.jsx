@@ -12,6 +12,14 @@ import Auth from './auth';
  * @extends {Component}
  */
 class Navbar extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      avatar: null
+    }
+  }
   /**
    *
    *
@@ -23,6 +31,13 @@ class Navbar extends Component {
       this.props.getProfile(Auth.userID());
     }
   }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      avatar: nextProps.user.data.avatar
+    })
+  }
+  
   /**
    *
    *
@@ -67,13 +82,11 @@ class Navbar extends Component {
     } else {
       return (
         <h6>
-          <Link className="dropdown-item" to="/signin">
-            <i className="fa fa-sign-in" aria-hidden="true" />
+          <Link className="dropdown-item bold mb-2" to="/signin">
             {` `}
             Sign in
           </Link>
-          <Link className="dropdown-item" to="/signup">
-            <i className="fa fa-user-plus" aria-hidden="true" />
+          <Link className="dropdown-item bold" to="/signup">
             {` `}
             Sign up
           </Link>
@@ -88,6 +101,7 @@ class Navbar extends Component {
    * @memberof Navbar
    */
   render() {
+    const { avatar } = this.state;
     return (
       <section className="container-fluid fixed">
         <nav
@@ -208,9 +222,7 @@ class Navbar extends Component {
                     >
                       <img
                         src={
-                          this.props.user ?
-                            this.props.user.data.avatar :
-                            'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+                          avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
                         }
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
