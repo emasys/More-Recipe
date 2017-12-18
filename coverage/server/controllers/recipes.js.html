@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.13% </span>
+        <span class="strong">77.19% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>86/106</span>
+        <span class='fraction'>88/114</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60.71% </span>
+        <span class="strong">59.38% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>34/56</span>
+        <span class='fraction'>38/64</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">74.36% </span>
+        <span class="strong">67.44% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>29/39</span>
+        <span class='fraction'>29/43</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.37% </span>
+        <span class="strong">77.27% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>83/102</span>
+        <span class='fraction'>85/110</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -419,7 +419,17 @@
 374
 375
 376
-377</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -485,6 +495,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -862,8 +882,18 @@ class RecipeController {
    */
   static listRecipes(req, res) {
     // Get sorted (by upvote) recipe list
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.sort &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >req.query.order) {</span>
-<span class="cstat-no" title="statement not covered" >      return Recipes.findAll({ limit: 12, order: [['upvote', 'DESC']] })</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.sort === 'upvotes' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >req.query.order) {</span>
+<span class="cstat-no" title="statement not covered" >      return Recipes.findAll({ limit: req.params.page, order: [['upvote', 'DESC']] })</span>
+        .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >recipes =&gt; setStatus(res, { success: true, recipes }, 200))</span></span>
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'something went wrong' }, 500));</span></span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.sort === 'favorite' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >req.query.order) {</span>
+<span class="cstat-no" title="statement not covered" >      return Recipes.findAll({ limit: req.params.page, order: [['favorite', 'DESC']] })</span>
+        .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >recipes =&gt; setStatus(res, { success: true, recipes }, 200))</span></span>
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'something went wrong' }, 500));</span></span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.sort === 'views' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >req.query.order) {</span>
+<span class="cstat-no" title="statement not covered" >      return Recipes.findAll({ limit: req.params.page, order: [['views', 'DESC']] })</span>
         .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >recipes =&gt; setStatus(res, { success: true, recipes }, 200))</span></span>
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'something went wrong' }, 500));</span></span>
     }
@@ -1177,7 +1207,7 @@ export default RecipeController;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Dec 16 2017 18:31:38 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Dec 17 2017 18:50:20 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

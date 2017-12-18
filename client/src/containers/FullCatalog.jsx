@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import Sticky from 'react-sticky-el';
 import * as actions from '../actions';
 import Auth from '../components/auth';
 
@@ -48,7 +47,8 @@ class FullCatalog extends Component {
       search: '',
       All_recipes: '',
       page_limit: 12,
-      avatar: null
+      avatar: null,
+      showMore: false
     };
 
     this.searchBar = this.searchBar.bind(this);
@@ -105,6 +105,11 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
+    if (nextProps.recipes.allRecipes) {
+      if (nextProps.recipes.allRecipes.recipes.length > 11){
+        this.setState({ showMore: true });
+      }
+    }
     if (nextProps.recipes.search) {
       return this.setState({
         All_recipes: nextProps.recipes.search,
@@ -116,6 +121,17 @@ class FullCatalog extends Component {
       avatar: nextProps.user.data.avatar
     });
   };
+  /**
+   *
+   *
+   * @memberof FullCatalog
+   * @returns {null} clear search result
+   */
+  componentWillUnmount() {
+    const data = { query: '' };
+    this.props.searchRecipes(data);
+  }
+
   /**
    *
    * @returns {object} list of recently added recipes
@@ -265,7 +281,7 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   render() {
-    const { search, avatar } = this.state;
+    const { search, avatar, showMore } = this.state;
     return (
       <div>
         <section className="container-fluid fixed">
@@ -379,7 +395,8 @@ class FullCatalog extends Component {
                       >
                         <img
                           src={
-                            avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+                            avatar ||
+                            'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
                           }
                           alt="avi"
                           className="fa-2x img-icon rounded-circle"
@@ -476,12 +493,12 @@ class FullCatalog extends Component {
               <CatalogList catalog={this.state.All_recipes} />
             </CSSTransitionGroup>
             <div className="text-center">
-              <button
+              {showMore && <button
                 className="btn btn-outline-dark hvr-grow-shadow"
                 onClick={this.nextPage}
               >
                 View More
-              </button>
+              </button>}
             </div>
           </div>
         </section>

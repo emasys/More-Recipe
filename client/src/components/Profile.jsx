@@ -34,6 +34,7 @@ class Profile extends Component {
       progressSpinner: 'fade',
       successMsg: false,
       save: 'fade',
+      showMore: false,
       defaultDp:
         'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
     };
@@ -58,7 +59,7 @@ class Profile extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    console.log(nextProps.user);
     this.setState({
       userInfo: nextProps.userInfo
     });
@@ -317,7 +318,7 @@ class Profile extends Component {
    * @returns {any} render
    */
   render() {
-    const { userInfo } = this.state;
+    const { userInfo, showMore } = this.state;
     return (
       <div>
         <Navbar />
@@ -342,9 +343,9 @@ class Profile extends Component {
                 {this.generateRecipes(this.props.user)}
               </div>
               <div className="text-center">
-                <button className="btn btn-dark" onClick={this.viewMore}>
+                {showMore && <button className="btn btn-dark" onClick={this.viewMore}>
                   View More
-                </button>
+                </button>}
               </div>
             </div>
           </div>
