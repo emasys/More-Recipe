@@ -12,13 +12,17 @@ import Auth from './auth';
  * @extends {Component}
  */
 class Navbar extends Component {
-
+  /**
+   * Creates an instance of Navbar.
+   * @param {any} props
+   * @memberof Navbar
+   */
   constructor(props) {
     super(props);
 
     this.state = {
       avatar: null
-    }
+    };
   }
   /**
    *
@@ -31,13 +35,18 @@ class Navbar extends Component {
       this.props.getProfile(Auth.userID());
     }
   }
-
-  componentWillReceiveProps = (nextProps) => {
+/**
+ * 
+ * @returns {any} cwr
+ * @param {any} nextProps 
+ * @memberof Navbar
+ */
+componentWillReceiveProps(nextProps) {
     this.setState({
       avatar: nextProps.user.data.avatar
-    })
-  }
-  
+    });
+  };
+
   /**
    *
    *
@@ -58,21 +67,19 @@ class Navbar extends Component {
     if (Auth.loggedIn()) {
       return (
         <div>
-          <h6 className="dropdown-header text-center">{this.props.user? `Signed in as ${this.props.user.data.moniker}`: `loading`}</h6>
-          <div className="dropdown-divider"/>
-          <Link
-            className="dropdown-item bold"
-            to={`/profile/${Auth.userID()}`}
-          >
-           Your profile
+          <h6 className="dropdown-header text-center">
+            {this.props.user ?
+              `Signed in as ${this.props.user.data.moniker}` :
+              `loading`}
+          </h6>
+          <div className="dropdown-divider" />
+          <Link className="dropdown-item bold" to={`/profile/${Auth.userID()}`}>
+            Your profile
           </Link>
-          <Link
-            className="dropdown-item bold"
-            to="/favorites"
-          >
-           Your favorites
+          <Link className="dropdown-item bold" to="/favorites">
+            Your favorites
           </Link>
-          <div className="dropdown-divider"/>
+          <div className="dropdown-divider" />
           <a className="dropdown-item bold" onClick={this.logout} href="/">
             {` `}
             Logout
@@ -222,7 +229,8 @@ class Navbar extends Component {
                     >
                       <img
                         src={
-                          avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+                          avatar ||
+                          'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
                         }
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
@@ -259,7 +267,7 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.signin.userProfile
+  user: state.user.userProfile
 });
 
 export default connect(mapStateToProps, actions)(Navbar);

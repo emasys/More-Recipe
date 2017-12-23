@@ -508,7 +508,7 @@ class FullCatalog extends Component {
 }
 const mapStateToProps = state => ({
   recipes: state.recipes,
-  user: state.signin.userProfile
+  user: state.user.userProfile
 });
 
 FullCatalog.PropTypes = propTypes;

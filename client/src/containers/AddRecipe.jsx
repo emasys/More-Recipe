@@ -225,6 +225,6 @@ class AddRecipe extends Component {
 const mapStateToProps = state =>
   // console.log(state);
   ({
-    new_recipe: state.new_recipe,
+    new_recipe: state.recipes,
   });
 export default connect(mapStateToProps, actions)(AddRecipe);

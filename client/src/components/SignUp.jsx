@@ -123,10 +123,10 @@ class SignUp extends Component {
         status: 'show',
       });
       this.props.signUp(data).then(() => {
-        if (this.props.user.user.success) {
+        if (this.props.user.signUp.success) {
           window.location.href = '/';
         } else {
-          switch (this.props.user.user.target) {
+          switch (this.props.user.signUp.target) {
           case 'email':
             document.querySelector('#email_error').innerHTML =
                     'Your email address already exist in our database';
@@ -290,5 +290,5 @@ class SignUp extends Component {
 }
 
 
-const mapStateToProps = state => ({ user: state.signup });
+const mapStateToProps = state => ({ user: state.user });
 export default connect(mapStateToProps, actions)(SignUp);

@@ -3,7 +3,7 @@ export default (state = {}, action) => {
   case 'SIGN_IN':
     return {
       ...state,
-      user: action.payload
+      signIn: action.payload
     };
 
   case 'USER_INFO':
@@ -33,6 +33,12 @@ export default (state = {}, action) => {
     return {
       ...state,
       updateUser: action.payload
+    };
+
+  case 'SIGN_UP':
+    return {
+      ...state,
+      signUp: action.payload
     };
 
   default:

@@ -22,28 +22,45 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       limit: 6,
+      showMore: false
     };
     this.generateRecipes = this.generateRecipes.bind(this);
     this.generateUserInfo = this.generateUserInfo.bind(this);
     this.viewMore = this.viewMore.bind(this);
   }
   /**
- *
- *
- * @memberof UserProfile
- * @returns {any} cdm
- */
+   *
+   *
+   * @memberof UserProfile
+   * @returns {any} cdm
+   */
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
     this.props.getUserRecipes(this.state.limit, this.props.match.params.id);
   }
   /**
- *
- *
- * @param {any} data
- * @returns {object} recipe list
- * @memberof UserProfile
- */
+   *
+   * @returns {any} cwr
+   * @param {any} nextProps
+   * @memberof UserProfile
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {
+      if (nextProps.user.recipes.length > 6) {
+        this.setState({
+          showMore: true
+        });
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   * @param {any} data
+   * @returns {object} recipe list
+   * @memberof UserProfile
+   */
   generateRecipes(data) {
     if (data) {
       return data.recipes.map((item, index) => (
@@ -103,28 +120,39 @@ class UserProfile extends Component {
     }
   }
   /**
- *
- *
- * @param {any} data
- * @returns {object} user data
- * @memberof UserProfile
- */
+   *
+   *
+   * @param {any} data
+   * @returns {object} user data
+   * @memberof UserProfile
+   */
   generateUserInfo(data) {
     if (data) {
       const {
-        firstName, lastName, bio, email, avatar, country, moniker
+        firstName,
+        lastName,
+        bio,
+        email,
+        avatar,
+        country,
+        moniker
       } = data.data;
       return (
         <div className="col-lg-4 col-md-4 col-sm-12 mb-10">
-          <img src={avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'} alt="avi" className="img-fluid rounded mb-3" />
+          <img
+            src={
+              avatar ||
+              'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+            }
+            alt="avi"
+            className="img-fluid rounded mb-3"
+          />
           <div className="bg-light rounded p-10">
             <h2 className="mb-10 bolder">
               {`${firstName} ${lastName} `}
               (<small className="header-title">{moniker}</small>)
             </h2>
-            <p>
-              {bio}
-            </p>
+            <p>{bio}</p>
             <hr />
 
             <p>
@@ -139,23 +167,24 @@ class UserProfile extends Component {
     }
   }
   /**
- *
- *
- * @memberof UserProfile
- * @returns {any} pagination
- */
+   *
+   *
+   * @memberof UserProfile
+   * @returns {any} pagination
+   */
   viewMore() {
     this.setState(prevState => ({
-      limit: prevState.limit + 6,
+      limit: prevState.limit + 6
     }));
   }
   /**
- *
- *
- * @returns {any} render
- * @memberof UserProfile
- */
+   *
+   *
+   * @returns {any} render
+   * @memberof UserProfile
+   */
   render() {
+    const { showMore } = this.state;
     return (
       <div>
         <Navbar />
@@ -171,9 +200,11 @@ class UserProfile extends Component {
                 {this.generateRecipes(this.props.user)}
               </div>
               <div className="text-center">
-                <button className="btn btn-dark" onClick={this.viewMore}>
-                  View More
-                </button>
+                {showMore && (
+                  <button className="btn btn-dark" onClick={this.viewMore}>
+                    View More
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -185,7 +216,7 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
-  userInfo: state.signin.userInfo,
+  userInfo: state.user.userInfo
 });
 
 export default connect(mapStateToProps, actions)(UserProfile);

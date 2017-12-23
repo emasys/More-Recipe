@@ -38,6 +38,12 @@ export default (state = [], action) => {
       del_recipe: action.payload
     };
 
+  case 'NEW_RECIPE':
+    return {
+      ...state,
+      new_recipe: action.payload
+    };
+
   case 'CLEAR_RECIPE':
     return {
       ...state,

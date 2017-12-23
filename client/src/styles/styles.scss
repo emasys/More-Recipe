@@ -533,10 +533,22 @@ footer {
   align-items: center;
 }
 
+// .profile-wrapper {
+//   position: relative;
+// }
+// .editProfile{
+//   position: absolute;
+//   // background: rgba(0, 0, 0, 0.623);
+//   top: 60%;
+//   left: 90%;
+//   display: block;
+//   width: 100%;
+  
+// }
 .dropzone-dp {
-  height: 100%;
+  // height: 100%;
   background: rgba(0, 0, 0, 0.623);
-  // max-height: 200px;
+  max-height: 200px;
   width: 100%;
   cursor: pointer;
   display: flex;

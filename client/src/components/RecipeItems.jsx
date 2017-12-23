@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setFavorite, getFavStatus } from '../actions';
-
+/**
+ * 
+ * 
+ * @class RecipeItems
+ * @extends {Component}
+ */
 class RecipeItems extends Component {
   constructor(props) {
     super(props);

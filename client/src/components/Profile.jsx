@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import Fade from 'react-reveal/Fade';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+
+// Modal
+import 'react-responsive-modal/lib/react-responsive-modal.css';
+import Modal from 'react-responsive-modal/lib/css';
+
 import config from '../config';
 import * as actions from '../actions';
 import Auth from './auth';
@@ -31,6 +36,10 @@ class Profile extends Component {
       status: 'fade',
       preview: '',
       files: '',
+      open: false,
+      firstName: '',
+      lastName: '',
+      bio: '',
       progressSpinner: 'fade',
       successMsg: false,
       save: 'fade',
@@ -46,6 +55,9 @@ class Profile extends Component {
     this.hoverOut = this.hoverOut.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleImg = this.handleImg.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+    this.editProfile = this.editProfile.bind(this);
   }
   /**
    *
@@ -58,21 +70,62 @@ class Profile extends Component {
     this.props.getUserRecipes(this.state.limit, Auth.userID());
   }
 
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @memberof Profile
+   * @returns {any} a new state
+   */
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.user);
-    this.setState({
-      userInfo: nextProps.userInfo
-    });
+    if (nextProps.userInfo) {
+      this.setState({
+        userInfo: nextProps.userInfo,
+        firstName: nextProps.userInfo.data.firstName,
+        lastName: nextProps.userInfo.data.lastName,
+        bio: nextProps.userInfo.data.bio
+      });
+    }
   }
-
+  /**
+   *
+   * @returns {any} a new state
+   * @memberof Profile
+   */
   changeDp() {
     console.log('change');
   }
-
+  /**
+   *
+   * @returns {any} a new state
+   * @memberof Profile
+   */
   hoverIn() {
     this.setState({ status: 'show' });
   }
-
+  /**
+   *
+   *
+   * @memberof RecipeItem
+   * @returns {bool} sets modal display to true
+   */
+  onOpenModal() {
+    this.setState({ open: true });
+  }
+  /**
+   *
+   *
+   * @memberof RecipeItem
+   * @returns {bool} sets modal display to false
+   */
+  onCloseModal() {
+    this.setState({ open: false });
+  }
+  /**
+   *
+   * @returns {any} a new state
+   * @memberof Profile
+   */
   hoverOut() {
     this.setState({ status: 'fade' });
   }
@@ -130,7 +183,11 @@ class Profile extends Component {
       this.props.updateUser(this.props.match.params.id, query).then(() => {
         console.log('saved');
         this.props.getUserInfo(this.props.match.params.id);
-        this.setState({ successMsg: true, progressSpinner: 'fade' });
+        this.setState({
+          successMsg: true,
+          progressSpinner: 'fade',
+          save: 'fade'
+        });
       });
     });
   }
@@ -219,7 +276,12 @@ class Profile extends Component {
       } = data.data;
 
       const {
-        status, preview, defaultDp, save, successMsg, progressSpinner
+        status,
+        preview,
+        defaultDp,
+        save,
+        successMsg,
+        progressSpinner
       } = this.state;
       return (
         <div className="col-lg-4 col-md-4 col-sm-12 mr-5 mb-10">
@@ -247,29 +309,35 @@ class Profile extends Component {
               className="img-fluid rounded mb-3"
             />
           </div>
-          <div className="bg-light rounded p-10">
+          <div className="bg-light rounded p-10 profile-wrapper">
             <h2 className="mb-10 bolder">
               {`${firstName} ${lastName} `}
               (<small className="header-title">{moniker}</small>)
             </h2>
-            <p>
-              {bio}
+            <div>
+              <p>
+                {bio}
+              </p>
               <hr />
-            </p>
+            </div>
             <p>
               <i className="fa fa-envelope" aria-hidden="true" /> {email}
             </p>
             <p className=" text-capitalize">
               <i className="fa fa-map-marker" aria-hidden="true" /> {country}
             </p>
-            <button className={`btn btn-dark btn-lg ${save}`} onClick={this.handleImg}
+            <button
+              className={`btn btn-dark btn-lg ${save}`}
+              onClick={this.handleImg}
             >
               save update
-              
             </button>
             {` `}
-            <i className={`fa fa-spinner fa-pulse fa-2x fa-fw ${progressSpinner}`} />
-              <span className="sr-only">Loading...</span>
+            <i
+              className={`fa fa-spinner fa-pulse fa-2x fa-fw ${progressSpinner}`}
+            />
+            <span className="sr-only">Loading...</span>
+
             {Auth.moniker() === 'admin' ? (
               <Link to="/manageUsers" className="btn btn-lg btn-light">
                 {' '}
@@ -294,12 +362,116 @@ class Profile extends Component {
                 </button>
               </div>
             )}
+            <div>
+              <button className="btn btn-dark" onClick={this.onOpenModal}>
+                Edit profile
+              </button>
+            </div>
           </div>
         </div>
       );
     }
   }
 
+  /**
+   *
+   * @returns {object} validates data and trigger the update user endpoint
+   * @param {any} event
+   * @memberof Profile
+   */
+  editProfile(event) {
+    event.preventDefault();
+    const data = {
+      firstName: event.target.elements.fname.value.trim(),
+      lastName: event.target.elements.lname.value.trim(),
+      bio: event.target.elements.bio.value.trim()
+    };
+    // Test for whitespace and digits
+    const re = /[\s\d]/;
+    let firstName = true,
+      lastName = true;
+    if (re.test(data.firstName) || data.firstName === '') {
+      document.querySelector('#firstname_error').innerHTML =
+        'Please enter a valid name';
+      firstName = false;
+    } else {
+      document.querySelector('#firstname_error').innerHTML = '';
+      firstName = true;
+    }
+
+    if (re.test(data.lastName) || data.lastName === '') {
+      document.querySelector('#lastname_error').innerHTML =
+        'Please enter a valid name';
+      lastName = false;
+    } else {
+      document.querySelector('#lastname_error').innerHTML = '';
+      lastName = true;
+    }
+    if (lastName && firstName) {
+      this.props.updateUser(this.props.match.params.id, data).then(() => {
+        this.props.getUserInfo(this.props.match.params.id);
+        this.onCloseModal();
+      });
+    }
+  }
+  /**
+   *
+   *
+   * @returns {any} current data in the db to be edited
+   * @memberof Profile
+   */
+  getEditForm() {
+    const { firstName, lastName, bio } = this.state;
+    return (
+      <form onSubmit={this.editProfile}>
+        <ul className="form row">
+          <li className="col-lg-6 col-sm-6">
+            <label>First Name</label>
+            <input
+              type="text"
+              required
+              placeholder="First Name"
+              className="col-lg-11 col-sm-12"
+              name="fname"
+              defaultValue={firstName}
+            />
+            <div className="text-danger" id="firstname_error" />
+          </li>
+          <li className="col-lg-6 col-sm-12">
+            <label>Last Name</label>
+            <input
+              type="text"
+              required
+              placeholder="Last Name"
+              className="col-lg-11 col-sm-12"
+              name="lname"
+              defaultValue={lastName}
+            />
+            <div className="text-danger" id="lastname_error" />
+          </li>
+          <li className="col-lg-6 col-sm-12">
+            <label>Bio</label>
+            <textarea
+              className="col-lg-11 col-sm-12"
+              id="FormControlTextarea"
+              name="bio"
+              defaultValue={bio}
+              rows="4"
+            />
+          </li>
+
+          <li className=" col-12 ">
+            <input
+              type="submit"
+              value="submit"
+              id="submit"
+              className="btn bg-dark hovered"
+            />
+          </li>
+        </ul>
+      </form>
+    );
+  }
   /**
    *
    *
@@ -318,10 +490,14 @@ class Profile extends Component {
    * @returns {any} render
    */
   render() {
-    const { userInfo, showMore } = this.state;
+    const { userInfo, showMore, open } = this.state;
     return (
       <div>
         <Navbar />
+        <Modal open={open} onClose={this.onCloseModal} little>
+          <h2>Edit Profile</h2>
+          {this.getEditForm()}
+        </Modal>
         <section className="container profile catalog-wrapper">
           <div className="row justify-content-center">
             {this.generateUserInfo(userInfo)}
@@ -343,9 +519,11 @@ class Profile extends Component {
                 {this.generateRecipes(this.props.user)}
               </div>
               <div className="text-center">
-                {showMore && <button className="btn btn-dark" onClick={this.viewMore}>
-                  View More
-                </button>}
+                {showMore && (
+                  <button className="btn btn-dark" onClick={this.viewMore}>
+                    View More
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -357,8 +535,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
-  userInfo: state.signin.userInfo,
-  updateUser: state.signin.updateUser
+  userInfo: state.user.userInfo,
+  updateUser: state.user.updateUser
 });
 
 export default connect(mapStateToProps, actions)(Profile);
