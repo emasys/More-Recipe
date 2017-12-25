@@ -119,12 +119,12 @@ class Reviews extends Component {
           <h5 className="text-center text-muted">Reviews</h5>
           <hr />
         </div>
-        <div className="col-lg-4 col-sm-12 mr-5 recipe-image">
+        <div className="col-lg-7 col-sm-12 recipe-image">
           <form onSubmit={this.handleForm}>
             <div className="form-row">
               <div className="form-group col-md-12 col-sm-12">
                 <textarea
-                  className="form-control rounded"
+                  className="special col-12"
                   id="FormControlTextarea"
                   rows="4"
                   onChange={this.txChanged}
@@ -137,7 +137,7 @@ class Reviews extends Component {
             </button>
           </form>
         </div>
-        <div className="col-lg-6 col-sm-12 ">
+        <div className="col-lg-8 col-sm-12 ">
           {this.getReview(this.props.recipes.recipeItem)}
         </div>
       </div>

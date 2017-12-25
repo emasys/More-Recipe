@@ -22,18 +22,21 @@ class AddRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      preview: null, files: null, fileURL: null, status: 'fade'
+      preview: null,
+      files: null,
+      fileURL: null,
+      status: 'fade'
     };
     this.handleForm = this.handleForm.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.sendData = this.sendData.bind(this);
   }
   /**
- *
- *
- * @memberof AddRecipe
- * @returns {any} new recipe
- */
+   *
+   *
+   * @memberof AddRecipe
+   * @returns {any} new recipe
+   */
   sendData() {
     if (this.props.new_recipe.new_recipe) {
       if (this.props.new_recipe.new_recipe.recipe) {
@@ -57,7 +60,7 @@ class AddRecipe extends Component {
       ingredients: e.target.elements.ingredients.value.trim(),
       direction: e.target.elements.direction.value.trim(),
       description: e.target.elements.description.value.trim(),
-      category: e.target.elements.category.value,
+      category: e.target.elements.category.value
     };
 
     const { files } = this.state;
@@ -71,7 +74,7 @@ class AddRecipe extends Component {
     const uploaders = files.map(file => {
       document.querySelector('#no_image').innerHTML = '';
       this.setState({
-        status: 'show',
+        status: 'show'
       });
       // Initial FormData
       const formData = new FormData();
@@ -83,7 +86,7 @@ class AddRecipe extends Component {
 
       return axios
         .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
         .then(response => {
           const resdata = response.data;
@@ -101,29 +104,47 @@ class AddRecipe extends Component {
   }
 
   /**
- *
- *
- * @param {any} files
- * @memberof AddRecipe
- * @returns {object} a preview of image
- */
+   *
+   *
+   * @param {any} files
+   * @memberof AddRecipe
+   * @returns {object} a preview of image
+   */
   handleDrop(files) {
     const [{ preview }] = files;
     this.setState({ preview, files });
   }
 
   /**
- *
- *
- * @returns {any} jsx
- * @memberof AddRecipe
- */
+   *
+   *
+   * @returns {any} jsx
+   * @memberof AddRecipe
+   */
   render() {
     const { preview, status } = this.state;
-    const recipeCategory = ['Breakfast', 'Brunch', 'Lunch', 'Snacks',
-      'Appetisers', 'Dinner', 'Soups', 'Noodles', 'Rice', 'Pasta',
-      'Meat', 'Poultry', 'Seafood', 'Vegetarian', 'Sides', 'Sauces',
-      'Baking', 'Desserts', 'Drinks', 'Salads'];
+    const recipeCategory = [
+      'Breakfast',
+      'Brunch',
+      'Lunch',
+      'Snacks',
+      'Appetisers',
+      'Dinner',
+      'Soups',
+      'Noodles',
+      'Rice',
+      'Pasta',
+      'Meat',
+      'Poultry',
+      'Seafood',
+      'Vegetarian',
+      'Sides',
+      'Sauces',
+      'Baking',
+      'Desserts',
+      'Drinks',
+      'Salads'
+    ];
     return (
       <section className="container ">
         <Navbar />
@@ -193,21 +214,38 @@ class AddRecipe extends Component {
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   {preview && (
-                    <img src={preview} className="col-lg-11 col-sm-12" alt="image preview" />
+                    <img
+                      src={preview}
+                      className="col-lg-11 col-sm-12"
+                      alt="image preview"
+                    />
                   )}
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   <label>Category</label>
-                  <select name="category" className="col-lg-11 col-sm-12 ">
-                    {recipeCategory.map((item) => (
-                      <option value={item} key={item} className="text-capitalize">
+                  <select
+                    name="category"
+                    className="col-lg-11 col-sm-12 "
+                    style={{ height: '50px' }}
+                  >
+                    {recipeCategory.map(item => (
+                      <option
+                        value={item}
+                        key={item}
+                        className="text-capitalize"
+                      >
                         {item}
                       </option>
                     ))}
                   </select>
                 </li>
                 <li className=" col-12 ">
-                  <input type="submit" value="Submit" id="submit" className="bg-dark btn hovered" />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    id="submit"
+                    className="bg-dark btn hovered"
+                  />
                 </li>
                 <li className={`col-12 text-center ${status}`}>
                   <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
@@ -225,6 +263,6 @@ class AddRecipe extends Component {
 const mapStateToProps = state =>
   // console.log(state);
   ({
-    new_recipe: state.recipes,
+    new_recipe: state.recipes
   });
 export default connect(mapStateToProps, actions)(AddRecipe);

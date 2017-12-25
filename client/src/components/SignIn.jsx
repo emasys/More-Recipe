@@ -22,13 +22,25 @@ class SignIn extends Component {
     this.state = {
       email: '',
       password: '',
-      showErrMessage: 'fade'
+      showErrMessage: 'fade',
+      message: '',
+      showProps: false,
     };
 
     this.emailChanged = this.emailChanged.bind(this);
     this.pwChanged = this.pwChanged.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    if (this.props.msg) {
+      this.setState({
+        message: this.props.msg,
+        showProps: true
+      });
+    }
+  }
+
   /**
    *
    *
@@ -89,10 +101,13 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   render() {
-    const { email } = this.state;
+    const { email, message, showProps } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
         <Navbar />
+        {showProps && <div className="alert alert-warning" role="alert">
+          <strong>{message}</strong>
+        </div>}
         <div className="row justify-content-center">
           <div className="col-lg-8 col-sm-12 text-center ">
             <img src="../img/logo.png" alt="logo" />

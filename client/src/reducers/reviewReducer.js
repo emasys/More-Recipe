@@ -1,6 +1,8 @@
-export default (state = {}, action) => {
+import * as type from '../actions/types';
+
+export default (state = [], action) => {
   switch (action.type) {
-  case 'REVIEW':
+  case type.REVIEW:
     return {
       ...state,
       review: action.payload

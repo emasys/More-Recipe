@@ -5,10 +5,11 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import * as actions from '../actions';
-import Auth from '../components/auth';
+import categoryList from '../components/categoryList';
 
 //component
 import CatalogList from '../components/CatalogList';
+import Auth from '../components/auth';
 
 const fadeAnimation = {
   transitionName: 'fade',
@@ -61,28 +62,7 @@ class FullCatalog extends Component {
     this.mostFavorited = this.mostFavorited.bind(this);
     this.mostViewed = this.mostViewed.bind(this);
 
-    this.recipeCategory = [
-      'Breakfast',
-      'Brunch',
-      'Lunch',
-      'Snacks',
-      'Appetisers',
-      'Dinner',
-      'Soups',
-      'Noodles',
-      'Rice',
-      'Pasta',
-      'Meat',
-      'Poultry',
-      'Seafood',
-      'Vegetarian',
-      'Sides',
-      'Sauces',
-      'Baking',
-      'Desserts',
-      'Drinks',
-      'Salads'
-    ];
+    this.recipeCategory = categoryList;
   }
   /**
    *
@@ -91,11 +71,17 @@ class FullCatalog extends Component {
    * @returns {any} react lifecycle method
    */
   componentDidMount() {
+    console.log(categoryList);
     if (Auth.userID()) {
-      this.props.getProfile(Auth.userID());
+      this.props.getProfile(Auth.userID()).then(() => {
+        this.setState({
+          avatar: this.props.user.data.avatar
+        });
+      });
     }
     this.props.getRecipes(this.state.page_limit);
   }
+
   /**
    *
    *
@@ -105,33 +91,32 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
+    console.log(nextProps);
     if (nextProps.recipes.allRecipes) {
-      if (nextProps.recipes.allRecipes.recipes.length > 11){
+      if (nextProps.recipes.allRecipes.recipes.length > 11) {
         this.setState({ showMore: true });
       }
     }
     if (nextProps.recipes.search) {
       return this.setState({
-        All_recipes: nextProps.recipes.search,
-        avatar: nextProps.user.data.avatar
+        All_recipes: nextProps.recipes.search
+      });
+    } else {
+      return this.setState({
+        All_recipes: nextProps.recipes.allRecipes
       });
     }
-    return this.setState({
-      All_recipes: nextProps.recipes.allRecipes,
-      avatar: nextProps.user.data.avatar
-    });
   };
   /**
    *
    *
    * @memberof FullCatalog
-   * @returns {null} clear search result
+   * @returns {any} react lifecycle method
    */
   componentWillUnmount() {
     const data = { query: '' };
     this.props.searchRecipes(data);
   }
-
   /**
    *
    * @returns {object} list of recently added recipes
@@ -493,12 +478,14 @@ class FullCatalog extends Component {
               <CatalogList catalog={this.state.All_recipes} />
             </CSSTransitionGroup>
             <div className="text-center">
-              {showMore && <button
-                className="btn btn-outline-dark hvr-grow-shadow"
-                onClick={this.nextPage}
-              >
-                View More
-              </button>}
+              {showMore && (
+                <button
+                  className="btn btn-outline-dark hvr-grow-shadow"
+                  onClick={this.nextPage}
+                >
+                  View More
+                </button>
+              )}
             </div>
           </div>
         </section>

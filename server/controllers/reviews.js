@@ -15,7 +15,7 @@ export default class ReviewRecipe {
    * @param {object} req
    * @param {object} res
    * @memberof ReviewRecipe
-   *
+   * @returns {object}
    * Review a particular recipe with a certain recipeId provided as a params
    */
   static addReview(req, res) {
@@ -23,7 +23,8 @@ export default class ReviewRecipe {
     const validator = new Validator(request, validateReviews());
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId, {
-        include: [{ model: Users }] // To allow us send a notification to the creator of the recipe
+        include: [{ model: Users }]
+        // enable sending a notification to the creator of the recipe
       })
         .then((recipe) => {
           const { name, User: { email } } = recipe;
@@ -33,17 +34,33 @@ export default class ReviewRecipe {
             recipeId: req.params.recipeId,
             userId: req.decoded.id,
             user: req.decoded.moniker,
-            avatar: req.decoded.avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+            avatar:
+              req.decoded.avatar ||
+              'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
           })
             .then((reviewedRecipe) => {
-              mailer(reviewedRecipe.user, email, `has reviewed your recipe (${name})`);
+              mailer(
+                reviewedRecipe.user,
+                email,
+                `has reviewed your recipe (${name})`
+              );
               return setStatus(res, { success: true, reviewedRecipe }, 201);
             })
-            .catch(() => setStatus(res, { success: false, error: 'could not complete this operation' }, 500));
+            .catch(() =>
+              setStatus(
+                res,
+                { success: false, error: 'could not complete this operation' },
+                500
+              ));
         })
-        .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
+        .catch(() =>
+          setStatus(res, { success: false, error: 'recipe not found' }, 404));
     } else {
-      return setStatus(res, { success: false, status: validator.errors.all() }, 422);
+      return setStatus(
+        res,
+        { success: false, status: validator.errors.all() },
+        422
+      );
     }
   }
 }

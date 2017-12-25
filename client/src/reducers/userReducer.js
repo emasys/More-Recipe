@@ -1,41 +1,43 @@
+import * as type from '../actions/types';
+
 export default (state = {}, action) => {
   switch (action.type) {
-  case 'SIGN_IN':
+  case type.SIGN_IN:
     return {
       ...state,
       signIn: action.payload
     };
 
-  case 'USER_INFO':
+  case type.USER_INFO:
     return {
       ...state,
       userInfo: action.payload
     };
 
-  case 'USER_PROFILE':
+  case type.USER_PROFILE:
     return {
       ...state,
       userProfile: action.payload
     };
 
-  case 'ALL_USERS':
+  case type.ALL_USERS:
     return {
       ...state,
       allUsers: action.payload
     };
-  case 'DELETE_USER':
+  case type.DELETE_USER:
     return {
       ...state,
       delUser: action.payload
     };
 
-  case 'UPDATE_USER':
+  case type.UPDATE_USER:
     return {
       ...state,
       updateUser: action.payload
     };
 
-  case 'SIGN_UP':
+  case type.SIGN_UP:
     return {
       ...state,
       signUp: action.payload

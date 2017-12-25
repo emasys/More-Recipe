@@ -61,6 +61,7 @@ class RecipeItem extends Component {
    * @returns {any} cdm
    */
   componentDidMount() {
+    console.log(this.props);
     this.props.getUpvStatus(this.props.match.params.id);
     this.props.getFavStatus(this.props.match.params.id);
     this.props.getRecipeItem(this.props.match.params.id).then(() => {

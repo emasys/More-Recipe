@@ -1,17 +1,19 @@
+import * as type from '../actions/types';
+
 export default (state = {}, action) => {
   switch (action.type) {
-  case 'UPVOTE':
+  case type.UPVOTE:
     return {
       ...state,
       upvote: action.payload
     };
 
-  case 'DOWNVOTE':
+  case type.DOWNVOTE:
     return {
       ...state,
       downvote: action.payload
     };
-  case 'GET_UPV_STATUS':
+  case type.GET_VOTE_STATUS:
     return {
       ...state,
       votes: action.payload

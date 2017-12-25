@@ -28,30 +28,30 @@ class SignUp extends Component {
     this.state = {
       preview: null,
       files: null,
-      status: 'fade',
+      status: 'fade'
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
   }
   /**
- *
- *
- * @param {any} files
- * @memberof SignUp
- * @return {object} file preview
- */
+   *
+   *
+   * @param {any} files
+   * @memberof SignUp
+   * @return {object} file preview
+   */
   handleDrop(files) {
     const [{ preview }] = files;
     console.log(files);
     this.setState({ preview, files });
   }
   /**
- *
- *
- * @param {any} e
- * @memberof SignUp
- * @returns {any} submits form
- */
+   *
+   *
+   * @param {any} e
+   * @memberof SignUp
+   * @returns {any} submits form
+   */
   handleSubmit(e) {
     e.preventDefault();
     const data = {
@@ -62,7 +62,7 @@ class SignUp extends Component {
       confirmPassword: e.target.elements.cpass.value.trim(),
       bio: e.target.elements.bio.value.trim(),
       moniker: e.target.elements.moniker.value,
-      country: e.target.elements.country.value.trim(),
+      country: e.target.elements.country.value.trim()
     };
 
     const { files } = this.state;
@@ -73,30 +73,30 @@ class SignUp extends Component {
     const reMoniker = /^[a-z0-9]+$/i;
     let submitData = 0;
     if (re.test(data.lastName) || data.lastName === '') {
-      document.querySelector('#lastname_error')
-        .innerHTML = 'Please enter a valid name';
+      document.querySelector('#lastname_error').innerHTML =
+        'Please enter a valid name';
     } else {
       document.querySelector('#lastname_error').innerHTML = '';
       submitData += 1;
     }
     if (re.test(data.firstName) || data.firstName === '') {
-      document.querySelector('#firstname_error')
-        .innerHTML = 'Please enter a valid name';
+      document.querySelector('#firstname_error').innerHTML =
+        'Please enter a valid name';
     } else {
       document.querySelector('#firstname_error').innerHTML = '';
       submitData += 1;
     }
     if (!reMoniker.test(data.moniker)) {
       console.log(reMoniker.test(data.moniker));
-      document.querySelector('#moniker_error')
-        .innerHTML = 'Alphanumeric characters only';
+      document.querySelector('#moniker_error').innerHTML =
+        'Alphanumeric characters only';
     } else {
       document.querySelector('#moniker_error').innerHTML = '';
       submitData += 1;
     }
     if (data.email === '') {
-      document.querySelector('#email_error')
-        .innerHTML = 'Please enter a valid email address';
+      document.querySelector('#email_error').innerHTML =
+        'Please enter a valid email address';
     } else {
       document.querySelector('#email_error').innerHTML = '';
       submitData += 1;
@@ -111,8 +111,8 @@ class SignUp extends Component {
     }
 
     if (!_.isEqual(data.password, data.confirmPassword)) {
-      document.querySelector('#cp_error')
-        .innerHTML = 'Your password did not match';
+      document.querySelector('#cp_error').innerHTML =
+        'Your password did not match';
     } else {
       document.querySelector('#cp_error').innerHTML = '';
       submitData += 1;
@@ -120,7 +120,7 @@ class SignUp extends Component {
 
     if (submitData === 6) {
       this.setState({
-        status: 'show',
+        status: 'show'
       });
       this.props.signUp(data).then(() => {
         if (this.props.user.signUp.success) {
@@ -129,16 +129,16 @@ class SignUp extends Component {
           switch (this.props.user.signUp.target) {
           case 'email':
             document.querySelector('#email_error').innerHTML =
-                    'Your email address already exist in our database';
+                'Your email address already exist in our database';
             this.setState({
-              status: 'fade',
+              status: 'fade'
             });
             break;
           case 'moniker':
             document.querySelector('#moniker_error').innerHTML =
-                    'Your username already taken';
+                'Your username already taken';
             this.setState({
-              status: 'fade',
+              status: 'fade'
             });
             break;
           }
@@ -147,11 +147,11 @@ class SignUp extends Component {
     }
   }
   /**
- *
- *
- * @returns {any} jsx
- * @memberof SignUp
- */
+   *
+   *
+   * @returns {any} jsx
+   * @memberof SignUp
+   */
   render() {
     const { status } = this.state;
     return (
@@ -161,7 +161,13 @@ class SignUp extends Component {
           <div className="col-lg-6 col-sm-12 text-center ">
             <img src="../img/logo.png" alt="logo" />
             <p className=" mt-5 text-dark bg-mirror header-title">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
             <p>
               If you already have an account,{' '}
@@ -288,7 +294,6 @@ class SignUp extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({ user: state.user });
 export default connect(mapStateToProps, actions)(SignUp);

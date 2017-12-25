@@ -108,6 +108,7 @@ select {
   border: 1px solid lightgray;
   padding: 12px;
   margin: 0px;
+  border-radius: 10px;
   font-size: 16px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -127,7 +128,7 @@ select {
 .form input[type='email']:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid rgb(216, 183, 73);
+  border: 2px solid rgb(216, 183, 73);
 }
 
 .form .special {
