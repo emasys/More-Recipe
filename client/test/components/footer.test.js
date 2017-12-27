@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Footer from '../../components/footer';
-import ReactShallowRenderer from 'react-test-renderer/shallow';
+import React from 'react';
+import toJSON from 'enzyme-to-json';
+import { shallow } from 'enzyme';
+import Footer from '../../src/components/Footer';
 
-test('should render correctly', () => {
-  const renderer = new ReactShallowRenderer();
-  renderer.render(<Footer />);
-  expect(renderer.getRenderOutput()).toMatchSnapshot();
+test('should render Footer correctly', () => {
+  const wrapper = shallow(<Footer/>);
+  expect(toJSON(wrapper)).toMatchSnapshot();
 });

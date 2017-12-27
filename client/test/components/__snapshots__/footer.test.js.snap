@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render correctly 1`] = `
+exports[`should render Footer correctly 1`] = `
 <div>
   <footer
     className="container-fluid bg-dark footer-main"
@@ -20,7 +20,7 @@ exports[`should render correctly 1`] = `
             ©2017 All rights reserved
           </p>
           <a
-            href="#"
+            href="https://web.facebook.com/emasys23"
           >
             <i
               aria-hidden="true"
@@ -29,7 +29,7 @@ exports[`should render correctly 1`] = `
           </a>
            
           <a
-            href="#"
+            href="https://twitter.com/emasys_nd"
           >
             <i
               aria-hidden="true"
