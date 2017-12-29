@@ -78,7 +78,7 @@ class Navbar extends Component {
         >        
           <div className="container">
             <Link className="navbar-brand bolder text-orange" to="/">
-              MoreRecipes
+              <span className="nb">MoreRecipes</span>
             </Link>
             <button
               className="navbar-toggler"

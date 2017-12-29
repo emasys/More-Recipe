@@ -231,11 +231,12 @@ a {
   font-size: 16px;
 }
 input[type='search'] {
-  height: 30px;
+  height: 40px;
   width: 100%;
   border: thin solid rgb(245, 179, 57);
   font-style: italic;
-  padding: 20px;
+  padding: 10px;
+  font-size: 14px;
   color: $color_4;
   text-align: left;
   border-radius: 5px;
@@ -405,6 +406,16 @@ footer {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   min-height: 70px;
+  max-height: 70px;
+}
+
+.crop-text-title {
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 14px;
 }
 
 #like {

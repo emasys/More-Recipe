@@ -68,11 +68,11 @@ class CatalogList extends Component {
 
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
-                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
+                    <h6 className="card-title custom-bg bg-dark p-2 m-0  crop-text-title">
                       {item.name}
                     </h6>
                     <div className="card-body p-5 text-left bg-light">
-                      <p className="crop-text">{item.description}</p>
+                      <p className="line-clamp crop-text">{item.description}</p>
                     </div>
                     <span>
                       <i className="fa fa-heart-o" aria-hidden="true" />

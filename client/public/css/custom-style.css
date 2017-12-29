@@ -13,6 +13,20 @@ body {
   color: rgb(177, 114, 5);
   font-weight: 700;
 }
+
+@media screen and (max-width: 380px){
+  .navbar-brand {
+    visibility: hidden;
+    text-indent: -9999px;
+    line-height: 0;
+  }
+  .navbar-brand:after {
+    content: 'MR';
+    visibility: visible;
+    display: block;
+    text-indent: 0;
+  }
+}
 @media screen and (max-width: 990px) {
   #catalog {
     margin-top: 80px;
@@ -21,7 +35,8 @@ body {
     font-size: 14px;
   }
   input[type='search'] {
-    height: 10px !important;
+    height: 40px !important;
+    padding: 5px !important;
     width: 100%;
   }
   .custom-fixed{

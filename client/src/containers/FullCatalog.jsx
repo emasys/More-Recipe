@@ -247,7 +247,7 @@ class FullCatalog extends Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <i className="fa fa-bars text-orange" aria-hidden="true" />
+                <i className="fa fa-bars fa-2x text-orange" aria-hidden="true" />
               </button>
               <div
                 className="collapse navbar-collapse justify-content-end"
