@@ -43,10 +43,10 @@ class Profile extends Component {
       firstName: '',
       lastName: '',
       bio: '',
-      progressSpinner: 'fade',
+      edit: false,
       successMsg: false,
       save: 'd-none',
-      showMore: false,
+      showMore: false
     };
     this.generateRecipes = this.generateRecipes.bind(this);
     this.generateUserInfo = this.generateUserInfo.bind(this);
@@ -59,6 +59,7 @@ class Profile extends Component {
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
     this.editProfile = this.editProfile.bind(this);
+    this.showForm = this.showForm.bind(this);
   }
   /**
    *
@@ -175,6 +176,8 @@ class Profile extends Component {
     this.toastId = toast('Uploading...', { autoClose: false });
     return this.toastId;
   }
+
+  saveInfo = () => toast("Saved !", {type: toast.TYPE.SUCCESS,autoClose: 1000, });
 
   update = () =>
     toast.update(this.toastId, {
@@ -298,6 +301,17 @@ class Profile extends Component {
   }
   /**
    *
+   * @returns {bool}
+   * edit state
+   * @memberof Profile
+   */
+  showForm() {
+    this.setState({
+      edit: true
+    });
+  }
+  /**
+   *
    *
    * @param {any} data
    * @returns {any} user data
@@ -315,11 +329,7 @@ class Profile extends Component {
         country
       } = data.data;
 
-      const {
-        status,
-        preview,
-        save,
-      } = this.state;
+      const { status, preview, save } = this.state;
       return (
         <div className="col-lg-4 col-md-4 col-sm-12 mr-5 mb-10">
           <div
@@ -383,7 +393,7 @@ class Profile extends Component {
               )}
             </div>
             <div className="mt-5">
-              <button className="btn btn-dark" onClick={this.onOpenModal}>
+              <button className="btn btn-dark" onClick={this.showForm}>
                 Edit profile
               </button>
             </div>
@@ -430,7 +440,10 @@ class Profile extends Component {
     if (lastName && firstName) {
       this.props.updateUser(this.props.match.params.id, data).then(() => {
         this.props.getUserInfo(this.props.match.params.id);
-        this.onCloseModal();
+        this.saveInfo();
+        this.setState({
+          edit: false
+        });
       });
     }
   }
@@ -445,7 +458,7 @@ class Profile extends Component {
     return (
       <form onSubmit={this.editProfile}>
         <ul className="form row">
-          <li className="col-lg-6 col-sm-6">
+          <li className="col-lg-6 col-sm-12">
             <label>First Name</label>
             <input
               type="text"
@@ -483,7 +496,7 @@ class Profile extends Component {
           <li className=" col-12 ">
             <input
               type="submit"
-              value="submit"
+              value="save"
               id="submit"
               className="btn bg-dark hovered"
             />
@@ -510,7 +523,9 @@ class Profile extends Component {
    * @returns {any} render
    */
   render() {
-    const { userInfo, showMore, open } = this.state;
+    const {
+      userInfo, showMore, open, edit
+    } = this.state;
     return (
       <div>
         <Navbar />
@@ -522,31 +537,34 @@ class Profile extends Component {
         <section className="container profile catalog-wrapper">
           <div className="row justify-content-center">
             {this.generateUserInfo(userInfo)}
-            <div className="col-lg-7 col-md-7 col-sm-12 recipe-lists">
-              <div className="clearfix">
-                <h2 className="fresh-title float-left clearfix">Recipes </h2>
-                <Link
-                  className="btn btn-dark float-right clearfix"
-                  role="button"
-                  to="/new"
-                >
-                  Add New Recipes
-                </Link>
-              </div>
+            {edit && this.getEditForm()}
+            {!edit && (
+              <div className="col-lg-7 col-md-7 col-sm-12 recipe-lists">
+                <div className="clearfix">
+                  <h2 className="fresh-title float-left clearfix">Recipes </h2>
+                  <Link
+                    className="btn btn-dark float-right clearfix"
+                    role="button"
+                    to="/new"
+                  >
+                    Add New Recipes
+                  </Link>
+                </div>
 
-              <hr />
+                <hr />
 
-              <div className="row justify-content-center">
-                {this.generateRecipes(this.props.user)}
+                <div className="row justify-content-center">
+                  {this.generateRecipes(this.props.user)}
+                </div>
+                <div className="text-center">
+                  {showMore && (
+                    <button className="btn btn-dark" onClick={this.viewMore}>
+                      View More
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className="text-center">
-                {showMore && (
-                  <button className="btn btn-dark" onClick={this.viewMore}>
-                    View More
-                  </button>
-                )}
-              </div>
-            </div>
+            )}
           </div>
         </section>
       </div>

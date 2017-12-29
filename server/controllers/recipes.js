@@ -330,24 +330,41 @@ class RecipeController {
     const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
-        // Prevent other users from editing a recipe not theirs.
-        if (recipe.userId === req.decoded.id) {
-          return recipe
-            .update({
-              name: req.body.name || recipe.name,
-              direction: req.body.direction || recipe.direction,
-              description: req.body.description || recipe.description,
-              ingredients: getArr(arr) || recipe.ingredients,
-              foodImg: req.body.foodImg || recipe.foodImg
-            })
-            .then(() => setStatus(res, { success: true, recipe }, 200));
+        Recipes.findOne({
+          where: {
+            name: req.body.name,
+          }
+        }).then((isExist) => {
+          if (isExist) {
+            return setStatus(
+              res,
+              {
+                success: false,
+                error: 'recipe already added to the database'
+              },
+              403
+            );
+          }
+
+          // Prevent other users from editing a recipe not theirs.
+          if (recipe.userId === req.decoded.id) {
+            return recipe
+              .update({
+                name: req.body.name || recipe.name,
+                direction: req.body.direction || recipe.direction,
+                description: req.body.description || recipe.description,
+                ingredients: getArr(arr) || recipe.ingredients,
+                foodImg: req.body.foodImg || recipe.foodImg
+              })
+              .then(() => setStatus(res, { success: true, recipe }, 200));
           // Send back the updated recipe.
-        }
-        return setStatus(
-          res,
-          { success: false, status: 'cannot update this recipe' },
-          401
-        );
+          }
+          return setStatus(
+            res,
+            { success: false, status: 'cannot update this recipe' },
+            401
+          );
+        });
       })
       .catch(() =>
         setStatus(res, { success: false, error: 'recipe not found' }, 404));

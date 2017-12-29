@@ -100,6 +100,7 @@
     "react-router-dom": "^4.2.2",
     "react-select": "^1.1.0",
     "react-sticky-el": "^1.0.13",
+    "react-textarea-autosize": "^5.2.1",
     "react-toastify": "^3.2.1",
     "react-tooltip": "^3.4.0",
     "react-transition-group": "^1.2.1",
