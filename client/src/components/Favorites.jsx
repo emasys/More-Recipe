@@ -60,15 +60,15 @@ export class Favorites extends Component {
       return fav.userFav.favorites.map((item, index) => (
         <div
           key={index}
-          className="col-lg-3 col-sm-10 mb-3  col-md-4 animate-catalog"
+          className="col-lg-3 col-sm-10 mb-20  col-md-4 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
           data-offset="100"
         >
-          <div style={{ overflow: 'hidden' }}>
+          <div>
             <Fade bottom>
-              <Link to={`/recipe/${item.recipeId}`} className=" hvr-bounce-out">
+              <Link to={`/recipe/${item.recipeId}`} className=" hvr-grow-shadow">
                 <div className={`card animate`}>
                   <img
                     className="card-img-top img-box"

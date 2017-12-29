@@ -1,5 +1,6 @@
 export const ALL_RECIPES = 'recipes';
 export const SINGLE_RECIPE = 'one recipe';
+export const SINGLE_RECIPE_REACTION = 'one recipe reaction';
 export const USER_RECIPES = 'fetch all recipes from a particular user';
 export const USER_INFO = 'view the profile of another user';
 export const USER_PROFILE = 'fetch user profile';
@@ -20,4 +21,3 @@ export const UPVOTE = 'upvote a recipe';
 export const DOWNVOTE = 'downvote a recipe';
 export const GET_VOTE_STATUS = 'get vote status of a user';
 export const GET_FAVORITE_STATUS = 'get favorite status of a user';
-// export const xtoken = window.localStorage.getItem('token');

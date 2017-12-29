@@ -68,10 +68,10 @@ class Home extends Component {
           <Zoom duration={500} step={this.step.is('background')} >
             <div className="header">
               <div className="row header-items justify-content-center">
-                <div className="col-lg-6 col-sm-10 text-center">
+                <div className="col-lg-10 col-sm-10 text-center">
                   <Zoom duration={1000} step={this.step.is('logo')}><img src="../img/logo.png" alt="logo" /></Zoom>
 
-                  <div className=" mt-5 text-dark bg-mirror header-title">
+                  <div className=" mt-5 text-dark bg-mirror header-title text-left">
                     <Flip x duration={1000} step={this.step.is('header')}>
                   “I hate the notion of a secret recipe. Recipes are by nature derivative and meant
                   to be shared that is how they improve, are changed, how new ideas are formed. To
@@ -79,7 +79,7 @@ class Home extends Component {
                       <Fade top cascade={1000} duration={500} step={this.step.is('title')} style={{ display: 'inline-block' }} >
                       Molly
                       </Fade>
-                      <span style={{ whiteSpace: 'pre' }}/>
+                      {' '}
                       <Fade bottom cascade={1000} duration={500} step={this.step.is('title')} style={{ display: 'inline-block' }} >
                       Wizenberg
                       </Fade>

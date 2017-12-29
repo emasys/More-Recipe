@@ -48,7 +48,7 @@ class Reviews extends Component {
     const data = this.state;
     const { id } = this.props.recipes.recipeItem.recipe;
     this.props.postReview(data, id).then(res => {
-      this.props.getRecipeItem(id);
+      this.props.getRecipeReactions(id);      
     });
     this.resetState();
   }

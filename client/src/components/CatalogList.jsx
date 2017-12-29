@@ -50,15 +50,15 @@ class CatalogList extends Component {
       return catalog.recipes.map((item, index) => (
         <div
           key={index}
-          className="col-lg-3 col-sm-7 mb-3  col-md-4 animate-catalog"
+          className="col-lg-3 col-sm-7 mb-20 col-md-4 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
           data-offset="100"
         >
-          <div style={{ overflow: 'hidden' }}>
-            <Fade bottom>
-              <Link to={`/recipe/${item.id}`} className=" hvr-push">
+          <div>
+            <Fade bottom delay={100} duration={1200}>
+              <Link to={`/recipe/${item.id}`} className=" hvr-grow-shadow">
                 <div className={`card animate`}>
                   <img
                     className="card-img-top img-box"
@@ -68,8 +68,7 @@ class CatalogList extends Component {
 
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
-                    <h6 className=
-                      "card-title custom-bg bg-dark p-2 m-0 text-truncate ">
+                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                       {item.name}
                     </h6>
                     <div className="card-body p-5 text-left bg-light">

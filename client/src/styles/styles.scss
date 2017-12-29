@@ -70,7 +70,9 @@ a {
     text-shadow: 0 1px 1px black;
   }
 }
-
+.recipeImage{
+  width: 100%;
+}
 .card-body {
   span {
     padding: 5px;
@@ -79,7 +81,7 @@ a {
   .tag {
     position: absolute;
     top: -25px;
-    right: 0;
+    right: -5px;
     padding: 5px;
     font-size: 12px;
     border-radius: 15px 0 0 15px;

@@ -28,6 +28,7 @@
     "one-var": 0,
     "one-var-declaration-per-line": 0,
     "new-cap": 0,
+    "prefer-reflect": 1,
     "consistent-return": 0,
     "no-param-reassign": 0,
     "comma-dangle": 0,

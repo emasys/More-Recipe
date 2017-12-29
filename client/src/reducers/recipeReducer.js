@@ -12,6 +12,11 @@ export default (state = {}, action) => {
       ...state,
       recipeItem: action.payload
     };
+  case type.SINGLE_RECIPE_REACTION:
+    return {
+      ...state,
+      recipeItem: action.payload
+    };
   case type.USER_RECIPES:
     return {
       ...state,

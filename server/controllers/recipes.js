@@ -268,7 +268,43 @@ class RecipeController {
   }
 
   /**
-   * Update Recipe values
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object}
+   * get reaction counts eg favorite, likes
+   * @memberof MoreRecipes
+   */
+  static getReactionCount(req, res) {
+    return Recipes.findById(req.params.recipeId, {
+      include: [
+        {
+          model: Reviews,
+          as: 'reviews'
+        },
+        {
+          model: Favorite,
+          as: 'favorites'
+        }
+      ]
+    })
+      .then((recipe) => {
+        if (req.decoded.id) {
+          return recipe
+            .update({
+              favorite: recipe.favorites.length,
+            })
+            .then(() => setStatus(res, { success: true, recipe }, 200));
+        }
+      })
+      .catch(() =>
+        setStatus(res, { success: false, status: 'Recipes not found' }, 404));
+  }
+
+  /**
+   * Update Recipe
    *
    * @param {object} req
    * @param {object} res
@@ -286,7 +322,8 @@ class RecipeController {
               name: req.body.name || recipe.name,
               direction: req.body.direction || recipe.direction,
               description: req.body.description || recipe.description,
-              ingredients: getArr(arr) || recipe.ingredients
+              ingredients: getArr(arr) || recipe.ingredients,
+              foodImg: req.body.foodImg || recipe.foodImg
             })
             .then(() => setStatus(res, { success: true, recipe }, 200));
           // Send back the updated recipe.

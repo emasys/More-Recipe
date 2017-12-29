@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 import Fade from 'react-reveal/Fade';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import { css } from 'glamor';
 
 // Modal
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 
+//component
+import Navbar from './Navbar';
 import config from '../config';
 import * as actions from '../actions';
 import Auth from './auth';
-
-//component
-import Navbar from './Navbar';
 /**
  *
  *
@@ -30,6 +31,8 @@ class Profile extends Component {
   constructor(props) {
     super(props);
 
+    this.toastId = null;
+
     this.state = {
       limit: 6,
       view: false,
@@ -42,10 +45,8 @@ class Profile extends Component {
       bio: '',
       progressSpinner: 'fade',
       successMsg: false,
-      save: 'fade',
+      save: 'd-none',
       showMore: false,
-      defaultDp:
-        'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
     };
     this.generateRecipes = this.generateRecipes.bind(this);
     this.generateUserInfo = this.generateUserInfo.bind(this);
@@ -163,7 +164,28 @@ class Profile extends Component {
     const [{ preview }] = files;
     this.setState({ preview, files, save: 'show' });
   }
+  /**
+   *
+   *
+   * @returns {object}
+   * upload status
+   * @memberof Profile
+   */
+  notify() {
+    this.toastId = toast('Uploading...', { autoClose: false });
+    return this.toastId;
+  }
 
+  update = () =>
+    toast.update(this.toastId, {
+      render: 'Upload complete!',
+      type: toast.TYPE.SUCCESS,
+      autoClose: 3000,
+      className: css({
+        transform: 'rotateY(360deg)',
+        transition: 'transform 0.6s'
+      })
+    });
   /**
    *
    *
@@ -172,9 +194,6 @@ class Profile extends Component {
    * @returns {object} a preview of image
    */
   handleImg() {
-    this.setState({
-      progressSpinner: 'show'
-    });
     const { files } = this.state;
     console.log(files);
     let query = {
@@ -205,10 +224,9 @@ class Profile extends Component {
       this.props.updateUser(this.props.match.params.id, query).then(() => {
         console.log('saved');
         this.props.getUserInfo(this.props.match.params.id);
+        this.update();
         this.setState({
-          successMsg: true,
-          progressSpinner: 'fade',
-          save: 'fade'
+          save: 'd-none'
         });
       });
     });
@@ -300,10 +318,7 @@ class Profile extends Component {
       const {
         status,
         preview,
-        defaultDp,
         save,
-        successMsg,
-        progressSpinner
       } = this.state;
       return (
         <div className="col-lg-4 col-md-4 col-sm-12 mr-5 mb-10">
@@ -322,11 +337,11 @@ class Profile extends Component {
                 multiple={false}
                 className=" p-10 text-center text-light dropzone-dp"
               >
-                change profile picture
+                click to change profile picture
               </Dropzone>
             </div>
             <img
-              src={preview || avatar || defaultDp}
+              src={preview || avatar || config.DEFAULT_DISPLAY_PICTURE}
               alt="avi"
               className="img-fluid rounded mb-3"
             />
@@ -337,9 +352,7 @@ class Profile extends Component {
               (<small className="header-title">{moniker}</small>)
             </h2>
             <div>
-              <p>
-                {bio}
-              </p>
+              <p>{bio}</p>
               <hr />
             </div>
             <p>
@@ -348,43 +361,28 @@ class Profile extends Component {
             <p className=" text-capitalize">
               <i className="fa fa-map-marker" aria-hidden="true" /> {country}
             </p>
-            <button
-              className={`btn btn-dark btn-lg ${save}`}
-              onClick={this.handleImg}
-            >
-              save update
-            </button>
-            {` `}
-            <i
-              className={`fa fa-spinner fa-pulse fa-2x fa-fw ${progressSpinner}`}
-            />
-            <span className="sr-only">Loading...</span>
-
-            {Auth.moniker() === 'admin' ? (
-              <Link to="/manageUsers" className="btn btn-lg btn-light">
-                {' '}
-                Manage Users
-              </Link>
-            ) : (
-              ''
-            )}
-            {successMsg && (
-              <div
-                className="alert alert-success mt-50 alert-dismissible fade show"
-                role="alert"
-              >
-                <strong>Saved!</strong>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="alert"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            )}
             <div>
+              <button
+                className={`btn btn-dark btn-lg ${save}`}
+                onClick={() => {
+                  this.handleImg();
+                  this.notify();
+                }}
+              >
+                save update
+              </button>
+            </div>
+            <div className="mt-5">
+              {Auth.moniker() === 'admin' ? (
+                <Link to="/manageUsers" className="btn btn-lg btn-light">
+                  {' '}
+                  Manage Users
+                </Link>
+              ) : (
+                ''
+              )}
+            </div>
+            <div className="mt-5">
               <button className="btn btn-dark" onClick={this.onOpenModal}>
                 Edit profile
               </button>
@@ -516,6 +514,7 @@ class Profile extends Component {
     return (
       <div>
         <Navbar />
+        <ToastContainer />
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Edit Profile</h2>
           {this.getEditForm()}

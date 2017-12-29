@@ -24,7 +24,18 @@ export const getRecipeItem = id => dispatch =>
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SINGLE_RECIPE, payload: err.response.data });
+      dispatch({ type: type.SINGLE_RECIPE, payload: err.response });
+    });
+
+// Get a single recipe reactions
+export const getRecipeReactions = id => dispatch =>
+  axios
+    .get(`${URL}/recipe/reaction/${id}?token=${xtoken}`)
+    .then(response => {
+      dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: err.response });
     });
 
 // Get user specific recipes

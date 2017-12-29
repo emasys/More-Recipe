@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import Pace from 'react-pace-progress';
-import config from '../config';
 import * as actions from '../actions';
 
 //component
 import Navbar from '../components/Navbar';
 import categoryList from '../components/categoryList';
+import config from '../config';
 /**
  *
  *
@@ -31,21 +29,34 @@ class AddRecipe extends Component {
       isLoading: false
     };
     this.handleForm = this.handleForm.bind(this);
-    this.handleDrop = this.handleDrop.bind(this);
     this.sendData = this.sendData.bind(this);
   }
-  
+
+  componentWillUnmount() {
+    this.setState({
+      isLoading: false
+    });
+  }
   /**
    *
    *
    * @memberof AddRecipe
-   * @returns {any} new recipe
+   * @returns {any} 
+   * redirects to the recipe page if success
    */
   sendData() {
+    console.log(this.props.new_recipe);
     if (this.props.new_recipe.new_recipe) {
       if (this.props.new_recipe.new_recipe.recipe) {
         const { id } = this.props.new_recipe.new_recipe.recipe;
         this.props.history.push(`/recipe/${id}`);
+      }
+      if (this.props.new_recipe.new_recipe.error) {
+        this.setState({
+          isLoading: false
+        });
+        document.querySelector('#recipe_error').innerHTML =
+          'You have already posted this recipe';
       }
     }
   }
@@ -64,61 +75,18 @@ class AddRecipe extends Component {
       ingredients: e.target.elements.ingredients.value.trim(),
       direction: e.target.elements.direction.value.trim(),
       description: e.target.elements.description.value.trim(),
-      category: e.target.elements.category.value
+      category: e.target.elements.category.value,
+      foodImg: config.DEFAULT_FOOD_IMG
     };
-
-    const { files } = this.state;
-    if (!files) {
-      let errorMessage = document.querySelector('#no_image');
-      errorMessage.innerHTML = 'An Image of the finished meal is required';
-      return errorMessage;
-    }
-
-    // Push all the axios request promise into a single array
-    const uploaders = files.map(file => {
-      document.querySelector('#no_image').innerHTML = '';
-      this.setState({
-        status: 'show',
-        isLoading: true
-      });
-      // Initial FormData
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('tags', 'morerecipe');
-      formData.append('upload_preset', config.UPLOAD_PRESET);
-      formData.append('api_key', config.API_KEY);
-      formData.append('timestamp', (Date.now() / 1000) | 0);
-
-      return axios
-        .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => {
-          const resdata = response.data;
-          data.foodImg = resdata.secure_url;
-        });
+    this.setState({
+      isLoading: true
     });
-
-    axios.all(uploaders).then(() => {
-      // perform after upload is successful operation
-      // console.log('upload complete');
-      this.props.addRecipe(data).then(() => {
-        this.sendData();
-      });
+    this.props.addRecipe(data).then(() => {
+      this.sendData();
     });
   }
 
-  /**
-   *
-   *
-   * @param {any} files
-   * @memberof AddRecipe
-   * @returns {object} a preview of image
-   */
-  handleDrop(files) {
-    const [{ preview }] = files;
-    this.setState({ preview, files });
-  }
+  
 
   /**
    *
@@ -127,13 +95,13 @@ class AddRecipe extends Component {
    * @memberof AddRecipe
    */
   render() {
-    const { preview, status } = this.state;
+    const { status } = this.state;
     const recipeCategory = categoryList;
     return (
       <section className="container ">
-      <div className="fixed-top">
-      {this.state.isLoading ? <Pace color="#e7b52c" height={2}/> : null}
-      </div>
+        <div className="fixed-top">
+          {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
+        </div>
         <Navbar />
         <div className="row justify-content-center mt-80">
           <div className="catalog-wrapper p-15">
@@ -149,6 +117,7 @@ class AddRecipe extends Component {
                     id="inputRecipe"
                     placeholder="Name of recipe"
                   />
+                  <div className="text-danger" id="recipe_error" />
                 </li>
                 <li className="col-lg-6 col-sm-12">
                   <label htmlFor="ingredients" className="col-form-label">
@@ -184,29 +153,6 @@ class AddRecipe extends Component {
                     required
                     name="description"
                   />
-                </li>
-
-                <li className=" col-lg-6 col-sm-12">
-                  <div className="col-lg-11 col-sm-12">
-                    <Dropzone
-                      onDrop={this.handleDrop}
-                      accept="image/jpeg,image/jpg,image/tiff,image/gif,image/png"
-                      multiple={false}
-                      className=" p-10 text-center dropzone bg-light"
-                    >
-                      Drag a file here or click to upload an image of your food
-                    </Dropzone>
-                  </div>
-                  <div className="text-danger" id="no_image" />
-                </li>
-                <li className="special col-lg-6 col-sm-12">
-                  {preview && (
-                    <img
-                      src={preview}
-                      className="col-lg-11 col-sm-12"
-                      alt="image preview"
-                    />
-                  )}
                 </li>
                 <li className="special col-lg-6 col-sm-12">
                   <label>Category</label>

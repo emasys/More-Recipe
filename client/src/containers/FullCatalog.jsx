@@ -119,8 +119,9 @@ class FullCatalog extends Component {
    * @returns {any} react lifecycle method
    */
   componentWillUnmount() {
-    const data = { query: '' };
-    this.props.searchRecipes(data);
+    // const data = { query: '' };
+    // this.props.searchRecipes(data);
+    this.recentlyAdded();
   }
   /**
    *
