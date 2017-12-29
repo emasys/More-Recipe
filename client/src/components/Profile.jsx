@@ -100,7 +100,7 @@ class Profile extends Component {
    *
    * @param {object} nextProps
    * @param {object} nextState
-   * @memberof FullCatalog
+   * @memberof Profile
    * @returns {any}
    * invoked immediately before rendering
    * when new props or state are being received.
@@ -243,15 +243,15 @@ class Profile extends Component {
       return data.recipes.map((item, index) => (
         <div
           key={index}
-          className="col-lg-5 col-md-6 col-sm-6 mb-3 animate-catalog"
+          className="col-lg-5 col-md-6 col-sm-6 mb-20 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
           data-offset="100"
         >
-          <div style={{ overflow: 'hidden' }}>
+          <div>
             <Fade bottom>
-              <Link to={`/recipe/${item.id}`} className="hvr-bounce-out">
+              <Link to={`/recipe/${item.id}`} className="hvr-grow-shadow">
                 <div className="card animate">
                   <div className="description">
                     <h6>Description</h6>

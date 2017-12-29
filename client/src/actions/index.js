@@ -12,7 +12,7 @@ export const getRecipes = (page, query = '') => dispatch => {
       dispatch({ type: type.ALL_RECIPES, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.ALL_RECIPES, payload: err.response.data });
+      dispatch({ type: type.ALL_RECIPES, payload: err.response });
     });
 };
 

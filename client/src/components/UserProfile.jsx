@@ -6,6 +6,7 @@ import * as actions from '../actions';
 
 //component
 import Navbar from './Navbar';
+import config from '../config';
 /**
  *
  *
@@ -46,11 +47,28 @@ class UserProfile extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
-      if (nextProps.user.recipes.length > 6) {
+      console.log(nextProps.user.recipes);
+      if (nextProps.user.recipes.length > 5) {
         this.setState({
           showMore: true
         });
       }
+    }
+  }
+
+   /**
+   *
+   *
+   * @param {object} nextProps
+   * @param {object} nextState
+   * @memberof UserProfile
+   * @returns {any}
+   * invoked immediately before rendering
+   * when new props or state are being received.
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.limit > this.state.limit) {
+      this.props.getUserRecipes(nextState.limit, this.props.match.params.id);
     }
   }
 
@@ -66,15 +84,15 @@ class UserProfile extends Component {
       return data.recipes.map((item, index) => (
         <div
           key={index}
-          className="col-lg-5 col-md-6 col-sm-6 animate-catalog"
+          className="col-lg-5 col-md-6 col-sm-6  mb-20 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
           data-offset="100"
         >
-          <div style={{ overflow: 'hidden' }}>
+          <div>
             <Fade bottom>
-              <Link to={`/recipe/${item.id}`} className="hvr-bounce-out">
+              <Link to={`/recipe/${item.id}`} className="hvr-grow-shadow">
                 <div className="card animate">
                   <div className="description">
                     <h6>Description</h6>
@@ -141,8 +159,7 @@ class UserProfile extends Component {
         <div className="col-lg-4 col-md-4 col-sm-12 mb-10">
           <img
             src={
-              avatar ||
-              'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
+              avatar || config.DEFAULT_DISPLAY_PICTURE
             }
             alt="avi"
             className="img-fluid rounded mb-3"
@@ -193,7 +210,9 @@ class UserProfile extends Component {
             {this.generateUserInfo(this.props.userInfo)}
             <div className="col-lg-7 col-md-7 col-sm-12 recipe-lists">
               <div className="clearfix">
-                <h2 className="fresh-title float-left clearfix">Recipes </h2>
+                <h2 className="fresh-title float-left clearfix">{
+                  this.props.userInfo ? this.props.userInfo.data.moniker : null
+                }'s Recipes </h2>
               </div>
               <hr />
               <div className="row justify-content-center">

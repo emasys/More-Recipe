@@ -120,11 +120,6 @@ class RecipeItem extends Component {
     }
   }
 
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log({ update: nextProps });
-  }
-
   /**
    *
    *
@@ -599,7 +594,7 @@ class RecipeItem extends Component {
           </div>
         </Modal>
         <section className="container">
-          <div className="row justify-content-center catalog-wrapper">
+          <div className="row justify-content-center catalog-wrapper" id="catalog">
             <div className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image">
               {this.generateItems(recipeItem)}
             </div>

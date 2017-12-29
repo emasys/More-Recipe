@@ -120,7 +120,7 @@ class Reviews extends Component {
           <hr />
         </div>
         <div className="col-lg-7 col-sm-12 recipe-image">
-          <form onSubmit={this.handleForm}>
+          <form onSubmit={this.handleForm} className="text-center">
             <div className="form-row">
               <div className="form-group col-md-12 col-sm-12">
                 <textarea
@@ -132,7 +132,7 @@ class Reviews extends Component {
                 />
               </div>
             </div>
-            <button type="submit" className="btn btn-dark">
+            <button type="submit" className="btn btn-dark  btn-lg col-lg-4 col-md-6 col-sm-12">
               Submit
             </button>
           </form>

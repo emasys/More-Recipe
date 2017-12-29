@@ -76,7 +76,7 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
-    if (nextProps.user.data) {
+    if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
       });

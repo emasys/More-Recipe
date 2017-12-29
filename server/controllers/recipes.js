@@ -233,12 +233,20 @@ class RecipeController {
       include: [
         {
           model: Reviews,
-          as: 'reviews'
+          as: 'reviews',
+
         },
         {
           model: Favorite,
           as: 'favorites'
         }
+      ],
+      order: [
+        [
+          { model: Reviews, as: 'reviews' },
+          'createdAt',
+          'DESC'
+        ]
       ]
     })
       .then((recipe) => {
@@ -288,6 +296,13 @@ class RecipeController {
           model: Favorite,
           as: 'favorites'
         }
+      ],
+      order: [
+        [
+          { model: Reviews, as: 'reviews' },
+          'createdAt',
+          'DESC'
+        ]
       ]
     })
       .then((recipe) => {
