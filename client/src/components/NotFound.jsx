@@ -18,10 +18,10 @@ const NotFound = () => (
             ...Go back{' '}
           <Link
             to="/"
-            className="btn btn-dark hvr-icon-forward"
+            className="btn btn-dark btn-lg hvr-icon-back"
             role="button"
           >
-              Home&nbsp;
+              &nbsp;Home
           </Link>{' '}
         </h2>
       </div>

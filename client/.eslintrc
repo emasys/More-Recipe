@@ -11,6 +11,7 @@
     "localStorage": true,
     "toastr": true,
     "$": true,
+    "expect": true,
     "FormData": true,
     "window": true
   },

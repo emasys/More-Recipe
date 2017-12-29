@@ -6,7 +6,7 @@ module.exports = {
   entry: './client/src/app.jsx',
   output: {
     path: path.join(__dirname, 'client/public'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -15,13 +15,11 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default'],
-    }),
+      Popper: ['popper.js', 'default']
+    })
   ],
   resolve: {
-    extensions: [
-      '.js', '.json', '.jsx', '.css', '.scss'
-    ],
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
     descriptionFiles: ['package.json']
   },
   module: {
@@ -29,25 +27,26 @@ module.exports = {
       {
         loader: 'babel-loader',
         test: /\.(js|jsx)?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
+      
       {
         test: /\.(tff|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
+        loader: 'file-loader'
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader?limit=250000',
-      },
-    ],
+        loader: 'url-loader?limit=250000'
+      }
+    ]
   },
 
   devtool: 'cheap-module-eval-source-map',
@@ -57,10 +56,10 @@ module.exports = {
     proxy: {
       '/api/v1/**': {
         target: 'http://[::1]:8080',
-        secure: false,
-      },
+        secure: false
+      }
     },
     contentBase: path.join(__dirname, 'client/public'),
-    historyApiFallback: true,
-  },
+    historyApiFallback: true
+  }
 };

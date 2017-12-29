@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render catalog list correctly 1`] = `
+<div
+  className="row justify-content-center"
+>
+  <div
+    className="col-lg-3 col-sm-7 mb-3  col-md-4 animate-catalog"
+    data-animate="bounceIn"
+    data-delay="0.1s"
+    data-duration="1.0s"
+    data-offset="100"
+    key="0"
+  >
+    <div
+      style={
+        Object {
+          "overflow": "hidden",
+        }
+      }
+    >
+      <Fade
+        bottom={true}
+      >
+        <Link
+          className=" hvr-push"
+          replace={false}
+          to="/recipe/1"
+        >
+          <div
+            className="card animate"
+          >
+            <img
+              alt="recipe image"
+              className="card-img-top img-box"
+              src="some picture url"
+            />
+            <div
+              className="card-body p-0 text-center social-icons"
+            >
+              <span
+                className="tag bg-danger"
+              >
+                Pasta
+              </span>
+              <h6
+                className="card-title custom-bg bg-dark p-2 m-0 text-truncate "
+              >
+                welcome to more recipe
+              </h6>
+              <div
+                className="card-body p-5 text-left bg-light"
+              >
+                <p
+                  className="crop-text"
+                >
+                  do it again
+                </p>
+              </div>
+              <span>
+                <i
+                  aria-hidden="true"
+                  className="fa fa-heart-o"
+                />
+                0
+              </span>
+              <span>
+                <i
+                  aria-hidden="true"
+                  className="fa fa-thumbs-o-up"
+                />
+                1
+              </span>
+              <span>
+                <i
+                  aria-hidden="true"
+                  className="fa fa-thumbs-o-down"
+                />
+                0
+              </span>
+              <span>
+                <i
+                  aria-hidden="true"
+                  className="fa fa-eye"
+                />
+                1
+              </span>
+              <span>
+                <i
+                  aria-hidden="true"
+                  className="fa fa-comment-o"
+                />
+                0
+              </span>
+            </div>
+          </div>
+        </Link>
+      </Fade>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render catalog list correctly with empty props 1`] = `
+<div
+  className="row justify-content-center"
+>
+  <div
+    className="text-center error-message"
+  >
+    <div
+      className="catalog"
+    >
+      <img
+        alt="logo"
+        src="../img/logo.png"
+      />
+      <h4
+        className="p-3 m-2"
+      >
+        ...Oops
+      </h4>
+      <p
+        className="p-3 m-2"
+      >
+        No recipe matches your description
+      </p>
+      <p
+        className="p-3 m-2"
+      >
+        Try searching with a name of an ingredient
+      </p>
+    </div>
+  </div>
+</div>
+`;

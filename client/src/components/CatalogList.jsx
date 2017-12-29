@@ -20,17 +20,13 @@ class CatalogList extends Component {
       hover: ''
     };
     this.generateList = this.generateList.bind(this);
-    // this.redirect = this.redirect.bind(this);
   }
 
-  // redirect(target) {
-  //   this.context.router.push(target);
-  // }
   /**
    *
    *
-   * @param {any} { catalog }
-   * @returns {object} list of recipe
+   * @param {object} props
+   * @returns {object} list of recipes
    * @memberof CatalogList
    */
   generateList({ catalog }) {
@@ -41,9 +37,11 @@ class CatalogList extends Component {
             <div className="catalog">
               <img src="../img/logo.png" alt="logo" />
               <h4 className="p-3 m-2">...Oops</h4>
-              <p className="p-3 m-2">No recipe matches your description</p>
+              <p className="p-3 m-2">No recipe found</p>
               <p className="p-3 m-2">
-                Try searching with a name of an ingredient
+                <Link to="/" className="btn btn-outline-dark hvr-icon-back">
+                  ...go back home
+                </Link>
               </p>
             </div>
           </div>
@@ -70,7 +68,8 @@ class CatalogList extends Component {
 
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
-                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
+                    <h6 className=
+                      "card-title custom-bg bg-dark p-2 m-0 text-truncate ">
                       {item.name}
                     </h6>
                     <div className="card-body p-5 text-left bg-light">
@@ -108,7 +107,8 @@ class CatalogList extends Component {
   /**
    *
    *
-   * @returns {any} jsx
+   * @returns {any}
+   * render react element into the DOM
    * @memberof CatalogList
    */
   render() {

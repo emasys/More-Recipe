@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Fade from 'react-reveal/Fade';
+import PropTypes from 'prop-types';
+
+// Actions
 import * as actions from '../actions';
 
-//components
+// Components
 import Navbar from './Navbar';
+import CatalogList from './CatalogList';
 /**
  *
  *
@@ -21,8 +23,13 @@ class Category extends Component {
   constructor(props) {
     super(props);
 
-    this.generateList = this.generateList.bind(this);
-    // this.redirect = this.redirect.bind(this);
+    this.state = {
+      category: undefined,
+      showMore: false,
+      page_limit: 12,
+    };
+
+    this.nextPage = this.nextPage.bind(this);
   }
   /**
    *
@@ -34,107 +41,81 @@ class Category extends Component {
     const data = {
       category: this.props.match.params.cat
     };
-    this.props.getCategory(data, 12);
+    this.props.getCategory(data, this.state.page_limit);
   }
 
-  // redirect(e){
-  //   e = e || window.event;
-  //   e = e.target || e.srcElement;
-  //   // return this.props.history.push=(`/recipe/${e.id}`)
-  // }
   /**
    *
-   *
-   * @param {any} cat
-   * @returns {object} list of recipes
+   * @returns {any}
+   * invoked before a mounted component receives new props.
+   * If you need to update the state in response to prop changes
+   * (for example, to reset it), you may compare this.props and
+   * nextProps and perform state transitions using this.setState()
+   * in this method.
+   * @param {object} nextProps
    * @memberof Category
    */
-  generateList(cat) {
-    if (cat.category) {
-      if (cat.category.recipes.length < 1) {
-        return (
-          <div className="text-center error-message">
-            <img src="../img/logo.png" alt="logo" className="mt-80"/>
-            <h4 className="p-3 m-2">There's no recipe in this category yet</h4>
-          </div>
-        );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.category.category) {
+      this.setState({ category: nextProps.category.category });
+      if (nextProps.category.category.recipes.length > 11) {
+        this.setState({ showMore: true });
       }
-      return cat.category.recipes.map((item, index) => (
-        <div
-          key={index}
-          className="col-lg-3 col-sm-10 mb-3  col-md-4 animate-catalog"
-          data-animate="bounceIn"
-          data-duration="1.0s"
-          data-delay="0.1s"
-          data-offset="100"
-        >
-          <div style={{ overflow: 'hidden' }}>
-            <Fade bottom>
-              <Link
-                to={`/recipe/${item.id}`}
-                className="hovered stuff hvr-bounce-out"
-                name="something"
-              >
-                <div className={`card animate`}>
-                  <img
-                    className="card-img-top img-box"
-                    src={item.foodImg}
-                    alt="Card image cap"
-                    id={item.id}
-                  />
-                  <div className="card-body p-0 text-center social-icons">
-                    <Link to={`/category/${item.category}`}>
-                      <span className="tag bg-danger">{item.category}</span>
-                    </Link>
-                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
-                      {item.name}
-                    </h6>
-                    <div className="card-body p-5 text-left bg-light text-dark">
-                      <p className="crop-text">{item.description}</p>
-                    </div>
-                    <span>
-                      <i className="fa fa-heart-o" aria-hidden="true" />
-                      {item.favorite}
-                    </span>
-                    <span>
-                      <i className="fa fa-thumbs-o-up" aria-hidden="true" />
-                      {item.upvote}
-                    </span>
-                    <span>
-                      <i className="fa fa-thumbs-o-down" aria-hidden="true" />
-                      {item.downvote}
-                    </span>
-                    <span>
-                      <i className="fa fa-eye" aria-hidden="true" />
-                      {item.views}
-                    </span>
-                    <span>
-                      <i className="fa fa-comment-o" aria-hidden="true" />
-                      {item.comments}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </Fade>
-          </div>
-        </div>
-      ));
     }
   }
   /**
    *
    *
-   * @returns {any} jsx
+   * @param {object} nextProps
+   * @param {object} nextState
+   * @memberof Category
+   * @returns {any}
+   * invoked immediately before rendering
+   * when new props or state are being received.
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.page_limit > this.state.page_limit) {
+      const data = {
+        category: nextProps.match.params.cat
+      };
+      this.props.getCategory(data, nextState.page_limit);
+    }
+  }
+/**
+   *
+   *
+   * @memberof Category
+   * @returns {any} pagination
+   */
+  nextPage() {
+    this.setState(prevState => ({
+      page_limit: prevState.page_limit + 8
+    }));
+  }
+  /**
+   *
+   *
+   * @returns {any}
+   * render react element into the DOM
    * @memberof Category
    */
   render() {
+    const { showMore } = this.state;
     return (
       <div>
         <Navbar />
         <div className="mt-80 mb-3">
           <div className="container catalog-wrapper" id="catalog">
-            <div className="row justify-content-center">
-              {this.generateList(this.props.category)}
+            <CatalogList catalog={this.state.category} />
+            <div className="text-center">
+              {showMore && (
+                <button
+                  className="btn btn-outline-dark hvr-grow-shadow"
+                  onClick={this.nextPage}
+                >
+                  View More
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -146,4 +127,10 @@ class Category extends Component {
 const mapStateToProps = state => ({
   category: state.recipes
 });
+
+Category.propTypes = {
+  getCategory: PropTypes.func,
+  category: PropTypes.object,
+  match: PropTypes.object
+};
 export default connect(mapStateToProps, actions)(Category);

@@ -5,11 +5,13 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import * as actions from '../actions';
-import categoryList from '../components/categoryList';
+import { dropdown } from '../components/categoryList';
 
 //component
 import CatalogList from '../components/CatalogList';
 import Auth from '../components/auth';
+import config from '../config/index';
+import Navlinks from '../components/Navlinks';
 
 const fadeAnimation = {
   transitionName: 'fade',
@@ -21,16 +23,6 @@ const fadeAnimation = {
   transitionLeaveTimeout: 500
 };
 
-const propTypes = {
-  recipes: PropTypes.objectOf({
-    allRecipes: PropTypes.array
-  }),
-  user: PropTypes.array,
-  getRecipes: PropTypes.func,
-  searchRecipes: PropTypes.func,
-  getProfile: PropTypes.func
-  // allRecipes
-};
 /**
  *
  * @class FullCatalog
@@ -55,14 +47,12 @@ class FullCatalog extends Component {
     this.searchBar = this.searchBar.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.nextPage = this.nextPage.bind(this);
-    this.navLinks = this.navLinks.bind(this);
-    this.logout = this.logout.bind(this);
     this.recentlyAdded = this.recentlyAdded.bind(this);
     this.mostUpvoted = this.mostUpvoted.bind(this);
     this.mostFavorited = this.mostFavorited.bind(this);
     this.mostViewed = this.mostViewed.bind(this);
 
-    this.recipeCategory = categoryList;
+    this.recipeCategory = dropdown;
   }
   /**
    *
@@ -71,13 +61,8 @@ class FullCatalog extends Component {
    * @returns {any} react lifecycle method
    */
   componentDidMount() {
-    console.log(categoryList);
     if (Auth.userID()) {
-      this.props.getProfile(Auth.userID()).then(() => {
-        this.setState({
-          avatar: this.props.user.data.avatar
-        });
-      });
+      this.props.getProfile(Auth.userID());
     }
     this.props.getRecipes(this.state.page_limit);
   }
@@ -91,7 +76,11 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
-    console.log(nextProps);
+    if (nextProps.user.data) {
+      this.setState({
+        avatar: nextProps.user.data.avatar
+      });
+    }
     if (nextProps.recipes.allRecipes) {
       if (nextProps.recipes.allRecipes.recipes.length > 11) {
         this.setState({ showMore: true });
@@ -107,6 +96,22 @@ class FullCatalog extends Component {
       });
     }
   };
+  /**
+   *
+   *
+   * @param {object} nextProps
+   * @param {object} nextState
+   * @memberof FullCatalog
+   * @returns {any}
+   * invoked immediately before rendering
+   * when new props or state are being received.
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.page_limit > this.state.page_limit) {
+      this.props.getRecipes(nextState.page_limit);
+    }
+  }
+
   /**
    *
    *
@@ -197,66 +202,8 @@ class FullCatalog extends Component {
    */
   nextPage() {
     this.setState(prevState => ({
-      page_limit: prevState.page_limit + 12
+      page_limit: prevState.page_limit + 8
     }));
-  }
-  /**
-   *
-   *
-   * @memberof FullCatalog
-   * @returns {any} log's a user out
-   */
-  logout() {
-    Auth.logout();
-    this.setState({
-      page_limit: 12
-    });
-  }
-  /**
-   *
-   *
-   * @returns {any} some navbar links
-   * @memberof FullCatalog
-   */
-  navLinks() {
-    if (Auth.loggedIn()) {
-      return (
-        <div>
-          <h6 className="dropdown-header text-center">
-            {this.props.user ?
-              `Signed in as ${this.props.user.data.moniker}` :
-              `loading`}
-          </h6>
-          <div className="dropdown-divider" />
-          <Link className="dropdown-item bold" to={`/profile/${Auth.userID()}`}>
-            Your profile
-          </Link>
-          <Link className="dropdown-item bold" to="/favorites">
-            Your favorites
-          </Link>
-          <div className="dropdown-divider" />
-          <a className="dropdown-item bold" onClick={this.logout} href="/">
-            {` `}
-            Logout
-          </a>
-        </div>
-      );
-    } else {
-      return (
-        <h6>
-          <Link className="dropdown-item" to="/signin">
-            <i className="fa fa-sign-in" aria-hidden="true" />
-            {` `}
-            Sign in
-          </Link>
-          <Link className="dropdown-item" to="/signup">
-            <i className="fa fa-user-plus" aria-hidden="true" />
-            {` `}
-            Sign up
-          </Link>
-        </h6>
-      );
-    }
   }
 
   /**
@@ -270,7 +217,9 @@ class FullCatalog extends Component {
     return (
       <div>
         <section className="container-fluid fixed">
-          <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
+          <nav
+            className=
+              "navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
             <div className="container">
               <Link className="navbar-brand bolder text-orange" to="/">
                 MoreRecipes
@@ -357,7 +306,9 @@ class FullCatalog extends Component {
                       to="/favorites"
                       data-tip="Your favorites"
                     >
-                      <i className="material-icons fa-2x red d-sm-none d-lg-inline">
+                      <i
+                        className=
+                          "material-icons fa-2x red d-sm-none d-lg-inline">
                         &#xE87D;
                       </i>
                       <span
@@ -379,10 +330,7 @@ class FullCatalog extends Component {
                         aria-expanded="false"
                       >
                         <img
-                          src={
-                            avatar ||
-                            'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
-                          }
+                          src={avatar || config.DEFAULT_DISPLAY_PICTURE}
                           alt="avi"
                           className="fa-2x img-icon rounded-circle"
                         />
@@ -400,10 +348,11 @@ class FullCatalog extends Component {
                       </a>
                     )}
                     <div
-                      className="dropdown-menu dropdown-menu-right"
+                      className=
+                        "dropdown-menu dropdown-menu-right custom-dropdown"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      {this.navLinks()}
+                      <Navlinks user={this.props.user}/>
                     </div>
                   </li>
                 </ul>
@@ -420,27 +369,81 @@ class FullCatalog extends Component {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                data-toggle="dropdown"
                 href="#"
+                id="navbarDropdown"
                 role="button"
+                data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
                 <i className="fa fa-th" aria-hidden="true" /> categories
               </a>
-              <div className="dropdown-menu custom-dropdown-menu">
-                {this.recipeCategory.map(category => (
-                  <Link
-                    key={category}
-                    className="dropdown-item"
-                    to={`/category/${category}`}
-                  >
-                    {category}
-                  </Link>
-                ))}
+              <div
+                className="dropdown-menu custom-dropdown-menu wide-dropdown"
+                aria-labelledby="navbarDropdown"
+              >
+                <div className="container text-dark">
+                  <div className="row">
+                    <div className="col-md-3 col-sm-4">
+                      <ul className="nav flex-column">
+                        {this.recipeCategory.first.map(link => (
+                          <li className="nav-item" key={link}>
+                            <Link
+                              className="nav-link active"
+                              to={`/category/${link}`}
+                            >
+                              {link}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="col-md-3 col-sm-4">
+                      <ul className="nav flex-column">
+                        {this.recipeCategory.second.map(link => (
+                          <li className="nav-item" key={link}>
+                            <Link
+                              className="nav-link active"
+                              to={`/category/${link}`}
+                            >
+                              {link}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="col-md-3 col-sm-4">
+                      <ul className="nav flex-column">
+                        {this.recipeCategory.third.map(link => (
+                          <li className="nav-item" key={link}>
+                            <Link
+                              className="nav-link active"
+                              to={`/category/${link}`}
+                            >
+                              {link}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="col-md-3 col-sm-4">
+                      <ul className="nav flex-column">
+                        {this.recipeCategory.fourth.map(link => (
+                          <li className="nav-item" key={link}>
+                            <Link
+                              className="nav-link active"
+                              to={`/category/${link}`}
+                            >
+                              {link}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </li>
-
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -457,9 +460,11 @@ class FullCatalog extends Component {
                 <a className="dropdown-item" onClick={this.recentlyAdded}>
                   Recently Added
                 </a>
+                <div className="dropdown-divider" />
                 <a className="dropdown-item" onClick={this.mostUpvoted}>
                   Most Upvoted
                 </a>
+                <div className="dropdown-divider" />
                 <a className="dropdown-item" onClick={this.mostFavorited}>
                   Most Favorited
                 </a>
@@ -498,5 +503,13 @@ const mapStateToProps = state => ({
   user: state.user.userProfile
 });
 
-FullCatalog.PropTypes = propTypes;
+FullCatalog.propTypes = {
+  recipes: PropTypes.object,
+  user: PropTypes.object,
+  getRecipes: PropTypes.func,
+  searchRecipes: PropTypes.func,
+  getProfile: PropTypes.func,
+  data: PropTypes.object,
+  moniker: PropTypes.string
+};
 export default connect(mapStateToProps, actions)(FullCatalog);

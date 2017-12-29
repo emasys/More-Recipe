@@ -78,6 +78,13 @@ class Profile extends Component {
    * @returns {any} a new state
    */
   componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {
+      if (nextProps.user.recipes.length > 5) {
+        this.setState({
+          showMore: true
+        });
+      }
+    }
     if (nextProps.userInfo) {
       this.setState({
         userInfo: nextProps.userInfo,
@@ -85,6 +92,21 @@ class Profile extends Component {
         lastName: nextProps.userInfo.data.lastName,
         bio: nextProps.userInfo.data.bio
       });
+    }
+  }
+  /**
+   *
+   *
+   * @param {object} nextProps
+   * @param {object} nextState
+   * @memberof FullCatalog
+   * @returns {any}
+   * invoked immediately before rendering
+   * when new props or state are being received.
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.limit > this.state.limit) {
+      this.props.getUserRecipes(nextState.limit, Auth.userID());
     }
   }
   /**
@@ -480,7 +502,7 @@ class Profile extends Component {
    */
   viewMore() {
     this.setState(prevState => ({
-      limit: prevState.limit + 6
+      limit: prevState.limit + 2
     }));
   }
   /**

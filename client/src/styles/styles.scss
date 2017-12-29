@@ -1,6 +1,6 @@
 @import './base/settings';
 @import './base/base';
-$color_1: black;
+$color_1: rgb(15, 12, 1);
 $color_2: white;
 $color_3: rgb(141, 161, 141);
 $color_4: rgb(63, 63, 63);
@@ -35,6 +35,10 @@ a {
 .avi{
   min-width: 100px;
 }
+
+.wide-dropdown{
+  min-width: 500px;
+}
 .custom-dropdown {
   // min-width:220px;
   // padding:15px;
@@ -45,6 +49,7 @@ a {
   .dropdown-header {
   font-size: 13px;
   }
+  
 }
 .hovered {
   cursor: pointer;
@@ -124,13 +129,14 @@ a {
 }
 
 .text-orange {
-  color: rgb(245, 179, 57) !important;
+  color:  #f5b339 !important;
 }
 
-// background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)),
-// url('../img/Food.jpg') no-repeat center center;
 .header {
   margin: 0;
+  background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
+  url('http://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
+  background-size: cover;
   padding-top: 50px;
   min-height: 400px;
   max-width: 100%;
@@ -607,7 +613,7 @@ footer {
 
 
 .fade-appear {
-	opacity: 0.01;
+  opacity: 0.01;
 }
 .fade-appear.fade-appear-active {
 	opacity: 1;

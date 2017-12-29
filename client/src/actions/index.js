@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as type from './types';
 
 const URL = '/api/v1';
-const xtoken = localStorage.getItem('token');
+const xtoken = window.localStorage.getItem('token');
 
 // Fetch All recipes
 export const getRecipes = (page, query = '') => dispatch => {

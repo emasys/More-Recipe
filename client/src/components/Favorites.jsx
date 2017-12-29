@@ -5,7 +5,6 @@ import Fade from 'react-reveal/Fade';
 import * as actions from '../actions';
 
 //components
-// import Catalog from './catalog';
 import Navbar from './Navbar';
 /**
  *
@@ -13,7 +12,7 @@ import Navbar from './Navbar';
  * @class Favorites
  * @extends {Component}
  */
-class Favorites extends Component {
+export class Favorites extends Component {
   /**
    * Creates an instance of Favorites.
    * @param {any} props

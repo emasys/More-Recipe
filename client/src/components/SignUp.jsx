@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
+import lodash from 'lodash';
+import Pace from 'react-pace-progress';
 import * as actions from '../actions';
-import config from '../config';
 
 //component
 import Navbar from './Navbar';
@@ -16,7 +14,7 @@ import Countries from './CountryList';
  * @class SignUp
  * @extends {Component}
  */
-class SignUp extends Component {
+export class SignUp extends Component {
   /**
    * Creates an instance of SignUp.
    * @param {any} props
@@ -28,7 +26,8 @@ class SignUp extends Component {
     this.state = {
       preview: null,
       files: null,
-      status: 'fade'
+      status: 'fade',
+      isLoading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
@@ -42,7 +41,6 @@ class SignUp extends Component {
    */
   handleDrop(files) {
     const [{ preview }] = files;
-    console.log(files);
     this.setState({ preview, files });
   }
   /**
@@ -64,8 +62,6 @@ class SignUp extends Component {
       moniker: e.target.elements.moniker.value,
       country: e.target.elements.country.value.trim()
     };
-
-    const { files } = this.state;
 
     // Test for whitespace and digits
     const re = /[\s\d]/;
@@ -110,7 +106,7 @@ class SignUp extends Component {
       submitData += 1;
     }
 
-    if (!_.isEqual(data.password, data.confirmPassword)) {
+    if (!lodash.isEqual(data.password, data.confirmPassword)) {
       document.querySelector('#cp_error').innerHTML =
         'Your password did not match';
     } else {
@@ -120,7 +116,8 @@ class SignUp extends Component {
 
     if (submitData === 6) {
       this.setState({
-        status: 'show'
+        status: 'show',
+        isLoading: true
       });
       this.props.signUp(data).then(() => {
         if (this.props.user.signUp.success) {
@@ -129,16 +126,18 @@ class SignUp extends Component {
           switch (this.props.user.signUp.target) {
           case 'email':
             document.querySelector('#email_error').innerHTML =
-                'Your email address already exist in our database';
+                `Your email address already exist in our database, sign in`;
             this.setState({
-              status: 'fade'
+              status: 'fade',
+              isLoading: false
             });
             break;
           case 'moniker':
             document.querySelector('#moniker_error').innerHTML =
                 'Your username already taken';
             this.setState({
-              status: 'fade'
+              status: 'fade',
+              isLoading: false
             });
             break;
           }
@@ -156,6 +155,9 @@ class SignUp extends Component {
     const { status } = this.state;
     return (
       <section className="container ">
+      <div className="fixed-top">
+      {this.state.isLoading ? <Pace color="#e7b52c" height={2}/> : null}
+      </div>
         <Navbar />
         <div className="row justify-content-center mt-80">
           <div className="col-lg-6 col-sm-12 text-center ">
@@ -221,7 +223,7 @@ class SignUp extends Component {
                     required
                     className="col-lg-11 col-sm-12"
                     name="moniker"
-                    placeholder="johnnyDoe23"
+                    placeholder="johnDoe23"
                   />
                   <div className="text-danger" id="moniker_error" />
                 </li>

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import Pace from 'react-pace-progress';
 import config from '../config';
 import * as actions from '../actions';
 
 //component
 import Navbar from '../components/Navbar';
+import categoryList from '../components/categoryList';
 /**
  *
  *
@@ -25,12 +27,14 @@ class AddRecipe extends Component {
       preview: null,
       files: null,
       fileURL: null,
-      status: 'fade'
+      status: 'fade',
+      isLoading: false
     };
     this.handleForm = this.handleForm.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.sendData = this.sendData.bind(this);
   }
+  
   /**
    *
    *
@@ -74,12 +78,13 @@ class AddRecipe extends Component {
     const uploaders = files.map(file => {
       document.querySelector('#no_image').innerHTML = '';
       this.setState({
-        status: 'show'
+        status: 'show',
+        isLoading: true
       });
       // Initial FormData
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('tags', `morerecipe`);
+      formData.append('tags', 'morerecipe');
       formData.append('upload_preset', config.UPLOAD_PRESET);
       formData.append('api_key', config.API_KEY);
       formData.append('timestamp', (Date.now() / 1000) | 0);
@@ -123,30 +128,12 @@ class AddRecipe extends Component {
    */
   render() {
     const { preview, status } = this.state;
-    const recipeCategory = [
-      'Breakfast',
-      'Brunch',
-      'Lunch',
-      'Snacks',
-      'Appetisers',
-      'Dinner',
-      'Soups',
-      'Noodles',
-      'Rice',
-      'Pasta',
-      'Meat',
-      'Poultry',
-      'Seafood',
-      'Vegetarian',
-      'Sides',
-      'Sauces',
-      'Baking',
-      'Desserts',
-      'Drinks',
-      'Salads'
-    ];
+    const recipeCategory = categoryList;
     return (
       <section className="container ">
+      <div className="fixed-top">
+      {this.state.isLoading ? <Pace color="#e7b52c" height={2}/> : null}
+      </div>
         <Navbar />
         <div className="row justify-content-center mt-80">
           <div className="catalog-wrapper p-15">

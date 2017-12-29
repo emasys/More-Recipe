@@ -1,4 +1,3 @@
-
 export default [
   'Breakfast',
   'Brunch',
@@ -21,3 +20,10 @@ export default [
   'Drinks',
   'Salads'
 ];
+
+export const dropdown = {
+  first: ['Breakfast', 'Brunch', 'Lunch', 'Snacks', 'Appetisers'],
+  second: ['Dinner', 'Soups', 'Noodles', 'Rice', 'Pasta'],
+  third: ['Meat', 'Poultry', 'Seafood', 'Vegetarian', 'Sides'],
+  fourth: ['Sauces', 'Baking', 'Desserts', 'Drinks', 'Salads']
+};

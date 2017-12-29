@@ -20,7 +20,7 @@ import Category from '../components/Category';
 const Message = 'You have to be logged in to view this content';
 
 const AppRoutes = () => (
-  <BrowserRouter>
+  <BrowserRouter >
     <div>
       <Switch>
         <Route path="/signin" component={Signin} />

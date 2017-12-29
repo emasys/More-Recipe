@@ -92,7 +92,24 @@
 47
 48
 49
-50</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,6 +134,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,14 +148,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,7 +192,7 @@ export default class ReviewRecipe {
    * @param {object} req
    * @param {object} res
    * @memberof ReviewRecipe
-   *
+   * @returns {object}
    * Review a particular recipe with a certain recipeId provided as a params
    */
   static addReview(req, res) {
@@ -166,7 +200,8 @@ export default class ReviewRecipe {
     const validator = new Validator(request, validateReviews());
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId, {
-        include: [{ model: Users }] // To allow us send a notification to the creator of the recipe
+        include: [{ model: Users }]
+        // enable sending a notification to the creator of the recipe
       })
         .then((recipe) =&gt; {
           const { name, User: { email } } = recipe;
@@ -176,17 +211,33 @@ export default class ReviewRecipe {
             recipeId: req.params.recipeId,
             userId: req.decoded.id,
             user: req.decoded.moniker,
-            avatar: req.decoded.avatar || <span class="branch-1 cbranch-no" title="branch not covered" >'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'</span>
+            avatar:
+              req.decoded.avatar ||
+<span class="branch-1 cbranch-no" title="branch not covered" >              'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'</span>
           })
             .then((reviewedRecipe) =&gt; {
-              mailer(reviewedRecipe.user, email, `has reviewed your recipe (${name})`);
+              mailer(
+                reviewedRecipe.user,
+                email,
+                `has reviewed your recipe (${name})`
+              );
               return setStatus(res, { success: true, reviewedRecipe }, 201);
             })
-            .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; setStatus(res, { success: false, error: 'could not complete this operation' }, 500));</span></span>
+            .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt;</span></span>
+              setStatus(
+                res,
+                { success: false, error: 'could not complete this operation' },
+                500
+              ));
         })
-        .catch(() =&gt; setStatus(res, { success: false, error: 'recipe not found' }, 404));
+        .catch(() =&gt;
+          setStatus(res, { success: false, error: 'recipe not found' }, 404));
     } else {
-      return setStatus(res, { success: false, status: validator.errors.all() }, 422);
+      return setStatus(
+        res,
+        { success: false, status: validator.errors.all() },
+        422
+      );
     }
   }
 }
@@ -196,7 +247,7 @@ export default class ReviewRecipe {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Dec 17 2017 18:50:20 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 27 2017 10:20:22 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>
