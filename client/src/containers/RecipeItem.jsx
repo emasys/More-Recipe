@@ -39,6 +39,8 @@ class RecipeItem extends Component {
       vote: false,
       edit: false,
       open: false,
+      favoriteStatus: { success: false },
+      votes: { upvote: { success: false }, downvote: { success: false } },
       deleteRecipe: false,
       name: '',
       editRecipe: false,
@@ -64,8 +66,6 @@ class RecipeItem extends Component {
     this.delRecipe = this.delRecipe.bind(this);
     this.onOpenDeleteModal = this.onOpenDeleteModal.bind(this);
     this.onCloseDeleteModal = this.onCloseDeleteModal.bind(this);
-    this.onOpenModal = this.onOpenModal.bind(this);
-    this.onCloseModal = this.onCloseModal.bind(this);
     this.hoverIn = this.hoverIn.bind(this);
     this.hoverOut = this.hoverOut.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
@@ -112,11 +112,12 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
-    console.log({ nextProps });
     if (nextProps.recipes) {
       if (nextProps.recipes.recipeItem) {
         this.setState({
-          recipeItem: nextProps.recipes.recipeItem
+          recipeItem: nextProps.recipes.recipeItem,
+          favoriteStatus: nextProps.favorite.favStatus,
+          votes: nextProps.votes.votes
         });
       }
     }
@@ -134,24 +135,6 @@ class RecipeItem extends Component {
         this.props.history.push('/catalog');
       }
     });
-  }
-  /**
-   *
-   *
-   * @memberof RecipeItem
-   * @returns {bool} sets modal display to true
-   */
-  onOpenModal() {
-    this.setState({ open: true });
-  }
-  /**
-   *
-   *
-   * @memberof RecipeItem
-   * @returns {bool} sets modal display to false
-   */
-  onCloseModal() {
-    this.setState({ open: false });
   }
   /**
    *
@@ -217,11 +200,11 @@ class RecipeItem extends Component {
    */
   handleSubmit(event) {
     const {
-      description, direction, ingredients, foodImg
+      description, direction, ingredients, foodImg, name
     } = this.state;
     event.preventDefault();
     const prevName = this.props.recipes.recipeItem.recipe.name;
-    const newName = event.target.elements.recipe.value.trim();
+    const newName = name.trim();
     let data = {
       name: prevName === newName ? null : event.target.elements.recipe.value.trim(),
       ingredients,
@@ -233,7 +216,8 @@ class RecipeItem extends Component {
     this.props.editRecipe(data, this.props.match.params.id).then(() => {
       if (this.props.recipes.updateRecipes.success) {
         this.setState({
-          editRecipe: false
+          editRecipe: false,
+          status: 'fade'
         });
       } else {
         document.querySelector('#recipe_error').innerHTML =
@@ -301,17 +285,6 @@ class RecipeItem extends Component {
    * @memberof RecipeItem
    */
   getEditForm() {
-    if (this.props.recipes) {
-      if (this.props.recipes.recipeItem) {
-        const {
-          id,
-          name,
-          ingredients,
-          direction,
-          description
-        } = this.props.recipes.recipeItem.recipe;
-      }
-    }
     const {
       name, description, direction, ingredients
     } = this.state;
@@ -332,22 +305,22 @@ class RecipeItem extends Component {
             <div className="text-danger" id="recipe_error" />
           </li>
           <li className="col-lg-8 col-sm-12">
-            <label>Ingredients <em>(separate with comma ",")</em></label>
+            <label>Ingredients <em className="text-warning">(separate with comma ",")</em></label>
             <Textarea
               className="col-lg-11 col-sm-12"
               id="FormControlTextarea"
               name="ingredients"
               value={ingredients}
               onChange={this.ingChanged}
-              minRows={3}
+              minRows={1}
               maxRows={50}
             />
           </li>
           <li className="col-lg-8 col-sm-12">
             <label>Direction</label>
             <Textarea
-            className="col-lg-11 col-sm-12"
-            name="direction"
+              className="col-lg-11 col-sm-12"
+              name="direction"
               minRows={3}
               maxRows={50}
               defaultValue={direction}
@@ -439,7 +412,6 @@ class RecipeItem extends Component {
   handleImg() {
     this.notify();
     const { files } = this.state;
-    console.log(files);
 
     // Push all the axios request promise into a single array
     const uploaders = files.map(file => {
@@ -489,9 +461,8 @@ class RecipeItem extends Component {
       } = reactions.recipe;
 
       const {
-        status, preview, save, edit
+        status, preview, save, edit, votes, favoriteStatus
       } = this.state;
-
       return (
         <div className="">
           <div>
@@ -522,7 +493,7 @@ class RecipeItem extends Component {
               <span className="text-center card-link" onClick={this.favIt}>
                 <i
                   className={`fa  ${
-                    this.props.favorite.favStatus.success ?
+                    favoriteStatus.success ?
                       'fa-heart red animated bounceIn flash' :
                       'fa-heart gray'
                   } fa-2x`}
@@ -534,7 +505,7 @@ class RecipeItem extends Component {
               <span className="text-center card-link m-1" onClick={this.upvote}>
                 <i
                   className={`fa ${
-                    this.props.votes.votes.upvote.success ?
+                    votes.upvote.success ?
                       'fa-thumbs-up animated bounceIn flash blue' :
                       'fa-thumbs-up gray'
                   } fa-2x`}
@@ -549,7 +520,7 @@ class RecipeItem extends Component {
               >
                 <i
                   className={`fa ${
-                    this.props.votes.votes.downvote.success ?
+                    votes.downvote.success ?
                       'fa-thumbs-down animated bounceIn flash red' :
                       'fa-thumbs-down gray'
                   } fa-2x`}
@@ -572,9 +543,15 @@ class RecipeItem extends Component {
       );
     }
   }
+  /**
+   * @returns {any}
+   * set a new edit state
+   * @memberof RecipeItem
+   */
   showEditForm() {
     this.setState({
-      editRecipe: true
+      editRecipe: true,
+      status: 'show'
     });
   }
   /**
@@ -585,16 +562,12 @@ class RecipeItem extends Component {
    */
   render() {
     const {
-      open, deleteRecipe, recipeItem, editRecipe
+      deleteRecipe, recipeItem, editRecipe
     } = this.state;
     return (
       <div>
         <Navbar />
         <ToastContainer />
-        <Modal open={open} onClose={this.onCloseModal} little>
-          <h2>Edit Recipe</h2>
-          {this.getEditForm()}
-        </Modal>
         <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">
             <h4>Delete Recipe?</h4>

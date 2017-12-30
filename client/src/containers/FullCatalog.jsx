@@ -76,6 +76,12 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
+    const stuff = document.getElementById('search').value;
+    if (stuff.length < 1) {
+      return this.setState({
+        All_recipes: nextProps.recipes.allRecipes
+      });
+    }
     if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
@@ -112,17 +118,6 @@ class FullCatalog extends Component {
     }
   }
 
-  /**
-   *
-   *
-   * @memberof FullCatalog
-   * @returns {any} react lifecycle method
-   */
-  componentWillUnmount() {
-    // const data = { query: '' };
-    // this.props.searchRecipes(data);
-    this.recentlyAdded();
-  }
   /**
    *
    * @returns {object} list of recently added recipes
@@ -170,11 +165,8 @@ class FullCatalog extends Component {
    */
   onSearch(event) {
     event.preventDefault();
-    const data = { query: this.state.search };
+    const data = { query: this.state.search.toLowerCase() };
     this.props.searchRecipes(data);
-    this.setState({
-      All_recipes: this.props.recipes.search
-    });
   }
 
   /**
@@ -233,6 +225,7 @@ class FullCatalog extends Component {
                 <input
                   type="search"
                   name="search"
+                  id="search"
                   value={search}
                   onChange={this.searchBar}
                   placeholder="search by ingredients or recipe title"

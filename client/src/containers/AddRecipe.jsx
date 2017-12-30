@@ -72,7 +72,7 @@ class AddRecipe extends Component {
     e.preventDefault();
     let data = {
       name: e.target.elements.recipe.value.trim(),
-      ingredients: e.target.elements.ingredients.value.trim(),
+      ingredients: e.target.elements.ingredients.value.trim().toLowerCase(),
       direction: e.target.elements.direction.value.trim(),
       description: e.target.elements.description.value.trim(),
       category: e.target.elements.category.value,

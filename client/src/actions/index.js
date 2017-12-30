@@ -68,7 +68,7 @@ export const getProfile = id => dispatch =>
       dispatch({ type: type.USER_PROFILE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.USER_PROFILE, payload: err.response.data });
+      dispatch({ type: type.USER_PROFILE, payload: err.response });
     });
 
 export const deleteUser = id => dispatch =>

@@ -5,7 +5,7 @@ const generateList = ({ ingredients }) => {
   if (ingredients) {
     const list = ingredients.recipe.ingredients;
     return list.map((item, index) => (
-      <li className="list-group-item" key={index}>
+      <li className="list-group-item text-capitalize" key={index}>
         {item}
       </li>
     ));
@@ -42,7 +42,7 @@ const getUserId = ({ data }) => {
 };
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
-    <h2 className="fresh-title">{getTitle(props)}</h2>
+    <h2 className="fresh-title text-capitalize">{getTitle(props)}</h2>
     <small className="text-capitalize">
         A recipe by{' '}
       <Link className=" bolder text-info" to={`/user/${getUserId(props)}`}>
