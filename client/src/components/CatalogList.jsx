@@ -50,7 +50,7 @@ class CatalogList extends Component {
       return catalog.recipes.map((item, index) => (
         <div
           key={index}
-          className="col-lg-3 col-sm-7 mb-20 col-md-4 animate-catalog"
+          className="col-lg-3 col-sm-8 mb-20 col-md-4 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
@@ -59,7 +59,7 @@ class CatalogList extends Component {
           <div>
             <Fade bottom delay={100} duration={1200}>
               <Link to={`/recipe/${item.id}`} className=" hvr-grow-shadow">
-                <div className={`card animate`}>
+                <div className="card">
                   <img
                     className="card-img-top img-box"
                     src={item.foodImg}
@@ -69,7 +69,7 @@ class CatalogList extends Component {
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
                     <h4 className="card-title custom-bg bg-dark p-2 m-0 crop-text-title ">
-                      {item.name}
+                      {item.name.length > 25 ? item.name.slice(0, 15).concat("...") : item.name }
                     </h4>
                     <div className="card-body p-5 text-left bg-light">
                       <p className="line-clamp crop-text">{item.description}</p>

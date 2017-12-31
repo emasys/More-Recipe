@@ -24,7 +24,9 @@ a {
     text-decoration: none;
   }
 }
-
+.animate-catalog{
+  max-width: 300px;
+}
 .nav-item{
   color: blue !important;
 }
@@ -427,7 +429,7 @@ footer {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   max-height: 20px;
-  max-width: 200px;
+  // max-width: 22rem;
 }
 
 #like {
@@ -556,7 +558,7 @@ footer {
 
 .img-box {
   height: 180px;
-  width: 100%;
+  max-width: 100%;
 }
 
 .dropzone {

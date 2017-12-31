@@ -177,7 +177,7 @@ class Profile extends Component {
     return this.toastId;
   }
 
-  saveInfo = () => toast("Saved !", {type: toast.TYPE.SUCCESS,autoClose: 1000, });
+  saveInfo = () => toast("Saved !", { type: toast.TYPE.SUCCESS, autoClose: 1000, });
 
   update = () =>
     toast.update(this.toastId, {
@@ -268,7 +268,7 @@ class Profile extends Component {
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
                     <h6 className="card-title custom-bg bg-secondary p-2 m-0 text-truncate ">
-                      {item.name}
+                      {item.name.length > 25 ? item.name.slice(0, 15).concat("...") : item.name }
                     </h6>
                     <span>
                       <i className="fa fa-heart-o" aria-hidden="true" />

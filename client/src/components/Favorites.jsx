@@ -79,9 +79,9 @@ export class Favorites extends Component {
                     <span className="tag bg-danger">
                       {item.Recipe.category}
                     </span>
-                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
-                      {item.Recipe.name}
-                    </h6>
+                    <h4 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
+                      {item.Recipe.name.length > 25 ? item.Recipe.name.slice(0, 15).concat("...") : item.Recipe.name }
+                    </h4>
                     <div className="card-body p-5 text-left bg-light text-dark">
                       <p className="crop-text">{item.Recipe.description}</p>
                     </div>
