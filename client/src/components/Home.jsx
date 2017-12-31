@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import Stepper from 'react-reveal/Stepper';
 import Fade from 'react-reveal/Fade';
 import Flip from 'react-reveal/Flip';
+import Bounce from 'react-reveal/Bounce';
 import Zoom from 'react-reveal/Zoom';
 import * as actions from '../actions';
 
 //component
 import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
+import Auth from './auth';
 
 /**
  * Component for Home page
@@ -30,6 +32,7 @@ class Home extends Component {
       .step('logo', 400)
       .step('header', 1200)
       .step('title', 500)
+      .step('button', 500);
   }
   /**
    *
@@ -60,7 +63,7 @@ class Home extends Component {
           <Zoom duration={500} step={this.step.is('background')}>
             <div className="header">
               <div className="row header-items justify-content-center">
-                <div className="col-lg-10 col-sm-10 text-center">
+                <div className="col-lg-7 col-sm-10 text-center">
                   <Zoom duration={1000} step={this.step.is('logo')}>
                     <img src="../img/logo.png" alt="logo" />
                   </Zoom>
@@ -90,6 +93,22 @@ class Home extends Component {
                       >
                         Wizenberg
                       </Fade>
+                      {!Auth.loggedIn() && (
+                        <Bounce
+                          left
+                          duration={1000}
+                          step={this.step.is('button')}
+                        >
+                          <div className="row">
+                            <Link
+                              to="/signup"
+                              className="btn btn-lg bg-dark m-5 text-white p-10 signUp-btn"
+                            >
+                              Sign Up To Get Started
+                            </Link>
+                          </div>
+                        </Bounce>
+                      )}
                     </Flip>
                   </div>
                 </div>

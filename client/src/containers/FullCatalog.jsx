@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
+import Fade from 'react-reveal/Fade';
 import * as actions from '../actions';
-import { dropdown } from '../components/categoryList';
+import lists from '../components/categoryList';
 
 //component
 import CatalogList from '../components/CatalogList';
@@ -41,7 +42,8 @@ class FullCatalog extends Component {
       All_recipes: '',
       page_limit: 12,
       avatar: null,
-      showMore: false
+      showMore: false,
+      dropdown: false
     };
 
     this.searchBar = this.searchBar.bind(this);
@@ -51,8 +53,9 @@ class FullCatalog extends Component {
     this.mostUpvoted = this.mostUpvoted.bind(this);
     this.mostFavorited = this.mostFavorited.bind(this);
     this.mostViewed = this.mostViewed.bind(this);
+    this.dropdownCtrl = this.dropdownCtrl.bind(this);
 
-    this.recipeCategory = dropdown;
+    this.recipeList = lists;
   }
   /**
    *
@@ -198,7 +201,24 @@ class FullCatalog extends Component {
       page_limit: prevState.page_limit + 8
     }));
   }
-
+  /**
+   *
+   *
+   * @memberof FullCatalog
+   * @returns {any} dropdown
+   */
+  dropdownCtrl() {
+    const { dropdown } = this.state;
+    if (dropdown) {
+      this.setState({
+        dropdown: false
+      });
+    } else {
+      this.setState({
+        dropdown: true
+      });
+    }
+  }
   /**
    *
    *
@@ -206,13 +226,13 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   render() {
-    const { search, avatar, showMore } = this.state;
+    const {
+      search, avatar, showMore, dropdown
+    } = this.state;
     return (
       <div>
         <section className="container-fluid fixed">
-          <nav
-            className=
-              "navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
+          <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
             <div className="container">
               <Link className="navbar-brand bolder text-orange" to="/">
                 MoreRecipes
@@ -240,7 +260,10 @@ class FullCatalog extends Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <i className="fa fa-bars fa-2x text-orange" aria-hidden="true" />
+                <i
+                  className="fa fa-bars fa-2x text-orange"
+                  aria-hidden="true"
+                />
               </button>
               <div
                 className="collapse navbar-collapse justify-content-end"
@@ -300,9 +323,7 @@ class FullCatalog extends Component {
                       to="/favorites"
                       data-tip="Your favorites"
                     >
-                      <i
-                        className=
-                          "material-icons fa-2x red d-sm-none d-lg-inline">
+                      <i className="material-icons fa-2x red d-sm-none d-lg-inline">
                         &#xE87D;
                       </i>
                       <span
@@ -342,11 +363,10 @@ class FullCatalog extends Component {
                       </a>
                     )}
                     <div
-                      className=
-                        "dropdown-menu dropdown-menu-right custom-dropdown"
+                      className="dropdown-menu dropdown-menu-right custom-dropdown"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      <Navlinks user={this.props.user}/>
+                      <Navlinks user={this.props.user} />
                     </div>
                   </li>
                 </ul>
@@ -366,77 +386,12 @@ class FullCatalog extends Component {
                 href="#"
                 id="navbarDropdown"
                 role="button"
-                data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                onClick={this.dropdownCtrl}
               >
                 <i className="fa fa-th" aria-hidden="true" /> categories
               </a>
-              <div
-                className="dropdown-menu custom-dropdown-menu wide-dropdown"
-                aria-labelledby="navbarDropdown"
-              >
-                <div className="container text-dark">
-                  <div className="row">
-                    <div className="col-md-3 col-sm-4">
-                      <ul className="nav flex-column">
-                        {this.recipeCategory.first.map(link => (
-                          <li className="nav-item" key={link}>
-                            <Link
-                              className="nav-link active"
-                              to={`/category/${link}`}
-                            >
-                              {link}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="col-md-3 col-sm-4">
-                      <ul className="nav flex-column">
-                        {this.recipeCategory.second.map(link => (
-                          <li className="nav-item" key={link}>
-                            <Link
-                              className="nav-link active"
-                              to={`/category/${link}`}
-                            >
-                              {link}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="col-md-3 col-sm-4">
-                      <ul className="nav flex-column">
-                        {this.recipeCategory.third.map(link => (
-                          <li className="nav-item" key={link}>
-                            <Link
-                              className="nav-link active"
-                              to={`/category/${link}`}
-                            >
-                              {link}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="col-md-3 col-sm-4">
-                      <ul className="nav flex-column">
-                        {this.recipeCategory.fourth.map(link => (
-                          <li className="nav-item" key={link}>
-                            <Link
-                              className="nav-link active"
-                              to={`/category/${link}`}
-                            >
-                              {link}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -471,7 +426,37 @@ class FullCatalog extends Component {
           </ul>
         </div>
 
-        <section className="container mt-0" id="catalog">
+        {dropdown && (
+          <Fade top >
+            <section className="mt-0 mb-20 text-center" >
+              <div className="category-wrapper container-fluid">
+                <div className="containe">
+                  <div className="row justify-content-center">
+                    {this.recipeList.map(link => (
+                      <div
+                        className="col-lg-2 col-md-3 col-sm-4 mb-2 p-0"
+                        key={link}
+                      >
+                        <Link
+                          to={`/category/${link}`}
+                          className="categories hvr-shrink bg-dark"
+                        >
+                          <img
+                            src={config.CAT_IMAGE[link]}
+                            className="category-image"
+                            alt="category"
+                          />
+                          <p>{link}</p>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </Fade>
+        )}
+        <section className="container mt-100" id="catalog">
           <div className="catalog-wrapper">
             <CSSTransitionGroup {...fadeAnimation}>
               <CatalogList catalog={this.state.All_recipes} />

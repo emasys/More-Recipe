@@ -5,9 +5,9 @@ const generateList = ({ ingredients }) => {
   if (ingredients) {
     const list = ingredients.recipe.ingredients;
     return list.map((item, index) => (
-      <li className="list-group-item text-capitalize" key={index}>
+      <a href={`https://en.wikipedia.org/wiki/${item}`} target="_blank" className="list-group-item text-capitalize list-group-item-action" key={index}>
         {item}
-      </li>
+      </a>
     ));
   }
 };

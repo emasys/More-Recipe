@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pace from 'react-pace-progress';
+import Fade from 'react-reveal/Fade';
+import Textarea from "react-textarea-autosize";
+
+//actions
 import * as actions from '../actions';
 
 //component
@@ -31,8 +35,13 @@ class AddRecipe extends Component {
     this.handleForm = this.handleForm.bind(this);
     this.sendData = this.sendData.bind(this);
   }
-
-  componentWillUnmount() {
+/**
+ * @returns {any}
+ * invoked immediately before a component is unmounted and destroyed.
+ * 
+ * @memberof AddRecipe
+ */
+componentWillUnmount() {
     this.setState({
       isLoading: false
     });
@@ -41,7 +50,7 @@ class AddRecipe extends Component {
    *
    *
    * @memberof AddRecipe
-   * @returns {any} 
+   * @returns {any}
    * redirects to the recipe page if success
    */
   sendData() {
@@ -78,15 +87,31 @@ class AddRecipe extends Component {
       category: e.target.elements.category.value,
       foodImg: config.DEFAULT_FOOD_IMG
     };
-    this.setState({
-      isLoading: true
-    });
-    this.props.addRecipe(data).then(() => {
-      this.sendData();
-    });
+    if (!data.name) {
+      document.querySelector('#recipe_error').innerHTML =
+      'This field is required';
+    }
+    if (!data.ingredients) {
+      document.querySelector('#ing_error').innerHTML =
+      'This field is required';
+    }
+    if (!data.direction) {
+      document.querySelector('#direction_error').innerHTML =
+      'This field is required';
+    }
+    if (!data.description) {
+      document.querySelector('#description_error').innerHTML =
+      'This field is required';
+    }
+    if (data.name && data.description && data.direction && data.ingredients) {
+      this.setState({
+        isLoading: true
+      });
+      this.props.addRecipe(data).then(() => {
+        this.sendData();
+      });
+    }
   }
-
-  
 
   /**
    *
@@ -95,7 +120,6 @@ class AddRecipe extends Component {
    * @memberof AddRecipe
    */
   render() {
-    const { status } = this.state;
     const recipeCategory = categoryList;
     return (
       <section className="container ">
@@ -103,91 +127,103 @@ class AddRecipe extends Component {
           {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
         </div>
         <Navbar />
-        <div className="row justify-content-center mt-80">
-          <div className="catalog-wrapper p-15">
-            <form onSubmit={this.handleForm}>
-              <ul className="form row">
-                <li className="col-lg-6 col-sm-12">
-                  <label>Recipe Name</label>
-                  <input
-                    type="text"
-                    name="recipe"
-                    required
-                    className="col-lg-11 col-sm-12"
-                    id="inputRecipe"
-                    placeholder="Name of recipe"
-                  />
-                  <div className="text-danger" id="recipe_error" />
-                </li>
-                <li className="col-lg-6 col-sm-12">
-                  <label htmlFor="ingredients" className="col-form-label">
-                    Ingredients
-                  </label>
-                  <textarea
-                    placeholder="Add your ingredients and separate with a comma ','"
-                    className="col-lg-11 col-sm-12"
-                    id="ingredients"
-                    rows="4"
-                    required
-                    name="ingredients"
-                  />
-                </li>
-                <li className="col-lg-6 col-sm-12">
-                  <label htmlFor="direction">Direction</label>
-                  <textarea
-                    className="col-lg-11 col-sm-12"
-                    placeholder="how to make it happen"
-                    id="direction"
-                    rows="4"
-                    required
-                    name="direction"
-                  />
-                </li>
-                <li className="col-lg-6 col-sm-12">
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    className="col-lg-11 col-sm-12"
-                    placeholder="Tell us about your recipe eg - origin, inspiration"
-                    id="description"
-                    rows="4"
-                    required
-                    name="description"
-                  />
-                </li>
-                <li className="special col-lg-6 col-sm-12">
-                  <label>Category</label>
-                  <select
-                    name="category"
-                    className="col-lg-11 col-sm-12 "
-                    style={{ height: '50px' }}
-                  >
-                    {recipeCategory.map(item => (
-                      <option
-                        value={item}
-                        key={item}
-                        className="text-capitalize"
-                      >
-                        {item}
-                      </option>
-                    ))}
-                  </select>
-                </li>
-                <li className=" col-12 ">
-                  <input
-                    type="submit"
-                    value="Submit"
-                    id="submit"
-                    className="bg-dark btn hovered"
-                  />
-                </li>
-                <li className={`col-12 text-center ${status}`}>
-                  <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
-                  <span className="sr-only">Loading...</span>
-                </li>
-              </ul>
-            </form>
+        <Fade duration={1000}>
+          <div className="row justify-content-center mt-80">
+            <div className="col-lg-6 col-sm-12 text-center ">
+              <img src="../img/logo.png" alt="logo" />
+              <p className=" mt-5 text-dark bg-mirror header-title">
+                “Cooking is not a science but an art, mistakes are okay, messes
+                are fine—the pleasure is in the creating and the sharing of the
+                result.” ― Lori Pollan
+              </p>
+            </div>
+            <div className="catalog-wrapper col-lg-6 col-md-10 col-sm-12">
+              <form onSubmit={this.handleForm}>
+                <ul className="form row p-3">
+                  <li className="col-12">
+                    <label>Recipe Name</label>
+                    <input
+                      type="text"
+                      name="recipe"
+                      required
+                      className="col-12"
+                      id="inputRecipe"
+                      placeholder="Name of recipe"
+                    />
+                    <div className="text-danger" id="recipe_error" />
+                  </li>
+                  <li className="col-12">
+                    <label htmlFor="ingredients" className="col-form-label">
+                      Ingredients
+                    </label>
+                    <Textarea
+                      placeholder="Add your ingredients and separate with a comma ','"
+                      className="col-12"
+                      id="ingredients"
+                      minRows={1}
+                      maxRows={10}
+                      required
+                      name="ingredients"
+                    />
+                    <div className="text-danger" id="ing_error" />
+                  </li>
+                  <li className="col-12">
+                    <label htmlFor="direction">Direction</label>
+                    <Textarea
+                      className="col-12"
+                      placeholder="how to make it happen"
+                      id="direction"
+                      minRows={3}
+                      maxRows={20}
+                      required
+                      name="direction"
+                    />
+                    <div className="text-danger" id="direction_error" />
+                  </li>
+                  <li className="col-12">
+                    <label htmlFor="description">Description</label>
+                    <Textarea
+                      className="col-12"
+                      placeholder="a short description of your recipe"
+                      id="description"
+                      minRows={3}
+                      maxRows={20}
+                      required
+                      name="description"
+                    />
+                    <div className="text-danger" id="description_error" />
+                  </li>
+                  <li className="special col-12">
+                    <label>Category</label>
+                    <select
+                      name="category"
+                      className="col-12 "
+                      style={{ height: '50px' }}
+                    >
+                      {recipeCategory.map(item => (
+                        <option
+                          value={item}
+                          key={item}
+                          className="text-capitalize"
+                        >
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                  </li>
+                  <li className=" col-12 ">
+                    <input
+                      type="submit"
+                      value="Submit"
+                      id="submit"
+                      className="bg-dark btn hovered"
+                    />
+                  </li>
+                </ul>
+              </form>
+            </div>
           </div>
-        </div>
+        </Fade>
       </section>
     );
   }

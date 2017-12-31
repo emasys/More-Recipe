@@ -225,11 +225,11 @@ class Profile extends Component {
     axios.all(uploaders).then(() => {
       // perform after upload is successful operation
       this.props.updateUser(this.props.match.params.id, query).then(() => {
-        console.log('saved');
         this.props.getUserInfo(this.props.match.params.id);
         this.update();
         this.setState({
-          save: 'd-none'
+          save: 'd-none',
+          status: 'fade'
         });
       });
     });
@@ -307,7 +307,8 @@ class Profile extends Component {
    */
   showForm() {
     this.setState({
-      edit: true
+      edit: true,
+      status: 'show'
     });
   }
   /**
@@ -524,16 +525,12 @@ class Profile extends Component {
    */
   render() {
     const {
-      userInfo, showMore, open, edit
+      userInfo, showMore, edit
     } = this.state;
     return (
       <div>
         <Navbar />
         <ToastContainer />
-        <Modal open={open} onClose={this.onCloseModal} little>
-          <h2>Edit Profile</h2>
-          {this.getEditForm()}
-        </Modal>
         <section className="container profile catalog-wrapper">
           <div className="row justify-content-center">
             {this.generateUserInfo(userInfo)}

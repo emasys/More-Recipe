@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import lodash from 'lodash';
 import Pace from 'react-pace-progress';
+import Textarea from "react-textarea-autosize";
+
+// actions
 import * as actions from '../actions';
+
 
 //component
 import Navbar from './Navbar';
@@ -116,7 +120,6 @@ export class SignUp extends Component {
 
     if (submitData === 6) {
       this.setState({
-        status: 'show',
         isLoading: true
       });
       this.props.signUp(data).then(() => {
@@ -125,10 +128,8 @@ export class SignUp extends Component {
         } else {
           switch (this.props.user.signUp.target) {
           case 'email':
-            document.querySelector('#email_error').innerHTML =
-                `Your email address already exist in our database, sign in`;
+            document.querySelector('#email_error').innerHTML = `Your email address already exist in our database, sign in`;
             this.setState({
-              status: 'fade',
               isLoading: false
             });
             break;
@@ -136,7 +137,6 @@ export class SignUp extends Component {
             document.querySelector('#moniker_error').innerHTML =
                 'Your username already taken';
             this.setState({
-              status: 'fade',
               isLoading: false
             });
             break;
@@ -152,24 +152,19 @@ export class SignUp extends Component {
    * @memberof SignUp
    */
   render() {
-    const { status } = this.state;
     return (
       <section className="container ">
-      <div className="fixed-top">
-      {this.state.isLoading ? <Pace color="#e7b52c" height={2}/> : null}
-      </div>
+        <div className="fixed-top">
+          {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
+        </div>
         <Navbar />
         <div className="row justify-content-center mt-80">
           <div className="col-lg-6 col-sm-12 text-center ">
             <img src="../img/logo.png" alt="logo" />
             <p className=" mt-5 text-dark bg-mirror header-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              “Cooking is not a science but an art, mistakes are okay, messes
+              are fine—the pleasure is in the creating and the sharing of the
+              result.” ― Lori Pollan
             </p>
             <p>
               If you already have an account,{' '}
@@ -179,83 +174,83 @@ export class SignUp extends Component {
               </Link>
             </p>
           </div>
-          <div className="catalog-wrapper col-lg-6 justify-content-center col-sm-12">
+          <div className="catalog-wrapper col-lg-6 col-md-10 justify-content-center col-sm-12">
             <form onSubmit={this.handleSubmit}>
-              <ul className="form row pl-2">
-                <li className="col-lg-6 col-sm-12">
+              <ul className="form row p-3">
+                <li className="col-12">
                   <label>First Name</label>
                   <input
                     type="text"
                     required
                     placeholder="First Name"
-                    className="col-lg-11 col-sm-12"
+                    className="col-12"
                     name="fname"
                   />
                   <div className="text-danger" id="firstname_error" />
                 </li>
-                <li className="col-lg-6 col-sm-12">
+                <li className="col-12">
                   <label>Last Name</label>
                   <input
                     type="text"
                     required
                     placeholder="Last Name"
-                    className="col-lg-11 col-sm-12"
+                    className="col-12"
                     name="lname"
                     id="inputLName"
                   />
                   <div className="text-danger" id="lastname_error" />
                 </li>
-                <li className="col-lg-6 col-sm-12">
+                <li className="col-12">
                   <label>Email</label>
                   <input
                     type="email"
                     required
-                    className="col-lg-11 col-sm-12"
+                    className="col-12"
                     name="email"
                     placeholder="example@example.com"
                   />
                   <div className="text-danger" id="email_error" />
                 </li>
-                <li className="col-lg-6 col-sm-12">
+                <li className="col-12">
                   <label>Username</label>
                   <input
                     type="text"
                     required
-                    className="col-lg-11 col-sm-12"
+                    className="col-12"
                     name="moniker"
                     placeholder="johnDoe23"
                   />
                   <div className="text-danger" id="moniker_error" />
                 </li>
 
-                <li className="col-lg-6 col-sm-12">
+                <li className="col-12">
                   <label>Password</label>
                   <input
                     type="password"
                     required
-                    className="col-lg-11 col-sm-12"
+                    className="col-12"
                     name="pass"
                     placeholder="**********"
                   />
                   <div className="text-danger" id="password_error" />
                 </li>
-                <li className="col-lg-6 col-sm-12">
+                <li className="col-12">
                   <label>Confirm Password</label>
                   <input
                     type="password"
                     required
-                    className="col-lg-11 col-sm-12"
+                    className="col-12"
                     name="cpass"
                     placeholder="**********"
                   />
                   <div className="text-danger" id="cp_error" />
                 </li>
-                <li className="special col-lg-6 col-sm-12">
+                <li className="special col-12">
                   <label>Country</label>
 
                   <select
                     name="country"
-                    className="col-lg-11 col-sm-12 "
+                    className="col-12 "
                     style={{ height: '50px' }}
                   >
                     {Countries.map(country => (
@@ -265,14 +260,15 @@ export class SignUp extends Component {
                     ))}
                   </select>
                 </li>
-                <li className="special col-lg-6 col-sm-12">
+                <li className="special col-12">
                   <label>Bio</label>
-                  <textarea
-                    className="col-lg-11 col-sm-12"
+                  <Textarea
+                    className="col-12"
                     id="FormControlTextarea"
+                    placeholder="optional"
                     name="bio"
-                    required
-                    rows="4"
+                    minRows={3}
+                    maxRows={50}
                   />
                 </li>
 
@@ -283,10 +279,6 @@ export class SignUp extends Component {
                     id="submit"
                     className="btn bg-dark btn hovered"
                   />
-                </li>
-                <li className={`col-12 text-center ${status}`}>
-                  <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
-                  <span className="sr-only">Loading...</span>
                 </li>
               </ul>
             </form>

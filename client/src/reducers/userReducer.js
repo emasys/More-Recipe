@@ -1,5 +1,9 @@
 import * as type from '../actions/types';
 
+const initialState = {
+  userInfo: { },
+  userProfile: { }
+};
 export default (state = {}, action) => {
   switch (action.type) {
   case type.SIGN_IN:

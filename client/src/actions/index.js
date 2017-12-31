@@ -111,7 +111,7 @@ export const getFavs = () => dispatch =>
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_FAVORITES, payload: err.response.data });
+      dispatch({ type: type.GET_FAVORITES, payload: err.response});
     });
 
 // Get recipe category
@@ -234,7 +234,7 @@ export const upvote = id => dispatch =>
       dispatch({ type: type.UPVOTE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.UPVOTE, payload: err.response.data });
+      dispatch({ type: type.UPVOTE, payload: err.response });
     });
 
 // downvote
@@ -245,7 +245,7 @@ export const downvote = id => dispatch =>
       dispatch({ type: type.DOWNVOTE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.DOWNVOTE, payload: err.response.data });
+      dispatch({ type: type.DOWNVOTE, payload: err.response });
     });
 
 // GET reaction status of a user
@@ -256,7 +256,7 @@ export const getUpvStatus = id => dispatch =>
       dispatch({ type: type.GET_VOTE_STATUS, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_VOTE_STATUS, payload: err.response.data });
+      dispatch({ type: type.GET_VOTE_STATUS, payload: err.response });
     });
 
 // GET favorite status of a user
@@ -267,5 +267,5 @@ export const getFavStatus = id => dispatch =>
       dispatch({ type: type.GET_FAVORITE_STATUS, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_FAVORITE_STATUS, payload: err.response.data });
+      dispatch({ type: type.GET_FAVORITE_STATUS, payload: err.response });
     });

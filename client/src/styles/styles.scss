@@ -67,6 +67,7 @@ a {
   .custom-bg {
     background: rgb(141, 161, 141);
     color: $color_2;
+    height: auto;
     text-shadow: 0 1px 1px black;
   }
 }
@@ -110,7 +111,7 @@ a {
 }
 
 .fixed {
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 
 .navbar {
@@ -221,7 +222,7 @@ a {
 }
 .category-bar{
   margin-top: 60px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
  
 }
 .custom-bg-color{
@@ -351,7 +352,17 @@ footer {
   border-radius: 8px;
   box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.205);
 }
-
+.category-wrapper {
+  // background: linear-gradient(90deg, rgba(36, 25, 2, 0.8), rgba(36, 25, 2, 0.5), rgba(36, 25, 2, 0.85), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
+  // url('http://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
+  background-size: cover;
+  background: #ffffff;
+  padding: 30px 10px;
+  // border-radius: 8px;
+  margin-top: 0;
+  text-align: center;
+  box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.205); 
+}
 .recipe-title {
   margin-top: 20px;
 }
@@ -415,7 +426,8 @@ footer {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  max-height: 14px;
+  max-height: 20px;
+  max-width: 200px;
 }
 
 #like {
@@ -522,6 +534,11 @@ footer {
   outline: none;
   color: $color_2;
   cursor: pointer;
+  transition: 0.70s;
+  -webkit-transition: 0.70s;
+  -moz-transition: 0.70s;
+  -ms-transition: 0.70s;
+  -o-transition: 0.70s;
 }
 
 #floating-delete {
@@ -535,6 +552,7 @@ footer {
   color: $color_2;
   cursor: pointer;
 }
+
 
 .img-box {
   height: 180px;

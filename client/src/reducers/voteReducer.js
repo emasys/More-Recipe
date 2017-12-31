@@ -1,5 +1,11 @@
 import * as type from '../actions/types';
 
+const initialState = {
+  votes: {
+    downvote: { success: false },
+    upvote: { success: true }
+  }
+};
 export default (state = {}, action) => {
   switch (action.type) {
   case type.UPVOTE:

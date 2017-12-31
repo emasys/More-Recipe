@@ -9,6 +9,9 @@ import axios from 'axios';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 import Textarea from "react-textarea-autosize";
+import Fade from 'react-reveal/Fade';
+// import Zoom from 'react-reveal/Zoom';
+
 
 // import actions
 import * as actions from '../actions';
@@ -34,13 +37,15 @@ class RecipeItem extends Component {
   constructor(props) {
     super(props);
 
+    this.userId = null;
     this.foodImg = null;
     this.state = {
       vote: false,
       edit: false,
       open: false,
-      favoriteStatus: { success: false },
-      votes: { upvote: { success: false }, downvote: { success: false } },
+      favoriteStatus: false,
+      upvoteStatus: false,
+      downvoteStatus: false,
       deleteRecipe: false,
       name: '',
       editRecipe: false,
@@ -59,10 +64,6 @@ class RecipeItem extends Component {
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.descriptionChanged = this.descriptionChanged.bind(this);
-    this.directionChanged = this.directionChanged.bind(this);
-    this.nameChanged = this.nameChanged.bind(this);
-    this.ingChanged = this.ingChanged.bind(this);
     this.delRecipe = this.delRecipe.bind(this);
     this.onOpenDeleteModal = this.onOpenDeleteModal.bind(this);
     this.onCloseDeleteModal = this.onCloseDeleteModal.bind(this);
@@ -72,6 +73,8 @@ class RecipeItem extends Component {
     this.handleImg = this.handleImg.bind(this);
     this.showEditForm = this.showEditForm.bind(this);
   }
+
+
   /**
    *
    *
@@ -79,30 +82,10 @@ class RecipeItem extends Component {
    * @returns {any} cdm
    */
   componentDidMount() {
-    this.props.getUpvStatus(this.props.match.params.id);
-    this.props.getFavStatus(this.props.match.params.id);
     this.props.getRecipeItem(this.props.match.params.id).then(() => {
-      const id = this.props.recipes.recipeItem.recipe.userId;
-      this.props.getUserInfo(id);
-      const {
-        ingredients,
-        name,
-        description,
-        direction,
-        foodImg,
-        userId
-      } = this.props.recipes.recipeItem.recipe;
-      if (Auth.userID() === userId) {
-        this.setState({
-          edit: true,
-          name,
-          ingredients: ingredients.join(','),
-          description,
-          direction,
-          foodImg
-        });
-      }
-    });
+      this.props.getUserInfo(this.userId);
+    })
+    
   }
   /**
    *
@@ -112,17 +95,73 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
+    console.log({ nextProps: nextProps.recipes });
     if (nextProps.recipes) {
       if (nextProps.recipes.recipeItem) {
         this.setState({
+          favoriteStatus: false
+        });
+        const {
+          reactionUp, reactionDown, favorites, ingredients,
+          name,
+          description,
+          direction,
+          foodImg,
+          userId
+        } = nextProps.recipes.recipeItem.recipe;
+        if (Auth.userID() === userId) {
+          this.setState({
+            edit: true,
+            name,
+            ingredients: ingredients.join(','),
+            description,
+            direction,
+            foodImg
+          });
+        }
+        this.userId = userId;
+        favorites.map((user) => {
+          if (user.userId === Auth.userID()) {
+            return this.setState({
+              favoriteStatus: true
+            });
+          }
+          return null;
+        });
+        switch (reactionUp.indexOf(Auth.userID())) {
+        case -1:
+          this.setState({
+            upvoteStatus: false
+          });
+          break;
+
+        default:
+          this.setState({
+            upvoteStatus: true
+          });
+          break;
+        }
+
+        switch (reactionDown.indexOf(Auth.userID())) {
+        case -1:
+          this.setState({
+            downvoteStatus: false
+          });
+          break;
+
+        default:
+          this.setState({
+            downvoteStatus: true
+          });
+          break;
+        }
+        this.setState({
           recipeItem: nextProps.recipes.recipeItem,
-          favoriteStatus: nextProps.favorite.favStatus,
-          votes: nextProps.votes.votes
         });
       }
     }
   }
-
+  /**
   /**
    *
    *
@@ -162,7 +201,6 @@ class RecipeItem extends Component {
    */
   favIt() {
     this.props.setFavorite(this.props.match.params.id).then(() => {
-      this.props.getFavStatus(this.props.match.params.id);
       this.props.getRecipeReactions(this.props.match.params.id);
     });
   }
@@ -174,7 +212,6 @@ class RecipeItem extends Component {
    */
   upvote() {
     this.props.upvote(this.props.match.params.id).then(() => {
-      this.props.getUpvStatus(this.props.match.params.id);
       this.props.getRecipeReactions(this.props.match.params.id);
     });
   }
@@ -186,7 +223,6 @@ class RecipeItem extends Component {
    */
   downvote() {
     this.props.downvote(this.props.match.params.id).then(() => {
-      this.props.getUpvStatus(this.props.match.params.id);
       this.props.getRecipeReactions(this.props.match.params.id);
     });
   }
@@ -199,17 +235,15 @@ class RecipeItem extends Component {
    * @returns {any} an updated recipe
    */
   handleSubmit(event) {
-    const {
-      description, direction, ingredients, foodImg, name
-    } = this.state;
+    const { foodImg } = this.state;
     event.preventDefault();
     const prevName = this.props.recipes.recipeItem.recipe.name;
-    const newName = name.trim();
+    const newName = event.target.elements.recipe.value.trim();
     let data = {
       name: prevName === newName ? null : event.target.elements.recipe.value.trim(),
-      ingredients,
-      direction,
-      description,
+      ingredients: event.target.elements.ingredients.value,
+      direction: event.target.elements.direction.value,
+      description: event.target.elements.description.value,
       foodImg: this.foodImg || foodImg
     };
     // if (prevName === newName) data.name = null;
@@ -221,63 +255,12 @@ class RecipeItem extends Component {
         });
       } else {
         document.querySelector('#recipe_error').innerHTML =
-        'A recipe with this name already exist';
+        'A recipe with this name already exist, kindly choose another name';
       }
 
       this.props.getRecipeItem(this.props.match.params.id);
     });
   }
-  /**
-   *
-   *
-   * @param {any} e
-   * @memberof RecipeItem
-   * @returns {any} new state
-   */
-  nameChanged(e) {
-    this.setState({
-      name: e.target.value
-    });
-  }
-  /**
-   *
-   *
-   * @param {any} e
-   * @memberof RecipeItem
-   * @returns {any} new state
-   */
-  ingChanged(e) {
-    this.setState({
-      ingredients: e.target.value
-    });
-  }
-
-  /**
-   *
-   *
-   * @param {any} e
-   * @memberof RecipeItem
-   * @returns {any} new state
-   */
-  directionChanged(e) {
-    this.setState({
-      direction: e.target.value
-    });
-  }
-
-  /**
-   *
-   *
-   * @param {any} e
-   * @memberof RecipeItem
-   * @returns {any} new state
-   */
-  descriptionChanged(e) {
-    this.setState({
-      description: e.target.value
-    });
-  }
-
   /**
    *
    *
@@ -299,7 +282,7 @@ class RecipeItem extends Component {
               placeholder="Recipe Name"
               className="col-lg-11 col-sm-12"
               name="recipe"
-              value={name}
+              defaultValue={name}
               onChange={this.nameChanged}
             />
             <div className="text-danger" id="recipe_error" />
@@ -310,10 +293,10 @@ class RecipeItem extends Component {
               className="col-lg-11 col-sm-12"
               id="FormControlTextarea"
               name="ingredients"
-              value={ingredients}
-              onChange={this.ingChanged}
               minRows={1}
               maxRows={50}
+              defaultValue={ingredients}
+              onChange={this.ingChanged}
             />
           </li>
           <li className="col-lg-8 col-sm-12">
@@ -333,7 +316,7 @@ class RecipeItem extends Component {
             <Textarea
               className="col-lg-11 col-sm-12"
               id="FormControlTextarea"
-              value={description}
+              defaultValue={description}
               onChange={this.descriptionChanged}
               name="description"
               minRows={3}
@@ -461,7 +444,7 @@ class RecipeItem extends Component {
       } = reactions.recipe;
 
       const {
-        status, preview, save, edit, votes, favoriteStatus
+        status, preview, save, edit, favoriteStatus, upvoteStatus, downvoteStatus
       } = this.state;
       return (
         <div className="">
@@ -493,7 +476,7 @@ class RecipeItem extends Component {
               <span className="text-center card-link" onClick={this.favIt}>
                 <i
                   className={`fa  ${
-                    favoriteStatus.success ?
+                    favoriteStatus ?
                       'fa-heart red animated bounceIn flash' :
                       'fa-heart gray'
                   } fa-2x`}
@@ -505,7 +488,7 @@ class RecipeItem extends Component {
               <span className="text-center card-link m-1" onClick={this.upvote}>
                 <i
                   className={`fa ${
-                    votes.upvote.success ?
+                    upvoteStatus ?
                       'fa-thumbs-up animated bounceIn flash blue' :
                       'fa-thumbs-up gray'
                   } fa-2x`}
@@ -520,7 +503,7 @@ class RecipeItem extends Component {
               >
                 <i
                   className={`fa ${
-                    votes.downvote.success ?
+                    downvoteStatus ?
                       'fa-thumbs-down animated bounceIn flash red' :
                       'fa-thumbs-down gray'
                   } fa-2x`}
@@ -562,7 +545,7 @@ class RecipeItem extends Component {
    */
   render() {
     const {
-      deleteRecipe, recipeItem, editRecipe
+      deleteRecipe, recipeItem, editRecipe, edit
     } = this.state;
     return (
       <div>
@@ -589,42 +572,42 @@ class RecipeItem extends Component {
             </button>
           </div>
         </Modal>
-        <section className="container">
-          <div className="row justify-content-center catalog-wrapper" id="catalog">
-            <div className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image">
-              {this.generateItems(recipeItem)}
+        <Fade duration={1000} >
+          <section className="container mt-80">
+            <div className="row justify-content-center catalog-wrapper mb-20" id="catalog">
+              <div className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image">
+                {this.generateItems(recipeItem)}
+              </div>
+              {editRecipe && this.getEditForm()}
+              {!editRecipe && <RecipeIngredients
+                ingredients={this.props.recipes.recipeItem}
+                data={this.props.userInfo}
+              />}
             </div>
-            {editRecipe && this.getEditForm()}
-            {!editRecipe && <RecipeIngredients
-              ingredients={this.props.recipes.recipeItem}
-              data={this.props.userInfo}
-            />}
-          </div>
-          <Reviews id={this.props.match.params.id} />
-          <button
-            onClick={this.onOpenDeleteModal}
-            href="#"
-            data-tip="Delete recipe"
-            className={`btn btn-danger rounded-circle ${
-              this.state.edit ? 'd-block' : 'd-none'
-            }`}
-            id="floating-delete"
-          >
-            <i className="fa fa-trash fa-2x" aria-hidden="true" />
-          </button>
-          <button
-            onClick={this.showEditForm}
-            href="#!"
-            data-tip="Edit recipe"
-            className={`btn btn-info rounded-circle ${
-              this.state.edit ? 'd-block' : 'd-none'
-            }`}
-            id="floating-edit"
-          >
-            <i className="fa fa-pencil fa-2x" aria-hidden="true" />
-          </button>
-          <ReactTooltip place="bottom" type="dark" effect="float" />
-        </section>
+            <Reviews id={this.props.match.params.id} />
+
+            {edit && <i
+              onClick={this.onOpenDeleteModal}
+              data-tip="Delete recipe"
+              className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
+              id="floating-delete"
+              aria-hidden="true">
+              <ReactTooltip place="bottom" type="dark" effect="float" />
+            </i>
+            }
+
+            {edit && <i
+              data-tip="Edit recipe"
+              id="floating-edit"
+              className="text-info fa fa-pencil fa-2x rounded-circle"
+              aria-hidden="true"
+              onClick={this.showEditForm}
+            />
+            }
+
+
+          </section>
+        </Fade>
       </div>
     );
   }
