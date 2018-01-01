@@ -228,7 +228,7 @@ describe('CRUD/ for recipes', () => {
     it('should return a status code of 404 if a recipe does not exist', (done) => {
       request(app)
         .put('/api/v1/recipes/5')
-        .send(seed.setUpdateRecipe('How to fry something', 'water, oil', 'just do it', 'local food'))
+        .send(seed.setUpdateRecipe('How to fry something else', 'water, oil', 'just do it', 'local food'))
         .set('x-access-token', xtoken)
         .expect(404)
         .expect((res) => {

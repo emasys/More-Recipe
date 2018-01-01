@@ -342,7 +342,7 @@ class RecipeController {
                 success: false,
                 error: 'recipe already added to the database'
               },
-              403
+              409
             );
           }
 
@@ -364,7 +364,8 @@ class RecipeController {
             { success: false, status: 'cannot update this recipe' },
             401
           );
-        });
+        })
+          .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
       })
       .catch(() =>
         setStatus(res, { success: false, error: 'recipe not found' }, 404));
