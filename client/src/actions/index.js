@@ -111,7 +111,7 @@ export const getFavs = () => dispatch =>
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_FAVORITES, payload: err.response});
+      dispatch({ type: type.GET_FAVORITES, payload: err.response });
     });
 
 // Get recipe category
@@ -268,4 +268,15 @@ export const getFavStatus = id => dispatch =>
     })
     .catch(err => {
       dispatch({ type: type.GET_FAVORITE_STATUS, payload: err.response });
+    });
+
+// reset password baby
+export const resetPassword = data => dispatch =>
+  axios
+    .put(`${URL}/users/resetPassword`, data)
+    .then(response => {
+      dispatch({ type: type.RESET_PASSWORD, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.RESET_PASSWORD, payload: err.response });
     });

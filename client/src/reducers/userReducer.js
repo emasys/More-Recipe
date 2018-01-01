@@ -1,9 +1,5 @@
 import * as type from '../actions/types';
 
-const initialState = {
-  userInfo: { },
-  userProfile: { }
-};
 export default (state = {}, action) => {
   switch (action.type) {
   case type.SIGN_IN:
@@ -45,6 +41,11 @@ export default (state = {}, action) => {
     return {
       ...state,
       signUp: action.payload
+    };
+  case type.RESET_PASSWORD:
+    return {
+      ...state,
+      reset: action.payload
     };
 
   default:

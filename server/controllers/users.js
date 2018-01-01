@@ -247,4 +247,34 @@ export default class MoreRecipeUsers {
       .catch(() =>
         setStatus(res, { success: false, status: 'Server error' }, 500));
   }
+
+  /**
+   *
+   *
+   * @static
+   * @param { object } req
+   * @param { object } res
+   * @returns {object}
+   * true and relevant user info, if a user successfully log's in
+   */
+  static resetPassword(req, res) {
+    const request = req.body;
+    Users.findOne({ where: { email: request.email } }).then((user) => {
+      if (!user) {
+        return setStatus(
+          res,
+          { success: false, status: 'user not found' },
+          404
+        );
+      }
+      user
+        .update({
+          password: request.password
+        })
+        .then(() =>
+          setStatus(res, { success: true, status: 'updated' }, 200))
+        .catch(() =>
+          setStatus(res, { success: false, error: 'user not found' }, 404));
+    });
+  }
 }
