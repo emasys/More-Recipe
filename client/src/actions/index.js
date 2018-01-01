@@ -47,7 +47,7 @@ export const getUserRecipes = (limit, id) => dispatch =>
       dispatch({ type: type.USER_RECIPES, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.USER_RECIPES, payload: err.response.data });
+      dispatch({ type: type.USER_RECIPES, payload: err.response });
     });
 
 // Get a specific user
@@ -58,7 +58,7 @@ export const getUserInfo = id => dispatch =>
       dispatch({ type: type.USER_INFO, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.USER_INFO, payload: err.response.data });
+      dispatch({ type: type.USER_INFO, payload: err.response });
     });
 
 // user profile
@@ -79,7 +79,7 @@ export const deleteUser = id => dispatch =>
       dispatch({ type: type.DELETE_USER, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.DELETE_USER, payload: err.response.data });
+      dispatch({ type: type.DELETE_USER, payload: err.response });
     });
 
 // fetch all users
@@ -90,7 +90,7 @@ export const getAllUsers = () => dispatch =>
       dispatch({ type: type.ALL_USERS, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.ALL_USERS, payload: err.response.data });
+      dispatch({ type: type.ALL_USERS, payload: err.response });
     });
 
 // update users
@@ -101,7 +101,7 @@ export const updateUser = (id, data) => dispatch =>
       dispatch({ type: type.UPDATE_USER, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.UPDATE_USER, payload: err.response.data });
+      dispatch({ type: type.UPDATE_USER, payload: err.response });
     });
 
 // Get user favorites
@@ -123,7 +123,7 @@ export const getCategory = (data, limit) => dispatch =>
       dispatch({ type: type.GET_CATEGORY, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_CATEGORY, payload: err.response.data });
+      dispatch({ type: type.GET_CATEGORY, payload: err.response });
     });
 
 // edit recipe
@@ -134,7 +134,7 @@ export const editRecipe = (data, id) => dispatch =>
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.EDIT_RECIPE, payload: err.response.data });
+      dispatch({ type: type.EDIT_RECIPE, payload: err.response });
     });
 
 // Create a new user
@@ -152,7 +152,7 @@ export const signUp = data => dispatch =>
       dispatch({ type: type.SIGN_UP, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SIGN_UP, payload: err.response.data });
+      dispatch({ type: type.SIGN_UP, payload: err.response });
     });
 
 // Login
@@ -169,7 +169,7 @@ export const signIn = data => dispatch =>
       dispatch({ type: type.SIGN_IN, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SIGN_IN, payload: err.response.data });
+      dispatch({ type: type.SIGN_IN, payload: err.response });
     });
 
 // Post a review
@@ -180,7 +180,7 @@ export const postReview = (data, id) => dispatch =>
       dispatch({ type: type.REVIEW, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.REVIEW, payload: err.response.data });
+      dispatch({ type: type.REVIEW, payload: err.response });
     });
 
 export const searchRecipes = data => dispatch => {
@@ -190,7 +190,7 @@ export const searchRecipes = data => dispatch => {
       dispatch({ type: type.SEARCH, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SEARCH, payload: err.response.data });
+      dispatch({ type: type.SEARCH, payload: err.response });
     });
 };
 
@@ -202,7 +202,7 @@ export const addRecipe = data => dispatch =>
       dispatch({ type: type.NEW_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.NEW_RECIPE, payload: err.response.data });
+      dispatch({ type: type.NEW_RECIPE, payload: err.response });
     });
 
 // Add Favorite
@@ -213,7 +213,7 @@ export const setFavorite = id => dispatch =>
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SET_FAVORITE, payload: err.response.data });
+      dispatch({ type: type.SET_FAVORITE, payload: err.response });
     });
 
 // Delete Recipe
@@ -224,7 +224,7 @@ export const delRecipe = id => dispatch =>
       dispatch({ type: type.DELETE_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.DELETE_RECIPE, payload: err.response.data });
+      dispatch({ type: type.DELETE_RECIPE, payload: err.response });
     });
 
 // upvote

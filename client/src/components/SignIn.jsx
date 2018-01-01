@@ -61,14 +61,16 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.reset.success) {
-      this.setState({
-        resetPassword: false,
-        success: true
-      });
-    } else {
-      document.querySelector('#recoverEmail_error').innerHTML =
-        "User account not found, <a href='/signup'>sign up</a>";
+    if (nextProps.reset) {
+      if (nextProps.reset.success) {
+        this.setState({
+          resetPassword: false,
+          success: true
+        });
+      } else {
+        document.querySelector('#recoverEmail_error').innerHTML =
+          "User account not found, <a href='/signup'>sign up</a>";
+      }
     }
   }
 
@@ -174,7 +176,7 @@ class SignIn extends Component {
         }
         window.location.href = linkPath;
       }
-      if (this.props.signin.signIn.success === false) {
+      if (this.props.signin.signIn.data.success === false) {
         this.setState({
           showErrMessage: 'show'
         });
@@ -355,7 +357,6 @@ SignIn.propTypes = {
   signIn: PropTypes.func,
   match: PropTypes.object,
   location: PropTypes.object
-
 };
 
 export default connect(mapStateToProps, actions)(SignIn);
