@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Stepper from 'react-reveal/Stepper';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
+import Bounce from 'react-reveal/Bounce';
+import Zoom from 'react-reveal/Zoom';
 import * as actions from '../actions';
 
 //component
 import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
+import Auth from './auth';
 
 /**
  * Component for Home page
@@ -14,55 +20,113 @@ import Navbar from './Navbar';
  * @extends {Component}
  */
 class Home extends Component {
-/**
- *
- *
- * @memberof Home
- *
- * @returns {any} react lifecycle method
- */
+  /**
+   * Creates an instance of Home.
+   * @param {any} props
+   * @memberof Home
+   */
+  constructor(props) {
+    super(props);
+    this.step = new Stepper()
+      .step('background', 300)
+      .step('logo', 400)
+      .step('header', 1200)
+      .step('title', 500)
+      .step('button', 500);
+  }
+  /**
+   *
+   *
+   * @memberof Home
+   *
+   * @returns {any} react lifecycle method
+   */
   componentDidMount() {
     const query = '?sort=upvotes&order=desc';
     this.props.getRecipes(12, query);
   }
 
   /**
- *
- *
- * @returns {any} renders jsx elements
- * @memberof Home
- */
+   *
+   *
+   * @returns {any} renders jsx elements
+   * @memberof Home
+   */
   render() {
-    const headerImg = {
-      background: `linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)), 
-      url('../img/Food.jpg') no-repeat center center`,
-      backgroundSize: 'cover',
-    };
     return (
       <div>
         <section className="container-fluid ">
-          <div className="header" style={headerImg}>
+          <div style={{ position: 'fixed', zIndex: 2000 }}>
             <Navbar />
-            <div className="row header-items justify-content-center">
-              <div className="col-lg-6 col-sm-10 text-center">
-                <img src="../img/logo.png" alt="logo" />
-                <p className=" mt-5 text-dark bg-mirror header-title">
-                  “I hate the notion of a secret recipe. Recipes are by nature derivative and meant
-                  to be shared that is how they improve, are changed, how new ideas are formed. To
-                  stop a recipe in it's tracks, to label it "secret" just seems mean.” ― Molly
-                  Wizenberg
-                </p>
+          </div>
+
+          <Zoom duration={500} step={this.step.is('background')}>
+            <div className="header">
+              <div className="row header-items justify-content-center">
+                <div className="col-lg-7 col-sm-10 text-center">
+                  <Zoom duration={1000} step={this.step.is('logo')}>
+                    <img src="../img/logo.png" alt="logo" />
+                  </Zoom>
+
+                  <div className=" mt-5 text-dark bg-mirror header-title text-left">
+                    <Flip x duration={1000} step={this.step.is('header')}>
+                      “I hate the notion of a secret recipe. Recipes are by
+                      nature derivative and meant to be shared that is how they
+                      improve, are changed, how new ideas are formed. To stop a
+                      recipe in it's tracks, to label it "secret" just seems
+                      mean.” ―
+                      <Fade
+                        top
+                        cascade={1000}
+                        duration={500}
+                        step={this.step.is('title')}
+                        style={{ display: 'inline-block' }}
+                      >
+                        Molly
+                      </Fade>{' '}
+                      <Fade
+                        bottom
+                        cascade={1000}
+                        duration={500}
+                        step={this.step.is('title')}
+                        style={{ display: 'inline-block' }}
+                      >
+                        Wizenberg
+                      </Fade>
+                      {!Auth.loggedIn() && (
+                        <Bounce
+                          left
+                          duration={1000}
+                          step={this.step.is('button')}
+                        >
+                          <div className="row">
+                            <Link
+                              to="/signup"
+                              className="btn btn-lg bg-dark m-5 text-white p-10 signUp-btn"
+                            >
+                              Sign Up To Get Started
+                            </Link>
+                          </div>
+                        </Bounce>
+                      )}
+                    </Flip>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </Zoom>
         </section>
+
         <section className="container " id="catalog">
           <div className="catalog-wrapper">
             <div className="col-12 ">
               <div className="clearfix">
-                <h4 className="float-left fresh-title">Top Recipes Today</h4>
+                <h4 className="float-left fresh-title">Top Recipes</h4>
                 <h5 className="float-right">
-                  <Link to="/catalog" className="btn btn-dark hvr-icon-wobble-horizontal">
+                  <Link
+                    to="/catalog"
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                  >
                     see all recipes{` `}
                   </Link>
                 </h5>

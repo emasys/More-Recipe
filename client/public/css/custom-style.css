@@ -1,9 +1,82 @@
+/* *{
+  -webkit-transition: ease-in 400ms;
+  -moz-transition: ease-in 400ms;
+  transition: ease-in 400ms;
+} */
 body {
   padding: 0;
   margin: 0;
-  background: url('../img/bgp.fw.png') center center;
+  background: url('https://res.cloudinary.com/emasys/image/upload/v1514493161/bgp.fw_cnwm3q.png') center center;
+  
+}
+.wide-dropdown a:hover {
+  color: rgb(177, 114, 5);
+  font-weight: 700;
+}
+.category-image{
+  width: 18rem;
+  height: 18rem;
+}
+#floating-edit:hover{
+  transition: 0.70s;
+  -webkit-transition: 0.70s;
+  -moz-transition: 0.70s;
+  -ms-transition: 0.70s;
+  -o-transition: 0.70s;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+
+}
+.hvr-icon-spin:before {
+  content: "\f040";
+  position: absolute;
+  right: 1em;
+  padding: 0 1px;
+  font-family: FontAwesome;
+  transform: translateZ(0);
+  transition-duration: 0.1s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+}
+.new-ribbon{
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+.signUp-btn{
+  font-family: Helvetica;
+}
+.categories{
+  padding: 5px;
+  color: orange; 
+  font-family: satisfy; 
+}
+.categories p {
+  line-height: 2rem;
+  font-size: 2rem;
+  padding-top: 1rem; 
+}
+.categories:hover{
+  background: black !important;  
+  color: orange !important;
 }
 
+@media screen and (max-width: 380px){
+  .navbar-brand {
+    visibility: hidden;
+    text-indent: -9999px;
+    line-height: 0;
+  }
+  .navbar-brand:after {
+    content: 'MR';
+    visibility: visible;
+    display: block;
+    text-indent: 0;
+  }
+}
 @media screen and (max-width: 990px) {
   #catalog {
     margin-top: 80px;
@@ -12,7 +85,8 @@ body {
     font-size: 14px;
   }
   input[type='search'] {
-    height: 10px !important;
+    height: 40px !important;
+    padding: 5px !important;
     width: 100%;
   }
   .custom-fixed{
@@ -39,9 +113,27 @@ body {
     flex: 0 0 50.666667%;
     max-width: 50.666667%;
   }
+  
+}
+body{
+  padding: 0;
+  margin: 0;
+}
+.fixed-top {
+  margin-bottom: 0 !important;
+}
+.header{
+  margin: 0 !important;
+  padding: 0;
+}
+@media screen and (max-width: 500px) {
+  .wide-dropdown{
+    min-width: 100% !important;
+  }
 }
 
 @media screen and (max-width: 1300px) and (min-width: 990px) {
+  
   .col-lg-9 {
     -ms-flex: 0 0 66.666667%;
     flex: 0 0 66.666667%;
@@ -108,6 +200,7 @@ select {
   border: 1px solid lightgray;
   padding: 12px;
   margin: 0px;
+  border-radius: 10px;
   font-size: 16px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -127,7 +220,7 @@ select {
 .form input[type='email']:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid rgb(216, 183, 73);
+  border: 2px solid rgb(216, 183, 73);
 }
 
 .form .special {

@@ -12,70 +12,84 @@ import Navbar from './Navbar';
  * @extends {Component}
  */
 class SignIn extends Component {
-/**
- * Creates an instance of SignIn.
- * @param {any} props
- * @memberof SignIn
- */
+  /**
+   * Creates an instance of SignIn.
+   * @param {any} props
+   * @memberof SignIn
+   */
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      error: '',
-      showErrMessage: 'hide',
+      showErrMessage: 'fade',
+      message: '',
+      showProps: false,
     };
 
     this.emailChanged = this.emailChanged.bind(this);
     this.pwChanged = this.pwChanged.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    if (this.props.msg) {
+      this.setState({
+        message: this.props.msg,
+        showProps: true
+      });
+    }
+  }
+
   /**
- *
- *
- * @param {any} e
- * @memberof SignIn
- * @returns {any} email input text
- */
+   *
+   *
+   * @param {any} e
+   * @memberof SignIn
+   * @returns {any} email input text
+   */
   emailChanged(e) {
     this.setState({
-      email: e.target.value,
+      email: e.target.value
     });
   }
   /**
- *
- *
- * @param {any} e
- * @memberof SignIn
- * @returns {any} password input text
- */
+   *
+   *
+   * @param {any} e
+   * @memberof SignIn
+   * @returns {any} password input text
+   */
   pwChanged(e) {
     this.setState({
-      password: e.target.value,
+      password: e.target.value
     });
   }
   /**
- *
- *
- * @param {any} e
- * @memberof SignIn
- * @returns {any} a new page
- */
+   *
+   *
+   * @param {any} e
+   * @memberof SignIn
+   * @returns {any} a new page
+   */
   handleSubmit(e) {
     e.preventDefault();
+
     this.props.signIn(this.state).then(() => {
-      if (this.props.signin.user.success) {
-        let linkPath = "/";
+      if (this.props.signin.signIn.success) {
+        this.setState({
+          showErrMessage: 'fade'
+        });
+        let linkPath = '/';
         if (this.props.match.params) {
           linkPath = this.props.location.pathname;
           if (linkPath === '/signin') linkPath = '/';
         }
         window.location.href = linkPath;
       }
-      if (this.props.signin.user.status) {
+      if (this.props.signin.signIn.success === false) {
         this.setState({
-          error: 'An error ocurred',
-          showErrMessage: 'show',
+          showErrMessage: 'show'
         });
       }
     });
@@ -87,30 +101,29 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   render() {
-    const { email } = this.state;
+    const { email, message, showProps } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
         <Navbar />
+        {showProps && <div className="alert alert-warning" role="alert">
+          <strong>{message}</strong>
+        </div>}
         <div className="row justify-content-center">
           <div className="col-lg-8 col-sm-12 text-center ">
             <img src="../img/logo.png" alt="logo" />
             <p className=" mt-5 text-dark bg-mirror header-title">
-              “I hate the notion of a secret recipe. Recipes are by nature derivative and meant to
-              be shared that is how they improve, are changed, how new ideas are formed. To stop a
-              recipe in it's tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
+              “I hate the notion of a secret recipe. Recipes are by nature
+              derivative and meant to be shared that is how they improve, are
+              changed, how new ideas are formed. To stop a recipe in it's
+              tracks, to label it "secret" just seems mean.” ― Molly Wizenberg
             </p>
           </div>
           <div className="col-lg-4 col-sm-12 ">
-            <div
-              className={`alert alert-danger alert-dismissible fade ${this.state.showErrMessage}`}
-              role="alert"
+            <form
+              id="signin"
+              className="form-items"
+              onSubmit={this.handleSubmit}
             >
-              <strong>Error!</strong> Your email or password is incorrect
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form id="signin" className="form-items" onSubmit={this.handleSubmit}>
               <ul className="form row">
                 <li className="col-lg-12 col-sm-12">
                   <label>Email</label>
@@ -136,6 +149,12 @@ class SignIn extends Component {
                     id="inputPassword"
                     placeholder="**********"
                   />
+                  <div
+                    className={`text-danger ${this.state.showErrMessage}`}
+                    id="moniker_error"
+                  >
+                    Invalid email or password
+                  </div>
                 </li>
                 <li className="col-lg-12 col-sm-12">
                   <button type="submit" className="btn btn-dark btn-lg ">
@@ -155,7 +174,7 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => ({
-  signin: state.signin,
+  signin: state.user
 });
 
 export default connect(mapStateToProps, actions)(SignIn);

@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
+
+// actions
 import * as actions from '../actions';
+
+// components
 import Auth from './auth';
+import Navlinks from './Navlinks';
+import config from '../config';
 
 /**
  *
@@ -12,105 +19,66 @@ import Auth from './auth';
  * @extends {Component}
  */
 class Navbar extends Component {
-
+  /**
+   * Creates an instance of Navbar.
+   * @param {any} props
+   * @memberof Navbar
+   */
   constructor(props) {
     super(props);
 
     this.state = {
       avatar: null
-    }
+    };
   }
   /**
    *
    *
    * @memberof Navbar
-   * @returns {any} user data
+   * @returns {any}
+   * invoked immediately after a component is mounted
    */
   componentDidMount() {
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
   }
-
-  componentWillReceiveProps = (nextProps) => {
+  /**
+   *
+   * @returns {any}
+   * invoked before a mounted component receives new props.
+   * If you need to update the state in response to prop changes
+   * (for example, to reset it), you may compare this.props and
+   * nextProps and perform state transitions using this.setState()
+   * in this method.
+   * @param {any} nextProps
+   * @memberof Navbar
+   */
+  componentWillReceiveProps(nextProps) {
     this.setState({
       avatar: nextProps.user.data.avatar
-    })
-  }
-  
-  /**
-   *
-   *
-   * @memberof Navbar
-   * @returns {any} null token
-   */
-  logout() {
-    Auth.logout();
+    });
   }
 
   /**
    *
    *
-   * @returns {any} navigation bar
-   * @memberof Navbar
-   */
-  navLinks() {
-    if (Auth.loggedIn()) {
-      return (
-        <div>
-          <h6 className="dropdown-header text-center">{this.props.user? `Signed in as ${this.props.user.data.moniker}`: `loading`}</h6>
-          <div className="dropdown-divider"/>
-          <Link
-            className="dropdown-item bold"
-            to={`/profile/${Auth.userID()}`}
-          >
-           Your profile
-          </Link>
-          <Link
-            className="dropdown-item bold"
-            to="/favorites"
-          >
-           Your favorites
-          </Link>
-          <div className="dropdown-divider"/>
-          <a className="dropdown-item bold" onClick={this.logout} href="/">
-            {` `}
-            Logout
-          </a>
-        </div>
-      );
-    } else {
-      return (
-        <h6>
-          <Link className="dropdown-item bold mb-2" to="/signin">
-            {` `}
-            Sign in
-          </Link>
-          <Link className="dropdown-item bold" to="/signup">
-            {` `}
-            Sign up
-          </Link>
-        </h6>
-      );
-    }
-  }
-  /**
-   *
-   *
-   * @returns {any} jsx
+   * @returns {any}
+   * render react element into the DOM
    * @memberof Navbar
    */
   render() {
     const { avatar } = this.state;
     return (
-      <section className="container-fluid fixed">
+      <section className="container-fluid">
         <nav
-          className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
+          className=
+            "navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
           style={{ zIndex: 1000 }}
-        >
+        >        
           <div className="container">
             <Link className="navbar-brand bolder text-orange" to="/">
-              MoreRecipes
+              <span className="nb">MoreRecipes</span>
             </Link>
             <button
               className="navbar-toggler"
@@ -121,7 +89,7 @@ class Navbar extends Component {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <i className="fa fa-bars text-orange" aria-hidden="true" />
+              <i className="fa fa-bars fa-2x text-orange" aria-hidden="true" />
             </button>
             <div
               className="collapse navbar-collapse justify-content-end"
@@ -199,7 +167,8 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">
+                    <i className=
+                      "material-icons fa-2x red d-sm-none d-lg-inline">
                       &#xE87D;
                     </i>
                     <span
@@ -221,9 +190,7 @@ class Navbar extends Component {
                       aria-expanded="false"
                     >
                       <img
-                        src={
-                          avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
-                        }
+                        src={avatar || config.DEFAULT_DISPLAY_PICTURE}
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
                       />
@@ -242,10 +209,11 @@ class Navbar extends Component {
                   )}
 
                   <div
-                    className="dropdown-menu  dropdown-menu-right custom-dropdown"
+                    className=
+                      "dropdown-menu dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    {this.navLinks()}
+                    <Navlinks user={this.props.user} />
                   </div>
                 </li>
               </ul>
@@ -259,7 +227,11 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.signin.userProfile
+  user: state.user.userProfile
 });
 
+Navbar.propTypes = {
+  user: PropTypes.object,
+  getProfile: PropTypes.func,
+};
 export default connect(mapStateToProps, actions)(Navbar);

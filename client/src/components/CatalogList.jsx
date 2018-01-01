@@ -20,17 +20,13 @@ class CatalogList extends Component {
       hover: ''
     };
     this.generateList = this.generateList.bind(this);
-    // this.redirect = this.redirect.bind(this);
   }
 
-  // redirect(target) {
-  //   this.context.router.push(target);
-  // }
   /**
    *
    *
-   * @param {any} { catalog }
-   * @returns {object} list of recipe
+   * @param {object} props
+   * @returns {object} list of recipes
    * @memberof CatalogList
    */
   generateList({ catalog }) {
@@ -41,9 +37,11 @@ class CatalogList extends Component {
             <div className="catalog">
               <img src="../img/logo.png" alt="logo" />
               <h4 className="p-3 m-2">...Oops</h4>
-              <p className="p-3 m-2">No recipe matches your description</p>
+              <p className="p-3 m-2">No recipe found</p>
               <p className="p-3 m-2">
-                Try searching with a name of an ingredient
+                <Link to="/" className="btn btn-outline-dark hvr-icon-back">
+                  ...go back home
+                </Link>
               </p>
             </div>
           </div>
@@ -52,16 +50,16 @@ class CatalogList extends Component {
       return catalog.recipes.map((item, index) => (
         <div
           key={index}
-          className="col-lg-3 col-sm-7 mb-3  col-md-4 animate-catalog"
+          className="col-lg-3 col-sm-8 mb-20 col-md-4 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
           data-offset="100"
         >
-          <div style={{ overflow: 'hidden' }}>
-            <Fade bottom>
-              <Link to={`/recipe/${item.id}`} className=" hvr-push">
-                <div className={`card animate`}>
+          <div>
+            <Fade bottom delay={100} duration={1200}>
+              <Link to={`/recipe/${item.id}`} className=" hvr-grow-shadow">
+                <div className="card">
                   <img
                     className="card-img-top img-box"
                     src={item.foodImg}
@@ -70,11 +68,11 @@ class CatalogList extends Component {
 
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
-                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
-                      {item.name}
-                    </h6>
+                    <h4 className="card-title custom-bg bg-dark p-2 m-0 crop-text-title ">
+                      {item.name.length > 25 ? item.name.slice(0, 15).concat("...") : item.name }
+                    </h4>
                     <div className="card-body p-5 text-left bg-light">
-                      <p className="crop-text">{item.description}</p>
+                      <p className="line-clamp crop-text">{item.description}</p>
                     </div>
                     <span>
                       <i className="fa fa-heart-o" aria-hidden="true" />
@@ -108,7 +106,8 @@ class CatalogList extends Component {
   /**
    *
    *
-   * @returns {any} jsx
+   * @returns {any}
+   * render react element into the DOM
    * @memberof CatalogList
    */
   render() {

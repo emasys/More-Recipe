@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import Sticky from 'react-sticky-el';
+import Fade from 'react-reveal/Fade';
 import * as actions from '../actions';
-import Auth from '../components/auth';
+import lists from '../components/categoryList';
 
 //component
 import CatalogList from '../components/CatalogList';
+import Auth from '../components/auth';
+import config from '../config/index';
+import Navlinks from '../components/Navlinks';
 
 const fadeAnimation = {
   transitionName: 'fade',
@@ -21,16 +24,6 @@ const fadeAnimation = {
   transitionLeaveTimeout: 500
 };
 
-const propTypes = {
-  recipes: PropTypes.objectOf({
-    allRecipes: PropTypes.array
-  }),
-  user: PropTypes.array,
-  getRecipes: PropTypes.func,
-  searchRecipes: PropTypes.func,
-  getProfile: PropTypes.func
-  // allRecipes
-};
 /**
  *
  * @class FullCatalog
@@ -48,41 +41,21 @@ class FullCatalog extends Component {
       search: '',
       All_recipes: '',
       page_limit: 12,
-      avatar: null
+      avatar: null,
+      showMore: false,
+      dropdown: false
     };
 
     this.searchBar = this.searchBar.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.nextPage = this.nextPage.bind(this);
-    this.navLinks = this.navLinks.bind(this);
-    this.logout = this.logout.bind(this);
     this.recentlyAdded = this.recentlyAdded.bind(this);
     this.mostUpvoted = this.mostUpvoted.bind(this);
     this.mostFavorited = this.mostFavorited.bind(this);
     this.mostViewed = this.mostViewed.bind(this);
+    this.dropdownCtrl = this.dropdownCtrl.bind(this);
 
-    this.recipeCategory = [
-      'Breakfast',
-      'Brunch',
-      'Lunch',
-      'Snacks',
-      'Appetisers',
-      'Dinner',
-      'Soups',
-      'Noodles',
-      'Rice',
-      'Pasta',
-      'Meat',
-      'Poultry',
-      'Seafood',
-      'Vegetarian',
-      'Sides',
-      'Sauces',
-      'Baking',
-      'Desserts',
-      'Drinks',
-      'Salads'
-    ];
+    this.recipeList = lists;
   }
   /**
    *
@@ -96,6 +69,7 @@ class FullCatalog extends Component {
     }
     this.props.getRecipes(this.state.page_limit);
   }
+
   /**
    *
    *
@@ -105,17 +79,48 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
-    if (nextProps.recipes.search) {
+    const stuff = document.getElementById('search').value;
+    if (stuff.length < 1) {
       return this.setState({
-        All_recipes: nextProps.recipes.search,
+        All_recipes: nextProps.recipes.allRecipes
+      });
+    }
+    if (nextProps.user) {
+      this.setState({
         avatar: nextProps.user.data.avatar
       });
     }
-    return this.setState({
-      All_recipes: nextProps.recipes.allRecipes,
-      avatar: nextProps.user.data.avatar
-    });
+    if (nextProps.recipes.allRecipes) {
+      if (nextProps.recipes.allRecipes.recipes.length > 11) {
+        this.setState({ showMore: true });
+      }
+    }
+    if (nextProps.recipes.search) {
+      return this.setState({
+        All_recipes: nextProps.recipes.search
+      });
+    } else {
+      return this.setState({
+        All_recipes: nextProps.recipes.allRecipes
+      });
+    }
   };
+  /**
+   *
+   *
+   * @param {object} nextProps
+   * @param {object} nextState
+   * @memberof FullCatalog
+   * @returns {any}
+   * invoked immediately before rendering
+   * when new props or state are being received.
+   */
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.page_limit > this.state.page_limit) {
+      this.props.getRecipes(nextState.page_limit);
+    }
+  }
+
   /**
    *
    * @returns {object} list of recently added recipes
@@ -163,11 +168,8 @@ class FullCatalog extends Component {
    */
   onSearch(event) {
     event.preventDefault();
-    const data = { query: this.state.search };
+    const data = { query: this.state.search.toLowerCase() };
     this.props.searchRecipes(data);
-    this.setState({
-      All_recipes: this.props.recipes.search
-    });
   }
 
   /**
@@ -196,68 +198,27 @@ class FullCatalog extends Component {
    */
   nextPage() {
     this.setState(prevState => ({
-      page_limit: prevState.page_limit + 12
+      page_limit: prevState.page_limit + 8
     }));
   }
   /**
    *
    *
    * @memberof FullCatalog
-   * @returns {any} log's a user out
+   * @returns {any} dropdown
    */
-  logout() {
-    Auth.logout();
-    this.setState({
-      page_limit: 12
-    });
-  }
-  /**
-   *
-   *
-   * @returns {any} some navbar links
-   * @memberof FullCatalog
-   */
-  navLinks() {
-    if (Auth.loggedIn()) {
-      return (
-        <div>
-          <h6 className="dropdown-header text-center">
-            {this.props.user ?
-              `Signed in as ${this.props.user.data.moniker}` :
-              `loading`}
-          </h6>
-          <div className="dropdown-divider" />
-          <Link className="dropdown-item bold" to={`/profile/${Auth.userID()}`}>
-            Your profile
-          </Link>
-          <Link className="dropdown-item bold" to="/favorites">
-            Your favorites
-          </Link>
-          <div className="dropdown-divider" />
-          <a className="dropdown-item bold" onClick={this.logout} href="/">
-            {` `}
-            Logout
-          </a>
-        </div>
-      );
+  dropdownCtrl() {
+    const { dropdown } = this.state;
+    if (dropdown) {
+      this.setState({
+        dropdown: false
+      });
     } else {
-      return (
-        <h6>
-          <Link className="dropdown-item" to="/signin">
-            <i className="fa fa-sign-in" aria-hidden="true" />
-            {` `}
-            Sign in
-          </Link>
-          <Link className="dropdown-item" to="/signup">
-            <i className="fa fa-user-plus" aria-hidden="true" />
-            {` `}
-            Sign up
-          </Link>
-        </h6>
-      );
+      this.setState({
+        dropdown: true
+      });
     }
   }
-
   /**
    *
    *
@@ -265,7 +226,9 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   render() {
-    const { search, avatar } = this.state;
+    const {
+      search, avatar, showMore, dropdown
+    } = this.state;
     return (
       <div>
         <section className="container-fluid fixed">
@@ -282,6 +245,7 @@ class FullCatalog extends Component {
                 <input
                   type="search"
                   name="search"
+                  id="search"
                   value={search}
                   onChange={this.searchBar}
                   placeholder="search by ingredients or recipe title"
@@ -296,7 +260,10 @@ class FullCatalog extends Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <i className="fa fa-bars text-orange" aria-hidden="true" />
+                <i
+                  className="fa fa-bars fa-2x text-orange"
+                  aria-hidden="true"
+                />
               </button>
               <div
                 className="collapse navbar-collapse justify-content-end"
@@ -378,9 +345,7 @@ class FullCatalog extends Component {
                         aria-expanded="false"
                       >
                         <img
-                          src={
-                            avatar || 'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
-                          }
+                          src={avatar || config.DEFAULT_DISPLAY_PICTURE}
                           alt="avi"
                           className="fa-2x img-icon rounded-circle"
                         />
@@ -398,10 +363,10 @@ class FullCatalog extends Component {
                       </a>
                     )}
                     <div
-                      className="dropdown-menu dropdown-menu-right"
+                      className="dropdown-menu dropdown-menu-right custom-dropdown"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      {this.navLinks()}
+                      <Navlinks user={this.props.user} />
                     </div>
                   </li>
                 </ul>
@@ -418,27 +383,16 @@ class FullCatalog extends Component {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                data-toggle="dropdown"
                 href="#"
+                id="navbarDropdown"
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="false"
+                onClick={this.dropdownCtrl}
               >
                 <i className="fa fa-th" aria-hidden="true" /> categories
               </a>
-              <div className="dropdown-menu custom-dropdown-menu">
-                {this.recipeCategory.map(category => (
-                  <Link
-                    key={category}
-                    className="dropdown-item"
-                    to={`/category/${category}`}
-                  >
-                    {category}
-                  </Link>
-                ))}
-              </div>
             </li>
-
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -455,9 +409,11 @@ class FullCatalog extends Component {
                 <a className="dropdown-item" onClick={this.recentlyAdded}>
                   Recently Added
                 </a>
+                <div className="dropdown-divider" />
                 <a className="dropdown-item" onClick={this.mostUpvoted}>
                   Most Upvoted
                 </a>
+                <div className="dropdown-divider" />
                 <a className="dropdown-item" onClick={this.mostFavorited}>
                   Most Favorited
                 </a>
@@ -470,18 +426,50 @@ class FullCatalog extends Component {
           </ul>
         </div>
 
-        <section className="container mt-0" id="catalog">
+        {dropdown && (
+          <Fade top >
+            <section className="mt-0 mb-20 text-center" >
+              <div className="category-wrapper container-fluid">
+                <div className="containe">
+                  <div className="row justify-content-center">
+                    {this.recipeList.map(link => (
+                      <div
+                        className="col-lg-2 col-md-3 col-sm-4 mb-2 p-0"
+                        key={link}
+                      >
+                        <Link
+                          to={`/category/${link}`}
+                          className="categories hvr-shrink bg-dark"
+                        >
+                          <img
+                            src={config.CAT_IMAGE[link]}
+                            className="category-image"
+                            alt="category"
+                          />
+                          <p>{link}</p>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </Fade>
+        )}
+        <section className="container mt-100" id="catalog">
           <div className="catalog-wrapper">
             <CSSTransitionGroup {...fadeAnimation}>
               <CatalogList catalog={this.state.All_recipes} />
             </CSSTransitionGroup>
             <div className="text-center">
-              <button
-                className="btn btn-outline-dark hvr-grow-shadow"
-                onClick={this.nextPage}
-              >
-                View More
-              </button>
+              {showMore && (
+                <button
+                  className="btn btn-outline-dark hvr-grow-shadow"
+                  onClick={this.nextPage}
+                >
+                  View More
+                </button>
+              )}
             </div>
           </div>
         </section>
@@ -491,8 +479,16 @@ class FullCatalog extends Component {
 }
 const mapStateToProps = state => ({
   recipes: state.recipes,
-  user: state.signin.userProfile
+  user: state.user.userProfile
 });
 
-FullCatalog.PropTypes = propTypes;
+FullCatalog.propTypes = {
+  recipes: PropTypes.object,
+  user: PropTypes.object,
+  getRecipes: PropTypes.func,
+  searchRecipes: PropTypes.func,
+  getProfile: PropTypes.func,
+  data: PropTypes.object,
+  moniker: PropTypes.string
+};
 export default connect(mapStateToProps, actions)(FullCatalog);

@@ -1,47 +1,77 @@
-export default (state = [], action) => {
+import * as type from '../actions/types';
+
+const initialState = {
+  recipeItem: {
+    recipe: {
+      // category: '',
+      // comments: null,
+      // createdAt: '',
+      // description: '',
+      // direction: '',
+      // downvote: null,
+      // favorite: null,
+      // favorites: [],
+      // foodImg: '',
+      // ingredients: [],
+      // name: '',
+      // reactionDown: [],
+      // reactionUp: [],
+      // reviews: [],
+      // updatedAt: '',
+      // upvote: null,
+      // views: null
+    }
+  }
+};
+export default (state = {}, action) => {
   switch (action.type) {
-  case 'RECIPES':
+  case type.ALL_RECIPES:
     return {
       ...state,
       allRecipes: action.payload
     };
-  case 'RECIPES_ITEM':
+  case type.SINGLE_RECIPE:
     return {
       ...state,
       recipeItem: action.payload
     };
-  case 'USER_RECIPES':
+  case type.SINGLE_RECIPE_REACTION:
+    return {
+      ...state,
+      recipeItem: action.payload
+    };
+  case type.USER_RECIPES:
     return {
       ...state,
       userRecipes: action.payload
     };
-  case 'EDIT_RECIPE':
+  case type.EDIT_RECIPE:
     return {
       ...state,
       updateRecipes: action.payload
     };
-  case 'GET_CATEGORY':
+  case type.GET_CATEGORY:
     return {
       ...state,
       category: action.payload
     };
 
-  case 'SEARCH':
+  case type.SEARCH:
     return {
       ...state,
       search: action.payload
     };
 
-  case 'DELETE_RECIPE':
+  case type.DELETE_RECIPE:
     return {
       ...state,
       del_recipe: action.payload
     };
 
-  case 'CLEAR_RECIPE':
+  case type.NEW_RECIPE:
     return {
       ...state,
-      clear: action.payload
+      new_recipe: action.payload
     };
 
   default:

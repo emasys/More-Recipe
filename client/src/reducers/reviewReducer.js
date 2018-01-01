@@ -1,12 +1,14 @@
-export default (state = {}, action) => {
-  switch (action.type) {
-    case 'REVIEW':
-      return {
-        ...state,
-        review: action.payload
-      };
+import * as type from '../actions/types';
 
-    default:
-      return state;
+export default (state = [], action) => {
+  switch (action.type) {
+  case type.REVIEW:
+    return {
+      ...state,
+      review: action.payload
+    };
+
+  default:
+    return state;
   }
 };

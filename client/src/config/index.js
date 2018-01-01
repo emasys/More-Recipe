@@ -2,5 +2,29 @@ export default {
   API_KEY: 967519873674438,
   API_SECRET: '9VvLEY-8s4xYBznR1Fohc5I2578',
   UPLOAD_PRESET: 's5dtifb3',
-  CLOUD_NAME: 'emasys'
+  CLOUD_NAME: 'emasys',
+  DEFAULT_DISPLAY_PICTURE: 'https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png',
+  CAT_IMAGE: {
+    Breakfast: 'https://res.cloudinary.com/emasys/image/upload/v1514747192/oatmeal-3-2-1-400x400_zjkinq.jpg',
+    Brunch: 'https://res.cloudinary.com/emasys/image/upload/v1514747533/Leftover-Stuffing-22Hash22-6-400x400_qsgvfy.jpg',
+    Lunch: 'https://res.cloudinary.com/emasys/image/upload/v1514747756/Hotel_New_York_Rotterdam_Lunch_1-400x400_xwwedv.jpg',
+    Snacks: 'https://res.cloudinary.com/emasys/image/upload/v1514747847/Oatmeal-Raisin-Cookie-Chex-Snack-Mix-400x400_grttrd.jpg',
+    Appetisers: 'https://res.cloudinary.com/emasys/image/upload/v1514747940/IMG_8476-400x400_iksx0h.jpg',
+    Dinner: 'https://res.cloudinary.com/emasys/image/upload/v1514748067/chicken2-Medium-400x400_jdip45.jpg',
+    Soups: 'https://res.cloudinary.com/emasys/image/upload/v1514748162/mushroom-soup-6-min-400x400_whcvep.jpg',
+    Noodles: 'https://res.cloudinary.com/emasys/image/upload/v1514748289/stir-fried-chicken-and-cashews-with-cabbage-noodles-1780-400x400_gujnry.jpg',
+    Rice: 'https://res.cloudinary.com/emasys/image/upload/v1514748439/Peas-Pulao-1_swucnu.png',
+    Pasta: 'https://res.cloudinary.com/emasys/image/upload/v1514748566/Summertime-Pasta-4-400x400_v0xvsg.jpg',
+    Meat: 'https://res.cloudinary.com/emasys/image/upload/v1514748713/Beef-or-lamb_dxs4l9.jpg',
+    Poultry: 'https://res.cloudinary.com/emasys/image/upload/v1514748791/Gressingham-duck-400x400_vctzt9.jpg',
+    Seafood: 'https://res.cloudinary.com/emasys/image/upload/v1514748878/seafood-appetizer-400x400_nkjeyc.jpg',
+    Vegetarian: 'https://res.cloudinary.com/emasys/image/upload/v1514749041/veggie-bowl-recipe-fp-400x400-c_k4yjbi.jpg',
+    Sides: 'https://res.cloudinary.com/emasys/image/upload/v1514749108/10-sweet-potato-recipes-you-have-to-try-400x400_rgxzn2.jpg',
+    Sauces: 'https://res.cloudinary.com/emasys/image/upload/v1514749192/cocktail-sauce-recipe-fp-400x400-c_nsa9h3.jpg',
+    Baking: 'https://res.cloudinary.com/emasys/image/upload/v1514749250/paleo-vanilla-cake-recipe-fp-400x400-c_s4cimv.jpg',
+    Desserts: 'https://res.cloudinary.com/emasys/image/upload/v1514749309/angus-barn-chocolate-pie-04-400x400_hohb3e.jpg',
+    Drinks: 'https://res.cloudinary.com/emasys/image/upload/v1514749359/mai-tai-blue-hawaiian-cocktails-recipe-fp-400x400-c_xfw2bc.jpg',
+    Salads: 'https://res.cloudinary.com/emasys/image/upload/v1514749454/beet-salad-recipe-fp-400x400-c_d8zyu7.jpg'
+  },
+  DEFAULT_FOOD_IMG: 'https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png'
 };

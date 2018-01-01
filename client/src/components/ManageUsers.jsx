@@ -178,7 +178,7 @@ class ManageUsers extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.signin.allUsers,
-  deluser: state.signin.delUser
+  users: state.user.allUsers,
+  deluser: state.user.delUser
 });
 export default connect(mapStateToProps, actions)(ManageUsers);

@@ -17,22 +17,68 @@ import Auth from '../components/auth';
 import Management from '../components/ManageUsers';
 import Category from '../components/Category';
 
+const Message = 'You have to be logged in to view this content';
 
 const AppRoutes = () => (
-  <BrowserRouter>
+  <BrowserRouter >
     <div>
       <Switch>
-        <Route path="/signin" component={Signin}/>
-        <Route path="/signup" component={Signup}/>
-        <Route path="/" exact component={Home}/>
-        <Route path="/catalog" exact component={FullCatalog}/>
-        <Route path="/recipe/:id" component={Auth.loggedIn() ? RecipeItem : Signin}/>
-        <Route path="/user/:id" component={Auth.loggedIn() ? User : Signin}/>
-        <Route path="/manageUsers" component={Auth.moniker() ? Management : Signin}/>
-        <Route path="/favorites" component={Auth.loggedIn() ? Favorites : Signin}/>
-        <Route path="/new" component={Auth.loggedIn() ? AddRecipe : Signin}/>
-        <Route path="/profile/:id" component={Auth.loggedIn() ? Profile : Signin}/>
-        <Route path="/category/:cat" component={Category}/>
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/" exact component={Home} />
+        <Route path="/catalog" exact component={FullCatalog} />
+        <Route
+          path="/recipe/:id"
+          render={props =>
+            (Auth.loggedIn() ? (
+              <RecipeItem {...props} />
+            ) : (
+              <Signin {...props} msg={Message} />
+            ))
+          }
+        />
+        <Route
+          path="/user/:id"
+          render={routeProps =>
+            (Auth.loggedIn() ? (
+              <User {...routeProps} />
+            ) : (
+              <Signin {...routeProps} msg={Message} />
+            ))
+          }
+        />
+        <Route
+          path="/manageUsers"
+          render={routeProps =>
+            (Auth.loggedIn() ? (
+              <Management />
+            ) : (
+              <Signin {...routeProps} msg={Message} />
+            ))
+          }
+        />
+        <Route
+          path="/favorites"
+          render={routeProps =>
+            (Auth.loggedIn() ? (
+              <Favorites />
+            ) : (
+              <Signin {...routeProps} msg={Message} />
+            ))
+          }
+        />
+        <Route
+          path="/new"
+          render={routeProps =>
+            (Auth.loggedIn() ? (
+              <AddRecipe {...routeProps}/>
+            ) : (
+              <Signin {...routeProps} msg={Message} />
+            ))
+          }
+        />
+        <Route path="/profile/:id" component={Profile} />
+        <Route path="/category/:cat" component={Category} />
         <Route path="*" component={NotFound} />
       </Switch>
       <Footer />

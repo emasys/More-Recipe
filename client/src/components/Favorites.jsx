@@ -5,7 +5,6 @@ import Fade from 'react-reveal/Fade';
 import * as actions from '../actions';
 
 //components
-// import Catalog from './catalog';
 import Navbar from './Navbar';
 /**
  *
@@ -13,7 +12,7 @@ import Navbar from './Navbar';
  * @class Favorites
  * @extends {Component}
  */
-class Favorites extends Component {
+export class Favorites extends Component {
   /**
    * Creates an instance of Favorites.
    * @param {any} props
@@ -61,15 +60,15 @@ class Favorites extends Component {
       return fav.userFav.favorites.map((item, index) => (
         <div
           key={index}
-          className="col-lg-3 col-sm-10 mb-3  col-md-4 animate-catalog"
+          className="col-lg-3 col-sm-10 mb-20  col-md-4 animate-catalog"
           data-animate="bounceIn"
           data-duration="1.0s"
           data-delay="0.1s"
           data-offset="100"
         >
-          <div style={{ overflow: 'hidden' }}>
+          <div>
             <Fade bottom>
-              <Link to={`/recipe/${item.recipeId}`} className=" hvr-bounce-out">
+              <Link to={`/recipe/${item.recipeId}`} className=" hvr-grow-shadow">
                 <div className={`card animate`}>
                   <img
                     className="card-img-top img-box"
@@ -80,9 +79,9 @@ class Favorites extends Component {
                     <span className="tag bg-danger">
                       {item.Recipe.category}
                     </span>
-                    <h6 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
-                      {item.Recipe.name}
-                    </h6>
+                    <h4 className="card-title custom-bg bg-dark p-2 m-0 text-truncate ">
+                      {item.Recipe.name.length > 25 ? item.Recipe.name.slice(0, 15).concat("...") : item.Recipe.name }
+                    </h4>
                     <div className="card-body p-5 text-left bg-light text-dark">
                       <p className="crop-text">{item.Recipe.description}</p>
                     </div>
