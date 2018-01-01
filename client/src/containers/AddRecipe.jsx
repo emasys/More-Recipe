@@ -60,7 +60,7 @@ componentWillUnmount() {
         const { id } = this.props.new_recipe.new_recipe.recipe;
         this.props.history.push(`/recipe/${id}`);
       }
-      if (this.props.new_recipe.new_recipe.error) {
+      if (this.props.new_recipe.new_recipe.data.error) {
         this.setState({
           isLoading: false
         });
