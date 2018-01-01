@@ -22,3 +22,4 @@ export const DOWNVOTE = 'downvote a recipe';
 export const GET_VOTE_STATUS = 'get vote status of a user';
 export const GET_FAVORITE_STATUS = 'get favorite status of a user';
 export const RESET_PASSWORD = 'reset password';
+export const UPLOAD_FOOD_IMG = 'upload food image';

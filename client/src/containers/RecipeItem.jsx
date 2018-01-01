@@ -5,13 +5,11 @@ import ReactTooltip from 'react-tooltip';
 import Dropzone from 'react-dropzone';
 import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
-import axios from 'axios';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 import Textarea from "react-textarea-autosize";
 import Fade from 'react-reveal/Fade';
-// import Zoom from 'react-reveal/Zoom';
-
+import PropTypes from 'prop-types';
 
 // import actions
 import * as actions from '../actions';
@@ -21,7 +19,6 @@ import Auth from '../components/auth';
 import RecipeIngredients from '../components/Ingredients';
 import Reviews from '../components/Reviews';
 import Navbar from '../components/Navbar';
-import config from '../config';
 /**
  *
  *
@@ -36,20 +33,15 @@ class RecipeItem extends Component {
    */
   constructor(props) {
     super(props);
-
-    this.userId = null;
     this.foodImg = null;
     this.state = {
-      vote: false,
       edit: false,
-      open: false,
       favoriteStatus: false,
       upvoteStatus: false,
       downvoteStatus: false,
       deleteRecipe: false,
       name: '',
       editRecipe: false,
-      isLoading: false,
       preview: '',
       files: null,
       status: 'fade',
@@ -60,6 +52,7 @@ class RecipeItem extends Component {
       recipeItem: undefined
     };
     this.generateItems = this.generateItems.bind(this);
+    this.edited = this.edited.bind(this);
     this.favIt = this.favIt.bind(this);
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
@@ -73,8 +66,6 @@ class RecipeItem extends Component {
     this.handleImg = this.handleImg.bind(this);
     this.showEditForm = this.showEditForm.bind(this);
   }
-
-
   /**
    *
    *
@@ -83,9 +74,21 @@ class RecipeItem extends Component {
    */
   componentDidMount() {
     this.props.getRecipeItem(this.props.match.params.id).then(() => {
-      this.props.getUserInfo(this.userId);
-    })
-    
+      const {
+        ingredients, name, description, direction, foodImg, userId
+      } = this.props.recipes.recipeItem.recipe;
+      if (Auth.userID() === userId) {
+        this.setState({
+          edit: true,
+          name,
+          ingredients: ingredients.join(','),
+          description,
+          direction,
+          foodImg
+        });
+      }
+      this.props.getUserInfo(userId);
+    });
   }
   /**
    *
@@ -95,71 +98,25 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
-    console.log({ nextProps: nextProps.recipes });
-    if (nextProps.recipes) {
-      if (nextProps.recipes.recipeItem) {
-        this.setState({
-          favoriteStatus: false
-        });
-        const {
-          reactionUp, reactionDown, favorites, ingredients,
-          name,
-          description,
-          direction,
-          foodImg,
-          userId
-        } = nextProps.recipes.recipeItem.recipe;
-        if (Auth.userID() === userId) {
-          this.setState({
-            edit: true,
-            name,
-            ingredients: ingredients.join(','),
-            description,
-            direction,
-            foodImg
-          });
-        }
-        this.userId = userId;
-        favorites.map((user) => {
-          if (user.userId === Auth.userID()) {
-            return this.setState({
-              favoriteStatus: true
-            });
-          }
-          return null;
-        });
-        switch (reactionUp.indexOf(Auth.userID())) {
-        case -1:
-          this.setState({
-            upvoteStatus: false
-          });
-          break;
-
-        default:
-          this.setState({
-            upvoteStatus: true
-          });
-          break;
-        }
-
-        switch (reactionDown.indexOf(Auth.userID())) {
-        case -1:
-          this.setState({
-            downvoteStatus: false
-          });
-          break;
-
-        default:
-          this.setState({
-            downvoteStatus: true
-          });
-          break;
-        }
-        this.setState({
-          recipeItem: nextProps.recipes.recipeItem,
-        });
+    this.setState({
+      favoriteStatus: false,
+      recipeItem: nextProps.recipes.recipeItem,
+    });
+    const {
+      reactionUp, reactionDown, favorites
+    } = nextProps.recipes.recipeItem.recipe;
+    favorites.map((user) => {
+      if (user.userId === Auth.userID()) {
+        return this.setState({ favoriteStatus: true });
       }
-    }
+      return null;
+    });
+    if (reactionUp.indexOf(Auth.userID()) === -1) {
+      this.setState({ upvoteStatus: false });
+    } else this.setState({ upvoteStatus: true });
+    if (reactionDown.indexOf(Auth.userID()) === -1) {
+      this.setState({ downvoteStatus: false });
+    } else this.setState({ downvoteStatus: true });
   }
   /**
   /**
@@ -227,6 +184,27 @@ class RecipeItem extends Component {
     });
   }
   /**
+ * @returns {any}
+ * edit recipe helper function
+ * @param {any} data
+ * @memberof RecipeItem
+ */
+  edited(data) {
+    this.props.editRecipe(data, this.props.match.params.id).then(() => {
+      if (this.props.recipes.updateRecipes.success) {
+        this.update();
+        this.setState({
+          editRecipe: false,
+          status: 'fade'
+        });
+      } else {
+        document.querySelector('#recipe_error').innerHTML =
+        'A recipe with this name already exist';
+      }
+      this.props.getRecipeReactions(this.props.match.params.id);
+    });
+  }
+  /**
    *
    *
    * @param {event} event
@@ -240,26 +218,14 @@ class RecipeItem extends Component {
     const prevName = this.props.recipes.recipeItem.recipe.name;
     const newName = event.target.elements.recipe.value.trim();
     let data = {
-      name: prevName === newName ? null : event.target.elements.recipe.value.trim(),
+      name: prevName === newName ?
+        null : event.target.elements.recipe.value.trim(),
       ingredients: event.target.elements.ingredients.value,
       direction: event.target.elements.direction.value,
       description: event.target.elements.description.value,
       foodImg: this.foodImg || foodImg
     };
-    // if (prevName === newName) data.name = null;
-    this.props.editRecipe(data, this.props.match.params.id).then(() => {
-      if (this.props.recipes.updateRecipes.success) {
-        this.setState({
-          editRecipe: false,
-          status: 'fade'
-        });
-      } else {
-        document.querySelector('#recipe_error').innerHTML =
-        'A recipe with this name already exist, kindly choose another name';
-      }
-
-      this.props.getRecipeItem(this.props.match.params.id);
-    });
+    this.edited(data);
   }
   /**
    *
@@ -288,7 +254,8 @@ class RecipeItem extends Component {
             <div className="text-danger" id="recipe_error" />
           </li>
           <li className="col-lg-8 col-sm-12">
-            <label>Ingredients <em className="text-warning">(separate with comma ",")</em></label>
+            <label>Ingredients <em className="text-warning">
+            (separate with comma ",")</em></label>
             <Textarea
               className="col-lg-11 col-sm-12"
               id="FormControlTextarea"
@@ -373,11 +340,22 @@ class RecipeItem extends Component {
     this.toastId = toast('Uploading...', { autoClose: false });
     return this.toastId;
   }
-
+  // toast message
   update = () =>
     toast.update(this.toastId, {
       render: 'Upload complete!',
       type: toast.TYPE.SUCCESS,
+      autoClose: 3000,
+      className: css({
+        transform: 'rotateY(360deg)',
+        transition: 'transform 0.6s'
+      })
+    });
+
+  failedUpdate = () =>
+    toast.update(this.toastId, {
+      render: 'error, try again',
+      type: toast.TYPE.ERROR,
       autoClose: 3000,
       className: css({
         transform: 'rotateY(360deg)',
@@ -394,32 +372,19 @@ class RecipeItem extends Component {
    */
   handleImg() {
     this.notify();
-    const { files } = this.state;
+    const { files, ingredients } = this.state;
 
     // Push all the axios request promise into a single array
-    const uploaders = files.map(file => {
-      // Initial FormData
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('tags', `morerecipe`);
-      formData.append('upload_preset', config.UPLOAD_PRESET);
-      formData.append('api_key', config.API_KEY);
-      formData.append('timestamp', (Date.now() / 1000) | 0);
-
-      return axios
-        .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => {
-          const resdata = response.data;
-          this.foodImg = resdata.secure_url;
-        });
-    });
-
-    axios.all(uploaders).then(() => {
-      // perform after upload is successful operation
-      this.update();
-      this.handleSubmit.apply(this, arguments);
+    const file = files[0];
+    this.props.uploadImg(file).then(() => {
+      this.foodImg = this.props.recipes.uploadedImg;
+      // for poor/no internet connection
+      if (typeof this.foodImg === 'object') return this.failedUpdate();
+      const data = {
+        ingredients,
+        foodImg: this.foodImg
+      };
+      this.edited(data);
       this.setState({
         save: 'd-none'
       });
@@ -444,12 +409,16 @@ class RecipeItem extends Component {
       } = reactions.recipe;
 
       const {
-        status, preview, save, edit, favoriteStatus, upvoteStatus, downvoteStatus
+        status, preview, save, edit, favoriteStatus,
+        upvoteStatus, downvoteStatus
       } = this.state;
       return (
         <div className="">
           <div>
-            <button className={`btn btn-success mb-5 ${save}`} onClick={this.handleImg}>save changes</button>
+            <button className={`btn btn-success mb-5 ${save}`}
+              onClick={this.handleImg}>
+          save changes
+            </button>
           </div>
           <figure
             className="img-wrapper"
@@ -469,8 +438,8 @@ class RecipeItem extends Component {
               </Dropzone>
             </div>}
 
-            <img src={preview || foodImg} alt="foodie" className="img-fluid rounded recipeImage" />
-
+            <img src={preview || foodImg} alt="foodie"
+              className="img-fluid rounded recipeImage" />
             <figcaption className="text-center bolder">{name}</figcaption>
             <div className="d-inline mt-3">
               <span className="text-center card-link" onClick={this.favIt}>
@@ -574,7 +543,8 @@ class RecipeItem extends Component {
         </Modal>
         <Fade duration={1000} >
           <section className="container mt-80">
-            <div className="row justify-content-center catalog-wrapper mb-20" id="catalog">
+            <div className=
+              "row justify-content-center catalog-wrapper mb-20" id="catalog">
               <div className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image">
                 {this.generateItems(recipeItem)}
               </div>
@@ -585,17 +555,16 @@ class RecipeItem extends Component {
               />}
             </div>
             <Reviews id={this.props.match.params.id} />
-
             {edit && <i
               onClick={this.onOpenDeleteModal}
               data-tip="Delete recipe"
-              className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
+              className=
+                "fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
               id="floating-delete"
               aria-hidden="true">
               <ReactTooltip place="bottom" type="dark" effect="float" />
             </i>
             }
-
             {edit && <i
               data-tip="Edit recipe"
               id="floating-edit"
@@ -604,8 +573,6 @@ class RecipeItem extends Component {
               onClick={this.showEditForm}
             />
             }
-
-
           </section>
         </Fade>
       </div>
@@ -617,6 +584,23 @@ const mapStateToProps = state => ({
   recipes: state.recipes,
   favorite: state.favorite,
   votes: state.votes,
-  userInfo: state.user.userInfo
+  userInfo: state.user.userInfo,
 });
+
+RecipeItem.propTypes = {
+  userInfo: PropTypes.object,
+  uploadImg: PropTypes.func,
+  downvote: PropTypes.func,
+  upvote: PropTypes.func,
+  setFavorite: PropTypes.func,
+  getRecipeReactions: PropTypes.func,
+  editRecipe: PropTypes.func,
+  delRecipe: PropTypes.func,
+  history: PropTypes.object,
+  getRecipe: PropTypes.func,
+  getUserInfo: PropTypes.func,
+  recipes: PropTypes.object,
+  getRecipeItem: PropTypes.func,
+  match: PropTypes.object
+};
 export default connect(mapStateToProps, actions)(RecipeItem);

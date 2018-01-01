@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as type from './types';
+import config from '../config';
 
 const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
@@ -280,3 +281,27 @@ export const resetPassword = data => dispatch =>
     .catch(err => {
       dispatch({ type: type.RESET_PASSWORD, payload: err.response });
     });
+
+// Upload recipe image
+export const uploadImg = data => {
+  console.log(data);
+  const formData = new FormData();
+  formData.append('file', data);
+  formData.append('tags', `morerecipe`);
+  formData.append('upload_preset', config.UPLOAD_PRESET);
+  formData.append('api_key', config.API_KEY);
+  formData.append('timestamp', (Date.now() / 1000) | 0);
+
+  return dispatch => axios
+    .post(config.CLOUD_URL, formData, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => {
+      const resdata = response.data;
+      const payload = resdata.secure_url;
+      dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
+    })
+    .catch(err => {
+      dispatch({ type: type.UPLOAD_FOOD_IMG, payload: { success: false, payload: err.response } });
+    });
+};
