@@ -373,8 +373,6 @@ class RecipeItem extends Component {
   handleImg() {
     this.notify();
     const { files, ingredients } = this.state;
-
-    // Push all the axios request promise into a single array
     const file = files[0];
     this.props.uploadImg(file).then(() => {
       this.foodImg = this.props.recipes.uploadedImg;

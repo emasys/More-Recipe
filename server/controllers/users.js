@@ -1,13 +1,14 @@
 import _ from 'lodash';
 import Validator from 'validatorjs';
 import dotenv from 'dotenv';
-import { Users } from '../models';
+import { Users, TokenGen } from '../models';
 import {
   setStatus,
   signToken,
   validateSignInForm,
   validateSignUpForm,
-  validateUpdateUser
+  validateUpdateUser,
+  mailer
 } from '../middleware/helper';
 
 dotenv.config();
@@ -259,22 +260,75 @@ export default class MoreRecipeUsers {
    */
   static resetPassword(req, res) {
     const request = req.body;
-    Users.findOne({ where: { email: request.email } }).then((user) => {
+    Users.findOne({ where: { email: request.email } })
+      .then((user) => {
+        if (!user) {
+          return setStatus(
+            res,
+            { success: false, status: 'user not found' },
+            404
+          );
+        }
+        user
+          .update({
+            password: request.password
+          })
+          .then(() =>
+            setStatus(res, { success: true, status: 'updated' }, 200));
+      })
+      .catch(() =>
+        setStatus(res, { success: false, error: 'server error' }, 500));
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param { object } req
+   * @param { object } res
+   * @returns {object}
+   * add generated token to database
+   */
+  static sendToken(req, res) {
+    const request = req.body;
+    let token = null;
+    TokenGen.findOne({ where: { email: request.email } }).then((user) => {
+      token = Math.floor(1000 + (Math.random() * 9000));
+      request.token = token;
       if (!user) {
-        return setStatus(
-          res,
-          { success: false, status: 'user not found' },
-          404
-        );
+        TokenGen.create(request).then((newuser) => {
+          setStatus(res, { success: true, status: 'token sent' }, 200);
+          return mailer('Reset password Token:', newuser.email, token);
+        });
       }
       user
         .update({
-          password: request.password
+          token: token || user.token
         })
-        .then(() =>
-          setStatus(res, { success: true, status: 'updated' }, 200))
-        .catch(() =>
-          setStatus(res, { success: false, error: 'user not found' }, 404));
+        .then(() => {
+          setStatus(res, { success: true, status: 'token sent' }, 200);
+          return mailer('Reset password Token:', user.email, token);
+        });
     });
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param { object } req
+   * @param { object } res
+   * @returns {object}
+   * fetch generated token from database
+   */
+  static getToken(req, res) {
+    const request = req.body;
+    TokenGen.findOne({ where: { email: request.email, token: request.token } })
+      .then((user) => {
+        if (!user) return setStatus(res, { success: false }, 404);
+        return setStatus(res, { success: true }, 200);
+      })
+      .catch(() =>
+        setStatus(res, { success: false, error: 'server error' }, 500));
   }
 }

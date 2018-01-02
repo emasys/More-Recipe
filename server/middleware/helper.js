@@ -90,7 +90,7 @@ export const validateUpdateUser = () => {
  *
  * @returns error if all expectations are not satisfied
  */
-export const mailer = (moniker, email, message) => {
+export const mailer = (moniker = null, email, message) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -102,11 +102,11 @@ export const mailer = (moniker, email, message) => {
   // setup e-mail data
   const mailOptions = {
     // sender address
-    from: 'MoreRecipe <more-recipe@gmail.com>',
+    from: 'MoreRecipe <morerecipe23@gmail.com>',
     // list of receivers
     to: email,
     // Subject line
-    subject: 'Activity on your recipe',
+    subject: '[Alert] MoreRecipe',
     // plaintext body
     text: `${moniker} ${message}`,
     // html body

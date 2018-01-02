@@ -47,6 +47,16 @@ export default (state = {}, action) => {
       ...state,
       reset: action.payload
     };
+  case type.SEND_TOKEN:
+    return {
+      ...state,
+      sendToken: action.payload
+    };
+  case type.COMPARE_TOKEN:
+    return {
+      ...state,
+      compareToken: action.payload
+    };
 
   default:
     return state;

@@ -38,6 +38,7 @@ class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetForm = this.resetForm.bind(this);
     this.resetPassword = this.resetPassword.bind(this);
+    this.generateToken = this.generateToken.bind(this);
   }
   /**
    * @returns {any}
@@ -105,10 +106,17 @@ class SignIn extends Component {
    * @returns {any} password input text
    */
   resetForm() {
-    this.setState({
-      resetPassword: true,
-      success: false
-    });
+    if (!this.state.resetPassword) {
+      this.setState({
+        resetPassword: true,
+        success: false
+      });
+    } else {
+      this.setState({
+        resetPassword: false,
+        success: false
+      });
+    }
   }
   /**
    *
@@ -124,7 +132,8 @@ class SignIn extends Component {
     const data = {
       email: event.target.elements.recoveryEmail.value.trim(),
       password: event.target.elements.newPassword.value,
-      confirmPassword: event.target.elements.confirmPassword.value
+      confirmPassword: event.target.elements.confirmPassword.value,
+      token: event.target.elements.token.value.trim()
     };
     if (data.email === '') {
       document.querySelector('#recoverEmail_error').innerHTML =
@@ -142,6 +151,14 @@ class SignIn extends Component {
       document.querySelector('#newPassword_error').innerHTML = '';
     }
 
+    if (data.token === '') {
+      document.querySelector('#token_error').innerHTML =
+        'Check your email for your token';
+      data.token = null;
+    } else {
+      document.querySelector('#token_error').innerHTML = '';
+    }
+
     if (!isEqual(data.password, data.confirmPassword)) {
       document.querySelector('#confirmPassword_error').innerHTML =
         'Your password did not match';
@@ -150,9 +167,23 @@ class SignIn extends Component {
       document.querySelector('#confirmPassword_error').innerHTML = '';
     }
 
-    if (data.email && data.confirmPassword && data.password) {
-      this.props.resetPassword(data);
+    if (data.email && data.confirmPassword && data.password && data.token) {
+      this.props.compareToken(data).then(() => {
+        if (this.props.signin.compareToken.success === true) {
+          this.props.resetPassword(data);
+        } else {
+          document.querySelector('#token_error').innerHTML =
+          'invalid token';
+        }
+      });
     }
+  }
+
+  generateToken(event) {
+    event.preventDefault();
+    this.props.sendToken({ email: this.state.email }).then(() => {
+      console.log(this.props);
+    });
   }
   /**
    *
@@ -225,20 +256,8 @@ class SignIn extends Component {
               We trust it's been an amazing experience for you so far... Let's
               continue to add spices to life.
             </p>
-            <p className="text-danger">
-              Forgot your password? {` `}
-              <button onClick={this.resetForm} className="btn btn-dark ">
-                Reset it!
-              </button>
-            </p>
-            <p>
-              Don't have an account? {` `}
-              <Link to="/signup" className="btn btn-dark">
-                Sign Up!
-              </Link>
-            </p>
           </div>
-          <div className="col-lg-4 col-sm-12 ">
+          <div className="col-lg-4 col-sm-8 ">
             {!resetPassword && (
               <form
                 id="signin"
@@ -277,13 +296,21 @@ class SignIn extends Component {
                       Invalid email or password
                     </div>
                   </li>
-                  <li className="col-lg-12 col-sm-12">
-                    <button type="submit" className="btn btn-dark btn-lg ">
+                  <li className="col-lg-12 col-sm-12 text-center">
+                    <button type="submit" className="btn btn-dark btn-lg col-5">
                       Sign in
                     </button>&nbsp;
-                    <Link to="/signup" className="btn btn-dark btn-lg">
+                    <Link to="/signup" className="btn btn-dark btn-lg col-5">
                       Sign up
                     </Link>
+                  </li>
+                  <li className="col-lg-12 col-sm-12 text-center">
+                    <span
+                      className="text-info hovered"
+                      onClick={this.resetForm}
+                    >
+                      forgot password?
+                    </span>
                   </li>
                 </ul>
               </form>
@@ -327,12 +354,38 @@ class SignIn extends Component {
                     <div className="text-danger" id="confirmPassword_error" />
                   </li>
                   <li className="col-lg-12 col-sm-12">
+                    <label>Token</label>
+                    <input
+                      type="text"
+                      required
+                      className="col-lg-12 col-sm-12"
+                      name="token"
+                      placeholder="enter 4-digit token"
+                    />
+                    <div className="text-danger" id="token_error" />
+                    <button
+                      className="btn btn-info mt-5 btn-block btn-lg "
+                      onClick={this.generateToken}
+                    >
+                      send token to my mail
+                    </button>
+                    
+                  </li>
+                  <li className="col-lg-12 col-sm-12">
                     <button
                       type="submit"
                       className="btn btn-dark btn-block btn-lg "
                     >
                       Save New Password
                     </button>
+                  </li>
+                  <li className="col-12 text-center">
+                    <span
+                      className="text-info hovered"
+                      onClick={this.resetForm}
+                    >
+                      Go back to sign in
+                    </span>
                   </li>
                 </ul>
               </form>

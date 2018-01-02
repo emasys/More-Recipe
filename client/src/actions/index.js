@@ -271,7 +271,7 @@ export const getFavStatus = id => dispatch =>
       dispatch({ type: type.GET_FAVORITE_STATUS, payload: err.response });
     });
 
-// reset password baby
+// reset password
 export const resetPassword = data => dispatch =>
   axios
     .put(`${URL}/users/resetPassword`, data)
@@ -282,6 +282,27 @@ export const resetPassword = data => dispatch =>
       dispatch({ type: type.RESET_PASSWORD, payload: err.response });
     });
 
+// send reset password token
+export const sendToken = data => dispatch =>
+axios
+  .post(`${URL}/reset`, data)
+  .then(response => {
+    dispatch({ type: type.SEND_TOKEN, payload: response.data });
+  })
+  .catch(err => {
+    dispatch({ type: type.SEND_TOKEN, payload: err.response });
+  });
+
+// compare reset password token
+export const compareToken = data => dispatch =>
+axios
+  .post(`${URL}/completeReset`, data)
+  .then(response => {
+    dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
+  })
+  .catch(err => {
+    dispatch({ type: type.COMPARE_TOKEN, payload: err.response });
+  });
 // Upload recipe image
 export const uploadImg = data => {
   console.log(data);

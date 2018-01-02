@@ -24,6 +24,9 @@ router.post('/recipes/downvote/:recipeId', jwt.verifyToken, Recipes.downvote);
 router.post('/recipes/:recipeId/fav', jwt.verifyToken, Favorite.addFavorite);
 router.post('/recipeSearch', Recipes.SearchRecipe);
 router.post('/recipes/:recipeId/reviews', jwt.verifyToken, Reviews.addReview);
+router.post('/reset', Users.sendToken);
+router.post('/completeReset', Users.getToken);
+
 
 router.post('/users/signup', Users.signUp);
 router.post('/users/signin', Users.signIn);
