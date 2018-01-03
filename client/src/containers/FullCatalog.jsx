@@ -79,9 +79,9 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
-    const stuff = document.getElementById('search').value;
-    if (stuff.length < 1) {
-      return this.setState({
+    const searchBar = document.getElementById('search').value;
+    if (searchBar.length < 1) {
+      this.setState({
         All_recipes: nextProps.recipes.allRecipes
       });
     }
