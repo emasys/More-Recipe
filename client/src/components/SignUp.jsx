@@ -126,7 +126,7 @@ export class SignUp extends Component {
         if (this.props.user.signUp.success) {
           window.location.href = '/';
         } else {
-          switch (this.props.user.signUp.target) {
+          switch (this.props.user.signUp.data.target) {
           case 'email':
             document.querySelector('#email_error').innerHTML = `Your email address already exist in our database, sign in`;
             this.setState({

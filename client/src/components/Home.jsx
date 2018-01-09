@@ -33,6 +33,9 @@ class Home extends Component {
       .step('header', 1200)
       .step('title', 500)
       .step('button', 500);
+    this.state = {
+      show: true
+    };
   }
   /**
    *
@@ -63,36 +66,18 @@ class Home extends Component {
           <Zoom duration={500} step={this.step.is('background')}>
             <div className="header">
               <div className="row header-items justify-content-center">
-                <div className="col-lg-7 col-sm-10 text-center">
-                  <Zoom duration={1000} step={this.step.is('logo')}>
-                    <img src="../img/logo.png" alt="logo" />
-                  </Zoom>
-
-                  <div className=" mt-5 text-dark bg-mirror header-title text-left">
+                <div className="col-lg-7 col-sm-10">
+                  <div className="home-title mt-100">
+                    <Fade bottom duration={1000} step={this.step.is('logo')}>
+                      <span className="firstWord">More </span>
+                      Recipes
+                    </Fade>
+                  </div>
+                  <div className=" text-white bg-mirror text-left">
                     <Flip x duration={1000} step={this.step.is('header')}>
-                      “I hate the notion of a secret recipe. Recipes are by
-                      nature derivative and meant to be shared that is how they
-                      improve, are changed, how new ideas are formed. To stop a
-                      recipe in it's tracks, to label it "secret" just seems
-                      mean.” ―
-                      <Fade
-                        top
-                        cascade={1000}
-                        duration={500}
-                        step={this.step.is('title')}
-                        style={{ display: 'inline-block' }}
-                      >
-                        Molly
-                      </Fade>{' '}
-                      <Fade
-                        bottom
-                        cascade={1000}
-                        duration={500}
-                        step={this.step.is('title')}
-                        style={{ display: 'inline-block' }}
-                      >
-                        Wizenberg
-                      </Fade>
+                      Recipes are by nature derivative and meant to be shared
+                      that is how they improve, are changed, how new ideas are
+                      formed.
                       {!Auth.loggedIn() && (
                         <Bounce
                           left
@@ -102,9 +87,9 @@ class Home extends Component {
                           <div className="row">
                             <Link
                               to="/signup"
-                              className="btn btn-lg bg-dark m-5 text-white p-10 signUp-btn"
+                              className="btn btn-lg bg-orange bolder m-5 text-white p-10 signUp-btn"
                             >
-                              Sign Up To Get Started
+                              Signup to Get Started
                             </Link>
                           </div>
                         </Bounce>

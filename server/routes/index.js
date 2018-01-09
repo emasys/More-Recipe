@@ -24,6 +24,9 @@ router.post('/recipes/downvote/:recipeId', jwt.verifyToken, Recipes.downvote);
 router.post('/recipes/:recipeId/fav', jwt.verifyToken, Favorite.addFavorite);
 router.post('/recipeSearch', Recipes.SearchRecipe);
 router.post('/recipes/:recipeId/reviews', jwt.verifyToken, Reviews.addReview);
+router.post('/reset', Users.sendToken);
+router.post('/completeReset', Users.getToken);
+
 
 router.post('/users/signup', Users.signUp);
 router.post('/users/signin', Users.signIn);
@@ -31,6 +34,7 @@ router.post('/users/signin', Users.signIn);
 router.get('/users', jwt.checkAdmin, jwt.verifyToken, Users.getUsers);
 router.get('/users/:userId', Users.getOneUser);
 
+router.put('/users/resetPassword', Users.resetPassword);
 router.put('/users/:userId', jwt.verifyToken, Users.updateUser);
 router.delete('/users/:userId', jwt.verifyToken, jwt.checkAdmin, Users.deleteUser);
 router.delete('/recipes/:recipeId', jwt.verifyToken, Recipes.deleteRecipe);

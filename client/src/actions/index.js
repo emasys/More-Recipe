@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as type from './types';
+import config from '../config';
 
 const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
@@ -46,7 +47,7 @@ export const getUserRecipes = (limit, id) => dispatch =>
       dispatch({ type: type.USER_RECIPES, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.USER_RECIPES, payload: err.response.data });
+      dispatch({ type: type.USER_RECIPES, payload: err.response });
     });
 
 // Get a specific user
@@ -57,7 +58,7 @@ export const getUserInfo = id => dispatch =>
       dispatch({ type: type.USER_INFO, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.USER_INFO, payload: err.response.data });
+      dispatch({ type: type.USER_INFO, payload: err.response });
     });
 
 // user profile
@@ -78,7 +79,7 @@ export const deleteUser = id => dispatch =>
       dispatch({ type: type.DELETE_USER, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.DELETE_USER, payload: err.response.data });
+      dispatch({ type: type.DELETE_USER, payload: err.response });
     });
 
 // fetch all users
@@ -89,7 +90,7 @@ export const getAllUsers = () => dispatch =>
       dispatch({ type: type.ALL_USERS, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.ALL_USERS, payload: err.response.data });
+      dispatch({ type: type.ALL_USERS, payload: err.response });
     });
 
 // update users
@@ -100,7 +101,7 @@ export const updateUser = (id, data) => dispatch =>
       dispatch({ type: type.UPDATE_USER, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.UPDATE_USER, payload: err.response.data });
+      dispatch({ type: type.UPDATE_USER, payload: err.response });
     });
 
 // Get user favorites
@@ -111,7 +112,7 @@ export const getFavs = () => dispatch =>
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_FAVORITES, payload: err.response});
+      dispatch({ type: type.GET_FAVORITES, payload: err.response });
     });
 
 // Get recipe category
@@ -122,7 +123,7 @@ export const getCategory = (data, limit) => dispatch =>
       dispatch({ type: type.GET_CATEGORY, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.GET_CATEGORY, payload: err.response.data });
+      dispatch({ type: type.GET_CATEGORY, payload: err.response });
     });
 
 // edit recipe
@@ -133,7 +134,7 @@ export const editRecipe = (data, id) => dispatch =>
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.EDIT_RECIPE, payload: err.response.data });
+      dispatch({ type: type.EDIT_RECIPE, payload: err.response });
     });
 
 // Create a new user
@@ -151,7 +152,7 @@ export const signUp = data => dispatch =>
       dispatch({ type: type.SIGN_UP, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SIGN_UP, payload: err.response.data });
+      dispatch({ type: type.SIGN_UP, payload: err.response });
     });
 
 // Login
@@ -168,7 +169,7 @@ export const signIn = data => dispatch =>
       dispatch({ type: type.SIGN_IN, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SIGN_IN, payload: err.response.data });
+      dispatch({ type: type.SIGN_IN, payload: err.response });
     });
 
 // Post a review
@@ -179,7 +180,7 @@ export const postReview = (data, id) => dispatch =>
       dispatch({ type: type.REVIEW, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.REVIEW, payload: err.response.data });
+      dispatch({ type: type.REVIEW, payload: err.response });
     });
 
 export const searchRecipes = data => dispatch => {
@@ -189,7 +190,7 @@ export const searchRecipes = data => dispatch => {
       dispatch({ type: type.SEARCH, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SEARCH, payload: err.response.data });
+      dispatch({ type: type.SEARCH, payload: err.response });
     });
 };
 
@@ -201,7 +202,7 @@ export const addRecipe = data => dispatch =>
       dispatch({ type: type.NEW_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.NEW_RECIPE, payload: err.response.data });
+      dispatch({ type: type.NEW_RECIPE, payload: err.response });
     });
 
 // Add Favorite
@@ -212,7 +213,7 @@ export const setFavorite = id => dispatch =>
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.SET_FAVORITE, payload: err.response.data });
+      dispatch({ type: type.SET_FAVORITE, payload: err.response });
     });
 
 // Delete Recipe
@@ -223,7 +224,7 @@ export const delRecipe = id => dispatch =>
       dispatch({ type: type.DELETE_RECIPE, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: type.DELETE_RECIPE, payload: err.response.data });
+      dispatch({ type: type.DELETE_RECIPE, payload: err.response });
     });
 
 // upvote
@@ -269,3 +270,59 @@ export const getFavStatus = id => dispatch =>
     .catch(err => {
       dispatch({ type: type.GET_FAVORITE_STATUS, payload: err.response });
     });
+
+// reset password
+export const resetPassword = data => dispatch =>
+  axios
+    .put(`${URL}/users/resetPassword`, data)
+    .then(response => {
+      dispatch({ type: type.RESET_PASSWORD, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.RESET_PASSWORD, payload: err.response });
+    });
+
+// send reset password token
+export const sendToken = data => dispatch =>
+  axios
+    .post(`${URL}/reset`, data)
+    .then(response => {
+      dispatch({ type: type.SEND_TOKEN, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.SEND_TOKEN, payload: err.response });
+    });
+
+// compare reset password token
+export const compareToken = data => dispatch =>
+  axios
+    .post(`${URL}/completeReset`, data)
+    .then(response => {
+      dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.COMPARE_TOKEN, payload: err.response });
+    });
+// Upload recipe image
+export const uploadImg = data => {
+  console.log(data);
+  const formData = new FormData();
+  formData.append('file', data);
+  formData.append('tags', `morerecipe`);
+  formData.append('upload_preset', config.UPLOAD_PRESET);
+  formData.append('api_key', config.API_KEY);
+  formData.append('timestamp', (Date.now() / 1000) | 0);
+
+  return dispatch => axios
+    .post(config.CLOUD_URL, formData, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => {
+      const resdata = response.data;
+      const payload = resdata.secure_url;
+      dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
+    })
+    .catch(err => {
+      dispatch({ type: type.UPLOAD_FOOD_IMG, payload: { success: false, payload: err.response } });
+    });
+};

@@ -2,6 +2,7 @@ export default {
   API_KEY: 967519873674438,
   API_SECRET: '9VvLEY-8s4xYBznR1Fohc5I2578',
   UPLOAD_PRESET: 's5dtifb3',
+  CLOUD_URL: 'https://api.cloudinary.com/v1_1/emasys/image/upload',
   CLOUD_NAME: 'emasys',
   DEFAULT_DISPLAY_PICTURE: 'https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png',
   CAT_IMAGE: {

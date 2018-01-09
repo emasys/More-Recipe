@@ -1,28 +1,5 @@
 import * as type from '../actions/types';
 
-const initialState = {
-  recipeItem: {
-    recipe: {
-      // category: '',
-      // comments: null,
-      // createdAt: '',
-      // description: '',
-      // direction: '',
-      // downvote: null,
-      // favorite: null,
-      // favorites: [],
-      // foodImg: '',
-      // ingredients: [],
-      // name: '',
-      // reactionDown: [],
-      // reactionUp: [],
-      // reviews: [],
-      // updatedAt: '',
-      // upvote: null,
-      // views: null
-    }
-  }
-};
 export default (state = {}, action) => {
   switch (action.type) {
   case type.ALL_RECIPES:
@@ -72,6 +49,12 @@ export default (state = {}, action) => {
     return {
       ...state,
       new_recipe: action.payload
+    };
+
+  case type.UPLOAD_FOOD_IMG:
+    return {
+      ...state,
+      uploadedImg: action.payload
     };
 
   default:

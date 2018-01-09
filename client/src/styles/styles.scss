@@ -136,16 +136,19 @@ a {
 .text-orange {
   color:  #f5b339 !important;
 }
+// background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
+// url('https://res.cloudinary.com/emasys/image/upload/v1514976360/2017-Logomaker-Background-Image_Woman_wl6l2p.jpg') no-repeat center center;
 
 .header {
   margin: 0;
-  background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
-  url('http://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
+  background:linear-gradient(90deg, rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)),
+  url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
   background-size: cover;
   padding-top: 50px;
-  min-height: 400px;
+  min-height: 450px;
   max-width: 100%;
-  color: $color_2;
+  // color: $color_2;
+  color: white;
   .header-items {
     margin-top: 50px;
     padding-bottom: 10px;
@@ -155,17 +158,22 @@ a {
     font-weight: bolder;
   }
 }
+.home-title{
+  font-size: 7rem;
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  .firstWord {
+    font-weight: 700;
+  }
+}
 .comment-wrapper{
   position: relative;
 }
 .commentTitle{
   color: white !important;
-  // position: absolute;
   border-radius: 5px;
-  // box-shadow: 2px 2px 2px rgb(136, 136, 136);
   padding: 5px 10px;
-  // top: -20%;
-  // left: -2%;
 }
 .comments{
   

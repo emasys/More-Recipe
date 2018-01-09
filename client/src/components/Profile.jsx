@@ -177,7 +177,8 @@ class Profile extends Component {
     return this.toastId;
   }
 
-  saveInfo = () => toast("Saved !", { type: toast.TYPE.SUCCESS, autoClose: 1000, });
+  saveInfo = () =>
+    toast('Saved !', { type: toast.TYPE.SUCCESS, autoClose: 1000 });
 
   update = () =>
     toast.update(this.toastId, {
@@ -202,28 +203,12 @@ class Profile extends Component {
     let query = {
       avatar: ''
     };
-    // Push all the axios request promise into a single array
-    const uploaders = files.map(file => {
-      // Initial FormData
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('tags', `morerecipe`);
-      formData.append('upload_preset', config.UPLOAD_PRESET);
-      formData.append('api_key', config.API_KEY);
-      formData.append('timestamp', (Date.now() / 1000) | 0);
 
-      return axios
-        .post('https://api.cloudinary.com/v1_1/emasys/image/upload', formData, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => {
-          const resdata = response.data;
-          query.avatar = resdata.secure_url;
-        });
-    });
-
-    axios.all(uploaders).then(() => {
-      // perform after upload is successful operation
+    const file = files[0];
+    this.props.uploadImg(file).then(() => {
+      query.avatar = this.props.recipes.uploadedImg;
+      // for poor/no internet connection
+      if (typeof query.avatar === 'object') return this.failedUpdate();
       this.props.updateUser(this.props.match.params.id, query).then(() => {
         this.props.getUserInfo(this.props.match.params.id);
         this.update();
@@ -268,7 +253,9 @@ class Profile extends Component {
                   <div className="card-body p-0 text-center social-icons">
                     <span className="tag bg-danger">{item.category}</span>
                     <h6 className="card-title custom-bg bg-secondary p-2 m-0 text-truncate ">
-                      {item.name.length > 25 ? item.name.slice(0, 15).concat("...") : item.name }
+                      {item.name.length > 25 ?
+                        item.name.slice(0, 15).concat('...') :
+                        item.name}
                     </h6>
                     <span>
                       <i className="fa fa-heart-o" aria-hidden="true" />
@@ -524,9 +511,7 @@ class Profile extends Component {
    * @returns {any} render
    */
   render() {
-    const {
-      userInfo, showMore, edit
-    } = this.state;
+    const { userInfo, showMore, edit } = this.state;
     return (
       <div>
         <Navbar />
@@ -571,6 +556,7 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
+  recipes: state.recipes,
   userInfo: state.user.userInfo,
   updateUser: state.user.updateUser
 });
