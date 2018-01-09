@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Stepper from 'react-reveal/Stepper';
 import Fade from 'react-reveal/Fade';
-import ReactRevealText from 'react-reveal-text';
 import Flip from 'react-reveal/Flip';
 import Bounce from 'react-reveal/Bounce';
 import Zoom from 'react-reveal/Zoom';

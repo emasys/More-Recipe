@@ -284,25 +284,25 @@ export const resetPassword = data => dispatch =>
 
 // send reset password token
 export const sendToken = data => dispatch =>
-axios
-  .post(`${URL}/reset`, data)
-  .then(response => {
-    dispatch({ type: type.SEND_TOKEN, payload: response.data });
-  })
-  .catch(err => {
-    dispatch({ type: type.SEND_TOKEN, payload: err.response });
-  });
+  axios
+    .post(`${URL}/reset`, data)
+    .then(response => {
+      dispatch({ type: type.SEND_TOKEN, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.SEND_TOKEN, payload: err.response });
+    });
 
 // compare reset password token
 export const compareToken = data => dispatch =>
-axios
-  .post(`${URL}/completeReset`, data)
-  .then(response => {
-    dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
-  })
-  .catch(err => {
-    dispatch({ type: type.COMPARE_TOKEN, payload: err.response });
-  });
+  axios
+    .post(`${URL}/completeReset`, data)
+    .then(response => {
+      dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.COMPARE_TOKEN, payload: err.response });
+    });
 // Upload recipe image
 export const uploadImg = data => {
   console.log(data);

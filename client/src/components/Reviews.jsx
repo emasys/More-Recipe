@@ -48,7 +48,7 @@ class Reviews extends Component {
     const data = this.state;
     const { id } = this.props.recipes.recipeItem.recipe;
     this.props.postReview(data, id).then(res => {
-      this.props.getRecipeReactions(id);      
+      this.props.getRecipeReactions(id);
     });
     this.resetState();
   }
@@ -132,7 +132,10 @@ class Reviews extends Component {
                 />
               </div>
             </div>
-            <button type="submit" className="btn btn-dark  btn-lg col-lg-4 col-md-6 col-sm-12">
+            <button
+              type="submit"
+              className="btn btn-dark  btn-lg col-lg-4 col-md-6 col-sm-12"
+            >
               Submit
             </button>
           </form>
