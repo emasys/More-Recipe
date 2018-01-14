@@ -27,7 +27,8 @@ export default class ReviewRecipe {
         // enable sending a notification to the creator of the recipe
       })
         .then((recipe) => {
-          const { name, User: { email } } = recipe;
+          const { name, User: { email, avatar } } = recipe;
+          console.log(recipe);
           recipe.update({ comments: recipe.comments + 1 });
           return Reviews.create({
             content: req.body.content,
@@ -35,7 +36,7 @@ export default class ReviewRecipe {
             userId: req.decoded.id,
             user: req.decoded.moniker,
             avatar:
-              req.decoded.avatar ||
+              avatar ||
               'http://res.cloudinary.com/emasys/image/upload/v1512284211/wgeiqliwzgzpcmyl0ypd.png'
           })
             .then((reviewedRecipe) => {

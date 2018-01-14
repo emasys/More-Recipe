@@ -72,13 +72,14 @@ class Navbar extends Component {
     return (
       <section className="container-fluid">
         <nav
-          className=
-            "navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
+          className={`navbar navbar-expand-lg navbar-dark ${
+            this.props.className
+          }`}
           style={{ zIndex: 1000 }}
-        >        
+        >
           <div className="container">
             <Link className="navbar-brand bolder text-orange" to="/">
-              <span className="nb">MoreRecipes</span>
+              <span className="nb">More Recipes</span>
             </Link>
             <button
               className="navbar-toggler"
@@ -167,8 +168,7 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className=
-                      "material-icons fa-2x red d-sm-none d-lg-inline">
+                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">
                       &#xE87D;
                     </i>
                     <span
@@ -209,8 +209,7 @@ class Navbar extends Component {
                   )}
 
                   <div
-                    className=
-                      "dropdown-menu dropdown-menu-right custom-dropdown"
+                    className="dropdown-menu dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <Navlinks user={this.props.user} />
@@ -232,6 +231,6 @@ const mapStateToProps = state => ({
 
 Navbar.propTypes = {
   user: PropTypes.object,
-  getProfile: PropTypes.func,
+  getProfile: PropTypes.func
 };
 export default connect(mapStateToProps, actions)(Navbar);

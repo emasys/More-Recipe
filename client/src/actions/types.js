@@ -25,3 +25,4 @@ export const RESET_PASSWORD = 'reset password';
 export const SEND_TOKEN = 'send reset password token';
 export const COMPARE_TOKEN = 'compare reset password token';
 export const UPLOAD_FOOD_IMG = 'upload food image';
+export const IS_LOADING = 'is page loading';

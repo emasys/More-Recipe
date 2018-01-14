@@ -1,8 +1,8 @@
-/* *{
-  -webkit-transition: ease-in 400ms;
-  -moz-transition: ease-in 400ms;
-  transition: ease-in 400ms;
-} */
+.animate-it {
+  -webkit-transition: ease-in 1000ms;
+  -moz-transition: ease-in 1000ms;
+  transition: ease-in 1000ms;
+}
 body {
   padding: 0;
   margin: 0;

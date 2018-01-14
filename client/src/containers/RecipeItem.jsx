@@ -10,6 +10,8 @@ import Modal from 'react-responsive-modal/lib/css';
 import Textarea from "react-textarea-autosize";
 import Fade from 'react-reveal/Fade';
 import PropTypes from 'prop-types';
+import Pace from 'react-pace-progress';
+
 
 // import actions
 import * as actions from '../actions';
@@ -73,22 +75,7 @@ class RecipeItem extends Component {
    * @returns {any} cdm
    */
   componentDidMount() {
-    this.props.getRecipeItem(this.props.match.params.id).then(() => {
-      const {
-        ingredients, name, description, direction, foodImg, userId
-      } = this.props.recipes.recipeItem.recipe;
-      if (Auth.userID() === userId) {
-        this.setState({
-          edit: true,
-          name,
-          ingredients: ingredients.join(','),
-          description,
-          direction,
-          foodImg
-        });
-      }
-      this.props.getUserInfo(userId);
-    });
+    this.props.getRecipeItem(this.props.match.params.id);
   }
   /**
    *
@@ -98,16 +85,37 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
+    if (this.props.recipes.updateRecipes) {
+      if (this.props.recipes.updateRecipes.success) {
+        this.update();
+        this.setState({
+          editRecipe: false,
+          status: 'fade'
+        });
+      } else {
+        document.querySelector('#recipe_error').innerHTML =
+      'A recipe with this name already exist';
+      }
+    }
     this.setState({
       favoriteStatus: false,
       recipeItem: nextProps.recipes.recipeItem,
     });
     const {
-      reactionUp, reactionDown, favorites
+      reactionUp, reactionDown, favorites, ingredients,
+      name, description, direction, foodImg
     } = nextProps.recipes.recipeItem.recipe;
     favorites.map((user) => {
       if (user.userId === Auth.userID()) {
-        return this.setState({ favoriteStatus: true });
+        return this.setState({
+          name,
+          description,
+          direction,
+          foodImg,
+          ingredients: ingredients.join(','),
+          favoriteStatus: true,
+          edit: true
+        });
       }
       return null;
     });
@@ -157,9 +165,7 @@ class RecipeItem extends Component {
    * @returns {any} add a recipe to user's favorite list
    */
   favIt() {
-    this.props.setFavorite(this.props.match.params.id).then(() => {
-      this.props.getRecipeReactions(this.props.match.params.id);
-    });
+    this.props.setFavorite(this.props.match.params.id);
   }
   /**
    *
@@ -168,9 +174,7 @@ class RecipeItem extends Component {
    * @returns {any} upvote a recipe
    */
   upvote() {
-    this.props.upvote(this.props.match.params.id).then(() => {
-      this.props.getRecipeReactions(this.props.match.params.id);
-    });
+    this.props.upvote(this.props.match.params.id);
   }
   /**
    *
@@ -179,9 +183,7 @@ class RecipeItem extends Component {
    * @returns {any} downvote a recipe
    */
   downvote() {
-    this.props.downvote(this.props.match.params.id).then(() => {
-      this.props.getRecipeReactions(this.props.match.params.id);
-    });
+    this.props.downvote(this.props.match.params.id);
   }
   /**
  * @returns {any}
@@ -190,19 +192,7 @@ class RecipeItem extends Component {
  * @memberof RecipeItem
  */
   edited(data) {
-    this.props.editRecipe(data, this.props.match.params.id).then(() => {
-      if (this.props.recipes.updateRecipes.success) {
-        this.update();
-        this.setState({
-          editRecipe: false,
-          status: 'fade'
-        });
-      } else {
-        document.querySelector('#recipe_error').innerHTML =
-        'A recipe with this name already exist';
-      }
-      this.props.getRecipeReactions(this.props.match.params.id);
-    });
+    this.props.editRecipe(data, this.props.match.params.id);
   }
   /**
    *
@@ -516,7 +506,10 @@ class RecipeItem extends Component {
     } = this.state;
     return (
       <div>
-        <Navbar />
+        <Navbar className="bg-dark fixed-top"/>
+        <div className="fixed-top">
+          {this.props.netReq ? <Pace color="#e7b52c" height={2} /> : null}
+        </div>
         <ToastContainer />
         <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">
@@ -583,6 +576,8 @@ const mapStateToProps = state => ({
   favorite: state.favorite,
   votes: state.votes,
   userInfo: state.user.userInfo,
+  review: state.review,
+  netReq: state.netReq
 });
 
 RecipeItem.propTypes = {

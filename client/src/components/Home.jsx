@@ -5,7 +5,7 @@ import Stepper from 'react-reveal/Stepper';
 import Fade from 'react-reveal/Fade';
 import Flip from 'react-reveal/Flip';
 import Bounce from 'react-reveal/Bounce';
-import Zoom from 'react-reveal/Zoom';
+import Sticky from 'react-sticky-el';
 import * as actions from '../actions';
 
 //component
@@ -58,15 +58,23 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <section className="container-fluid ">
-          <div style={{ position: 'fixed', zIndex: 2000 }}>
-            <Navbar />
-          </div>
+        <section className="container-fluid">
+          {/* <div style={{ position: 'fixed', zIndex: 2000 }}> */}
+            {/* <Sticky stickyStyle={{ position: 'fixed', background: 'black', maxHeight: '50px', zIndex: 2000 }}>
+              <Navbar />
+            </Sticky> */}
+          {/* </div> */}
 
-          <Zoom duration={500} step={this.step.is('background')}>
+          {/* <Zoom duration={500} step={this.step.is('background')}> */}
             <div className="header">
+            <Sticky 
+            stickyStyle={{ position: 'fixed', maxHeight: '60px', zIndex: 2000 }}
+            stickyClassName="bg-dark animate-it"
+            >
+              <Navbar className="bg-transparent" />
+            </Sticky>
               <div className="row header-items justify-content-center">
-                <div className="col-lg-7 col-sm-10">
+                <div className="col-lg-10 col-sm-10">
                   <div className="home-title mt-100">
                     <Fade bottom duration={1000} step={this.step.is('logo')}>
                       <span className="firstWord">More </span>
@@ -75,9 +83,10 @@ class Home extends Component {
                   </div>
                   <div className=" text-white bg-mirror text-left">
                     <Flip x duration={1000} step={this.step.is('header')}>
-                      Recipes are by nature derivative and meant to be shared
+                    This is a platform for you to share the awesome and exciting recipe ideas you have invented or learnt.
+                      <br/>Recipes are by nature derivative and meant to be shared
                       that is how they improve, are changed, how new ideas are
-                      formed.
+                      formed. <br/> Have fun as you share and explore exciting recipes
                       {!Auth.loggedIn() && (
                         <Bounce
                           left
@@ -87,9 +96,25 @@ class Home extends Component {
                           <div className="row">
                             <Link
                               to="/signup"
-                              className="btn btn-lg bg-orange bolder m-5 text-white p-10 signUp-btn"
+                              className="btn btn-lg bg-orange bolder my-5 text-white p-10 signUp-btn"
                             >
                               Signup to Get Started
+                            </Link>
+                          </div>
+                        </Bounce>
+                      )}
+                      {Auth.loggedIn() && (
+                        <Bounce
+                          left
+                          duration={1000}
+                          step={this.step.is('button')}
+                        >
+                          <div className="row">
+                            <Link
+                              to="/catalog"
+                              className="btn btn-lg btn-dark bolder my-5 text-white p-10 signUp-btn"
+                            >
+                              Checkout Latest Recipes
                             </Link>
                           </div>
                         </Bounce>
@@ -99,13 +124,13 @@ class Home extends Component {
                 </div>
               </div>
             </div>
-          </Zoom>
+          {/* </Zoom> */}
         </section>
 
         <section className="container " id="catalog">
           <div className="catalog-wrapper">
             <div className="col-12 ">
-              <div className="clearfix">
+              <div className="clearfix" style={{zIndex: 700}}>
                 <h4 className="float-left fresh-title">Top Recipes</h4>
                 <h5 className="float-right">
                   <Link
@@ -118,6 +143,18 @@ class Home extends Component {
               </div>
             </div>
             <CatalogList catalog={this.props.recipes} />
+            <div className="col-12 ">
+              <div className="clearfix">
+                <h5 className="text-center">
+                  <Link
+                    to="/catalog"
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                  >
+                    View Latest Recipes{` `}
+                  </Link>
+                </h5>
+              </div>
+            </div>
           </div>
         </section>
       </div>

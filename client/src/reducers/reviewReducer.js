@@ -7,7 +7,6 @@ export default (state = [], action) => {
       ...state,
       review: action.payload
     };
-
   default:
     return state;
   }

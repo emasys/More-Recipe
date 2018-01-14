@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+
 import * as actions from '../actions';
 
 /**
@@ -36,6 +38,7 @@ class Reviews extends Component {
       content: ''
     });
   }
+
   /**
    *
    *
@@ -47,9 +50,8 @@ class Reviews extends Component {
     e.preventDefault();
     const data = this.state;
     const { id } = this.props.recipes.recipeItem.recipe;
-    this.props.postReview(data, id).then(res => {
-      this.props.getRecipeReactions(id);
-    });
+    this.props.postReview(data, id);
+
     this.resetState();
   }
   /**
@@ -75,7 +77,7 @@ class Reviews extends Component {
     if (reviews) {
       const comments = reviews.recipe.reviews;
       return comments.map((comment, index) => (
-        <div className="comment-wrapper" key={index}>
+        <div data-aos="fade-left" className="comment-wrapper" key={index}>
           <div className="direction mt-50 p-15 bg-light my-2" key={index}>
             <div className="commentTitle">
               <img
@@ -92,12 +94,9 @@ class Reviews extends Component {
             <div className="comments m-0">
               <p className="mb-0 text-dark">{comment.content}</p>
             </div>
-            <div className="date bg-dark">
+            <div className="date bg-dark ">
               <p>
-                {comment.updatedAt
-                  .slice(0, 16)
-                  .split('T')
-                  .join(' ')}
+                {moment(comment.updatedAt).format('MMM Do YYYY, h:mm a')}
               </p>
             </div>
           </div>

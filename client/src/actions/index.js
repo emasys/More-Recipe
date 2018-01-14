@@ -5,6 +5,22 @@ import config from '../config';
 const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
 
+// Network request status
+export const isLoading = bool => ({
+  type: type.IS_LOADING,
+  isLoading: bool
+});
+
+// Get a specific user
+export const getUserInfo = id => dispatch =>
+axios
+  .get(`${URL}/users/${id}`)
+  .then(response => {
+    dispatch({ type: type.USER_INFO, payload: response.data });
+  })
+  .catch(err => {
+    dispatch({ type: type.USER_INFO, payload: err.response });
+  });
 // Fetch All recipes
 export const getRecipes = (page, query = '') => dispatch => {
   axios
@@ -23,6 +39,7 @@ export const getRecipeItem = id => dispatch =>
     .get(`${URL}/recipe/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
+      dispatch(getUserInfo(response.data.recipe.userId));
     })
     .catch(err => {
       dispatch({ type: type.SINGLE_RECIPE, payload: err.response });
@@ -34,6 +51,7 @@ export const getRecipeReactions = id => dispatch =>
     .get(`${URL}/recipe/reaction/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: err.response });
@@ -48,17 +66,6 @@ export const getUserRecipes = (limit, id) => dispatch =>
     })
     .catch(err => {
       dispatch({ type: type.USER_RECIPES, payload: err.response });
-    });
-
-// Get a specific user
-export const getUserInfo = id => dispatch =>
-  axios
-    .get(`${URL}/users/${id}`)
-    .then(response => {
-      dispatch({ type: type.USER_INFO, payload: response.data });
-    })
-    .catch(err => {
-      dispatch({ type: type.USER_INFO, payload: err.response });
     });
 
 // user profile
@@ -127,15 +134,18 @@ export const getCategory = (data, limit) => dispatch =>
     });
 
 // edit recipe
-export const editRecipe = (data, id) => dispatch =>
+export const editRecipe = (data, id) => dispatch => {
+  dispatch(isLoading(true));
   axios
     .put(`${URL}/recipes/${id}?token=${xtoken}`, data)
     .then(response => {
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
+      dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.EDIT_RECIPE, payload: err.response });
     });
+};
 
 // Create a new user
 export const signUp = data => dispatch =>
@@ -173,16 +183,18 @@ export const signIn = data => dispatch =>
     });
 
 // Post a review
-export const postReview = (data, id) => dispatch =>
-  axios
+export const postReview = (data, id) => dispatch => {
+  dispatch(isLoading(true));
+  return axios
     .post(`${URL}/recipes/${id}/reviews?token=${xtoken}`, data)
     .then(response => {
       dispatch({ type: type.REVIEW, payload: response.data });
+      dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.REVIEW, payload: err.response });
     });
-
+};
 export const searchRecipes = data => dispatch => {
   axios
     .post(`${URL}/recipeSearch`, data)
@@ -206,15 +218,18 @@ export const addRecipe = data => dispatch =>
     });
 
 // Add Favorite
-export const setFavorite = id => dispatch =>
+export const setFavorite = id => dispatch => {
+  dispatch(isLoading(true));
   axios
     .post(`${URL}/recipes/${id}/fav?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
+      dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.SET_FAVORITE, payload: err.response });
     });
+};
 
 // Delete Recipe
 export const delRecipe = id => dispatch =>
@@ -228,48 +243,32 @@ export const delRecipe = id => dispatch =>
     });
 
 // upvote
-export const upvote = id => dispatch =>
+export const upvote = id => dispatch => {
+  dispatch(isLoading(true));
   axios
     .post(`${URL}/recipes/upvote/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.UPVOTE, payload: response.data });
+      dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.UPVOTE, payload: err.response });
     });
+};
 
 // downvote
-export const downvote = id => dispatch =>
+export const downvote = id => dispatch => {
+  dispatch(isLoading(true));
   axios
     .post(`${URL}/recipes/downvote/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.DOWNVOTE, payload: response.data });
+      dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.DOWNVOTE, payload: err.response });
     });
-
-// GET reaction status of a user
-export const getUpvStatus = id => dispatch =>
-  axios
-    .get(`${URL}/recipes/upvoteReaction/${id}?token=${xtoken}`)
-    .then(response => {
-      dispatch({ type: type.GET_VOTE_STATUS, payload: response.data });
-    })
-    .catch(err => {
-      dispatch({ type: type.GET_VOTE_STATUS, payload: err.response });
-    });
-
-// GET favorite status of a user
-export const getFavStatus = id => dispatch =>
-  axios
-    .get(`${URL}/recipes/${id}/favStatus?token=${xtoken}`)
-    .then(response => {
-      dispatch({ type: type.GET_FAVORITE_STATUS, payload: response.data });
-    })
-    .catch(err => {
-      dispatch({ type: type.GET_FAVORITE_STATUS, payload: err.response });
-    });
+};
 
 // reset password
 export const resetPassword = data => dispatch =>
@@ -313,16 +312,20 @@ export const uploadImg = data => {
   formData.append('api_key', config.API_KEY);
   formData.append('timestamp', (Date.now() / 1000) | 0);
 
-  return dispatch => axios
-    .post(config.CLOUD_URL, formData, {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .then(response => {
-      const resdata = response.data;
-      const payload = resdata.secure_url;
-      dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
-    })
-    .catch(err => {
-      dispatch({ type: type.UPLOAD_FOOD_IMG, payload: { success: false, payload: err.response } });
-    });
+  return dispatch =>
+    axios
+      .post(config.CLOUD_URL, formData, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(response => {
+        const resdata = response.data;
+        const payload = resdata.secure_url;
+        dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
+      })
+      .catch(err => {
+        dispatch({
+          type: type.UPLOAD_FOOD_IMG,
+          payload: { success: false, payload: err.response }
+        });
+      });
 };
