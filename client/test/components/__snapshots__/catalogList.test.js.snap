@@ -5,97 +5,89 @@ exports[`should render catalog list correctly 1`] = `
   className="row justify-content-center"
 >
   <div
-    className="col-lg-3 col-sm-7 mb-3  col-md-4 animate-catalog"
+    className="col-lg-3 col-sm-8 mb-20 col-md-4 animate-catalog"
     data-animate="bounceIn"
     data-delay="0.1s"
     data-duration="1.0s"
     data-offset="100"
     key="0"
   >
-    <div
-      style={
-        Object {
-          "overflow": "hidden",
-        }
-      }
-    >
-      <Fade
-        bottom={true}
+    <div>
+      <Link
+        className=" hvr-grow-shadow"
+        replace={false}
+        to="/recipe/1"
       >
-        <Link
-          className=" hvr-push"
-          replace={false}
-          to="/recipe/1"
+        <div
+          className="card"
+          data-aos="fade-up"
+          data-aos-duration="1000"
         >
+          <img
+            alt="recipe image"
+            className="card-img-top img-box"
+            src="some picture url"
+          />
           <div
-            className="card animate"
+            className="card-body p-0 text-center social-icons"
           >
-            <img
-              alt="recipe image"
-              className="card-img-top img-box"
-              src="some picture url"
-            />
-            <div
-              className="card-body p-0 text-center social-icons"
+            <span
+              className="tag bg-danger"
             >
-              <span
-                className="tag bg-danger"
+              Pasta
+            </span>
+            <h4
+              className="card-title custom-bg bg-dark p-2 m-0"
+            >
+              welcome to more recipe
+            </h4>
+            <div
+              className="card-body p-5 text-left bg-light"
+            >
+              <p
+                className="line-clamp crop-text"
               >
-                Pasta
-              </span>
-              <h6
-                className="card-title custom-bg bg-dark p-2 m-0 text-truncate "
-              >
-                welcome to more recipe
-              </h6>
-              <div
-                className="card-body p-5 text-left bg-light"
-              >
-                <p
-                  className="crop-text"
-                >
-                  do it again
-                </p>
-              </div>
-              <span>
-                <i
-                  aria-hidden="true"
-                  className="fa fa-heart-o"
-                />
-                0
-              </span>
-              <span>
-                <i
-                  aria-hidden="true"
-                  className="fa fa-thumbs-o-up"
-                />
-                1
-              </span>
-              <span>
-                <i
-                  aria-hidden="true"
-                  className="fa fa-thumbs-o-down"
-                />
-                0
-              </span>
-              <span>
-                <i
-                  aria-hidden="true"
-                  className="fa fa-eye"
-                />
-                1
-              </span>
-              <span>
-                <i
-                  aria-hidden="true"
-                  className="fa fa-comment-o"
-                />
-                0
-              </span>
+                do it again
+              </p>
             </div>
+            <span>
+              <i
+                aria-hidden="true"
+                className="fa fa-heart-o"
+              />
+              0
+            </span>
+            <span>
+              <i
+                aria-hidden="true"
+                className="fa fa-thumbs-o-up"
+              />
+              1
+            </span>
+            <span>
+              <i
+                aria-hidden="true"
+                className="fa fa-thumbs-o-down"
+              />
+              0
+            </span>
+            <span>
+              <i
+                aria-hidden="true"
+                className="fa fa-eye"
+              />
+              1
+            </span>
+            <span>
+              <i
+                aria-hidden="true"
+                className="fa fa-comment-o"
+              />
+              0
+            </span>
           </div>
-        </Link>
-      </Fade>
+        </div>
+      </Link>
     </div>
   </div>
 </div>
@@ -123,12 +115,18 @@ exports[`should render catalog list correctly with empty props 1`] = `
       <p
         className="p-3 m-2"
       >
-        No recipe matches your description
+        No recipe found
       </p>
       <p
         className="p-3 m-2"
       >
-        Try searching with a name of an ingredient
+        <Link
+          className="btn btn-outline-dark hvr-icon-back"
+          replace={false}
+          to="/"
+        >
+          ...go back home
+        </Link>
       </p>
     </div>
   </div>

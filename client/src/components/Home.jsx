@@ -6,6 +6,8 @@ import Fade from 'react-reveal/Fade';
 import Flip from 'react-reveal/Flip';
 import Bounce from 'react-reveal/Bounce';
 import Sticky from 'react-sticky-el';
+import PropTypes from 'prop-types';
+
 import * as actions from '../actions';
 
 //component
@@ -59,78 +61,72 @@ class Home extends Component {
     return (
       <div>
         <section className="container-fluid">
-          {/* <div style={{ position: 'fixed', zIndex: 2000 }}> */}
-            {/* <Sticky stickyStyle={{ position: 'fixed', background: 'black', maxHeight: '50px', zIndex: 2000 }}>
-              <Navbar />
-            </Sticky> */}
-          {/* </div> */}
-
-          {/* <Zoom duration={500} step={this.step.is('background')}> */}
-            <div className="header">
-            <Sticky 
-            stickyStyle={{ position: 'fixed', maxHeight: '60px', zIndex: 2000 }}
-            stickyClassName="bg-dark animate-it"
+          <div className="header">
+            <Sticky
+              stickyStyle={{ zIndex: 2000 }}
+              stickyClassName="bg-dark animate-it m-0"
             >
-              <Navbar className="bg-transparent" />
+              <Navbar className="bg-transparent m-0 p-0" />
             </Sticky>
-              <div className="row header-items justify-content-center">
-                <div className="col-lg-10 col-sm-10">
-                  <div className="home-title mt-100">
-                    <Fade bottom duration={1000} step={this.step.is('logo')}>
-                      <span className="firstWord">More </span>
-                      Recipes
-                    </Fade>
-                  </div>
-                  <div className=" text-white bg-mirror text-left">
-                    <Flip x duration={1000} step={this.step.is('header')}>
-                    This is a platform for you to share the awesome and exciting recipe ideas you have invented or learnt.
-                      <br/>Recipes are by nature derivative and meant to be shared
-                      that is how they improve, are changed, how new ideas are
-                      formed. <br/> Have fun as you share and explore exciting recipes
-                      {!Auth.loggedIn() && (
-                        <Bounce
-                          left
-                          duration={1000}
-                          step={this.step.is('button')}
-                        >
-                          <div className="row">
-                            <Link
-                              to="/signup"
-                              className="btn btn-lg bg-orange bolder my-5 text-white p-10 signUp-btn"
-                            >
-                              Signup to Get Started
-                            </Link>
-                          </div>
-                        </Bounce>
-                      )}
-                      {Auth.loggedIn() && (
-                        <Bounce
-                          left
-                          duration={1000}
-                          step={this.step.is('button')}
-                        >
-                          <div className="row">
-                            <Link
-                              to="/catalog"
-                              className="btn btn-lg btn-dark bolder my-5 text-white p-10 signUp-btn"
-                            >
-                              Checkout Latest Recipes
-                            </Link>
-                          </div>
-                        </Bounce>
-                      )}
-                    </Flip>
-                  </div>
+            <div className="row header-items justify-content-center">
+              <div className="col-lg-10 col-sm-10">
+                <div className="home-title mt-100">
+                  <Fade bottom duration={1000} step={this.step.is('logo')}>
+                    <span className="firstWord">More </span>
+                    Recipes
+                  </Fade>
+                </div>
+                <div className=" text-white bg-mirror text-left">
+                  <Flip x duration={1000} step={this.step.is('header')}>
+                    This is a platform for you to share the awesome and exciting
+                    recipe ideas you have invented or learnt.
+                    <br />Recipes are by nature derivative and meant to be
+                    shared that is how they improve, are changed, how new ideas
+                    are formed. <br /> Have fun as you share and explore
+                    exciting recipes
+                    {!Auth.loggedIn() && (
+                      <Bounce
+                        left
+                        duration={1000}
+                        step={this.step.is('button')}
+                      >
+                        <div className="row">
+                          <Link
+                            to="/signup"
+                            className="btn btn-lg bg-orange bolder my-5 text-white p-10 signUp-btn"
+                          >
+                            Signup to Get Started
+                          </Link>
+                        </div>
+                      </Bounce>
+                    )}
+                    {Auth.loggedIn() && (
+                      <Bounce
+                        left
+                        duration={1000}
+                        step={this.step.is('button')}
+                      >
+                        <div className="row">
+                          <Link
+                            to="/catalog"
+                            className="btn btn-lg btn-dark bolder my-5 text-white p-10 signUp-btn"
+                          >
+                            Checkout Latest Recipes
+                          </Link>
+                        </div>
+                      </Bounce>
+                    )}
+                  </Flip>
                 </div>
               </div>
             </div>
-          {/* </Zoom> */}
+          </div>
         </section>
 
         <section className="container " id="catalog">
           <div className="catalog-wrapper">
             <div className="col-12 ">
-              <div className="clearfix" style={{zIndex: 700}}>
+              <div className="clearfix" style={{ zIndex: 700 }}>
                 <h4 className="float-left fresh-title">Top Recipes</h4>
                 <h5 className="float-right">
                   <Link
@@ -162,5 +158,9 @@ class Home extends Component {
   }
 }
 
+Home.propTypes = {
+  recipes: PropTypes.object,
+  getRecipes: PropTypes.func
+};
 const mapStateToProps = state => ({ recipes: state.recipes.allRecipes });
 export default connect(mapStateToProps, actions)(Home);

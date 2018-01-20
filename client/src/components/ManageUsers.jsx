@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
+import PropTypes from 'prop-types';
 import * as actions from '../actions';
 
 //components
@@ -25,8 +26,6 @@ class ManageUsers extends Component {
     this.state = {
       open: false
     };
-    this.deleteUser = this.deleteUser.bind(this);
-    this.confirmDelete = this.confirmDelete.bind(this);
 
     this.globalId = 0;
   }
@@ -42,43 +41,41 @@ class ManageUsers extends Component {
   /**
    *
    *
-   * @param {any} e
+   * @param {any} event
    * @memberof ManageUsers
    * @returns {any} delete user
    * @description this will fetch the id of the recipe to
    * be deleted, then pass it to the globalId to the used in the api call
    */
-  deleteUser(e) {
-    if (e.target.id) {
-      this.globalId = e.target.id;
+  deleteUser = event => {
+    if (event.target.id) {
+      this.globalId = event.target.id;
       this.onOpenModal();
     }
-  }
+  };
   /**
    *
    *
-   * @param {any} e
+   * @param {any} event
    * @memberof ManageUsers
    * @returns {any} modal state
    */
-  onOpenModal(e) {
+  onOpenModal = event => {
     this.setState({ open: true });
-  }
+  };
   /**
    *
    *
-   * @param {any} e
+   * @param {any} event
    * @memberof ManageUsers
    * @returns {any} recieves the globalId and do the needful
    */
-  confirmDelete(e) {
-    if (e.target.id === 'yes') {
-      this.props.deleteUser(this.globalId).then(() => {
-        this.props.getAllUsers();
-        this.onCloseModal();
-      });
+  confirmDelete = event => {
+    if (event.target.id === 'yes') {
+      this.props.deleteUser(this.globalId);
+      this.onCloseModal();
     }
-  }
+  };
   /**
    *
    *
@@ -95,7 +92,7 @@ class ManageUsers extends Component {
    * @returns {object} a table of list of users
    * @memberof ManageUsers
    */
-  generateTable(user) {
+  generateTable = user => {
     if (user) {
       return user.users.map((item, index) => (
         <tbody key={index}>
@@ -120,7 +117,7 @@ class ManageUsers extends Component {
         </tbody>
       ));
     }
-  }
+  };
   /**
    *
    *
@@ -132,7 +129,7 @@ class ManageUsers extends Component {
 
     return (
       <div>
-        <Navbar />
+        <Navbar className="bg-dark fixed-top" />
         <Modal open={open} onClose={this.onCloseModal} little>
           <div className="text-center mt-10">
             <h4>Delete Recipe?</h4>
@@ -181,4 +178,10 @@ const mapStateToProps = state => ({
   users: state.user.allUsers,
   deluser: state.user.delUser
 });
+
+ManageUsers.propTypes = {
+  users: PropTypes.object,
+  deleteUser: PropTypes.func,
+  getAllUsers: PropTypes.func
+};
 export default connect(mapStateToProps, actions)(ManageUsers);

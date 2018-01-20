@@ -220,7 +220,7 @@ select {
 .form input[type='email']:focus,
 textarea:focus,
 select:focus {
-  border: 2px solid rgb(216, 183, 73);
+  border: 1px solid rgb(216, 183, 73);
 }
 
 .form .special {
@@ -288,4 +288,10 @@ select:focus {
 
 .form .required {
   color: red;
+}
+
+.AuthInfo{
+  background: linear-gradient(180deg, rgba(3, 8, 14, 0.9), rgba(3, 8, 14, 0.89), rgba(3, 8, 14, 0.8), rgba(3, 8, 14, 0.79)), url('https://res.cloudinary.com/emasys/image/upload/v1516437747/bgfood_kzyzut.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 8px 0 0 8px;
 }

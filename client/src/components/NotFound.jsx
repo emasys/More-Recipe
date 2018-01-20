@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 
 const NotFound = () => (
   <div className="container">
-    <Navbar />
+    <Navbar className="bg-dark fixed-top"/>
     <div className="text-center error-message mt-80">
       <div className="catalog-wrapper">
         <img src="../img/logo.png" alt="logo" />

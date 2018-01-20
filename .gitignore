@@ -39,3 +39,4 @@ client/src/components/RecipeItems.jsx
 client/src/components/header.jsx
 client/src/config/index.js
 client/public/bundle.js
+.vscode

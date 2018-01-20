@@ -79,25 +79,27 @@ export const getProfile = id => dispatch =>
       dispatch({ type: type.USER_PROFILE, payload: err.response });
     });
 
+    // fetch all users
+export const getAllUsers = () => dispatch =>
+axios
+  .get(`${URL}/users?token=${xtoken}`)
+  .then(response => {
+    dispatch({ type: type.ALL_USERS, payload: response.data });
+  })
+  .catch(err => {
+    dispatch({ type: type.ALL_USERS, payload: err.response });
+  });
+
+  
 export const deleteUser = id => dispatch =>
   axios
     .delete(`${URL}/users/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.DELETE_USER, payload: response.data });
+      dispatch(getAllUsers());
     })
     .catch(err => {
       dispatch({ type: type.DELETE_USER, payload: err.response });
-    });
-
-// fetch all users
-export const getAllUsers = () => dispatch =>
-  axios
-    .get(`${URL}/users?token=${xtoken}`)
-    .then(response => {
-      dispatch({ type: type.ALL_USERS, payload: response.data });
-    })
-    .catch(err => {
-      dispatch({ type: type.ALL_USERS, payload: err.response });
     });
 
 // update users

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 /**
  *

@@ -1,5 +1,5 @@
 {
   "setupFiles": ["raf/polyfill", "<rootDir>/client/test/setupTests.js"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
-  "testPathDirs": ["client/test"]
+  "roots": ["client/test"]
 }

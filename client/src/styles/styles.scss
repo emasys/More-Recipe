@@ -138,10 +138,12 @@ a {
 }
 // background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
 // url('https://res.cloudinary.com/emasys/image/upload/v1514976360/2017-Logomaker-Background-Image_Woman_wl6l2p.jpg') no-repeat center center;
-
+.signin-form{
+  padding: 0 50px;
+}
 .header {
   margin: 0;
-  background:linear-gradient(90deg, rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)),
+  background:linear-gradient(180deg, rgb(19, 13, 1), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)),
   url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
   background-size: cover;
   padding-top: 50px;
@@ -269,6 +271,9 @@ input[type='search'] {
   }
 }
 
+.alpha, .numbers, .characters, .minLength, .maxLength {
+  color: #666666;
+}
 .title {
   text-transform: uppercase;
   margin: 10px 0;
@@ -605,6 +610,9 @@ footer {
   align-items: center;
 }
 
+.error-border{
+  border-color: red !important;
+}
 .img-icon {
   margin-top: 3px;
   width: 30px;

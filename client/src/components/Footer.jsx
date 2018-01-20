@@ -9,14 +9,14 @@ const Footer = () => (
             <p className="text-center text-white">
                 &copy;2017 All rights reserved
             </p>
-            <a href="https://web.facebook.com/emasys23">
+            <a href="https://web.facebook.com/emasys23" target="_blank">
               <i className="fa fa-facebook-square fa-2x" aria-hidden="true" />
             </a>&nbsp;
-            <a href="https://twitter.com/emasys_nd">
+            <a href="https://twitter.com/emasys_nd" target="_blank">
               <i className="fa fa-twitter-square fa-2x" aria-hidden="true" />
             </a>&nbsp;
-            <a href="#">
-              <i className="fa fa-instagram fa-2x" aria-hidden="true" />
+            <a href="https://github.com/emasys" target="_blank">
+              <i className="fa fa-github-square fa-2x" aria-hidden="true" />
             </a>
           </div>
         </div>

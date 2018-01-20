@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 const generateList = ({ ingredients }) => {
   if (ingredients) {
@@ -31,9 +32,13 @@ const Ingredients = props => (
       >
         {props.data ? props.data.data.moniker : 'loading...'}
       </Link>
-    </small> <br/>
+    </small>{' '}
+    <br />
     <small className="">
-      Posted on: {props.ingredients ? moment(props.ingredients.recipe.createdAt).format('MMM Do YYYY') : "loading..."}
+      Posted on:{' '}
+      {props.ingredients ?
+        moment(props.ingredients.recipe.createdAt).format('MMM Do YYYY') :
+        'loading...'}
     </small>
     <hr />
     <h5 className="text-muted">Description</h5>
@@ -57,5 +62,10 @@ const Ingredients = props => (
     </div>
   </div>
 );
+
+Ingredients.propTypes = {
+  ingredients: PropTypes.object,
+  data: PropTypes.object
+};
 
 export default Ingredients;

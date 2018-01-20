@@ -81,7 +81,7 @@ class Category extends Component {
       this.props.getCategory(data, nextState.page_limit);
     }
   }
-/**
+  /**
    *
    *
    * @memberof Category
@@ -103,7 +103,7 @@ class Category extends Component {
     const { showMore } = this.state;
     return (
       <div>
-        <Navbar />
+        <Navbar className="bg-dark fixed-top" />
         <div className="mt-80 mb-3">
           <div className="container catalog-wrapper" id="catalog">
             <CatalogList catalog={this.state.category} />

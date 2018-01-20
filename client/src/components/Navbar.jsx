@@ -70,8 +70,9 @@ class Navbar extends Component {
   render() {
     const { avatar } = this.state;
     return (
-      <section className="container-fluid">
+      <section className="container-fluid m-0 p-0">
         <nav
+          data-aos="flip-up"
           className={`navbar navbar-expand-lg navbar-dark ${
             this.props.className
           }`}
@@ -231,6 +232,7 @@ const mapStateToProps = state => ({
 
 Navbar.propTypes = {
   user: PropTypes.object,
-  getProfile: PropTypes.func
+  getProfile: PropTypes.func,
+  className: PropTypes.string
 };
 export default connect(mapStateToProps, actions)(Navbar);

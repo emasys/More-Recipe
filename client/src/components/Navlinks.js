@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Auth from './auth';
 
 const logout = () => {
@@ -40,4 +42,7 @@ const NavLinks = ({ user }) => {
   }
 };
 
+NavLinks.propTypes = {
+  user: PropTypes.object
+};
 export default NavLinks;
