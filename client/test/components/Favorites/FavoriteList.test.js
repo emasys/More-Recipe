@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import FavoriteList from '../../../src/components/Favorites/FavoriteList';
+import { Link, BrowserRouter } from 'react-router-dom';
 
 const propsEmpty = {
   userFav: {
@@ -54,6 +55,8 @@ test('should render favorite list correctly with no favorite recipe', () => {
 });
 
 test('should render favorite list correctly with one favorite recipe', () => {
-  const wrapper = mount(<FavoriteList favorites={favorites} />);
+  const wrapper = mount(<BrowserRouter>
+    <FavoriteList favorites={favorites} />
+  </BrowserRouter>);
   expect(wrapper).toMatchSnapshot();
 });

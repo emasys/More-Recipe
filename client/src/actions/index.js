@@ -33,6 +33,18 @@ export const getRecipes = (page, query = '') => dispatch => {
     });
 };
 
+// Fetch reviews for a recipe
+export const getReviews = recipeId => dispatch =>
+  axios
+    .get(`${URL}/reviews/${recipeId}?token=${xtoken}`)
+    .then(response => {
+      dispatch({ type: type.GET_REVIEWS, payload: response.data });
+      dispatch(isLoading(false));
+    })
+    .catch(err => {
+      dispatch({ type: type.GET_REVIEWS, payload: err.response });
+      dispatch(isLoading(false));
+    });
 // Get a single recipe
 export const getRecipeItem = id => dispatch =>
   axios
@@ -40,6 +52,7 @@ export const getRecipeItem = id => dispatch =>
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
       dispatch(getUserInfo(response.data.recipe.userId));
+      dispatch(getReviews(id));
     })
     .catch(err => {
       dispatch({ type: type.SINGLE_RECIPE, payload: err.response });
@@ -196,7 +209,7 @@ export const postReview = (data, id) => dispatch => {
     .post(`${URL}/recipes/${id}/reviews?token=${xtoken}`, data)
     .then(response => {
       dispatch({ type: type.REVIEW, payload: response.data });
-      dispatch(getRecipeReactions(id));
+      dispatch(getReviews(id));
     })
     .catch(err => {
       dispatch({ type: type.REVIEW, payload: err.response });

@@ -3,14 +3,6 @@ export default (sequelize, DataTypes) => {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
-    user: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    avatar: {
-      type: DataTypes.STRING,
-      allowNull: false
     }
   });
   Reviews.associate = (models) => {

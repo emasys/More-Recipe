@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
 
 import * as actions from '../../actions';
+import GenerateReviews from './GenerateReviews';
 
 /**
  *
@@ -22,88 +21,48 @@ class Reviews extends Component {
     this.state = {
       content: ''
     };
-    this.getReview = this.getReview.bind(this);
-    this.txChanged = this.txChanged.bind(this);
-    this.handleForm = this.handleForm.bind(this);
-    this.resetState = this.resetState.bind(this);
   }
+
   /**
    *
    *
    * @memberof Reviews
    * @returns {any} content input texts
    */
-  resetState() {
+  resetState = () => {
     this.setState({
       content: ''
     });
-  }
+  };
 
   /**
    *
    *
-   * @param {any} e
+   * @param {any} event
    * @memberof Reviews
    * @returns {any} updated page with new reviews
    */
-  handleForm(e) {
-    e.preventDefault();
+  handleForm = event => {
+    event.preventDefault();
     const data = this.state;
     const { id } = this.props.recipes.recipeItem.recipe;
-    this.props.postReview(data, id);
-
+    if (data.content) {
+      this.props.postReview(data, id);
+    }
     this.resetState();
-  }
+  };
   /**
    *
    *
-   * @param {any} e
+   * @param {any} event
    * @memberof Reviews
    * @returns {any} textarea input
    */
-  txChanged(e) {
+  txChanged = event => {
     this.setState({
-      content: e.target.value
+      content: event.target.value
     });
-  }
-  /**
-   *
-   *
-   * @param {any} reviews
-   * @returns {any} updated page with new review
-   * @memberof Reviews
-   */
-  getReview(reviews) {
-    if (reviews) {
-      const comments = reviews.recipe.reviews;
-      return comments.map((comment, index) => (
-        <div data-aos="fade-left" className="comment-wrapper" key={index}>
-          <div className="direction mt-50 p-15 bg-light my-2" key={index}>
-            <div className="commentTitle">
-              <img
-                src={comment.avatar}
-                alt="dp"
-                className="img-icon rounded-circle"
-              />
-              <Link className="text-dark bolder" to={`/user/${comment.userId}`}>
-                {' '}
-                {comment.user}
-              </Link>
-              <hr />
-            </div>
-            <div className="comments m-0">
-              <p className="mb-0 text-dark">{comment.content}</p>
-            </div>
-            <div className="date bg-dark ">
-              <p>
-                {moment(comment.updatedAt).format('MMM Do YYYY, h:mm a')}
-              </p>
-            </div>
-          </div>
-        </div>
-      ));
-    }
-  }
+  };
   /**
    *
    *
@@ -140,7 +99,7 @@ class Reviews extends Component {
           </form>
         </div>
         <div className="col-lg-8 col-sm-12 ">
-          {this.getReview(this.props.recipes.recipeItem)}
+          <GenerateReviews review={this.props.review} />
         </div>
       </div>
     );

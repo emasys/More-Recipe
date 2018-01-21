@@ -390,7 +390,7 @@ class RecipeItem extends Component {
                 />
               )}
             </div>
-            <Reviews id={this.props.match.params.id} />
+            <Reviews />
             {edit && (
               <i
                 onClick={this.onOpenDeleteModal}

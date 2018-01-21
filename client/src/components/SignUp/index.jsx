@@ -129,10 +129,24 @@ export class SignUp extends Component {
                 width="200"
                 height="200"
                 className="mt-30"
+                data-aos="flip-right"
+                data-aos-delay="1000"
+                data-dos-duration="1000"
               />
 
-              <h1 className="text-white">Welcome !</h1>
-              <h4 className="mt-10 text-white p-10 ">
+              <h1
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="text-white"
+              >
+                Welcome !
+              </h1>
+              <h4
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-dos-delay="1000"
+                className="mt-10 text-white p-10 "
+              >
                 “Cooking is not a science but an art, mistakes are okay, messes
                 are fine—the pleasure is in the creating and the sharing of the
                 result.” ― Lori Pollan

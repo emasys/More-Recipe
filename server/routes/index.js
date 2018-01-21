@@ -14,6 +14,7 @@ router.get('/recipes/user/fav', jwt.verifyToken, Favorite.listFavorites);
 router.get('/recipes/:recipeId/favStatus', jwt.verifyToken, Favorite.favoriteStatus);
 router.get('/recipe/:recipeId', jwt.verifyToken, Recipes.getRecipe);
 router.get('/recipe/reaction/:recipeId', jwt.verifyToken, Recipes.getReactionCount);
+router.get('/reviews/:recipeId', jwt.verifyToken, Reviews.getReviews);
 
 // POST recipe requests
 router.post('/recipes', jwt.verifyToken, Recipes.addRecipe);

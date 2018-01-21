@@ -240,13 +240,6 @@ class RecipeController {
           model: Favorite,
           as: 'favorites'
         }
-      ],
-      order: [
-        [
-          { model: Reviews, as: 'reviews' },
-          'createdAt',
-          'DESC'
-        ]
       ]
     })
       .then((recipe) => {

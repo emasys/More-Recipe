@@ -30,14 +30,199 @@ exports[`should render favorite list correctly with no favorite recipe 1`] = `
 `;
 
 exports[`should render favorite list correctly with one favorite recipe 1`] = `
-Array [
-  <div
-    className="col-lg-3 col-sm-10 mb-20  col-md-4 animate-catalog"
-    data-animate="bounceIn"
-    data-delay="0.1s"
-    data-duration="1.0s"
-    data-offset="100"
-    key="0"
-  />,
-]
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <FavoriteList
+      favorites={
+        Object {
+          "userFav": Object {
+            "favorites": Array [
+              Object {
+                "Recipe": Object {
+                  "category": "Appetisers",
+                  "comments": 38,
+                  "createdAt": "2018-01-09T19:43:09.761Z",
+                  "description": "just do it, really?",
+                  "direction": "just do it, really, really?",
+                  "downvote": 0,
+                  "favorite": 1,
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1515914279/ruwl3dswlgju81udttvd.jpg",
+                  "id": 27,
+                  "ingredients": Array [
+                    "water",
+                    "salt",
+                    "oil",
+                    "preloading is working fine now",
+                    "new stuff",
+                  ],
+                  "name": "How to cook something cool",
+                  "reactionDown": Array [],
+                  "reactionUp": Array [
+                    5,
+                  ],
+                  "updatedAt": "2018-01-14T07:18:00.149Z",
+                  "upvote": 1,
+                  "userId": 5,
+                  "views": 1,
+                },
+                "createdAt": "2018-01-10T04:33:00.481Z",
+                "id": 44,
+                "recipeId": 27,
+                "updatedAt": "2018-01-10T04:33:00.481Z",
+                "userId": 5,
+              },
+            ],
+          },
+        }
+      }
+    >
+      <div
+        className="col-lg-3 col-sm-10 mb-20  col-md-4 animate-catalog"
+        data-animate="bounceIn"
+        data-delay="0.1s"
+        data-duration="1.0s"
+        data-offset="100"
+        key="0"
+      >
+        <div>
+          <Fade
+            bottom={true}
+          >
+            <t
+              count={1}
+              delay={0}
+              duration={1000}
+              fraction={0.2}
+              in={
+                Object {
+                  "make": [Function],
+                  "reverse": undefined,
+                }
+              }
+              out={
+                Object {
+                  "make": [Function],
+                  "reverse": undefined,
+                }
+              }
+              tag="div"
+              when={true}
+            >
+              <div
+                className="react-reveal"
+                style={
+                  Object {
+                    "opacity": 0,
+                    "transition": "opacity 1000ms",
+                  }
+                }
+              >
+                <Link
+                  className=" hvr-grow-shadow"
+                  replace={false}
+                  to="/recipe/27"
+                >
+                  <a
+                    className=" hvr-grow-shadow"
+                    href="/recipe/27"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="card animate"
+                    >
+                      <img
+                        alt="Card image cap"
+                        className="card-img-top img-box"
+                        src="https://res.cloudinary.com/emasys/image/upload/v1515914279/ruwl3dswlgju81udttvd.jpg"
+                      />
+                      <div
+                        className="card-body p-0 text-center social-icons"
+                      >
+                        <span
+                          className="tag bg-danger"
+                        >
+                          Appetisers
+                        </span>
+                        <h4
+                          className="card-title custom-bg bg-dark p-2 m-0 text-truncate "
+                        >
+                          How to cook som...
+                        </h4>
+                        <div
+                          className="card-body p-5 text-left bg-light text-dark"
+                        >
+                          <p
+                            className="crop-text"
+                          >
+                            just do it, really?
+                          </p>
+                        </div>
+                        <span>
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-heart-o"
+                          />
+                          1
+                        </span>
+                        <span>
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-thumbs-o-up"
+                          />
+                          1
+                        </span>
+                        <span>
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-thumbs-o-down"
+                          />
+                          0
+                        </span>
+                        <span>
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-eye"
+                          />
+                          1
+                        </span>
+                        <span>
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-comment-o"
+                          />
+                          38
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </Link>
+              </div>
+            </t>
+          </Fade>
+        </div>
+      </div>
+    </FavoriteList>
+  </Router>
+</BrowserRouter>
 `;
