@@ -13,14 +13,14 @@ export const isLoading = bool => ({
 
 // Get a specific user
 export const getUserInfo = id => dispatch =>
-axios
-  .get(`${URL}/users/${id}`)
-  .then(response => {
-    dispatch({ type: type.USER_INFO, payload: response.data });
-  })
-  .catch(err => {
-    dispatch({ type: type.USER_INFO, payload: err.response });
-  });
+  axios
+    .get(`${URL}/users/${id}`)
+    .then(response => {
+      dispatch({ type: type.USER_INFO, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.USER_INFO, payload: err.response });
+    });
 // Fetch All recipes
 export const getRecipes = (page, query = '') => dispatch => {
   axios
@@ -79,18 +79,17 @@ export const getProfile = id => dispatch =>
       dispatch({ type: type.USER_PROFILE, payload: err.response });
     });
 
-    // fetch all users
+// fetch all users
 export const getAllUsers = () => dispatch =>
-axios
-  .get(`${URL}/users?token=${xtoken}`)
-  .then(response => {
-    dispatch({ type: type.ALL_USERS, payload: response.data });
-  })
-  .catch(err => {
-    dispatch({ type: type.ALL_USERS, payload: err.response });
-  });
+  axios
+    .get(`${URL}/users?token=${xtoken}`)
+    .then(response => {
+      dispatch({ type: type.ALL_USERS, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: type.ALL_USERS, payload: err.response });
+    });
 
-  
 export const deleteUser = id => dispatch =>
   axios
     .delete(`${URL}/users/${id}?token=${xtoken}`)
@@ -150,14 +149,15 @@ export const editRecipe = (data, id) => dispatch => {
 };
 
 // Create a new user
-export const signUp = data => dispatch =>
+export const signUp = data => dispatch => {
+  dispatch(isLoading(true));
   axios
     .post(`${URL}/users/signup`, data)
     .then(response => {
       window.localStorage.setItem('token', response.data.token);
-      console.log(response.data.token);
-      const jwtbug = window.localStorage.getItem('token');
-      if (jwtbug.length > 9) {
+      const jwtToken = window.localStorage.getItem('token');
+      if (jwtToken.length > 9) {
+        dispatch(isLoading(false));
         return dispatch({ type: type.SIGN_UP, payload: response.data });
       }
       window.localStorage.removeItem('token');
@@ -165,25 +165,30 @@ export const signUp = data => dispatch =>
     })
     .catch(err => {
       dispatch({ type: type.SIGN_UP, payload: err.response });
+      dispatch(isLoading(false));
     });
+};
 
 // Login
-export const signIn = data => dispatch =>
+export const signIn = data => dispatch => {
+  dispatch(isLoading(true));
   axios
     .post(`${URL}/users/signin`, data)
     .then(response => {
       window.localStorage.setItem('token', response.data.token);
-      const jwtbug = window.localStorage.getItem('token');
-      if (jwtbug.length > 9) {
+      const jwtToken = window.localStorage.getItem('token');
+      if (jwtToken.length > 9) {
+        dispatch(isLoading(false));
         return dispatch({ type: type.SIGN_IN, payload: response.data });
       }
       window.localStorage.removeItem('token');
       dispatch({ type: type.SIGN_IN, payload: response.data });
     })
     .catch(err => {
+      dispatch(isLoading(false));
       dispatch({ type: type.SIGN_IN, payload: err.response });
     });
-
+};
 // Post a review
 export const postReview = (data, id) => dispatch => {
   dispatch(isLoading(true));

@@ -53,7 +53,7 @@ export const validateLastName = name => {
 export const confirmPassword = (password, confirmPass) => {
   if (!lodash.isEqual(password, confirmPass)) {
     error.push(4);
-    document.querySelector("#confirmPassword").classList.add('error-border');    
+    document.querySelector('#confirmPassword').classList.add('error-border');
     document.querySelector('#cp_error').classList.add('text-danger');
     document.querySelector('#cp_error').innerHTML =
       'Your password did not match';
@@ -61,7 +61,7 @@ export const confirmPassword = (password, confirmPass) => {
     error = error.filter(item => item !== 4);
     document.querySelector('#cp_error').innerHTML = 'Password match';
     document.querySelector('#cp_error').classList.remove('text-danger');
-    document.querySelector("#confirmPassword").classList.remove('error-border');        
+    document.querySelector('#confirmPassword').classList.remove('error-border');
     document.querySelector('#cp_error').classList.add('text-success');
   }
 };

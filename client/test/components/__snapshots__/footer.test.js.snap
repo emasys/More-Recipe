@@ -21,6 +21,7 @@ exports[`should render Footer correctly 1`] = `
           </p>
           <a
             href="https://web.facebook.com/emasys23"
+            target="_blank"
           >
             <i
               aria-hidden="true"
@@ -30,6 +31,7 @@ exports[`should render Footer correctly 1`] = `
            
           <a
             href="https://twitter.com/emasys_nd"
+            target="_blank"
           >
             <i
               aria-hidden="true"
@@ -38,11 +40,12 @@ exports[`should render Footer correctly 1`] = `
           </a>
            
           <a
-            href="#"
+            href="https://github.com/emasys"
+            target="_blank"
           >
             <i
               aria-hidden="true"
-              className="fa fa-instagram fa-2x"
+              className="fa fa-github-square fa-2x"
             />
           </a>
         </div>

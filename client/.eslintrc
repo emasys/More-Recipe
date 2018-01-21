@@ -24,6 +24,7 @@
   },
   "rules": {
     "max-len": [ 1, 80, 2, { "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
+    "max-depth": ["error", 5],
     "indent": ["error", 2],
     "one-var": 0,
     "one-var-declaration-per-line": 0,

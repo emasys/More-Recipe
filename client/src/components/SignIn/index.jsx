@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
+import Pace from 'react-pace-progress';
 
 // actions
 import * as actions from '../../actions';
@@ -10,6 +10,7 @@ import * as actions from '../../actions';
 import Navbar from '../Navbar';
 import SignInForm from './SignInForm';
 import ResetPasswordForm from './ResetPassword';
+import ValidateForm from './validateForm';
 /**
  *
  *
@@ -56,6 +57,25 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.signin.signIn);
+    if (nextProps.signin.signIn) {
+      if (nextProps.signin.signIn.success) {
+        this.setState({
+          showErrMessage: 'fade'
+        });
+        let linkPath = '/';
+        if (nextProps.match.params) {
+          linkPath = nextProps.location.pathname;
+          if (linkPath === '/signin') linkPath = '/';
+        }
+        window.location.href = linkPath;
+      }
+      if (nextProps.signin.signIn.data.success === false) {
+        this.setState({
+          showErrMessage: 'show'
+        });
+      }
+    }
     if (nextProps.reset) {
       if (nextProps.reset.success) {
         this.setState({
@@ -122,46 +142,14 @@ class SignIn extends Component {
    */
   resetPassword = event => {
     event.preventDefault();
-    console.log(event.target.elements.recoveryEmail.value);
     const data = {
       email: event.target.elements.recoveryEmail.value.trim(),
       password: event.target.elements.newPassword.value,
       confirmPassword: event.target.elements.confirmPassword.value,
       token: event.target.elements.token.value.trim()
     };
-    if (data.email === '') {
-      document.querySelector('#recoverEmail_error').innerHTML =
-        'Please enter a valid email address';
-      data.email = null;
-    } else {
-      document.querySelector('#recoverEmail_error').innerHTML = '';
-    }
 
-    if (data.password.length < 8) {
-      document.querySelector('#newPassword_error').innerHTML =
-        'Please enter a valid password not less than 8 characters';
-      data.password = null;
-    } else {
-      document.querySelector('#newPassword_error').innerHTML = '';
-    }
-
-    if (data.token === '') {
-      document.querySelector('#token_error').innerHTML =
-        'Check your email for your token';
-      data.token = null;
-    } else {
-      document.querySelector('#token_error').innerHTML = '';
-    }
-
-    if (!isEqual(data.password, data.confirmPassword)) {
-      document.querySelector('#confirmPassword_error').innerHTML =
-        'Your password did not match';
-      data.confirmPassword = null;
-    } else {
-      document.querySelector('#confirmPassword_error').innerHTML = '';
-    }
-
-    if (data.email && data.confirmPassword && data.password && data.token) {
+    if (ValidateForm(data)) {
       this.props.compareToken(data).then(() => {
         if (this.props.signin.compareToken.success === true) {
           this.props.resetPassword(data);
@@ -185,25 +173,7 @@ class SignIn extends Component {
    */
   handleSubmit = event => {
     event.preventDefault();
-
-    this.props.signIn(this.state).then(() => {
-      if (this.props.signin.signIn.success) {
-        this.setState({
-          showErrMessage: 'fade'
-        });
-        let linkPath = '/';
-        if (this.props.match.params) {
-          linkPath = this.props.location.pathname;
-          if (linkPath === '/signin') linkPath = '/';
-        }
-        window.location.href = linkPath;
-      }
-      if (this.props.signin.signIn.data.success === false) {
-        this.setState({
-          showErrMessage: 'show'
-        });
-      }
-    });
+    this.props.signIn(this.state);
   };
   /**
    *
@@ -217,6 +187,11 @@ class SignIn extends Component {
     } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
+        <div className="fixed-top">
+          {this.props.netReq === true ? (
+            <Pace color="#e7b52c" height={2} />
+          ) : null}
+        </div>
         <Navbar className="bg-dark fixed-top" />
         {showProps && (
           <div className="alert alert-warning" role="alert">
@@ -239,27 +214,39 @@ class SignIn extends Component {
             </button>
           </div>
         )}
-        <div className="row p-0 catalog-wrapper justify-content-center" data-aos="zoom-out">
-          <div className="AuthInfo col-lg-6 col-sm-12 text-center ">
+        <div
+          className="row p-0 catalog-wrapper justify-content-center"
+          data-aos="zoom-out"
+        >
+          <div className="AuthInfo col-lg-7 col-sm-12 justify-content-center text-center ">
             <img
               src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
               alt="logo"
               width="200"
               height="200"
               className="mt-30"
+              data-aos="flip-right"
+              data-aos-delay="1000"
+              data-dos-duration="1000"
             />
-            <h1 className="text-white">Welcome back!</h1>
-            <p className=" lead mt-10 text-white bg-mirror px-50 ">
-              “Cooking is not a science but an art, mistakes are okay, messes
-              are fine—the pleasure is in the creating and the sharing of the
-              result.” ― Lori Pollan
-            </p>
-            <p className=" lead mt-1 text-white bg-mirror p-10 ">
+            <h1
+              className="text-white"
+              data-aos="fade-up"
+              data-aos-duration="2000"
+            >
+              Welcome back!
+            </h1>
+            <h4
+              className="mt-10 text-white mb-10 pr-50 pl-50"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-dos-delay="1000"
+            >
               We trust it's been an amazing experience for you so far... Let's
               continue to add spices to life.
-            </p>
+            </h4>
           </div>
-          <div className="col-lg-6 col-sm-8 pb-20 signin-form">
+          <div className="col-lg-5 col-sm-8 pb-20 signin-form">
             {!resetPassword && (
               <SignInForm
                 handleSubmit={this.handleSubmit}
@@ -287,7 +274,8 @@ class SignIn extends Component {
 
 const mapStateToProps = state => ({
   signin: state.user,
-  reset: state.user.reset
+  reset: state.user.reset,
+  netReq: state.netReq
 });
 
 SignIn.propTypes = {

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render favorite list correctly with no favorite recipe 1`] = `
+<div
+  className="text-center error-message"
+>
+  <div>
+    <img
+      alt="logo"
+      src="../img/logo.png"
+    />
+    <h4
+      className="p-3 m-2"
+    >
+      You don't have any favorite recipe yet
+    </h4>
+    <p
+      className="p-3 m-2"
+    >
+      <Link
+        className="btn btn-outline-dark"
+        replace={false}
+        to="/catalog"
+      >
+        check out amazing recipes
+      </Link>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`should render favorite list correctly with one favorite recipe 1`] = `
+Array [
+  <div
+    className="col-lg-3 col-sm-10 mb-20  col-md-4 animate-catalog"
+    data-animate="bounceIn"
+    data-delay="0.1s"
+    data-duration="1.0s"
+    data-offset="100"
+    key="0"
+  />,
+]
+`;
