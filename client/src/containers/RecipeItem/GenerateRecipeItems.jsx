@@ -2,6 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Auth from '../../components/auth';
 
 const GeneraterecipeItem = props => (
   <div>
@@ -56,7 +57,7 @@ const GeneraterecipeItem = props => (
       <span className="text-center card-link m-1" onClick={props.upvote}>
         <i
           className={`fa ${
-            props.state.upvoteStatus ?
+            props.reactionUp.includes(Auth.userID()) ?
               'fa-thumbs-up animated bounceIn flash blue' :
               'fa-thumbs-up gray'
           } fa-2x`}
@@ -68,7 +69,7 @@ const GeneraterecipeItem = props => (
       <span className="text-center card-link m-1" onClick={props.downvote}>
         <i
           className={`fa ${
-            props.state.downvoteStatus ?
+            props.reactionDown.includes(Auth.userID()) ?
               'fa-thumbs-down animated bounceIn flash red' :
               'fa-thumbs-down gray'
           } fa-2x`}
@@ -81,7 +82,6 @@ const GeneraterecipeItem = props => (
       <div className="m-1 float-right d-inline">
         <i className="fa fa-tag " aria-hidden="true" />
         <Link to={`/category/${props.state.recipeItem.recipe.category}`}>
-          {` `}
           {props.state.recipeItem.recipe.category}
         </Link>
       </div>

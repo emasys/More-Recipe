@@ -50,7 +50,7 @@ export const getReviews = recipeId => dispatch =>
 // Get a single recipe
 export const getRecipeItem = id => dispatch => {
   dispatch(isLoading(true));
-  axios
+  return axios
     .get(`${URL}/recipe/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
@@ -160,7 +160,7 @@ export const editRecipe = (data, id) => dispatch => {
     .put(`${URL}/recipes/${id}?token=${xtoken}`, data)
     .then(response => {
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
-      dispatch(getRecipeReactions(id));
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.EDIT_RECIPE, payload: err.response });
@@ -272,7 +272,7 @@ export const delRecipe = id => dispatch =>
 // upvote
 export const upvote = id => dispatch => {
   dispatch(isLoading(true));
-  axios
+  return axios
     .post(`${URL}/recipes/upvote/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.UPVOTE, payload: response.data });
@@ -281,20 +281,22 @@ export const upvote = id => dispatch => {
     })
     .catch(err => {
       dispatch({ type: type.UPVOTE, payload: err.response });
+      dispatch(getRecipeReactions(id));
     });
 };
 
 // downvote
 export const downvote = id => dispatch => {
   dispatch(isLoading(true));
-  axios
+  return axios
     .post(`${URL}/recipes/downvote/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.DOWNVOTE, payload: response.data });
-      dispatch(getRecipeReactions(id));
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.DOWNVOTE, payload: err.response });
+      dispatch(isLoading(false));
     });
 };
 

@@ -36,8 +36,8 @@ export default class FavoriteRecipes {
         return Favorite.create({
           recipeId: req.params.recipeId,
           userId: req.decoded.id
-        }).then(() =>
-          setStatus(res, { success: true, status: 'favorited' }, 200));
+        }).then(response =>
+          setStatus(res, { success: true, status: 'favorited', response }, 200));
       })
       .catch(() =>
         setStatus(res, { success: false, message: 'recipe not found' }, 404));

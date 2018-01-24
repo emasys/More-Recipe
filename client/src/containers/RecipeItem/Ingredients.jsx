@@ -4,8 +4,9 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 const generateList = ({ ingredients }) => {
-  if (ingredients.recipe) {
-    const list = ingredients.recipe.ingredients;
+  console.log(ingredients);
+  if (ingredients) {
+    const list = ingredients.ingredients;
     return list.map((item, index) => (
       <a
         href={`https://en.wikipedia.org/wiki/${item}`}
@@ -22,7 +23,7 @@ const generateList = ({ ingredients }) => {
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
     <h2 className="fresh-title text-capitalize">
-      {props.ingredients.recipe ? props.ingredients.recipe.name : 'loading...'}
+      {props.ingredients ? props.ingredients.name : 'loading...'}
     </h2>
     <small className="text-capitalize">
       A recipe by{' '}
@@ -36,16 +37,16 @@ const Ingredients = props => (
     <br />
     <small className="">
       Posted on:{' '}
-      {props.ingredients.recipe ?
-        moment(props.ingredients.recipe.createdAt).format('MMM Do YYYY') :
+      {props.ingredients ?
+        moment(props.ingredients.createdAt).format('MMM Do YYYY') :
         'loading...'}
     </small>
     <hr />
     <h5 className="text-muted">Description</h5>
     <div className="pb-3">
       <div className="bg-light p-15">
-        {props.ingredients.recipe ?
-          props.ingredients.recipe.description :
+        {props.ingredients ?
+          props.ingredients.description :
           'loading...'}
       </div>
     </div>
@@ -58,7 +59,7 @@ const Ingredients = props => (
     <h5 className="text-muted">Directions</h5>
     <hr />
     <div className="p-10 direction rounded  bg-light">
-      {props.ingredients.recipe ? props.ingredients.recipe.direction : 'loading...'}
+      {props.ingredients ? props.ingredients.direction : 'loading...'}
     </div>
   </div>
 );

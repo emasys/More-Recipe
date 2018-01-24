@@ -60,7 +60,11 @@ class RecipeItem extends Component {
    * @returns {any} cdm
    */
   componentDidMount() {
-    this.props.getRecipeItem(this.props.match.params.id);
+    this.props.getRecipeItem(this.props.match.params.id).then(() => {
+      this.setState({
+        recipeItem: this.props.recipes.updateRecipes.recipe,
+      });
+    });
   }
   /**
    *
@@ -70,16 +74,15 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
-    // console.log()
     if (nextProps.recipes.updateRecipes.success) {
       this.update();
       this.setState({
         editRecipe: false,
         status: 'fade',
-        error: 'd-none',
+        // recipeItem: nextProps.recipes.updateRecipes.recipe,
+        error: 'd-none'
       });
     }
-
     if (nextProps.recipes.updateRecipes.data) {
       this.setState({
         error: 'd-block'
@@ -88,19 +91,11 @@ class RecipeItem extends Component {
     if (nextProps.recipes.recipeItem.recipe) {
       this.setState({
         favoriteStatus: false,
-        recipeItem: nextProps.recipes.recipeItem
+        // recipeItem: nextProps.recipes.recipeItem
       });
       const {
-        reactionUp,
-        reactionDown,
-        favorites,
-        ingredients,
-        name,
-        description,
-        direction,
-        foodImg,
-        category,
-        userId
+        favorites, ingredients, name, description, direction,
+        foodImg, category, userId,
       } = nextProps.recipes.recipeItem.recipe;
       if (userId === Auth.userID()) {
         this.setState({
@@ -121,12 +116,6 @@ class RecipeItem extends Component {
         }
         return null;
       });
-      if (reactionUp.indexOf(Auth.userID()) === -1) {
-        this.setState({ upvoteStatus: false });
-      } else this.setState({ upvoteStatus: true });
-      if (reactionDown.indexOf(Auth.userID()) === -1) {
-        this.setState({ downvoteStatus: false });
-      } else this.setState({ downvoteStatus: true });
     }
   }
   /**
@@ -177,7 +166,11 @@ class RecipeItem extends Component {
    * @returns {any} upvote a recipe
    */
   upvote = () => {
-    this.props.upvote(this.props.match.params.id);
+    this.props.upvote(this.props.match.params.id).then(() => {
+      this.setState({
+        recipeItem: this.props.votes.upvote
+      });
+    });
   };
   /**
    *
@@ -186,7 +179,11 @@ class RecipeItem extends Component {
    * @returns {any} downvote a recipe
    */
   downvote = () => {
-    this.props.downvote(this.props.match.params.id);
+    this.props.downvote(this.props.match.params.id).then(() => {
+      this.setState({
+        recipeItem: this.props.votes.downvote
+      });
+    });
   };
   /**
    * @returns {any}
@@ -195,7 +192,11 @@ class RecipeItem extends Component {
    * @memberof RecipeItem
    */
   edited = data => {
-    this.props.editRecipe(data, this.props.match.params.id);
+    this.props.editRecipe(data, this.props.match.params.id).then(() => {
+      this.setState({
+        recipeItem: this.props.recipes.updateRecipes.recipe
+      });
+    })
   };
   /**
    *
@@ -322,6 +323,8 @@ class RecipeItem extends Component {
           state={this.state}
           foodImg={this.state.recipeItem.recipe.foodImg}
           upvote={this.upvote}
+          reactionUp={this.state.recipeItem.recipe.reactionUp}
+          reactionDown={this.state.recipeItem.recipe.reactionDown}
           downvote={this.downvote}
           favIt={this.favIt}
           hoverIn={this.hoverIn}
@@ -355,10 +358,6 @@ class RecipeItem extends Component {
       recipeItem,
       editRecipe,
       edit,
-      name,
-      description,
-      direction,
-      ingredients
     } = this.state;
     return (
       <div>
@@ -398,10 +397,7 @@ class RecipeItem extends Component {
                 {this.generateItems(recipeItem)}
               </div>
               {editRecipe && (
-                <EditForm
-                  handleSubmit={this.handleSubmit}
-                  state={this.state}
-                />
+                <EditForm handleSubmit={this.handleSubmit} state={this.state} />
               )}
               {!editRecipe && (
                 <RecipeIngredients
