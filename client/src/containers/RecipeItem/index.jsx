@@ -60,11 +60,7 @@ class RecipeItem extends Component {
    * @returns {any} cdm
    */
   componentDidMount() {
-    this.props.getRecipeItem(this.props.match.params.id).then(() => {
-      this.setState({
-        recipeItem: this.props.recipes.updateRecipes.recipe,
-      });
-    });
+    this.props.getRecipeItem(this.props.match.params.id);
   }
   /**
    *
@@ -79,7 +75,7 @@ class RecipeItem extends Component {
       this.setState({
         editRecipe: false,
         status: 'fade',
-        // recipeItem: nextProps.recipes.updateRecipes.recipe,
+        recipeItem: nextProps.recipes.updateRecipes.recipe,
         error: 'd-none'
       });
     }
@@ -91,7 +87,7 @@ class RecipeItem extends Component {
     if (nextProps.recipes.recipeItem.recipe) {
       this.setState({
         favoriteStatus: false,
-        // recipeItem: nextProps.recipes.recipeItem
+        recipeItem: nextProps.recipes.recipeItem
       });
       const {
         favorites, ingredients, name, description, direction,
@@ -115,6 +111,11 @@ class RecipeItem extends Component {
           });
         }
         return null;
+      });
+    }
+    if (nextProps.votes.upvote) {
+      this.setState({
+        recipeItem: nextProps.votes.upvote
       });
     }
   }
@@ -166,11 +167,7 @@ class RecipeItem extends Component {
    * @returns {any} upvote a recipe
    */
   upvote = () => {
-    this.props.upvote(this.props.match.params.id).then(() => {
-      this.setState({
-        recipeItem: this.props.votes.upvote
-      });
-    });
+    this.props.upvote(this.props.match.params.id);
   };
   /**
    *
@@ -179,11 +176,7 @@ class RecipeItem extends Component {
    * @returns {any} downvote a recipe
    */
   downvote = () => {
-    this.props.downvote(this.props.match.params.id).then(() => {
-      this.setState({
-        recipeItem: this.props.votes.downvote
-      });
-    });
+    this.props.downvote(this.props.match.params.id);
   };
   /**
    * @returns {any}
@@ -192,11 +185,7 @@ class RecipeItem extends Component {
    * @memberof RecipeItem
    */
   edited = data => {
-    this.props.editRecipe(data, this.props.match.params.id).then(() => {
-      this.setState({
-        recipeItem: this.props.recipes.updateRecipes.recipe
-      });
-    })
+    this.props.editRecipe(data, this.props.match.params.id);
   };
   /**
    *
