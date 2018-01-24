@@ -4,7 +4,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 const generateList = ({ ingredients }) => {
-  if (ingredients) {
+  if (ingredients.recipe) {
     const list = ingredients.recipe.ingredients;
     return list.map((item, index) => (
       <a
@@ -22,7 +22,7 @@ const generateList = ({ ingredients }) => {
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
     <h2 className="fresh-title text-capitalize">
-      {props.ingredients ? props.ingredients.recipe.name : 'loading...'}
+      {props.ingredients.recipe ? props.ingredients.recipe.name : 'loading...'}
     </h2>
     <small className="text-capitalize">
       A recipe by{' '}
@@ -36,7 +36,7 @@ const Ingredients = props => (
     <br />
     <small className="">
       Posted on:{' '}
-      {props.ingredients ?
+      {props.ingredients.recipe ?
         moment(props.ingredients.recipe.createdAt).format('MMM Do YYYY') :
         'loading...'}
     </small>
@@ -44,7 +44,7 @@ const Ingredients = props => (
     <h5 className="text-muted">Description</h5>
     <div className="pb-3">
       <div className="bg-light p-15">
-        {props.ingredients ?
+        {props.ingredients.recipe ?
           props.ingredients.recipe.description :
           'loading...'}
       </div>
@@ -58,7 +58,7 @@ const Ingredients = props => (
     <h5 className="text-muted">Directions</h5>
     <hr />
     <div className="p-10 direction rounded  bg-light">
-      {props.ingredients ? props.ingredients.recipe.direction : 'loading...'}
+      {props.ingredients.recipe ? props.ingredients.recipe.direction : 'loading...'}
     </div>
   </div>
 );

@@ -31,14 +31,14 @@ class CatalogList extends Component {
    */
   generateList({ catalog }) {
     if (catalog) {
-      if (catalog.recipes.length < 1) {
+      if (catalog.length < 1) {
         return (
           <div className="text-center error-message">
-            <div className="catalog">
-              <img src="../img/logo.png" alt="logo" />
-              <h4 className="p-3 m-2">...Oops</h4>
-              <p className="p-3 m-2">No recipe found</p>
-              <p className="p-3 m-2">
+            <div className="catalog ">
+              <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" alt="logo" />
+              <h4 className="p-3 m-2 text-center">...Oops</h4>
+              <p className="p-3 m-2 text-center">No recipe found</p>
+              <p className="p-3 m-2 text-center">
                 <Link to="/" className="btn btn-outline-dark hvr-icon-back">
                   ...go back home
                 </Link>
@@ -47,7 +47,7 @@ class CatalogList extends Component {
           </div>
         );
       }
-      return catalog.recipes.map((item, index) => (
+      return catalog.map((item, index) => (
         <div
           key={index}
           className="col-lg-3 col-sm-8 mb-20 col-md-4 animate-catalog"

@@ -79,7 +79,7 @@ class Navbar extends Component {
           style={{ zIndex: 1000 }}
         >
           <div className="container">
-            <Link className="navbar-brand bolder text-orange" to="/">
+            <Link className="navbar-brand bolder ml-3 text-orange" to="/">
               <span className="nb">More Recipes</span>
             </Link>
             <button

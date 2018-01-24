@@ -36,6 +36,7 @@ class RecipeItem extends Component {
     this.foodImg = null;
     this.state = {
       edit: false,
+      error: 'd-none',
       favoriteStatus: false,
       upvoteStatus: false,
       downvoteStatus: false,
@@ -69,57 +70,64 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.recipes.updateRecipes) {
-      if (this.props.recipes.updateRecipes.success) {
-        this.update();
-        this.setState({
-          editRecipe: false,
-          status: 'fade'
-        });
-      } else {
-        document.querySelector('#recipe_error').innerHTML =
-          'A recipe with this name already exist';
-      }
-    }
-    this.setState({
-      favoriteStatus: false,
-      recipeItem: nextProps.recipes.recipeItem
-    });
-    const {
-      reactionUp,
-      reactionDown,
-      favorites,
-      ingredients,
-      name,
-      description,
-      direction,
-      foodImg,
-      userId
-    } = nextProps.recipes.recipeItem.recipe;
-    if (userId === Auth.userID()) {
+    // console.log()
+    if (nextProps.recipes.updateRecipes.success) {
+      this.update();
       this.setState({
+        editRecipe: false,
+        status: 'fade',
+        error: 'd-none',
+      });
+    }
+
+    if (nextProps.recipes.updateRecipes.data) {
+      this.setState({
+        error: 'd-block'
+      });
+    }
+    if (nextProps.recipes.recipeItem.recipe) {
+      this.setState({
+        favoriteStatus: false,
+        recipeItem: nextProps.recipes.recipeItem
+      });
+      const {
+        reactionUp,
+        reactionDown,
+        favorites,
+        ingredients,
         name,
         description,
         direction,
         foodImg,
-        ingredients: ingredients.join(','),
-        edit: true
-      });
-    }
-    favorites.map(user => {
-      if (user.userId === Auth.userID()) {
-        return this.setState({
-          favoriteStatus: true
+        category,
+        userId
+      } = nextProps.recipes.recipeItem.recipe;
+      if (userId === Auth.userID()) {
+        this.setState({
+          name,
+          description,
+          direction,
+          foodImg,
+          category,
+          ingredients: ingredients.join(','),
+          edit: true
         });
       }
-      return null;
-    });
-    if (reactionUp.indexOf(Auth.userID()) === -1) {
-      this.setState({ upvoteStatus: false });
-    } else this.setState({ upvoteStatus: true });
-    if (reactionDown.indexOf(Auth.userID()) === -1) {
-      this.setState({ downvoteStatus: false });
-    } else this.setState({ downvoteStatus: true });
+      favorites.map(user => {
+        if (user.userId === Auth.userID()) {
+          return this.setState({
+            favoriteStatus: true
+          });
+        }
+        return null;
+      });
+      if (reactionUp.indexOf(Auth.userID()) === -1) {
+        this.setState({ upvoteStatus: false });
+      } else this.setState({ upvoteStatus: true });
+      if (reactionDown.indexOf(Auth.userID()) === -1) {
+        this.setState({ downvoteStatus: false });
+      } else this.setState({ downvoteStatus: true });
+    }
   }
   /**
   /**
@@ -208,6 +216,7 @@ class RecipeItem extends Component {
       ingredients: event.target.elements.ingredients.value,
       direction: event.target.elements.direction.value,
       description: event.target.elements.description.value,
+      category: event.target.elements.category.value,
       foodImg: this.foodImg || foodImg
     };
     this.edited(data);
@@ -311,9 +320,9 @@ class RecipeItem extends Component {
       return (
         <GenerateItems
           state={this.state}
-          foodImg = {this.state.recipeItem.recipe.foodImg}
+          foodImg={this.state.recipeItem.recipe.foodImg}
           upvote={this.upvote}
-          downvote = {this.downvote}
+          downvote={this.downvote}
           favIt={this.favIt}
           hoverIn={this.hoverIn}
           hoverOut={this.hoverOut}
@@ -342,7 +351,13 @@ class RecipeItem extends Component {
    */
   render() {
     const {
-      deleteRecipe, recipeItem, editRecipe, edit, name, description, direction,
+      deleteRecipe,
+      recipeItem,
+      editRecipe,
+      edit,
+      name,
+      description,
+      direction,
       ingredients
     } = this.state;
     return (
@@ -355,10 +370,22 @@ class RecipeItem extends Component {
         <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">
             <h4>Delete Recipe?</h4>
-            <h2 className="mt-5">Are you sure you want to delete this recipe?</h2>
+            <h2 className="mt-5">
+              Are you sure you want to delete this recipe?
+            </h2>
             <h4>This action cannot be revoked</h4>
-            <button className="btn btn-block btn-success" onClick={this.delRecipe}>Yes</button>
-            <button className="btn btn-block btn-danger" onClick={this.onCloseDeleteModal}>No</button>
+            <button
+              className="btn btn-block btn-success"
+              onClick={this.delRecipe}
+            >
+              Yes
+            </button>
+            <button
+              className="btn btn-block btn-danger"
+              onClick={this.onCloseDeleteModal}
+            >
+              No
+            </button>
           </div>
         </Modal>
         <Fade duration={1000}>
@@ -373,14 +400,7 @@ class RecipeItem extends Component {
               {editRecipe && (
                 <EditForm
                   handleSubmit={this.handleSubmit}
-                  name={name}
-                  nameChanged={this.nameChanged}
-                  ingChanged={this.ingChanged}
-                  directionChanged={this.directionChanged}
-                  descriptionChanged={this.descriptionChanged}
-                  ingredients={ingredients}
-                  direction={direction}
-                  description={description}
+                  state={this.state}
                 />
               )}
               {!editRecipe && (

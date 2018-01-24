@@ -2,6 +2,8 @@ import React from 'react';
 import Textarea from 'react-textarea-autosize';
 import PropTypes from 'prop-types';
 
+import { list as categoryList } from '../../components/CategoryList';
+
 const EditForm = props => (
   <div>
     <form onSubmit={props.handleSubmit}>
@@ -14,14 +16,15 @@ const EditForm = props => (
             placeholder="Recipe Name"
             className="col-lg-11 col-sm-12"
             name="recipe"
-            defaultValue={props.name}
-            onChange={props.nameChanged}
+            defaultValue={props.state.name}
           />
-          <div className="text-danger" id="recipe_error" />
+          <div className={`text-danger ${props.state.error}`} id="recipe_error">
+            A recipe with this name already exist
+          </div>
         </li>
         <li className="col-lg-8 col-sm-12">
           <label>
-              Ingredients{' '}
+            Ingredients{' '}
             <em className="text-warning">(separate with comma ",")</em>
           </label>
           <Textarea
@@ -30,8 +33,7 @@ const EditForm = props => (
             name="ingredients"
             minRows={1}
             maxRows={50}
-            defaultValue={props.ingredients}
-            onChange={props.ingChanged}
+            defaultValue={props.state.ingredients}
           />
         </li>
         <li className="col-lg-8 col-sm-12">
@@ -41,8 +43,7 @@ const EditForm = props => (
             name="direction"
             minRows={3}
             maxRows={50}
-            defaultValue={props.direction}
-            onChange={props.directionChanged}
+            defaultValue={props.state.direction}
           />
         </li>
 
@@ -51,12 +52,26 @@ const EditForm = props => (
           <Textarea
             className="col-lg-11 col-sm-12"
             id="FormControlTextarea"
-            defaultValue={props.description}
-            onChange={props.descriptionChanged}
+            defaultValue={props.state.description}
             name="description"
             minRows={3}
             maxRows={50}
           />
+        </li>
+        <li className="col-lg-8 col-sm-12">
+          <label>Category</label>
+          <select
+            name="category"
+            className="col-12 "
+            style={{ height: '50px' }}
+            defaultValue={props.state.category}
+          >
+            {categoryList.map(item => (
+              <option value={item} key={item} className="text-capitalize">
+                {item}
+              </option>
+            ))}
+          </select>
         </li>
         <li className=" col-12 ">
           <input
@@ -72,15 +87,8 @@ const EditForm = props => (
 );
 
 EditForm.propTypes = {
-  descriptionChanged: PropTypes.func,
-  description: PropTypes.string,
-  directionChanged: PropTypes.func,
-  direction: PropTypes.string,
-  ingChanged: PropTypes.func,
-  ingredients: PropTypes.string,
   handleSubmit: PropTypes.func,
-  nameChanged: PropTypes.func,
-  name: PropTypes.string
+  state: PropTypes.string
 };
 
 export default EditForm;

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
 
 const FavoriteList = ({ favorites }) => {
+  console.log(favorites);
   if (favorites.userFav) {
     if (favorites.userFav.favorites.length < 1) {
       return (

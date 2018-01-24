@@ -10,7 +10,6 @@ export const isLoading = bool => ({
   type: type.IS_LOADING,
   isLoading: bool
 });
-
 // Get a specific user
 export const getUserInfo = id => dispatch =>
   axios
@@ -22,14 +21,17 @@ export const getUserInfo = id => dispatch =>
       dispatch({ type: type.USER_INFO, payload: err.response });
     });
 // Fetch All recipes
-export const getRecipes = (page, query = '') => dispatch => {
+export const getRecipes = (page, offset = 0, query = '') => dispatch => {
+  dispatch(isLoading(true));
   axios
-    .get(`${URL}/recipes/${page}${query}`)
+    .get(`${URL}/recipes/${page}/${offset}${query}`)
     .then(response => {
       dispatch({ type: type.ALL_RECIPES, payload: response.data });
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.ALL_RECIPES, payload: err.response });
+      dispatch(isLoading(false));
     });
 };
 
@@ -46,17 +48,21 @@ export const getReviews = recipeId => dispatch =>
       dispatch(isLoading(false));
     });
 // Get a single recipe
-export const getRecipeItem = id => dispatch =>
+export const getRecipeItem = id => dispatch => {
+  dispatch(isLoading(true));
   axios
     .get(`${URL}/recipe/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
       dispatch(getUserInfo(response.data.recipe.userId));
       dispatch(getReviews(id));
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.SINGLE_RECIPE, payload: err.response });
+      dispatch(isLoading(false));
     });
+};
 
 // Get a single recipe reactions
 export const getRecipeReactions = id => dispatch =>
@@ -128,7 +134,7 @@ export const updateUser = (id, data) => dispatch =>
 // Get user favorites
 export const getFavs = () => dispatch =>
   axios
-    .get(`${URL}/recipes/user/fav?token=${xtoken}`)
+    .get(`${URL}/favorites?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
     })
@@ -137,9 +143,9 @@ export const getFavs = () => dispatch =>
     });
 
 // Get recipe category
-export const getCategory = (data, limit) => dispatch =>
+export const getCategory = (data, limit, offset) => dispatch =>
   axios
-    .post(`${URL}/recipes/category/${limit}?token=${xtoken}`, data)
+    .post(`${URL}/recipes/category?token=${xtoken}`, data)
     .then(response => {
       dispatch({ type: type.GET_CATEGORY, payload: response.data });
     })
@@ -158,6 +164,7 @@ export const editRecipe = (data, id) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: type.EDIT_RECIPE, payload: err.response });
+      dispatch(isLoading(false));
     });
 };
 
@@ -269,7 +276,8 @@ export const upvote = id => dispatch => {
     .post(`${URL}/recipes/upvote/${id}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.UPVOTE, payload: response.data });
-      dispatch(getRecipeReactions(id));
+      dispatch(isLoading(false));
+      // dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.UPVOTE, payload: err.response });
@@ -322,6 +330,7 @@ export const compareToken = data => dispatch =>
     .catch(err => {
       dispatch({ type: type.COMPARE_TOKEN, payload: err.response });
     });
+
 // Upload recipe image
 export const uploadImg = data => {
   console.log(data);

@@ -23,7 +23,8 @@ const NavbarSearch = props => (
           type="search"
           name="search"
           id="search"
-          value={props.search}
+          // value={props.search}
+          autoComplete="off"
           onChange={props.searchBar}
           placeholder="search by ingredients or recipe title"
         />

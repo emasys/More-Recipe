@@ -1,11 +1,22 @@
 import * as type from '../actions/types';
 
-export default (state = {}, action) => {
+export default (
+  state = {
+    allRecipes: [],
+    recipeItem: {},
+    updateRecipes: {},
+    category: []
+  },
+  action
+) => {
   switch (action.type) {
   case type.ALL_RECIPES:
     return {
       ...state,
-      allRecipes: action.payload
+      hotRecipes: action.payload.recipes,
+      allRecipes: [...state.allRecipes, ...action.payload.recipes],
+      count: action.payload.count,
+      success: action.payload.success
     };
   case type.SINGLE_RECIPE:
     return {
@@ -30,13 +41,15 @@ export default (state = {}, action) => {
   case type.GET_CATEGORY:
     return {
       ...state,
-      category: action.payload
+      category: action.payload.recipes,
+      count: action.payload.count,
     };
 
   case type.SEARCH:
     return {
       ...state,
-      search: action.payload
+      searchResult: action.payload.recipes,
+      success: action.payload.success
     };
 
   case type.DELETE_RECIPE:

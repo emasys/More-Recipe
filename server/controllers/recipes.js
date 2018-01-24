@@ -1,6 +1,9 @@
 import Validator from 'validatorjs';
+
 import { Users, Recipes, Reviews, Favorite } from '../models';
 import { validateAddRecipes, setStatus } from '../middleware/helper';
+
+// const sequelize = new Sequelize;
 
 /**
  * parent class
@@ -59,7 +62,8 @@ class RecipeController {
               description: request.description,
               category: request.category,
               foodImg: request.foodImg,
-              ingredients: getArr(arr)
+              ingredients: getArr(arr),
+              searchIng: arr
             })
               .then(recipe => setStatus(res, { success: true, recipe }, 201))
               .catch(() =>
@@ -83,6 +87,10 @@ class RecipeController {
       );
     }
   }
+
+  // counter(){
+  //   Recipes.findAll({})
+  // }
   /**
    *
    *
@@ -96,10 +104,14 @@ class RecipeController {
     // Get sorted (by upvote) recipe list
     if (req.query.sort === 'upvotes' && req.query.order) {
       return Recipes.findAll({
+        offset: req.params.offset,
         limit: req.params.page,
         order: [['upvote', 'DESC']]
       })
-        .then(recipes => setStatus(res, { success: true, recipes }, 200))
+        .then(recipes =>
+          Recipes.count().then(count =>
+            setStatus(res, { success: true, recipes, count }, 200)))
+
         .catch(() =>
           setStatus(
             res,
@@ -112,10 +124,13 @@ class RecipeController {
     }
     if (req.query.sort === 'favorite' && req.query.order) {
       return Recipes.findAll({
+        offset: req.params.offset,
         limit: req.params.page,
         order: [['favorite', 'DESC']]
       })
-        .then(recipes => setStatus(res, { success: true, recipes }, 200))
+        .then(recipes =>
+          Recipes.count().then(count =>
+            setStatus(res, { success: true, recipes, count }, 200)))
         .catch(() =>
           setStatus(
             res,
@@ -129,9 +144,12 @@ class RecipeController {
     if (req.query.sort === 'views' && req.query.order) {
       return Recipes.findAll({
         limit: req.params.page,
+        offset: req.params.offset,
         order: [['views', 'DESC']]
       })
-        .then(recipes => setStatus(res, { success: true, recipes }, 200))
+        .then(recipes =>
+          Recipes.count().then(count =>
+            setStatus(res, { success: true, recipes, count }, 200)))
         .catch(() =>
           setStatus(
             res,
@@ -143,10 +161,13 @@ class RecipeController {
           ));
     }
     return Recipes.findAll({
+      offset: req.params.offset,
       limit: req.params.page,
       order: [['createdAt', 'DESC']]
     })
-      .then(recipes => setStatus(res, { success: true, recipes }, 200))
+      .then(recipes =>
+        Recipes.count().then(count =>
+          setStatus(res, { success: true, recipes, count }, 200)))
       .catch(() =>
         setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
@@ -161,7 +182,6 @@ class RecipeController {
    */
   static listRecipeCategory(req, res) {
     return Recipes.findAll({
-      limit: req.params.limit,
       where: {
         category: req.body.category
       },
@@ -211,7 +231,8 @@ class RecipeController {
       where: {
         $or: [
           { name: { ilike: `%${query}%` } },
-          { ingredients: { $contains: [`${query}`] } }
+          // { searchIng: { ilike: `%${breaker}%` } },
+          { searchIng: { ilike: `%${query}%` } }
         ]
       }
     })
@@ -233,8 +254,7 @@ class RecipeController {
       include: [
         {
           model: Reviews,
-          as: 'reviews',
-
+          as: 'reviews'
         },
         {
           model: Favorite,
@@ -243,7 +263,7 @@ class RecipeController {
       ]
     })
       .then((recipe) => {
-        // if other users view the recipe, the vuew count increases
+        // if other users view the recipe, the view count increases
         // the creator of the recipe gets only one count
         if (req.decoded.id) {
           if (req.decoded.id !== recipe.userId) {
@@ -290,19 +310,13 @@ class RecipeController {
           as: 'favorites'
         }
       ],
-      order: [
-        [
-          { model: Reviews, as: 'reviews' },
-          'createdAt',
-          'DESC'
-        ]
-      ]
+      order: [[{ model: Reviews, as: 'reviews' }, 'createdAt', 'DESC']]
     })
       .then((recipe) => {
         if (req.decoded.id) {
           return recipe
             .update({
-              favorite: recipe.favorites.length,
+              favorite: recipe.favorites.length
             })
             .then(() => setStatus(res, { success: true, recipe }, 200));
         }
@@ -325,40 +339,44 @@ class RecipeController {
       .then((recipe) => {
         Recipes.findOne({
           where: {
-            name: req.body.name,
+            name: req.body.name
           }
-        }).then((isExist) => {
-          if (isExist) {
+        })
+          .then((isExist) => {
+            if (isExist) {
+              return setStatus(
+                res,
+                {
+                  success: false,
+                  error: 'recipe already added to the database'
+                },
+                409
+              );
+            }
+
+            // Prevent other users from editing a recipe not theirs.
+            if (recipe.userId === req.decoded.id) {
+              return recipe
+                .update({
+                  name: req.body.name || recipe.name,
+                  direction: req.body.direction || recipe.direction,
+                  description: req.body.description || recipe.description,
+                  ingredients: getArr(arr) || recipe.ingredients,
+                  searchIng: arr,
+                  foodImg: req.body.foodImg || recipe.foodImg,
+                  category: req.body.category || recipe.category
+                })
+                .then(() => setStatus(res, { success: true, recipe }, 200));
+              // Send back the updated recipe.
+            }
             return setStatus(
               res,
-              {
-                success: false,
-                error: 'recipe already added to the database'
-              },
-              409
+              { success: false, status: 'cannot update this recipe' },
+              401
             );
-          }
-
-          // Prevent other users from editing a recipe not theirs.
-          if (recipe.userId === req.decoded.id) {
-            return recipe
-              .update({
-                name: req.body.name || recipe.name,
-                direction: req.body.direction || recipe.direction,
-                description: req.body.description || recipe.description,
-                ingredients: getArr(arr) || recipe.ingredients,
-                foodImg: req.body.foodImg || recipe.foodImg
-              })
-              .then(() => setStatus(res, { success: true, recipe }, 200));
-          // Send back the updated recipe.
-          }
-          return setStatus(
-            res,
-            { success: false, status: 'cannot update this recipe' },
-            401
-          );
-        })
-          .catch(() => setStatus(res, { success: false, error: 'recipe not found' }, 404));
+          })
+          .catch(() =>
+            setStatus(res, { success: false, error: 'recipe not found' }, 404));
       })
       .catch(() =>
         setStatus(res, { success: false, error: 'recipe not found' }, 404));

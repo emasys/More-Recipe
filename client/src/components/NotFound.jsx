@@ -7,9 +7,9 @@ import Navbar from './Navbar';
 const NotFound = () => (
   <div className="container">
     <Navbar className="bg-dark fixed-top"/>
-    <div className="text-center error-message mt-80">
-      <div className="catalog-wrapper">
-        <img src="../img/logo.png" alt="logo" />
+    <div className=" row catalog-wrapper text-center justify-content-center  mt-80 mb-20">
+      <div className="col">
+        <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" alt="logo" />
         <h2 className="p-3 m-20">
             We Know this is embarrassing,<br /> but don't worry we won't judge
             you

@@ -47,8 +47,8 @@ class Home extends Component {
    * @returns {any} react lifecycle method
    */
   componentDidMount() {
-    const query = '?sort=upvotes&order=desc';
-    this.props.getRecipes(12, query);
+    const query = '?sort=views&order=desc';
+    this.props.getRecipes(12, 0, query);
   }
 
   /**
@@ -138,7 +138,7 @@ class Home extends Component {
                 </h5>
               </div>
             </div>
-            <CatalogList catalog={this.props.recipes} />
+            <CatalogList catalog={this.props.recipes.hotRecipes} />
             <div className="col-12 ">
               <div className="clearfix">
                 <h5 className="text-center">
@@ -162,5 +162,5 @@ Home.propTypes = {
   recipes: PropTypes.object,
   getRecipes: PropTypes.func
 };
-const mapStateToProps = state => ({ recipes: state.recipes.allRecipes });
+const mapStateToProps = state => ({ recipes: state.recipes });
 export default connect(mapStateToProps, actions)(Home);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Fade from 'react-reveal/Fade';
+import InfiniteScroll from 'react-infinite-scroller';
+import Pace from 'react-pace-progress';
 
 // Actions
 import * as actions from '../../actions';
@@ -26,12 +28,19 @@ class FullCatalog extends Component {
    */
   constructor(props) {
     super(props);
+    // this.searchField = null;
+    this.increment = 0;
+    // this.hasMore = true;
     this.state = {
       search: '',
-      All_recipes: '',
-      page_limit: 12,
+      page_limit: 4,
       avatar: null,
-      showMore: false,
+      offset: 0,
+      allRecipes: '',
+      conpare: '',
+      searching: false,
+      hasMore: true,
+      showMore: true,
       dropdown: false
     };
   }
@@ -45,7 +54,9 @@ class FullCatalog extends Component {
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
-    this.props.getRecipes(this.state.page_limit);
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    };
   };
 
   /**
@@ -57,45 +68,15 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
-    const searchBar = document.getElementById('search').value;
-    if (searchBar.length < 1) {
-      this.setState({
-        All_recipes: nextProps.recipes.allRecipes
-      });
-    }
     if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
       });
     }
-    if (nextProps.recipes.allRecipes) {
-      if (nextProps.recipes.allRecipes.recipes.length > 11) {
-        this.setState({ showMore: true });
-      }
-    }
-    if (nextProps.recipes.search) {
-      return this.setState({
-        All_recipes: nextProps.recipes.search
-      });
+    if (this.state.offset >= nextProps.recipes.count) {
+      this.setState({ showMore: false });
     } else {
-      return this.setState({
-        All_recipes: nextProps.recipes.allRecipes
-      });
-    }
-  };
-  /**
-   *
-   *
-   * @param {object} nextProps
-   * @param {object} nextState
-   * @memberof FullCatalog
-   * @returns {any}
-   * invoked immediately before rendering
-   * when new props or state are being received.
-   */
-  componentWillUpdate = (nextProps, nextState) => {
-    if (nextState.page_limit > this.state.page_limit) {
-      this.props.getRecipes(nextState.page_limit);
+      this.nums();
     }
   };
 
@@ -105,27 +86,49 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   recentlyAdded = () => {
-    this.props.getRecipes(this.state.page_limit);
+    const compare = (a, b) => {
+      if (a.createdAt < b.createdAt) return 1;
+      if (a.createdAt > b.createdAt) return -1;
+      return 0;
+    };
+    this.setState({ compare });
   };
-
   /**
    *
    * @returns {object} list of recently added recipes
    * @memberof FullCatalog
    */
   mostUpvoted = () => {
-    const query = '?sort=upvotes&order=desc';
-    this.props.getRecipes(this.state.page_limit, query);
+    const compare = (a, b) => {
+      if (a.upvote < b.upvote) return 1;
+      if (a.upvote > b.upvote) return -1;
+      return 0;
+    };
+    this.setState({ compare });
   };
 
+  nums = () => {
+    this.setState(prevState => ({
+      offset: prevState.offset + 4
+    }));
+  };
+  loadFunc = () => {
+    console.log('triggered');
+    console.log(this.state.offset);
+    this.props.getRecipes(this.state.page_limit, this.state.offset);
+  };
   /**
    *
    * @returns {object} list of recently added recipes
    * @memberof FullCatalog
    */
   mostFavorited = () => {
-    const query = '?sort=favorite&order=desc';
-    this.props.getRecipes(this.state.page_limit, query);
+    const compare = (a, b) => {
+      if (a.favorite < b.favorite) return 1;
+      if (a.favorite > b.favorite) return -1;
+      return 0;
+    };
+    this.setState({ compare });
   };
 
   /**
@@ -134,20 +137,12 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   mostViewed = () => {
-    const query = '?sort=views&order=desc';
-    this.props.getRecipes(this.state.page_limit, query);
-  };
-  /**
-   *
-   *
-   * @param {any} event
-   * @memberof FullCatalog
-   * @returns {any} search for recipes
-   */
-  onSearch = event => {
-    event.preventDefault();
-    const data = { query: this.state.search.toLowerCase() };
-    this.props.searchRecipes(data);
+    const compare = (a, b) => {
+      if (a.views < b.views) return 1;
+      if (a.views > b.views) return -1;
+      return 0;
+    };
+    this.setState({ compare });
   };
 
   /**
@@ -158,13 +153,11 @@ class FullCatalog extends Component {
    * @returns {any} onChange event for the search bar
    */
   searchBar = event => {
-    this.setState({
-      search: event.target.value
-    });
+    this.setState({ searching: true });
+    const data = { query: event.target.value.toLowerCase() };
+    this.props.searchRecipes(data);
     if (event.target.value.length < 1) {
-      this.setState({
-        All_recipes: this.props.recipes.allRecipes
-      });
+      this.setState({ searching: false });
     }
   };
 
@@ -178,6 +171,7 @@ class FullCatalog extends Component {
     this.setState(prevState => ({
       page_limit: prevState.page_limit + 8
     }));
+    console.log('triggered!');
   };
   /**
    *
@@ -205,7 +199,7 @@ class FullCatalog extends Component {
    */
   render() {
     const {
-      search, avatar, showMore, dropdown
+      search, avatar, dropdown, searching, compare
     } = this.state;
     return (
       <div>
@@ -218,6 +212,9 @@ class FullCatalog extends Component {
             user={this.props.user}
           />
         </section>
+        <div className="fixed-top">
+          {this.props.netReq ? <Pace color="#e7b52c" height={2} /> : null}
+        </div>
         <div
           className="category-bar fixed-top custom-fixed custom-bg-color"
           style={{ zIndex: 900 }}
@@ -238,17 +235,30 @@ class FullCatalog extends Component {
         )}
         <section className="container mt-100" id="catalog">
           <div className="catalog-wrapper">
-            <CatalogList catalog={this.state.All_recipes} />
-            <div className="text-center">
-              {showMore && (
-                <button
-                  className="btn btn-outline-dark hvr-grow-shadow"
-                  onClick={this.nextPage}
-                >
-                  View More
-                </button>
-              )}
-            </div>
+            {!searching && (
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={this.loadFunc}
+                hasMore={this.state.showMore}
+                loader={
+                  <div className="loader text-center" key={0}>
+                    <img
+                      src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                      width="30"
+                      height="30"
+                      alt="loading..."
+                    />
+                  </div>
+                }
+              >
+                <CatalogList
+                  catalog={this.props.recipes.allRecipes.sort(compare)}
+                />
+              </InfiniteScroll>
+            )}
+            {searching && (
+              <CatalogList catalog={this.props.recipes.searchResult} />
+            )}
           </div>
         </section>
       </div>
@@ -257,7 +267,8 @@ class FullCatalog extends Component {
 }
 const mapStateToProps = state => ({
   recipes: state.recipes,
-  user: state.user.userProfile
+  user: state.user.userProfile,
+  netReq: state.netReq
 });
 
 FullCatalog.propTypes = {

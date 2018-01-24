@@ -7,10 +7,10 @@ import jwt from '../middleware/authorization';
 
 const router = express.Router();
 // GET recipe requests
-router.get('/recipes/:page', Recipes.listRecipes);
+router.get('/recipes/:page/:offset', Recipes.listRecipes);
 router.get('/recipes/upvoteReaction/:recipeId', jwt.verifyToken, Recipes.checkReactions);
 router.get('/recipes/yours/:limit/:id', jwt.verifyToken, Recipes.listPrivateRecipes);
-router.get('/recipes/user/fav', jwt.verifyToken, Favorite.listFavorites);
+router.get('/favorites', jwt.verifyToken, Favorite.listFavorites);
 router.get('/recipes/:recipeId/favStatus', jwt.verifyToken, Favorite.favoriteStatus);
 router.get('/recipe/:recipeId', jwt.verifyToken, Recipes.getRecipe);
 router.get('/recipe/reaction/:recipeId', jwt.verifyToken, Recipes.getReactionCount);
@@ -18,7 +18,7 @@ router.get('/reviews/:recipeId', jwt.verifyToken, Reviews.getReviews);
 
 // POST recipe requests
 router.post('/recipes', jwt.verifyToken, Recipes.addRecipe);
-router.post('/recipes/category/:limit', Recipes.listRecipeCategory);
+router.post('/recipes/category', Recipes.listRecipeCategory);
 router.post('/recipes/upvote/:recipeId', jwt.verifyToken, Recipes.upvote);
 router.put('/recipes/:recipeId', jwt.verifyToken, Recipes.updateRecipe);
 router.post('/recipes/downvote/:recipeId', jwt.verifyToken, Recipes.downvote);

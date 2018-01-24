@@ -10,7 +10,7 @@ const GeneraterecipeItem = props => (
         className={`btn btn-success mb-5 ${props.state.save}`}
         onClick={props.handleImg}
       >
-        save changes
+        Upload Image
       </button>
     </div>
     <figure
@@ -39,55 +39,53 @@ const GeneraterecipeItem = props => (
       <figcaption className="text-center bolder">
         {props.state.recipeItem.recipe.name}
       </figcaption>
-      <div className="d-inline mt-3">
-        <span className="text-center card-link" onClick={props.favIt}>
-          <i
-            className={`fa  ${
-              props.state.favoriteStatus ?
-                'fa-heart red animated bounceIn flash' :
-                'fa-heart gray'
-            } fa-2x`}
-            aria-hidden="true"
-            id="favorite"
-          />
-          <em className="bg-dark">{props.state.recipeItem.recipe.favorite}</em>
-        </span>
-        <span className="text-center card-link m-1" onClick={props.upvote}>
-          <i
-            className={`fa ${
-              props.state.upvoteStatus ?
-                'fa-thumbs-up animated bounceIn flash blue' :
-                'fa-thumbs-up gray'
-            } fa-2x`}
-            aria-hidden="true"
-            id="like"
-          />
-          <em className="bg-success">{props.state.recipeItem.recipe.upvote}</em>
-        </span>
-        <span className="text-center card-link m-1" onClick={props.downvote}>
-          <i
-            className={`fa ${
-              props.state.downvoteStatus ?
-                'fa-thumbs-down animated bounceIn flash red' :
-                'fa-thumbs-down gray'
-            } fa-2x`}
-            aria-hidden="true"
-            id="dislike"
-          />
-          <em className="bg-danger">
-            {props.state.recipeItem.recipe.downvote}
-          </em>
-        </span>
-
-        <span className="m-1 float-right d-inline">
-          <i className="fa fa-tag " aria-hidden="true" />
-          <Link to={`/category/${props.state.recipeItem.recipe.category}`}>
-            {` `}
-            {props.state.recipeItem.recipe.category}
-          </Link>
-        </span>
-      </div>
     </figure>
+    <div className="d-inline mt-3">
+      <span className="text-center card-link" onClick={props.favIt}>
+        <i
+          className={`fa  ${
+            props.state.favoriteStatus ?
+              'fa-heart red animated bounceIn flash' :
+              'fa-heart gray'
+          } fa-2x`}
+          aria-hidden="true"
+          id="favorite"
+        />
+        <em className="bg-dark">{props.state.recipeItem.recipe.favorite}</em>
+      </span>
+      <span className="text-center card-link m-1" onClick={props.upvote}>
+        <i
+          className={`fa ${
+            props.state.upvoteStatus ?
+              'fa-thumbs-up animated bounceIn flash blue' :
+              'fa-thumbs-up gray'
+          } fa-2x`}
+          aria-hidden="true"
+          id="like"
+        />
+        <em className="bg-success">{props.state.recipeItem.recipe.upvote}</em>
+      </span>
+      <span className="text-center card-link m-1" onClick={props.downvote}>
+        <i
+          className={`fa ${
+            props.state.downvoteStatus ?
+              'fa-thumbs-down animated bounceIn flash red' :
+              'fa-thumbs-down gray'
+          } fa-2x`}
+          aria-hidden="true"
+          id="dislike"
+        />
+        <em className="bg-danger">{props.state.recipeItem.recipe.downvote}</em>
+      </span>
+
+      <div className="m-1 float-right d-inline">
+        <i className="fa fa-tag " aria-hidden="true" />
+        <Link to={`/category/${props.state.recipeItem.recipe.category}`}>
+          {` `}
+          {props.state.recipeItem.recipe.category}
+        </Link>
+      </div>
+    </div>
   </div>
 );
 
