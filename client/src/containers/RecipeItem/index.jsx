@@ -79,6 +79,9 @@ class RecipeItem extends Component {
       });
     }
     if (nextProps.recipes.recipeItem.data) {
+      if (nextProps.recipes.recipeItem.data.status === "Recipes not found") {
+        nextProps.history.push('/NotFound');
+      }
       this.setState({
         error: 'd-block'
       });

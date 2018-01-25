@@ -402,7 +402,7 @@ footer {
 
 .direction {
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-wrap: break-word;
   // background: rgb(134, 133, 133);
   border-radius: 30px;
 }
@@ -613,6 +613,12 @@ footer {
 .error-border{
   border-color: red !important;
 }
+.img-icon-review {
+  // margin-top: 3px;
+  width: 60px;
+  height: 60px;
+}
+
 .img-icon {
   margin-top: 3px;
   width: 30px;

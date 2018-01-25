@@ -63,13 +63,13 @@ const UserInfo = props => {
           </p>
           <div>
             <button
-              className={`btn btn-dark btn-lg ${save}`}
+              className={`btn btn-success btn-lg ${save}`}
               onClick={() => {
                 props.handleImg();
                 props.notify();
               }}
             >
-              save update
+              Upload Image
             </button>
           </div>
           <div className="mt-5">

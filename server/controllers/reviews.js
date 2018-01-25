@@ -42,7 +42,7 @@ export default class ReviewRecipe {
         // enable sending a notification to the creator of the recipe
       })
         .then((recipe) => {
-          const { name, User: { email } } = recipe;
+          const { name, User: { email, moniker } } = recipe;
           recipe.update({ comments: recipe.comments + 1 });
           return Reviews.create({
             content: req.body.content,
@@ -51,7 +51,7 @@ export default class ReviewRecipe {
           })
             .then((reviewedRecipe) => {
               mailer(
-                reviewedRecipe.user,
+                moniker,
                 email,
                 `has reviewed your recipe (${name})`
               );

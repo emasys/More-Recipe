@@ -108,9 +108,14 @@ export const mailer = (moniker = null, email, message) => {
     // Subject line
     subject: '[Alert] MoreRecipe',
     // plaintext body
-    text: `${moniker} ${message}`,
+    // text: `${moniker} ${message}`,
     // html body
-    html: `${moniker} <b>${message} </b>`
+    html: `
+    <p>
+    <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" width="120" height="120" alt="logo"/>
+    </p>
+    <h4>${moniker} <b>${message} </b></h4>
+    `
   };
 
   // send mail with defined transport object

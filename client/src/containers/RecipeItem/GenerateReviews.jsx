@@ -18,7 +18,7 @@ const GenerateReviews = ({ review }) => {
             <img
               src={comment.User.avatar || config.DEFAULT_DISPLAY_PICTURE}
               alt="dp"
-              className="img-icon rounded-circle"
+              className="img-icon-review rounded-circle"
             />
             <Link className="text-dark bolder" to={`/user/${comment.User.id}`}>
               {' '}
