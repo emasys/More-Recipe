@@ -78,12 +78,16 @@ class Home extends Component {
                 </div>
                 <div className=" text-white bg-mirror text-left">
                   <Flip x duration={1000} step={this.step.is('header')}>
-                    This is a platform for you to share the awesome and exciting
-                    recipe ideas you have invented or learnt.
-                    <br />Recipes are by nature derivative and meant to be
-                    shared that is how they improve, are changed, how new ideas
-                    are formed. <br /> Have fun as you share and explore
-                    exciting recipes
+                    <p>
+                      This is a platform for you to share the awesome and
+                      exciting recipe ideas you have invented or learnt.
+                    </p>
+                    <p>
+                      Recipes are by nature derivative and meant to be shared
+                      that is how they improve, are changed, how new ideas are
+                      formed.
+                    </p>
+                    <p>Have fun as you share and explore exciting recipes</p>
                     {!Auth.loggedIn() && (
                       <Bounce
                         left
