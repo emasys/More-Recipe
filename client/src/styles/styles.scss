@@ -1,29 +1,32 @@
 @import './base/settings';
 @import './base/base';
-$color_1: rgb(15, 12, 1);
-$color_2: white;
-$color_3: rgb(141, 161, 141);
-$color_4: rgb(63, 63, 63);
-$color_5: rgb(105, 228, 160);
-$color_6: darkgray;
-$color_7: #868e96;
-$color_8: #bd2130;
-$color_9: #0062cc;
-$font_family_1: 'Satisfy', cursive;
-section {
-  margin-top: 50px;
-  &:last-of-type {
-    margin-bottom: 50px;
+
+// Header Section in Home Page
+.header {
+  margin: 0;
+  background:linear-gradient(180deg, rgb(19, 13, 1), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)),
+  url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
+  background-size: cover;
+  padding-top: 50px;
+  min-height: 450px;
+  max-width: 100%;
+  color: $white;
+  .header-items {
+    margin-top: 50px;
+    padding-bottom: 10px;
+  }
+  h4 {
+    font-size: 30px;
+    font-weight: bolder;
   }
 }
 
-a {
-  color: $color_1;
-  &:hover {
-    color: black;
-    text-decoration: none;
-  }
+.header-title {
+  font-family: 'Pacifico', cursive;
+  font-weight: 900;
+  font-size: 24px;
 }
+
 .animate-catalog{
   max-width: 300px;
 }
@@ -42,16 +45,12 @@ a {
   min-width: 500px;
 }
 .custom-dropdown {
-  // min-width:220px;
-  // padding:15px;
-  // right: 100px;
   font-size: 12px;
   box-sizing: border-box;
   overflow: hidden;
   .dropdown-header {
   font-size: 13px;
   }
-  
 }
 .hovered {
   cursor: pointer;
@@ -68,7 +67,7 @@ a {
 .card {
   .custom-bg {
     background: rgb(141, 161, 141);
-    color: $color_2;
+    color: $white;
     height: auto;
     text-shadow: 0 1px 1px black;
   }
@@ -88,11 +87,11 @@ a {
     padding: 5px;
     font-size: 12px;
     border-radius: 15px 0 0 15px;
-    color: $color_2;
+    color: $white;
     -webkit-transition: 400ms ease-in;
     -moz-transition: 400ms ease-in;
     transition: 400ms ease-in;
-    box-shadow: 0 2px 2px black;
+    box-shadow: 0 2px 2px $black;
     &:hover {
       box-shadow: none;
     }
@@ -121,7 +120,7 @@ a {
 }
 
 .navbar-brand {
-  font-family: $font_family_1;
+  font-family: $satisfy;
   text-shadow: none;
   font-size: 16px;
 }
@@ -136,30 +135,10 @@ a {
 .text-orange {
   color:  #f5b339 !important;
 }
-// background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
-// url('https://res.cloudinary.com/emasys/image/upload/v1514976360/2017-Logomaker-Background-Image_Woman_wl6l2p.jpg') no-repeat center center;
 .signin-form{
   padding: 0 50px;
 }
-.header {
-  margin: 0;
-  background:linear-gradient(180deg, rgb(19, 13, 1), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)),
-  url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
-  background-size: cover;
-  padding-top: 50px;
-  min-height: 450px;
-  max-width: 100%;
-  // color: $color_2;
-  color: white;
-  .header-items {
-    margin-top: 50px;
-    padding-bottom: 10px;
-  }
-  h4 {
-    font-size: 30px;
-    font-weight: bolder;
-  }
-}
+
 .home-title{
   font-size: 6rem;
   font-family: 'Roboto', sans-serif;
@@ -181,9 +160,6 @@ a {
   color: white !important;
   border-radius: 5px;
   padding: 5px 10px;
-}
-.comments{
-  
 }
 
 .date{
@@ -213,12 +189,6 @@ a {
   padding: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.315);
 }
-
-// .bg-navbar {
-//     background: linear-gradient(90deg, rgba(241, 193, 89, 0.45), rgba(241, 193, 89, 0.5), rgba(241, 193, 89, 0.6), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8), rgba(241, 193, 89, 0.9), rgba(241, 193, 89, 1)),
-//     url('../img/Food.jpg') no-repeat center center;
-//     background-size: cover;
-// }
 .btn {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.315);
   -webkit-transition: 500ms ease-in-out;
@@ -256,7 +226,7 @@ input[type='search'] {
   font-style: italic;
   padding: 10px;
   font-size: 14px;
-  color: $color_4;
+  color: $dark_red;
   text-align: left;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.089);
@@ -293,7 +263,7 @@ input[type='search'] {
     padding-right: 10px;
   }
   a {
-    color: $color_1;
+    color: $black;
     font-weight: bold;
     -webkit-transition: 400ms ease-in;
     -moz-transition: 400ms ease-in;
@@ -318,7 +288,7 @@ input[type='search'] {
     box-shadow: 0px 15px 10px -10px #0e0e0e;
   }
   a {
-    color: $color_1;
+    color: $black;
     font-weight: bold;
     -webkit-transition: 400ms ease-in;
     -moz-transition: 400ms ease-in;
@@ -359,7 +329,7 @@ footer {
   a {
     text-decoration: none;
     text-align: center;
-    color: $color_6;
+    color: $dark_gray;
   }
 }
 
@@ -374,12 +344,9 @@ footer {
   box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.205);
 }
 .category-wrapper {
-  // background: linear-gradient(90deg, rgba(36, 25, 2, 0.8), rgba(36, 25, 2, 0.5), rgba(36, 25, 2, 0.85), rgba(241, 193, 89, 0.7), rgba(241, 193, 89, 0.8)), 
-  // url('http://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
   background-size: cover;
   background: #ffffff;
   padding: 30px 10px;
-  // border-radius: 8px;
   margin-top: 0;
   text-align: center;
   box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.205); 
@@ -419,7 +386,7 @@ footer {
     transition: 400ms ease-in;
   }
   span {
-    color: $color_7;
+    color: $darker_gray;
     text-align: center !important;
   }
 }
@@ -466,14 +433,14 @@ footer {
 }
 
 .red {
-  color: $color_8;
+  color: $pink;
   &:hover {
     color: red;
   }
 }
 
 .blue {
-  color: $color_9;
+  color: $blue;
 }
 
 .social-icons {
@@ -492,7 +459,7 @@ footer {
   width: 100%;
   top: 0;
   padding: 5px;
-  color: $color_2;
+  color: $white;
   background: white;
   z-index: 2000;
 }
@@ -504,7 +471,7 @@ footer {
   width: 100%;
   top: 0;
   padding: 5px;
-  color: $color_2;
+  color: $white;
   background: rgba(0, 0, 0, 0.7);
   overflow: hidden;
 }
@@ -520,7 +487,7 @@ footer {
   position: relative;
   padding: 5px;
   em {
-    color: $color_2;
+    color: $white;
     font-style: normal;
     background: rgb(112, 5, 5);
     padding: 1px 5px;
@@ -541,7 +508,7 @@ footer {
   z-index: 2000;
   border: none;
   outline: none;
-  color: $color_2;
+  color: $white;
   cursor: pointer;
 }
 
@@ -553,7 +520,7 @@ footer {
   z-index: 2;
   border: none;
   outline: none;
-  color: $color_2;
+  color: $white;
   cursor: pointer;
   transition: 0.70s;
   -webkit-transition: 0.70s;
@@ -570,7 +537,7 @@ footer {
   z-index: 2;
   border: none;
   outline: none;
-  color: $color_2;
+  color: $white;
   cursor: pointer;
 }
 
@@ -591,18 +558,6 @@ footer {
   align-items: center;
 }
 
-// .profile-wrapper {
-//   position: relative;
-// }
-// .editProfile{
-//   position: absolute;
-//   // background: rgba(0, 0, 0, 0.623);
-//   top: 60%;
-//   left: 90%;
-//   display: block;
-//   width: 100%;
-  
-// }
 .dropzone-dp {
   // height: 100%;
   background: rgba(0, 0, 0, 0.623);
@@ -644,12 +599,6 @@ footer {
   }
 }
 
-.header-title {
-  font-family: 'Pacifico', cursive;
-  font-weight: 900;
-  font-size: 24px;
-}
-
 .cover-page {
   height: 100%;
 }
@@ -669,7 +618,7 @@ footer {
 .fresh-title {
   text-shadow: 1px 1px 1px white, 1px 2px 2px black;
   font-style: 900px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; // font-size: 28px
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 

@@ -21,7 +21,6 @@ const GenerateReviews = ({ review }) => {
               className="img-icon-review rounded-circle"
             />
             <Link className="text-dark bolder" to={`/user/${comment.User.id}`}>
-              {' '}
               {comment.User.moniker}
             </Link>
             <hr />
@@ -30,7 +29,7 @@ const GenerateReviews = ({ review }) => {
             <p className="mb-0 text-dark">{comment.content}</p>
           </div>
           <div className="date bg-dark ">
-            <p>{moment(comment.updatedAt).format('MMM Do YYYY, h:mm a')}</p>
+            <p>{moment(comment.updatedAt).format('MMMM Do YYYY, h:mm a')}</p>
           </div>
         </div>
       </div>
