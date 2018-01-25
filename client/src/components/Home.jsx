@@ -48,7 +48,7 @@ class Home extends Component {
    */
   componentDidMount() {
     const query = '?sort=views&order=desc';
-    this.props.getRecipes(12, 0, query);
+    this.props.getHotRecipes(12, 0, query);
   }
 
   /**

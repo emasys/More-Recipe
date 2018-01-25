@@ -70,16 +70,15 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.recipes.updateRecipes.success) {
+    if (nextProps.recipes.updated) {
       this.update();
       this.setState({
         editRecipe: false,
         status: 'fade',
-        recipeItem: nextProps.recipes.updateRecipes.recipe,
         error: 'd-none'
       });
     }
-    if (nextProps.recipes.updateRecipes.data) {
+    if (nextProps.recipes.recipeItem.data) {
       this.setState({
         error: 'd-block'
       });
@@ -111,11 +110,6 @@ class RecipeItem extends Component {
           });
         }
         return null;
-      });
-    }
-    if (nextProps.votes.upvote) {
-      this.setState({
-        recipeItem: nextProps.votes.upvote
       });
     }
   }
@@ -196,9 +190,9 @@ class RecipeItem extends Component {
    * @returns {any} an updated recipe
    */
   handleSubmit = event => {
-    const { foodImg } = this.state;
+    const { foodImg, recipeItem: { recipe: { name } } } = this.state;
     event.preventDefault();
-    const prevName = this.props.recipes.recipeItem.recipe.name;
+    const prevName = name;
     const newName = event.target.elements.recipe.value.trim();
     let data = {
       name:

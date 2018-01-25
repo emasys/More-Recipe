@@ -38,7 +38,7 @@ export default class ReviewRecipe {
     const validator = new Validator(request, validateReviews());
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId, {
-        include: [{ model: Users }]
+        include: [{ model: Users }],
         // enable sending a notification to the creator of the recipe
       })
         .then((recipe) => {
@@ -55,7 +55,7 @@ export default class ReviewRecipe {
                 email,
                 `has reviewed your recipe (${name})`
               );
-              return setStatus(res, { success: true, reviewedRecipe }, 201);
+              return setStatus(res, { success: true, reviewedRecipe, recipe }, 201);
             })
             .catch(err => setStatus(res, { success: false, error: err }, 500));
         })

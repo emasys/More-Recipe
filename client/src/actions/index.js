@@ -34,6 +34,24 @@ export const getRecipes = (page, offset = 0, query = '') => dispatch => {
       dispatch(isLoading(false));
     });
 };
+// Fetch All recipes
+export const getHotRecipes = (limit, offset = 0, query = '') => dispatch => {
+  dispatch(isLoading(true));
+  axios
+    .get(`${URL}/recipes/${limit}/${offset}${query}`)
+    .then(response => {
+      dispatch({ type: type.HOT_RECIPES, payload: response.data });
+      dispatch(isLoading(false));
+    })
+    .catch(err => {
+      dispatch({ type: type.HOT_RECIPES, payload: err.response });
+      dispatch(isLoading(false));
+    });
+};
+
+export const clearRecipes = () => dispatch => {
+  dispatch({ type: type.CLEAR_RECIPES, payload: [] });
+};
 
 // Fetch reviews for a recipe
 export const getReviews = recipeId => dispatch =>

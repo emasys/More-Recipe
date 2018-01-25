@@ -10,15 +10,26 @@ export default (
   action
 ) => {
   switch (action.type) {
+  case type.CLEAR_RECIPES:
+    return {
+      ...state,
+      allRecipes: []
+    };
   case type.ALL_RECIPES:
     return {
       ...state,
-      hotRecipes: action.payload.recipes,
       allRecipes: [...state.allRecipes, ...action.payload.recipes],
       count: action.payload.count,
       success: action.payload.success
     };
+  case type.HOT_RECIPES:
+    return {
+      ...state,
+      hotRecipes: action.payload.recipes
+    };
   case type.SINGLE_RECIPE:
+  case type.UPVOTE:
+  case type.DOWNVOTE:
     return {
       ...state,
       recipeItem: action.payload
@@ -36,13 +47,15 @@ export default (
   case type.EDIT_RECIPE:
     return {
       ...state,
-      updateRecipes: action.payload
+      // updateRecipes: action.payload,
+      recipeItem: action.payload,
+      updated: action.payload.success
     };
   case type.GET_CATEGORY:
     return {
       ...state,
       category: action.payload.recipes,
-      count: action.payload.count,
+      count: action.payload.count
     };
 
   case type.SEARCH:

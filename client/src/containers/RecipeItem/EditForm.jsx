@@ -88,7 +88,7 @@ const EditForm = props => (
 
 EditForm.propTypes = {
   handleSubmit: PropTypes.func,
-  state: PropTypes.string
+  state: PropTypes.object
 };
 
 export default EditForm;

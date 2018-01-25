@@ -27,4 +27,5 @@ export const COMPARE_TOKEN = 'compare reset password token';
 export const UPLOAD_FOOD_IMG = 'upload food image';
 export const IS_LOADING = 'is page loading';
 export const GET_REVIEWS = 'get reviews';
-
+export const HOT_RECIPES = "popular recipes";
+export const CLEAR_RECIPES = "clear recipes";

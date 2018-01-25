@@ -80,6 +80,12 @@ class FullCatalog extends Component {
     }
   };
 
+  
+  componentWillUnmount = () => {
+    this.props.clearRecipes();
+  }
+  
+
   /**
    *
    * @returns {object} list of recently added recipes

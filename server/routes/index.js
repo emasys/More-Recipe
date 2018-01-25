@@ -8,7 +8,6 @@ import jwt from '../middleware/authorization';
 const router = express.Router();
 // GET recipe requests
 router.get('/recipes/:page/:offset', Recipes.listRecipes);
-router.get('/recipes/upvoteReaction/:recipeId', jwt.verifyToken, Recipes.checkReactions);
 router.get('/recipes/yours/:limit/:id', jwt.verifyToken, Recipes.listPrivateRecipes);
 router.get('/favorites', jwt.verifyToken, Favorite.listFavorites);
 router.get('/recipes/:recipeId/favStatus', jwt.verifyToken, Favorite.favoriteStatus);

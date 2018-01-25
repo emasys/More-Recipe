@@ -335,7 +335,18 @@ class RecipeController {
   static updateRecipe(req, res) {
     const arr = req.body.ingredients;
     const getArr = input => input.trim().split(/\s*,\s*/);
-    return Recipes.findById(req.params.recipeId)
+    return Recipes.findById(req.params.recipeId, {
+      include: [
+        {
+          model: Reviews,
+          as: 'reviews'
+        },
+        {
+          model: Favorite,
+          as: 'favorites'
+        }
+      ]
+    })
       .then((recipe) => {
         Recipes.findOne({
           where: {
@@ -387,45 +398,22 @@ class RecipeController {
    * @static
    * @param {object} req
    * @param {object} res
-   * @returns {object} the reaction status of a user once the page loads
-   * @memberof MoreRecipes
-   */
-  static checkReactions(req, res) {
-    return Recipes.findById(req.params.recipeId)
-      .then((recipe) => {
-        if (recipe.reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
-          return setStatus(
-            res,
-            { upvote: { success: true }, downvote: { success: false } },
-            200
-          );
-        } else if (recipe.reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
-          return setStatus(
-            res,
-            { upvote: { success: false }, downvote: { success: true } },
-            200
-          );
-        }
-        return setStatus(
-          res,
-          { upvote: { success: false }, downvote: { success: false } },
-          200
-        );
-      })
-      .catch(() =>
-        setStatus(res, { success: false, status: 'recipe not found' }, 404));
-  }
-  /**
-   *
-   *
-   * @static
-   * @param {object} req
-   * @param {object} res
    * @returns {object} a new value for upvote
    * @memberof MoreRecipes
    */
   static upvote(req, res) {
-    return Recipes.findById(req.params.recipeId)
+    return Recipes.findById(req.params.recipeId, {
+      include: [
+        {
+          model: Reviews,
+          as: 'reviews'
+        },
+        {
+          model: Favorite,
+          as: 'favorites'
+        }
+      ]
+    })
       .then((recipe) => {
         // check if a user is logged in
         if (req.decoded.id) {
@@ -503,7 +491,18 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static downvote(req, res) {
-    return Recipes.findById(req.params.recipeId)
+    return Recipes.findById(req.params.recipeId, {
+      include: [
+        {
+          model: Reviews,
+          as: 'reviews'
+        },
+        {
+          model: Favorite,
+          as: 'favorites'
+        }
+      ]
+    })
       .then((recipe) => {
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;

@@ -4,6 +4,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 const generateList = ({ ingredients }) => {
+  console.log(ingredients);
   if (ingredients.recipe) {
     const list = ingredients.recipe.ingredients;
     return list.map((item, index) => (

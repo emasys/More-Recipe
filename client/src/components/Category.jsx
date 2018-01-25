@@ -39,10 +39,8 @@ class Category extends Component {
       <div>
         <Navbar className="bg-dark fixed-top" />
         <div className="mt-80 mb-3">
-          <div className="container" id="catalog">
-            <div className="row justify-content-center catalog-wrapper">
-              <CatalogList catalog={this.props.recipes.category} />
-            </div>
+          <div className="container catalog-wrapper" id="catalog">
+            <CatalogList catalog={this.props.recipes.category} />
           </div>
         </div>
       </div>
