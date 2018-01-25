@@ -169,6 +169,11 @@ a {
     font-weight: 700;
   }
 }
+.reaction-pane{
+  .fa-2x {
+    font-size: 2.5rem;
+  }
+}
 .comment-wrapper{
   position: relative;
 }
@@ -519,7 +524,7 @@ footer {
     font-style: normal;
     background: rgb(112, 5, 5);
     padding: 1px 5px;
-    font-size: 9px;
+    font-size: 0.7rem;
     border-radius: 20%;
     position: absolute;
     top: 11px;
