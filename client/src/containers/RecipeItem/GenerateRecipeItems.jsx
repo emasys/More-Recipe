@@ -37,9 +37,6 @@ const GeneraterecipeItem = props => (
         alt="foodie"
         className="img-fluid rounded recipeImage"
       />
-      {/* <figcaption className="text-center bolder">
-        {props.state.recipeItem.recipe.name}
-      </figcaption> */}
     </figure>
     <div className="d-inline mt-3 reaction-pane">
       <span className="text-center card-link" onClick={props.favIt}>
@@ -85,14 +82,6 @@ const GeneraterecipeItem = props => (
           id="views"
         />
         <em className=" bg-dark">{props.state.recipeItem.recipe.views}</em>
-      </span>
-      <span className="text-center card-link m-1" onClick={props.upvote}>
-        <i
-          className="fa fa-comments fa-2x"
-          aria-hidden="true"
-          id="views"
-        />
-        <em className=" bg-dark">{props.state.recipeItem.recipe.comments}</em>
       </span>
       <div className="m-1 float-right d-inline">
         <i className="fa fa-tag " aria-hidden="true" />
