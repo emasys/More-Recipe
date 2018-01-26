@@ -74,7 +74,7 @@ class CatalogList extends Component {
                       item.name}
                   </h4>
                   <div className="card-body p-5 text-left bg-light">
-                    <p className="line-clamp crop-text wrapWord">{item.description}</p>
+                    <p className="line-clamp crop-text wrapWord wrapIt">{item.description}</p>
                   </div>
                   <span>
                     <i className="fa fa-heart-o" aria-hidden="true" />

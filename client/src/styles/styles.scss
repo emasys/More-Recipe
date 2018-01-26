@@ -65,6 +65,7 @@
   top: 0;
 }
 .card {
+  max-width: 24rem;  
   .custom-bg {
     background: rgb(141, 161, 141);
     color: $white;
@@ -75,12 +76,18 @@
 .recipeImage{
   width: 100%;
 }
+
+.wrapIt{
+  // max-width: 19rem; 
+  overflow-wrap: break-word 
+}
 .card-body {
-  max-width: 19.1rem !important;
   span {
     padding: 5px;
   }
   position: relative;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
   .tag {
     position: absolute;
     top: -25px;
