@@ -111,12 +111,13 @@ class RecipeItem extends Component {
           return this.setState({
             favoriteStatus: true
           });
-        } else {
-          return this.setState({
-            favoriteStatus: false
-          });
-        }
-        // return null;
+        } 
+        // else {
+        //   return this.setState({
+        //     favoriteStatus: false
+        //   });
+        // }
+        return null;
       });
     }
   }

@@ -20,7 +20,7 @@ const GenerateReviews = ({ review }) => {
               alt="dp"
               className="img-icon-review rounded-circle"
             />
-            <Link className="text-dark bolder" to={`/user/${comment.User.id}`}>
+            <Link className="text-dark bolder ml-2" to={`/user/${comment.User.id}`}>
               {comment.User.moniker}
             </Link>
             <hr />
