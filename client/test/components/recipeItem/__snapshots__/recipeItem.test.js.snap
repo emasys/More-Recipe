@@ -238,7 +238,7 @@ exports[`Example test should render recipe item component 1`] = `
                       className="col-lg-5 col-sm-12"
                     >
                       <h2
-                        className="fresh-title text-capitalize"
+                        className="fresh-title wrapWord text-capitalize"
                       >
                         msnbxmanmaxmnaxbaxbnbxasdadaasdad ba xbn xanb xaxasxxax
                       </h2>
@@ -277,10 +277,10 @@ exports[`Example test should render recipe item component 1`] = `
                         Description
                       </h5>
                       <div
-                        className="pb-3"
+                        className="pb-3 "
                       >
                         <div
-                          className="bg-light p-15"
+                          className="bg-light direction rounded p-15"
                         >
                           axx
                         </div>
@@ -296,7 +296,7 @@ exports[`Example test should render recipe item component 1`] = `
                         className="pb-3"
                       >
                         <ul
-                          className="list-group"
+                          className="list-group wrapWord"
                         >
                           <a
                             className="list-group-item text-capitalize list-group-item-action"

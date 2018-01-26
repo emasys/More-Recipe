@@ -112,11 +112,6 @@ class RecipeItem extends Component {
             favoriteStatus: true
           });
         } 
-        // else {
-        //   return this.setState({
-        //     favoriteStatus: false
-        //   });
-        // }
         return null;
       });
     }
