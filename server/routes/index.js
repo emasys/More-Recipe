@@ -10,7 +10,6 @@ const router = express.Router();
 router.get('/recipes/:page/:offset', Recipes.listRecipes);
 router.get('/recipes/yours/:limit/:id', jwt.verifyToken, Recipes.listPrivateRecipes);
 router.get('/favorites', jwt.verifyToken, Favorite.listFavorites);
-router.get('/recipes/:recipeId/favStatus', jwt.verifyToken, Favorite.favoriteStatus);
 router.get('/recipe/:recipeId', jwt.verifyToken, Recipes.getRecipe);
 router.get('/recipe/reaction/:recipeId', jwt.verifyToken, Recipes.getReactionCount);
 router.get('/reviews/:recipeId', jwt.verifyToken, Reviews.getReviews);

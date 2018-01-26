@@ -4,7 +4,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 const generateList = ({ ingredients }) => {
-  console.log(ingredients);
   if (ingredients.recipe) {
     const list = ingredients.recipe.ingredients;
     return list.map((item, index) => (
@@ -22,7 +21,7 @@ const generateList = ({ ingredients }) => {
 
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
-    <h2 className="fresh-title text-capitalize">
+    <h2 className="fresh-title wrapWord text-capitalize">
       {props.ingredients.recipe ? props.ingredients.recipe.name : 'loading...'}
     </h2>
     <small className="text-capitalize">
@@ -43,8 +42,8 @@ const Ingredients = props => (
     </small>
     <hr />
     <h5 className="text-muted">Description</h5>
-    <div className="pb-3">
-      <div className="bg-light p-15">
+    <div className="pb-3 ">
+      <div className="bg-light direction rounded p-15">
         {props.ingredients.recipe ?
           props.ingredients.recipe.description :
           'loading...'}
@@ -54,7 +53,7 @@ const Ingredients = props => (
     <h5 className="text-muted">Ingredients</h5>
     <hr />
     <div className="pb-3">
-      <ul className="list-group">{generateList(props)}</ul>
+      <ul className="list-group wrapWord">{generateList(props)}</ul>
     </div>
     <h5 className="text-muted">Directions</h5>
     <hr />

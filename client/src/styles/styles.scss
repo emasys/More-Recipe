@@ -76,6 +76,7 @@
   width: 100%;
 }
 .card-body {
+  max-width: 19.1rem !important;
   span {
     padding: 5px;
   }
@@ -376,9 +377,12 @@ footer {
   box-sizing: border-box;
   overflow-wrap: break-word;
   // background: rgb(134, 133, 133);
-  border-radius: 30px;
+  // border-radius: 30px;
 }
-
+.wrapWord{
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
 .card-columns {
   .card {
     -webkit-transition: 400ms ease-in;

@@ -18,7 +18,7 @@ import config from '../config';
  * @class Navbar
  * @extends {Component}
  */
-class Navbar extends Component {
+export class Navbar extends Component {
   /**
    * Creates an instance of Navbar.
    * @param {any} props

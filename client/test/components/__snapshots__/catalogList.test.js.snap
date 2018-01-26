@@ -1,134 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render catalog list correctly 1`] = `
-<div
-  className="row justify-content-center"
+<CatalogList
+  catalog={
+    Array [
+      Object {
+        "category": "Breakfast",
+        "comments": 5,
+        "createdAt": "2017-12-25T11:49:01.973Z",
+        "description": "just do it",
+        "direction": "just do it",
+        "downvote": 0,
+        "favorite": 2,
+        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514202541/hse0xuqzyqlxjqwemigv.jpg",
+        "id": 1,
+        "ingredients": Array [
+          "water",
+          "oil",
+          "pepper",
+          "salt",
+        ],
+        "name": "How to cook yam",
+        "reactionDown": Array [],
+        "reactionUp": Array [
+          1,
+          3,
+        ],
+        "recipeCount": null,
+        "searchIng": null,
+        "updatedAt": "2018-01-25T06:05:27.480Z",
+        "upvote": 2,
+        "userId": 1,
+        "views": 3,
+      },
+    ]
+  }
 >
   <div
-    className="col-lg-3 col-sm-8 mb-20 col-md-4 animate-catalog"
-    data-animate="bounceIn"
-    data-delay="0.1s"
-    data-duration="1.0s"
-    data-offset="100"
-    key="0"
+    className="row justify-content-center"
   >
-    <div>
-      <Link
-        className=" hvr-grow-shadow"
-        replace={false}
-        to="/recipe/1"
-      >
-        <div
-          className="card"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-        >
-          <img
-            alt="recipe image"
-            className="card-img-top img-box"
-            src="some picture url"
-          />
-          <div
-            className="card-body p-0 text-center social-icons"
-          >
-            <span
-              className="tag bg-danger"
-            >
-              Pasta
-            </span>
-            <h4
-              className="card-title custom-bg bg-dark p-2 m-0"
-            >
-              welcome to more recipe
-            </h4>
-            <div
-              className="card-body p-5 text-left bg-light"
-            >
-              <p
-                className="line-clamp crop-text"
-              >
-                do it again
-              </p>
-            </div>
-            <span>
-              <i
-                aria-hidden="true"
-                className="fa fa-heart-o"
-              />
-              0
-            </span>
-            <span>
-              <i
-                aria-hidden="true"
-                className="fa fa-thumbs-o-up"
-              />
-              1
-            </span>
-            <span>
-              <i
-                aria-hidden="true"
-                className="fa fa-thumbs-o-down"
-              />
-              0
-            </span>
-            <span>
-              <i
-                aria-hidden="true"
-                className="fa fa-eye"
-              />
-              1
-            </span>
-            <span>
-              <i
-                aria-hidden="true"
-                className="fa fa-comment-o"
-              />
-              0
-            </span>
-          </div>
-        </div>
-      </Link>
+    <div
+      className="col-lg-3 col-sm-8 mb-20 col-md-4 animate-catalog"
+      data-animate="bounceIn"
+      data-delay="0.1s"
+      data-duration="1.0s"
+      data-offset="100"
+      key="0"
+    >
+      <div>
+        <Link
+          className=" hvr-grow-shadow"
+          replace={false}
+          to="/recipe/1"
+        />
+      </div>
     </div>
   </div>
-</div>
+</CatalogList>
 `;
 
 exports[`should render catalog list correctly with empty props 1`] = `
-<div
-  className="row justify-content-center"
+<CatalogList
+  catalog={Array []}
 >
   <div
-    className="text-center error-message"
+    className="row justify-content-center"
   >
     <div
-      className="catalog"
+      className="text-center error-message"
     >
-      <img
-        alt="logo"
-        src="../img/logo.png"
-      />
-      <h4
-        className="p-3 m-2"
+      <div
+        className="catalog "
       >
-        ...Oops
-      </h4>
-      <p
-        className="p-3 m-2"
-      >
-        No recipe found
-      </p>
-      <p
-        className="p-3 m-2"
-      >
-        <Link
-          className="btn btn-outline-dark hvr-icon-back"
-          replace={false}
-          to="/"
+        <img
+          alt="logo"
+          src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+        />
+        <h4
+          className="p-3 m-2 text-center"
         >
-          ...go back home
-        </Link>
-      </p>
+          ...Oops
+        </h4>
+        <p
+          className="p-3 m-2 text-center"
+        >
+          No recipe found
+        </p>
+        <p
+          className="p-3 m-2 text-center"
+        >
+          <Link
+            className="btn btn-outline-dark hvr-icon-back"
+            replace={false}
+            to="/"
+          />
+        </p>
+      </div>
     </div>
   </div>
-</div>
+</CatalogList>
 `;

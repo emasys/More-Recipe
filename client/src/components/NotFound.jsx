@@ -24,7 +24,7 @@ const NotFound = () => (
             role="button"
           >
             ...Go back Home
-          </Link>{' '}
+          </Link>
         </h2>
       </div>
     </div>

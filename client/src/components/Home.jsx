@@ -21,7 +21,7 @@ import Auth from './auth';
  * @class Home
  * @extends {Component}
  */
-class Home extends Component {
+export class Home extends Component {
   /**
    * Creates an instance of Home.
    * @param {any} props
@@ -164,7 +164,7 @@ class Home extends Component {
 
 Home.propTypes = {
   recipes: PropTypes.object,
-  getRecipes: PropTypes.func
+  getHotRecipes: PropTypes.func
 };
 const mapStateToProps = state => ({ recipes: state.recipes });
 export default connect(mapStateToProps, actions)(Home);

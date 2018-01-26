@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
-import 'react-responsive-modal/lib/react-responsive-modal.css';
+// import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 import Fade from 'react-reveal/Fade';
 import PropTypes from 'prop-types';
@@ -111,8 +111,12 @@ class RecipeItem extends Component {
           return this.setState({
             favoriteStatus: true
           });
+        } else {
+          return this.setState({
+            favoriteStatus: false
+          });
         }
-        return null;
+        // return null;
       });
     }
   }
@@ -447,4 +451,6 @@ RecipeItem.propTypes = {
   getRecipeItem: PropTypes.func,
   match: PropTypes.object
 };
+
+export {RecipeItem as DumbRecipeItem}
 export default connect(mapStateToProps, actions)(RecipeItem);

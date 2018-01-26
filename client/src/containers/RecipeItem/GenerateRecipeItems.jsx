@@ -77,7 +77,7 @@ const GeneraterecipeItem = props => (
       </span>
       <span className="text-center card-link m-1" onClick={props.upvote}>
         <i
-          className="fa fa-eye fa-2x"
+          className="fa fa-eye fa-2x gray"
           aria-hidden="true"
           id="views"
         />

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import * as actions from '../actions';
 
 // Components
-import Navbar from './Navbar';
+import FixedNavbar from './Navbar';
 import CatalogList from './CatalogList';
 /**
  *
@@ -14,7 +14,7 @@ import CatalogList from './CatalogList';
  * @class Category
  * @extends {Component}
  */
-class Category extends Component {
+export class Category extends Component {
   /**
    *
    *
@@ -37,7 +37,7 @@ class Category extends Component {
   render() {
     return (
       <div>
-        <Navbar className="bg-dark fixed-top" />
+        <FixedNavbar className="bg-dark fixed-top" />
         <div className="mt-80 mb-3">
           <div className="container catalog-wrapper" id="catalog">
             <CatalogList catalog={this.props.recipes.category} />
@@ -55,6 +55,7 @@ const mapStateToProps = state => ({
 Category.propTypes = {
   getCategory: PropTypes.func,
   category: PropTypes.object,
-  match: PropTypes.object
+  match: PropTypes.object,
+  recipes: PropTypes.object
 };
 export default connect(mapStateToProps, actions)(Category);

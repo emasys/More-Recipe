@@ -273,6 +273,7 @@ export const setFavorite = id => dispatch => {
     })
     .catch(err => {
       dispatch({ type: type.SET_FAVORITE, payload: err.response });
+      dispatch(isLoading(false));
     });
 };
 
