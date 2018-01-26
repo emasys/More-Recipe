@@ -15,7 +15,7 @@ const GenerateReviews = ({ review }) => {
       >
         <div className="direction mt-50 p-15 bg-light my-2">
           <div className="commentTitle ">
-            <div className="float-left clearfix">
+            <div className="float-left  mr-5">
               <img
                 src={comment.User.avatar || config.DEFAULT_DISPLAY_PICTURE}
                 alt="dp"
@@ -23,9 +23,9 @@ const GenerateReviews = ({ review }) => {
               />
             </div>
 
-            <div className="pt-10 mb-20">
+            <div className="pt-10 clearfix mb-10">
               <Link
-                className="text-dark bolder ml-2"
+                className="text-dark bolder"
                 to={`/user/${comment.User.id}`}
               >
                 {comment.User.moniker}
