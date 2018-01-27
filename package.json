@@ -12,7 +12,7 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "heroku-postbuild": "sequelize db:migrate && webpack",
+    "heroku-postbuild": "webpack",
     "build": "webpack",
     "dev-server": "webpack-dev-server ",
     "prod": "NODE_ENV=production npm run build",
