@@ -6,7 +6,7 @@ import { list as categoryList } from '../../components/CategoryList';
 
 const AddRecipeForm = props => (
   <form onSubmit={props.handleForm}>
-    <ul className="form row p-3">
+    <ul className="form row p-3 mb-10">
       <li className="col-12">
         <label>Recipe Name</label>
         <input

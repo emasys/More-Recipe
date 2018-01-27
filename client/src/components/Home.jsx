@@ -62,7 +62,7 @@ export class Home extends Component {
               <Navbar className="bg-dark fixed-top m-0 p-0" />
             </DynamicHeader>
             <div className="row header-items justify-content-center">
-              <div className="col-lg-10 col-sm-10 text-left">
+              <div className="col-lg-10 col-sm-10 text-left banner">
                 <div className="home-title mt-100" data-aos="fade-up" data-aos-duration="2000">
                   <span className="firstWord">More </span>
                   Recipes

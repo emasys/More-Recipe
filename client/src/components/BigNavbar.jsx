@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
@@ -9,8 +9,6 @@ import * as actions from '../actions';
 
 // components
 import Auth from './auth';
-import Navlinks from './Navlinks';
-import config from '../config';
 
 /**
  *
@@ -56,7 +54,7 @@ export class Navbar extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState({
-      avatar: nextProps.user.data.avatar
+      user: nextProps.user.data.firstName
     });
   }
 
@@ -71,7 +69,7 @@ export class Navbar extends Component {
    * @memberof Navbar
    */
   render() {
-    const { avatar } = this.state;
+    const { user } = this.state;
     return (
       <section className="container-fluid m-0 p-0">
         <nav
@@ -101,6 +99,14 @@ export class Navbar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav bold">
+                <li className="nav-item mt-5 pr-15 ml-3">
+                  <Link
+                    className=" text-orange"
+                    to={`/profile/${Auth.userID()}`}
+                  >
+                    Hey, {user}
+                  </Link>
+                </li>
                 <li className="nav-item">
                   {Auth.loggedIn() ? (
                     <a
@@ -111,7 +117,10 @@ export class Navbar extends Component {
                       sign out
                     </a>
                   ) : (
-                    <Link className="nav-link btn btn-outline-light btn-lg btn-sign" to="/signin">
+                    <Link
+                      className="nav-link btn btn-outline-light btn-lg btn-sign"
+                      to="/signin"
+                    >
                       sign in
                     </Link>
                   )}

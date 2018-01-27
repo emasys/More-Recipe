@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactDom from 'react-dom';
 import Fade from 'react-reveal/Fade';
 // import InfiniteScroll from 'react-infinite-scroller';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -52,6 +53,7 @@ class FullCatalog extends Component {
    * @returns {any} react lifecycle method
    */
   componentDidMount = () => {
+    ReactDom.findDOMNode(this).scrollIntoView();
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
@@ -60,7 +62,6 @@ class FullCatalog extends Component {
       offset: prevState.offset + 12
     }));
   };
-
   /**
    *
    *

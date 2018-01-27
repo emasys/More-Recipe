@@ -119,7 +119,8 @@ export class SignUp extends Component {
         <Navbar className="bg-dark fixed-top" />
         <div className="container">
           <div
-            data-aos="zoom-out"
+            data-aos="fade-up"
+            data-duration="1000"
             className="row catalog-wrapper p-0 justify-content-center mt-80"
           >
             <div className="col-lg-6 col-sm-12 text-center AuthInfo">

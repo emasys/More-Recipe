@@ -22,6 +22,9 @@ const NavLinks = ({ user }) => {
         <Link className="dropdown-item bold" to="/favorites">
           Your favorites
         </Link>
+        <Link className="dropdown-item bold" to="/new">
+          Add new recipe
+        </Link>
         <div className="dropdown-divider" />
         <a className="dropdown-item bold" onClick={logout} href="/">
           Logout

@@ -115,30 +115,6 @@ export class Navbar extends Component {
                     </span>
                   </NavLink>
                 </li>
-                {Auth.loggedIn() ? (
-                  <li className="nav-item ">
-                    <NavLink
-                      className="nav-link"
-                      activeClassName="active"
-                      to="/new"
-                      data-tip="Add new recipe"
-                    >
-                      <i
-                        className="material-icons fa-2x d-none d-lg-inline"
-                        aria-hidden="true"
-                      >
-                        add_to_photos
-                      </i>
-                      <span
-                        className="d-lg-none pl-3"
-                      >
-                        Add new recipe
-                      </span>
-                    </NavLink>
-                  </li>
-                ) : (
-                  ''
-                )}
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"

@@ -126,21 +126,47 @@ class AddRecipe extends Component {
           {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
         </div>
         <Navbar className="bg-dark fixed-top" />
-        <Fade duration={1000}>
-          <div className="row justify-content-center mt-80">
-            <div className="col-lg-6 col-sm-12 text-center ">
-              <img src="../img/logo.png" alt="logo" />
-              <p className=" mt-5 text-dark bg-mirror header-title">
+        <div className="container">
+          <div
+            data-aos="fade-up"
+            data-duration="1000"
+            className="row catalog-wrapper p-0 justify-content-center mt-80"
+          >
+            <div className="col-lg-6 col-sm-12 text-center AuthInfo">
+              <img
+                src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+                alt="logo"
+                width="200"
+                height="200"
+                className="mt-30"
+                data-aos="flip-right"
+                data-aos-delay="1000"
+                data-dos-duration="1000"
+              />
+
+              <h1
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="text-white"
+              >
+                Hey there!
+              </h1>
+              <h4
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-dos-delay="1000"
+                className="mt-10 text-white p-10 "
+              >
                 “Cooking is not a science but an art, mistakes are okay, messes
                 are fine—the pleasure is in the creating and the sharing of the
                 result.” ― Lori Pollan
-              </p>
+              </h4>
             </div>
-            <div className="catalog-wrapper col-lg-6 col-md-10 col-sm-12">
-              <AddRecipeForm handleForm={this.handleForm} />
+            <div className=" col-lg-6 col-md-6 justify-content-center col-sm-12">
+            <AddRecipeForm handleForm={this.handleForm} />
             </div>
           </div>
-        </Fade>
+        </div>
       </section>
     );
   }
