@@ -89,6 +89,11 @@ class SignIn extends Component {
     }
   }
 
+  clearError = () => {
+    this.setState({
+      showErrMessage: 'fade'
+    });
+  } 
   /**
    *
    *
@@ -251,6 +256,7 @@ class SignIn extends Component {
               <SignInForm
                 handleSubmit={this.handleSubmit}
                 state={this.state}
+                clearError={this.clearError}
                 emailChanged={this.emailChanged}
                 pwChanged={this.pwChanged}
                 resetForm={this.resetForm}

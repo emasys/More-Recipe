@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Sticky from 'react-sticky-el';
+import DynamicHeader from 'react-sticky-dynamic-header';
 import PropTypes from 'prop-types';
 
 import * as actions from '../actions';
@@ -10,6 +10,7 @@ import * as actions from '../actions';
 import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
 import Auth from './auth';
+import BigNavbar from './BigNavbar';
 
 /**
  * Component for Home page
@@ -52,19 +53,21 @@ export class Home extends Component {
       <div>
         <section className="container-fluid">
           <div className="header">
-            <Sticky
-              stickyStyle={{ zIndex: 2000 }}
-              stickyClassName="bg-dark animate-it m-0"
+            <DynamicHeader
+              hasEffect
+              effectDuration={600}
+              useHeadersDifference
             >
-              <Navbar className="bg-transparent m-0 p-0" />
-            </Sticky>
+              <BigNavbar className="bg-transparent m-0 p-0" />
+              <Navbar className="bg-dark fixed-top m-0 p-0" />
+            </DynamicHeader>
             <div className="row header-items justify-content-center">
-              <div className="col-lg-10 col-sm-10">
-                <div className="home-title mt-100">
+              <div className="col-lg-10 col-sm-10 text-left">
+                <div className="home-title mt-100" data-aos="fade-up" data-aos-duration="2000">
                   <span className="firstWord">More </span>
                   Recipes
                 </div>
-                <div className=" text-white bg-mirror text-left">
+                <div className=" text-white bg-mirror" data-aos="fade-up" data-aos-duration="2000">
                   <p>
                     This is a platform for you to share the awesome and exciting
                     recipe ideas you have invented or learnt.
@@ -75,20 +78,20 @@ export class Home extends Component {
                   </p>
                   <p>Have fun as you share and explore exciting recipes</p>
                   {!Auth.loggedIn() && (
-                    <div className="row">
+                    <div className="mt-0">
                       <Link
                         to="/signup"
-                        className="btn btn-lg bg-orange bolder my-5 text-white p-10 signUp-btn"
+                        className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                       >
                         Signup to Get Started
                       </Link>
                     </div>
                   )}
                   {Auth.loggedIn() && (
-                    <div className="row">
+                    <div className="">
                       <Link
                         to="/catalog"
-                        className="btn btn-lg btn-dark bolder my-5 text-white p-10 signUp-btn"
+                        className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                       >
                         Checkout Latest Recipes
                       </Link>

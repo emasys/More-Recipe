@@ -47,7 +47,9 @@ body {
   padding: 10px;
 }
 .signUp-btn{
-  font-family: Helvetica;
+  /* font-family: Helvetica; */
+  border-radius: 2rem;
+  padding: .6rem 3rem !important;
 }
 .categories{
   padding: 5px;

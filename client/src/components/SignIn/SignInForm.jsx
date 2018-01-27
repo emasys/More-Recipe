@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+// const clearError = () => {
+//   document.querySelector('#error').innerHTML = '';
+// };
 const SignInForm = props => {
-  const {
-    email,
-    showErrMessage,
-  } = props.state;
+  const { email, showErrMessage } = props.state;
 
   return (
     <form id="signin" className="form-ite" onSubmit={props.handleSubmit}>
@@ -18,6 +18,7 @@ const SignInForm = props => {
             required
             value={email}
             onChange={props.emailChanged}
+            onFocus={props.clearError}
             className="col-lg-12 col-sm-12"
             name="email"
             id="inputEmail"
@@ -30,12 +31,13 @@ const SignInForm = props => {
             type="password"
             required
             onChange={props.pwChanged}
+            onFocus={props.clearError}
             className="col-lg-12 col-sm-12"
             name="pass"
             id="inputPassword"
             placeholder="**********"
           />
-          <div className={`text-danger ${showErrMessage}`} id="moniker_error">
+          <div className={`text-danger ${showErrMessage}`} id="error">
             Invalid email or password
           </div>
         </li>

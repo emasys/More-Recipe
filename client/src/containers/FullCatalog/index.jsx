@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Fade from 'react-reveal/Fade';
-import InfiniteScroll from 'react-infinite-scroller';
+// import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Pace from 'react-pace-progress';
 
 // Actions
@@ -33,7 +34,7 @@ class FullCatalog extends Component {
     // this.hasMore = true;
     this.state = {
       search: '',
-      page_limit: 4,
+      page_limit: 12,
       avatar: null,
       offset: 0,
       allRecipes: '',
@@ -54,9 +55,10 @@ class FullCatalog extends Component {
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    };
+    this.props.getRecipes(this.state.page_limit, this.state.offset);
+    this.setState(prevState => ({
+      offset: prevState.offset + 12
+    }));
   };
 
   /**
@@ -75,16 +77,12 @@ class FullCatalog extends Component {
     }
     if (this.state.offset >= nextProps.recipes.count) {
       this.setState({ showMore: false });
-    } else {
-      this.nums();
     }
   };
 
-  
   componentWillUnmount = () => {
     this.props.clearRecipes();
-  }
-  
+  };
 
   /**
    *
@@ -113,15 +111,13 @@ class FullCatalog extends Component {
     this.setState({ compare });
   };
 
-  nums = () => {
-    this.setState(prevState => ({
-      offset: prevState.offset + 4
-    }));
-  };
   loadFunc = () => {
     console.log('triggered');
     console.log(this.state.offset);
     this.props.getRecipes(this.state.page_limit, this.state.offset);
+    this.setState(prevState => ({
+      offset: prevState.offset + 12
+    }));
   };
   /**
    *
@@ -166,19 +162,11 @@ class FullCatalog extends Component {
       this.setState({ searching: false });
     }
   };
-
-  /**
-   *
-   *
-   * @memberof FullCatalog
-   * @returns {any} pagination
-   */
-  nextPage = () => {
-    this.setState(prevState => ({
-      page_limit: prevState.page_limit + 8
-    }));
-    console.log('triggered!');
-  };
+  addMore = () => {
+    console.log("button clicked");
+    console.log(this.props);
+    this.props.history.push('/new');
+  }
   /**
    *
    *
@@ -208,7 +196,7 @@ class FullCatalog extends Component {
       search, avatar, dropdown, searching, compare
     } = this.state;
     return (
-      <div>
+      <div className="container-fluid">
         <section className="container-fluid fixed">
           <Navbar
             onSearch={this.onSearch}
@@ -239,12 +227,11 @@ class FullCatalog extends Component {
             <CategoryList />
           </Fade>
         )}
-        <section className="container mt-100" id="catalog">
-          <div className="catalog-wrapper">
+        <section className="mt-100" id="catalog">
+          <div className="row catalog-wrapper mx-2 justify-content-center">
             {!searching && (
               <InfiniteScroll
-                pageStart={0}
-                loadMore={this.loadFunc}
+                next={this.loadFunc}
                 hasMore={this.state.showMore}
                 loader={
                   <div className="loader text-center" key={0}>
@@ -256,7 +243,17 @@ class FullCatalog extends Component {
                     />
                   </div>
                 }
-              >
+                endMessage={
+                  <p style={{ textAlign: 'center' }}>
+                    <b>Thank you for being Awesome</b><br/>
+                    <b
+                      onClick={this.addMore}
+                      className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                    >
+                        Add More Recipes
+                    </b>
+                  </p>
+                }>
                 <CatalogList
                   catalog={this.props.recipes.allRecipes.sort(compare)}
                 />
