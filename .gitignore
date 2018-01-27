@@ -12,8 +12,6 @@
 /server/middleware/helper.js
 /clientx
 webpack.config1.js
-webpack.dev.config.js
-webpack.prod.config.js
 /webpack1.config.js
 /client/src/playground
 /client/src/components/test.js
