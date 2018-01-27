@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Stepper from 'react-reveal/Stepper';
-import Fade from 'react-reveal/Fade';
-import Flip from 'react-reveal/Flip';
-import Bounce from 'react-reveal/Bounce';
 import Sticky from 'react-sticky-el';
 import PropTypes from 'prop-types';
 
@@ -29,12 +25,6 @@ export class Home extends Component {
    */
   constructor(props) {
     super(props);
-    this.step = new Stepper()
-      .step('background', 300)
-      .step('logo', 400)
-      .step('header', 1200)
-      .step('title', 500)
-      .step('button', 500);
     this.state = {
       show: true
     };
@@ -71,56 +61,39 @@ export class Home extends Component {
             <div className="row header-items justify-content-center">
               <div className="col-lg-10 col-sm-10">
                 <div className="home-title mt-100">
-                  <Fade bottom duration={1000} step={this.step.is('logo')}>
-                    <span className="firstWord">More </span>
-                    Recipes
-                  </Fade>
+                  <span className="firstWord">More </span>
+                  Recipes
                 </div>
                 <div className=" text-white bg-mirror text-left">
-                  <Flip x duration={1000} step={this.step.is('header')}>
-                    <p>
-                      This is a platform for you to share the awesome and
-                      exciting recipe ideas you have invented or learnt.
-                    </p>
-                    <p>
-                      Recipes are by nature derivative and meant to be shared
-                      that is how they improve, are changed, how new ideas are
-                      formed.
-                    </p>
-                    <p>Have fun as you share and explore exciting recipes</p>
-                    {!Auth.loggedIn() && (
-                      <Bounce
-                        left
-                        duration={1000}
-                        step={this.step.is('button')}
+                  <p>
+                    This is a platform for you to share the awesome and exciting
+                    recipe ideas you have invented or learnt.
+                  </p>
+                  <p>
+                    Recipes are by nature derivative and meant to be shared that
+                    is how they improve, are changed, how new ideas are formed.
+                  </p>
+                  <p>Have fun as you share and explore exciting recipes</p>
+                  {!Auth.loggedIn() && (
+                    <div className="row">
+                      <Link
+                        to="/signup"
+                        className="btn btn-lg bg-orange bolder my-5 text-white p-10 signUp-btn"
                       >
-                        <div className="row">
-                          <Link
-                            to="/signup"
-                            className="btn btn-lg bg-orange bolder my-5 text-white p-10 signUp-btn"
-                          >
-                            Signup to Get Started
-                          </Link>
-                        </div>
-                      </Bounce>
-                    )}
-                    {Auth.loggedIn() && (
-                      <Bounce
-                        left
-                        duration={1000}
-                        step={this.step.is('button')}
+                        Signup to Get Started
+                      </Link>
+                    </div>
+                  )}
+                  {Auth.loggedIn() && (
+                    <div className="row">
+                      <Link
+                        to="/catalog"
+                        className="btn btn-lg btn-dark bolder my-5 text-white p-10 signUp-btn"
                       >
-                        <div className="row">
-                          <Link
-                            to="/catalog"
-                            className="btn btn-lg btn-dark bolder my-5 text-white p-10 signUp-btn"
-                          >
-                            Checkout Latest Recipes
-                          </Link>
-                        </div>
-                      </Bounce>
-                    )}
-                  </Flip>
+                        Checkout Latest Recipes
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -105,12 +105,11 @@ export class Navbar extends Component {
                     to="/catalog"
                     data-tip="Search for recipes"
                   >
-                    <i className="material-icons fa-2x d-sm-none d-lg-inline">
+                    <i className="material-icons fa-2x d-none d-lg-inline">
                       &#xE8B6;
                     </i>
                     <span
-                      className="d-lg-none"
-                      style={{ verticalAlign: 'top' }}
+                      className="d-lg-none pl-3"
                     >
                       Search
                     </span>
@@ -125,14 +124,13 @@ export class Navbar extends Component {
                       data-tip="Add new recipe"
                     >
                       <i
-                        className="material-icons fa-2x d-sm-none d-lg-inline"
+                        className="material-icons fa-2x d-none d-lg-inline"
                         aria-hidden="true"
                       >
                         add_to_photos
                       </i>
                       <span
-                        className="d-lg-none"
-                        style={{ verticalAlign: 'top' }}
+                        className="d-lg-none pl-3"
                       >
                         Add new recipe
                       </span>
@@ -149,14 +147,13 @@ export class Navbar extends Component {
                     data-tip="Catalog"
                   >
                     <i
-                      className="material-icons fa-2x  d-sm-none d-lg-inline"
+                      className="material-icons fa-2x  d-none d-lg-inline"
                       aria-hidden="true"
                     >
                       &#xE8EF;
                     </i>
                     <span
-                      className="d-lg-none"
-                      style={{ verticalAlign: 'top' }}
+                      className="d-lg-none pl-3"
                     >
                       Catalog
                     </span>
@@ -169,12 +166,11 @@ export class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className="material-icons fa-2x red d-sm-none d-lg-inline">
+                    <i className="material-icons fa-2x red d-none d-lg-inline">
                       &#xE87D;
                     </i>
                     <span
-                      className="d-lg-none"
-                      style={{ verticalAlign: 'top' }}
+                      className="d-lg-none pl-3"
                     >
                       Favorites
                     </span>
