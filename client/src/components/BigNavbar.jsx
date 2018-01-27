@@ -99,14 +99,22 @@ export class Navbar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav bold">
-                <li className="nav-item mt-5 pr-15 ml-3">
-                  <Link
-                    className=" text-orange"
-                    to={`/profile/${Auth.userID()}`}
-                  >
-                    Hey, {user}
-                  </Link>
-                </li>
+                {Auth.loggedIn() ? (
+                  <li className="nav-item mt-5 pr-15 ml-3">
+                    <Link
+                      className=" text-orange"
+                      to={`/profile/${Auth.userID()}`}
+                    >
+                      Hey {user},
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="nav-item mt-5 pr-15 ml-3">
+                    <Link className=" text-orange" to="/">
+                      Hey there,
+                    </Link>
+                  </li>
+                )}
                 <li className="nav-item">
                   {Auth.loggedIn() ? (
                     <a
