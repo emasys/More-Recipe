@@ -2,10 +2,12 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import approx from 'approximate-number';
+
 import Auth from '../../components/auth';
 
 const GeneraterecipeItem = props => (
-  <div>
+  <div className="mb-20">
     <div>
       <button
         className={`btn btn-success mb-5 ${props.state.save}`}
@@ -49,7 +51,7 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="favorite"
         />
-        <em className="bg-dark">{props.state.recipeItem.recipe.favorite}</em>
+        <em className="bold">{ approx(props.state.recipeItem.recipe.favorite)}</em>
       </span>
       <span className="text-center card-link m-1" onClick={props.upvote}>
         <i
@@ -61,7 +63,7 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="like"
         />
-        <em className="bg-success">{props.state.recipeItem.recipe.upvote}</em>
+        <em className="bold">{approx(props.state.recipeItem.recipe.upvote)}</em>
       </span>
       <span className="text-center card-link m-1" onClick={props.downvote}>
         <i
@@ -73,7 +75,7 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="dislike"
         />
-        <em className="bg-danger">{props.state.recipeItem.recipe.downvote}</em>
+        <em className="bold">{approx(props.state.recipeItem.recipe.downvote)}</em>
       </span>
       <span className="text-center card-link m-1" onClick={props.upvote}>
         <i
@@ -81,7 +83,7 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="views"
         />
-        <em className=" bg-dark">{props.state.recipeItem.recipe.views}</em>
+        <em className="bold">{approx(props.state.recipeItem.recipe.views)}</em>
       </span>
       <div className="m-1 float-right d-inline">
         <i className="fa fa-tag " aria-hidden="true" />

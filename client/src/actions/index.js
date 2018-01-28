@@ -95,15 +95,19 @@ export const getRecipeReactions = id => dispatch =>
     });
 
 // Get user specific recipes
-export const getUserRecipes = (limit, id) => dispatch =>
+export const getUserRecipes = (id, limit, offset) => dispatch => {
+  dispatch(isLoading(true));
   axios
-    .get(`${URL}/recipes/yours/${limit}/${id}?token=${xtoken}`)
+    .get(`${URL}/recipes/user/${id}/${limit}/${offset}?token=${xtoken}`)
     .then(response => {
       dispatch({ type: type.USER_RECIPES, payload: response.data });
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.USER_RECIPES, payload: err.response });
+      dispatch(isLoading(false));
     });
+};
 
 // user profile
 export const getProfile = id => dispatch =>

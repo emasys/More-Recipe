@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import approx from 'approximate-number';
 import Fade from 'react-reveal/Fade';
 
 const FavoriteList = ({ favorites }) => {
-  console.log(favorites);
   if (favorites.userFav) {
     if (favorites.userFav.favorites.length < 1) {
       return (
@@ -51,23 +51,23 @@ const FavoriteList = ({ favorites }) => {
                   </div>
                   <span>
                     <i className="fa fa-heart-o" aria-hidden="true" />
-                    {item.Recipe.favorite}
+                    {approx(item.Recipe.favorite)}
                   </span>
                   <span>
                     <i className="fa fa-thumbs-o-up" aria-hidden="true" />
-                    {item.Recipe.upvote}
+                    {approx(item.Recipe.upvote)}
                   </span>
                   <span>
                     <i className="fa fa-thumbs-o-down" aria-hidden="true" />
-                    {item.Recipe.downvote}
+                    {approx(item.Recipe.downvote)}
                   </span>
                   <span>
                     <i className="fa fa-eye" aria-hidden="true" />
-                    {item.Recipe.views}
+                    {approx(item.Recipe.views)}
                   </span>
                   <span>
                     <i className="fa fa-comment-o" aria-hidden="true" />
-                    {item.Recipe.comments}
+                    {approx(item.Recipe.comments)}
                   </span>
                 </div>
               </div>

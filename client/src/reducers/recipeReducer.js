@@ -5,7 +5,10 @@ export default (
     allRecipes: [],
     recipeItem: {},
     updateRecipes: {},
-    category: []
+    category: [],
+    userRecipes: {
+      recipes: []
+    }
   },
   action
 ) => {

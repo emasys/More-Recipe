@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 import * as actions from '../../actions';
 
 //component
 import Navbar from '../Navbar';
-import UserRecipes from './UserRecipes';
+import CatalogList from '../CatalogList';
 import UserProfileInfo from './UserProfileInfo';
 /**
  *
@@ -22,7 +24,9 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       limit: 6,
-      showMore: false
+      offset: 0,
+      recipes: [],
+      showMore: true
     };
   }
   /**
@@ -33,7 +37,7 @@ class UserProfile extends Component {
    */
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
-    this.props.getUserRecipes(this.state.limit, this.props.match.params.id);
+    this.loadMore();
   }
   /**
    *
@@ -42,31 +46,30 @@ class UserProfile extends Component {
    * @memberof UserProfile
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
-      console.log(nextProps.user.recipes);
-      if (nextProps.user.recipes.length > 5) {
-        this.setState({
-          showMore: true
-        });
-      }
+    console.log(this.state.offset);
+    this.setState(prevState => ({
+      recipes: [...prevState.recipes, ...nextProps.user]
+    }));
+    if (this.state.offset - 6 > this.state.recipes.length) {
+      this.setState({
+        showMore: false
+      });
     }
   }
 
-  /**
-   *
-   *
-   * @param {object} nextProps
-   * @param {object} nextState
-   * @memberof UserProfile
-   * @returns {any}
-   * invoked immediately before rendering
-   * when new props or state are being received.
-   */
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.limit > this.state.limit) {
-      this.props.getUserRecipes(nextState.limit, this.props.match.params.id);
-    }
-  }
+  loadMore = () => {
+    console.log('triggered');
+    console.log(this.state.offset);
+    this.props.getUserRecipes(
+      this.props.match.params.id,
+      this.state.limit,
+      this.state.offset
+    );
+    console.log('watch this state', this.state.recipes);
+    this.setState(prevState => ({
+      offset: prevState.offset + 6
+    }));
+  };
   /**
    *
    *
@@ -89,27 +92,40 @@ class UserProfile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <section className="container profile catalog-wrapper">
+        <section className="container-fluid profile catalog-wrapper mt-80">
           <div className="row justify-content-center">
             <UserProfileInfo data={this.props.userInfo} />
-            <div className="col-lg-7 col-md-7 col-sm-12 recipe-lists">
+            <div className="col-lg-10 col-md-10 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h2 className="fresh-title float-left clearfix">
                   {this.props.userInfo ?
                     this.props.userInfo.data.moniker :
-                    null}'s Recipes{' '}
+                    null}'s Recipes
                 </h2>
               </div>
               <hr />
               <div className="row justify-content-center">
-                <UserRecipes data={this.props.user} />
-              </div>
-              <div className="text-center">
-                {showMore && (
-                  <button className="btn btn-dark" onClick={this.viewMore}>
-                    View More
-                  </button>
-                )}
+                <InfiniteScroll
+                  next={this.loadMore}
+                  hasMore={showMore}
+                  loader={
+                    <div className="loader text-center" key={0}>
+                      <img
+                        src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                        width="30"
+                        height="30"
+                        alt="loading..."
+                      />
+                    </div>
+                  }
+                  endMessage={
+                    <p style={{ textAlign: 'center' }}>
+                      <b>No more recipe</b>
+                    </p>
+                  }
+                >
+                  <CatalogList catalog={this.state.recipes} />
+                </InfiniteScroll>
               </div>
             </div>
           </div>
@@ -120,7 +136,7 @@ class UserProfile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.recipes.userRecipes,
+  user: state.recipes.userRecipes.recipes,
   userInfo: state.user.userInfo
 });
 

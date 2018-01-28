@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { css } from 'glamor';
 
 // Modal
@@ -11,9 +12,11 @@ import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Navbar from '../Navbar';
 import UserInfo from './UserInfo';
 import * as actions from '../../actions';
-import UserRecipes from './UserRecipes';
 import UserEditForm from './UserEditForm';
-import Auth from '../auth';
+import CatalogList from '../CatalogList';
+
+// Helper function
+import { validate } from './helper';
 /**
  *
  *
@@ -33,6 +36,8 @@ class Profile extends Component {
 
     this.state = {
       limit: 6,
+      offset: 0,
+      recipes: [],
       view: false,
       status: 'fade',
       preview: '',
@@ -44,7 +49,7 @@ class Profile extends Component {
       edit: false,
       successMsg: false,
       save: 'd-none',
-      showMore: false
+      showMore: true
     };
   }
   /**
@@ -55,7 +60,7 @@ class Profile extends Component {
    */
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
-    this.props.getUserRecipes(this.state.limit, Auth.userID());
+    this.loadMore();
   }
 
   /**
@@ -66,12 +71,13 @@ class Profile extends Component {
    * @returns {any} a new state
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
-      if (nextProps.user.recipes.length > 5) {
-        this.setState({
-          showMore: true
-        });
-      }
+    this.setState(prevState => ({
+      recipes: [...prevState.recipes, ...nextProps.user]
+    }));
+    if (this.state.offset - 6 > this.state.recipes.length) {
+      this.setState({
+        showMore: false
+      });
     }
     if (nextProps.userInfo) {
       this.setState({
@@ -82,21 +88,18 @@ class Profile extends Component {
       });
     }
   }
-  /**
-   *
-   *
-   * @param {object} nextProps
-   * @param {object} nextState
-   * @memberof Profile
-   * @returns {any}
-   * invoked immediately before rendering
-   * when new props or state are being received.
-   */
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.limit > this.state.limit) {
-      this.props.getUserRecipes(nextState.limit, Auth.userID());
-    }
-  }
+  loadMore = () => {
+    console.log('triggered');
+    console.log(this.state.offset);
+    this.props.getUserRecipes(
+      this.props.match.params.id,
+      this.state.limit,
+      this.state.offset
+    );
+    this.setState(prevState => ({
+      offset: prevState.offset + 6
+    }));
+  };
   /**
    *
    * @returns {any} a new state
@@ -185,7 +188,6 @@ class Profile extends Component {
    */
   handleImg = () => {
     const { files } = this.state;
-    console.log(files);
     let query = {
       avatar: ''
     };
@@ -232,27 +234,27 @@ class Profile extends Component {
       bio: event.target.elements.bio.value.trim()
     };
     // Test for whitespace and digits
-    const re = /[\s\d]/;
-    let firstName = true,
-      lastName = true;
-    if (re.test(data.firstName) || data.firstName === '') {
-      document.querySelector('#firstname_error').innerHTML =
-        'Please enter a valid name';
-      firstName = false;
-    } else {
-      document.querySelector('#firstname_error').innerHTML = '';
-      firstName = true;
-    }
+    // const re = /[\s\d]/;
+    // let firstName = true,
+    //   lastName = true;
+    // if (re.test(data.firstName) || data.firstName === '') {
+    //   document.querySelector('#firstname_error').innerHTML =
+    //     'Please enter a valid name';
+    //   firstName = false;
+    // } else {
+    //   document.querySelector('#firstname_error').innerHTML = '';
+    //   firstName = true;
+    // }
 
-    if (re.test(data.lastName) || data.lastName === '') {
-      document.querySelector('#lastname_error').innerHTML =
-        'Please enter a valid name';
-      lastName = false;
-    } else {
-      document.querySelector('#lastname_error').innerHTML = '';
-      lastName = true;
-    }
-    if (lastName && firstName) {
+    // if (re.test(data.lastName) || data.lastName === '') {
+    //   document.querySelector('#lastname_error').innerHTML =
+    //     'Please enter a valid name';
+    //   lastName = false;
+    // } else {
+    //   document.querySelector('#lastname_error').innerHTML = '';
+    //   lastName = true;
+    // }
+    if (validate(data)) {
       this.props.updateUser(this.props.match.params.id, data).then(() => {
         this.props.getUserInfo(this.props.match.params.id);
         this.saveInfo();
@@ -285,8 +287,8 @@ class Profile extends Component {
       <div>
         <Navbar className="bg-dark fixed-top" />
         <ToastContainer />
-        <section className="container profile catalog-wrapper">
-          <div className="row justify-content-center">
+        <section className="container-fluid profile catalog-wrapper mt-70">
+          <div className="row justify-content-center mx-3">
             <UserInfo
               state={this.state}
               data={userInfo}
@@ -299,10 +301,15 @@ class Profile extends Component {
               notify={this.notify}
             />
             {edit && (
-              <UserEditForm state={this.state} editProfile={this.editProfile} />
+              <div className="col-lg-6 col-md-6 col-sm-12">
+                <UserEditForm
+                  state={this.state}
+                  editProfile={this.editProfile}
+                />
+              </div>
             )}
             {!edit && (
-              <div className="col-lg-7 col-md-7 col-sm-12 recipe-lists">
+              <div className="col-lg-10 col-md-10 col-sm-12 recipe-lists">
                 <div className="clearfix">
                   <h2 className="fresh-title float-left clearfix">Recipes </h2>
                   <Link
@@ -317,14 +324,27 @@ class Profile extends Component {
                 <hr />
 
                 <div className="row justify-content-center">
-                  <UserRecipes data={this.props.user} />
-                </div>
-                <div className="text-center">
-                  {showMore && (
-                    <button className="btn btn-dark" onClick={this.viewMore}>
-                      View More
-                    </button>
-                  )}
+                  <InfiniteScroll
+                    next={this.loadMore}
+                    hasMore={showMore}
+                    loader={
+                      <div className="loader text-center" key={0}>
+                        <img
+                          src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                          width="30"
+                          height="30"
+                          alt="loading..."
+                        />
+                      </div>
+                    }
+                    endMessage={
+                      <p style={{ textAlign: 'center' }}>
+                        <b>No more recipe</b>
+                      </p>
+                    }
+                  >
+                    <CatalogList catalog={this.state.recipes} />
+                  </InfiniteScroll>
                 </div>
               </div>
             )}
@@ -336,7 +356,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.recipes.userRecipes,
+  user: state.recipes.userRecipes.recipes,
   recipes: state.recipes,
   userInfo: state.user.userInfo,
   updateUser: state.user.updateUser

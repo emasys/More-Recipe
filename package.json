@@ -19,12 +19,13 @@
     "dev": "webpack-dev-server --watch --hot --port 8081",
     "test:client": "jest --config=jest.config.json",
     "jest": {
-      "modulePathIgnorePatterns": ["server"]
+      "modulePathIgnorePatterns": [
+        "server"
+      ]
     },
     "jest:coverage": "jest --config=jest.config.json --coverage",
     "test:watch": "npm run test:client -- --watch",
-    "test":
-      "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout=50000 ./server/test/*.test.spec.js --require babel-register ",
+    "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout=50000 ./server/test/*.test.spec.js --require babel-register ",
     "s:test": "set mocha --require babel-register  server/test/test.js",
     "start": "node --require babel-register server/index.js",
     "start:dev": "nodemon --require babel-register server/index.js",
@@ -35,6 +36,7 @@
   "license": "ISC",
   "dependencies": {
     "aos": "^2.2.0",
+    "approximate-number": "^2.0.0",
     "axios": "^0.17.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.25.0",
@@ -82,6 +84,7 @@
     "nodemon": "^1.12.0",
     "normalize.css": "7.0.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "passport-twitter": "^1.0.4",
     "perform-local-storage": "0.0.4",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
@@ -109,8 +112,7 @@
     "react-router-dom": "^4.2.2",
     "react-select": "^1.1.0",
     "react-sticky": "^6.0.1",
-    "react-sticky-dynamic-header":
-      "git+https://github.com/emasys/react-sticky-dynamic-header.git#ReactCSSTransitionGroup-Fix",
+    "react-sticky-dynamic-header": "git+https://github.com/emasys/react-sticky-dynamic-header.git#ReactCSSTransitionGroup-Fix",
     "react-sticky-el": "^1.0.13",
     "react-textarea-autosize": "^5.2.1",
     "react-toastify": "^3.2.1",

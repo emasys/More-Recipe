@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
 import config from '../../config';
 import Auth from '../auth';
-
 
 const UserInfo = props => {
   if (props.data) {
@@ -21,7 +20,7 @@ const UserInfo = props => {
 
     const { status, preview, save } = props.state;
     return (
-      <div className="col-lg-4 col-md-4 col-sm-12 mr-5 mb-10">
+      <div className="col-lg-2 col-md-2 col-sm-12 mb-10">
         <div
           className="img-wrapper"
           onMouseEnter={props.hoverIn}
@@ -55,11 +54,13 @@ const UserInfo = props => {
             <p>{bio}</p>
             <hr />
           </div>
-          <p>
+          <small>
             <i className="fa fa-envelope" aria-hidden="true" /> {email}
-          </p>
+          </small>
           <p className=" text-capitalize">
-            <i className="fa fa-map-marker" aria-hidden="true" /> {country}
+            <small>
+              <i className="fa fa-map-marker" aria-hidden="true" /> {country}
+            </small>
           </p>
           <div>
             <button
@@ -91,7 +92,7 @@ const UserInfo = props => {
       </div>
     );
   }
-  return "loading...";
+  return 'loading...';
 };
 
 export default UserInfo;

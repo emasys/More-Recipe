@@ -202,7 +202,8 @@ class RecipeController {
    */
   static listPrivateRecipes(req, res) {
     return Recipes.findAll({
-      limit: req.params.limit || 6,
+      limit: req.params.limit,
+      offset: req.params.offset,
       where: {
         userId: req.params.id
       }

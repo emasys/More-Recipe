@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 
 import Countries from '../CountryList';
 
+const onFocus = () => {
+  document.querySelector('.rubics').classList.add('d-block');
+};
+
 const SignUpForm = props => (
   <form onSubmit={props.handleSubmit}>
     <ul className="form row p-10">
@@ -68,19 +72,22 @@ const SignUpForm = props => (
           className="col-12 mb-2"
           name="password"
           id="password"
+          onFocus={onFocus}
           onChange={props.onChange}
           placeholder="**********"
         />
-        <p className="text-danger" id="password_error" />
-        <p className="alpha">Should contain at least one alphabet</p>
-        <p className="numbers" id="check_numbers">
-          Should contain at least one number
-        </p>
-        <p className="characters">
-          Should contain at least one special character
-        </p>
-        <p className="minLength">Should not be less than 8 characters</p>
-        <p className="maxLength">Should not be greater than 20 characters</p>
+        <div className="rubics">
+          <p className="text-danger" id="password_error" />
+          <p className="alpha">Should contain at least one alphabet</p>
+          <p className="numbers" id="check_numbers">
+            Should contain at least one number
+          </p>
+          <p className="characters">
+            Should contain at least one special character
+          </p>
+          <p className="minLength">Should not be less than 8 characters</p>
+          <p className="maxLength">Should not be greater than 20 characters</p>
+        </div>
       </li>
       <li className="col-lg-6 p-3">
         <label>Confirm Password</label>
