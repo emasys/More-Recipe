@@ -12,7 +12,7 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "heroku-postbuild": "NODE_ENV=production webpack --config webpack.prod.config.js --progress",
+    "heroku-postbuild": "webpack --config webpack.prod.config.js --progress",
     "build": "webpack --config webpack.prod.config.js --progress",
     "dev-server": "webpack-dev-server ",
     "prod": "NODE_ENV=production npm run build",

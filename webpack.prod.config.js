@@ -10,6 +10,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify('production') }
+    }),
     new Dotenv({
       systemvars: true
     }),
@@ -27,9 +30,13 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false,
+      debug: false
     }),
-    new ExtractTextPlugin({ filename: 'style.css', disable: false, allChunks: true }),
+    new ExtractTextPlugin({
+      filename: 'style.css',
+      disable: false,
+      allChunks: true
+    })
   ],
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
@@ -60,7 +67,5 @@ module.exports = {
         loader: 'url-loader?limit=250000'
       }
     ]
-  },
-
-
+  }
 };
