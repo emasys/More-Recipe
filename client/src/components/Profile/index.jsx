@@ -233,27 +233,6 @@ class Profile extends Component {
       lastName: event.target.elements.lname.value.trim(),
       bio: event.target.elements.bio.value.trim()
     };
-    // Test for whitespace and digits
-    // const re = /[\s\d]/;
-    // let firstName = true,
-    //   lastName = true;
-    // if (re.test(data.firstName) || data.firstName === '') {
-    //   document.querySelector('#firstname_error').innerHTML =
-    //     'Please enter a valid name';
-    //   firstName = false;
-    // } else {
-    //   document.querySelector('#firstname_error').innerHTML = '';
-    //   firstName = true;
-    // }
-
-    // if (re.test(data.lastName) || data.lastName === '') {
-    //   document.querySelector('#lastname_error').innerHTML =
-    //     'Please enter a valid name';
-    //   lastName = false;
-    // } else {
-    //   document.querySelector('#lastname_error').innerHTML = '';
-    //   lastName = true;
-    // }
     if (validate(data)) {
       this.props.updateUser(this.props.match.params.id, data).then(() => {
         this.props.getUserInfo(this.props.match.params.id);

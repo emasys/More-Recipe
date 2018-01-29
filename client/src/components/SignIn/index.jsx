@@ -10,7 +10,11 @@ import * as actions from '../../actions';
 import Navbar from '../Navbar';
 import SignInForm from './SignInForm';
 import ResetPasswordForm from './ResetPassword';
-import ValidateForm from './validateForm';
+import errorMessages, {
+  validateEmail,
+  validatePassword,
+  confirmPassword
+} from '../SignUp/Validators';
 /**
  *
  *
@@ -26,8 +30,11 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      recoveryEmail: '',
       email: '',
       password: '',
+      newPassword: '',
+      confirmPassword: '',
       showErrMessage: 'fade',
       message: '',
       success: false,
@@ -93,17 +100,16 @@ class SignIn extends Component {
     this.setState({
       showErrMessage: 'fade'
     });
-  } 
-  /**
-   *
-   *
-   * @param {any} event
-   * @memberof SignIn
-   * @returns {any} email input text
-   */
+  };
+
   emailChanged = event => {
     this.setState({
       email: event.target.value
+    });
+  };
+  pwChanged = event => {
+    this.setState({
+      password: event.target.value
     });
   };
   /**
@@ -113,10 +119,36 @@ class SignIn extends Component {
    * @memberof SignIn
    * @returns {any} password input text
    */
-  pwChanged = event => {
-    this.setState({
-      password: event.target.value
-    });
+  onChange = event => {
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        if (this.state.recoveryEmail) {
+          validateEmail(
+            this.state.recoveryEmail,
+            'recoveryEmail',
+            'recoveryEmail'
+          );
+        }
+        if (this.state.newPassword) {
+          validatePassword(
+            this.state.newPassword,
+            'newPassword',
+            'password_error'
+          );
+        }
+        if (this.state.confirmPassword) {
+          confirmPassword(
+            this.state.newPassword,
+            this.state.confirmPassword,
+            'confirmPassword',
+            'confirmPassword_error'
+          );
+        }
+      }
+    );
   };
   /**
    *
@@ -153,8 +185,8 @@ class SignIn extends Component {
       confirmPassword: event.target.elements.confirmPassword.value,
       token: event.target.elements.token.value.trim()
     };
-
-    if (ValidateForm(data)) {
+    console.log(errorMessages);
+    if (errorMessages.length === 0) {
       this.props.compareToken(data).then(() => {
         if (this.props.signin.compareToken.success === true) {
           this.props.resetPassword(data);
@@ -167,7 +199,7 @@ class SignIn extends Component {
 
   generateToken = event => {
     event.preventDefault();
-    this.props.sendToken({ email: this.state.email });
+    this.props.sendToken({ email: this.state.recoveryEmail });
   };
   /**
    *
@@ -265,6 +297,7 @@ class SignIn extends Component {
             {resetPassword && (
               <ResetPasswordForm
                 state={this.state}
+                onChange={this.onChange}
                 emailChanged={this.emailChanged}
                 resetPassword={this.resetPassword}
                 generateToken={this.generateToken}

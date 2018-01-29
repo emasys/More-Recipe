@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 // Validator helper
 import errorMessages, {
   validateEmail,
-  validateFirstName,
-  validateLastName,
+  validateName,
   validatePassword,
   validateMoniker,
   confirmPassword
@@ -68,13 +67,18 @@ export class SignUp extends Component {
         [event.target.name]: event.target.value
       },
       () => {
-        if (this.state.fname) validateFirstName(this.state.fname);
-        if (this.state.lname) validateLastName(this.state.lname);
-        if (this.state.email) validateEmail(this.state.email);
-        if (this.state.password) validatePassword(this.state.password);
-        if (this.state.moniker) validateMoniker(this.state.moniker);
+        if (this.state.fname) { validateName(this.state.fname, 'fname', 'fname_error'); }
+        if (this.state.lname) { validateName(this.state.lname, 'lname', 'lname_error'); }
+        if (this.state.email) { validateEmail(this.state.email, 'email', 'email_error'); }
+        if (this.state.password) { validatePassword(this.state.password, 'password', 'password_error'); }
+        if (this.state.moniker) { validateMoniker(this.state.moniker, 'moniker', 'moniker_error'); }
         if (this.state.confirmPassword) {
-          confirmPassword(this.state.password, this.state.confirmPassword);
+          confirmPassword(
+            this.state.password,
+            this.state.confirmPassword,
+            'confirmPassword',
+            'cp_error'
+          );
         }
       }
     );
