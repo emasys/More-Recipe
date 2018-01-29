@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './client/src/app.jsx',
@@ -9,6 +10,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
+    new Dotenv({
+      systemvars: true
+    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
@@ -27,12 +31,12 @@ module.exports = {
     }),
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
     new ExtractTextPlugin({ filename: 'style.css', disable: false, allChunks: true }),
-
   ],
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
     descriptionFiles: ['package.json']
   },
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
