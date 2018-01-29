@@ -100,6 +100,17 @@ class Profile extends Component {
       offset: prevState.offset + 6
     }));
   };
+
+  failedUpdate = () =>
+    toast.update(this.toastId, {
+      render: 'error, try again',
+      type: toast.TYPE.ERROR,
+      autoClose: 3000,
+      className: css({
+        transform: 'rotateY(360deg)',
+        transition: 'transform 0.6s'
+      })
+    });
   /**
    *
    * @returns {any} a new state
@@ -196,6 +207,7 @@ class Profile extends Component {
     this.props.uploadImg(file).then(() => {
       query.avatar = this.props.recipes.uploadedImg;
       // for poor/no internet connection
+      console.log(query.avatar);
       if (typeof query.avatar === 'object') return this.failedUpdate();
       this.props.updateUser(this.props.match.params.id, query).then(() => {
         this.props.getUserInfo(this.props.match.params.id);
