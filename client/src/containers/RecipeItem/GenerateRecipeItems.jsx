@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import approx from 'approximate-number';
+import ReactTooltip from 'react-tooltip';
 
 import Auth from '../../components/auth';
 
@@ -40,60 +41,71 @@ const GeneraterecipeItem = props => (
         className="img-fluid rounded recipeImage"
       />
     </figure>
-    <div className="d-inline mt-3 reaction-pane">
+    <div className="d-inline mt-3 reaction-pane justify-content-center">
       <span className="text-center card-link" onClick={props.favIt}>
         <i
-          className={`fa  ${
-            props.state.favoriteStatus ?
-              'fa-heart red animated bounceIn flash' :
-              'fa-heart gray'
-          } fa-2x`}
-          aria-hidden="true"
-          id="favorite"
-        />
-        <em className="">
-          {' '}
+          data-tip="Add to favorites"
+          className={`material-icons hovered ${
+            props.state.favoriteStatus ? ' red animated bounceIn flash' : 'gray'
+          }`}
+        >
+          &#xE87D;
+        </i>
+        <em className="bold">
           {approx(props.state.recipeItem.recipe.favorite)}
         </em>
-        {/* <em className="bold">{ approx(props.state.recipeItem.recipe.favorite)}</em> */}
       </span>
-      <span className="text-center card-link m-1" onClick={props.upvote}>
+      <span className="text-center card-link mr-1" onClick={props.upvote}>
         <i
-          className={`fa ${
+          data-tip="upvote"
+          className={`material-icons ${
             props.reactionUp.includes(Auth.userID()) ?
-              'fa-thumbs-up animated bounceIn flash blue' :
-              'fa-thumbs-up gray'
+              ' animated bounceIn flash blue' :
+              ' gray'
           } fa-2x`}
           aria-hidden="true"
           id="like"
-        />
+        >
+          &#xE8DC;
+        </i>
         <em className="">{approx(props.state.recipeItem.recipe.upvote)}</em>
       </span>
-      <span className="text-center card-link m-1" onClick={props.downvote}>
+      <span className="text-center card-link mr-1" onClick={props.downvote}>
         <i
-          className={`fa ${
+          data-tip="Downvote"
+          className={`material-icons ${
             props.reactionDown.includes(Auth.userID()) ?
-              'fa-thumbs-down animated bounceIn flash red' :
-              'fa-thumbs-down gray'
-          } fa-2x`}
+              ' animated bounceIn flash red' :
+              ' gray'
+          }`}
           aria-hidden="true"
           id="dislike"
-        />
-        <em className="">
+        >
+          &#xE8DB;
+        </i>
+        <em style={{ verticalAlign: 'middle' }}>
           {approx(props.state.recipeItem.recipe.downvote)}
         </em>
       </span>
-      <span className="text-center card-link m-1" onClick={props.upvote}>
-        <i className="fa fa-eye fa-2x gray" aria-hidden="true" id="views" />
-        <em className="bold">{approx(props.state.recipeItem.recipe.views)}</em>
+      <span className="text-center card-link m-1">
+        <i data-tip="Views" className="material-icons gray">
+          &#xE417;
+        </i>
+        <em>{approx(props.state.recipeItem.recipe.views)}</em>
       </span>
-      <div className="m-1 float-right d-inline">
-        <i className="fa fa-tag " aria-hidden="true" />
-        <Link to={`/category/${props.state.recipeItem.recipe.category}`}>
-          {props.state.recipeItem.recipe.category}
-        </Link>
-      </div>
+      <ReactTooltip place="bottom" type="dark" effect="float" />
     </div>
+    <hr />
+    <span className="labels float-right px-1">
+      <i className="material-icons gray">&#xE892;</i>
+      <Link
+        className=" text-dark rounded "
+        // style={{ verticalAlign: 'top' }}
+        to={`/category/${props.state.recipeItem.recipe.category}`}
+      >
+        {props.state.recipeItem.recipe.category}
+      </Link>
+    </span>
   </div>
 );
 

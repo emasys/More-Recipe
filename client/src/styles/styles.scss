@@ -3,7 +3,7 @@
 // Header Section in Home Page
 .header {
   margin: 0;
-  background: linear-gradient(180deg, rgba(19, 13, 1, 0.705), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)), url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
+  background: linear-gradient(180deg, rgba(19, 13, 1, 0.705), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)), url('https://res.cloudinary.com/emasys/image/upload/c_scale,e_blur:261,h_346,q_59/v1514478637/Food_r9r19a.jpg') no-repeat center center;
   background-size: cover;
   padding-top: 50px;
   min-height: 450px;
@@ -182,8 +182,23 @@
 }
 
 .reaction-pane {
-  .fa-2x {
-    font-size: 2.5rem;
+  position: relative;
+  i {
+    font-size: 3rem;
+  } 
+  em{
+    background: gray;
+  }
+  
+}
+.labels{
+  line-height: 3rem;
+  
+  a{
+  vertical-align: top;  
+    // background: gray;
+    // padding: .7rem;
+    // box-shadow: 2px 2px 2px 2px gray;
   }
 }
 

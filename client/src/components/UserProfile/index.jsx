@@ -105,27 +105,17 @@ class UserProfile extends Component {
               </div>
               <hr />
               <div className="row justify-content-center">
-                <InfiniteScroll
-                  next={this.loadMore}
-                  hasMore={showMore}
-                  loader={
-                    <div className="loader text-center" key={0}>
-                      <img
-                        src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
-                        width="30"
-                        height="30"
-                        alt="loading..."
-                      />
-                    </div>
-                  }
-                  endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                      <b>No more recipe</b>
-                    </p>
-                  }
-                >
-                  <CatalogList catalog={this.state.recipes} />
-                </InfiniteScroll>
+                <CatalogList catalog={this.state.recipes} />
+              </div>
+              <div className="row justify-content-center">
+                {showMore && (
+                  <button
+                    onClick={this.loadMore}
+                    className=" btn btn-lg btn-outline-dark text-center"
+                  >
+                    View more
+                  </button>
+                )}
               </div>
             </div>
           </div>

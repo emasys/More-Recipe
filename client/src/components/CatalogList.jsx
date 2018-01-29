@@ -23,7 +23,7 @@ const generateList = ({ catalog }) => {
               width="200"
             />
             <h4 className="p-3 m-2 text-center">...Oops</h4>
-            <p className="p-3 m-2 text-center">No recipe found</p>
+            <p className="p-3 m-2 text-center">No recipe here</p>
             <p className="p-3 m-2 text-center">
               <Link to="/" className="btn btn-outline-dark hvr-icon-back">
                 ...go back home
