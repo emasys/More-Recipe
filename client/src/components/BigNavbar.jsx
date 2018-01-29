@@ -74,10 +74,8 @@ export class Navbar extends Component {
       <section className="container-fluid m-0 p-0">
         <nav
           data-aos="flip-up"
-          className={`navbar navbar-expand-lg navbar-dark ${
-            this.props.className
-          }`}
-          style={{ zIndex: 1000 }}
+          className="navbar bg-transparent navbar-expand-lg navbar-dark"
+          style={{ zIndex: 1000, height: "200px" }}
         >
           <div className="container">
             <Link className="navbar-brand bolder ml-3 text-orange" to="/">

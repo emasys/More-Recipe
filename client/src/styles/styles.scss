@@ -3,7 +3,7 @@
 // Header Section in Home Page
 .header {
   margin: 0;
-  background: linear-gradient(180deg, rgb(19, 13, 1), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)), url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
+  background: linear-gradient(180deg, rgba(19, 13, 1, 0.705), rgba(37, 26, 2, 0.45), rgba(39, 27, 2, 0.5)), url('https://res.cloudinary.com/emasys/image/upload/v1514478637/Food_r9r19a.jpg') no-repeat center center;
   background-size: cover;
   padding-top: 50px;
   min-height: 450px;
@@ -45,6 +45,11 @@
   min-width: 500px;
 }
 
+.shadowed {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow:         0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+}
 .custom-dropdown {
   font-size: 12px;
   box-sizing: border-box;
@@ -537,10 +542,11 @@ footer {
     color: #868e96;
     font-style: normal;
     background: transparent;
-    padding: 0;
-    font-size: 1rem;
+    padding-left: .4rem;
+    font-size: 1.7rem;
     border-radius: 20%;
-    position: absolute;
+    font-weight: 400;
+    // position: absolute;
     top: 2.5rem;
     left: 0;
     z-index: 1;

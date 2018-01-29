@@ -228,7 +228,7 @@ class FullCatalog extends Component {
           </Fade>
         )}
         <section className="mt-100" id="catalog">
-          <div className="row catalog-wrapper mx-2 justify-content-center">
+          <div className="row catalog-wrapper mx-2 justify-content-start">
             {!searching && (
               <InfiniteScroll
                 next={this.loadFunc}

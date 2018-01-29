@@ -51,7 +51,11 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="favorite"
         />
-        <em className="bold">{ approx(props.state.recipeItem.recipe.favorite)}</em>
+        <em className="">
+          {' '}
+          {approx(props.state.recipeItem.recipe.favorite)}
+        </em>
+        {/* <em className="bold">{ approx(props.state.recipeItem.recipe.favorite)}</em> */}
       </span>
       <span className="text-center card-link m-1" onClick={props.upvote}>
         <i
@@ -63,7 +67,7 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="like"
         />
-        <em className="bold">{approx(props.state.recipeItem.recipe.upvote)}</em>
+        <em className="">{approx(props.state.recipeItem.recipe.upvote)}</em>
       </span>
       <span className="text-center card-link m-1" onClick={props.downvote}>
         <i
@@ -75,14 +79,12 @@ const GeneraterecipeItem = props => (
           aria-hidden="true"
           id="dislike"
         />
-        <em className="bold">{approx(props.state.recipeItem.recipe.downvote)}</em>
+        <em className="">
+          {approx(props.state.recipeItem.recipe.downvote)}
+        </em>
       </span>
       <span className="text-center card-link m-1" onClick={props.upvote}>
-        <i
-          className="fa fa-eye fa-2x gray"
-          aria-hidden="true"
-          id="views"
-        />
+        <i className="fa fa-eye fa-2x gray" aria-hidden="true" id="views" />
         <em className="bold">{approx(props.state.recipeItem.recipe.views)}</em>
       </span>
       <div className="m-1 float-right d-inline">

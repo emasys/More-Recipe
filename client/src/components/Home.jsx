@@ -56,9 +56,9 @@ export class Home extends Component {
             <DynamicHeader
               hasEffect
               effectDuration={600}
-              useHeadersDifference
+              useHeadersDifference={true}
             >
-              <BigNavbar className="bg-transparent m-0 p-0" />
+              <BigNavbar />
               <Navbar className="bg-dark fixed-top m-0 p-0" />
             </DynamicHeader>
             <div className="row header-items justify-content-center">
@@ -67,7 +67,7 @@ export class Home extends Component {
                   <span className="firstWord">More </span>
                   Recipes
                 </div>
-                <div className=" text-white bg-mirror" data-aos="fade-up" data-aos-duration="2000">
+                <div className=" text-white bg-mirror pb-30" data-aos="fade-up" data-aos-duration="2000">
                   <p>
                     This is a platform for you to share the awesome and exciting
                     recipe ideas you have invented or learnt.

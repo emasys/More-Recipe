@@ -21,7 +21,6 @@ const generateList = ({ catalog }) => {
               alt="logo"
               height="200"
               width="200"
-
             />
             <h4 className="p-3 m-2 text-center">...Oops</h4>
             <p className="p-3 m-2 text-center">No recipe found</p>
@@ -35,10 +34,13 @@ const generateList = ({ catalog }) => {
       );
     }
     return catalog.map((item, index) => (
-      <div className="row justify-content-center" key={index}>
-        <div className="col-lg-12 col-sm-12 mb-20 col-md-12">
+      <div className="row" key={index}>
+        <div className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12">
           <div>
-            <Link to={`/recipe/${item.id}`} className=" hvr-grow-shadow">
+            <Link
+              to={`/recipe/${item.id}`}
+              className="hvr-grow-shadow"
+            >
               <div className="card" data-aos="fade-up" data-aos-duration="1000">
                 <img
                   className="card-img-top img-box"
