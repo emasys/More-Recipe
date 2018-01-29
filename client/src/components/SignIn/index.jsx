@@ -185,8 +185,8 @@ class SignIn extends Component {
       confirmPassword: event.target.elements.confirmPassword.value,
       token: event.target.elements.token.value.trim()
     };
-    console.log(errorMessages);
-    if (errorMessages.length === 0) {
+    console.log(errorMessages());
+    if (errorMessages()) {
       this.props.compareToken(data).then(() => {
         if (this.props.signin.compareToken.success === true) {
           this.props.resetPassword(data);
@@ -200,6 +200,7 @@ class SignIn extends Component {
   generateToken = event => {
     event.preventDefault();
     this.props.sendToken({ email: this.state.recoveryEmail });
+    console.log(errorMessages);
   };
   /**
    *

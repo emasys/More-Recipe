@@ -51,10 +51,8 @@ export const confirmPassword = (
     document.querySelector(`#${handlerId}`).classList.add('text-danger');
     document.querySelector(`#${handlerId}`).innerHTML =
       'Your password did not match';
-    console.log(error);
   } else {
     error = error.filter(item => item !== 4);
-    console.log(error);
     document.querySelector(`#${handlerId}`).innerHTML = 'Password match';
     document.querySelector(`#${handlerId}`).classList.remove('text-danger');
     document.querySelector(`#${inputName}`).classList.remove('error-border');
@@ -126,5 +124,8 @@ export const validateMoniker = moniker => {
   }
 };
 
-const errorMessages = error;
+const errorMessages = () => {
+  if (error.length === 0) return true;
+  return false;
+};
 export default errorMessages;

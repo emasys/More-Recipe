@@ -102,7 +102,7 @@ export class SignUp extends Component {
       moniker: event.target.elements.moniker.value,
       country: event.target.elements.country.value.trim()
     };
-    if (errorMessages.length === 0) {
+    if (errorMessages()) {
       this.props.signUp(data);
     }
   };
