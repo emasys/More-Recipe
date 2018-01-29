@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './client/src/app.jsx',
@@ -11,10 +10,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify('production') }
-    }),
-    new Dotenv({
-      systemvars: true
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.HotModuleReplacementPlugin(),
