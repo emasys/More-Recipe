@@ -283,7 +283,6 @@ class RecipeItem extends Component {
     const file = files[0];
     this.props.uploadImg(file).then(() => {
       this.foodImg = this.props.recipes.uploadedImg;
-      console.log(this.props.recipes.uploadedImg);
       // for poor/no internet connection
       if (typeof this.foodImg === 'object') return this.failedUpdate();
       const data = {

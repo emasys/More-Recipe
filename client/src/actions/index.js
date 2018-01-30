@@ -100,7 +100,7 @@ export const getUserRecipes = (id, limit, offset) => dispatch => {
   axios
     .get(`${URL}/recipes/user/${id}/${limit}/${offset}?token=${xtoken}`)
     .then(response => {
-      dispatch({ type: type.USER_RECIPES, payload: response.data });
+      dispatch({ type: type.USER_RECIPES, payload: response.data.recipes });
       dispatch(isLoading(false));
     })
     .catch(err => {
@@ -282,15 +282,23 @@ export const setFavorite = id => dispatch => {
 };
 
 // Delete Recipe
-export const delRecipe = id => dispatch =>
-  axios
+export const delRecipe = (id, userId) => dispatch => {
+  console.log(userId);
+  const x = userId;
+  dispatch(isLoading(true));
+  return axios
     .delete(`${URL}/recipes/${id}?token=${xtoken}`)
     .then(response => {
+      console.log(userId, x);
       dispatch({ type: type.DELETE_RECIPE, payload: response.data });
+      dispatch(getUserRecipes(userId, 6, 0));
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.DELETE_RECIPE, payload: err.response });
+      dispatch(isLoading(false));
     });
+};
 
 // upvote
 export const upvote = id => dispatch => {
@@ -358,7 +366,6 @@ export const compareToken = data => dispatch =>
 
 // Upload recipe image
 export const uploadImg = data => {
-  console.log(data);
   const formData = new FormData();
   formData.append('file', data);
   formData.append('tags', `morerecipe`);

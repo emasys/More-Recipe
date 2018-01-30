@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 import * as actions from '../../actions';
 
@@ -46,9 +45,8 @@ class UserProfile extends Component {
    * @memberof UserProfile
    */
   componentWillReceiveProps(nextProps) {
-    console.log(this.state.offset);
     this.setState(prevState => ({
-      recipes: [...prevState.recipes, ...nextProps.user]
+      recipes: nextProps.user
     }));
     if (this.state.offset - 6 > this.state.recipes.length) {
       this.setState({
@@ -57,15 +55,16 @@ class UserProfile extends Component {
     }
   }
 
+  componentWillUnmount = () => {
+    this.props.clearRecipes();
+  }
+  
   loadMore = () => {
-    console.log('triggered');
-    console.log(this.state.offset);
     this.props.getUserRecipes(
       this.props.match.params.id,
       this.state.limit,
       this.state.offset
     );
-    console.log('watch this state', this.state.recipes);
     this.setState(prevState => ({
       offset: prevState.offset + 6
     }));
@@ -97,15 +96,15 @@ class UserProfile extends Component {
             <UserProfileInfo data={this.props.userInfo} />
             <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
               <div className="clearfix">
-                <h2 className="fresh-title float-left clearfix">
+                <h2 className="header-title float-left clearfix">
                   {this.props.userInfo ?
                     this.props.userInfo.data.moniker :
-                    null}'s Recipes
+                    null}'s recipes
                 </h2>
               </div>
               <hr />
               <div className="row justify-content-center">
-                <CatalogList catalog={this.state.recipes} />
+                <CatalogList {...this.props} catalog={this.state.recipes} />
               </div>
               <div className="row justify-content-center">
                 {showMore && (
@@ -126,7 +125,7 @@ class UserProfile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.recipes.userRecipes.recipes,
+  user: state.recipes.userRecipes,
   userInfo: state.user.userInfo
 });
 

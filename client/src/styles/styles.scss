@@ -75,7 +75,7 @@
 }
 
 .card {
-  max-width: 25rem;
+  max-width: 30rem;
   .custom-bg {
     background: rgb(141, 161, 141);
     color: $white;
@@ -114,6 +114,7 @@
   .tag {
     position: absolute;
     top: -25px;
+    z-index: 8;
     right: -5px;
     padding: 5px;
     font-size: 12px;
@@ -269,17 +270,22 @@
 .custom-dropdown-menu {
   font-size: 16px;
 }
-
+.delete-btn{
+  position: absolute;
+  bottom: 0;
+  right:0;
+  z-index: 2001;
+}
 input[type='search'] {
   height: 40px;
   width: 100%;
-  border: thin solid rgb(245, 179, 57);
+  border: thin solid rgba(245, 173, 57, 0.116);
   font-style: italic;
   padding: 10px;
   font-size: 14px;
   color: $dark_red;
   text-align: left;
-  border-radius: 5px;
+  border-radius: 3rem;
   background: rgba(255, 255, 255, 0.089);
   margin-top: 0px;
   -webkit-transition: 400ms ease-in-out;
@@ -532,8 +538,9 @@ footer {
 }
 
 .description {
-  opacity: 0.0000000001;
+  // opacity: 0.0000000001;
   position: absolute;
+  z-index: 1000;
   height: 100%;
   width: 100%;
   top: 0;
@@ -541,6 +548,10 @@ footer {
   color: $white;
   background: rgba(0, 0, 0, 0.7);
   overflow: hidden;
+  font-size: 1.5rem;
+  h2{
+    font-size: 1.2rem;
+  }
 }
 
 .recipe-item-section {
@@ -611,7 +622,7 @@ footer {
 }
 
 .img-box {
-  height: 180px;
+  height: 25rem;
   max-width: 100%;
 }
 
@@ -692,7 +703,8 @@ footer {
 }
 
 .fresh-title {
-  text-shadow: .2rem .2rem .2rem white, .2rem .3rem .25rem black;
+  // text-shadow: .2rem .2rem .2rem $black;
+  font-weight: 900;
   font-style: 900px;
   font-family: $satisfy;
 }

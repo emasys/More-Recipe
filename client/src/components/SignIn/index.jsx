@@ -64,7 +64,6 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.signin.signIn);
     if (nextProps.signin.signIn) {
       if (nextProps.signin.signIn.success) {
         this.setState({
@@ -185,7 +184,6 @@ class SignIn extends Component {
       confirmPassword: event.target.elements.confirmPassword.value,
       token: event.target.elements.token.value.trim()
     };
-    console.log(errorMessages());
     if (errorMessages()) {
       this.props.compareToken(data).then(() => {
         if (this.props.signin.compareToken.success === true) {
@@ -200,7 +198,6 @@ class SignIn extends Component {
   generateToken = event => {
     event.preventDefault();
     this.props.sendToken({ email: this.state.recoveryEmail });
-    console.log(errorMessages);
   };
   /**
    *

@@ -112,8 +112,6 @@ class FullCatalog extends Component {
   };
 
   loadFunc = () => {
-    console.log('triggered');
-    console.log(this.state.offset);
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
@@ -166,8 +164,6 @@ class FullCatalog extends Component {
     event.preventDefault();
   };
   addMore = () => {
-    console.log('button clicked');
-    console.log(this.props);
     this.props.history.push('/new');
   };
   /**
@@ -260,12 +256,16 @@ class FullCatalog extends Component {
                 }
               >
                 <CatalogList
+                  {...this.props}
                   catalog={this.props.recipes.allRecipes.sort(compare)}
                 />
               </InfiniteScroll>
             )}
             {searching && (
-              <CatalogList catalog={this.props.recipes.searchResult} />
+              <CatalogList
+                {...this.props}
+                catalog={this.props.recipes.searchResult}
+              />
             )}
           </div>
         </section>

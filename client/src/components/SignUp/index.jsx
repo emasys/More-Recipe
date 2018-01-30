@@ -42,7 +42,6 @@ export class SignUp extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    console.log(nextProps);
     if (nextProps.user.signUp) {
       if (nextProps.user.signUp.success) {
         window.location.href = '/';

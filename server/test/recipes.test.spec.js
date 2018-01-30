@@ -240,7 +240,6 @@ describe('CRUD/ for recipes', () => {
 
   describe('Post a review', () => {
     it('should return a status code of 201 if a review is successfully added', (done) => {
-      // console.log(xtoken);
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ content: 'just added a comment' })

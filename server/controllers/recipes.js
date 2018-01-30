@@ -589,7 +589,7 @@ class RecipeController {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
         // Check if the deletor is the creator of the recipe
-        if (recipe.userId === req.decoded.id) {
+        if (Number(recipe.userId) === Number(req.decoded.id)) {
           return recipe
             .destroy()
             .then(() =>

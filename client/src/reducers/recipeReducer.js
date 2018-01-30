@@ -6,9 +6,7 @@ export default (
     recipeItem: {},
     updateRecipes: {},
     category: [],
-    userRecipes: {
-      recipes: []
-    }
+    userRecipes: []
   },
   action
 ) => {
@@ -16,7 +14,8 @@ export default (
   case type.CLEAR_RECIPES:
     return {
       ...state,
-      allRecipes: []
+      allRecipes: [],
+      userRecipes: action.payload
     };
   case type.ALL_RECIPES:
     return {
@@ -50,7 +49,7 @@ export default (
   case type.USER_RECIPES:
     return {
       ...state,
-      userRecipes: action.payload
+      userRecipes: [...state.userRecipes, ...action.payload]
     };
   case type.EDIT_RECIPE:
     return {

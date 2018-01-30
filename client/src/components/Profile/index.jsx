@@ -49,7 +49,7 @@ class Profile extends Component {
       edit: false,
       successMsg: false,
       save: 'd-none',
-      showMore: true
+      showMore: false
     };
   }
   /**
@@ -72,7 +72,7 @@ class Profile extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState(prevState => ({
-      recipes: [...prevState.recipes, ...nextProps.user]
+      recipes: nextProps.user
     }));
     if (this.state.offset - 6 > this.state.recipes.length) {
       this.setState({
@@ -88,9 +88,12 @@ class Profile extends Component {
       });
     }
   }
+
+  componentWillUnmount = () => {
+    this.props.clearRecipes();
+  };
+
   loadMore = () => {
-    console.log('triggered');
-    console.log(this.state.offset);
     this.props.getUserRecipes(
       this.props.match.params.id,
       this.state.limit,
@@ -111,14 +114,6 @@ class Profile extends Component {
         transition: 'transform 0.6s'
       })
     });
-  /**
-   *
-   * @returns {any} a new state
-   * @memberof Profile
-   */
-  changeDp = () => {
-    console.log('change');
-  };
   /**
    *
    * @returns {any} a new state
@@ -207,7 +202,6 @@ class Profile extends Component {
     this.props.uploadImg(file).then(() => {
       query.avatar = this.props.recipes.uploadedImg;
       // for poor/no internet connection
-      console.log(query.avatar);
       if (typeof query.avatar === 'object') return this.failedUpdate();
       this.props.updateUser(this.props.match.params.id, query).then(() => {
         this.props.getUserInfo(this.props.match.params.id);
@@ -286,7 +280,6 @@ class Profile extends Component {
               showForm={this.showForm}
               hoverIn={this.hoverIn}
               hoverOut={this.hoverOut}
-              changeDp={this.changeDp}
               handleDrop={this.handleDrop}
               handleImg={this.handleImg}
               notify={this.notify}
@@ -313,7 +306,7 @@ class Profile extends Component {
                 </div>
                 <hr />
                 <div className="row justify-content-center">
-                  <CatalogList catalog={this.state.recipes} />
+                  <CatalogList {...this.props} catalog={this.state.recipes} />
                 </div>
                 <div className="row justify-content-center">
                   {showMore && (
@@ -335,7 +328,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.recipes.userRecipes.recipes,
+  user: state.recipes.userRecipes,
   recipes: state.recipes,
   userInfo: state.user.userInfo,
   updateUser: state.user.updateUser
