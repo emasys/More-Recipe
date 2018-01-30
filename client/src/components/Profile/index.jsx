@@ -71,6 +71,7 @@ class Profile extends Component {
    * @returns {any} a new state
    */
   componentWillReceiveProps(nextProps) {
+    console.log("nextprops",nextProps.user);
     this.setState(prevState => ({
       recipes: nextProps.user
     }));

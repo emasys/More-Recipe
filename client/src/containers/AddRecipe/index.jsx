@@ -56,8 +56,8 @@ class AddRecipe extends Component {
   sendData() {
     if (this.props.new_recipe.new_recipe) {
       if (this.props.new_recipe.new_recipe.recipe) {
-        const { id } = this.props.new_recipe.new_recipe.recipe;
-        this.props.history.push(`/recipe/${id}`);
+        const { userId } = this.props.new_recipe.new_recipe.recipe;
+        this.props.history.push(`/profile/${userId}`);
       }
       if (this.props.new_recipe.new_recipe.data) {
         if (this.props.new_recipe.new_recipe.data.error) {

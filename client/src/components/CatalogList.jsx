@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
 
@@ -29,8 +30,6 @@ const deleteRecipeInit = event => {
  */
 const generateList = ({ catalog, delRecipe, history }) => {
   const deleteRecipe = (event, id, userId) => {
-    console.log('userId', userId);
-    console.log(Auth.userID(), id);
     event.preventDefault();
     delRecipe(id, userId).then(() => {
       // history.push('');
@@ -94,7 +93,7 @@ const generateList = ({ catalog, delRecipe, history }) => {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-secondary"
+                  className="btn btn-secondary btn-lg"
                   data-dismiss="modal"
                 >
                   No
@@ -103,7 +102,7 @@ const generateList = ({ catalog, delRecipe, history }) => {
                   onClick={event => deleteRecipe(event, item.id, item.userId)}
                   type="button"
                   data-dismiss="modal"
-                  className="btn btn-danger"
+                  className="btn btn-danger btn-lg"
                 >
                   Yes
                 </button>
@@ -188,7 +187,10 @@ const CatalogList = props => (
 );
 
 const mapDispatchToProps = dispatch => ({
-  delRecipe: recipeId => dispatch(delRecipe(recipeId))
+  ...bindActionCreators({ delRecipe }, dispatch)
 });
+// const mapDispatchToProps = dispatch => ({
+//   delRecipe: recipeId => dispatch(delRecipe(recipeId, userId))
+// });
 
 export default connect(null, mapDispatchToProps)(CatalogList);

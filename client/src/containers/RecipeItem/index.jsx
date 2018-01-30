@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
-// import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 import Fade from 'react-reveal/Fade';
 import PropTypes from 'prop-types';
@@ -79,7 +77,7 @@ class RecipeItem extends Component {
       });
     }
     if (nextProps.recipes.recipeItem.data) {
-      if (nextProps.recipes.recipeItem.data.status === "Recipes not found") {
+      if (nextProps.recipes.recipeItem.data.status === 'Recipes not found') {
         nextProps.history.push('/NotFound');
       }
       this.setState({
@@ -92,8 +90,14 @@ class RecipeItem extends Component {
         recipeItem: nextProps.recipes.recipeItem
       });
       const {
-        favorites, ingredients, name, description, direction,
-        foodImg, category, userId,
+        favorites,
+        ingredients,
+        name,
+        description,
+        direction,
+        foodImg,
+        category,
+        userId
       } = nextProps.recipes.recipeItem.recipe;
       if (userId === Auth.userID()) {
         this.setState({
@@ -111,11 +115,14 @@ class RecipeItem extends Component {
           return this.setState({
             favoriteStatus: true
           });
-        } 
+        }
         return null;
       });
     }
   }
+  deleteRecipeInit = event => {
+    event.preventDefault();
+  };
   /**
   /**
    *
@@ -124,7 +131,7 @@ class RecipeItem extends Component {
    * @returns {any} redirects a user back to catalog page after deletion
    */
   delRecipe = () => {
-    this.props.delRecipe(this.props.match.params.id).then(() => {
+    this.props.delRecipe(this.props.match.params.id, Auth.userID()).then(() => {
       if (this.props.recipes.del_recipe.success) {
         this.props.history.push('/catalog');
       }
@@ -340,10 +347,7 @@ class RecipeItem extends Component {
    */
   render() {
     const {
-      deleteRecipe,
-      recipeItem,
-      editRecipe,
-      edit,
+      deleteRecipe, recipeItem, editRecipe, edit
     } = this.state;
     return (
       <div>
@@ -352,7 +356,53 @@ class RecipeItem extends Component {
           {this.props.netReq ? <Pace color="#e7b52c" height={2} /> : null}
         </div>
         <ToastContainer />
-        <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
+        <div
+          className="modal fade"
+          id="deleteModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="deleteModalTitle"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLongTitle">
+                  Delete Recipe
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to delete this recipe?
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-lg"
+                  data-dismiss="modal"
+                >
+                  No
+                </button>
+                <button
+                  onClick={this.delRecipe}
+                  type="button"
+                  data-dismiss="modal"
+                  className="btn btn-danger btn-lg"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
           <div className="text-center mt-10">
             <h4>Delete Recipe?</h4>
             <h2 className="mt-5">
@@ -372,7 +422,7 @@ class RecipeItem extends Component {
               No
             </button>
           </div>
-        </Modal>
+        </Modal> */}
         <Fade duration={1000}>
           <section className="container mt-80">
             <div
@@ -395,15 +445,14 @@ class RecipeItem extends Component {
             <Reviews />
             {edit && (
               <i
-                onClick={this.onOpenDeleteModal}
                 data-tip="Delete recipe"
-                /* eslint-disable */
+                onClick={this.deleteRecipeInit}
+                data-toggle="modal"
+                data-target="#deleteModal"
                 className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
                 id="floating-delete"
                 aria-hidden="true"
-              >
-                <ReactTooltip place="bottom" type="dark" effect="float" />
-              </i>
+              />
             )}
             {edit && (
               <i
@@ -448,5 +497,5 @@ RecipeItem.propTypes = {
   match: PropTypes.object
 };
 
-export {RecipeItem as DumbRecipeItem}
+export { RecipeItem as DumbRecipeItem };
 export default connect(mapStateToProps, actions)(RecipeItem);

@@ -7,7 +7,7 @@ module.exports = {
     );
   },
 
-  // down(queryInterface, Sequelize) {
-  //   return queryInterface.removeColumn('Services', 'service_price');
-  // }
+  down(queryInterface, Sequelize) {
+    return queryInterface.removeColumn('Services', 'service_price');
+  }
 };

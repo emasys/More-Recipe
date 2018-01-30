@@ -75,6 +75,7 @@ export default (
   case type.DELETE_RECIPE:
     return {
       ...state,
+      userRecipes: [],
       del_recipe: action.payload
     };
 

@@ -38,3 +38,4 @@ client/src/components/header.jsx
 client/src/config/index.js
 client/public/bundle.js
 .vscode
+client/src/components/modal.jsx

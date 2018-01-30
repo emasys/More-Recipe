@@ -53,7 +53,7 @@ export default (sequelize, DataTypes) => {
     },
     views: {
       type: DataTypes.INTEGER,
-      defaultValue: 1
+      defaultValue: 0
     },
     comments: {
       type: DataTypes.INTEGER,
