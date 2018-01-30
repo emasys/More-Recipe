@@ -687,6 +687,10 @@ footer {
   font: bolder;
 }
 
+  input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
 .fresh-title {
   text-shadow: .2rem .2rem .2rem white, .2rem .3rem .25rem black;
   font-style: 900px;

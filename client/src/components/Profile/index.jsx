@@ -300,7 +300,7 @@ class Profile extends Component {
               </div>
             )}
             {!edit && (
-              <div className="col-lg-10 col-md-10 col-sm-12 recipe-lists">
+              <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
                 <div className="clearfix">
                   <h2 className="fresh-title float-left clearfix">Recipes </h2>
                   <Link

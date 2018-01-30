@@ -14,7 +14,7 @@ const UserProfileInfo = props => {
       moniker
     } = props.data.data;
     return (
-      <div className="col-lg-2 col-md-2 col-sm-12 mb-10">
+      <div className="col-lg-2 col-md-4 col-sm-12 mb-10">
         <img
           src={avatar || config.DEFAULT_DISPLAY_PICTURE}
           alt="avi"

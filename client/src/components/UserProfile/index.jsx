@@ -95,7 +95,7 @@ class UserProfile extends Component {
         <section className="container-fluid profile catalog-wrapper mt-80">
           <div className="row justify-content-center">
             <UserProfileInfo data={this.props.userInfo} />
-            <div className="col-lg-10 col-md-10 col-sm-12 recipe-lists">
+            <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h2 className="fresh-title float-left clearfix">
                   {this.props.userInfo ?

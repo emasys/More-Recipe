@@ -20,7 +20,7 @@ const UserInfo = props => {
 
     const { status, preview, save } = props.state;
     return (
-      <div className="col-lg-2 col-md-2 col-sm-12 mb-10">
+      <div className="col-lg-2 col-md-4 col-sm-12 mb-10">
         <div
           className="img-wrapper"
           onMouseEnter={props.hoverIn}
