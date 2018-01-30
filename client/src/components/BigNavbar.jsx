@@ -74,7 +74,7 @@ export class Navbar extends Component {
       <section className="container-fluid m-0 p-0">
         <nav
           data-aos="flip-up"
-          className="navbar bg-transparent navbar-expand-lg navbar-dark"
+          className="navbar bg-transparent navbar-expand navbar-dark"
           style={{ zIndex: 1000, height: "200px" }}
         >
           <div className="container">

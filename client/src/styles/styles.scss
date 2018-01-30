@@ -688,9 +688,9 @@ footer {
 }
 
 .fresh-title {
-  text-shadow: 1px 1px 1px white, 1px 2px 2px black;
+  text-shadow: .2rem .2rem .2rem white, .2rem .3rem .25rem black;
   font-style: 900px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: $satisfy;
 }
 
 .fade-appear {

@@ -162,11 +162,14 @@ class FullCatalog extends Component {
       this.setState({ searching: false });
     }
   };
+  onSearch = event => {
+    event.preventDefault();
+  };
   addMore = () => {
-    console.log("button clicked");
+    console.log('button clicked');
     console.log(this.props);
     this.props.history.push('/new');
-  }
+  };
   /**
    *
    *
@@ -245,15 +248,17 @@ class FullCatalog extends Component {
                 }
                 endMessage={
                   <p style={{ textAlign: 'center' }}>
-                    <b>Thank you for being Awesome</b><br/>
+                    <b>Thank you for being Awesome</b>
+                    <br />
                     <b
                       onClick={this.addMore}
                       className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                     >
-                        Add More Recipes
+                      Add More Recipes
                     </b>
                   </p>
-                }>
+                }
+              >
                 <CatalogList
                   catalog={this.props.recipes.allRecipes.sort(compare)}
                 />

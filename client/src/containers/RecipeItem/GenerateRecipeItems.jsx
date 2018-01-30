@@ -99,8 +99,8 @@ const GeneraterecipeItem = props => (
     <span className="labels float-right px-1">
       <i className="material-icons gray">&#xE892;</i>
       <Link
+        data-tip="Category"
         className=" text-dark rounded "
-        // style={{ verticalAlign: 'top' }}
         to={`/category/${props.state.recipeItem.recipe.category}`}
       >
         {props.state.recipeItem.recipe.category}
