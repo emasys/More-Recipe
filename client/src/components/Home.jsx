@@ -56,18 +56,26 @@ export class Home extends Component {
             <DynamicHeader
               hasEffect
               effectDuration={600}
-              useHeadersDifference={true}
+              useHeadersDifference
             >
               <BigNavbar />
               <Navbar className="bg-dark fixed-top m-0 p-0" />
             </DynamicHeader>
             <div className="row header-items justify-content-center">
               <div className="col-lg-10 col-sm-10 text-left banner">
-                <div className="home-title mt-100" data-aos="fade-up" data-aos-duration="2000">
+                <div
+                  className="home-title mt-100"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                >
                   <span className="firstWord">More </span>
                   Recipes
                 </div>
-                <div className=" text-white bg-mirror pb-30" data-aos="fade-up" data-aos-duration="2000">
+                <div
+                  className=" text-white bg-mirror pb-30"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                >
                   <p>
                     This is a platform for you to share the awesome and exciting
                     recipe ideas you have invented or learnt.
@@ -107,7 +115,7 @@ export class Home extends Component {
           <div className="catalog-wrapper">
             <div className="col-12 ">
               <div className="clearfix" style={{ zIndex: 700 }}>
-                <h4 className="float-left fresh-title">Top Recipes</h4>
+                <h4 className="float-left header-title">Top Recipes</h4>
                 <h5 className="float-right">
                   <Link
                     to="/catalog"
@@ -118,7 +126,10 @@ export class Home extends Component {
                 </h5>
               </div>
             </div>
-            <CatalogList catalog={this.props.recipes.hotRecipes} />
+            <CatalogList
+              {...this.props}
+              catalog={this.props.recipes.hotRecipes}
+            />
             <div className="col-12 ">
               <div className="clearfix">
                 <h5 className="text-center">

@@ -70,6 +70,7 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
+    console.log(nextProps.recipes);
     if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
@@ -96,6 +97,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
+    this.loadFunc();    
   };
   /**
    *
@@ -109,6 +111,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
+    this.loadFunc();    
   };
 
   loadFunc = () => {
@@ -129,6 +132,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
+    this.loadFunc();
   };
 
   /**
@@ -137,12 +141,14 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   mostViewed = () => {
+    console.log("clicked");
     const compare = (a, b) => {
       if (a.views < b.views) return 1;
       if (a.views > b.views) return -1;
       return 0;
     };
     this.setState({ compare });
+    this.loadFunc();    
   };
 
   /**

@@ -31,10 +31,11 @@ const deleteRecipeInit = event => {
 const generateList = ({ catalog, delRecipe, history }) => {
   const deleteRecipe = (event, id, userId) => {
     event.preventDefault();
-    delRecipe(id, userId).then(() => {
+    console.log(Auth.userID(), userId);
+    delRecipe(id, Auth.userID()).then(() => {
       // history.push('');
       // history.pushState(null, '/messages');
-      history.push(`/profile/${userId}`);
+      history.push(`/profile/${Auth.userID()}`);
     });
   };
 
