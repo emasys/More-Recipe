@@ -6,8 +6,18 @@ import { validateReviews, setStatus, mailer } from '../middleware/helper';
  *
  * @export
  * @class reviews
+ * @returns {object} Reviews operation
  */
 export default class ReviewRecipe {
+  /**
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} list of reviews for a particular recipe
+   * @memberof ReviewRecipe
+   */
   static getReviews(req, res) {
     Reviews.findAll({
       where: {
@@ -16,11 +26,32 @@ export default class ReviewRecipe {
       order: [['createdAt', 'DESC']],
       include: [
         {
-          model: Users
+          model: Users,
+          attributes: ['moniker', 'avatar']
         }
       ]
     })
       .then(reviews => setStatus(res, { reviews }, 200))
+      .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
+  }
+  /**
+   *
+   *
+   * @static
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} list of reviews for a particular recipe
+   * @memberof ReviewRecipe
+   */
+  static deleteReviews(req, res) {
+    Reviews.findById(req.params.reviewId, {
+      where: {
+        userId: req.decoded.id
+      },
+    })
+      .then(reviews => reviews.destroy())
+      .then(() =>
+        setStatus(res, { success: true, message: 'review deleted' }, 200))
       .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
   }
   /**
@@ -38,7 +69,7 @@ export default class ReviewRecipe {
     const validator = new Validator(request, validateReviews());
     if (validator.passes()) {
       Recipes.findById(req.params.recipeId, {
-        include: [{ model: Users }],
+        include: [{ model: Users }]
         // enable sending a notification to the creator of the recipe
       })
         .then((recipe) => {
@@ -47,15 +78,15 @@ export default class ReviewRecipe {
           return Reviews.create({
             content: req.body.content,
             userId: req.decoded.id,
-            recipeId: req.params.recipeId,
+            recipeId: req.params.recipeId
           })
             .then((reviewedRecipe) => {
-              mailer(
-                moniker,
-                email,
-                `has reviewed your recipe (${name})`
+              mailer(moniker, email, `has reviewed your recipe (${name})`);
+              return setStatus(
+                res,
+                { success: true, reviewedRecipe, recipe },
+                201
               );
-              return setStatus(res, { success: true, reviewedRecipe, recipe }, 201);
             })
             .catch(err => setStatus(res, { success: false, error: err }, 500));
         })

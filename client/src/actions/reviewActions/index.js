@@ -29,5 +29,21 @@ export const postReview = (data, id) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: type.REVIEW, payload: err.response });
+      dispatch(isLoading(false));
+    });
+};
+
+// Delete a review
+export const deleteReview = (reviewId, recipeId) => dispatch => {
+  dispatch(isLoading(true));
+  return axios
+    .delete(`${URL}/reviews/delete/${reviewId}?token=${xtoken}`)
+    .then(response => {
+      dispatch({ type: type.DELETE_REVIEWS, payload: response.data });
+      dispatch(getReviews(recipeId));      
+    })
+    .catch(err => {
+      dispatch({ type: type.DELETE_REVIEWS, payload: err.response });
+      dispatch(isLoading(false));
     });
 };

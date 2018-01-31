@@ -13,6 +13,7 @@ router.get('/favorites', jwt.verifyToken, Favorite.listFavorites);
 router.get('/recipe/:recipeId', jwt.verifyToken, Recipes.getRecipe);
 router.get('/recipe/reaction/:recipeId', jwt.verifyToken, Recipes.getReactionCount);
 router.get('/reviews/:recipeId', jwt.verifyToken, Reviews.getReviews);
+router.delete('/reviews/delete/:reviewId', jwt.verifyToken, Reviews.deleteReviews);
 
 // POST recipe requests
 router.post('/recipes', jwt.verifyToken, Recipes.addRecipe);

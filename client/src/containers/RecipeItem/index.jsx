@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 import Pace from 'react-pace-progress';
 
 // Actions
-import { getRecipeItem, editRecipe } from '../../actions/recipeActions';
+import {
+  getRecipeItem,
+  editRecipe,
+  delRecipe
+} from '../../actions/recipeActions';
 import { setFavorite } from '../../actions/favoriteAction';
 import { upvote, downvote } from '../../actions/voteActions';
 
@@ -423,28 +427,28 @@ class RecipeItem extends Component {
                 data={this.props.userInfo}
               />
             )}
+            {edit && (
+              <i
+                data-tip="Delete recipe"
+                onClick={this.deleteRecipeInit}
+                data-toggle="modal"
+                data-target="#deleteModal"
+                className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
+                id="floating-delete"
+                aria-hidden="true"
+              />
+            )}
+            {edit && (
+              <i
+                data-tip="Edit recipe"
+                id="floating-edit"
+                className="text-info fa fa-pencil fa-2x rounded-circle"
+                aria-hidden="true"
+                onClick={this.showEditForm}
+              />
+            )}
           </div>
           <Reviews />
-          {edit && (
-            <i
-              data-tip="Delete recipe"
-              onClick={this.deleteRecipeInit}
-              data-toggle="modal"
-              data-target="#deleteModal"
-              className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
-              id="floating-delete"
-              aria-hidden="true"
-            />
-          )}
-          {edit && (
-            <i
-              data-tip="Edit recipe"
-              id="floating-edit"
-              className="text-info fa fa-pencil fa-2x rounded-circle"
-              aria-hidden="true"
-              onClick={this.showEditForm}
-            />
-          )}
         </section>
       </div>
     );
@@ -467,7 +471,8 @@ const mapDispatchToProps = dispatch => ({
       editRecipe,
       setFavorite,
       upvote,
-      downvote
+      downvote,
+      delRecipe
     },
     dispatch
   )
