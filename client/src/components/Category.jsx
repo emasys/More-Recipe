@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-// Actions
-import * as actions from '../actions';
+// Action
+import { getCategory } from '../actions/recipeActions';
 
 // Components
 import FixedNavbar from './Navbar';
@@ -52,10 +53,14 @@ const mapStateToProps = state => ({
   recipes: state.recipes
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getCategory }, dispatch)
+});
+
 Category.propTypes = {
   getCategory: PropTypes.func,
   category: PropTypes.object,
   match: PropTypes.object,
   recipes: PropTypes.object
 };
-export default connect(mapStateToProps, actions)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

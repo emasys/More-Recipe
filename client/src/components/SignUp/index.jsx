@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 
 // Validator helper
 import errorMessages, {
@@ -11,8 +12,10 @@ import errorMessages, {
   validateMoniker,
   confirmPassword
 } from './Validators';
+
 // actions
-import * as actions from '../../actions';
+import { signUp } from '../../actions/userActions';
+import { isLoading } from '../../actions';
 
 //component
 import Navbar from '../Navbar';
@@ -22,8 +25,9 @@ import Form from './SignUpForms';
  *
  *
  * @class SignUp
- * @param {any} event
  * @extends {Component}
+ * @param {object} nextProps
+ * @param {object} event
  */
 export class SignUp extends Component {
   /**
@@ -66,11 +70,21 @@ export class SignUp extends Component {
         [event.target.name]: event.target.value
       },
       () => {
-        if (this.state.fname) { validateName(this.state.fname, 'fname', 'fname_error'); }
-        if (this.state.lname) { validateName(this.state.lname, 'lname', 'lname_error'); }
-        if (this.state.email) { validateEmail(this.state.email, 'email', 'email_error'); }
-        if (this.state.password) { validatePassword(this.state.password, 'password', 'password_error'); }
-        if (this.state.moniker) { validateMoniker(this.state.moniker, 'moniker', 'moniker_error'); }
+        if (this.state.fname) {
+          validateName(this.state.fname, 'fname', 'fname_error');
+        }
+        if (this.state.lname) {
+          validateName(this.state.lname, 'lname', 'lname_error');
+        }
+        if (this.state.email) {
+          validateEmail(this.state.email, 'email', 'email_error');
+        }
+        if (this.state.password) {
+          validatePassword(this.state.password, 'password', 'password_error');
+        }
+        if (this.state.moniker) {
+          validateMoniker(this.state.moniker, 'moniker', 'moniker_error');
+        }
         if (this.state.confirmPassword) {
           confirmPassword(
             this.state.password,
@@ -168,11 +182,16 @@ export class SignUp extends Component {
 
 SignUp.propTypes = {
   user: PropTypes.object,
-  signUp: PropTypes.func
+  signUp: PropTypes.func,
+  netReq: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   user: state.user,
   netReq: state.netReq
 });
-export default connect(mapStateToProps, actions)(SignUp);
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ signUp, isLoading }, dispatch)
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

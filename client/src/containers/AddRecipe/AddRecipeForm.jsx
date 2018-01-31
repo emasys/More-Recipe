@@ -40,7 +40,7 @@ const AddRecipeForm = props => (
           className="col-12"
           placeholder="how to make it happen"
           id="direction"
-          minRows={3}
+          minRows={1}
           maxRows={20}
           required
           name="direction"
@@ -53,7 +53,7 @@ const AddRecipeForm = props => (
           className="col-12"
           placeholder="a short description of your recipe"
           id="description"
-          minRows={3}
+          minRows={1}
           maxRows={20}
           required
           name="description"

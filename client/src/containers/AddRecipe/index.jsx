@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Pace from 'react-pace-progress';
-import Fade from 'react-reveal/Fade';
 import PropTypes from 'prop-types';
 
 //actions
-import * as actions from '../../actions';
+import { addRecipe } from '../../actions/recipeActions';
 
 //component
 import Navbar from '../../components/Navbar';
@@ -34,17 +34,6 @@ class AddRecipe extends Component {
     };
     this.handleForm = this.handleForm.bind(this);
     this.sendData = this.sendData.bind(this);
-  }
-  /**
-   * @returns {any}
-   * invoked immediately before a component is unmounted and destroyed.
-   *
-   * @memberof AddRecipe
-   */
-  componentWillUnmount() {
-    this.setState({
-      isLoading: false
-    });
   }
   /**
    *
@@ -143,27 +132,15 @@ class AddRecipe extends Component {
                 data-aos-delay="1000"
                 data-dos-duration="1000"
               />
-
-              <h1
-                data-aos="fade-up"
-                data-aos-duration="2000"
-                className="text-white"
-              >
-                Hey there!
-              </h1>
-              <h4
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-dos-delay="1000"
-                className="mt-10 text-white p-10 "
-              >
+              <h1 className="text-white">Hey there!</h1>
+              <h4 className="mt-10 text-white p-10 ">
                 “Cooking is not a science but an art, mistakes are okay, messes
                 are fine—the pleasure is in the creating and the sharing of the
                 result.” ― Lori Pollan
               </h4>
             </div>
             <div className=" col-lg-6 col-md-6 justify-content-center col-sm-12">
-            <AddRecipeForm handleForm={this.handleForm} />
+              <AddRecipeForm handleForm={this.handleForm} />
             </div>
           </div>
         </div>
@@ -175,10 +152,13 @@ class AddRecipe extends Component {
 const mapStateToProps = state => ({
   new_recipe: state.recipes
 });
-
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ addRecipe }, dispatch)
+});
 AddRecipe.propTypes = {
   new_recipe: PropTypes.object,
   history: PropTypes.object,
   addRecipe: PropTypes.func
 };
-export default connect(mapStateToProps, actions)(AddRecipe);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);

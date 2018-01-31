@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import Pace from 'react-pace-progress';
 
 // actions
-import * as actions from '../../actions';
-
+import {
+  resetPassword,
+  signIn,
+  compareToken,
+  sendToken
+} from '../../actions/authActions';
+import { isLoading } from '../../actions';
 //components
 import Navbar from '../Navbar';
 import SignInForm from './SignInForm';
@@ -15,9 +21,10 @@ import errorMessages, {
   validatePassword,
   confirmPassword
 } from '../SignUp/Validators';
+
 /**
  *
- *
+ *@param {object} event
  * @class SignIn
  * @extends {Component}
  */
@@ -39,7 +46,7 @@ class SignIn extends Component {
       message: '',
       success: false,
       showProps: false,
-      resetPassword: false
+      resetPass: false
     };
   }
   /**
@@ -85,7 +92,7 @@ class SignIn extends Component {
     if (nextProps.reset) {
       if (nextProps.reset.success) {
         this.setState({
-          resetPassword: false,
+          resetPass: false,
           success: true
         });
       } else {
@@ -156,7 +163,7 @@ class SignIn extends Component {
    * @returns {any} password input text
    */
   resetForm = () => {
-    if (!this.state.resetPassword) {
+    if (!this.state.resetPass) {
       this.setState({
         resetPassword: true,
         success: false
@@ -218,7 +225,7 @@ class SignIn extends Component {
    */
   render() {
     const {
-      message, showProps, resetPassword, success
+      message, showProps, resetPass, success
     } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
@@ -282,7 +289,7 @@ class SignIn extends Component {
             </h4>
           </div>
           <div className="col-lg-5 col-sm-8 pb-20 signin-form">
-            {!resetPassword && (
+            {!resetPass && (
               <SignInForm
                 handleSubmit={this.handleSubmit}
                 state={this.state}
@@ -292,7 +299,7 @@ class SignIn extends Component {
                 resetForm={this.resetForm}
               />
             )}
-            {resetPassword && (
+            {resetPass && (
               <ResetPasswordForm
                 state={this.state}
                 onChange={this.onChange}
@@ -315,6 +322,19 @@ const mapStateToProps = state => ({
   netReq: state.netReq
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      resetPassword,
+      signIn,
+      compareToken,
+      sendToken,
+      isLoading
+    },
+    dispatch
+  )
+});
+
 SignIn.propTypes = {
   msg: PropTypes.string,
   reset: PropTypes.object,
@@ -322,7 +342,10 @@ SignIn.propTypes = {
   signin: PropTypes.object,
   signIn: PropTypes.func,
   match: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
+  compareToken: PropTypes.func,
+  sendToken: PropTypes.func,
+  netReq: PropTypes.bool
 };
 
-export default connect(mapStateToProps, actions)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

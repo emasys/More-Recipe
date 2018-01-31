@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// const clearError = () => {
-//   document.querySelector('#error').innerHTML = '';
-// };
 const SignInForm = props => {
   const { email, showErrMessage } = props.state;
 
@@ -59,4 +56,12 @@ const SignInForm = props => {
   );
 };
 
+SignInForm.propTypes = {
+  state: PropTypes.object,
+  handleSubmit: PropTypes.func,
+  emailChanged: PropTypes.func,
+  clearError: PropTypes.func,
+  pwChanged: PropTypes.func,
+  resetForm: PropTypes.func
+};
 export default SignInForm;

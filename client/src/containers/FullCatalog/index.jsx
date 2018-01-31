@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import Fade from 'react-reveal/Fade';
+import { bindActionCreators } from 'redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Pace from 'react-pace-progress';
 
 // Actions
-import * as actions from '../../actions';
+import {
+  getRecipes,
+  clearRecipes,
+  searchRecipes
+} from '../../actions/recipeActions';
+import { getProfile } from '../../actions/userActions';
 
 // Components
 import CategoryList from '../../components/CategoryList';
@@ -17,7 +22,7 @@ import NavCat from './NavbarCategory';
 import Navbar from './NavbarSearch';
 
 /**
- *
+ *@param {object} event
  * @class FullCatalog
  * @extends {Component}
  */
@@ -70,7 +75,6 @@ class FullCatalog extends Component {
    *
    */
   componentWillReceiveProps = nextProps => {
-    console.log(nextProps.recipes);
     if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
@@ -97,7 +101,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();    
+    this.loadFunc();
   };
   /**
    *
@@ -111,7 +115,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();    
+    this.loadFunc();
   };
 
   loadFunc = () => {
@@ -141,14 +145,13 @@ class FullCatalog extends Component {
    * @memberof FullCatalog
    */
   mostViewed = () => {
-    console.log("clicked");
     const compare = (a, b) => {
       if (a.views < b.views) return 1;
       if (a.views > b.views) return -1;
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();    
+    this.loadFunc();
   };
 
   /**
@@ -228,9 +231,7 @@ class FullCatalog extends Component {
         </div>
 
         {dropdown && (
-          <Fade top>
-            <CategoryList />
-          </Fade>
+          <CategoryList />
         )}
         <section className="mt-100" id="catalog">
           <div className="row catalog-wrapper mx-2 justify-content-start">
@@ -285,6 +286,17 @@ const mapStateToProps = state => ({
   netReq: state.netReq
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      getRecipes,
+      getProfile,
+      searchRecipes,
+      clearRecipes
+    },
+    dispatch
+  )
+});
 FullCatalog.propTypes = {
   recipes: PropTypes.object,
   user: PropTypes.object,
@@ -292,6 +304,9 @@ FullCatalog.propTypes = {
   searchRecipes: PropTypes.func,
   getProfile: PropTypes.func,
   data: PropTypes.object,
-  moniker: PropTypes.string
+  moniker: PropTypes.string,
+  netReq: PropTypes.bool,
+  history: PropTypes.object,
+  clearRecipes: PropTypes.func
 };
-export default connect(mapStateToProps, actions)(FullCatalog);
+export default connect(mapStateToProps, mapDispatchToProps)(FullCatalog);

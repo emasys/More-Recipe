@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import Pace from 'react-pace-progress';
 
-import * as actions from '../../actions';
+
+// Action
+import { getUserInfo, getUserRecipes } from '../../actions/userActions';
+import { clearRecipes } from '../../actions/recipeActions';
 
 //component
 import Navbar from '../Navbar';
@@ -57,8 +63,8 @@ class UserProfile extends Component {
 
   componentWillUnmount = () => {
     this.props.clearRecipes();
-  }
-  
+  };
+
   loadMore = () => {
     this.props.getUserRecipes(
       this.props.match.params.id,
@@ -91,6 +97,9 @@ class UserProfile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
+        <div className="fixed-top">
+          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
+        </div>
         <section className="container-fluid profile catalog-wrapper mt-80">
           <div className="row justify-content-center">
             <UserProfileInfo data={this.props.userInfo} />
@@ -126,7 +135,21 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
-  userInfo: state.user.userInfo
+  userInfo: state.user.userInfo,
+  netReq: state.netReq
 });
 
-export default connect(mapStateToProps, actions)(UserProfile);
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getUserInfo, getUserRecipes, clearRecipes }, dispatch)
+});
+
+UserProfile.propTypes = {
+  userInfo: PropTypes.object,
+  getUserRecipes: PropTypes.func,
+  clearRecipes: PropTypes.func,
+  user: PropTypes.array,
+  getUserInfo: PropTypes.func,
+  match: PropTypes.object,
+  netReq: PropTypes.bool
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

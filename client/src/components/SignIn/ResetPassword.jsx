@@ -98,4 +98,11 @@ const ResetPasswordForm = props => {
   );
 };
 
+ResetPasswordForm.propTypes = {
+  resetForm: PropTypes.func,
+  generateToken: PropTypes.func,
+  onChange: PropTypes.func,
+  resetPassword: PropTypes.func,
+  state: PropTypes.object
+};
 export default ResetPasswordForm;

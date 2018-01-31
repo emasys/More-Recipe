@@ -2,16 +2,24 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { css } from 'glamor';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import Pace from 'react-pace-progress';
 
-// Modal
-import 'react-responsive-modal/lib/react-responsive-modal.css';
+// Actions
+import {
+  getUserInfo,
+  getUserRecipes,
+  updateUser
+} from '../../actions/userActions';
+import { clearRecipes } from '../../actions/recipeActions';
+import { uploadImg } from '../../actions';
+
 
 //component
 import Navbar from '../Navbar';
 import UserInfo from './UserInfo';
-import * as actions from '../../actions';
 import UserEditForm from './UserEditForm';
 import CatalogList from '../CatalogList';
 
@@ -71,7 +79,6 @@ class Profile extends Component {
    * @returns {any} a new state
    */
   componentWillReceiveProps(nextProps) {
-    console.log("nextprops",nextProps.user);
     this.setState(prevState => ({
       recipes: nextProps.user
     }));
@@ -272,6 +279,9 @@ class Profile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
+        <div className="fixed-top">
+          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
+        </div>
         <ToastContainer />
         <section className="container-fluid profile catalog-wrapper mt-70">
           <div className="row justify-content-center mx-3">
@@ -332,7 +342,33 @@ const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
   recipes: state.recipes,
   userInfo: state.user.userInfo,
-  updateUser: state.user.updateUser
+  updateUser: state.user.updateUser,
+  netReq: state.netReq
 });
 
-export default connect(mapStateToProps, actions)(Profile);
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      getUserInfo,
+      getUserRecipes,
+      clearRecipes,
+      updateUser,
+      uploadImg
+    },
+    dispatch
+  )
+});
+
+Profile.propTypes = {
+  getUserInfo: PropTypes.func,
+  getUserRecipes: PropTypes.func,
+  clearRecipes: PropTypes.func,
+  updateUser: PropTypes.func,
+  uploadImg: PropTypes.func,
+  match: PropTypes.object,
+  user: PropTypes.array,
+  userInfo: PropTypes.object,
+  recipes: PropTypes.object,
+  netReq: PropTypes.bool
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,6 +1,8 @@
 import React from 'react';
-import config from '../../config';
 import PropTypes from 'prop-types';
+
+// Config
+import config from '../../config';
 
 const UserProfileInfo = props => {
   if (props.data) {
@@ -43,4 +45,7 @@ const UserProfileInfo = props => {
   return 'loading...';
 };
 
+UserProfileInfo.propTypes = {
+  data: PropTypes.object,
+};
 export default UserProfileInfo;

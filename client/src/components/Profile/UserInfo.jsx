@@ -95,4 +95,15 @@ const UserInfo = props => {
   return 'loading...';
 };
 
+UserInfo.propTypes = {
+  showForm: PropTypes.func,
+  changeDp: PropTypes.func,
+  data: PropTypes.object,
+  state: PropTypes.object,
+  hoverIn: PropTypes.func,
+  hoverOut: PropTypes.func,
+  handleDrop: PropTypes.func,
+  handleImg: PropTypes.func,
+  notify: PropTypes.func
+};
 export default UserInfo;

@@ -28,4 +28,4 @@ export const validate = data => {
 
 export const uploader = () => {
   //
-}
+};

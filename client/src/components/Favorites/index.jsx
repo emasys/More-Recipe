@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import Pace from 'react-pace-progress';
 
 // Actions
-import * as actions from '../../actions';
+import { getFavs } from '../../actions/favoriteAction';
 
 //components
 import Navbar from '../Navbar';
@@ -33,10 +36,13 @@ export class Favorites extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
+        <div className="fixed-top">
+          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
+        </div>
         <div className="mt-80 mb-3">
           <div className="container catalog-wrapper" id="catalog">
             <div className="row justify-content-center">
-              <FavoriteList favorites = {this.props.favorites} />
+              <FavoriteList favorites={this.props.favorites} />
             </div>
           </div>
         </div>
@@ -46,7 +52,17 @@ export class Favorites extends Component {
 }
 
 const mapStateToProps = state => ({
-  favorites: state.favorite
+  favorites: state.favorite,
+  netReq: state.netReq
 });
 
-export default connect(mapStateToProps, actions)(Favorites);
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getFavs }, dispatch)
+});
+
+Favorites.propTypes = {
+  favorites: PropTypes.object,
+  getFavs: PropTypes.func,
+  netReq: PropTypes.bool
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

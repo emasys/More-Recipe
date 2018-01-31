@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
-import * as actions from '../../actions';
+// Action
+import { postReview } from '../../actions/reviewActions';
+
+// Component
 import GenerateReviews from './GenerateReviews';
 
 /**
@@ -111,4 +116,13 @@ const mapStateToProps = state => ({
   recipes: state.recipes
 });
 
-export default connect(mapStateToProps, actions)(Reviews);
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ postReview }, dispatch)
+});
+
+Reviews.propTypes = {
+  postReview: PropTypes.func,
+  recipes: PropTypes.object,
+  review: PropTypes.object
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

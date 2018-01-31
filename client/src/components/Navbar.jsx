@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
 // actions
-import * as actions from '../actions';
+import { getProfile } from '../actions/userActions';
 
 // components
 import Auth from './auth';
@@ -47,10 +48,6 @@ export class Navbar extends Component {
    *
    * @returns {any}
    * invoked before a mounted component receives new props.
-   * If you need to update the state in response to prop changes
-   * (for example, to reset it), you may compare this.props and
-   * nextProps and perform state transitions using this.setState()
-   * in this method.
    * @param {any} nextProps
    * @memberof Navbar
    */
@@ -108,11 +105,7 @@ export class Navbar extends Component {
                     <i className="material-icons fa-2x d-none d-lg-inline">
                       &#xE8B6;
                     </i>
-                    <span
-                      className="d-lg-none pl-3"
-                    >
-                      Search
-                    </span>
+                    <span className="d-lg-none pl-3">Search</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -128,11 +121,7 @@ export class Navbar extends Component {
                     >
                       &#xE8EF;
                     </i>
-                    <span
-                      className="d-lg-none pl-3"
-                    >
-                      Catalog
-                    </span>
+                    <span className="d-lg-none pl-3">Catalog</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -145,11 +134,7 @@ export class Navbar extends Component {
                     <i className="material-icons fa-2x red d-none d-lg-inline">
                       &#xE87D;
                     </i>
-                    <span
-                      className="d-lg-none pl-3"
-                    >
-                      Favorites
-                    </span>
+                    <span className="d-lg-none pl-3">Favorites</span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
@@ -202,9 +187,12 @@ const mapStateToProps = state => ({
   user: state.user.userProfile
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getProfile }, dispatch)
+});
 Navbar.propTypes = {
   user: PropTypes.object,
   getProfile: PropTypes.func,
   className: PropTypes.string
 };
-export default connect(mapStateToProps, actions)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

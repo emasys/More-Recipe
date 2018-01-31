@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 import PropTypes from 'prop-types';
-import * as actions from '../actions';
+import { bindActionCreators } from 'redux';
+
+// Actions
+import { getAllUsers, deleteUser } from '../actions/userActions';
 
 //components
 import Navbar from './Navbar';
@@ -178,10 +181,12 @@ const mapStateToProps = state => ({
   users: state.user.allUsers,
   deluser: state.user.delUser
 });
-
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({getAllUsers, deleteUser}, dispatch),
+})
 ManageUsers.propTypes = {
   users: PropTypes.object,
   deleteUser: PropTypes.func,
   getAllUsers: PropTypes.func
 };
-export default connect(mapStateToProps, actions)(ManageUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);

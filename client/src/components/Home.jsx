@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import DynamicHeader from 'react-sticky-dynamic-header';
 import PropTypes from 'prop-types';
 
-import * as actions from '../actions';
+// Action
+import { getHotRecipes } from '../actions/recipeActions';
 
 //component
 import CatalogList from '../components/CatalogList';
@@ -53,11 +55,7 @@ export class Home extends Component {
       <div>
         <section className="container-fluid">
           <div className="header">
-            <DynamicHeader
-              hasEffect
-              effectDuration={600}
-              useHeadersDifference
-            >
+            <DynamicHeader hasEffect effectDuration={600} useHeadersDifference>
               <BigNavbar />
               <Navbar className="bg-dark fixed-top m-0 p-0" />
             </DynamicHeader>
@@ -98,10 +96,10 @@ export class Home extends Component {
                   {Auth.loggedIn() && (
                     <div className="">
                       <Link
-                        to="/catalog"
+                        to="/new"
                         className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                       >
-                        Checkout Latest Recipes
+                        Add new recipe
                       </Link>
                     </div>
                   )}
@@ -153,5 +151,8 @@ Home.propTypes = {
   recipes: PropTypes.object,
   getHotRecipes: PropTypes.func
 };
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getHotRecipes }, dispatch)
+});
 const mapStateToProps = state => ({ recipes: state.recipes });
-export default connect(mapStateToProps, actions)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

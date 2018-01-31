@@ -1,23 +1,44 @@
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { delRecipe } from '../actions';
+// Action
+import { delRecipe } from '../actions/recipeActions';
+
+// Auth
 import Auth from './auth';
 
+/**
+ *
+ *
+ * @param {number} id
+ * @returns {object} toggle classes on mouse in
+ */
 const onHoverIn = id => {
-  console.log('hovered');
   document.querySelector(`#${id}`).classList.remove('d-none');
   document.querySelector(`#${id}`).classList.add('d-block');
 };
 
+/**
+ *
+ *
+ * @param {number} id
+ * @returns {object} toggle classes on mouse out
+ */
 const onHoverOut = id => {
   document.querySelector(`#${id}`).classList.remove('d-block');
   document.querySelector(`#${id}`).classList.add('d-none');
 };
-
+/**
+ *
+ *
+ * @param {object} event
+ * @returns {bool} prevent default action
+ * @memberof CatalogList
+ */
 const deleteRecipeInit = event => {
   event.preventDefault();
 };
@@ -26,22 +47,17 @@ const deleteRecipeInit = event => {
  *
  * @param {object} props
  * @returns {object} list of recipes
- * @memberof CatalogList
  */
-const generateList = ({ catalog, delRecipe, history }) => {
+const generateList = (props) => {
   const deleteRecipe = (event, id, userId) => {
     event.preventDefault();
-    console.log(Auth.userID(), userId);
-    delRecipe(id, Auth.userID()).then(() => {
-      // history.push('');
-      // history.pushState(null, '/messages');
-      history.push(`/profile/${Auth.userID()}`);
+    props.delRecipe(id, Auth.userID()).then(() => {
+      props.history.push(`/profile/${Auth.userID()}`);
     });
   };
 
-  if (catalog) {
-    console.log('catalog', catalog);
-    if (catalog.length < 1) {
+  if (props.catalog) {
+    if (props.catalog.length < 1) {
       return (
         <div className="text-center error-message">
           <div>
@@ -63,7 +79,7 @@ const generateList = ({ catalog, delRecipe, history }) => {
         </div>
       );
     }
-    return catalog.map((item, index) => (
+    return props.catalog.map((item, index) => (
       <div className="row" key={index}>
         <div
           className="modal fade"
@@ -183,6 +199,13 @@ const generateList = ({ catalog, delRecipe, history }) => {
     ));
   }
 };
+
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {object} container function
+ */
 const CatalogList = props => (
   <div className="row justify-content-center">{generateList(props)}</div>
 );
@@ -190,8 +213,11 @@ const CatalogList = props => (
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ delRecipe }, dispatch)
 });
-// const mapDispatchToProps = dispatch => ({
-//   delRecipe: recipeId => dispatch(delRecipe(recipeId, userId))
-// });
+
+generateList.propTypes = {
+  delRecipe: PropTypes.func,
+  catalog: PropTypes.object,
+  history: PropTypes.object
+};
 
 export default connect(null, mapDispatchToProps)(CatalogList);

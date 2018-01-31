@@ -60,4 +60,8 @@ const UserEditForm = props => {
   );
 };
 
+UserEditForm.propTypes = {
+  state: PropTypes.object,
+  editProfile: PropTypes.func
+};
 export default UserEditForm;

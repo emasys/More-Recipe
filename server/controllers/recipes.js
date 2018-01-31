@@ -204,6 +204,7 @@ class RecipeController {
     return Recipes.findAll({
       limit: req.params.limit,
       offset: req.params.offset,
+      order: [['createdAt', 'DESC']],
       where: {
         userId: req.params.id
       }

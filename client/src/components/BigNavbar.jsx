@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
 // actions
-import * as actions from '../actions';
+import { getProfile } from '../actions/userActions';
 
 // components
 import Auth from './auth';
@@ -75,7 +76,7 @@ export class Navbar extends Component {
         <nav
           data-aos="flip-up"
           className="navbar bg-transparent navbar-expand navbar-dark"
-          style={{ zIndex: 1000, height: "200px" }}
+          style={{ zIndex: 1000, height: '200px' }}
         >
           <div className="container">
             <Link className="navbar-brand bolder ml-3 text-orange" to="/">
@@ -145,9 +146,12 @@ const mapStateToProps = state => ({
   user: state.user.userProfile
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getProfile }, dispatch)
+});
 Navbar.propTypes = {
   user: PropTypes.object,
   getProfile: PropTypes.func,
   className: PropTypes.string
 };
-export default connect(mapStateToProps, actions)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

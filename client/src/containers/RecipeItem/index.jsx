@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
-import Modal from 'react-responsive-modal/lib/css';
-import Fade from 'react-reveal/Fade';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Pace from 'react-pace-progress';
 
-// import actions
-import * as actions from '../../actions';
+// Actions
+import { getRecipeItem, editRecipe } from '../../actions/recipeActions';
+import { setFavorite } from '../../actions/favoriteAction';
+import { upvote, downvote } from '../../actions/voteActions';
 
 // components
 import Auth from '../../components/auth';
@@ -17,9 +18,10 @@ import Reviews from './Reviews';
 import Navbar from '../../components/Navbar';
 import EditForm from './EditForm';
 import GenerateItems from './GenerateRecipeItems';
+
 /**
  *
- *
+ * @param {object} event
  * @class RecipeItem
  * @extends {Component}
  */
@@ -40,7 +42,7 @@ class RecipeItem extends Component {
       downvoteStatus: false,
       deleteRecipe: false,
       name: '',
-      editRecipe: false,
+      editRecipeItem: false,
       preview: null,
       files: null,
       status: 'fade',
@@ -71,7 +73,7 @@ class RecipeItem extends Component {
     if (nextProps.recipes.updated) {
       this.update();
       this.setState({
-        editRecipe: false,
+        editRecipeItem: false,
         status: 'fade',
         error: 'd-none'
       });
@@ -335,7 +337,7 @@ class RecipeItem extends Component {
    */
   showEditForm = () => {
     this.setState({
-      editRecipe: true,
+      editRecipeItem: true,
       status: 'show'
     });
   };
@@ -346,14 +348,12 @@ class RecipeItem extends Component {
    * @memberof RecipeItem
    */
   render() {
-    const {
-      deleteRecipe, recipeItem, editRecipe, edit
-    } = this.state;
+    const { recipeItem, edit, editRecipeItem } = this.state;
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
         <div className="fixed-top">
-          {this.props.netReq ? <Pace color="#e7b52c" height={2} /> : null}
+          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
         </div>
         <ToastContainer />
         <div
@@ -402,69 +402,50 @@ class RecipeItem extends Component {
             </div>
           </div>
         </div>
-        {/* <Modal open={deleteRecipe} onClose={this.onCloseDeleteModal} little>
-          <div className="text-center mt-10">
-            <h4>Delete Recipe?</h4>
-            <h2 className="mt-5">
-              Are you sure you want to delete this recipe?
-            </h2>
-            <h4>This action cannot be revoked</h4>
-            <button
-              className="btn btn-block btn-success"
-              onClick={this.delRecipe}
-            >
-              Yes
-            </button>
-            <button
-              className="btn btn-block btn-danger"
-              onClick={this.onCloseDeleteModal}
-            >
-              No
-            </button>
-          </div>
-        </Modal> */}
-        <Fade duration={1000}>
-          <section className="container mt-80">
-            <div
-              className="row justify-content-center catalog-wrapper mb-20"
-              id="catalog"
-            >
-              <div className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image">
-                {this.generateItems(recipeItem)}
-              </div>
-              {editRecipe && (
-                <EditForm handleSubmit={this.handleSubmit} state={this.state} />
-              )}
-              {!editRecipe && (
-                <RecipeIngredients
-                  ingredients={this.props.recipes.recipeItem}
-                  data={this.props.userInfo}
-                />
-              )}
+        <section
+          data-aos="fade-up"
+          data-duration="800"
+          className="container mt-80"
+        >
+          <div
+            className="row justify-content-center catalog-wrapper mb-20"
+            id="catalog"
+          >
+            <div className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image">
+              {this.generateItems(recipeItem)}
             </div>
-            <Reviews />
-            {edit && (
-              <i
-                data-tip="Delete recipe"
-                onClick={this.deleteRecipeInit}
-                data-toggle="modal"
-                data-target="#deleteModal"
-                className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
-                id="floating-delete"
-                aria-hidden="true"
+            {editRecipeItem && (
+              <EditForm handleSubmit={this.handleSubmit} state={this.state} />
+            )}
+            {!editRecipeItem && (
+              <RecipeIngredients
+                ingredients={this.props.recipes.recipeItem}
+                data={this.props.userInfo}
               />
             )}
-            {edit && (
-              <i
-                data-tip="Edit recipe"
-                id="floating-edit"
-                className="text-info fa fa-pencil fa-2x rounded-circle"
-                aria-hidden="true"
-                onClick={this.showEditForm}
-              />
-            )}
-          </section>
-        </Fade>
+          </div>
+          <Reviews />
+          {edit && (
+            <i
+              data-tip="Delete recipe"
+              onClick={this.deleteRecipeInit}
+              data-toggle="modal"
+              data-target="#deleteModal"
+              className="fa fa-trash fa-2x text-danger hvr-buzz-out rounded-circle"
+              id="floating-delete"
+              aria-hidden="true"
+            />
+          )}
+          {edit && (
+            <i
+              data-tip="Edit recipe"
+              id="floating-edit"
+              className="text-info fa fa-pencil fa-2x rounded-circle"
+              aria-hidden="true"
+              onClick={this.showEditForm}
+            />
+          )}
+        </section>
       </div>
     );
   }
@@ -479,6 +460,18 @@ const mapStateToProps = state => ({
   netReq: state.netReq
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      getRecipeItem,
+      editRecipe,
+      setFavorite,
+      upvote,
+      downvote
+    },
+    dispatch
+  )
+});
 RecipeItem.propTypes = {
   userInfo: PropTypes.object,
   uploadImg: PropTypes.func,
@@ -497,5 +490,5 @@ RecipeItem.propTypes = {
   match: PropTypes.object
 };
 
-export { RecipeItem as DumbRecipeItem };
-export default connect(mapStateToProps, actions)(RecipeItem);
+export { RecipeItem as DummyRecipeItem };
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeItem);
