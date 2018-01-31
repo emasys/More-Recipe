@@ -40,8 +40,8 @@ export class Favorites extends Component {
           {this.props.netReq && <Pace color="#e7b52c" height={2} />}
         </div>
         <div className="mt-80 mb-3">
-          <div className="container catalog-wrapper" id="catalog">
-            <div className="row justify-content-center">
+          <div className="row catalog-wrapper" id="catalog">
+            <div data-aos="fade-up" data-duration="1000" className="row justify-content-center">
               <FavoriteList favorites={this.props.favorites} />
             </div>
           </div>

@@ -276,6 +276,14 @@
   right:0;
   z-index: 2001;
 }
+.delete-review-btn {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+  color: rgba(0, 0, 0, 0.411);
+  top: 1rem;
+  z-index: 2001;
+}
 input[type='search'] {
   height: 40px;
   width: 100%;

@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import config from '../../config';
 
@@ -33,6 +34,11 @@ const GenerateReviews = ({ review }) => {
               <p className="text-dark date">
                 {moment(comment.updatedAt).fromNow()}
               </p>
+              <i
+                className="fa fa-times-circle delete-review-btn hvr-buzz-out fa-2x"
+                data-tip="Delete this review"
+              />
+              <ReactTooltip place="bottom" type="dark" effect="float" />
             </div>
             <hr />
           </div>
