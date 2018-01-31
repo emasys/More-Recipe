@@ -12,6 +12,11 @@ export default (state = [], action) => {
       ...state,
       fetch_reviews: action.payload
     };
+  case type.DELETE_REVIEWS:
+    return {
+      ...state,
+      delete_reviews: action.payload
+    };
   default:
     return state;
   }

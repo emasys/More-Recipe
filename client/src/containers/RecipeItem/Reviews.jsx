@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 // Action
-import { postReview } from '../../actions/reviewActions';
+import { postReview, deleteReview } from '../../actions/reviewActions';
 
 // Component
 import GenerateReviews from './GenerateReviews';
@@ -40,6 +40,10 @@ class Reviews extends Component {
     });
   };
 
+  componentWillReceiveProps = nextProps => {
+    console.log(nextProps);
+  };
+
   /**
    *
    *
@@ -67,6 +71,17 @@ class Reviews extends Component {
     this.setState({
       content: event.target.value
     });
+  };
+  /**
+   *
+   *
+   * @param {number} recipeId
+   * @param {number} reviewId
+   * @memberof Reviews
+   * @returns {object} confirmation
+   */
+  deleteReview = (reviewId, recipeId) => {
+    this.props.deleteReview(reviewId, recipeId);
   };
   /**
    *
@@ -104,7 +119,10 @@ class Reviews extends Component {
           </form>
         </div>
         <div className="col-lg-8 col-sm-12 ">
-          <GenerateReviews review={this.props.review} />
+          <GenerateReviews
+            review={this.props.review}
+            deleteReview={this.deleteReview}
+          />
         </div>
       </div>
     );
@@ -117,12 +135,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ postReview }, dispatch)
+  ...bindActionCreators({ postReview, deleteReview }, dispatch)
 });
 
 Reviews.propTypes = {
   postReview: PropTypes.func,
   recipes: PropTypes.object,
+  deleteReview: PropTypes.func,
   review: PropTypes.object
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

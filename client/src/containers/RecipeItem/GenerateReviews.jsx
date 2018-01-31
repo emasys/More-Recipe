@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 
 import config from '../../config';
 
-const GenerateReviews = ({ review }) => {
+const GenerateReviews = ({ review, deleteReview }) => {
   if (review.fetch_reviews) {
     return review.fetch_reviews.reviews.map((comment, index) => (
       <div
@@ -27,7 +27,7 @@ const GenerateReviews = ({ review }) => {
             <div className="pt-10 clearfix mb-10">
               <Link
                 className="text-dark bolder"
-                to={`/user/${comment.User.id}`}
+                to={`/user/${comment.userId}`}
               >
                 {comment.User.moniker}
               </Link>
@@ -35,6 +35,7 @@ const GenerateReviews = ({ review }) => {
                 {moment(comment.updatedAt).fromNow()}
               </p>
               <i
+                onClick={() => deleteReview(comment.id, comment.recipeId)}
                 className="fa fa-times-circle delete-review-btn hvr-buzz-out fa-2x"
                 data-tip="Delete this review"
               />
