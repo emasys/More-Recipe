@@ -12,6 +12,14 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    searchIng: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    recipeCount: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -45,7 +53,7 @@ export default (sequelize, DataTypes) => {
     },
     views: {
       type: DataTypes.INTEGER,
-      defaultValue: 1
+      defaultValue: 0
     },
     comments: {
       type: DataTypes.INTEGER,

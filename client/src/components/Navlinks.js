@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Auth from './auth';
 
 const logout = () => {
@@ -19,6 +21,9 @@ const NavLinks = ({ user }) => {
         </Link>
         <Link className="dropdown-item bold" to="/favorites">
           Your favorites
+        </Link>
+        <Link className="dropdown-item bold" to="/new">
+          Add new recipe
         </Link>
         <div className="dropdown-divider" />
         <a className="dropdown-item bold" onClick={logout} href="/">
@@ -40,4 +45,7 @@ const NavLinks = ({ user }) => {
   }
 };
 
+NavLinks.propTypes = {
+  user: PropTypes.object
+};
 export default NavLinks;

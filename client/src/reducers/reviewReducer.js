@@ -7,7 +7,11 @@ export default (state = [], action) => {
       ...state,
       review: action.payload
     };
-
+  case type.GET_REVIEWS:
+    return {
+      ...state,
+      fetch_reviews: action.payload
+    };
   default:
     return state;
   }

@@ -1,9 +1,9 @@
 export default {
-  API_KEY: 967519873674438,
-  API_SECRET: '9VvLEY-8s4xYBznR1Fohc5I2578',
-  UPLOAD_PRESET: 's5dtifb3',
-  CLOUD_URL: 'https://api.cloudinary.com/v1_1/emasys/image/upload',
-  CLOUD_NAME: 'emasys',
+  API_KEY: process.env.API_KEY,
+  API_SECRET: process.env.API_SECRET,
+  UPLOAD_PRESET: process.env.UPLOAD_PRESET,
+  CLOUD_URL: process.env.CLOUD_URL,
+  CLOUD_NAME: process.env.CLOUD_NAME,
   DEFAULT_DISPLAY_PICTURE: 'https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png',
   CAT_IMAGE: {
     Breakfast: 'https://res.cloudinary.com/emasys/image/upload/v1514747192/oatmeal-3-2-1-400x400_zjkinq.jpg',

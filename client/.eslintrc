@@ -13,7 +13,8 @@
     "$": true,
     "expect": true,
     "FormData": true,
-    "window": true
+    "window": true,
+    "jest": true
   },
   "settings":{
     "import/resolver":{
@@ -23,7 +24,8 @@
     }
   },
   "rules": {
-    "max-len": [ 1, 80, 2],
+    "max-len": [ 1, 80, 2, { "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
+    "max-depth": ["error", 5],
     "indent": ["error", 2],
     "one-var": 0,
     "one-var-declaration-per-line": 0,
@@ -34,6 +36,7 @@
     "consistent-return": 0,
     "no-param-reassign": 0,
     "comma-dangle": 0,
+    "import/no-named-as-default": 0,
     "class-methods-use-this": 0,
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],

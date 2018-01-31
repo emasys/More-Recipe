@@ -6,18 +6,25 @@ const initialState = {
     upvote: { success: true }
   }
 };
-export default (state = {}, action) => {
+export default (
+  state = {
+    // upvote: []
+  },
+  action
+) => {
   switch (action.type) {
   case type.UPVOTE:
     return {
       ...state,
-      upvote: action.payload
+      upvote: action.payload,
+      downvote: action.payload
     };
 
   case type.DOWNVOTE:
     return {
       ...state,
-      downvote: action.payload
+      downvote: action.payload,
+      upvote: action.payload
     };
   case type.GET_VOTE_STATUS:
     return {

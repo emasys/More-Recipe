@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './client/src/app.jsx',
@@ -9,6 +10,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
+    new Dotenv({
+      systemvars: true
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('styles.css'),
     new webpack.ProvidePlugin({

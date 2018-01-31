@@ -1,13 +1,42 @@
 import * as type from '../actions/types';
 
-export default (state = {}, action) => {
+export default (
+  state = {
+    allRecipes: [],
+    recipeItem: {},
+    updateRecipes: {},
+    category: [],
+    userRecipes: []
+  },
+  action
+) => {
   switch (action.type) {
+  case type.CLEAR_RECIPES:
+    return {
+      ...state,
+      allRecipes: [],
+      userRecipes: action.payload
+    };
   case type.ALL_RECIPES:
     return {
       ...state,
-      allRecipes: action.payload
+      allRecipes: [...state.allRecipes, ...action.payload.recipes],
+      count: action.payload.count,
+      success: action.payload.success
+    };
+  case type.HOT_RECIPES:
+    return {
+      ...state,
+      hotRecipes: action.payload.recipes
+    };
+  case type.SET_FAVORITE:
+    return {
+      ...state,
+      recipeItem: action.payload
     };
   case type.SINGLE_RECIPE:
+  case type.UPVOTE:
+  case type.DOWNVOTE:
     return {
       ...state,
       recipeItem: action.payload
@@ -20,28 +49,33 @@ export default (state = {}, action) => {
   case type.USER_RECIPES:
     return {
       ...state,
-      userRecipes: action.payload
+      userRecipes: [...state.userRecipes, ...action.payload]
     };
   case type.EDIT_RECIPE:
     return {
       ...state,
-      updateRecipes: action.payload
+      // updateRecipes: action.payload,
+      recipeItem: action.payload,
+      updated: action.payload.success
     };
   case type.GET_CATEGORY:
     return {
       ...state,
-      category: action.payload
+      category: action.payload.recipes,
+      count: action.payload.count
     };
 
   case type.SEARCH:
     return {
       ...state,
-      search: action.payload
+      searchResult: action.payload.recipes,
+      success: action.payload.success
     };
 
   case type.DELETE_RECIPE:
     return {
       ...state,
+      userRecipes: [],
       del_recipe: action.payload
     };
 

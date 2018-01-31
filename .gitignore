@@ -12,8 +12,6 @@
 /server/middleware/helper.js
 /clientx
 webpack.config1.js
-webpack.dev.config.js
-webpack.prod.config.js
 /webpack1.config.js
 /client/src/playground
 /client/src/components/test.js
@@ -38,3 +36,7 @@ coverage/index.html
 client/src/components/RecipeItems.jsx
 client/src/components/header.jsx
 client/src/config/index.js
+client/public/bundle.js
+.vscode
+client/src/components/modal.jsx
+client/src/components/SignIn/validateForm.js

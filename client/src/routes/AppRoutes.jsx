@@ -4,15 +4,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 //components
 import Home from '../components/Home';
 import Footer from '../components/Footer';
-import FullCatalog from '../containers/FullCatalog';
-import Favorites from '../components/Favorites';
+import FullCatalog from '../containers/FullCatalog/index';
+import FavoritesRecipes from '../components/Favorites/index';
 import NotFound from '../components/NotFound';
-import Signup from '../components/SignUp';
-import Signin from '../components/SignIn';
+import Signup from '../components/SignUp/index';
+import Signin from '../components/SignIn/index';
 import Profile from '../components/Profile';
-import RecipeItem from '../containers/RecipeItem';
-import AddRecipe from '../containers/AddRecipe';
-import User from '../components/UserProfile';
+import RecipeItem from '../containers/RecipeItem/index';
+import AddRecipe from '../containers/AddRecipe/index';
+import User from '../components/UserProfile/index';
 import Auth from '../components/auth';
 import Management from '../components/ManageUsers';
 import Category from '../components/Category';
@@ -61,7 +61,7 @@ const AppRoutes = () => (
           path="/favorites"
           render={routeProps =>
             (Auth.loggedIn() ? (
-              <Favorites />
+              <FavoritesRecipes />
             ) : (
               <Signin {...routeProps} msg={Message} />
             ))

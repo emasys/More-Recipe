@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
 // actions
-import * as actions from '../actions';
+import { getProfile } from '../actions/userActions';
 
 // components
 import Auth from './auth';
@@ -18,7 +19,7 @@ import config from '../config';
  * @class Navbar
  * @extends {Component}
  */
-class Navbar extends Component {
+export class Navbar extends Component {
   /**
    * Creates an instance of Navbar.
    * @param {any} props
@@ -47,10 +48,6 @@ class Navbar extends Component {
    *
    * @returns {any}
    * invoked before a mounted component receives new props.
-   * If you need to update the state in response to prop changes
-   * (for example, to reset it), you may compare this.props and
-   * nextProps and perform state transitions using this.setState()
-   * in this method.
    * @param {any} nextProps
    * @memberof Navbar
    */
@@ -70,15 +67,17 @@ class Navbar extends Component {
   render() {
     const { avatar } = this.state;
     return (
-      <section className="container-fluid">
+      <section className="container-fluid m-0 p-0">
         <nav
-          className=
-            "navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
+          data-aos="flip-up"
+          className={`navbar navbar-expand-lg navbar-dark ${
+            this.props.className
+          }`}
           style={{ zIndex: 1000 }}
-        >        
+        >
           <div className="container">
-            <Link className="navbar-brand bolder text-orange" to="/">
-              <span className="nb">MoreRecipes</span>
+            <Link className="navbar-brand bolder ml-3 text-orange" to="/">
+              <span className="nb">More Recipes</span>
             </Link>
             <button
               className="navbar-toggler"
@@ -103,42 +102,12 @@ class Navbar extends Component {
                     to="/catalog"
                     data-tip="Search for recipes"
                   >
-                    <i className="material-icons fa-2x d-sm-none d-lg-inline">
+                    <i className="material-icons fa-2x d-none d-lg-inline">
                       &#xE8B6;
                     </i>
-                    <span
-                      className="d-lg-none"
-                      style={{ verticalAlign: 'top' }}
-                    >
-                      Search
-                    </span>
+                    <span className="d-lg-none pl-3">Search</span>
                   </NavLink>
                 </li>
-                {Auth.loggedIn() ? (
-                  <li className="nav-item ">
-                    <NavLink
-                      className="nav-link"
-                      activeClassName="active"
-                      to="/new"
-                      data-tip="Add new recipe"
-                    >
-                      <i
-                        className="material-icons fa-2x d-sm-none d-lg-inline"
-                        aria-hidden="true"
-                      >
-                        add_to_photos
-                      </i>
-                      <span
-                        className="d-lg-none"
-                        style={{ verticalAlign: 'top' }}
-                      >
-                        Add new recipe
-                      </span>
-                    </NavLink>
-                  </li>
-                ) : (
-                  ''
-                )}
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
@@ -147,17 +116,12 @@ class Navbar extends Component {
                     data-tip="Catalog"
                   >
                     <i
-                      className="material-icons fa-2x  d-sm-none d-lg-inline"
+                      className="material-icons fa-2x  d-none d-lg-inline"
                       aria-hidden="true"
                     >
                       &#xE8EF;
                     </i>
-                    <span
-                      className="d-lg-none"
-                      style={{ verticalAlign: 'top' }}
-                    >
-                      Catalog
-                    </span>
+                    <span className="d-lg-none pl-3">Catalog</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -167,16 +131,10 @@ class Navbar extends Component {
                     to="/favorites"
                     data-tip="Your favorites"
                   >
-                    <i className=
-                      "material-icons fa-2x red d-sm-none d-lg-inline">
+                    <i className="material-icons fa-2x red d-none d-lg-inline">
                       &#xE87D;
                     </i>
-                    <span
-                      className="d-lg-none"
-                      style={{ verticalAlign: 'top' }}
-                    >
-                      Favorites
-                    </span>
+                    <span className="d-lg-none pl-3">Favorites</span>
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
@@ -209,8 +167,7 @@ class Navbar extends Component {
                   )}
 
                   <div
-                    className=
-                      "dropdown-menu dropdown-menu-right custom-dropdown"
+                    className="dropdown-menu dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <Navlinks user={this.props.user} />
@@ -230,8 +187,12 @@ const mapStateToProps = state => ({
   user: state.user.userProfile
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getProfile }, dispatch)
+});
 Navbar.propTypes = {
   user: PropTypes.object,
   getProfile: PropTypes.func,
+  className: PropTypes.string
 };
-export default connect(mapStateToProps, actions)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

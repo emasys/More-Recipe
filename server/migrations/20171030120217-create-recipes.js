@@ -20,6 +20,12 @@ module.exports = {
       ingredients: {
         type: Sequelize.ARRAY(Sequelize.TEXT)
       },
+      searchIng: {
+        type: Sequelize.STRING
+      },
+      recipeCount: {
+        type: Sequelize.INTEGER
+      },
       upvote: {
         type: Sequelize.INTEGER
       },

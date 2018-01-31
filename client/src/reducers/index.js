@@ -4,13 +4,15 @@ import user from './userReducer';
 import favorite from './favoriteReducer';
 import review from './reviewReducer';
 import votes from './voteReducer';
+import netReq from './networkRequestReducer';
 
 const rootReducer = combineReducers({
   recipes,
   user,
   favorite,
   review,
-  votes
+  votes,
+  netReq
 });
 
 export default rootReducer;

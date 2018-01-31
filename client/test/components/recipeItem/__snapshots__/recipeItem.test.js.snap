@@ -1,0 +1,334 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example test should render recipe item component 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <RecipeItem
+      delRecipe={[Function]}
+      downvote={[Function]}
+      editRecipe={[Function]}
+      getRecipe={[Function]}
+      getRecipeItem={[Function]}
+      getRecipeReactions={[Function]}
+      getUserInfo={[Function]}
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
+      match={
+        Object {
+          "params": [Function],
+        }
+      }
+      netReq={false}
+      recipes={
+        Object {
+          "recipeItem": Object {
+            "recipe": Object {
+              "category": "Breakfast",
+              "comments": 1,
+              "createdAt": "2017-12-31T18:42:38.431Z",
+              "description": "axx",
+              "direction": "xax",
+              "downvote": 0,
+              "favorite": 2,
+              "foodImg": "http://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+              "id": 26,
+              "ingredients": Array [
+                "xs",
+              ],
+              "name": "msnbxmanmaxmnaxbaxbnbxasdadaasdad ba xbn xanb xaxasxxax",
+              "reactionDown": Array [],
+              "reactionUp": Array [],
+              "recipeCount": null,
+              "searchIng": null,
+              "updatedAt": "2018-01-14T18:55:09.486Z",
+              "upvote": 0,
+              "userId": 1,
+              "views": 11,
+            },
+          },
+        }
+      }
+      setFavorite={[Function]}
+      uploadImg={[Function]}
+      upvote={[Function]}
+      userInfo={
+        Object {
+          "data": Object {
+            "avatar": "https://res.cloudinary.com/emasys/image/upload/v1516859258/fhnah0swk08ow8orie0e.png",
+            "bio": "Admin of this great platform.",
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emasys",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+        }
+      }
+    >
+      <div>
+        <Connect(Navbar)
+          className="bg-dark fixed-top"
+        />
+        <div
+          className="fixed-top"
+        />
+        <ToastContainer
+          autoClose={5000}
+          bodyClassName=""
+          className={null}
+          closeButton={<DefaultCloseButton />}
+          closeOnClick={true}
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnHover={true}
+          position="top-right"
+          progressClassName=""
+          style={null}
+          toastClassName=""
+          transition={[Function]}
+        >
+          <div />
+        </ToastContainer>
+        <ReactResponsiveModalCss
+          little={true}
+          onClose={[Function]}
+          open={false}
+        >
+          <Modal
+            animationDuration={500}
+            classNames={Object {}}
+            classes={
+              Object {
+                "closeIcon": "react-responsive-modal-close-icon",
+                "modal": "react-responsive-modal-modal",
+                "overlay": "react-responsive-modal-overlay",
+                "overlayLittle": "react-responsive-modal-overlay-little",
+                "transitionEnter": "react-responsive-modal-transition-enter",
+                "transitionEnterActive": "react-responsive-modal-transition-enter-active",
+                "transitionExit": "react-responsive-modal-transition-exit",
+                "transitionExitActive": "react-responsive-modal-transition-exit-active",
+              }
+            }
+            closeIconSize={28}
+            closeIconSvgPath={
+              <path
+                d="M28.5 9.62L26.38 7.5 18 15.88 9.62 7.5 7.5 9.62 15.88 18 7.5 26.38l2.12 2.12L18 20.12l8.38 8.38 2.12-2.12L20.12 18z"
+              />
+            }
+            closeOnEsc={true}
+            closeOnOverlayClick={true}
+            little={true}
+            onClose={[Function]}
+            open={false}
+            showCloseIcon={true}
+            styles={Object {}}
+          />
+        </ReactResponsiveModalCss>
+        <Fade
+          duration={1000}
+        >
+          <t
+            count={1}
+            delay={0}
+            duration={1000}
+            fraction={0.2}
+            in={
+              Object {
+                "make": [Function],
+                "reverse": undefined,
+              }
+            }
+            out={
+              Object {
+                "make": [Function],
+                "reverse": undefined,
+              }
+            }
+            tag="div"
+            when={true}
+          >
+            <div
+              className="react-reveal"
+              style={
+                Object {
+                  "opacity": 0,
+                  "transition": "opacity 1000ms",
+                }
+              }
+            >
+              <section
+                className="container mt-80"
+              >
+                <div
+                  className="row justify-content-center catalog-wrapper mb-20"
+                  id="catalog"
+                >
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-8  mb-5 recipe-image"
+                  />
+                  <Ingredients
+                    data={
+                      Object {
+                        "data": Object {
+                          "avatar": "https://res.cloudinary.com/emasys/image/upload/v1516859258/fhnah0swk08ow8orie0e.png",
+                          "bio": "Admin of this great platform.",
+                          "country": "Nigeria",
+                          "email": "emasysnd@gmail.com",
+                          "firstName": "emasys",
+                          "id": 1,
+                          "lastName": "endy",
+                          "moniker": "admin",
+                        },
+                      }
+                    }
+                    ingredients={
+                      Object {
+                        "recipe": Object {
+                          "category": "Breakfast",
+                          "comments": 1,
+                          "createdAt": "2017-12-31T18:42:38.431Z",
+                          "description": "axx",
+                          "direction": "xax",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "http://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 26,
+                          "ingredients": Array [
+                            "xs",
+                          ],
+                          "name": "msnbxmanmaxmnaxbaxbnbxasdadaasdad ba xbn xanb xaxasxxax",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [],
+                          "recipeCount": null,
+                          "searchIng": null,
+                          "updatedAt": "2018-01-14T18:55:09.486Z",
+                          "upvote": 0,
+                          "userId": 1,
+                          "views": 11,
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="col-lg-5 col-sm-12"
+                    >
+                      <h2
+                        className="fresh-title wrapWord text-capitalize"
+                      >
+                        msnbxmanmaxmnaxbaxbnbxasdadaasdad ba xbn xanb xaxasxxax
+                      </h2>
+                      <small
+                        className="text-capitalize"
+                      >
+                        A recipe by
+                         
+                        <Link
+                          className=" bolder text-info"
+                          replace={false}
+                          to="/user/1"
+                        >
+                          <a
+                            className=" bolder text-info"
+                            href="/user/1"
+                            onClick={[Function]}
+                          >
+                            admin
+                          </a>
+                        </Link>
+                      </small>
+                       
+                      <br />
+                      <small
+                        className=""
+                      >
+                        Posted on:
+                         
+                        Dec 31st 2017
+                      </small>
+                      <hr />
+                      <h5
+                        className="text-muted"
+                      >
+                        Description
+                      </h5>
+                      <div
+                        className="pb-3 "
+                      >
+                        <div
+                          className="bg-light direction rounded p-15"
+                        >
+                          axx
+                        </div>
+                      </div>
+                      <hr />
+                      <h5
+                        className="text-muted"
+                      >
+                        Ingredients
+                      </h5>
+                      <hr />
+                      <div
+                        className="pb-3"
+                      >
+                        <ul
+                          className="list-group wrapWord"
+                        >
+                          <a
+                            className="list-group-item text-capitalize list-group-item-action"
+                            href="https://en.wikipedia.org/wiki/xs"
+                            key="0"
+                            target="_blank"
+                          >
+                            xs
+                          </a>
+                        </ul>
+                      </div>
+                      <h5
+                        className="text-muted"
+                      >
+                        Directions
+                      </h5>
+                      <hr />
+                      <div
+                        className="p-10 direction rounded  bg-light"
+                      >
+                        xax
+                      </div>
+                    </div>
+                  </Ingredients>
+                </div>
+                <Connect(Reviews) />
+              </section>
+            </div>
+          </t>
+        </Fade>
+      </div>
+    </RecipeItem>
+  </Router>
+</BrowserRouter>
+`;

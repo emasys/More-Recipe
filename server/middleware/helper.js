@@ -108,9 +108,14 @@ export const mailer = (moniker = null, email, message) => {
     // Subject line
     subject: '[Alert] MoreRecipe',
     // plaintext body
-    text: `${moniker} ${message}`,
+    // text: `${moniker} ${message}`,
     // html body
-    html: `${moniker} <b>${message} </b>`
+    html: `
+    <p>
+    <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" width="120" height="120" alt="logo"/>
+    </p>
+    <h4>${moniker} <b>${message} </b></h4>
+    `
   };
 
   // send mail with defined transport object
@@ -121,55 +126,4 @@ export const mailer = (moniker = null, email, message) => {
     console.log(`Message sent: ${info.response}`);
   });
 };
-
-// To be implemented later
-// export const voter = (decoded, activeKey, nonactive, recipe) => {
-//   if (decoded) {
-//     activeKey = recipe.reactionDown;
-//     nonactive = recipe.reactionDown;
-//     if (activeKey.indexOf(Number(decoded)) !== -1) {
-//       // have downvoted
-//       const removeId = activeKey.indexOf(Number(decoded));
-//       if (removeId > -1) {
-//         activeKey.splice(removeId, 1);
-//       }
-//       return recipe
-//         .update({
-//           downvote: recipe.downvote - 1,
-//           reactionDown: recipe.reactionDown,
-//         })
-//         .then(() => setStatus(res, { success: true, recipe }, 200));
-// Send back the updated recipe.
-//     } else if (
-//       reactionDown.indexOf(Number(req.decoded.id)) === -1 &&
-//       reactionUp.indexOf(Number(req.decoded.id)) !== -1
-//     ) {
-//       // already upvoted but not downvoted
-//       const removeId = reactionUp.indexOf(Number(req.decoded.id));
-//       if (removeId > -1) {
-//         reactionUp.splice(removeId, 1);
-//       }
-//       recipe.reactionDown.push(req.decoded.id);
-//       return recipe
-//         .update({
-//           upvote: recipe.upvote - 1,
-//           downvote: recipe.downvote + 1,
-//           reactionDown: recipe.reactionDown,
-//           reactionUp,
-//         })
-//         .then(() => setStatus(res, { success: true, recipe }, 200));
-// Send back the updated recipe.
-//     }
-//     // if a user has not downvoted or upvoted then increment downvote count
-//     // and add userId into the reactionDown array
-//     recipe.reactionDown.push(req.decoded.id);
-//     return recipe
-//       .update({
-//         downvote: recipe.downvote + 1,
-//         reactionDown: recipe.reactionDown,
-//       })
-//       .then(() => setStatus(res, { success: true, recipe }, 200));
-// Send back the updated recipe.
-//   }
-// };
 
