@@ -2,6 +2,7 @@ import Validator from 'validatorjs';
 
 import { Users, Recipes, Reviews, Favorite } from '../models';
 import { validateAddRecipes, setStatus } from '../middleware/helper';
+import { sortRecipe } from './helper';
 
 // const sequelize = new Sequelize;
 
@@ -29,14 +30,7 @@ class RecipeController {
       Users.findById(req.decoded.id)
         .then((user) => {
           if (!user) {
-            return setStatus(
-              res,
-              {
-                success: false,
-                error: 'User not found'
-              },
-              404
-            );
+            return setStatus(res, { success: false, error: 'User not found' }, 404);
           }
           // check if the same user is mistakenly duplicating her/her recipes
           Recipes.findOne({
@@ -101,75 +95,17 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static listRecipes(req, res) {
-    // Get sorted (by upvote) recipe list
+    // Get sorted recipe list
     if (req.query.sort === 'upvotes' && req.query.order) {
-      return Recipes.findAll({
-        offset: req.params.offset,
-        limit: req.params.page,
-        order: [['upvote', 'DESC']]
-      })
-        .then(recipes =>
-          Recipes.count().then(count =>
-            setStatus(res, { success: true, recipes, count }, 200)))
-
-        .catch(() =>
-          setStatus(
-            res,
-            {
-              success: false,
-              error: 'something went wrong'
-            },
-            500
-          ));
+      return sortRecipe(req, res, 'upvote', 'DESC');
     }
     if (req.query.sort === 'favorite' && req.query.order) {
-      return Recipes.findAll({
-        offset: req.params.offset,
-        limit: req.params.page,
-        order: [['favorite', 'DESC']]
-      })
-        .then(recipes =>
-          Recipes.count().then(count =>
-            setStatus(res, { success: true, recipes, count }, 200)))
-        .catch(() =>
-          setStatus(
-            res,
-            {
-              success: false,
-              error: 'something went wrong'
-            },
-            500
-          ));
+      return sortRecipe(req, res, 'favorite', 'DESC');
     }
     if (req.query.sort === 'views' && req.query.order) {
-      return Recipes.findAll({
-        limit: req.params.page,
-        offset: req.params.offset,
-        order: [['views', 'DESC']]
-      })
-        .then(recipes =>
-          Recipes.count().then(count =>
-            setStatus(res, { success: true, recipes, count }, 200)))
-        .catch(() =>
-          setStatus(
-            res,
-            {
-              success: false,
-              error: 'something went wrong'
-            },
-            500
-          ));
+      return sortRecipe(req, res, 'views', 'DESC');
     }
-    return Recipes.findAll({
-      offset: req.params.offset,
-      limit: req.params.page,
-      order: [['createdAt', 'DESC']]
-    })
-      .then(recipes =>
-        Recipes.count().then(count =>
-          setStatus(res, { success: true, recipes, count }, 200)))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
+    return sortRecipe(req, res, 'createdAt', 'DESC');
   }
   /**
    *
