@@ -10,8 +10,6 @@ import { sortRecipe } from './helper';
  * parent class
  * @class MoreRecipe
  * @type {static}
- * for a debug, just add error to all the catch()
- * to see ugly sequelize errors i.e catch((error) => ... )
  */
 class RecipeController {
   /**
@@ -22,7 +20,7 @@ class RecipeController {
    */
   static addRecipe(req, res) {
     const request = req.body;
-    const arr = req.body.ingredients;
+    const IngredientArray = req.body.ingredients;
     // to convert ingredient's strings into and array with no trailing space
     const getArr = input => input.trim().split(/\s*,\s*/);
     const validator = new Validator(request, validateAddRecipes());
@@ -30,24 +28,14 @@ class RecipeController {
       Users.findById(req.decoded.id)
         .then((user) => {
           if (!user) {
-            return setStatus(res, { success: false, error: 'User not found' }, 404);
+            return setStatus(res, { success: false, error: 'Not found' }, 404);
           }
           // check if the same user is mistakenly duplicating her/her recipes
           Recipes.findOne({
-            where: {
-              name: request.name,
-              userId: req.decoded.id
-            }
+            where: { name: request.name, userId: req.decoded.id }
           }).then((recipeExist) => {
             if (recipeExist) {
-              return setStatus(
-                res,
-                {
-                  success: false,
-                  error: 'recipe already added to the database'
-                },
-                403
-              );
+              return setStatus(res, { success: false, error: 'Added' }, 403);
             }
             return Recipes.create({
               name: request.name,
@@ -56,23 +44,16 @@ class RecipeController {
               description: request.description,
               category: request.category,
               foodImg: request.foodImg,
-              ingredients: getArr(arr),
-              searchIng: arr
+              ingredients: getArr(IngredientArray),
+              searchIng: IngredientArray
             })
               .then(recipe => setStatus(res, { success: true, recipe }, 201))
               .catch(() =>
                 setStatus(res, { success: false, error: 'Not added' }, 500));
           });
         })
-        .catch(() =>
-          setStatus(
-            res,
-            {
-              success: false,
-              error: 'something went wrong'
-            },
-            500
-          ));
+        .catch(error =>
+          setStatus(res, { success: false, error: error.message }, 500));
     } else {
       return setStatus(
         res,
@@ -147,11 +128,7 @@ class RecipeController {
     })
       .then(recipes => setStatus(res, { success: true, recipes }, 200))
       .catch(() =>
-        setStatus(
-          res,
-          { success: false, error: 'Unable to fetch your recipes' },
-          500
-        ));
+        setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
 
   /**
@@ -169,7 +146,6 @@ class RecipeController {
       where: {
         $or: [
           { name: { ilike: `%${query}%` } },
-          // { searchIng: { ilike: `%${breaker}%` } },
           { searchIng: { ilike: `%${query}%` } }
         ]
       }
@@ -216,8 +192,7 @@ class RecipeController {
           return recipe
             .update({
               comments: recipe.reviews.length,
-              favorite: recipe.favorites.length,
-              views: recipe.views
+              favorite: recipe.favorites.length
             })
             .then(() => setStatus(res, { success: true, recipe }, 200));
         }
@@ -239,14 +214,8 @@ class RecipeController {
   static getReactionCount(req, res) {
     return Recipes.findById(req.params.recipeId, {
       include: [
-        {
-          model: Reviews,
-          as: 'reviews'
-        },
-        {
-          model: Favorite,
-          as: 'favorites'
-        }
+        { model: Reviews, as: 'reviews' },
+        { model: Favorite, as: 'favorites' }
       ],
       order: [[{ model: Reviews, as: 'reviews' }, 'createdAt', 'DESC']]
     })
@@ -271,34 +240,21 @@ class RecipeController {
    * @returns {object} updated recipe
    */
   static updateRecipe(req, res) {
-    const arr = req.body.ingredients;
+    const IngredientArray = req.body.ingredients;
     const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {
       include: [
-        {
-          model: Reviews,
-          as: 'reviews'
-        },
-        {
-          model: Favorite,
-          as: 'favorites'
-        }
+        { model: Reviews, as: 'reviews' },
+        { model: Favorite, as: 'favorites' }
       ]
     })
       .then((recipe) => {
-        Recipes.findOne({
-          where: {
-            name: req.body.name
-          }
-        })
+        Recipes.findOne({ where: { name: req.body.name } })
           .then((isExist) => {
             if (isExist) {
               return setStatus(
                 res,
-                {
-                  success: false,
-                  error: 'recipe already added to the database'
-                },
+                { success: false, error: 'recipe already exist' },
                 409
               );
             }
@@ -310,8 +266,8 @@ class RecipeController {
                   name: req.body.name || recipe.name,
                   direction: req.body.direction || recipe.direction,
                   description: req.body.description || recipe.description,
-                  ingredients: getArr(arr) || recipe.ingredients,
-                  searchIng: arr,
+                  ingredients: getArr(IngredientArray) || recipe.ingredients,
+                  searchIng: IngredientArray,
                   foodImg: req.body.foodImg || recipe.foodImg,
                   category: req.body.category || recipe.category
                 })
@@ -342,14 +298,8 @@ class RecipeController {
   static upvote(req, res) {
     return Recipes.findById(req.params.recipeId, {
       include: [
-        {
-          model: Reviews,
-          as: 'reviews'
-        },
-        {
-          model: Favorite,
-          as: 'favorites'
-        }
+        { model: Reviews, as: 'reviews' },
+        { model: Favorite, as: 'favorites' }
       ]
     })
       .then((recipe) => {
@@ -406,11 +356,7 @@ class RecipeController {
             .then(() =>
               setStatus(
                 res,
-                {
-                  success: true,
-                  recipe,
-                  status: 'upvoted'
-                },
+                { success: true, recipe, status: 'upvoted' },
                 200
               ));
         }
@@ -425,20 +371,15 @@ class RecipeController {
    * @static
    * @param {object} req
    * @param {object} res
+   *
    * @returns {object} a new value for downvote
    * @memberof MoreRecipes
    */
   static downvote(req, res) {
     return Recipes.findById(req.params.recipeId, {
       include: [
-        {
-          model: Reviews,
-          as: 'reviews'
-        },
-        {
-          model: Favorite,
-          as: 'favorites'
-        }
+        { model: Reviews, as: 'reviews' },
+        { model: Favorite, as: 'favorites' }
       ]
     })
       .then((recipe) => {
@@ -480,8 +421,8 @@ class RecipeController {
                 .update({
                   upvote: recipe.upvote - 1,
                   downvote: recipe.downvote + 1,
-                  reactionDown: recipe.reactionDown,
-                  reactionUp
+                  reactionDown: recipe.reactionDown
+                  // reactionUp
                 })
                 // Send back the updated recipe.
                 .then(() =>
@@ -526,7 +467,7 @@ class RecipeController {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
         // Check if the deletor is the creator of the recipe
-        if (Number(recipe.userId) === Number(req.decoded.id)) {
+        if (recipe.userId === req.decoded.id) {
           return recipe
             .destroy()
             .then(() =>

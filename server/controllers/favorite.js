@@ -20,7 +20,9 @@ export default class FavoriteRecipes {
         recipeId: req.params.recipeId,
         userId: req.decoded.id
       },
-      include: [{ model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }]
+      include: [
+        { model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }
+      ]
     })
       .then((favorite) => {
         if (favorite) {
@@ -40,7 +42,12 @@ export default class FavoriteRecipes {
               recipeId: req.params.recipeId,
               userId: req.decoded.id
             },
-            include: [{ model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }]
+            include: [
+              {
+                model: Recipes,
+                include: [{ model: Favorite, as: 'favorites' }]
+              }
+            ]
           }).then(response =>
             setStatus(
               res,

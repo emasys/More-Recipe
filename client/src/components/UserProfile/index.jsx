@@ -113,7 +113,7 @@ class UserProfile extends Component {
               </div>
               <hr />
               <div className="row justify-content-center">
-                <CatalogList {...this.props} catalog={this.state.recipes} />
+                <CatalogList {...this.props} showDeleteBtn catalog={this.state.recipes} />
               </div>
               <div className="row justify-content-center">
                 {showMore && (

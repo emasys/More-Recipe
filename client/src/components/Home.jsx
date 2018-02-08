@@ -125,7 +125,7 @@ export class Home extends Component {
               </div>
             </div>
             <CatalogList
-              {...this.props}
+              {...this.props} showDeleteBtn={false}
               catalog={this.props.recipes.hotRecipes}
             />
             <div className="col-12 ">

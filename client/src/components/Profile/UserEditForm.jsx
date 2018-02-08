@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import countryList from '../CountryList';
 
 const focus = () => {
   document.querySelector('.text-danger').innerHTML = '';
@@ -46,7 +47,16 @@ const UserEditForm = props => {
             rows="4"
           />
         </li>
-
+        <li className="special col-lg-6 p-3">
+          <label>Country</label>
+          <select name="country" className="col-12 " style={{ height: '50px' }}>
+            {countryList.map(country => (
+              <option key={country.code} value={country.name}>
+                {country.name}
+              </option>
+            ))}
+          </select>
+        </li>
         <li className=" col-12 ">
           <input
             type="submit"

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { getCategory } from '../actions/recipeActions';
 
 // Components
-import FixedNavbar from './Navbar';
+import Navbar from './Navbar';
 import CatalogList from './CatalogList';
 /**
  *
@@ -38,10 +38,10 @@ export class Category extends Component {
   render() {
     return (
       <div>
-        <FixedNavbar className="bg-dark fixed-top" />
+        <Navbar className="bg-dark fixed-top" />
         <div className="mt-80 mb-3">
           <div className="container catalog-wrapper" id="catalog">
-            <CatalogList catalog={this.props.recipes.category} />
+            <CatalogList {...this.props} showDeleteBtn catalog={this.props.recipes.category} />
           </div>
         </div>
       </div>

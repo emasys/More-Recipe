@@ -17,6 +17,7 @@ const UserInfo = props => {
       moniker,
       country
     } = props.data.data;
+    console.log("======>props", props.data.data);
 
     const { status, preview, save } = props.state;
     return (
