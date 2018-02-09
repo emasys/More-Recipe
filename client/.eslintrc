@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["airbnb-base", "react"],
+  "extends": ["airbnb", "react"],
   "env": {
     "node": true,
     "es6": true,
@@ -24,6 +24,8 @@
     }
   },
   "rules": {
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/anchor-is-valid": "off",    
     "max-len": [ 1, 80, 2, { "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
     "max-depth": ["error", 5],
     "indent": ["error", 2],

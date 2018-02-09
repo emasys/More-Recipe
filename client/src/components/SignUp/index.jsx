@@ -7,14 +7,13 @@ import { bindActionCreators } from 'redux';
 // Validator helper
 import errorMessages, {
   validateEmail,
-  validateName,
   validatePassword,
   validateMoniker,
   confirmPassword
 } from './Validators';
 
 // actions
-import { signUp } from '../../actions/userActions';
+import { signUp } from '../../actions/authActions';
 import { isLoading } from '../../actions';
 
 //component
@@ -35,15 +34,6 @@ export class SignUp extends Component {
    * @param {any} props
    * @memberof SignUp
    */
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      preview: null,
-      files: null,
-      status: 'fade'
-    };
-  }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.signUp) {
@@ -53,7 +43,7 @@ export class SignUp extends Component {
       if (nextProps.user.signUp.data) {
         switch (nextProps.user.signUp.data.target) {
         case 'email':
-          document.querySelector('#email_error').innerHTML = `Your email address already exist in our database, sign in`;
+          document.querySelector('#email_error').innerHTML = `Your email address already exist.`;
           break;
         case 'moniker':
           document.querySelector('#moniker_error').innerHTML =
@@ -70,12 +60,6 @@ export class SignUp extends Component {
         [event.target.name]: event.target.value
       },
       () => {
-        if (this.state.fname) {
-          validateName(this.state.fname, 'fname', 'fname_error');
-        }
-        if (this.state.lname) {
-          validateName(this.state.lname, 'lname', 'lname_error');
-        }
         if (this.state.email) {
           validateEmail(this.state.email, 'email', 'email_error');
         }
@@ -106,14 +90,10 @@ export class SignUp extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const data = {
-      firstName: event.target.elements.fname.value.trim(),
-      lastName: event.target.elements.lname.value.trim(),
       email: event.target.elements.email.value.trim(),
       password: event.target.elements.password.value.trim(),
       confirmPassword: event.target.elements.confirmPassword.value.trim(),
-      bio: event.target.elements.bio.value.trim(),
       moniker: event.target.elements.moniker.value,
-      country: event.target.elements.country.value.trim()
     };
     if (errorMessages()) {
       this.props.signUp(data);

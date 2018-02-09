@@ -82,10 +82,12 @@ export const deleteUser = id => dispatch => {
 
 // update users
 export const updateUser = (id, data) => dispatch => {
+  console.log(id, data);
   dispatch(isLoading(true));
   return axios
     .put(`${URL}/users/${id}?token=${xtoken}`, data)
     .then(response => {
+      console.log("====>response", response.data);
       dispatch({ type: type.UPDATE_USER, payload: response.data });
       dispatch(isLoading(false));
     })

@@ -148,7 +148,7 @@ const generateList = (props) => {
                   src={item.foodImg}
                   alt="recipe image"
                 />
-                {Auth.userID() === item.userId && (
+                {Auth.userID() === item.userId && props.showDeleteBtn && (
                   <i
                     onClick={deleteRecipeInit}
                     data-toggle="modal"

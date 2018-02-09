@@ -1,5 +1,6 @@
 import { Recipes, Favorite } from '../models';
 import { setStatus } from '../middleware/helper';
+import { setFavorite } from '../services/favorite';
 
 /**
  *
@@ -16,38 +17,12 @@ export default class FavoriteRecipes {
    */
   static addFavorite(req, res) {
     return Favorite.findOne({
-      where: {
-        recipeId: req.params.recipeId,
-        userId: req.decoded.id
-      },
-      include: [{ model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }]
+      where: { recipeId: req.params.recipeId, userId: req.decoded.id },
+      include: [
+        { model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }
+      ]
     })
-      .then((favorite) => {
-        if (favorite) {
-          setStatus(
-            res,
-            { success: true, status: 'cancel', recipe: favorite.Recipe },
-            200
-          );
-          return favorite.destroy();
-        }
-        return Favorite.create({
-          recipeId: req.params.recipeId,
-          userId: req.decoded.id
-        }).then(() =>
-          Favorite.findOne({
-            where: {
-              recipeId: req.params.recipeId,
-              userId: req.decoded.id
-            },
-            include: [{ model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }]
-          }).then(response =>
-            setStatus(
-              res,
-              { success: true, status: 'favorited', recipe: response.Recipe },
-              200
-            )));
-      })
+      .then(favorite => setFavorite(req, res, favorite))
       .catch(() =>
         setStatus(res, { success: false, message: 'recipe not found' }, 404));
   }

@@ -27,12 +27,9 @@ export const setStatus = (res, message, code) => {
  */
 export const validateSignUpForm = () => {
   return {
-    firstName: 'required|alpha',
-    lastName: 'required|alpha',
     email: 'required|email',
     moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
     password: 'required|min:8',
-    country: 'required'
   };
 };
 

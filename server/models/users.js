@@ -16,7 +16,7 @@ export default (sequelize, DataTypes) => {
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     moniker: {
       type: DataTypes.STRING,
@@ -25,11 +25,11 @@ export default (sequelize, DataTypes) => {
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     avatar: {
       type: DataTypes.STRING,
@@ -37,7 +37,7 @@ export default (sequelize, DataTypes) => {
     },
     bio: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     }
   });
 

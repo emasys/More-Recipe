@@ -54,6 +54,7 @@ class Profile extends Component {
       firstName: '',
       lastName: '',
       bio: '',
+      country: '',
       edit: false,
       successMsg: false,
       save: 'd-none',
@@ -92,7 +93,8 @@ class Profile extends Component {
         userInfo: nextProps.userInfo,
         firstName: nextProps.userInfo.data.firstName,
         lastName: nextProps.userInfo.data.lastName,
-        bio: nextProps.userInfo.data.bio
+        bio: nextProps.userInfo.data.bio,
+        country: nextProps.userInfo.data.country
       });
     }
   }
@@ -245,7 +247,8 @@ class Profile extends Component {
     const data = {
       firstName: event.target.elements.fname.value.trim(),
       lastName: event.target.elements.lname.value.trim(),
-      bio: event.target.elements.bio.value.trim()
+      bio: event.target.elements.bio.value.trim(),
+      country: event.target.elements.country.value
     };
     if (validate(data)) {
       this.props.updateUser(this.props.match.params.id, data).then(() => {
@@ -317,7 +320,7 @@ class Profile extends Component {
                 </div>
                 <hr />
                 <div className="row justify-content-center">
-                  <CatalogList {...this.props} catalog={this.state.recipes} />
+                  <CatalogList {...this.props} showDeleteBtn catalog={this.state.recipes} />
                 </div>
                 <div className="row justify-content-center">
                   {showMore && (

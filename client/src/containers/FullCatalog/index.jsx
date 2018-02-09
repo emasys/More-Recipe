@@ -42,10 +42,7 @@ class FullCatalog extends Component {
       page_limit: 12,
       avatar: null,
       offset: 0,
-      allRecipes: '',
-      conpare: '',
       searching: false,
-      hasMore: true,
       showMore: true,
       dropdown: false
     };
@@ -57,7 +54,6 @@ class FullCatalog extends Component {
    * @returns {any} react lifecycle method
    */
   componentDidMount = () => {
-    ReactDom.findDOMNode(this).scrollIntoView();
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
@@ -253,24 +249,24 @@ class FullCatalog extends Component {
                   <p style={{ textAlign: 'center' }}>
                     <b>Thank you for being Awesome</b>
                     <br />
-                    <b
+                    <button
                       onClick={this.addMore}
                       className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                     >
                       Add More Recipes
-                    </b>
+                    </button>
                   </p>
                 }
               >
                 <CatalogList
-                  {...this.props}
+                  {...this.props} showDeleteBtn
                   catalog={this.props.recipes.allRecipes.sort(compare)}
                 />
               </InfiniteScroll>
             )}
             {searching && (
               <CatalogList
-                {...this.props}
+                {...this.props} showDeleteBtn
                 catalog={this.props.recipes.searchResult}
               />
             )}
@@ -302,7 +298,7 @@ FullCatalog.propTypes = {
   user: PropTypes.object,
   getRecipes: PropTypes.func,
   searchRecipes: PropTypes.func,
-  getProfile: PropTypes.func,
+  getProfile: PropTypes.func.isRequired,
   data: PropTypes.object,
   moniker: PropTypes.string,
   netReq: PropTypes.bool,
