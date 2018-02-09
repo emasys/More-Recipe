@@ -2,7 +2,14 @@ import Validator from 'validatorjs';
 
 import { Users, Recipes, Reviews, Favorite } from '../models';
 import { validateAddRecipes, setStatus } from '../middleware/helper';
-import { sortRecipe } from './helper';
+import {
+  addNewRecipe,
+  sortRecipe,
+  fetchOneRecipe,
+  findAndUpdateRecipe,
+  cancelVote,
+  transferVote
+} from '../services/recipe';
 
 // const sequelize = new Sequelize;
 
@@ -20,47 +27,17 @@ class RecipeController {
    */
   static addRecipe(req, res) {
     const request = req.body;
-    const IngredientArray = req.body.ingredients;
+    const ingredientArray = req.body.ingredients;
     // to convert ingredient's strings into and array with no trailing space
-    const getArr = input => input.trim().split(/\s*,\s*/);
     const validator = new Validator(request, validateAddRecipes());
     if (validator.passes()) {
-      Users.findById(req.decoded.id)
-        .then((user) => {
-          if (!user) {
-            return setStatus(res, { success: false, error: 'Not found' }, 404);
-          }
-          // check if the same user is mistakenly duplicating her/her recipes
-          Recipes.findOne({
-            where: { name: request.name, userId: req.decoded.id }
-          }).then((recipeExist) => {
-            if (recipeExist) {
-              return setStatus(res, { success: false, error: 'Added' }, 403);
-            }
-            return Recipes.create({
-              name: request.name,
-              direction: request.direction,
-              userId: req.decoded.id,
-              description: request.description,
-              category: request.category,
-              foodImg: request.foodImg,
-              ingredients: getArr(IngredientArray),
-              searchIng: IngredientArray
-            })
-              .then(recipe => setStatus(res, { success: true, recipe }, 201))
-              .catch(() =>
-                setStatus(res, { success: false, error: 'Not added' }, 500));
-          });
-        })
-        .catch(error =>
-          setStatus(res, { success: false, error: error.message }, 500));
-    } else {
-      return setStatus(
-        res,
-        { success: false, error: validator.errors.all() },
-        422
-      );
+      return addNewRecipe(res, req, request, ingredientArray);
     }
+    return setStatus(
+      res,
+      { success: false, error: validator.errors.all() },
+      422
+    );
   }
 
   // counter(){
@@ -179,23 +156,7 @@ class RecipeController {
       .then((recipe) => {
         // if other users view the recipe, the view count increases
         // the creator of the recipe gets only one count
-        if (req.decoded.id) {
-          if (req.decoded.id !== recipe.userId) {
-            return recipe
-              .update({
-                comments: recipe.reviews.length,
-                favorite: recipe.favorites.length,
-                views: recipe.views + 1
-              })
-              .then(() => setStatus(res, { success: true, recipe }, 200));
-          }
-          return recipe
-            .update({
-              comments: recipe.reviews.length,
-              favorite: recipe.favorites.length
-            })
-            .then(() => setStatus(res, { success: true, recipe }, 200));
-        }
+        fetchOneRecipe(res, req, recipe);
       })
       .catch(() =>
         setStatus(res, { success: false, status: 'Recipes not found' }, 404));
@@ -240,51 +201,17 @@ class RecipeController {
    * @returns {object} updated recipe
    */
   static updateRecipe(req, res) {
-    const IngredientArray = req.body.ingredients;
-    const getArr = input => input.trim().split(/\s*,\s*/);
+    // const IngredientArray = req.body.ingredients;
+    // const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {
       include: [
         { model: Reviews, as: 'reviews' },
         { model: Favorite, as: 'favorites' }
       ]
     })
-      .then((recipe) => {
-        Recipes.findOne({ where: { name: req.body.name } })
-          .then((isExist) => {
-            if (isExist) {
-              return setStatus(
-                res,
-                { success: false, error: 'recipe already exist' },
-                409
-              );
-            }
-
-            // Prevent other users from editing a recipe not theirs.
-            if (recipe.userId === req.decoded.id) {
-              return recipe
-                .update({
-                  name: req.body.name || recipe.name,
-                  direction: req.body.direction || recipe.direction,
-                  description: req.body.description || recipe.description,
-                  ingredients: getArr(IngredientArray) || recipe.ingredients,
-                  searchIng: IngredientArray,
-                  foodImg: req.body.foodImg || recipe.foodImg,
-                  category: req.body.category || recipe.category
-                })
-                .then(() => setStatus(res, { success: true, recipe }, 200));
-              // Send back the updated recipe.
-            }
-            return setStatus(
-              res,
-              { success: false, status: 'cannot update this recipe' },
-              401
-            );
-          })
-          .catch(() =>
-            setStatus(res, { success: false, error: 'recipe not found' }, 404));
-      })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'recipe not found' }, 404));
+      .then(recipe => findAndUpdateRecipe(res, req, recipe))
+      .catch(error =>
+        setStatus(res, { success: false, error: error.message }, 500));
   }
   /**
    *
@@ -307,44 +234,32 @@ class RecipeController {
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
-            // Check if a user has already upvoted, then "unupvote"
-            const removeId = reactionUp.indexOf(Number(req.decoded.id));
-            if (removeId > -1) reactionUp.splice(removeId, 1);
-            return recipe
-              .update({
-                upvote: recipe.upvote - 1,
-                reactionUp: recipe.reactionUp
-              })
-              .then(() =>
-                setStatus(
-                  res,
-                  { success: true, recipe, status: 'upvote cancelled' },
-                  200
-                ));
+            // eslint-disable-next-line
+            return cancelVote(
+              res,
+              req,
+              reactionUp,
+              recipe,
+              'upvote',
+              'reactionUp'
+            );
           } else if (
             reactionUp.indexOf(Number(req.decoded.id)) === -1 &&
             reactionDown.indexOf(Number(req.decoded.id)) !== -1
           ) {
             // check if a user has already downvoted,
             // then cancel it and upvote instead
-            const removeId = reactionDown.indexOf(Number(req.decoded.id));
-            if (removeId > -1) {
-              reactionDown.splice(removeId, 1);
-            }
-            recipe.reactionUp.push(req.decoded.id);
-            return recipe
-              .update({
-                upvote: recipe.upvote + 1,
-                downvote: recipe.downvote - 1,
-                reactionUp: recipe.reactionUp,
-                reactionDown
-              })
-              .then(() =>
-                setStatus(
-                  res,
-                  { success: true, recipe, status: 'upvoted' },
-                  200
-                ));
+            // eslint-disable-next-line
+            return transferVote(
+              res,
+              req,
+              reactionDown,
+              recipe,
+              'reactionUp',
+              'upvote',
+              'downvote',
+              'reactionDown'
+            );
           }
           // upvote if a user has not previously done so
           recipe.reactionUp.push(req.decoded.id);
@@ -353,16 +268,11 @@ class RecipeController {
               upvote: recipe.upvote + 1,
               reactionUp: recipe.reactionUp
             })
-            .then(() =>
-              setStatus(
-                res,
-                { success: true, recipe, status: 'upvoted' },
-                200
-              ));
+            .then(() => setStatus(res, { success: true, recipe }, 200));
         }
       })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 404));
+      .catch(error =>
+        setStatus(res, { success: false, error: error.message }, 500));
   }
 
   /**
@@ -387,23 +297,13 @@ class RecipeController {
           const { reactionDown, reactionUp } = recipe;
           if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
             // if user has downvoted before, cancel it
-            const removeId = reactionDown.indexOf(Number(req.decoded.id));
-            if (removeId > -1) {
-              reactionDown.splice(removeId, 1);
-            }
-            return (
-              recipe
-                .update({
-                  downvote: recipe.downvote - 1,
-                  reactionDown: recipe.reactionDown
-                })
-                // Send back the updated recipe.
-                .then(() =>
-                  setStatus(
-                    res,
-                    { success: true, recipe, status: 'downvote cancelled' },
-                    200
-                  ))
+            return cancelVote(
+              res,
+              req,
+              reactionDown,
+              recipe,
+              'downvote',
+              'reactionDown'
             );
           } else if (
             reactionDown.indexOf(Number(req.decoded.id)) === -1 &&
@@ -411,26 +311,15 @@ class RecipeController {
           ) {
             // if user has not downvoted but have upvoted,
             // then cancel upvote and set downvote
-            const removeId = reactionUp.indexOf(Number(req.decoded.id));
-            if (removeId > -1) {
-              reactionUp.splice(removeId, 1);
-            }
-            recipe.reactionDown.push(req.decoded.id);
-            return (
-              recipe
-                .update({
-                  upvote: recipe.upvote - 1,
-                  downvote: recipe.downvote + 1,
-                  reactionDown: recipe.reactionDown
-                  // reactionUp
-                })
-                // Send back the updated recipe.
-                .then(() =>
-                  setStatus(
-                    res,
-                    { success: true, recipe, status: 'downvoted' },
-                    200
-                  ))
+            return transferVote(
+              res,
+              req,
+              reactionUp,
+              recipe,
+              'reactionDown',
+              'downvote',
+              'upvote',
+              'reactionUp'
             );
           }
           // if a user has not downvoted or upvoted then
@@ -443,17 +332,12 @@ class RecipeController {
                 reactionDown: recipe.reactionDown
               })
               // Send back the updated recipe.
-              .then(() =>
-                setStatus(
-                  res,
-                  { success: true, recipe, status: 'downvoted' },
-                  200
-                ))
+              .then(() => setStatus(res, { success: true, recipe }, 200))
           );
         }
       })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'recipe not found' }, 404));
+      .catch(error =>
+        setStatus(res, { success: false, error: error.message }, 500));
   }
 
   /**

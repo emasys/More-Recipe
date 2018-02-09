@@ -4,13 +4,20 @@ import dotenv from 'dotenv';
 import { Users, TokenGen } from '../models';
 import {
   setStatus,
-  signToken,
   validateSignInForm,
   validateSignUpForm,
   validateUpdateUser,
   mailer
 } from '../middleware/helper';
-import { createUser, AuthenticateUser, updateUserInfo } from './helper';
+import {
+  createUser,
+  AuthenticateUser,
+  updateUserInfo,
+  fetchUser,
+  resetUserPassword,
+  sendGeneratedToken,
+  getGeneratedToken
+} from '../services/user';
 
 dotenv.config();
 
@@ -72,28 +79,7 @@ export default class MoreRecipeUsers {
    * @returns {object} a user profile
    */
   static getOneUser(req, res) {
-    return Users.findById(req.params.userId)
-      .then((user) => {
-        if (!user) {
-          return setStatus(
-            res,
-            { success: false, message: 'User not found' },
-            404
-          );
-        }
-        const data = pick(user, [
-          'id',
-          'firstName',
-          'lastName',
-          'bio',
-          'email',
-          'country',
-          'avatar',
-          'moniker'
-        ]);
-        return setStatus(res, { success: true, data }, 200);
-      })
-      .catch(error => setStatus(res, { success: false, error }, 500));
+    return fetchUser(res, req);
   }
   /**
    *
@@ -168,24 +154,7 @@ export default class MoreRecipeUsers {
    */
   static resetPassword(req, res) {
     const request = req.body;
-    Users.findOne({ where: { email: request.email } })
-      .then((user) => {
-        if (!user) {
-          return setStatus(
-            res,
-            { success: false, status: 'user not found' },
-            404
-          );
-        }
-        user
-          .update({
-            password: request.password
-          })
-          .then(() =>
-            setStatus(res, { success: true, status: 'updated' }, 200));
-      })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'server error' }, 500));
+    return resetUserPassword(res, request);
   }
 
   /**
@@ -199,25 +168,7 @@ export default class MoreRecipeUsers {
    */
   static sendToken(req, res) {
     const request = req.body;
-    let token = null;
-    TokenGen.findOne({ where: { email: request.email } }).then((user) => {
-      token = Math.floor(1000 + Math.random() * 9000);
-      request.token = token;
-      if (!user) {
-        TokenGen.create(request).then((newuser) => {
-          setStatus(res, { success: true, status: 'token sent' }, 200);
-          return mailer('Reset password Token:', newuser.email, token);
-        });
-      }
-      user
-        .update({
-          token: token || user.token
-        })
-        .then(() => {
-          setStatus(res, { success: true, status: 'token sent' }, 200);
-          return mailer('Reset password Token:', user.email, token);
-        });
-    });
+    return sendGeneratedToken(res, request);
   }
 
   /**
@@ -231,12 +182,6 @@ export default class MoreRecipeUsers {
    */
   static getToken(req, res) {
     const request = req.body;
-    TokenGen.findOne({ where: { email: request.email, token: request.token } })
-      .then((user) => {
-        if (!user) return setStatus(res, { success: false }, 404);
-        return setStatus(res, { success: true }, 200);
-      })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'server error' }, 500));
+    return getGeneratedToken(res, request);
   }
 }

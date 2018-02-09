@@ -6,8 +6,8 @@ import seed from '../seeders/seeds';
 let xtoken = null;
 
 
-describe('CRUD/ users', () => {
-  describe('SIGN_IN/ sign in a new user to generate token', () => {
+describe('Test suite for user controller', () => {
+  describe('Sign in a new user to generate token', () => {
     it('should return status code 200 if a user is successfully logged in', (done) => {
       request(app)
         .post('/api/v1/users/signin')
@@ -23,44 +23,7 @@ describe('CRUD/ users', () => {
     });
   });
 
-
-  describe('Test case for empty firstName field', () => {
-    it('should return status code 422 when firstName input field is empty', (done) => {
-      request(app)
-        .post('/api/v1/users/signup')
-        .send(seed.setUserInput('', 'Jane', "John's wife", 'janedoe@gmail.com', 'password', 'password'))
-        .expect(422)
-        .expect((res) => {
-          expect(res.body).to.include({ success: false });
-        })
-        .end(done);
-    });
-  });
-
-  describe('Test for invalid inputs', () => {
-    it('should return status code 422 if firstName input is not a string', (done) => {
-      request(app)
-        .post('/api/v1/users/signup')
-        .send({
-          firstName: 1234,
-          lastName: 'Emmanuel',
-          bio: 'I am a human from planet earth',
-          email: 'emasysnd@gmail.com',
-          password: 'password',
-          confirmPassword: 'password',
-          moniker: 'admin',
-          country: 'Nigeria',
-          avatar: 'someurl'
-        })
-        .expect(422)
-        .expect((res) => {
-          expect(res.body).to.include({ success: false });
-        })
-        .end(done);
-    });
-  });
-
-  describe('Test for invalid email address', () => {
+  describe('Test for invalid email address,', () => {
     it('should return status code 422 if email input format is not valid', (done) => {
       request(app)
         .post('/api/v1/users/signup')
@@ -73,11 +36,11 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('User signin', () => {
+  describe('Signin with invalid credential,', () => {
     it('should return 400 if a user password is wrong', (done) => {
       request(app)
         .post('/api/v1/users/signin')
-        .send(seed.setLogin('emasysnd@gmail.com', 'passwords'))
+        .send(seed.setLogin('emasysnd@gmail.com', 'wrong password'))
         .expect(400)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -86,21 +49,33 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('GET/ all user info', () => {
+  describe.skip('Send token to reset password,', () => {
+    it('should return status code 200 token is successfully sent to the user', (done) => {
+      request(app)
+        .post('/api/v1/reset')
+        .send({ email: 'emasysnd@gmail.com' })
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true, status: 'token sent' });
+        })
+        .end(done);
+    });
+  });
+
+  describe('Get user info of all the users', () => {
     it('should return a status code of 200 if all user info are successfully fetched', (done) => {
       request(app)
         .get('/api/v1/users')
         .set('x-access-token', xtoken)
         .expect(200)
         .expect((res) => {
-          // console.log({token: xtoken});
           expect(res.body).to.include({ success: true });
         })
         .end(done);
     });
   });
 
-  describe('GET/ one user info', () => {
+  describe('Get user info of a single user,', () => {
     it('should return a status code of 200 if a user info is successfully fetched', (done) => {
       request(app)
         .get('/api/v1/users/1')
@@ -112,7 +87,7 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('GET/ one user info', () => {
+  describe('Get user info of an unregistered user,', () => {
     it('should return a status code of 404 if the user does not exist', (done) => {
       request(app)
         .get('/api/v1/users/10')
@@ -124,8 +99,8 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('UPDATE/ a user info', () => {
-    it('should return a status code of 200 if all user info is successfully updated', (done) => {
+  describe('Update user data of an authenticated user', () => {
+    it('should return a status code of 200 if user data is successfully updated', (done) => {
       request(app)
         .put('/api/v1/users/1')
         .send(seed.setUserInput('emasys', 'endy', 'I am emasys nd'))
@@ -138,8 +113,8 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('UPDATE/ a non-existence user info', () => {
-    it('should return a status code of 404', (done) => {
+  describe('Update user info of a non-existing user,', () => {
+    it('should return a status code of 404 if user is not found', (done) => {
       request(app)
         .put('/api/v1/users/5')
         .send(seed.setUserInput('emasys', 'endy', 'I am emasys nd'))
@@ -152,7 +127,7 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('DELETE/ a user that does not exist', () => {
+  describe('Delete a user that does not exist,', () => {
     it('should return a status code of 404', (done) => {
       request(app)
         .delete('/api/v1/users/5')
@@ -165,7 +140,7 @@ describe('CRUD/ users', () => {
     });
   });
 
-  describe('DELETE/ a user', () => {
+  describe('Delete a user that exists,', () => {
     it('should return a status code of 200 if all user info are successfully deleted', (done) => {
       request(app)
         .delete('/api/v1/users/1')

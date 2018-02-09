@@ -33,7 +33,8 @@ app.use('/api/v1/*', (req, res) => {
   });
 });
 
-// fallback to client-side if a page is reloaded while on a route defined in react-router
+// fallback to client-side if a page is reloaded while on a
+// route defined in react-router
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/public/index.html'));
 });

@@ -26,19 +26,15 @@ export default {
   },
 
   setUserInput(
-    firstName, lastName, bio, email, password, confirmPassword,
-    country, moniker, avatar
+    email, password, confirmPassword,
+    country, moniker
   ) {
     return {
-      firstName,
-      lastName,
-      bio,
       email,
       password,
       confirmPassword,
       country,
-      moniker,
-      avatar
+      moniker
     };
   },
   setLogin(email, password) {
