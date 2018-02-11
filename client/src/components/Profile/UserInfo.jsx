@@ -17,7 +17,6 @@ const UserInfo = props => {
       moniker,
       country
     } = props.data.data;
-    console.log("======>props", props.data.data);
 
     const { status, preview, save } = props.state;
     return (
@@ -47,10 +46,13 @@ const UserInfo = props => {
           />
         </div>
         <div className="bg-light rounded p-10 profile-wrapper">
-          <h2 className="mb-10 bolder">
-            {`${firstName} ${lastName} `}
-            (<small className="header-title">{moniker}</small>)
-          </h2>
+          {(firstName && lastName) && (
+            <h2 className="mb-10 bolder">
+              {`${firstName} ${lastName} `}
+              (<small className="header-title">{moniker}</small>)
+            </h2>
+          )}
+          {!firstName && <h2 className="mb-10 bolder">{moniker}</h2>}
           <div>
             <p>{bio}</p>
             <hr />

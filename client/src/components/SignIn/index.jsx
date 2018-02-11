@@ -107,17 +107,6 @@ class SignIn extends Component {
       showErrMessage: 'fade'
     });
   };
-
-  emailChanged = event => {
-    this.setState({
-      email: event.target.value
-    });
-  };
-  pwChanged = event => {
-    this.setState({
-      password: event.target.value
-    });
-  };
   /**
    *
    *
@@ -165,12 +154,12 @@ class SignIn extends Component {
   resetForm = () => {
     if (!this.state.resetPass) {
       this.setState({
-        resetPassword: true,
+        resetPass: true,
         success: false
       });
     } else {
       this.setState({
-        resetPassword: false,
+        resetPass: false,
         success: false
       });
     }
@@ -215,7 +204,11 @@ class SignIn extends Component {
    */
   handleSubmit = event => {
     event.preventDefault();
-    this.props.signIn(this.state);
+    const data ={
+      email: event.target.elements.email.value.trim(),
+      password: event.target.elements.pass.value
+    }
+    this.props.signIn(data);
   };
   /**
    *
@@ -294,8 +287,6 @@ class SignIn extends Component {
                 handleSubmit={this.handleSubmit}
                 state={this.state}
                 clearError={this.clearError}
-                emailChanged={this.emailChanged}
-                pwChanged={this.pwChanged}
                 resetForm={this.resetForm}
               />
             )}

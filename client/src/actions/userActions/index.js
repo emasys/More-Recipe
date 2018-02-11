@@ -42,7 +42,7 @@ export const getProfile = id => dispatch => {
     .get(`${URL}/users/${id}`)
     .then(response => {
       dispatch({ type: type.USER_PROFILE, payload: response.data });
-      // dispatch(isLoading(false));
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.USER_PROFILE, payload: err.response });
@@ -87,7 +87,6 @@ export const updateUser = (id, data) => dispatch => {
   return axios
     .put(`${URL}/users/${id}?token=${xtoken}`, data)
     .then(response => {
-      console.log("====>response", response.data);
       dispatch({ type: type.UPDATE_USER, payload: response.data });
       dispatch(isLoading(false));
     })

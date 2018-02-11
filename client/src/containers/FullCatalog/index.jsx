@@ -97,7 +97,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();
+    this.loadMoreRecipes();
   };
   /**
    *
@@ -111,10 +111,10 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();
+    this.loadMoreRecipes();
   };
 
-  loadFunc = () => {
+  loadMoreRecipes = () => {
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
@@ -132,7 +132,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();
+    this.loadMoreRecipes();
   };
 
   /**
@@ -147,7 +147,7 @@ class FullCatalog extends Component {
       return 0;
     };
     this.setState({ compare });
-    this.loadFunc();
+    this.loadMoreRecipes();
   };
 
   /**
@@ -233,7 +233,7 @@ class FullCatalog extends Component {
           <div className="row catalog-wrapper mx-2 justify-content-start">
             {!searching && (
               <InfiniteScroll
-                next={this.loadFunc}
+                next={this.loadMoreRecipes}
                 hasMore={this.state.showMore}
                 loader={
                   <div className="loader text-center" key={0}>
@@ -259,7 +259,7 @@ class FullCatalog extends Component {
                 }
               >
                 <CatalogList
-                  {...this.props} showDeleteBtn
+                  {...this.props} showDeleteBtn={false}
                   catalog={this.props.recipes.allRecipes.sort(compare)}
                 />
               </InfiniteScroll>

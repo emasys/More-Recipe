@@ -11,6 +11,7 @@ import { addRecipe } from '../../actions/recipeActions';
 import Navbar from '../../components/Navbar';
 import AddRecipeForm from './AddRecipeForm';
 import config from '../../config';
+import Auth from '../../components/auth';
 /**
  *
  *
@@ -115,13 +116,13 @@ class AddRecipe extends Component {
           {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
         </div>
         <Navbar className="bg-dark fixed-top" />
-        <div className="container">
-          <div
-            data-aos="fade-up"
-            data-duration="1000"
-            className="row catalog-wrapper p-0 justify-content-center mt-80"
-          >
-            <div className="col-lg-6 col-sm-12 text-center AuthInfo">
+        <div
+          data-aos="fade-up"
+          data-duration="1000"
+          className="row catalog-wrappe p-0 justify-content-center mt-80"
+        >
+          <div className=" catalog-wrapper col-lg-6 p-0">
+            <div className="col-12 text-center AuthInfo">
               <img
                 src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
                 alt="logo"
@@ -132,16 +133,14 @@ class AddRecipe extends Component {
                 data-aos-delay="1000"
                 data-dos-duration="1000"
               />
-              <h1 className="text-white">Hey there!</h1>
+              <h3 className="text-white">Hey {Auth.moniker()}</h3>
               <h4 className="mt-10 text-white p-10 ">
                 “Cooking is not a science but an art, mistakes are okay, messes
                 are fine—the pleasure is in the creating and the sharing of the
                 result.” ― Lori Pollan
               </h4>
             </div>
-            <div className=" col-lg-6 col-md-6 justify-content-center col-sm-12">
-              <AddRecipeForm handleForm={this.handleForm} />
-            </div>
+            <AddRecipeForm handleForm={this.handleForm} />
           </div>
         </div>
       </section>

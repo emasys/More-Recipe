@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PasswordMask from 'react-password-mask';
 
 const SignInForm = props => {
-  const { email, showErrMessage } = props.state;
+  const { showErrMessage } = props.state;
 
   return (
     <form id="signin" className="form-ite" onSubmit={props.handleSubmit}>
@@ -13,8 +14,6 @@ const SignInForm = props => {
           <input
             type="email"
             required
-            value={email}
-            onChange={props.emailChanged}
             onFocus={props.clearError}
             className="col-lg-12 col-sm-12"
             name="email"
@@ -27,7 +26,7 @@ const SignInForm = props => {
           <input
             type="password"
             required
-            onChange={props.pwChanged}
+            maxLength="20"
             onFocus={props.clearError}
             className="col-lg-12 col-sm-12"
             name="pass"

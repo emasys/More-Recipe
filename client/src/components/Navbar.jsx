@@ -40,7 +40,8 @@ export class Navbar extends Component {
    * invoked immediately after a component is mounted
    */
   componentDidMount() {
-    if (Auth.userID()) {
+    console.log(this.props.user);
+    if (Auth.userID() && !this.props.user) {
       this.props.getProfile(Auth.userID());
     }
   }
@@ -57,6 +58,11 @@ export class Navbar extends Component {
     });
   }
 
+  get avatar(){
+    if(this.props.user){
+      return this.props.user.data.avatar
+    }
+  }
   /**
    *
    *
@@ -65,6 +71,7 @@ export class Navbar extends Component {
    * @memberof Navbar
    */
   render() {
+    console.log("avatar =====>",this.Avatar);
     const { avatar } = this.state;
     return (
       <section className="container-fluid m-0 p-0">
@@ -148,7 +155,7 @@ export class Navbar extends Component {
                       aria-expanded="false"
                     >
                       <img
-                        src={avatar || config.DEFAULT_DISPLAY_PICTURE}
+                        src={this.avatar || config.DEFAULT_DISPLAY_PICTURE}
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
                       />

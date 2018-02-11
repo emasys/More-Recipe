@@ -21,7 +21,7 @@ const generateList = ({ ingredients }) => {
 
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
-    <h2 className="fresh-title wrapWord text-capitalize">
+    <h2 className="wrapWord text-capitalize">
       {props.ingredients.recipe ? props.ingredients.recipe.name : 'loading...'}
     </h2>
     <small className="text-capitalize">

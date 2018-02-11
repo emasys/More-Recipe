@@ -27,11 +27,11 @@ class RecipeController {
    */
   static addRecipe(req, res) {
     const request = req.body;
-    const ingredientArray = req.body.ingredients;
+    const ingredients = req.body.ingredients;
     // to convert ingredient's strings into and array with no trailing space
     const validator = new Validator(request, validateAddRecipes());
     if (validator.passes()) {
-      return addNewRecipe(res, req, request, ingredientArray);
+      return addNewRecipe(res, req, request, ingredients);
     }
     return setStatus(
       res,
@@ -202,6 +202,7 @@ class RecipeController {
    */
   static updateRecipe(req, res) {
     // const IngredientArray = req.body.ingredients;
+    const ingredients = req.body.ingredients;    
     // const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {
       include: [
@@ -209,7 +210,7 @@ class RecipeController {
         { model: Favorite, as: 'favorites' }
       ]
     })
-      .then(recipe => findAndUpdateRecipe(res, req, recipe))
+      .then(recipe => findAndUpdateRecipe(res, req, recipe, ingredients))
       .catch(error =>
         setStatus(res, { success: false, error: error.message }, 500));
   }

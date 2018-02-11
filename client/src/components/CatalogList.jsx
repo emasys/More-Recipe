@@ -18,8 +18,8 @@ import Auth from './auth';
  * @returns {object} toggle classes on mouse in
  */
 const onHoverIn = id => {
-  document.querySelector(`#${id}`).classList.remove('d-none');
-  document.querySelector(`#${id}`).classList.add('d-block');
+  document.querySelector(`#${id}`).classList.remove('crop-text');
+  document.querySelector(`#${id}`).classList.add('full-text');
 };
 
 /**
@@ -29,8 +29,8 @@ const onHoverIn = id => {
  * @returns {object} toggle classes on mouse out
  */
 const onHoverOut = id => {
-  document.querySelector(`#${id}`).classList.remove('d-block');
-  document.querySelector(`#${id}`).classList.add('d-none');
+  document.querySelector(`#${id}`).classList.remove('full-text');
+  document.querySelector(`#${id}`).classList.add('crop-text');
 };
 /**
  *
@@ -137,7 +137,8 @@ const generateList = (props) => {
             >
               <div className="card" data-aos="fade-up" data-aos-duration="1000">
                 <div
-                  id={`recipe-${item.id}`}
+                data-aos="fade-up" data-aos-duration="2000"
+                  
                   className="description text-center d-none"
                 >
                   <h2> Description</h2>
@@ -158,15 +159,15 @@ const generateList = (props) => {
                     &#xE872;
                   </i>
                 )}
-                <div className="card-body p-0 text-center social-icons">
+                <div  className="card-body p-0 text-center social-icons">
                   <span className="tag bg-danger">{item.category}</span>
-                  <h4 className="card-title custom-bg bg-dark p-2 m-0">
+                  <h4  className="card-title custom-bg bg-dark p-2 m-0">
                     {item.name.length > 25 ?
                       item.name.slice(0, 24).concat('...') :
                       item.name}
                   </h4>
-                  <div className="card-body p-5 text-left bg-light">
-                    <p className="line-clamp crop-text wrapWord wrapIt">
+                  <div  className="card-body p-5 text-left bg-light">
+                    <p id={`recipe-${item.id}`} className="crop-text">
                       {item.description}
                     </p>
                   </div>

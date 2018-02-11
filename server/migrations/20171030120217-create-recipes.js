@@ -23,9 +23,6 @@ module.exports = {
       searchIng: {
         type: Sequelize.STRING
       },
-      recipeCount: {
-        type: Sequelize.INTEGER
-      },
       upvote: {
         type: Sequelize.INTEGER
       },

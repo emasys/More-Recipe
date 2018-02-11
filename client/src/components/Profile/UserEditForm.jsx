@@ -16,7 +16,7 @@ const UserEditForm = props => {
           <input
             type="text"
             required
-            placeholder="First Name"
+            placeholder="alphabeths only"
             className="col-lg-11 col-sm-12"
             name="fname"
             onFocus={focus}
@@ -29,7 +29,7 @@ const UserEditForm = props => {
           <input
             type="text"
             required
-            placeholder="Last Name"
+            placeholder="alphabeths only"
             className="col-lg-11 col-sm-12"
             name="lname"
             onFocus={focus}

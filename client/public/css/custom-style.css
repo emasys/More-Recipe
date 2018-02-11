@@ -319,5 +319,5 @@ select:focus {
 .AuthInfo {
   background: linear-gradient(180deg, rgba(3, 8, 14, 0.9), rgba(3, 8, 14, 0.89), rgba(3, 8, 14, 0.8), rgba(3, 8, 14, 0.79)), url('https://res.cloudinary.com/emasys/image/upload/v1516437747/bgfood_kzyzut.jpg') no-repeat center center;
   background-size: cover;
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px 8px 0 0;
 }

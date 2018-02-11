@@ -1,13 +1,13 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.addColumn(
+    return queryInterface.removeColumn(
       'Recipes',
       'recipeCount',
       Sequelize.INTEGER
     );
   },
 
-  down(queryInterface, Sequelize) {
-    return queryInterface.removeColumn('Services', 'service_price');
-  }
+  // down(queryInterface, Sequelize) {
+  //   return queryInterface.removeColumn('Services', 'service_price');
+  // }
 };

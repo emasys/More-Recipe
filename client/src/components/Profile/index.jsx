@@ -309,7 +309,7 @@ class Profile extends Component {
             {!edit && (
               <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
                 <div className="clearfix">
-                  <h2 className="fresh-title float-left clearfix">Recipes </h2>
+                  <h2 className=" float-left clearfix">Recipes </h2>
                   <Link
                     className="btn btn-dark float-right clearfix"
                     role="button"
