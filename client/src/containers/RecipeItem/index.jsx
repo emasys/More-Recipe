@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
-import { css } from 'glamor';
+import { ToastContainer } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Pace from 'react-pace-progress';
 
 // Actions
 import {
@@ -14,6 +12,7 @@ import {
 } from '../../actions/recipeActions';
 import { setFavorite } from '../../actions/favoriteAction';
 import { upvote, downvote } from '../../actions/voteActions';
+import { uploadImg } from '../../actions';
 
 // components
 import Auth from '../../components/auth';
@@ -22,7 +21,11 @@ import Reviews from './Reviews';
 import Navbar from '../../components/Navbar';
 import EditForm from './EditForm';
 import GenerateItems from './GenerateRecipeItems';
+import Preloader from '../../components/Preloader';
+import DeleteModal from './DeleteModal';
 
+//Helper functions
+import { update, notify, failedUpdate } from './helperFunctions';
 /**
  *
  * @param {object} event
@@ -65,6 +68,7 @@ class RecipeItem extends Component {
    */
   componentDidMount() {
     this.props.getRecipeItem(this.props.match.params.id);
+    window.scrollTo(0, 0);
   }
   /**
    *
@@ -75,7 +79,7 @@ class RecipeItem extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.recipes.updated) {
-      this.update();
+      update();
       this.setState({
         editRecipeItem: false,
         status: 'fade',
@@ -249,39 +253,7 @@ class RecipeItem extends Component {
     const [{ preview }] = files;
     this.setState({ preview, files, save: 'show' });
   };
-  /**
-   *
-   *
-   * @returns {object}
-   * upload status
-   * @memberof RecipeItem
-   */
-  notify = () => {
-    this.toastId = toast('Uploading...', { autoClose: false });
-    return this.toastId;
-  };
-  // toast message
-  update = () =>
-    toast.update(this.toastId, {
-      render: 'Upload complete!',
-      type: toast.TYPE.SUCCESS,
-      autoClose: 3000,
-      className: css({
-        transform: 'rotateY(360deg)',
-        transition: 'transform 0.6s'
-      })
-    });
 
-  failedUpdate = () =>
-    toast.update(this.toastId, {
-      render: 'error, try again',
-      type: toast.TYPE.ERROR,
-      autoClose: 3000,
-      className: css({
-        transform: 'rotateY(360deg)',
-        transition: 'transform 0.6s'
-      })
-    });
   /**
    *
    *
@@ -291,13 +263,13 @@ class RecipeItem extends Component {
    * upload image
    */
   handleImg = () => {
-    this.notify();
+    notify();
     const { files, ingredients } = this.state;
     const file = files[0];
     this.props.uploadImg(file).then(() => {
       this.foodImg = this.props.recipes.uploadedImg;
       // for poor/no internet connection
-      if (typeof this.foodImg === 'object') return this.failedUpdate();
+      if (typeof this.foodImg === 'object') return failedUpdate();
       const data = {
         ingredients,
         foodImg: this.foodImg
@@ -356,56 +328,11 @@ class RecipeItem extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <div className="fixed-top">
-          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
-        </div>
+        <Preloader />
         <ToastContainer />
-        <div
-          className="modal fade"
-          id="deleteModal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="deleteModalTitle"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">
-                  Delete Recipe
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to delete this recipe?
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-lg"
-                  data-dismiss="modal"
-                >
-                  No
-                </button>
-                <button
-                  onClick={this.delRecipe}
-                  type="button"
-                  data-dismiss="modal"
-                  className="btn btn-danger btn-lg"
-                >
-                  Yes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DeleteModal
+          delRecipe={this.delRecipe}
+        />
         <section
           data-aos="fade-up"
           data-duration="800"
@@ -461,7 +388,6 @@ const mapStateToProps = state => ({
   votes: state.votes,
   userInfo: state.user.userInfo,
   review: state.review,
-  netReq: state.netReq
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -471,6 +397,7 @@ const mapDispatchToProps = dispatch => ({
       editRecipe,
       setFavorite,
       upvote,
+      uploadImg,
       downvote,
       delRecipe
     },

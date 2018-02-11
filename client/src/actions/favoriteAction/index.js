@@ -5,12 +5,15 @@ import { getRecipeReactions } from '../recipeActions';
 
 const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
+const config = {
+  headers: { 'x-access-token': xtoken }
+};
 
 // Get user favorites
 export const getFavs = () => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .get(`${URL}/favorites?token=${xtoken}`)
+    .get(`${URL}/favorites`, config)
     .then(response => {
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
       dispatch(isLoading(false));
@@ -25,7 +28,7 @@ export const getFavs = () => dispatch => {
 export const setFavorite = id => dispatch => {
   dispatch(isLoading(true));
   axios
-    .post(`${URL}/recipes/${id}/fav?token=${xtoken}`)
+    .post(`${URL}/recipes/${id}/fav`, null, config)
     .then(response => {
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
       dispatch(getRecipeReactions(id));

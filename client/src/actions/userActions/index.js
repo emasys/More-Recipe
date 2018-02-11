@@ -4,6 +4,9 @@ import { isLoading } from '../index';
 
 const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
+const config = {
+  headers: { 'x-access-token': xtoken }
+};
 
 // Get a specific user
 export const getUserInfo = id => dispatch => {
@@ -24,7 +27,7 @@ export const getUserInfo = id => dispatch => {
 export const getUserRecipes = (id, limit, offset) => dispatch => {
   dispatch(isLoading(true));
   axios
-    .get(`${URL}/recipes/user/${id}/${limit}/${offset}?token=${xtoken}`)
+    .get(`${URL}/recipes/user/${id}/${limit}/${offset}`, config)
     .then(response => {
       dispatch({ type: type.USER_RECIPES, payload: response.data.recipes });
       dispatch(isLoading(false));
@@ -54,7 +57,7 @@ export const getProfile = id => dispatch => {
 export const getAllUsers = () => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .get(`${URL}/users?token=${xtoken}`)
+    .get(`${URL}/users`, config)
     .then(response => {
       dispatch({ type: type.ALL_USERS, payload: response.data });
       dispatch(isLoading(false));
@@ -68,7 +71,7 @@ export const getAllUsers = () => dispatch => {
 export const deleteUser = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .delete(`${URL}/users/${id}?token=${xtoken}`)
+    .delete(`${URL}/users/${id}`, config)
     .then(response => {
       dispatch({ type: type.DELETE_USER, payload: response.data });
       dispatch(getAllUsers());
@@ -85,7 +88,7 @@ export const updateUser = (id, data) => dispatch => {
   console.log(id, data);
   dispatch(isLoading(true));
   return axios
-    .put(`${URL}/users/${id}?token=${xtoken}`, data)
+    .put(`${URL}/users/${id}`, data, config)
     .then(response => {
       dispatch({ type: type.UPDATE_USER, payload: response.data });
       dispatch(isLoading(false));

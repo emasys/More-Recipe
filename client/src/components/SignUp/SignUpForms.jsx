@@ -16,6 +16,7 @@ const SignUpForm = props => (
           required
           className="col-12"
           name="email"
+          onFocus={() => props.onFocused('email_error')}
           onChange={props.onChange}
           placeholder="example@example.com"
         />
@@ -29,6 +30,7 @@ const SignUpForm = props => (
           className="col-12"
           name="moniker"
           id="moniker"
+          onFocus={() => props.onFocused('moniker_error')}
           onChange={props.onChange}
           placeholder="johnDoe23"
         />

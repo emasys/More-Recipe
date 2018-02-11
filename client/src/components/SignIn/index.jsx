@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import Pace from 'react-pace-progress';
 
 // actions
 import {
@@ -11,9 +10,10 @@ import {
   compareToken,
   sendToken
 } from '../../actions/authActions';
-import { isLoading } from '../../actions';
+
 //components
 import Navbar from '../Navbar';
+import Preloader from '../Preloader';
 import SignInForm from './SignInForm';
 import ResetPasswordForm from './ResetPassword';
 import errorMessages, {
@@ -56,6 +56,7 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.msg) {
       this.setState({
         message: this.props.msg,
@@ -204,10 +205,10 @@ class SignIn extends Component {
    */
   handleSubmit = event => {
     event.preventDefault();
-    const data ={
+    const data = {
       email: event.target.elements.email.value.trim(),
       password: event.target.elements.pass.value
-    }
+    };
     this.props.signIn(data);
   };
   /**
@@ -222,11 +223,7 @@ class SignIn extends Component {
     } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
-        <div className="fixed-top">
-          {this.props.netReq === true ? (
-            <Pace color="#e7b52c" height={2} />
-          ) : null}
-        </div>
+        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         {showProps && (
           <div className="alert alert-warning" role="alert">
@@ -250,56 +247,54 @@ class SignIn extends Component {
           </div>
         )}
         <div
-          className="row p-0 catalog-wrapper justify-content-center"
-          data-aos="zoom-out"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          className="row p-0 justify-content-center"
         >
-          <div className="AuthInfo col-lg-7 col-sm-12 justify-content-center text-center ">
-            <img
-              src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
-              alt="logo"
-              width="200"
-              height="200"
-              className="mt-30"
-              data-aos="flip-right"
-              data-aos-delay="1000"
-              data-dos-duration="1000"
-            />
-            <h1
-              className="text-white"
-              data-aos="fade-up"
-              data-aos-duration="2000"
-            >
-              Welcome back!
-            </h1>
-            <h4
-              className="mt-10 text-white mb-10 pr-50 pl-50"
-              data-aos="fade-up"
-              data-aos-duration="1000"
-              data-dos-delay="1000"
-            >
-              We trust it's been an amazing experience for you so far... Let's
-              continue to add spices to life.
-            </h4>
-          </div>
-          <div className="col-lg-5 col-sm-8 pb-20 signin-form">
-            {!resetPass && (
-              <SignInForm
-                handleSubmit={this.handleSubmit}
-                state={this.state}
-                clearError={this.clearError}
-                resetForm={this.resetForm}
+          <div className="catalog-wrapper col-lg-6 col-md-9 p-0">
+            <div className="AuthInfo col-12 text-center ">
+              <img
+                src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+                alt="logo"
+                width="200"
+                height="200"
+                className="mt-30"
+                data-aos="flip-right"
+                data-aos-delay="1000"
+                data-dos-duration="1000"
               />
-            )}
-            {resetPass && (
-              <ResetPasswordForm
-                state={this.state}
-                onChange={this.onChange}
-                emailChanged={this.emailChanged}
-                resetPassword={this.resetPassword}
-                generateToken={this.generateToken}
-                resetForm={this.resetForm}
-              />
-            )}
+              <h1
+                className="text-white"
+              >
+                Welcome back!
+              </h1>
+              <h4
+                className="mt-10 text-white mb-10 pr-50 pl-50 pb-20"
+              >
+                We trust it's been an amazing experience for you so far... Let's
+                continue to add spices to life.
+              </h4>
+            </div>
+            <div className="col-12 pb-20 signin-form">
+              {!resetPass && (
+                <SignInForm
+                  handleSubmit={this.handleSubmit}
+                  state={this.state}
+                  clearError={this.clearError}
+                  resetForm={this.resetForm}
+                />
+              )}
+              {resetPass && (
+                <ResetPasswordForm
+                  state={this.state}
+                  onChange={this.onChange}
+                  emailChanged={this.emailChanged}
+                  resetPassword={this.resetPassword}
+                  generateToken={this.generateToken}
+                  resetForm={this.resetForm}
+                />
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -310,7 +305,6 @@ class SignIn extends Component {
 const mapStateToProps = state => ({
   signin: state.user,
   reset: state.user.reset,
-  netReq: state.netReq
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -320,7 +314,6 @@ const mapDispatchToProps = dispatch => ({
       signIn,
       compareToken,
       sendToken,
-      isLoading
     },
     dispatch
   )

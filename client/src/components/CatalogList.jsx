@@ -48,7 +48,7 @@ const deleteRecipeInit = event => {
  * @param {object} props
  * @returns {object} list of recipes
  */
-const generateList = (props) => {
+const generateList = props => {
   const deleteRecipe = (event, id, userId) => {
     event.preventDefault();
     props.delRecipe(id, Auth.userID()).then(() => {
@@ -79,8 +79,8 @@ const generateList = (props) => {
         </div>
       );
     }
-    return props.catalog.map((item, index) => (
-      <div className="row" key={index}>
+    return props.catalog.map(item => (
+      <div className="row" key={item}>
         <div
           className="modal fade"
           id="deleteModal"
@@ -137,8 +137,8 @@ const generateList = (props) => {
             >
               <div className="card" data-aos="fade-up" data-aos-duration="1000">
                 <div
-                data-aos="fade-up" data-aos-duration="2000"
-                  
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
                   className="description text-center d-none"
                 >
                   <h2> Description</h2>
@@ -147,26 +147,28 @@ const generateList = (props) => {
                 <img
                   className="card-img-top img-box"
                   src={item.foodImg}
-                  alt="recipe image"
+                  alt="recipeImage"
                 />
-                {Auth.userID() === item.userId && props.showDeleteBtn && (
-                  <i
-                    onClick={deleteRecipeInit}
-                    data-toggle="modal"
-                    data-target="#deleteModal"
-                    className="material-icons text-danger delete-btn hvr-buzz-out"
-                  >
-                    &#xE872;
-                  </i>
-                )}
-                <div  className="card-body p-0 text-center social-icons">
+                {Auth.userID() === item.userId &&
+                  props.showDeleteBtn && (
+                    <i
+                      onClick={deleteRecipeInit}
+                      data-toggle="modal"
+                      role="dialog"
+                      data-target="#deleteModal"
+                      className="material-icons text-danger delete-btn hvr-buzz-out"
+                    >
+                      &#xE872;
+                    </i>
+                  )}
+                <div className="card-body p-0 text-center social-icons">
                   <span className="tag bg-danger">{item.category}</span>
-                  <h4  className="card-title custom-bg bg-dark p-2 m-0">
+                  <h4 className="card-title custom-bg bg-dark p-2 m-0">
                     {item.name.length > 25 ?
                       item.name.slice(0, 24).concat('...') :
                       item.name}
                   </h4>
-                  <div  className="card-body p-5 text-left bg-light">
+                  <div className="card-body p-5 text-left bg-light">
                     <p id={`recipe-${item.id}`} className="crop-text">
                       {item.description}
                     </p>

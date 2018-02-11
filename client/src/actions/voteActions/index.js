@@ -1,24 +1,25 @@
 import axios from 'axios';
 import * as type from '../types';
-import config from '../../config';
 import { isLoading } from '../index';
 
 const URL = '/api/v1';
 const xtoken = window.localStorage.getItem('token');
+const config = {
+  headers: { 'x-access-token': xtoken }
+};
 
 // upvote
 export const upvote = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/recipes/upvote/${id}?token=${xtoken}`)
+    .post(`${URL}/recipes/upvote/${id}`, null, config)
     .then(response => {
       dispatch({ type: type.UPVOTE, payload: response.data });
       dispatch(isLoading(false));
-      // dispatch(getRecipeReactions(id));
     })
     .catch(err => {
       dispatch({ type: type.UPVOTE, payload: err.response });
-      dispatch(getRecipeReactions(id));
+      dispatch(isLoading(false));
     });
 };
 
@@ -26,7 +27,7 @@ export const upvote = id => dispatch => {
 export const downvote = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/recipes/downvote/${id}?token=${xtoken}`)
+    .post(`${URL}/recipes/downvote/${id}`, null, config)
     .then(response => {
       dispatch({ type: type.DOWNVOTE, payload: response.data });
       dispatch(isLoading(false));

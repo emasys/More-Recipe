@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
 
 //actions
@@ -12,6 +11,7 @@ import Navbar from '../../components/Navbar';
 import AddRecipeForm from './AddRecipeForm';
 import config from '../../config';
 import Auth from '../../components/auth';
+import Preloader from '../../components/Preloader';
 /**
  *
  *
@@ -36,6 +36,11 @@ class AddRecipe extends Component {
     this.handleForm = this.handleForm.bind(this);
     this.sendData = this.sendData.bind(this);
   }
+
+  componentDidMount = () => {
+    window.scrollTo(0, 0);
+  };
+
   /**
    *
    *
@@ -112,16 +117,14 @@ class AddRecipe extends Component {
   render() {
     return (
       <section className="container ">
-        <div className="fixed-top">
-          {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
-        </div>
+        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         <div
           data-aos="fade-up"
           data-duration="1000"
-          className="row catalog-wrappe p-0 justify-content-center mt-80"
+          className="row p-0 justify-content-center mt-80"
         >
-          <div className=" catalog-wrapper col-lg-6 p-0">
+          <div className=" catalog-wrapper col-lg-6 col-md-9 p-0">
             <div className="col-12 text-center AuthInfo">
               <img
                 src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"

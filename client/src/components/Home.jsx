@@ -13,6 +13,7 @@ import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
 import Auth from './auth';
 import BigNavbar from './BigNavbar';
+import Preloader from './Preloader';
 
 /**
  * Component for Home page
@@ -54,6 +55,7 @@ export class Home extends Component {
     return (
       <div>
         <section className="container-fluid">
+          <Preloader />
           <div className="header">
             <DynamicHeader hasEffect effectDuration={600} useHeadersDifference>
               <BigNavbar />
@@ -125,7 +127,8 @@ export class Home extends Component {
               </div>
             </div>
             <CatalogList
-              {...this.props} showDeleteBtn={false}
+              {...this.props}
+              showDeleteBtn={false}
               catalog={this.props.recipes.hotRecipes}
             />
             <div className="col-12 ">

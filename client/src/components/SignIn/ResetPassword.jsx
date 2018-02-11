@@ -80,7 +80,7 @@ const ResetPasswordForm = props => {
             className="btn btn-info mt-5 btn-block btn-lg "
             onClick={props.generateToken}
           >
-            send token to my mail
+            Send token to my mail
           </button>
         </li>
         <li className="col-lg-12 col-sm-12">

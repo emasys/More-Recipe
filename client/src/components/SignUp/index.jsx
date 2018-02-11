@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
@@ -14,11 +13,11 @@ import errorMessages, {
 
 // actions
 import { signUp } from '../../actions/authActions';
-import { isLoading } from '../../actions';
 
 //component
 import Navbar from '../Navbar';
 import Form from './SignUpForms';
+import Preloader from '../Preloader';
 
 /**
  *
@@ -35,13 +34,16 @@ export class SignUp extends Component {
    * @memberof SignUp
    */
 
+  componentDidMount = () => {
+    window.scrollTo(0, 0);
+  };
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.signUp) {
       if (nextProps.user.signUp.success) {
         window.location.href = '/';
       }
       if (nextProps.user.signUp.data) {
-        switch (nextProps.user.signUp.data.target) {
+        switch (nextProps.user.signUp.data.error[0].path) {
         case 'email':
           document.querySelector('#email_error').innerHTML = `Your email address already exist.`;
           break;
@@ -54,6 +56,9 @@ export class SignUp extends Component {
     }
   };
 
+  onFocused = inputName => {
+    document.querySelector(`#${inputName}`).innerHTML = '';
+  };
   onChange = event => {
     this.setState(
       {
@@ -93,7 +98,7 @@ export class SignUp extends Component {
       email: event.target.elements.email.value.trim(),
       password: event.target.elements.password.value.trim(),
       confirmPassword: event.target.elements.confirmPassword.value.trim(),
-      moniker: event.target.elements.moniker.value,
+      moniker: event.target.elements.moniker.value
     };
     if (errorMessages()) {
       this.props.signUp(data);
@@ -108,50 +113,41 @@ export class SignUp extends Component {
   render() {
     return (
       <section className="">
-        <div className="fixed-top">
-          {this.props.netReq === true ? (
-            <Pace color="#e7b52c" height={2} />
-          ) : null}
-        </div>
+        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         <div className="container">
           <div
             data-aos="fade-up"
-            data-duration="1000"
-            className="row catalog-wrapper p-0 justify-content-center mt-80"
+            data-aos-duration="1000"
+            className="row p-0 justify-content-center mt-80"
           >
-            <div className="col-lg-6 col-sm-12 text-center AuthInfo">
-              <img
-                src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
-                alt="logo"
-                width="200"
-                height="200"
-                className="mt-30"
-                data-aos="flip-right"
-                data-aos-delay="1000"
-                data-dos-duration="1000"
-              />
+            <div className="catalog-wrapper col-lg-6 col-md-9 p-0">
+              <div className="col-12 text-center AuthInfo">
+                <img
+                  src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+                  alt="logo"
+                  width="200"
+                  height="200"
+                  className="mt-30"
+                  data-aos="flip-right"
+                  data-aos-delay="1000"
+                  data-dos-duration="1000"
+                />
 
-              <h1
-                data-aos="fade-up"
-                data-aos-duration="2000"
-                className="text-white"
-              >
-                Welcome !
-              </h1>
-              <h4
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-dos-delay="1000"
-                className="mt-10 text-white p-10 "
-              >
-                “Cooking is not a science but an art, mistakes are okay, messes
-                are fine—the pleasure is in the creating and the sharing of the
-                result.” ― Lori Pollan
-              </h4>
-            </div>
-            <div className=" col-lg-6 col-md-6 justify-content-center col-sm-12">
-              <Form handleSubmit={this.handleSubmit} onChange={this.onChange} />
+                <h1 className="text-white">Just one last step</h1>
+                <h4 className="mt-10 text-white p-10 ">
+                  We are extremely glad you have decided to join this elite
+                  family of recipe explorer, together we will make sure the
+                  world always have quality meals on their table. Thank You!
+                </h4>
+              </div>
+              <div className="justify-content-center col-12">
+                <Form
+                  handleSubmit={this.handleSubmit}
+                  onChange={this.onChange}
+                  onFocused={this.onFocused}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -161,17 +157,15 @@ export class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-  user: PropTypes.object,
-  signUp: PropTypes.func,
-  netReq: PropTypes.bool
+  user: PropTypes.object.isRequired,
+  signUp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   user: state.user,
-  netReq: state.netReq
 });
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ signUp, isLoading }, dispatch)
+  ...bindActionCreators({ signUp }, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

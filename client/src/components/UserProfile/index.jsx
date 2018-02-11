@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Pace from 'react-pace-progress';
-
 
 // Action
 import { getUserInfo, getUserRecipes } from '../../actions/userActions';
@@ -13,6 +11,7 @@ import { clearRecipes } from '../../actions/recipeActions';
 import Navbar from '../Navbar';
 import CatalogList from '../CatalogList';
 import UserProfileInfo from './UserProfileInfo';
+import Preloader from '../Preloader';
 /**
  *
  *
@@ -97,9 +96,7 @@ class UserProfile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <div className="fixed-top">
-          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
-        </div>
+        <Preloader />
         <section className="container-fluid profile catalog-wrapper mt-80">
           <div className="row justify-content-center">
             <UserProfileInfo data={this.props.userInfo} />
@@ -113,7 +110,11 @@ class UserProfile extends Component {
               </div>
               <hr />
               <div className="row justify-content-center">
-                <CatalogList {...this.props} showDeleteBtn catalog={this.state.recipes} />
+                <CatalogList
+                  {...this.props}
+                  showDeleteBtn
+                  catalog={this.state.recipes}
+                />
               </div>
               <div className="row justify-content-center">
                 {showMore && (
@@ -136,7 +137,6 @@ class UserProfile extends Component {
 const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
   userInfo: state.user.userInfo,
-  netReq: state.netReq
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -25,7 +25,7 @@ const EditForm = props => (
         <li className="col-lg-8 col-sm-12">
           <label>
             Ingredients{' '}
-            <em className="text-warning">(separate with comma ",")</em>
+            <em className="text-warning">separate with comma {'","'}</em>
           </label>
           <Textarea
             className="col-lg-11 col-sm-12"
@@ -87,8 +87,8 @@ const EditForm = props => (
 );
 
 EditForm.propTypes = {
-  handleSubmit: PropTypes.func,
-  state: PropTypes.object
+  handleSubmit: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired
 };
 
 export default EditForm;

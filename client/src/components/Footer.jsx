@@ -6,13 +6,13 @@ const Footer = () => (
       <div className="container ">
         <div className="row ">
           <div className="col-12 footer-social text-center mt-20">
-            <a href="https://web.facebook.com/emasys23" target="_blank">
+            <a href="https://web.facebook.com/emasys23" rel="noopener noreferrer" target="_blank">
               <i className="fa fa-facebook-square text-dark fa-2x" aria-hidden="true" />
             </a>&nbsp;
-            <a href="https://twitter.com/emasys_nd" target="_blank">
+            <a href="https://twitter.com/emasys_nd" rel="noopener noreferrer" target="_blank">
               <i className="fa fa-twitter-square text-dark fa-2x" aria-hidden="true" />
             </a>&nbsp;
-            <a href="https://github.com/emasys" target="_blank">
+            <a href="https://github.com/emasys" rel="noopener noreferrer" target="_blank">
               <i className="fa fa-github-square text-dark fa-2x" aria-hidden="true" />
             </a>
             <p className="text-center text-dark">

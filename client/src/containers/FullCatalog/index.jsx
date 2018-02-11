@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ReactDom from 'react-dom';
 import { bindActionCreators } from 'redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Pace from 'react-pace-progress';
 
 // Actions
 import {
@@ -20,6 +18,7 @@ import CatalogList from '../../components/CatalogList';
 import Auth from '../../components/auth';
 import NavCat from './NavbarCategory';
 import Navbar from './NavbarSearch';
+import Preloader from '../../components/Preloader';
 
 /**
  *@param {object} event
@@ -54,6 +53,7 @@ class FullCatalog extends Component {
    * @returns {any} react lifecycle method
    */
   componentDidMount = () => {
+    window.scrollTo(0, 0);
     if (Auth.userID()) {
       this.props.getProfile(Auth.userID());
     }
@@ -210,9 +210,7 @@ class FullCatalog extends Component {
             user={this.props.user}
           />
         </section>
-        <div className="fixed-top">
-          {this.props.netReq ? <Pace color="#e7b52c" height={2} /> : null}
-        </div>
+        <Preloader />
         <div
           className="category-bar fixed-top custom-fixed custom-bg-color"
           style={{ zIndex: 900 }}
@@ -226,11 +224,9 @@ class FullCatalog extends Component {
           />
         </div>
 
-        {dropdown && (
-          <CategoryList />
-        )}
+        {dropdown && <CategoryList />}
         <section className="mt-100" id="catalog">
-          <div className="row catalog-wrapper mx-2 justify-content-start">
+          <div className="row catalog-wrapper mx-2 justify-content-center">
             {!searching && (
               <InfiniteScroll
                 next={this.loadMoreRecipes}
@@ -259,14 +255,16 @@ class FullCatalog extends Component {
                 }
               >
                 <CatalogList
-                  {...this.props} showDeleteBtn={false}
+                  {...this.props}
+                  showDeleteBtn={false}
                   catalog={this.props.recipes.allRecipes.sort(compare)}
                 />
               </InfiniteScroll>
             )}
             {searching && (
               <CatalogList
-                {...this.props} showDeleteBtn
+                {...this.props}
+                showDeleteBtn={false}
                 catalog={this.props.recipes.searchResult}
               />
             )}
@@ -278,8 +276,7 @@ class FullCatalog extends Component {
 }
 const mapStateToProps = state => ({
   recipes: state.recipes,
-  user: state.user.userProfile,
-  netReq: state.netReq
+  user: state.user.userProfile
 });
 
 const mapDispatchToProps = dispatch => ({
