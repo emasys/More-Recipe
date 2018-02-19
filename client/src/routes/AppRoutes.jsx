@@ -15,7 +15,7 @@ import AddRecipe from '../containers/AddRecipe/index';
 import User from '../components/UserProfile/index';
 import Auth from '../components/auth';
 import Management from '../components/ManageUsers';
-import Category from '../components/Category';
+import Category from '../components/Category/index';
 
 const Message = 'You have to be logged in to view this content';
 
@@ -71,7 +71,7 @@ const AppRoutes = () => (
           path="/new"
           render={routeProps =>
             (Auth.loggedIn() ? (
-              <AddRecipe {...routeProps}/>
+              <AddRecipe {...routeProps} />
             ) : (
               <Signin {...routeProps} msg={Message} />
             ))

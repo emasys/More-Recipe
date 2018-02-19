@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { toast, ToastContainer } from 'react-toastify';
+import { css } from 'glamor';
 
 // actions
 import {
@@ -82,9 +84,9 @@ class SignIn extends Component {
           linkPath = nextProps.location.pathname;
           if (linkPath === '/signin') linkPath = '/';
         }
+        // nextProps.history.push(linkPath);
         window.location.href = linkPath;
-      }
-      if (nextProps.signin.signIn.data.success === false) {
+      } else if (!nextProps.signin.signIn.data.success) {
         this.setState({
           showErrMessage: 'show'
         });
@@ -102,6 +104,12 @@ class SignIn extends Component {
       }
     }
   }
+
+  tokenSent = () =>
+    toast('Token Sent! check your email', {
+      type: toast.TYPE.SUCCESS,
+      autoClose: 3000
+    });
 
   clearError = () => {
     this.setState({
@@ -195,6 +203,7 @@ class SignIn extends Component {
   generateToken = event => {
     event.preventDefault();
     this.props.sendToken({ email: this.state.recoveryEmail });
+    this.tokenSent();
   };
   /**
    *
@@ -224,6 +233,7 @@ class SignIn extends Component {
     return (
       <section className="container mt-100 mb-100 ">
         <Preloader />
+        <ToastContainer />
         <Navbar className="bg-dark fixed-top" />
         {showProps && (
           <div className="alert alert-warning" role="alert">
@@ -263,14 +273,8 @@ class SignIn extends Component {
                 data-aos-delay="1000"
                 data-dos-duration="1000"
               />
-              <h1
-                className="text-white"
-              >
-                Welcome back!
-              </h1>
-              <h4
-                className="mt-10 text-white mb-10 pr-50 pl-50 pb-20"
-              >
+              <h1 className="text-white">Welcome back!</h1>
+              <h4 className="mt-10 text-white mb-10 pr-50 pl-50 pb-20">
                 We trust it's been an amazing experience for you so far... Let's
                 continue to add spices to life.
               </h4>
@@ -304,7 +308,7 @@ class SignIn extends Component {
 
 const mapStateToProps = state => ({
   signin: state.user,
-  reset: state.user.reset,
+  reset: state.user.reset
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -313,7 +317,7 @@ const mapDispatchToProps = dispatch => ({
       resetPassword,
       signIn,
       compareToken,
-      sendToken,
+      sendToken
     },
     dispatch
   )

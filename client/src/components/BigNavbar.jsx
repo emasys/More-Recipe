@@ -11,6 +11,8 @@ const logout = () => {
   Auth.logout();
 };
 
+console.log("is logged in", Auth.loggedIn());
+
 /**
  *
  *

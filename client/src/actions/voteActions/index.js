@@ -1,18 +1,12 @@
 import axios from 'axios';
 import * as type from '../types';
-import { isLoading } from '../index';
-
-const URL = '/api/v1';
-const xtoken = window.localStorage.getItem('token');
-const config = {
-  headers: { 'x-access-token': xtoken }
-};
+import { isLoading, UTIL } from '../index';
 
 // upvote
 export const upvote = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/recipes/upvote/${id}`, null, config)
+    .post(`${UTIL.baseUrl}/recipes/upvote/${id}`, null, UTIL.config)
     .then(response => {
       dispatch({ type: type.UPVOTE, payload: response.data });
       dispatch(isLoading(false));
@@ -27,7 +21,7 @@ export const upvote = id => dispatch => {
 export const downvote = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/recipes/downvote/${id}`, null, config)
+    .post(`${UTIL.baseUrl}/recipes/downvote/${id}`, null, UTIL.config)
     .then(response => {
       dispatch({ type: type.DOWNVOTE, payload: response.data });
       dispatch(isLoading(false));

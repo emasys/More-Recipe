@@ -8,7 +8,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   getRecipes,
   clearRecipes,
-  searchRecipes
+  searchRecipes,
+  resetSearch
 } from '../../actions/recipeActions';
 import { getProfile } from '../../actions/userActions';
 
@@ -33,7 +34,7 @@ class FullCatalog extends Component {
    */
   constructor(props) {
     super(props);
-    // this.searchField = null;
+    this.searchInput = null;
     this.increment = 0;
     // this.hasMore = true;
     this.state = {
@@ -43,7 +44,9 @@ class FullCatalog extends Component {
       offset: 0,
       searching: false,
       showMore: true,
-      dropdown: false
+      dropdown: false,
+      searchOffset: 0,
+      showMoreSearchResult: true
     };
   }
   /**
@@ -76,8 +79,16 @@ class FullCatalog extends Component {
         avatar: nextProps.user.data.avatar
       });
     }
-    if (this.state.offset >= nextProps.recipes.count) {
+    if (this.state.offset > nextProps.recipes.count) {
       this.setState({ showMore: false });
+    }
+    if (nextProps.recipes.searchCount <= 4) {
+      this.setState({ showMoreSearchResult: false });
+    } else if (nextProps.recipes.searchCount > 4) {
+      this.setState({ showMoreSearchResult: true });
+    }
+    if (this.state.searchOffset > nextProps.recipes.searchCount) {
+      this.setState({ showMoreSearchResult: false });
     }
   };
 
@@ -158,15 +169,22 @@ class FullCatalog extends Component {
    * @returns {any} onChange event for the search bar
    */
   searchBar = event => {
-    this.setState({ searching: true });
-    const data = { query: event.target.value.toLowerCase() };
-    this.props.searchRecipes(data);
+    event.preventDefault();
+    if (this.state.searching) {
+      this.props.resetSearch();
+    }
+    this.setState({ searching: false });
     if (event.target.value.length < 1) {
       this.setState({ searching: false });
     }
   };
   onSearch = event => {
     event.preventDefault();
+    this.setState({ searching: true });
+    this.searchInput = {
+      query: event.target.elements.search.value.toLowerCase()
+    };
+    this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset);
   };
   addMore = () => {
     this.props.history.push('/new');
@@ -189,6 +207,13 @@ class FullCatalog extends Component {
       });
     }
   };
+
+  showMoreSearchResult = () => {
+    this.setState(prevState => ({
+      searchOffset: prevState.searchOffset + 4
+    }));
+    this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset + 4);
+  };
   /**
    *
    *
@@ -197,7 +222,12 @@ class FullCatalog extends Component {
    */
   render() {
     const {
-      search, avatar, dropdown, searching, compare
+      search,
+      avatar,
+      dropdown,
+      searching,
+      compare,
+      showMoreSearchResult
     } = this.state;
     return (
       <div className="container-fluid">
@@ -205,8 +235,8 @@ class FullCatalog extends Component {
           <Navbar
             onSearch={this.onSearch}
             search={search}
-            searchBar={this.searchBar}
             avatar={avatar}
+            onChanged={this.searchBar}
             user={this.props.user}
           />
         </section>
@@ -262,11 +292,25 @@ class FullCatalog extends Component {
               </InfiniteScroll>
             )}
             {searching && (
-              <CatalogList
-                {...this.props}
-                showDeleteBtn={false}
-                catalog={this.props.recipes.searchResult}
-              />
+              <div>
+                <CatalogList
+                  {...this.props}
+                  showDeleteBtn={false}
+                  catalog={this.props.recipes.searchResult.sort(compare)}
+                />
+                {showMoreSearchResult && (
+                  <div className="row text-center">
+                    <div className="col-12">
+                      <button
+                        className="btn btn-lg btn-outline-dark"
+                        onClick={this.showMoreSearchResult}
+                      >
+                        View More
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </section>
@@ -285,7 +329,8 @@ const mapDispatchToProps = dispatch => ({
       getRecipes,
       getProfile,
       searchRecipes,
-      clearRecipes
+      clearRecipes,
+      resetSearch
     },
     dispatch
   )

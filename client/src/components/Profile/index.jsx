@@ -13,15 +13,16 @@ import {
   getUserRecipes,
   updateUser
 } from '../../actions/userActions';
-import { clearRecipes } from '../../actions/recipeActions';
+import { clearRecipes, delRecipe } from '../../actions/recipeActions';
 import { uploadImg } from '../../actions';
-
 
 //component
 import Navbar from '../Navbar';
 import UserInfo from './UserInfo';
 import UserEditForm from './UserEditForm';
 import CatalogList from '../CatalogList';
+import DeleteModal from './DeleteModal';
+import Auth from '../auth';
 
 // Helper function
 import { validate } from './helper';
@@ -41,6 +42,7 @@ class Profile extends Component {
     super(props);
 
     this.toastId = null;
+    this.recipeId = null;
 
     this.state = {
       limit: 6,
@@ -58,7 +60,7 @@ class Profile extends Component {
       edit: false,
       successMsg: false,
       save: 'd-none',
-      showMore: false
+      showMore: true
     };
   }
   /**
@@ -158,7 +160,14 @@ class Profile extends Component {
   hoverOut = () => {
     this.setState({ status: 'fade' });
   };
-
+  deleteRecipe = (event, recipeId) => {
+    event.preventDefault();
+    this.recipeId = recipeId.id;
+  };
+  confirmDelete = (event) => {
+    event.preventDefault();
+    this.props.delRecipe(this.recipeId, Auth.userID());
+  }
   /**
    *
    *
@@ -288,6 +297,7 @@ class Profile extends Component {
         <ToastContainer />
         <section className="container-fluid profile catalog-wrapper mt-70">
           <div className="row justify-content-center mx-3">
+            <DeleteModal {...this.props} confirmDelete={this.confirmDelete} />
             <UserInfo
               state={this.state}
               data={userInfo}
@@ -320,7 +330,12 @@ class Profile extends Component {
                 </div>
                 <hr />
                 <div className="row justify-content-center">
-                  <CatalogList {...this.props} showDeleteBtn catalog={this.state.recipes} />
+                  <CatalogList
+                    {...this.props}
+                    showDeleteBtn
+                    deleteRecipe={this.deleteRecipe}
+                    catalog={this.state.recipes}
+                  />
                 </div>
                 <div className="row justify-content-center">
                   {showMore && (
@@ -356,7 +371,8 @@ const mapDispatchToProps = dispatch => ({
       getUserRecipes,
       clearRecipes,
       updateUser,
-      uploadImg
+      uploadImg,
+      delRecipe
     },
     dispatch
   )
@@ -372,6 +388,5 @@ Profile.propTypes = {
   user: PropTypes.array,
   userInfo: PropTypes.object,
   recipes: PropTypes.object,
-  netReq: PropTypes.bool
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

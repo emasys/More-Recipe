@@ -23,10 +23,11 @@ const AddRecipeForm = props => (
         <label htmlFor="description">Description</label>
         <Textarea
           className="col-12"
-          placeholder="a short description of your recipe"
+          placeholder="a short description of your recipe (400 characters)"
           id="description"
           minRows={1}
           maxRows={20}
+          maxLength={400}
           required
           name="description"
         />

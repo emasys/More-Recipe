@@ -18,8 +18,10 @@ import Auth from './auth';
  * @returns {object} toggle classes on mouse in
  */
 const onHoverIn = id => {
-  document.querySelector(`#${id}`).classList.remove('crop-text');
-  document.querySelector(`#${id}`).classList.add('full-text');
+  document.querySelector(`#recipe-${id}`).classList.remove('crop-text');
+  document.querySelector(`#recipe-${id}`).classList.add('full-text');
+  document.querySelector(`#img-${id}`).classList.add('d-half');
+  document.querySelector(`#tag-${id}`).classList.add('d-none');
 };
 
 /**
@@ -29,18 +31,10 @@ const onHoverIn = id => {
  * @returns {object} toggle classes on mouse out
  */
 const onHoverOut = id => {
-  document.querySelector(`#${id}`).classList.remove('full-text');
-  document.querySelector(`#${id}`).classList.add('crop-text');
-};
-/**
- *
- *
- * @param {object} event
- * @returns {bool} prevent default action
- * @memberof CatalogList
- */
-const deleteRecipeInit = event => {
-  event.preventDefault();
+  document.querySelector(`#img-${id}`).classList.remove('d-half');
+  document.querySelector(`#tag-${id}`).classList.remove('d-none');
+  document.querySelector(`#recipe-${id}`).classList.remove('full-text');
+  document.querySelector(`#recipe-${id}`).classList.add('crop-text');
 };
 /**
  *
@@ -49,13 +43,6 @@ const deleteRecipeInit = event => {
  * @returns {object} list of recipes
  */
 const generateList = props => {
-  const deleteRecipe = (event, id, userId) => {
-    event.preventDefault();
-    props.delRecipe(id, Auth.userID()).then(() => {
-      props.history.push(`/profile/${Auth.userID()}`);
-    });
-  };
-
   if (props.catalog) {
     if (props.catalog.length < 1) {
       return (
@@ -80,95 +67,45 @@ const generateList = props => {
       );
     }
     return props.catalog.map(item => (
-      <div className="row" key={item}>
-        <div
-          className="modal fade"
-          id="deleteModal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="deleteModalTitle"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">
-                  Delete Recipe
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to delete this recipe?
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-lg"
-                  data-dismiss="modal"
-                >
-                  No
-                </button>
-                <button
-                  onClick={event => deleteRecipe(event, item.id, item.userId)}
-                  type="button"
-                  data-dismiss="modal"
-                  className="btn btn-danger btn-lg"
-                >
-                  Yes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div
+        className="row"
+        key={item.id}
+        onMouseEnter={() => onHoverIn(item.id)}
+        onMouseLeave={() => onHoverOut(item.id)}
+      >
         <div className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12">
           <div>
-            <Link
-              to={`/recipe/${item.id}`}
-              className="hvr-grow-shadow"
-              onMouseEnter={() => onHoverIn(`recipe-${item.id}`)}
-              onMouseLeave={() => onHoverOut(`recipe-${item.id}`)}
-            >
+            <Link to={`/recipe/${item.id}`} className="hvr-grow-shadow">
+              {Auth.userID() === item.userId &&
+                props.showDeleteBtn && (
+                  <button
+                    className="btn btn-danger btn-sm delete-btn"
+                    onClick={event => props.deleteRecipe(event, item)}
+                    data-toggle="modal"
+                    data-target="#deleteModal"
+                  >
+                    Delete Recipe
+                  </button>
+                )}
               <div className="card" data-aos="fade-up" data-aos-duration="1000">
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="2000"
-                  className="description text-center d-none"
-                >
-                  <h2> Description</h2>
-                  <p className="text-justify"> {item.description}</p>
+                <div id={`img-${item.id}`}>
+                  <img
+                    className="card-img-top img-box "
+                    src={item.foodImg}
+                    alt="recipeImage"
+                  />
                 </div>
-                <img
-                  className="card-img-top img-box"
-                  src={item.foodImg}
-                  alt="recipeImage"
-                />
-                {Auth.userID() === item.userId &&
-                  props.showDeleteBtn && (
-                    <i
-                      onClick={deleteRecipeInit}
-                      data-toggle="modal"
-                      role="dialog"
-                      data-target="#deleteModal"
-                      className="material-icons text-danger delete-btn hvr-buzz-out"
-                    >
-                      &#xE872;
-                    </i>
-                  )}
+
                 <div className="card-body p-0 text-center social-icons">
-                  <span className="tag bg-danger">{item.category}</span>
+                  <span className="tag bg-danger" id={`tag-${item.id}`}>
+                    {item.category}
+                  </span>
                   <h4 className="card-title custom-bg bg-dark p-2 m-0">
                     {item.name.length > 25 ?
                       item.name.slice(0, 24).concat('...') :
                       item.name}
                   </h4>
-                  <div className="card-body p-5 text-left bg-light">
+                  <div className="card-body p-5 text-left bg-wheat">
                     <p id={`recipe-${item.id}`} className="crop-text">
                       {item.description}
                     </p>

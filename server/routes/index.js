@@ -17,12 +17,12 @@ router.delete('/reviews/delete/:reviewId', jwt.verifyToken, Reviews.deleteReview
 
 // POST recipe requests
 router.post('/recipes', jwt.verifyToken, Recipes.addRecipe);
-router.post('/recipes/category', Recipes.listRecipeCategory);
+router.post('/recipes/category/:limit/:offset', Recipes.listRecipeCategory);
 router.post('/recipes/upvote/:recipeId', jwt.verifyToken, Recipes.upvote);
 router.put('/recipes/:recipeId', jwt.verifyToken, Recipes.updateRecipe);
 router.post('/recipes/downvote/:recipeId', jwt.verifyToken, Recipes.downvote);
 router.post('/recipes/:recipeId/fav', jwt.verifyToken, Favorite.addFavorite);
-router.post('/recipeSearch', Recipes.SearchRecipe);
+router.post('/recipeSearch/:limit/:offset', Recipes.SearchRecipe);
 router.post('/recipes/:recipeId/reviews', jwt.verifyToken, Reviews.addReview);
 router.post('/reset', Users.sendToken);
 router.post('/completeReset', Users.getToken);

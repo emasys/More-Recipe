@@ -2,6 +2,14 @@ import axios from 'axios';
 import * as type from './types';
 import config from '../config';
 
+// save token and base url
+export const UTIL = {
+  baseUrl: '/api/v1',
+  config: {
+    headers: { 'x-access-token': localStorage.getItem('token') }
+  }
+};
+
 // Network request status
 export const isLoading = bool => ({
   type: type.IS_LOADING,
@@ -23,8 +31,8 @@ export const uploadImg = data => {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
       })
       .then(response => {
-        const resdata = response.data;
-        const payload = resdata.secure_url;
+        const responseData = response.data;
+        const payload = responseData.secure_url;
         dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
       })
       .catch(err => {

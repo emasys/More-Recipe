@@ -1,20 +1,19 @@
 import axios from 'axios';
 import * as type from '../types';
-import { isLoading } from '../index';
-
-const URL = '/api/v1';
+import { isLoading, UTIL } from '../index';
 
 // Create a new user
 export const signUp = data => dispatch => {
   dispatch(isLoading(true));
-  axios
-    .post(`${URL}/users/signup`, data)
+  return axios
+    .post(`${UTIL.baseUrl}/users/signup`, data)
     .then(response => {
       window.localStorage.setItem('token', response.data.token);
       const jwtToken = window.localStorage.getItem('token');
       if (jwtToken.length > 9) {
+        dispatch({ type: type.SIGN_UP, payload: response.data });
         dispatch(isLoading(false));
-        return dispatch({ type: type.SIGN_UP, payload: response.data });
+        return;
       }
       window.localStorage.removeItem('token');
       dispatch({ type: type.SIGN_UP, payload: response.data });
@@ -28,14 +27,15 @@ export const signUp = data => dispatch => {
 // Login
 export const signIn = data => dispatch => {
   dispatch(isLoading(true));
-  axios
-    .post(`${URL}/users/signin`, data)
+  return axios
+    .post(`${UTIL.baseUrl}/users/signin`, data)
     .then(response => {
       window.localStorage.setItem('token', response.data.token);
       const jwtToken = window.localStorage.getItem('token');
       if (jwtToken.length > 9) {
+        dispatch({ type: type.SIGN_IN, payload: response.data });
         dispatch(isLoading(false));
-        return dispatch({ type: type.SIGN_IN, payload: response.data });
+        return;
       }
       window.localStorage.removeItem('token');
       dispatch({ type: type.SIGN_IN, payload: response.data });
@@ -50,7 +50,7 @@ export const signIn = data => dispatch => {
 export const resetPassword = data => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .put(`${URL}/users/resetPassword`, data)
+    .put(`${UTIL.baseUrl}/users/resetPassword`, data)
     .then(response => {
       dispatch({ type: type.RESET_PASSWORD, payload: response.data });
       dispatch(isLoading(false));
@@ -62,21 +62,25 @@ export const resetPassword = data => dispatch => {
 };
 
 // send reset password token
-export const sendToken = data => dispatch =>
-  axios
-    .post(`${URL}/reset`, data)
+export const sendToken = data => dispatch => {
+  dispatch(isLoading(true));
+  return axios
+    .post(`${UTIL.baseUrl}/reset`, data)
     .then(response => {
       dispatch({ type: type.SEND_TOKEN, payload: response.data });
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.SEND_TOKEN, payload: err.response });
+      dispatch(isLoading(false));
     });
+};
 
 // compare reset password token
 export const compareToken = data => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/completeReset`, data)
+    .post(`${UTIL.baseUrl}/completeReset`, data)
     .then(response => {
       dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
       dispatch(isLoading(false));

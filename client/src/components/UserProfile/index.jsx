@@ -112,7 +112,7 @@ class UserProfile extends Component {
               <div className="row justify-content-center">
                 <CatalogList
                   {...this.props}
-                  showDeleteBtn
+                  showDeleteBtn={false}
                   catalog={this.state.recipes}
                 />
               </div>
@@ -136,7 +136,7 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => ({
   user: state.recipes.userRecipes,
-  userInfo: state.user.userInfo,
+  userInfo: state.user.userInfo
 });
 
 const mapDispatchToProps = dispatch => ({

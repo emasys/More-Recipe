@@ -1,9 +1,11 @@
 import { Recipes, Reviews, Users } from '../../models';
-import { validateReviews, setStatus, mailer } from '../../middleware/helper';
+import { setStatus, mailer } from '../../middleware/helper';
 
 export const postReview = (res, req) => {
   Recipes.findById(req.params.recipeId, {
-    include: [{ model: Users }]
+    include: [
+      { model: Users, attributes: ['moniker', 'avatar', 'email', 'id'] }
+    ]
     // enable sending a notification to the creator of the recipe
   })
     .then((recipe) => {
