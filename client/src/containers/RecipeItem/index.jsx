@@ -33,6 +33,19 @@ import { update, notify, failedUpdate } from './helperFunctions';
  * @extends {Component}
  */
 class RecipeItem extends Component {
+  static propTypes = {
+    userInfo: PropTypes.object.isRequired,
+    uploadImg: PropTypes.func.isRequired,
+    downvote: PropTypes.func.isRequired,
+    upvote: PropTypes.func.isRequired,
+    setFavorite: PropTypes.func.isRequired,
+    editRecipe: PropTypes.func.isRequired,
+    delRecipe: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    recipes: PropTypes.object.isRequired,
+    getRecipeItem: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired
+  };
   /**
    * Creates an instance of RecipeItem.
    * @param {any} props
@@ -305,6 +318,7 @@ class RecipeItem extends Component {
         />
       );
     }
+    return 'Loading...';
   };
   /**
    * @returns {any}
@@ -330,9 +344,7 @@ class RecipeItem extends Component {
         <Navbar className="bg-dark fixed-top" />
         <Preloader />
         <ToastContainer />
-        <DeleteModal
-          delRecipe={this.delRecipe}
-        />
+        <DeleteModal delRecipe={this.delRecipe} />
         <section
           data-aos="fade-up"
           data-duration="800"
@@ -387,7 +399,7 @@ const mapStateToProps = state => ({
   favorite: state.favorite,
   votes: state.votes,
   userInfo: state.user.userInfo,
-  review: state.review,
+  review: state.review
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -404,23 +416,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   )
 });
-RecipeItem.propTypes = {
-  userInfo: PropTypes.object,
-  uploadImg: PropTypes.func,
-  downvote: PropTypes.func,
-  upvote: PropTypes.func,
-  setFavorite: PropTypes.func,
-  getRecipeReactions: PropTypes.func,
-  editRecipe: PropTypes.func,
-  delRecipe: PropTypes.func,
-  history: PropTypes.object,
-  getRecipe: PropTypes.func,
-  getUserInfo: PropTypes.func,
-  recipes: PropTypes.object,
-  netReq: PropTypes.bool,
-  getRecipeItem: PropTypes.func,
-  match: PropTypes.object
-};
 
 export { RecipeItem as DummyRecipeItem };
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeItem);

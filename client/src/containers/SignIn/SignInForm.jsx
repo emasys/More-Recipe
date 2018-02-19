@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import PasswordMask from 'react-password-mask';
 
 const SignInForm = props => {
   const { showErrMessage } = props.state;
@@ -56,11 +55,9 @@ const SignInForm = props => {
 };
 
 SignInForm.propTypes = {
-  state: PropTypes.object,
-  handleSubmit: PropTypes.func,
-  emailChanged: PropTypes.func,
-  clearError: PropTypes.func,
-  pwChanged: PropTypes.func,
-  resetForm: PropTypes.func
+  state: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  clearError: PropTypes.func.isRequired,
+  resetForm: PropTypes.func.isRequired
 };
 export default SignInForm;

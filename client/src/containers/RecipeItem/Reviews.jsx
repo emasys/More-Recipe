@@ -17,10 +17,10 @@ import GenerateReviews from './GenerateReviews';
  */
 class Reviews extends Component {
   static propTypes = {
-    postReview: PropTypes.func,
-    recipes: PropTypes.object,
-    deleteReview: PropTypes.func,
-    review: PropTypes.object
+    postReview: PropTypes.func.isRequired,
+    recipes: PropTypes.object.isRequired,
+    deleteReview: PropTypes.func.isRequired,
+    review: PropTypes.object.isRequired
   };
   /**
    * Creates an instance of Reviews.

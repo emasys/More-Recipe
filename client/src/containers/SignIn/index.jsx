@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { toast, ToastContainer } from 'react-toastify';
-import { css } from 'glamor';
 
 // actions
 import {
@@ -14,8 +13,8 @@ import {
 } from '../../actions/authActions';
 
 //components
-import Navbar from '../Navbar';
-import Preloader from '../Preloader';
+import Navbar from '../../components/Navbar';
+import Preloader from '../../components/Preloader';
 import SignInForm from './SignInForm';
 import ResetPasswordForm from './ResetPassword';
 import errorMessages, {
@@ -31,6 +30,21 @@ import errorMessages, {
  * @extends {Component}
  */
 class SignIn extends Component {
+  static propTypes = {
+    msg: PropTypes.string,
+    reset: PropTypes.object.isRequired,
+    resetPassword: PropTypes.func.isRequired,
+    signin: PropTypes.object.isRequired,
+    signIn: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    compareToken: PropTypes.func.isRequired,
+    sendToken: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    msg: 'No access'
+  };
   /**
    * Creates an instance of SignIn.
    * @param {any} props
@@ -275,8 +289,8 @@ class SignIn extends Component {
               />
               <h1 className="text-white">Welcome back!</h1>
               <h4 className="mt-10 text-white mb-10 pr-50 pl-50 pb-20">
-                We trust it's been an amazing experience for you so far... Let's
-                continue to add spices to life.
+                We trust it has been an amazing experience for you so far...
+                Keep adding spices to life!
               </h4>
             </div>
             <div className="col-12 pb-20 signin-form">
@@ -322,18 +336,5 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   )
 });
-
-SignIn.propTypes = {
-  msg: PropTypes.string,
-  reset: PropTypes.object,
-  resetPassword: PropTypes.func,
-  signin: PropTypes.object,
-  signIn: PropTypes.func,
-  match: PropTypes.object,
-  location: PropTypes.object,
-  compareToken: PropTypes.func,
-  sendToken: PropTypes.func,
-  netReq: PropTypes.bool
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

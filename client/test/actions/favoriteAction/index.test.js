@@ -37,7 +37,7 @@ describe('Test suite for review actions', () => {
 
     const store = mockStore({ payload: {} });
 
-    return store.dispatch(actions.getFavs(1)).then(() => {
+    return store.dispatch(actions.getFavorite(1)).then(() => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });

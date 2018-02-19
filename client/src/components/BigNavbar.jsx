@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import PropTypes from 'prop-types';
 
 // components
 import Auth from './auth';
@@ -10,8 +8,6 @@ import Auth from './auth';
 const logout = () => {
   Auth.logout();
 };
-
-console.log("is logged in", Auth.loggedIn());
 
 /**
  *

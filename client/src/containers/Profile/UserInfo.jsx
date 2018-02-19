@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
 import config from '../../config';
-import Auth from '../auth';
+import Auth from '../../components/auth';
 
 const UserInfo = props => {
   if (props.data) {
@@ -46,12 +46,13 @@ const UserInfo = props => {
           />
         </div>
         <div className="bg-light rounded p-10 profile-wrapper">
-          {(firstName && lastName) && (
-            <h2 className="mb-10 bolder">
-              {`${firstName} ${lastName} `}
-              (<small className="header-title">{moniker}</small>)
-            </h2>
-          )}
+          {firstName &&
+            lastName && (
+              <h2 className="mb-10 bolder">
+                {`${firstName} ${lastName} `}
+                (<small className="header-title">{moniker}</small>)
+              </h2>
+            )}
           {!firstName && <h2 className="mb-10 bolder">{moniker}</h2>}
           <div>
             <p>{bio}</p>
@@ -60,11 +61,13 @@ const UserInfo = props => {
           <small>
             <i className="fa fa-envelope" aria-hidden="true" /> {email}
           </small>
-          <p className=" text-capitalize">
-            <small>
-              <i className="fa fa-map-marker" aria-hidden="true" /> {country}
-            </small>
-          </p>
+          {country && (
+            <p className=" text-capitalize">
+              <small>
+                <i className="fa fa-map-marker" aria-hidden="true" /> {country}
+              </small>
+            </p>
+          )}
           <div>
             <button
               className={`btn btn-success btn-lg ${save}`}
@@ -99,14 +102,14 @@ const UserInfo = props => {
 };
 
 UserInfo.propTypes = {
-  showForm: PropTypes.func,
-  changeDp: PropTypes.func,
-  data: PropTypes.object,
-  state: PropTypes.object,
-  hoverIn: PropTypes.func,
-  hoverOut: PropTypes.func,
-  handleDrop: PropTypes.func,
-  handleImg: PropTypes.func,
-  notify: PropTypes.func
+  showForm: PropTypes.func.isRequired,
+  changeDp: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  state: PropTypes.object.isRequired,
+  hoverIn: PropTypes.func.isRequired,
+  hoverOut: PropTypes.func.isRequired,
+  handleDrop: PropTypes.func.isRequired,
+  handleImg: PropTypes.func.isRequired,
+  notify: PropTypes.func.isRequired
 };
 export default UserInfo;

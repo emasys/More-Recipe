@@ -23,21 +23,25 @@ const UserProfileInfo = props => {
           className="img-fluid rounded mb-3"
         />
         <div className="bg-light rounded p-10 profile-wrapper">
-          <h2 className="mb-10 bolder">
-            {`${firstName} ${lastName} `}
-            (<small className="header-title">{moniker}</small>)
-          </h2>
+          {firstName && (
+            <h2 className="mb-10 bolder">
+              {`${firstName} ${lastName} `}
+              (<small className="header-title">{moniker}</small>)
+            </h2>
+          )}
+          {!firstName && <h2 className="mb-10 bolder">{moniker}</h2>}
           <p>{bio}</p>
           <hr />
-
           <small>
             <i className="fa fa-envelope" aria-hidden="true" /> {email}
           </small>
-          <p className=" text-capitalize">
-            <small>
-              <i className="fa fa-map-marker" aria-hidden="true" /> {country}
-            </small>
-          </p>
+          {country && (
+            <p className=" text-capitalize">
+              <small>
+                <i className="fa fa-map-marker" aria-hidden="true" /> {country}
+              </small>
+            </p>
+          )}
         </div>
       </div>
     );
@@ -46,6 +50,6 @@ const UserProfileInfo = props => {
 };
 
 UserProfileInfo.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object.isRequired
 };
 export default UserProfileInfo;

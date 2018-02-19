@@ -12,13 +12,20 @@ import AddRecipeForm from './AddRecipeForm';
 import config from '../../config';
 import Auth from '../../components/auth';
 import Preloader from '../../components/Preloader';
+
 /**
  *
- *
+ *@param {object} event
  * @class AddRecipe
  * @extends {Component}
  */
 class AddRecipe extends Component {
+  static propTypes = {
+    new_recipe: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    addRecipe: PropTypes.func.isRequired
+  };
+
   /**
    * Creates an instance of AddRecipe.
    * @param {any} props
@@ -33,8 +40,6 @@ class AddRecipe extends Component {
       status: 'fade',
       isLoading: false
     };
-    this.handleForm = this.handleForm.bind(this);
-    this.sendData = this.sendData.bind(this);
   }
 
   componentDidMount = () => {
@@ -48,7 +53,7 @@ class AddRecipe extends Component {
    * @returns {any}
    * redirects to the recipe page if success
    */
-  sendData() {
+  sendData = () => {
     if (this.props.new_recipe.new_recipe) {
       if (this.props.new_recipe.new_recipe.recipe) {
         const { userId } = this.props.new_recipe.new_recipe.recipe;
@@ -66,21 +71,15 @@ class AddRecipe extends Component {
     }
   }
 
-  /**
-   *
-   *
-   * @param {any} e
-   * @returns {any} any new page after form submission
-   * @memberof AddRecipe
-   */
-  handleForm(e) {
-    e.preventDefault();
+
+  handleForm = (event) => {
+    event.preventDefault();
     let data = {
-      name: e.target.elements.recipe.value.trim(),
-      ingredients: e.target.elements.ingredients.value.trim().toLowerCase(),
-      direction: e.target.elements.direction.value.trim(),
-      description: e.target.elements.description.value.trim(),
-      category: e.target.elements.category.value,
+      name: event.target.elements.recipe.value.trim(),
+      ingredients: event.target.elements.ingredients.value.trim().toLowerCase(),
+      direction: event.target.elements.direction.value.trim(),
+      description: event.target.elements.description.value.trim(),
+      category: event.target.elements.category.value,
       foodImg: config.DEFAULT_FOOD_IMG
     };
     if (!data.name) {
@@ -157,10 +156,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ addRecipe }, dispatch)
 });
-AddRecipe.propTypes = {
-  new_recipe: PropTypes.object,
-  history: PropTypes.object,
-  addRecipe: PropTypes.func
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);

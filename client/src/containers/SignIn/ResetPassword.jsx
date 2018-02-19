@@ -37,7 +37,6 @@ const ResetPasswordForm = props => {
             id="newPassword"
             placeholder="min of 8 characters"
           />
-          {/* <div className="text-danger" id="newPassword_error" /> */}
           <div className="rubics">
             <p className="text-danger" id="password_error" />
             <p className="alpha">Should contain at least one alphabet</p>
@@ -99,10 +98,10 @@ const ResetPasswordForm = props => {
 };
 
 ResetPasswordForm.propTypes = {
-  resetForm: PropTypes.func,
-  generateToken: PropTypes.func,
-  onChange: PropTypes.func,
-  resetPassword: PropTypes.func,
-  state: PropTypes.object
+  resetForm: PropTypes.func.isRequired,
+  generateToken: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  resetPassword: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired
 };
 export default ResetPasswordForm;

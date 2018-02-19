@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DeleteModal = props => (
   <div
@@ -13,7 +14,7 @@ const DeleteModal = props => (
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLongTitle">
-              Delete Recipe
+            Delete Recipe
           </h5>
           <button
             type="button"
@@ -25,7 +26,7 @@ const DeleteModal = props => (
           </button>
         </div>
         <div className="modal-body">
-            Are you sure you want to delete this recipe?
+          Are you sure you want to delete this recipe?
         </div>
         <div className="modal-footer">
           <button
@@ -33,7 +34,7 @@ const DeleteModal = props => (
             className="btn btn-secondary btn-lg"
             data-dismiss="modal"
           >
-              No
+            No
           </button>
           <button
             onClick={props.delRecipe}
@@ -41,12 +42,16 @@ const DeleteModal = props => (
             data-dismiss="modal"
             className="btn btn-danger btn-lg"
           >
-              Yes
+            Yes
           </button>
         </div>
       </div>
     </div>
   </div>
 );
+
+DeleteModal.propTypes = {
+  delRecipe: PropTypes.func.isRequired
+};
 
 export default DeleteModal;

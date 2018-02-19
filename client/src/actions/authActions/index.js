@@ -50,7 +50,7 @@ export const signIn = data => dispatch => {
 export const resetPassword = data => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .put(`${UTIL.baseUrl}/users/resetPassword`, data)
+    .put(`${UTIL.baseUrl}/users/changepassword`, data)
     .then(response => {
       dispatch({ type: type.RESET_PASSWORD, payload: response.data });
       dispatch(isLoading(false));
@@ -80,7 +80,7 @@ export const sendToken = data => dispatch => {
 export const compareToken = data => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${UTIL.baseUrl}/completeReset`, data)
+    .post(`${UTIL.baseUrl}/completereset`, data)
     .then(response => {
       dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
       dispatch(isLoading(false));

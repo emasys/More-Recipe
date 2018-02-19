@@ -19,6 +19,11 @@ import Preloader from './Preloader';
  * @extends {Component}
  */
 class ManageUsers extends Component {
+  static propTypes = {
+    users: PropTypes.object.isRequired,
+    deleteUser: PropTypes.func.isRequired,
+    getAllUsers: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of ManageUsers.
    * @param {any} props
@@ -186,9 +191,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getAllUsers, deleteUser }, dispatch)
 });
-ManageUsers.propTypes = {
-  users: PropTypes.object,
-  deleteUser: PropTypes.func,
-  getAllUsers: PropTypes.func
-};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);

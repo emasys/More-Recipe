@@ -8,10 +8,10 @@ import { getUserInfo, getUserRecipes } from '../../actions/userActions';
 import { clearRecipes } from '../../actions/recipeActions';
 
 //component
-import Navbar from '../Navbar';
-import CatalogList from '../CatalogList';
+import Navbar from '../../components/Navbar';
+import CatalogList from '../../components/CatalogList';
 import UserProfileInfo from './UserProfileInfo';
-import Preloader from '../Preloader';
+import Preloader from '../../components/Preloader';
 /**
  *
  *
@@ -19,6 +19,14 @@ import Preloader from '../Preloader';
  * @extends {Component}
  */
 class UserProfile extends Component {
+  static propTypes = {
+    userInfo: PropTypes.object.isRequired,
+    getUserRecipes: PropTypes.func.isRequired,
+    clearRecipes: PropTypes.func.isRequired,
+    user: PropTypes.array.isRequired,
+    getUserInfo: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired
+  };
   /**
    * Creates an instance of UserProfile.
    * @param {any} props
@@ -105,7 +113,7 @@ class UserProfile extends Component {
                 <h2 className="header-title float-left clearfix">
                   {this.props.userInfo ?
                     this.props.userInfo.data.moniker :
-                    null}'s recipes
+                    null}{"'"}s recipes
                 </h2>
               </div>
               <hr />
@@ -143,13 +151,4 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getUserInfo, getUserRecipes, clearRecipes }, dispatch)
 });
 
-UserProfile.propTypes = {
-  userInfo: PropTypes.object,
-  getUserRecipes: PropTypes.func,
-  clearRecipes: PropTypes.func,
-  user: PropTypes.array,
-  getUserInfo: PropTypes.func,
-  match: PropTypes.object,
-  netReq: PropTypes.bool
-};
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

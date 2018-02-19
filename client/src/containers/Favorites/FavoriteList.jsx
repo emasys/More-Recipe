@@ -10,7 +10,7 @@ const FavoriteList = ({ favorites }) => {
         <div className="text-center error-message">
           <div>
             <img src="../img/logo.png" alt="logo" />
-            <h4 className="p-3 m-2">You don't have any favorite recipe yet</h4>
+            <h4 className="p-3 m-2">You do not have any favorite recipe yet</h4>
             <p className="p-3 m-2">
               <Link to="/catalog" className="btn btn-outline-dark">
                 check out amazing recipes
@@ -20,9 +20,9 @@ const FavoriteList = ({ favorites }) => {
         </div>
       );
     }
-    return favorites.userFav.favorites.map((item, index) => (
+    return favorites.userFav.favorites.map(item => (
       <div
-        key={index}
+        key={item.recipeId}
         className="col-lg-12 col-sm-10 mb-20  col-md-12 animate-catalog"
         data-animate="bounceIn"
         data-duration="1.0s"
@@ -31,11 +31,11 @@ const FavoriteList = ({ favorites }) => {
       >
         <div data-aos="fade-up" data-duration="2000">
           <Link to={`/recipe/${item.recipeId}`} className=" hvr-grow-shadow">
-            <div className={`card animate`}>
+            <div className="card animate">
               <img
                 className="card-img-top img-box"
                 src={item.Recipe.foodImg}
-                alt="Card image cap"
+                alt="itemImage"
               />
               <div className="card-body p-0 text-center social-icons">
                 <span className="tag bg-danger">{item.Recipe.category}</span>
@@ -78,7 +78,7 @@ const FavoriteList = ({ favorites }) => {
 };
 
 FavoriteList.propTypes = {
-  favorites: PropTypes.object
+  favorites: PropTypes.object.isRequired
 };
 
 export default FavoriteList;

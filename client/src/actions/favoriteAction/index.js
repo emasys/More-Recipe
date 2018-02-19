@@ -4,7 +4,7 @@ import { isLoading, UTIL } from '../index';
 import { getRecipeReactions } from '../recipeActions';
 
 // Get user favorites
-export const getFav = () => dispatch => {
+export const getFavorite = () => dispatch => {
   dispatch(isLoading(true));
   return axios
     .get(`${UTIL.baseUrl}/favorites`, UTIL.config)

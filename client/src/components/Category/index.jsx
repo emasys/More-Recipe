@@ -12,13 +12,21 @@ import { getCategory } from '../../actions/recipeActions';
 import Navbar from '../Navbar';
 import CatalogList from '../CatalogList';
 import Preloader from '../../components/Preloader';
+
 /**
- *
+ *@param {object} nextProps
  *
  * @class Category
  * @extends {Component}
  */
 export class Category extends Component {
+  static propTypes = {
+    getCategory: PropTypes.func.isRequired,
+    category: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    recipes: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
   /**
    * Creates an instance of Category.
    * @param {any} props
@@ -33,22 +41,11 @@ export class Category extends Component {
     };
   }
 
-  /**
-   *
-   *
-   * @memberof Category
-   * @returns {any} page
-   */
-  componentDidMount() {
-    // const data = {
-    //   category: this.props.match.params.cat
-    // };
-    // this.props.getCategory(data);
+  componentDidMount = () => {
     this.loadMoreRecipes();
   }
 
   componentWillReceiveProps = nextProps => {
-    console.log('count ====>', nextProps.recipes.count);
     if (this.state.offset > nextProps.recipes.count) {
       this.setState({ showMore: false });
     }
@@ -59,8 +56,6 @@ export class Category extends Component {
   };
 
   loadMoreRecipes = () => {
-    console.log('triggered');
-    console.log('show more', this.state.showMore);
     const data = {
       category: this.props.match.params.cat
     };
@@ -147,10 +142,4 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getCategory }, dispatch)
 });
 
-Category.propTypes = {
-  getCategory: PropTypes.func,
-  category: PropTypes.object,
-  match: PropTypes.object,
-  recipes: PropTypes.object
-};
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

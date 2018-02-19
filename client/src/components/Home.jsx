@@ -22,6 +22,10 @@ import Preloader from './Preloader';
  * @extends {Component}
  */
 export class Home extends Component {
+  static propTypes = {
+    recipes: PropTypes.object.isRequired,
+    getHotRecipes: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of Home.
    * @param {any} props
@@ -150,10 +154,6 @@ export class Home extends Component {
   }
 }
 
-Home.propTypes = {
-  recipes: PropTypes.object,
-  getHotRecipes: PropTypes.func
-};
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getHotRecipes }, dispatch)
 });

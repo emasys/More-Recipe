@@ -30,6 +30,7 @@ export const validateSignUpForm = () => {
     email: 'required|email',
     moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
     password: 'required|min:8',
+    confirmPassword: 'required'
   };
 };
 

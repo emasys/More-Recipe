@@ -17,7 +17,7 @@ import { getProfile } from '../../actions/userActions';
 import CategoryList from '../../components/CategoryList';
 import CatalogList from '../../components/CatalogList';
 import Auth from '../../components/auth';
-import NavCat from './NavbarCategory';
+import CategoryNavbar from './NavbarCategory';
 import Navbar from './NavbarSearch';
 import Preloader from '../../components/Preloader';
 
@@ -27,6 +27,18 @@ import Preloader from '../../components/Preloader';
  * @extends {Component}
  */
 class FullCatalog extends Component {
+  static propTypes = {
+    recipes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    getRecipes: PropTypes.func.isRequired,
+    searchRecipes: PropTypes.func.isRequired,
+    getProfile: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    moniker: PropTypes.string.isRequired,
+    resetSearch: PropTypes.array.isRequired,
+    history: PropTypes.object.isRequired,
+    clearRecipes: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
@@ -96,12 +108,8 @@ class FullCatalog extends Component {
     this.props.clearRecipes();
   };
 
-  /**
-   *
-   * @returns {object} list of recently added recipes
-   * @memberof FullCatalog
-   */
-  recentlyAdded = () => {
+  recentlyAdded = event => {
+    event.preventDefault();
     const compare = (a, b) => {
       if (a.createdAt < b.createdAt) return 1;
       if (a.createdAt > b.createdAt) return -1;
@@ -110,12 +118,9 @@ class FullCatalog extends Component {
     this.setState({ compare });
     this.loadMoreRecipes();
   };
-  /**
-   *
-   * @returns {object} list of recently added recipes
-   * @memberof FullCatalog
-   */
-  mostUpvoted = () => {
+
+  mostUpvoted = event => {
+    event.preventDefault();
     const compare = (a, b) => {
       if (a.upvote < b.upvote) return 1;
       if (a.upvote > b.upvote) return -1;
@@ -131,12 +136,9 @@ class FullCatalog extends Component {
       offset: prevState.offset + 12
     }));
   };
-  /**
-   *
-   * @returns {object} list of recently added recipes
-   * @memberof FullCatalog
-   */
-  mostFavorited = () => {
+
+  mostFavorited = event => {
+    event.preventDefault();
     const compare = (a, b) => {
       if (a.favorite < b.favorite) return 1;
       if (a.favorite > b.favorite) return -1;
@@ -146,12 +148,8 @@ class FullCatalog extends Component {
     this.loadMoreRecipes();
   };
 
-  /**
-   *
-   * @returns {object} list of recently added recipes
-   * @memberof FullCatalog
-   */
-  mostViewed = () => {
+  mostViewed = event => {
+    event.preventDefault();
     const compare = (a, b) => {
       if (a.views < b.views) return 1;
       if (a.views > b.views) return -1;
@@ -172,6 +170,7 @@ class FullCatalog extends Component {
     event.preventDefault();
     if (this.state.searching) {
       this.props.resetSearch();
+      this.setState({ searchOffset: 0 });
     }
     this.setState({ searching: false });
     if (event.target.value.length < 1) {
@@ -245,7 +244,7 @@ class FullCatalog extends Component {
           className="category-bar fixed-top custom-fixed custom-bg-color"
           style={{ zIndex: 900 }}
         >
-          <NavCat
+          <CategoryNavbar
             dropdownCtrl={this.dropdownCtrl}
             recentlyAdded={this.recentlyAdded}
             mostFavorited={this.mostFavorited}
@@ -335,16 +334,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   )
 });
-FullCatalog.propTypes = {
-  recipes: PropTypes.object,
-  user: PropTypes.object,
-  getRecipes: PropTypes.func,
-  searchRecipes: PropTypes.func,
-  getProfile: PropTypes.func.isRequired,
-  data: PropTypes.object,
-  moniker: PropTypes.string,
-  netReq: PropTypes.bool,
-  history: PropTypes.object,
-  clearRecipes: PropTypes.func
-};
 export default connect(mapStateToProps, mapDispatchToProps)(FullCatalog);

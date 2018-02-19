@@ -93,8 +93,8 @@ const SignUpForm = props => (
 );
 
 SignUpForm.propTypes = {
-  handleSubmit: PropTypes.func,
-  onChange: PropTypes.func
+  handleSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default SignUpForm;

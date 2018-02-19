@@ -5,7 +5,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Pace from 'react-pace-progress';
 
 // Actions
 import {
@@ -17,22 +16,37 @@ import { clearRecipes, delRecipe } from '../../actions/recipeActions';
 import { uploadImg } from '../../actions';
 
 //component
-import Navbar from '../Navbar';
+import Navbar from '../../components/Navbar';
 import UserInfo from './UserInfo';
 import UserEditForm from './UserEditForm';
-import CatalogList from '../CatalogList';
+import CatalogList from '../../components/CatalogList';
 import DeleteModal from './DeleteModal';
-import Auth from '../auth';
+import Auth from '../../components/auth';
+import Preloader from '../../components/Preloader';
 
 // Helper function
 import { validate } from './helper';
+
 /**
- *
+ *@param {object} event
+ *@param {number} recipeId
  *
  * @class Profile
  * @extends {Component}
  */
 class Profile extends Component {
+  static propTypes = {
+    getUserInfo: PropTypes.func.isRequired,
+    getUserRecipes: PropTypes.func.isRequired,
+    clearRecipes: PropTypes.func.isRequired,
+    updateUser: PropTypes.func.isRequired,
+    uploadImg: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired,
+    user: PropTypes.array.isRequired,
+    userInfo: PropTypes.object.isRequired,
+    recipes: PropTypes.object.isRequired,
+    delRecipe: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of Profile.
    * @param {any} props
@@ -126,31 +140,9 @@ class Profile extends Component {
         transition: 'transform 0.6s'
       })
     });
-  /**
-   *
-   * @returns {any} a new state
-   * @memberof Profile
-   */
+
   hoverIn = () => {
     this.setState({ status: 'show' });
-  };
-  /**
-   *
-   *
-   * @memberof RecipeItem
-   * @returns {bool} sets modal display to true
-   */
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
-  /**
-   *
-   *
-   * @memberof RecipeItem
-   * @returns {bool} sets modal display to false
-   */
-  onCloseModal = () => {
-    this.setState({ open: false });
   };
   /**
    *
@@ -160,14 +152,16 @@ class Profile extends Component {
   hoverOut = () => {
     this.setState({ status: 'fade' });
   };
+
   deleteRecipe = (event, recipeId) => {
     event.preventDefault();
     this.recipeId = recipeId.id;
   };
-  confirmDelete = (event) => {
+
+  confirmDelete = event => {
     event.preventDefault();
     this.props.delRecipe(this.recipeId, Auth.userID());
-  }
+  };
   /**
    *
    *
@@ -254,8 +248,8 @@ class Profile extends Component {
   editProfile = event => {
     event.preventDefault();
     const data = {
-      firstName: event.target.elements.fname.value.trim(),
-      lastName: event.target.elements.lname.value.trim(),
+      firstName: event.target.elements.firstName.value.trim(),
+      lastName: event.target.elements.lastName.value.trim(),
       bio: event.target.elements.bio.value.trim(),
       country: event.target.elements.country.value
     };
@@ -291,9 +285,7 @@ class Profile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <div className="fixed-top">
-          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
-        </div>
+        <Preloader />
         <ToastContainer />
         <section className="container-fluid profile catalog-wrapper mt-70">
           <div className="row justify-content-center mx-3">
@@ -378,15 +370,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-Profile.propTypes = {
-  getUserInfo: PropTypes.func,
-  getUserRecipes: PropTypes.func,
-  clearRecipes: PropTypes.func,
-  updateUser: PropTypes.func,
-  uploadImg: PropTypes.func,
-  match: PropTypes.object,
-  user: PropTypes.array,
-  userInfo: PropTypes.object,
-  recipes: PropTypes.object,
-};
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

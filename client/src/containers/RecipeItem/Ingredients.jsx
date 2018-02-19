@@ -11,7 +11,7 @@ const generateList = ({ ingredients }) => {
         href={`https://en.wikipedia.org/wiki/${item}`}
         target="_blank"
         className="list-group-item text-capitalize list-group-item-action"
-        key={index}
+        key={item}
       >
         {item}
       </a>
@@ -64,8 +64,8 @@ const Ingredients = props => (
 );
 
 Ingredients.propTypes = {
-  ingredients: PropTypes.object,
-  data: PropTypes.object
+  ingredients: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
 };
 
 export default Ingredients;

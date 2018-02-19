@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import React from 'react';
-
-// Action
-import { delRecipe } from '../actions/recipeActions';
 
 // Auth
 import Auth from './auth';
@@ -150,14 +145,9 @@ const CatalogList = props => (
   <div className="row justify-content-center">{generateList(props)}</div>
 );
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ delRecipe }, dispatch)
-});
-
 generateList.propTypes = {
-  delRecipe: PropTypes.func,
-  catalog: PropTypes.object,
-  history: PropTypes.object
+  showDeleteBtn: PropTypes.bool.isRequired,
+  catalog: PropTypes.object.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(CatalogList);
+export default CatalogList;

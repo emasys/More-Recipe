@@ -1,5 +1,6 @@
 @import './base/settings';
 @import './base/base';
+
 // Header Section in Home Page
 .header {
   margin: 0;
@@ -19,32 +20,21 @@
   }
 }
 
-.animate-catalog {
-  max-width: 300px;
-}
 
+
+
+
+
+
+// Main Navigation bar
 .nav-item {
   color: blue !important;
 }
 
-.grayOut {
-  color: rgb(241, 25, 25) !important;
-}
-
-.avi {
-  min-width: 100px;
-}
-
+// Category Navigation bar
 .wide-dropdown {
   min-width: 500px;
 }
-
-.shadowed {
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
-  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
-}
-
 .custom-dropdown {
   font-size: 12px;
   box-sizing: border-box;
@@ -53,6 +43,43 @@
     font-size: 13px;
   }
 }
+
+// Utils
+.grayOut {
+  color: rgb(241, 25, 25) !important;
+}
+.wrapIt {
+  // max-width: 19rem; 
+  overflow-wrap: break-word
+}
+.animate-catalog {
+  max-width: 300px;
+}
+.shadowed {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.btn-sign {
+  background: $orange !important;
+  color: $white !important;
+  border-color: $orange !important;
+  border-radius: 2rem;
+  padding: .6rem 3rem !important;
+  &:hover {
+    background: transparent !important;
+  }
+}
+
+
+
+// user avatar
+.avi {
+  min-width: 100px;
+}
+
+
 
 .hovered {
   cursor: pointer;
@@ -79,28 +106,17 @@
   }
 }
 
+// Recipe item page styles
 .recipeImage {
   width: 100%;
   max-width: 52rem;
   max-height: 50rem;
 }
 
-.btn-sign {
-  background: $orange !important;
-  color: $white !important;
-  border-color: $orange !important;
-  border-radius: 2rem;
-  padding: .6rem 3rem !important;
-  &:hover {
-    background: transparent !important;
-  }
-}
 
-.wrapIt {
-  // max-width: 19rem; 
-  overflow-wrap: break-word
-}
 
+
+// recipe Card
 .card-body {
   span {
     padding: 5px;
@@ -130,15 +146,7 @@
   }
 }
 
-.container-fluid {
-  margin: 0;
-  padding: 0;
-}
 
-.row {
-  margin: 0;
-  padding: 0;
-}
 
 .fixed {
   margin-bottom: 80px;
@@ -786,4 +794,8 @@ input[type=search]::-webkit-search-cancel-button {
 
 .bg-wheat {
   background: wheat !important;
+}
+
+.navbar {
+  z-index: 1000 !important;
 }

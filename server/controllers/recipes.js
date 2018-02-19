@@ -125,6 +125,13 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static SearchRecipe(req, res) {
+    if (!req.body.query) {
+      return setStatus(
+        res,
+        { success: false, error: 'query cannot be empty' },
+        200
+      );
+    }
     const query = req.body.query.trim();
     return Recipes.findAndCountAll({
       limit: req.params.limit,

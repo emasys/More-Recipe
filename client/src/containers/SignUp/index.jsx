@@ -15,28 +15,29 @@ import errorMessages, {
 import { signUp } from '../../actions/authActions';
 
 //component
-import Navbar from '../Navbar';
+import Navbar from '../../components/Navbar';
 import Form from './SignUpForms';
-import Preloader from '../Preloader';
+import Preloader from '../../components/Preloader';
 
 /**
  *
  *
  * @class SignUp
  * @extends {Component}
- * @param {object} nextProps
  * @param {object} event
+ * @param {string} inputName
+ * @param {object} nextProps
  */
-export class SignUp extends Component {
-  /**
-   * Creates an instance of SignUp.
-   * @param {any} props
-   * @memberof SignUp
-   */
+class SignUp extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    signUp: PropTypes.func.isRequired
+  };
 
   componentDidMount = () => {
     window.scrollTo(0, 0);
   };
+
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.signUp) {
       if (nextProps.user.signUp.success) {
@@ -156,13 +157,8 @@ export class SignUp extends Component {
   }
 }
 
-SignUp.propTypes = {
-  user: PropTypes.object.isRequired,
-  signUp: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import countryList from '../CountryList';
+import countryList from '../../components/CountryList';
 
 const focus = () => {
   document.querySelector('.text-danger').innerHTML = '';
@@ -16,9 +16,9 @@ const UserEditForm = props => {
           <input
             type="text"
             required
-            placeholder="alphabeths only"
+            placeholder="alphabet only"
             className="col-lg-11 col-sm-12"
-            name="fname"
+            name="firstName"
             onFocus={focus}
             defaultValue={firstName}
           />
@@ -29,9 +29,9 @@ const UserEditForm = props => {
           <input
             type="text"
             required
-            placeholder="alphabeths only"
+            placeholder="alphabet only"
             className="col-lg-11 col-sm-12"
-            name="lname"
+            name="lastName"
             onFocus={focus}
             defaultValue={lastName}
           />
@@ -71,7 +71,7 @@ const UserEditForm = props => {
 };
 
 UserEditForm.propTypes = {
-  state: PropTypes.object,
-  editProfile: PropTypes.func
+  state: PropTypes.object.isRequired,
+  editProfile: PropTypes.func.isRequired
 };
 export default UserEditForm;

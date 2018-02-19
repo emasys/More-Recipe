@@ -86,7 +86,7 @@ export const delRecipe = (id, userId) => dispatch => {
 export const searchRecipes = (data, limit = 1, offset = 0) => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${UTIL.baseUrl}/recipeSearch/${limit}/${offset}`, data)
+    .post(`${UTIL.baseUrl}/recipe/search/${limit}/${offset}`, data)
     .then(response => {
       dispatch({ type: type.SEARCH, payload: response.data });
       dispatch(isLoading(false));

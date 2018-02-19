@@ -30,7 +30,7 @@ export const list = [
 const CategoryList = props => (
   <section className="mt-0 mb-20 text-center">
     <div className="category-wrapper container-fluid">
-      <div className="containe">
+      <div>
         <div className="row justify-content-center">
           {list.map(link => (
             <div className="col-lg-2 col-md-3 col-sm-4 mb-2 p-0" key={link}>

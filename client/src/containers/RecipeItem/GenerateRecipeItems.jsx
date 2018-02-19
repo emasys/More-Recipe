@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip';
 
 import Auth from '../../components/auth';
 
-const GeneraterecipeItem = props => (
+const GenerateRecipeItem = props => (
   <div className="mb-20">
     <div>
       <button
@@ -109,15 +109,17 @@ const GeneraterecipeItem = props => (
   </div>
 );
 
-GeneraterecipeItem.propTypes = {
-  handleImg: PropTypes.func,
-  state: PropTypes.object,
-  hoverIn: PropTypes.func,
-  hoverOut: PropTypes.func,
-  handleDrop: PropTypes.func,
-  favIt: PropTypes.func,
-  upvote: PropTypes.func,
-  downvote: PropTypes.func,
-  foodImg: PropTypes.string
+GenerateRecipeItem.propTypes = {
+  handleImg: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
+  hoverIn: PropTypes.func.isRequired,
+  hoverOut: PropTypes.func.isRequired,
+  handleDrop: PropTypes.func.isRequired,
+  favIt: PropTypes.func.isRequired,
+  upvote: PropTypes.func.isRequired,
+  downvote: PropTypes.func.isRequired,
+  foodImg: PropTypes.string.isRequired,
+  reactionDown: PropTypes.array.isRequired,
+  reactionUp: PropTypes.array.isRequired
 };
-export default GeneraterecipeItem;
+export default GenerateRecipeItem;

@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Pace from 'react-pace-progress';
 
 // Actions
-import { getFavs } from '../../actions/favoriteAction';
+import { getFavorite } from '../../actions/favoriteAction';
 
 //components
-import Navbar from '../Navbar';
+import Navbar from '../../components/Navbar';
 import FavoriteList from './FavoriteList';
+import Preloader from '../../components/Preloader';
 /**
  *
  *
@@ -17,6 +17,10 @@ import FavoriteList from './FavoriteList';
  * @extends {Component}
  */
 export class Favorites extends Component {
+  static propTypes = {
+    favorites: PropTypes.object.isRequired,
+    getFavorite: PropTypes.func.isRequired
+  };
   /**
    *
    *
@@ -24,7 +28,7 @@ export class Favorites extends Component {
    * @returns {any} favorite list
    */
   componentDidMount() {
-    this.props.getFavs();
+    this.props.getFavorite();
   }
   /**
    *
@@ -36,12 +40,14 @@ export class Favorites extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <div className="fixed-top">
-          {this.props.netReq && <Pace color="#e7b52c" height={2} />}
-        </div>
+        <Preloader />
         <div className="mt-80 mb-3">
           <div className="row catalog-wrapper" id="catalog">
-            <div data-aos="fade-up" data-duration="1000" className="row justify-content-center">
+            <div
+              data-aos="fade-up"
+              data-duration="1000"
+              className="row justify-content-center"
+            >
               <FavoriteList favorites={this.props.favorites} />
             </div>
           </div>
@@ -52,17 +58,11 @@ export class Favorites extends Component {
 }
 
 const mapStateToProps = state => ({
-  favorites: state.favorite,
-  netReq: state.netReq
+  favorites: state.favorite
 });
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getFavs }, dispatch)
+  ...bindActionCreators({ getFavorite }, dispatch)
 });
 
-Favorites.propTypes = {
-  favorites: PropTypes.object,
-  getFavs: PropTypes.func,
-  netReq: PropTypes.bool
-};
 export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
