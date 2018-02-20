@@ -80,19 +80,16 @@ export const fetchOneRecipe = (res, req, recipe) => {
 };
 
 export const findAndUpdateRecipe = (res, req, recipe, ingredients) => {
-  Recipes.findOne({ where: { name: req.body.name } })
-    .then((isExist) => {
-      if (isExist) {
-        return setStatus(
-          res,
-          { success: false, error: 'recipe already exist' },
-          409
-        );
-      }
-    })
-    .catch(() => setStatus(res, { success: false, error: 'not found' }, 404));
+  Recipes.findOne({ where: { name: req.body.name } }).then((isExist) => {
+    if (isExist) {
+      return setStatus(
+        res,
+        { success: false, error: 'recipe already exist' },
+        409
+      );
+    }
+  });
   // Prevent other users from editing a recipe not theirs.
-  console.log(ingredients);
   if (recipe.userId === req.decoded.id) {
     return recipe
       .update({
