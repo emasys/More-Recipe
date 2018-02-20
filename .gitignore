@@ -42,3 +42,4 @@ client/src/components/modal.jsx
 client/src/components/SignIn/validateForm.js
 server/playground/index.js
 client/src/components/CategoryOrginal.jsx
+server/migrations/addColumn.js
