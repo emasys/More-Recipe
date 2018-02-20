@@ -1,17 +1,14 @@
 import axios from 'axios';
 import * as type from '../types';
-import { isLoading } from '../index';
+import { isLoading, UTIL } from '../index';
 import { getUserInfo, getUserRecipes } from '../userActions';
 import { getReviews } from '../reviewActions';
-
-const URL = '/api/v1';
-const xtoken = window.localStorage.getItem('token');
 
 // Fetch All recipes
 export const getRecipes = (page, offset = 0, query = '') => dispatch => {
   dispatch(isLoading(true));
-  axios
-    .get(`${URL}/recipes/${page}/${offset}${query}`)
+  return axios
+    .get(`${UTIL.baseUrl}/recipes/${page}/${offset}${query}`)
     .then(response => {
       dispatch({ type: type.ALL_RECIPES, payload: response.data });
       dispatch(isLoading(false));
@@ -30,7 +27,7 @@ export const clearRecipes = () => dispatch => {
 export const getRecipeItem = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .get(`${URL}/recipe/${id}?token=${xtoken}`)
+    .get(`${UTIL.baseUrl}/recipe/${id}`, UTIL.config)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
       dispatch(getUserInfo(response.data.recipe.userId));
@@ -46,7 +43,7 @@ export const getRecipeItem = id => dispatch => {
 // Get a single recipe reactions
 export const getRecipeReactions = id => dispatch =>
   axios
-    .get(`${URL}/recipe/reaction/${id}?token=${xtoken}`)
+    .get(`${UTIL.baseUrl}/recipe/reaction/${id}`, UTIL.config)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
       dispatch(isLoading(false));
@@ -58,8 +55,8 @@ export const getRecipeReactions = id => dispatch =>
 // edit recipe
 export const editRecipe = (data, id) => dispatch => {
   dispatch(isLoading(true));
-  axios
-    .put(`${URL}/recipes/${id}?token=${xtoken}`, data)
+  return axios
+    .put(`${UTIL.baseUrl}/recipes/${id}`, data, UTIL.config)
     .then(response => {
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
       dispatch(isLoading(false));
@@ -72,10 +69,9 @@ export const editRecipe = (data, id) => dispatch => {
 
 // Delete Recipe
 export const delRecipe = (id, userId) => dispatch => {
-  const x = userId;
   dispatch(isLoading(true));
   return axios
-    .delete(`${URL}/recipes/${id}?token=${xtoken}`)
+    .delete(`${UTIL.baseUrl}/recipes/${id}`, UTIL.config)
     .then(response => {
       dispatch({ type: type.DELETE_RECIPE, payload: response.data });
       dispatch(getUserRecipes(userId, 6, 0));
@@ -87,22 +83,28 @@ export const delRecipe = (id, userId) => dispatch => {
     });
 };
 
-export const searchRecipes = data => dispatch => {
-  axios
-    .post(`${URL}/recipeSearch`, data)
+export const searchRecipes = (data, limit = 1, offset = 0) => dispatch => {
+  dispatch(isLoading(true));
+  return axios
+    .post(`${UTIL.baseUrl}/recipe/search/${limit}/${offset}`, data)
     .then(response => {
       dispatch({ type: type.SEARCH, payload: response.data });
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.SEARCH, payload: err.response });
+      dispatch(isLoading(false));
     });
 };
 
+export const resetSearch = () => dispatch => {
+  dispatch({ type: type.RESET_SEARCH, payload: [] });
+};
 // Add a recipe
 export const addRecipe = data => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/recipes?token=${xtoken}`, data)
+    .post(`${UTIL.baseUrl}/recipes`, data, UTIL.config)
     .then(response => {
       dispatch({ type: type.NEW_RECIPE, payload: response.data });
       dispatch(isLoading(false));
@@ -116,8 +118,8 @@ export const addRecipe = data => dispatch => {
 // Fetch All recipes
 export const getHotRecipes = (limit, offset = 0, query = '') => dispatch => {
   dispatch(isLoading(true));
-  axios
-    .get(`${URL}/recipes/${limit}/${offset}${query}`)
+  return axios
+    .get(`${UTIL.baseUrl}/recipes/${limit}/${offset}${query}`)
     .then(response => {
       dispatch({ type: type.HOT_RECIPES, payload: response.data });
       dispatch(isLoading(false));
@@ -132,7 +134,7 @@ export const getHotRecipes = (limit, offset = 0, query = '') => dispatch => {
 export const getCategory = (data, limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${URL}/recipes/category?token=${xtoken}`, data)
+    .post(`${UTIL.baseUrl}/recipes/category/${limit}/${offset}`, data)
     .then(response => {
       dispatch({ type: type.GET_CATEGORY, payload: response.data });
       dispatch(isLoading(false));

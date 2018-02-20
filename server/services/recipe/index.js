@@ -2,6 +2,21 @@ import { pick } from 'lodash';
 import { Users, TokenGen, Recipes } from '../../models';
 import { setStatus, signToken, mailer } from '../../middleware/helper';
 
+const convertToArray = (input) => {
+  console.log(input);
+  if (input) {
+    const initialArray = input.trim().split(/\s*,\s*/);
+    const finalArray = [];
+    initialArray.map((item) => {
+      if (item) {
+        finalArray.push(item);
+      }
+    });
+    return finalArray;
+  }
+  return null;
+};
+
 export const sortRecipe = (req, res, column, order) =>
   Recipes.findAll({
     offset: req.params.offset,
@@ -12,12 +27,10 @@ export const sortRecipe = (req, res, column, order) =>
       Recipes.count().then(count =>
         setStatus(res, { success: true, recipes, count }, 200)))
 
-    .catch(() =>
-      setStatus(res, { success: false, error: 'something went wrong' }, 500));
+    .catch(error =>
+      setStatus(res, { success: false, error: error.message }, 500));
 
-export const addNewRecipe = (res, req, request, ingredientArray) => {
-  const getArr = input => input.trim().split(/\s*,\s*/);
-
+export const addNewRecipe = (res, req, request, ingredients) => {
   Users.findById(req.decoded.id)
     .then((user) => {
       if (!user) {
@@ -37,8 +50,8 @@ export const addNewRecipe = (res, req, request, ingredientArray) => {
           description: request.description,
           category: request.category,
           foodImg: request.foodImg,
-          ingredients: getArr(ingredientArray),
-          searchIng: ingredientArray
+          ingredients: convertToArray(ingredients),
+          searchIng: ingredients
         }).then(recipe => setStatus(res, { success: true, recipe }, 201));
       });
     })
@@ -66,45 +79,46 @@ export const fetchOneRecipe = (res, req, recipe) => {
   }
 };
 
-export const findAndUpdateRecipe = (res, req, recipe) => {
-  const ingredientArray = req.body.ingredients;
-  const getArr = input => input.trim().split(/\s*,\s*/);
-  Recipes.findOne({ where: { name: req.body.name } })
-    .then((isExist) => {
-      if (isExist) {
-        return setStatus(
-          res,
-          { success: false, error: 'recipe already exist' },
-          409
-        );
-      }
-
-      // Prevent other users from editing a recipe not theirs.
-      if (recipe.userId === req.decoded.id) {
-        return recipe
-          .update({
-            name: req.body.name || recipe.name,
-            direction: req.body.direction || recipe.direction,
-            description: req.body.description || recipe.description,
-            ingredients: getArr(ingredientArray) || recipe.ingredients,
-            searchIng: ingredientArray,
-            foodImg: req.body.foodImg || recipe.foodImg,
-            category: req.body.category || recipe.category
-          })
-          .then(() => setStatus(res, { success: true, recipe }, 200));
-        // Send back the updated recipe.
-      }
+export const findAndUpdateRecipe = (res, req, recipe, ingredients) => {
+  Recipes.findOne({ where: { name: req.body.name } }).then((isExist) => {
+    if (isExist) {
       return setStatus(
         res,
-        { success: false, status: 'cannot update this recipe' },
-        401
+        { success: false, error: 'recipe already exist' },
+        409
       );
-    })
-    .catch(() =>
-      setStatus(res, { success: false, error: 'recipe not found' }, 404));
+    }
+  });
+  // Prevent other users from editing a recipe not theirs.
+  if (recipe.userId === req.decoded.id) {
+    return recipe
+      .update({
+        name: req.body.name || recipe.name,
+        direction: req.body.direction || recipe.direction,
+        description: req.body.description || recipe.description,
+        ingredients: convertToArray(ingredients) || recipe.ingredients,
+        searchIng: ingredients,
+        foodImg: req.body.foodImg || recipe.foodImg,
+        category: req.body.category || recipe.category
+      })
+      .then(() => setStatus(res, { success: true, recipe }, 200));
+    // Send back the updated recipe.
+  }
+  return setStatus(
+    res,
+    { success: false, status: 'cannot update this recipe' },
+    401
+  );
 };
 
-export const cancelVote = (res, req, reaction, recipe, voteTypeCount, voteType) => {
+export const cancelVote = (
+  res,
+  req,
+  reaction,
+  recipe,
+  voteTypeCount,
+  voteType
+) => {
   const removeId = reaction.indexOf(req.decoded.id);
   if (removeId > -1) reaction.splice(removeId, 1);
   return recipe
@@ -116,7 +130,16 @@ export const cancelVote = (res, req, reaction, recipe, voteTypeCount, voteType) 
       setStatus(res, { success: true, recipe, status: 'cancelled' }, 200));
 };
 
-export const transferVote = (res, req, reaction, recipe, reactionType, upvote, downvote, setReaction) => {
+export const transferVote = (
+  res,
+  req,
+  reaction,
+  recipe,
+  reactionType,
+  upvote,
+  downvote,
+  setReaction
+) => {
   const removeId = reaction.indexOf(req.decoded.id);
   if (removeId !== -1) {
     reaction.splice(removeId, 1);

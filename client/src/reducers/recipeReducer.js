@@ -6,7 +6,8 @@ export default (
     recipeItem: {},
     updateRecipes: {},
     category: [],
-    userRecipes: []
+    userRecipes: [],
+    searchResult: []
   },
   action
 ) => {
@@ -54,22 +55,28 @@ export default (
   case type.EDIT_RECIPE:
     return {
       ...state,
-      // updateRecipes: action.payload,
       recipeItem: action.payload,
       updated: action.payload.success
     };
   case type.GET_CATEGORY:
     return {
       ...state,
-      category: action.payload.recipes,
+      category: [...state.category, ...action.payload.recipes],
       count: action.payload.count
     };
 
   case type.SEARCH:
     return {
       ...state,
-      searchResult: action.payload.recipes,
-      success: action.payload.success
+      searchResult: [...state.searchResult, ...action.payload.recipes],
+      success: action.payload.success,
+      searchCount: action.payload.count
+    };
+
+  case type.RESET_SEARCH:
+    return {
+      ...state,
+      searchResult: action.payload
     };
 
   case type.DELETE_RECIPE:

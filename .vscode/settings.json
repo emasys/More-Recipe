@@ -1,3 +1,10 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "cSpell.words": [
+    "downvote",
+    "ilike",
+    "moxios",
+    "preloader",
+    "upvote"
+  ]
 }

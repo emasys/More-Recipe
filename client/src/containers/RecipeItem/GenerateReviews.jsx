@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import config from '../../config';
+import Auth from '../../components/auth';
 
 const GenerateReviews = ({ review, deleteReview }) => {
   if (review.fetch_reviews) {
@@ -12,7 +13,7 @@ const GenerateReviews = ({ review, deleteReview }) => {
         data-aos="fade-left"
         data-aos-offset="20"
         className="comment-wrapper"
-        key={index}
+        key={comment.id}
       >
         <div className="direction mt-50 p-15 bg-light my-2">
           <div className="commentTitle ">
@@ -25,20 +26,20 @@ const GenerateReviews = ({ review, deleteReview }) => {
             </div>
 
             <div className="pt-10 clearfix mb-10">
-              <Link
-                className="text-dark bolder"
-                to={`/user/${comment.userId}`}
-              >
+              <Link className="text-dark bolder" to={`/user/${comment.userId}`}>
                 {comment.User.moniker}
               </Link>
               <p className="text-dark date">
                 {moment(comment.updatedAt).fromNow()}
               </p>
-              <i
-                onClick={() => deleteReview(comment.id, comment.recipeId)}
-                className="fa fa-times-circle delete-review-btn hvr-buzz-out fa-2x"
-                data-tip="Delete this review"
-              />
+              {Auth.userID() === comment.userId && (
+                // eslint-disable-next-line
+                <i
+                  onClick={() => deleteReview(comment.id, comment.recipeId)}
+                  className="fa fa-times-circle delete-review-btn hvr-buzz-out fa-2x"
+                  data-tip="Delete this review"
+                />
+              )}
               <ReactTooltip place="bottom" type="dark" effect="float" />
             </div>
             <hr />

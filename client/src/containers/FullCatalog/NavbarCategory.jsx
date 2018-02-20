@@ -29,19 +29,23 @@ const NavbarCategory = props => (
           <i className="fa fa-sort-amount-asc" aria-hidden="true" /> sort by
         </a>
         <div className="dropdown-menu custom-dropdown-menu">
-          <a className="dropdown-item" onClick={props.recentlyAdded}>
+          <a
+            href="#"
+            className="dropdown-item"
+            onClick={props.recentlyAdded}
+          >
             Recently Added
           </a>
           <div className="dropdown-divider" />
-          <a className="dropdown-item" onClick={props.mostUpvoted}>
+          <a href="#" className="dropdown-item" onClick={props.mostUpvoted}>
             Most Upvoted
           </a>
           <div className="dropdown-divider" />
-          <a className="dropdown-item" onClick={props.mostFavorited}>
+          <a href="#" className="dropdown-item" onClick={props.mostFavorited}>
             Most Favorited
           </a>
           <div className="dropdown-divider" />
-          <a className="dropdown-item" onClick={props.mostViewed}>
+          <a href="#" className="dropdown-item" onClick={props.mostViewed}>
             Most Viewed
           </a>
         </div>
@@ -51,11 +55,11 @@ const NavbarCategory = props => (
 );
 
 NavbarCategory.propTypes = {
-  mostViewed: PropTypes.func,
-  mostFavorited: PropTypes.func,
-  mostUpvoted: PropTypes.func,
-  recentlyAdded: PropTypes.func,
-  dropdownCtrl: PropTypes.func
+  mostViewed: PropTypes.func.isRequired,
+  mostFavorited: PropTypes.func.isRequired,
+  mostUpvoted: PropTypes.func.isRequired,
+  recentlyAdded: PropTypes.func.isRequired,
+  dropdownCtrl: PropTypes.func.isRequired
 };
 
 export default NavbarCategory;

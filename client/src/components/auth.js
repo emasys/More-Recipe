@@ -52,6 +52,16 @@ class Auth {
   static moniker() {
     return decoded.moniker;
   }
+  /**
+   *
+   *
+   * @static
+   * @returns { string } avatar
+   * @memberof Auth
+   */
+  static avatar() {
+    return decoded.avatar;
+  }
 }
 
 export default Auth;

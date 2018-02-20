@@ -16,6 +16,12 @@ import GenerateReviews from './GenerateReviews';
  * @extends {Component}
  */
 class Reviews extends Component {
+  static propTypes = {
+    postReview: PropTypes.func.isRequired,
+    recipes: PropTypes.object.isRequired,
+    deleteReview: PropTypes.func.isRequired,
+    review: PropTypes.object.isRequired
+  };
   /**
    * Creates an instance of Reviews.
    * @param {any} props
@@ -40,10 +46,6 @@ class Reviews extends Component {
     });
   };
 
-  componentWillReceiveProps = nextProps => {
-    console.log(nextProps);
-  };
-
   /**
    *
    *
@@ -55,7 +57,7 @@ class Reviews extends Component {
     event.preventDefault();
     const data = this.state;
     const { id } = this.props.recipes.recipeItem.recipe;
-    if (data.content) {
+    if (data.content.trim()) {
       this.props.postReview(data, id);
     }
     this.resetState();
@@ -72,13 +74,13 @@ class Reviews extends Component {
       content: event.target.value
     });
   };
+
   /**
    *
-   *
-   * @param {number} recipeId
    * @param {number} reviewId
-   * @memberof Reviews
-   * @returns {object} confirmation
+   * @param {number} recipeId
+   * @returns {object} confrimation
+   * @memberOf Reviews
    */
   deleteReview = (reviewId, recipeId) => {
     this.props.deleteReview(reviewId, recipeId);
@@ -138,10 +140,4 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ postReview, deleteReview }, dispatch)
 });
 
-Reviews.propTypes = {
-  postReview: PropTypes.func,
-  recipes: PropTypes.object,
-  deleteReview: PropTypes.func,
-  review: PropTypes.object
-};
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

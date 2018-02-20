@@ -13,6 +13,7 @@ import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
 import Auth from './auth';
 import BigNavbar from './BigNavbar';
+import Preloader from './Preloader';
 
 /**
  * Component for Home page
@@ -21,6 +22,10 @@ import BigNavbar from './BigNavbar';
  * @extends {Component}
  */
 export class Home extends Component {
+  static propTypes = {
+    recipes: PropTypes.object.isRequired,
+    getHotRecipes: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of Home.
    * @param {any} props
@@ -54,6 +59,7 @@ export class Home extends Component {
     return (
       <div>
         <section className="container-fluid">
+          <Preloader />
           <div className="header">
             <DynamicHeader hasEffect effectDuration={600} useHeadersDifference>
               <BigNavbar />
@@ -125,7 +131,8 @@ export class Home extends Component {
               </div>
             </div>
             <CatalogList
-              {...this.props} showDeleteBtn={false}
+              {...this.props}
+              showDeleteBtn={false}
               catalog={this.props.recipes.hotRecipes}
             />
             <div className="col-12 ">
@@ -147,10 +154,6 @@ export class Home extends Component {
   }
 }
 
-Home.propTypes = {
-  recipes: PropTypes.object,
-  getHotRecipes: PropTypes.func
-};
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getHotRecipes }, dispatch)
 });

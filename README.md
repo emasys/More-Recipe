@@ -46,5 +46,29 @@ To run Tests...
 $ npm test
 ```
 
-##### Api Documentation with swagger
+##### Api Documentation
 * [Api Documentation](http://more-recipe-api.herokuapp.com/docs) 
+
+#### Contributing
+
+When contributing to this repository, please first discuss the change you wish to make via issue,
+email, or any other method with me and other contributors before making a change. 
+
+Please note we have a code of conduct, please follow it in all your interactions with the project.
+
+#### Pull Request Process
+
+1. Ensure you properly explain what value your changes will add to the app.
+2. Update the README.md with details of changes to the interface, this includes new environment 
+   variables, exposed ports, useful file locations and container parameters.
+3. Increase the version numbers in any examples files and the README.md to the new version that this
+   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
+4. Your pull request will be merged as far as it meets our standards
+
+#### Our Standards
+
+* Using welcoming and inclusive language
+* Being respectful of differing viewpoints and experiences
+* Gracefully accepting constructive criticism
+* Using only airbnb style guide
+* Proper naming of variable

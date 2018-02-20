@@ -11,7 +11,7 @@ const generateList = ({ ingredients }) => {
         href={`https://en.wikipedia.org/wiki/${item}`}
         target="_blank"
         className="list-group-item text-capitalize list-group-item-action"
-        key={index}
+        key={item}
       >
         {item}
       </a>
@@ -21,7 +21,7 @@ const generateList = ({ ingredients }) => {
 
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
-    <h2 className="fresh-title wrapWord text-capitalize">
+    <h2 className="wrapWord text-capitalize">
       {props.ingredients.recipe ? props.ingredients.recipe.name : 'loading...'}
     </h2>
     <small className="text-capitalize">
@@ -64,8 +64,8 @@ const Ingredients = props => (
 );
 
 Ingredients.propTypes = {
-  ingredients: PropTypes.object,
-  data: PropTypes.object
+  ingredients: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
 };
 
 export default Ingredients;

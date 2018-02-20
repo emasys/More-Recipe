@@ -2,28 +2,19 @@ import { pick } from 'lodash';
 import { Users, TokenGen } from '../../models';
 import { setStatus, signToken, mailer } from '../../middleware/helper';
 
-export const createUser = (res, request) => {
-  Users.findOne({ where: { email: request.email } })
-    .then((user) => {
-      if (user) {
-        return setStatus(res, { success: false, target: 'email' }, 409);
-      }
-      Users.findOne({
-        where: { moniker: request.moniker }
-      }).then((username) => {
-        if (username) {
-          return setStatus(res, { success: false, target: 'moniker' }, 409);
-        }
-        Users.create(request).then((newUser) => {
-          const data = pick(newUser, ['id', 'moniker', 'avatar']);
-          const token = signToken(data);
-          return setStatus(res, { success: true, user: data, token }, 201);
-        });
-      });
+export const createUser = (res, request) =>
+  Users.create(request)
+    .then((newUser) => {
+      const data = pick(newUser, ['id', 'moniker', 'avatar']);
+      const token = signToken(data);
+      return setStatus(res, { success: true, user: data, token }, 201);
     })
-    .catch(() =>
-      setStatus(res, { success: false, error: 'record not saved' }, 500));
-};
+    .catch((error) => {
+      if (error.errors) {
+        return setStatus(res, { success: false, error: error.errors }, 409);
+      }
+      return setStatus(res, { success: false, error }, 500);
+    });
 
 export const AuthenticateUser = (res, request) => {
   Users.findOne({ where: { email: request.email } })

@@ -23,9 +23,8 @@ const NavbarSearch = props => (
           type="search"
           name="search"
           id="search"
-          // value={props.search}
           autoComplete="off"
-          onChange={props.searchBar}
+          onChange={props.onChanged}
           placeholder="search by ingredients or recipe title"
         />
       </form>
@@ -143,11 +142,10 @@ const NavbarSearch = props => (
 );
 
 NavbarSearch.propTypes = {
-  user: PropTypes.object,
-  avatar: PropTypes.string,
-  searchBar: PropTypes.func,
-  search: PropTypes.string,
-  onSearch: PropTypes.func
+  user: PropTypes.object.isRequired,
+  avatar: PropTypes.string.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  onChanged: PropTypes.func.isRequired
 };
 
 export default NavbarSearch;

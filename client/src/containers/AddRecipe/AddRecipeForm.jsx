@@ -6,7 +6,7 @@ import { list as categoryList } from '../../components/CategoryList';
 
 const AddRecipeForm = props => (
   <form onSubmit={props.handleForm}>
-    <ul className="form row p-3 mb-10">
+    <ul className="form row p-10 mb-10">
       <li className="col-12">
         <label>Recipe Name</label>
         <input
@@ -20,8 +20,22 @@ const AddRecipeForm = props => (
         <div className="text-danger" id="recipe_error" />
       </li>
       <li className="col-12">
+        <label htmlFor="description">Description</label>
+        <Textarea
+          className="col-12"
+          placeholder="a short description of your recipe (400 characters)"
+          id="description"
+          minRows={1}
+          maxRows={20}
+          maxLength={400}
+          required
+          name="description"
+        />
+        <div className="text-danger" id="description_error" />
+      </li>
+      <li className="col-12">
         <label htmlFor="ingredients" className="col-form-label">
-            Ingredients
+          Ingredients
         </label>
         <Textarea
           placeholder="Add your ingredients and separate with a comma ','"
@@ -47,26 +61,10 @@ const AddRecipeForm = props => (
         />
         <div className="text-danger" id="direction_error" />
       </li>
-      <li className="col-12">
-        <label htmlFor="description">Description</label>
-        <Textarea
-          className="col-12"
-          placeholder="a short description of your recipe"
-          id="description"
-          minRows={1}
-          maxRows={20}
-          required
-          name="description"
-        />
-        <div className="text-danger" id="description_error" />
-      </li>
+
       <li className="special col-12">
         <label>Category</label>
-        <select
-          name="category"
-          className="col-12 "
-          style={{ height: '50px' }}
-        >
+        <select name="category" className="col-12 " style={{ height: '50px' }}>
           {categoryList.map(item => (
             <option value={item} key={item} className="text-capitalize">
               {item}

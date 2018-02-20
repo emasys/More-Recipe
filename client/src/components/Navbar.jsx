@@ -20,6 +20,11 @@ import config from '../config';
  * @extends {Component}
  */
 export class Navbar extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    getProfile: PropTypes.func.isRequired,
+    className: PropTypes.string.isRequired
+  };
   /**
    * Creates an instance of Navbar.
    * @param {any} props
@@ -40,7 +45,7 @@ export class Navbar extends Component {
    * invoked immediately after a component is mounted
    */
   componentDidMount() {
-    if (Auth.userID()) {
+    if (Auth.userID() && !this.props.user) {
       this.props.getProfile(Auth.userID());
     }
   }
@@ -60,12 +65,24 @@ export class Navbar extends Component {
   /**
    *
    *
+   * @readonly
+   *
+   * @memberOf Navbar
+   */
+  get avatar() {
+    if (this.props.user) {
+      return this.props.user.data.avatar;
+    }
+    return null;
+  }
+  /**
+   *
+   *
    * @returns {any}
    * render react element into the DOM
    * @memberof Navbar
    */
   render() {
-    const { avatar } = this.state;
     return (
       <section className="container-fluid m-0 p-0">
         <nav
@@ -73,7 +90,7 @@ export class Navbar extends Component {
           className={`navbar navbar-expand-lg navbar-dark ${
             this.props.className
           }`}
-          style={{ zIndex: 1000 }}
+          // style={{ zIndex: 1000 }}
         >
           <div className="container">
             <Link className="navbar-brand bolder ml-3 text-orange" to="/">
@@ -148,7 +165,7 @@ export class Navbar extends Component {
                       aria-expanded="false"
                     >
                       <img
-                        src={avatar || config.DEFAULT_DISPLAY_PICTURE}
+                        src={this.avatar || config.DEFAULT_DISPLAY_PICTURE}
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
                       />
@@ -190,9 +207,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ getProfile }, dispatch)
 });
-Navbar.propTypes = {
-  user: PropTypes.object,
-  getProfile: PropTypes.func,
-  className: PropTypes.string
-};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

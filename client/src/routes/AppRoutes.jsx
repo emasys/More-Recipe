@@ -5,17 +5,17 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../components/Home';
 import Footer from '../components/Footer';
 import FullCatalog from '../containers/FullCatalog/index';
-import FavoritesRecipes from '../components/Favorites/index';
+import FavoritesRecipes from '../containers/Favorites/index';
 import NotFound from '../components/NotFound';
-import Signup from '../components/SignUp/index';
-import Signin from '../components/SignIn/index';
-import Profile from '../components/Profile';
+import Signup from '../containers/SignUp/index';
+import Signin from '../containers/SignIn/index';
+import Profile from '../containers/Profile/index';
 import RecipeItem from '../containers/RecipeItem/index';
 import AddRecipe from '../containers/AddRecipe/index';
-import User from '../components/UserProfile/index';
+import User from '../containers/UserProfile/index';
 import Auth from '../components/auth';
 import Management from '../components/ManageUsers';
-import Category from '../components/Category';
+import Category from '../components/Category/index';
 
 const Message = 'You have to be logged in to view this content';
 
@@ -71,7 +71,7 @@ const AppRoutes = () => (
           path="/new"
           render={routeProps =>
             (Auth.loggedIn() ? (
-              <AddRecipe {...routeProps}/>
+              <AddRecipe {...routeProps} />
             ) : (
               <Signin {...routeProps} msg={Message} />
             ))

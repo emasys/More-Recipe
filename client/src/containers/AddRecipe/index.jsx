@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
 
 //actions
@@ -11,13 +10,22 @@ import { addRecipe } from '../../actions/recipeActions';
 import Navbar from '../../components/Navbar';
 import AddRecipeForm from './AddRecipeForm';
 import config from '../../config';
+import Auth from '../../components/auth';
+import Preloader from '../../components/Preloader';
+
 /**
  *
- *
+ *@param {object} event
  * @class AddRecipe
  * @extends {Component}
  */
 class AddRecipe extends Component {
+  static propTypes = {
+    new_recipe: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    addRecipe: PropTypes.func.isRequired
+  };
+
   /**
    * Creates an instance of AddRecipe.
    * @param {any} props
@@ -32,9 +40,12 @@ class AddRecipe extends Component {
       status: 'fade',
       isLoading: false
     };
-    this.handleForm = this.handleForm.bind(this);
-    this.sendData = this.sendData.bind(this);
   }
+
+  componentDidMount = () => {
+    window.scrollTo(0, 0);
+  };
+
   /**
    *
    *
@@ -42,7 +53,7 @@ class AddRecipe extends Component {
    * @returns {any}
    * redirects to the recipe page if success
    */
-  sendData() {
+  sendData = () => {
     if (this.props.new_recipe.new_recipe) {
       if (this.props.new_recipe.new_recipe.recipe) {
         const { userId } = this.props.new_recipe.new_recipe.recipe;
@@ -60,21 +71,15 @@ class AddRecipe extends Component {
     }
   }
 
-  /**
-   *
-   *
-   * @param {any} e
-   * @returns {any} any new page after form submission
-   * @memberof AddRecipe
-   */
-  handleForm(e) {
-    e.preventDefault();
+
+  handleForm = (event) => {
+    event.preventDefault();
     let data = {
-      name: e.target.elements.recipe.value.trim(),
-      ingredients: e.target.elements.ingredients.value.trim().toLowerCase(),
-      direction: e.target.elements.direction.value.trim(),
-      description: e.target.elements.description.value.trim(),
-      category: e.target.elements.category.value,
+      name: event.target.elements.recipe.value.trim(),
+      ingredients: event.target.elements.ingredients.value.trim().toLowerCase(),
+      direction: event.target.elements.direction.value.trim(),
+      description: event.target.elements.description.value.trim(),
+      category: event.target.elements.category.value,
       foodImg: config.DEFAULT_FOOD_IMG
     };
     if (!data.name) {
@@ -111,17 +116,15 @@ class AddRecipe extends Component {
   render() {
     return (
       <section className="container ">
-        <div className="fixed-top">
-          {this.state.isLoading ? <Pace color="#e7b52c" height={2} /> : null}
-        </div>
+        <Preloader />
         <Navbar className="bg-dark fixed-top" />
-        <div className="container">
-          <div
-            data-aos="fade-up"
-            data-duration="1000"
-            className="row catalog-wrapper p-0 justify-content-center mt-80"
-          >
-            <div className="col-lg-6 col-sm-12 text-center AuthInfo">
+        <div
+          data-aos="fade-up"
+          data-duration="1000"
+          className="row p-0 justify-content-center mt-80"
+        >
+          <div className=" catalog-wrapper col-lg-6 col-md-9 p-0">
+            <div className="col-12 text-center AuthInfo">
               <img
                 src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
                 alt="logo"
@@ -132,16 +135,14 @@ class AddRecipe extends Component {
                 data-aos-delay="1000"
                 data-dos-duration="1000"
               />
-              <h1 className="text-white">Hey there!</h1>
+              <h3 className="text-white">Hey {Auth.moniker()}</h3>
               <h4 className="mt-10 text-white p-10 ">
                 “Cooking is not a science but an art, mistakes are okay, messes
                 are fine—the pleasure is in the creating and the sharing of the
                 result.” ― Lori Pollan
               </h4>
             </div>
-            <div className=" col-lg-6 col-md-6 justify-content-center col-sm-12">
-              <AddRecipeForm handleForm={this.handleForm} />
-            </div>
+            <AddRecipeForm handleForm={this.handleForm} />
           </div>
         </div>
       </section>
@@ -155,10 +156,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ addRecipe }, dispatch)
 });
-AddRecipe.propTypes = {
-  new_recipe: PropTypes.object,
-  history: PropTypes.object,
-  addRecipe: PropTypes.func
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);

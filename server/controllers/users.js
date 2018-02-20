@@ -1,4 +1,3 @@
-import { pick } from 'lodash';
 import Validator from 'validatorjs';
 import dotenv from 'dotenv';
 import { Users, TokenGen } from '../models';

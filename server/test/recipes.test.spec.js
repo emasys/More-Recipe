@@ -177,7 +177,7 @@ describe('Test suite for recipe controller:', () => {
   describe('search for a recipe', () => {
     it('should return status code 200 if successful', (done) => {
       request(app)
-        .post('/api/v1/recipeSearch')
+        .post('/api/v1/recipes/search/2/0')
         .send({ query: 'water' })
         .expect(200)
         .expect((err, res) => {
@@ -228,9 +228,9 @@ describe('Test suite for recipe controller:', () => {
         .put('/api/v1/recipes/5')
         .send(seed.setUpdateRecipe('How to fry something else', 'water, oil', 'just do it', 'local food'))
         .set('x-access-token', xtoken)
-        .expect(404)
+        .expect(500)
         .expect((res) => {
-          expect(res.body).to.include({ error: 'recipe not found' });
+          expect(res.body).to.include({ error: 'something went wrong' });
         })
         .end(done);
     });

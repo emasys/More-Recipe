@@ -16,10 +16,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    recipeCount: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false

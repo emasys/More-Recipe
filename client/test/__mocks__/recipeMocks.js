@@ -51,3 +51,25 @@ export const singleRecipe = {
     }
   }
 };
+
+export const reviews = {
+  reviews: [
+    {
+      id: 1,
+      content: 'review content',
+      createdAt: '2018-02-16T00:07:41.741Z',
+      updatedAt: '2018-02-16T00:07:41.741Z',
+      recipeId: 1,
+      userId: 1,
+      User: {
+        moniker: 'admin',
+        avatar: 'secret url'
+      }
+    }
+  ]
+};
+
+export const deleteRecipe = {
+  success: true,
+  status: 'Recipe deleted'
+};

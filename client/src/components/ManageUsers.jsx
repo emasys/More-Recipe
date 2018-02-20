@@ -10,6 +10,7 @@ import { getAllUsers, deleteUser } from '../actions/userActions';
 
 //components
 import Navbar from './Navbar';
+import Preloader from './Preloader';
 
 /**
  *
@@ -18,6 +19,11 @@ import Navbar from './Navbar';
  * @extends {Component}
  */
 class ManageUsers extends Component {
+  static propTypes = {
+    users: PropTypes.object.isRequired,
+    deleteUser: PropTypes.func.isRequired,
+    getAllUsers: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of ManageUsers.
    * @param {any} props
@@ -97,8 +103,8 @@ class ManageUsers extends Component {
    */
   generateTable = user => {
     if (user) {
-      return user.users.map((item, index) => (
-        <tbody key={index}>
+      return user.users.map(item => (
+        <tbody key={item}>
           <tr>
             <th scope="row" name={item.id}>
               {item.id}
@@ -132,6 +138,7 @@ class ManageUsers extends Component {
 
     return (
       <div>
+        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         <Modal open={open} onClose={this.onCloseModal} little>
           <div className="text-center mt-10">
@@ -181,12 +188,8 @@ const mapStateToProps = state => ({
   users: state.user.allUsers,
   deluser: state.user.delUser
 });
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({getAllUsers, deleteUser}, dispatch),
-})
-ManageUsers.propTypes = {
-  users: PropTypes.object,
-  deleteUser: PropTypes.func,
-  getAllUsers: PropTypes.func
-};
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getAllUsers, deleteUser }, dispatch)
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);

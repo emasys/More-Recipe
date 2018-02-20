@@ -27,11 +27,11 @@ class RecipeController {
    */
   static addRecipe(req, res) {
     const request = req.body;
-    const ingredientArray = req.body.ingredients;
+    const { ingredients } = req.body;
     // to convert ingredient's strings into and array with no trailing space
     const validator = new Validator(request, validateAddRecipes());
     if (validator.passes()) {
-      return addNewRecipe(res, req, request, ingredientArray);
+      return addNewRecipe(res, req, request, ingredients);
     }
     return setStatus(
       res,
@@ -75,13 +75,20 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static listRecipeCategory(req, res) {
-    return Recipes.findAll({
+    return Recipes.findAndCountAll({
+      limit: req.params.limit,
+      offset: req.params.offset,
       where: {
         category: req.body.category
       },
       order: [['createdAt', 'DESC']]
     })
-      .then(recipes => setStatus(res, { success: true, recipes }, 200))
+      .then(recipes =>
+        setStatus(
+          res,
+          { success: true, recipes: recipes.rows, count: recipes.count },
+          200
+        ))
       .catch(() =>
         setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
@@ -118,8 +125,17 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static SearchRecipe(req, res) {
+    if (!req.body.query) {
+      return setStatus(
+        res,
+        { success: false, error: 'query cannot be empty' },
+        200
+      );
+    }
     const query = req.body.query.trim();
-    return Recipes.findAll({
+    return Recipes.findAndCountAll({
+      limit: req.params.limit,
+      offset: req.params.offset,
       where: {
         $or: [
           { name: { ilike: `%${query}%` } },
@@ -127,7 +143,12 @@ class RecipeController {
         ]
       }
     })
-      .then(recipes => setStatus(res, { success: true, recipes }, 200))
+      .then(recipes =>
+        setStatus(
+          res,
+          { success: true, recipes: recipes.rows, count: recipes.count },
+          200
+        ))
       .catch(() =>
         setStatus(res, { success: false, error: 'Something went wrong' }, 500));
   }
@@ -202,6 +223,7 @@ class RecipeController {
    */
   static updateRecipe(req, res) {
     // const IngredientArray = req.body.ingredients;
+    const { ingredients } = req.body;
     // const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {
       include: [
@@ -209,9 +231,9 @@ class RecipeController {
         { model: Favorite, as: 'favorites' }
       ]
     })
-      .then(recipe => findAndUpdateRecipe(res, req, recipe))
-      .catch(error =>
-        setStatus(res, { success: false, error: error.message }, 500));
+      .then(recipe => findAndUpdateRecipe(res, req, recipe, ingredients))
+      .catch(() =>
+        setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
   /**
    *
@@ -233,7 +255,7 @@ class RecipeController {
         // check if a user is logged in
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
-          if (reactionUp.indexOf(Number(req.decoded.id)) !== -1) {
+          if (reactionUp.indexOf(req.decoded.id) !== -1) {
             // eslint-disable-next-line
             return cancelVote(
               res,
@@ -244,8 +266,8 @@ class RecipeController {
               'reactionUp'
             );
           } else if (
-            reactionUp.indexOf(Number(req.decoded.id)) === -1 &&
-            reactionDown.indexOf(Number(req.decoded.id)) !== -1
+            reactionUp.indexOf(req.decoded.id) === -1 &&
+            reactionDown.indexOf(req.decoded.id) !== -1
           ) {
             // check if a user has already downvoted,
             // then cancel it and upvote instead

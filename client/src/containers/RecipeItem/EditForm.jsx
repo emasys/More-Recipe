@@ -25,7 +25,9 @@ const EditForm = props => (
         <li className="col-lg-8 col-sm-12">
           <label>
             Ingredients{' '}
-            <em className="text-warning">(separate with comma ",")</em>
+            <small>
+              <em>separate each ingredient with a comma {","}</em>
+            </small>
           </label>
           <Textarea
             className="col-lg-11 col-sm-12"
@@ -41,21 +43,27 @@ const EditForm = props => (
           <Textarea
             className="col-lg-11 col-sm-12"
             name="direction"
-            minRows={3}
+            minRows={1}
             maxRows={50}
             defaultValue={props.state.direction}
           />
         </li>
 
         <li className="col-lg-8 col-sm-12">
-          <label>Description</label>
+          <label>
+            Description{' '}
+            <small>
+              <em>400 characters</em>
+            </small>
+          </label>
           <Textarea
             className="col-lg-11 col-sm-12"
             id="FormControlTextarea"
             defaultValue={props.state.description}
             name="description"
-            minRows={3}
+            minRows={1}
             maxRows={50}
+            maxLength={400}
           />
         </li>
         <li className="col-lg-8 col-sm-12">
@@ -87,8 +95,8 @@ const EditForm = props => (
 );
 
 EditForm.propTypes = {
-  handleSubmit: PropTypes.func,
-  state: PropTypes.object
+  handleSubmit: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired
 };
 
 export default EditForm;
