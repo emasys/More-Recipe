@@ -43,7 +43,7 @@ class SignIn extends Component {
   };
 
   static defaultProps = {
-    msg: 'No access',
+    msg: null,
     reset: { status: "not init" }
   };
   /**
