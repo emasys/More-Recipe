@@ -44,7 +44,7 @@ class SignIn extends Component {
 
   static defaultProps = {
     msg: null,
-    reset: { status: "not init" }
+    reset: null
   };
   /**
    * Creates an instance of SignIn.
