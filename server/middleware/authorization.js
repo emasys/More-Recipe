@@ -17,9 +17,10 @@ export default class Authorization {
    *
    *
    * @static
-   * @param {any} req
-   * @param {any} res
-   * @returns
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {object} auth status
    * @memberof Authorization
    */
   static checkAdmin(req, res, next) {
@@ -42,6 +43,7 @@ export default class Authorization {
    * @param {any} res
    * @param {any} next
    * @memberof protectRoute
+   * @returns {object} Auth status
    */
   static verifyToken(req, res, next) {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];

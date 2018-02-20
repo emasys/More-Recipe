@@ -1,9 +1,7 @@
-import { pick } from 'lodash';
-import { Users, TokenGen, Recipes } from '../../models';
-import { setStatus, signToken, mailer } from '../../middleware/helper';
+import { Users, Recipes } from '../../models';
+import { setStatus } from '../../middleware/helper';
 
 const convertToArray = (input) => {
-  console.log(input);
   if (input) {
     const initialArray = input.trim().split(/\s*,\s*/);
     const finalArray = [];

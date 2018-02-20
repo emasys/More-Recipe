@@ -1,6 +1,6 @@
 import Validator from 'validatorjs';
 
-import { Users, Recipes, Reviews, Favorite } from '../models';
+import { Recipes, Reviews, Favorite } from '../models';
 import { validateAddRecipes, setStatus } from '../middleware/helper';
 import {
   addNewRecipe,

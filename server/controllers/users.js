@@ -1,12 +1,11 @@
 import Validator from 'validatorjs';
 import dotenv from 'dotenv';
-import { Users, TokenGen } from '../models';
+import { Users } from '../models';
 import {
   setStatus,
   validateSignInForm,
   validateSignUpForm,
-  validateUpdateUser,
-  mailer
+  validateUpdateUser
 } from '../middleware/helper';
 import {
   createUser,

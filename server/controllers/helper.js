@@ -1,7 +1,5 @@
-import { pick } from 'lodash';
-
-import { Recipes, Users } from '../models';
-import { setStatus, signToken } from '../middleware/helper';
+import { Recipes } from '../models';
+import { setStatus } from '../middleware/helper';
 
 export const sortRecipe = (req, res, column, order) =>
   Recipes.findAll({

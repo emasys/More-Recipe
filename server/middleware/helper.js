@@ -4,89 +4,79 @@ import nodemailer from 'nodemailer';
 
 dotenv.config();
 
-export const signToken = (data) => {
-  return jwt.sign(data, process.env.JWT_SECRET, {
-    expiresIn: '365d',
+export const signToken = data =>
+  jwt.sign(data, process.env.JWT_SECRET, {
+    expiresIn: '365d'
   });
-};
 /**
  *
  *
  * @param {response} res
  * @param {object} message
  * @param {integer} code
- * @returns
+ * @returns {object} statusCode and message
  */
-export const setStatus = (res, message, code) => {
-  return res.status(code).json(message);
-};
+export const setStatus = (res, message, code) => res.status(code).json(message);
 /**
  * validaates the fields below using validatorjs
  *
- * @returns error if all expectations are not satisfied
+ * @returns {object} error if all expectations are not satisfied
  */
-export const validateSignUpForm = () => {
-  return {
-    email: 'required|email',
-    moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
-    password: 'required|min:8',
-    confirmPassword: 'required'
-  };
-};
+export const validateSignUpForm = () => ({
+  email: 'required|email',
+  moniker: ['required', 'regex:/^[a-z0-9]+$/i'],
+  password: 'required|min:8',
+  confirmPassword: 'required'
+});
 
 /**
  * validaates the fields below using validatorjs
  *
- * @returns error if all expectations are not satisfied
+ * @returns {object} error if all expectations are not satisfied
  */
-export const validateSignInForm = () => {
-  return {
-    email: 'required|email',
-    password: 'required',
-  };
-};
+export const validateSignInForm = () => ({
+  email: 'required|email',
+  password: 'required'
+});
 
 /**
  * validates the field below using validatorjs
  *
- * @returns error if all expectations are not satisfied
+ * @returns {object} error if all expectations are not satisfied
  */
-export const validateReviews = () => {
-  return {
-    content: 'required',
-  };
-};
+export const validateReviews = () => ({
+  content: 'required'
+});
 
 /**
  * validates the fields below using validatorjs
  *
- * @returns error if all expectations are not satisfied
+ * @returns {object} error if all expectations are not satisfied
  */
-export const validateAddRecipes = () => {
-  return {
-    name: 'required',
-    direction: 'required',
-    ingredients: 'required',
-    description: 'required'
-  };
-};
+export const validateAddRecipes = () => ({
+  name: 'required',
+  direction: 'required',
+  ingredients: 'required',
+  description: 'required'
+});
 
 /**
  * validates the fields below using validatorjs
  *
- * @returns error if all expectations are not satisfied
+ * @returns {object} error if all expectations are not satisfied
  */
-export const validateUpdateUser = () => {
-  return {
-    firstName: 'alpha',
-    lastName: 'alpha',
-  };
-};
+export const validateUpdateUser = () => ({
+  firstName: 'alpha',
+  lastName: 'alpha'
+});
 
 /**
- * sends a mail to the creator of the recipe if a new activity occurs eg: new reviews
- *
- * @returns error if all expectations are not satisfied
+ * sends a mail to the creator of the recipe if a
+ * new activity occurs eg: new reviews
+ * @param {string} moniker
+ * @param {string} email
+ * @param {string} message
+ * @returns {object} error if all expectations are not satisfied
  */
 export const mailer = (moniker = null, email, message) => {
   const transporter = nodemailer.createTransport({
@@ -124,4 +114,3 @@ export const mailer = (moniker = null, email, message) => {
     console.log(`Message sent: ${info.response}`);
   });
 };
-
