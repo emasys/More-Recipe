@@ -20,8 +20,12 @@ class Reviews extends Component {
     postReview: PropTypes.func.isRequired,
     recipes: PropTypes.object.isRequired,
     deleteReview: PropTypes.func.isRequired,
-    review: PropTypes.object.isRequired
+    review: PropTypes.object
   };
+
+  static defaultProps = {
+    review: { status: "no comment" }
+  }
   /**
    * Creates an instance of Reviews.
    * @param {any} props

@@ -43,9 +43,15 @@ class Profile extends Component {
     uploadImg: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
     user: PropTypes.array.isRequired,
-    userInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object,
     recipes: PropTypes.object.isRequired,
     delRecipe: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    userInfo: {
+      id: 1
+    }
   };
   /**
    * Creates an instance of Profile.

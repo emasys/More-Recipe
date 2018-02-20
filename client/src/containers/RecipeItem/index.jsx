@@ -34,7 +34,7 @@ import { update, notify, failedUpdate } from './helperFunctions';
  */
 class RecipeItem extends Component {
   static propTypes = {
-    userInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object,
     uploadImg: PropTypes.func.isRequired,
     downvote: PropTypes.func.isRequired,
     upvote: PropTypes.func.isRequired,
@@ -46,6 +46,21 @@ class RecipeItem extends Component {
     getRecipeItem: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired
   };
+
+  static defaultProps = {
+    userInfo: {
+      data: {
+        id: 1,
+        firstName: "",
+        lastName: "",
+        bio: "",
+        email: "",
+        country: "",
+        avatar: "",
+        moniker: ""
+      }
+    }
+  }
   /**
    * Creates an instance of RecipeItem.
    * @param {any} props

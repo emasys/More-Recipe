@@ -29,16 +29,29 @@ import Preloader from '../../components/Preloader';
 class FullCatalog extends Component {
   static propTypes = {
     recipes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     getRecipes: PropTypes.func.isRequired,
     searchRecipes: PropTypes.func.isRequired,
     getProfile: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired,
-    moniker: PropTypes.string.isRequired,
-    resetSearch: PropTypes.array.isRequired,
+    resetSearch: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     clearRecipes: PropTypes.func.isRequired
   };
+
+  static defaultProps = {
+    user: {
+      data: {
+        id: 1,
+        firstName: "",
+        lastName: "",
+        bio: "",
+        email: "",
+        country: "",
+        avatar: "",
+        moniker: ""
+      }
+    }
+  }
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
