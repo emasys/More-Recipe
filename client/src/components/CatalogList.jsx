@@ -62,27 +62,29 @@ const generateList = props => {
       );
     }
     return props.catalog.map(item => (
-      <div
-        className="row"
-        key={item.id}
-        onMouseEnter={() => onHoverIn(item.id)}
-        onMouseLeave={() => onHoverOut(item.id)}
-      >
+      <div className="row" key={item.id}>
         <div className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12">
           <div>
             <Link to={`/recipe/${item.id}`} className="hvr-grow-shadow">
-              {Auth.userID() === item.userId &&
-                props.showDeleteBtn && (
-                  <button
-                    className="btn btn-danger btn-sm delete-btn"
-                    onClick={event => props.deleteRecipe(event, item)}
-                    data-toggle="modal"
-                    data-target="#deleteModal"
-                  >
-                    Delete Recipe
-                  </button>
-                )}
-              <div className="card" data-aos="fade-up" data-aos-duration="1000">
+              <div
+                className="card"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                key={item.id}
+                onMouseEnter={() => onHoverIn(item.id)}
+                onMouseLeave={() => onHoverOut(item.id)}
+              >
+                {Auth.userID() === item.userId &&
+                  props.showDeleteBtn && (
+                    <button
+                      className="btn btn-danger btn-sm delete-btn"
+                      onClick={event => props.deleteRecipe(event, item)}
+                      data-toggle="modal"
+                      data-target="#deleteModal"
+                    >
+                      Delete Recipe
+                    </button>
+                  )}
                 <div id={`img-${item.id}`}>
                   <img
                     className="card-img-top img-box "
@@ -147,7 +149,7 @@ const CatalogList = props => (
 
 generateList.propTypes = {
   showDeleteBtn: PropTypes.bool.isRequired,
-  catalog: PropTypes.object.isRequired,
+  catalog: PropTypes.object.isRequired
 };
 
 export default CatalogList;

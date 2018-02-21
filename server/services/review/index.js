@@ -1,5 +1,5 @@
 import { Recipes, Reviews, Users } from '../../models';
-import { setStatus, mailer } from '../../middleware/helper';
+import { setStatus, mailer, checkParams } from '../../middleware/helper';
 
 export const postReview = (res, req) => {
   Recipes.findById(req.params.recipeId, {
@@ -24,7 +24,7 @@ export const postReview = (res, req) => {
       setStatus(res, { success: false, error: 'recipe not found' }, 500));
 };
 
-export const fetchReview = (res, req) => {
+export const fetchReview = (res, req) =>
   Reviews.findAll({
     where: {
       recipeId: req.params.recipeId
@@ -37,11 +37,15 @@ export const fetchReview = (res, req) => {
       }
     ]
   })
-    .then(reviews => setStatus(res, { reviews }, 200))
+    .then((reviews) => {
+      if (reviews.length < 1) {
+        return setStatus(res, { message: 'no review' }, 404);
+      }
+      return setStatus(res, { reviews }, 200);
+    })
     .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
-};
 
-export const deleteReviewEntry = (res, req) => {
+export const deleteReviewEntry = (res, req) =>
   Reviews.findById(req.params.reviewId, {
     where: {
       userId: req.decoded.id
@@ -51,4 +55,3 @@ export const deleteReviewEntry = (res, req) => {
     .then(() =>
       setStatus(res, { success: true, message: 'review deleted' }, 200))
     .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
-};
