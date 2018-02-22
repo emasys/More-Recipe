@@ -109,8 +109,10 @@ export const mailer = (moniker = null, email, message) => {
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
+      // eslint-disable-next-line
       return console.log(error);
     }
+    // eslint-disable-next-line
     console.log(`Message sent: ${info.response}`);
   });
 };

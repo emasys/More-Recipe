@@ -31,7 +31,6 @@ export const voteController = (
       // Check if a user has already upvoted, then cancel it
       const removeId = reactUp.indexOf(Number(req.decoded.id));
       if (removeId > -1) reactUp.splice(removeId, 1);
-      console.log(reactUp);
       return responsePromise
         .update({
           [voteTypeA]: responsePromise[voteTypeA] - 1,

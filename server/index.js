@@ -40,6 +40,7 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line
   console.log(`app running on port ${PORT}`);
 });
 

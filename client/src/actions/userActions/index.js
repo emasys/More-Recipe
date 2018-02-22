@@ -23,7 +23,6 @@ export const getUserRecipes = (id, limit, offset) => dispatch => {
   return axios
     .get(`${UTIL.baseUrl}/recipes/user/${id}?limit=${limit}&offset=${offset}`, UTIL.config)
     .then(response => {
-      console.log("recipes======>", response.data);
       dispatch({ type: type.USER_RECIPES, payload: response.data });
       dispatch(isLoading(false));
     })

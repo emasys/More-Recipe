@@ -224,7 +224,7 @@ class RecipeController {
           const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(req.decoded.id) !== -1) {
             // eslint-disable-next-line
-            return cancelVote(
+            return services.cancelVote(
               res,
               req,
               reactionUp,
@@ -239,7 +239,7 @@ class RecipeController {
             // check if a user has already downvoted,
             // then cancel it and upvote instead
             // eslint-disable-next-line
-            return transferVote(
+            return services.transferVote(
               res,
               req,
               reactionDown,

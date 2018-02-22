@@ -39,7 +39,6 @@ const onHoverOut = id => {
  * @returns {object} list of recipes
  */
 const generateList = props => {
-  console.log('props =====>', props.isLoading);
   if (props.isLoading) {
     return (
       <div className="text-center error-message">
@@ -176,10 +175,7 @@ generateList.propTypes = {
   catalog: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
-  console.log('state=====>', state);
-  return {
-    isLoading: state.isLoading
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  isLoading: state.isLoading
+});
 export default connect(mapStateToProps, null)(CatalogList);

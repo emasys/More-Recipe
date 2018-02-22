@@ -112,7 +112,6 @@ class Profile extends Component {
         showMore: true
       });
     }
-    console.log('offset ======>', nextProps.count);
     if (nextProps.userInfo) {
       this.setState({
         userInfo: nextProps.userInfo,

@@ -82,7 +82,6 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .end((err, res) => {
           if (!err) {
-            console.log('====>token', res.body.token);
             secondToken = res.body.token;
           }
           done();

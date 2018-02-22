@@ -22,7 +22,7 @@ export const getFavorite = () => dispatch => {
 export const setFavorite = id => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .post(`${UTIL.baseUrl}/recipes/${id}/fav`, null, UTIL.config)
+    .post(`${UTIL.baseUrl}/recipes/${id}/favorite`, null, UTIL.config)
     .then(response => {
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
       dispatch(getRecipeReactions(id));
