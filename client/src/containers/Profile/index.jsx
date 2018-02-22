@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 // Actions
 import {
@@ -102,14 +103,16 @@ class Profile extends Component {
    * @returns {any} a new state
    */
   componentWillReceiveProps(nextProps) {
-    this.setState(prevState => ({
-      recipes: nextProps.user
-    }));
-    if (this.state.offset - 6 > this.state.recipes.length) {
+    if (this.state.offset > nextProps.count) {
       this.setState({
         showMore: false
       });
+    } else {
+      this.setState({
+        showMore: true
+      });
     }
+    console.log('offset ======>', nextProps.count);
     if (nextProps.userInfo) {
       this.setState({
         userInfo: nextProps.userInfo,
@@ -125,7 +128,7 @@ class Profile extends Component {
     this.props.clearRecipes();
   };
 
-  loadMore = () => {
+  loadMore = event => {
     this.props.getUserRecipes(
       this.props.match.params.id,
       this.state.limit,
@@ -271,14 +274,13 @@ class Profile extends Component {
   };
   /**
    *
-   *
+   *@param {object} event
    * @memberof Profile
    * @returns {any} pagination
    */
-  viewMore = () => {
-    this.setState(prevState => ({
-      limit: prevState.limit + 2
-    }));
+  viewMore = event => {
+    event.preventDefault();
+    this.loadMore();
   };
   /**
    *
@@ -299,6 +301,7 @@ class Profile extends Component {
             <UserInfo
               state={this.state}
               data={userInfo}
+              count={this.props.count}
               showForm={this.showForm}
               hoverIn={this.hoverIn}
               hoverOut={this.hoverOut}
@@ -317,7 +320,15 @@ class Profile extends Component {
             {!edit && (
               <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
                 <div className="clearfix">
-                  <h2 className=" float-left clearfix">Recipes </h2>
+                  <h2 className=" float-left clearfix">
+                    Recipes{' '}
+                    <span
+                      data-tip="Total number of recipes added"
+                      className="badge badge-dark"
+                    >
+                      {this.props.count}
+                    </span>
+                  </h2>
                   <Link
                     className="btn btn-dark float-right clearfix"
                     role="button"
@@ -332,13 +343,13 @@ class Profile extends Component {
                     {...this.props}
                     showDeleteBtn
                     deleteRecipe={this.deleteRecipe}
-                    catalog={this.state.recipes}
+                    catalog={this.props.recipes}
                   />
                 </div>
                 <div className="row justify-content-center">
                   {showMore && (
                     <button
-                      onClick={this.loadMore}
+                      onClick={this.viewMore}
                       className=" btn btn-lg btn-outline-dark text-center"
                     >
                       View more
@@ -349,17 +360,17 @@ class Profile extends Component {
             )}
           </div>
         </section>
+        <ReactTooltip place="bottom" type="dark" effect="float" />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.recipes.userRecipes,
-  recipes: state.recipes,
+  recipes: state.recipes.userRecipes,
+  count: state.recipes.userRecipesCount,
   userInfo: state.user.userInfo,
-  updateUser: state.user.updateUser,
-  netReq: state.netReq
+  updateUser: state.user.updateUser
 });
 
 const mapDispatchToProps = dispatch => ({

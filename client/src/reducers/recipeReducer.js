@@ -7,6 +7,7 @@ export default (
     updateRecipes: {},
     category: [],
     userRecipes: [],
+    userRecipesCount: 0,
     searchResult: []
   },
   action
@@ -50,7 +51,8 @@ export default (
   case type.USER_RECIPES:
     return {
       ...state,
-      userRecipes: [...state.userRecipes, ...action.payload]
+      userRecipes: [...state.userRecipes, ...action.payload.recipes],
+      userRecipesCount: action.payload.count
     };
   case type.EDIT_RECIPE:
     return {

@@ -101,7 +101,7 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static listPrivateRecipes(req, res) {
-    return Recipes.findAll({
+    return Recipes.findAndCountAll({
       limit: req.query.limit || 1,
       offset: req.query.offset || 0,
       order: [['createdAt', 'DESC']],
@@ -109,7 +109,12 @@ class RecipeController {
         userId: req.params.userId
       }
     })
-      .then(recipes => setStatus(res, { success: true, recipes }, 200))
+      .then(recipes =>
+        setStatus(
+          res,
+          { success: true, recipes: recipes.rows, count: recipes.count },
+          200
+        ))
       .catch(() =>
         setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
@@ -192,7 +197,8 @@ class RecipeController {
         { model: Favorite, as: 'favorites' }
       ]
     })
-      .then(recipe => services.findAndUpdateRecipe(res, req, recipe, ingredients))
+      .then(recipe =>
+        services.findAndUpdateRecipe(res, req, recipe, ingredients))
       .catch(() =>
         setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React from 'react';
 
 // Auth
@@ -38,6 +39,29 @@ const onHoverOut = id => {
  * @returns {object} list of recipes
  */
 const generateList = props => {
+  console.log('props =====>', props.isLoading);
+  if (props.isLoading) {
+    return (
+      <div className="text-center error-message">
+        <div>
+          <img
+            className="img-fluid"
+            src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+            alt="logo"
+            height="200"
+            width="200"
+          />
+          <h4 className="p-3 m-2 text-center">...Fetching Recipes</h4>
+          <img
+            src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+            width="100"
+            height="100"
+            alt="loading..."
+          />
+        </div>
+      </div>
+    );
+  }
   if (props.catalog) {
     if (props.catalog.length < 1) {
       return (
@@ -152,4 +176,10 @@ generateList.propTypes = {
   catalog: PropTypes.object.isRequired
 };
 
-export default CatalogList;
+const mapStateToProps = (state, ownProps) => {
+  console.log('state=====>', state);
+  return {
+    isLoading: state.isLoading
+  };
+};
+export default connect(mapStateToProps, null)(CatalogList);

@@ -39,7 +39,7 @@ export const fetchReview = (res, req) =>
   })
     .then((reviews) => {
       if (reviews.length < 1) {
-        return setStatus(res, { message: 'no review' }, 404);
+        return setStatus(res, { message: 'no review', reviews }, 200);
       }
       return setStatus(res, { reviews }, 200);
     })
