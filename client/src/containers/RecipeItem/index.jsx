@@ -218,6 +218,7 @@ class RecipeItem extends Component {
    * @returns {any} downvote a recipe
    */
   downvote = () => {
+    document.querySelector('#dislike').classList.toggle('red');
     this.props.downvote(this.props.match.params.id);
   };
   /**
