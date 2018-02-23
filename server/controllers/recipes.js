@@ -70,33 +70,6 @@ class RecipeController {
    * @static
    * @param {object} req
    * @param {object} res
-   * @returns {object} {object} recipes of a particular category
-   * @memberof MoreRecipes
-   */
-  static listRecipeCategory(req, res) {
-    return Recipes.findAndCountAll({
-      limit: req.params.limit,
-      offset: req.params.offset,
-      where: {
-        category: req.body.category
-      },
-      order: [['createdAt', 'DESC']]
-    })
-      .then(recipes =>
-        setStatus(
-          res,
-          { success: true, recipes: recipes.rows, count: recipes.count },
-          200
-        ))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
-  }
-  /**
-   *
-   *
-   * @static
-   * @param {object} req
-   * @param {object} res
    * @returns {object} list of recipes of a particular user
    * @memberof MoreRecipes
    */
@@ -140,11 +113,10 @@ class RecipeController {
         }
       ]
     })
-      .then((recipe) => {
+      .then(recipe =>
         // if other users view the recipe, the view count increases
         // the creator of the recipe gets only one count
-        services.fetchOneRecipe(res, req, recipe);
-      })
+        services.fetchOneRecipe(res, req, recipe))
       .catch(() =>
         setStatus(res, { success: false, status: 'Recipes not found' }, 404));
   }
@@ -188,9 +160,7 @@ class RecipeController {
    * @returns {object} updated recipe
    */
   static updateRecipe(req, res) {
-    // const IngredientArray = req.body.ingredients;
     const { ingredients } = req.body;
-    // const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {
       include: [
         { model: Reviews, as: 'reviews' },

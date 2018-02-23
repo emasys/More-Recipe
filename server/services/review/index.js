@@ -1,5 +1,5 @@
 import { Recipes, Reviews, Users } from '../../models';
-import { setStatus, mailer, checkParams } from '../../middleware/helper';
+import { setStatus, mailer } from '../../middleware/helper';
 
 export const postReview = (res, req) => {
   Recipes.findById(req.params.recipeId, {
@@ -26,6 +26,8 @@ export const postReview = (res, req) => {
 
 export const fetchReview = (res, req) =>
   Reviews.findAll({
+    limit: req.query.limit,
+    offset: req.query.offset,
     where: {
       recipeId: req.params.recipeId
     },

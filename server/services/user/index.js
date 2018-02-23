@@ -44,6 +44,9 @@ export const AuthenticateUser = (res, request) => {
 export const updateUserInfo = (res, req, request) =>
   Users.findById(req.params.userId)
     .then((user) => {
+      if (!user) {
+        return setStatus(res, { success: false, error: 'User not found' }, 404);
+      }
       if (Number(req.params.userId) === Number(req.decoded.id)) {
         return user
           .update({
@@ -108,13 +111,13 @@ export const resetUserPassword = (res, request) => {
 
 export const sendGeneratedToken = (res, request) => {
   let token = null;
-  TokenGen.findOne({ where: { email: request.email } })
+  return TokenGen.findOne({ where: { email: request.email } })
     .then((user) => {
       // eslint-disable-next-line no-mixed-operators
       token = Math.floor(1000 + Math.random() * 9000);
       request.token = token;
       if (!user) {
-        TokenGen.create(request).then((newuser) => {
+        return TokenGen.create(request).then((newuser) => {
           mailer('Reset password Token:', newuser.email, token);
           return setStatus(res, { success: true, status: 'token sent' }, 200);
         });

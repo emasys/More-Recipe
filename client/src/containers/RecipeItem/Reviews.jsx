@@ -73,7 +73,7 @@ class Reviews extends Component {
    * @memberof Reviews
    * @returns {any} textarea input
    */
-  txChanged = event => {
+  textChanged = event => {
     this.setState({
       content: event.target.value
     });
@@ -111,7 +111,7 @@ class Reviews extends Component {
                   className="special col-12"
                   id="FormControlTextarea"
                   rows="4"
-                  onChange={this.txChanged}
+                  onChange={this.textChanged}
                   value={content}
                 />
               </div>

@@ -21,12 +21,11 @@ const GenerateReviews = ({ review, deleteReview }) => {
               <img
                 src={comment.User.avatar || config.DEFAULT_DISPLAY_PICTURE}
                 alt="dp"
-                className="img-icon-review rounded-circle m-0 "
+                className="img-icon-review rounded-circle"
               />
             </div>
-
-            <div className="pt-10 clearfix mb-10">
-              <Link className="text-dark bolder" to={`/user/${comment.userId}`}>
+            <div className="clearfix mb-10">
+              <Link className="text-dark bolder moniker" to={`/user/${comment.userId}`}>
                 {comment.User.moniker}
               </Link>
               <p className="text-dark date">

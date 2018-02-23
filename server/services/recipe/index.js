@@ -81,7 +81,7 @@ export const addNewRecipe = (res, req, request, ingredients) => {
         where: { name: request.name, userId: req.decoded.id }
       }).then((recipeExist) => {
         if (recipeExist) {
-          return setStatus(res, { success: false, error: 'Added' }, 403);
+          return setStatus(res, { success: false, error: 'Already Added' }, 403);
         }
         return Recipes.create({
           name: request.name,
@@ -122,7 +122,7 @@ export const fetchOneRecipe = (res, req, recipe) => {
 export const findAndUpdateRecipe = (res, req, recipe, ingredients) => {
   // Prevent other users from editing a recipe not theirs.
   if (!recipe) {
-    return setStatus(res, { success: false, error: 'not found' }, 200);
+    return setStatus(res, { success: false, error: 'recipe not found' }, 404);
   }
   if (recipe.userId === req.decoded.id) {
     return recipe

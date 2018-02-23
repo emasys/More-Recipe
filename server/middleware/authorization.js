@@ -71,7 +71,7 @@ export default class Authorization {
             req.decoded = decoded;
             return next();
           })
-          .catch(() => setStatus(res, { error: 'something went wrong' }, 404));
+          .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
       });
     } else {
       return setStatus(res, { error: 'Token not provided' }, 403);

@@ -5,7 +5,7 @@ export const setFavorite = (req, res, favorite) => {
   if (favorite) {
     setStatus(
       res,
-      { success: true, status: 'cancel', recipe: favorite.Recipe },
+      { success: true, status: 'cancelled', recipe: favorite.Recipe },
       200
     );
     return favorite.destroy();
