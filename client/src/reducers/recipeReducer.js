@@ -17,7 +17,8 @@ export default (
     return {
       ...state,
       allRecipes: [],
-      userRecipes: action.payload
+      userRecipes: action.payload,
+      recipeItem: {}
     };
   case type.ALL_RECIPES:
     return {

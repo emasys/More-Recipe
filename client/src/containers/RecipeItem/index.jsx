@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import {
   getRecipeItem,
   editRecipe,
-  delRecipe
+  delRecipe,
+  clearRecipes
 } from '../../actions/recipeActions';
 import { setFavorite } from '../../actions/favoriteAction';
 import { upvote, downvote } from '../../actions/voteActions';
@@ -158,6 +159,11 @@ class RecipeItem extends Component {
       });
     }
   }
+
+  componentWillUnmount = () => {
+    this.props.clearRecipes();
+  }
+  
   deleteRecipeInit = event => {
     event.preventDefault();
   };
@@ -427,7 +433,8 @@ const mapDispatchToProps = dispatch => ({
       upvote,
       uploadImg,
       downvote,
-      delRecipe
+      delRecipe,
+      clearRecipes
     },
     dispatch
   )

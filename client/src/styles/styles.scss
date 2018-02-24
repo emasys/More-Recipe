@@ -727,6 +727,12 @@ footer {
 
 .footer-main {
   height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  // height: 100px;
+  width: 100%;
+  // background: #00A7FF;
   a {
     color: white;
     &:hover {

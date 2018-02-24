@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+
 
 // Action
 import { getUserInfo, getUserRecipes } from '../../actions/userActions';
@@ -115,9 +117,13 @@ class UserProfile extends Component {
                     this.props.userInfo.data.moniker :
                     'loading'}
                   {"'"}s recipes
-                </h4>
-                <h4 className="header-title float-right clearfix">
-                  Total number of recipes: {this.props.count}
+                  {` `}
+                  <span
+                    data-tip="Total number of recipes added"
+                    className="badge badge-dark"
+                  >
+                    {this.props.count}
+                  </span>
                 </h4>
               </div>
               <hr />
@@ -140,6 +146,7 @@ class UserProfile extends Component {
               </div>
             </div>
           </div>
+          <ReactTooltip place="bottom" type="dark" effect="float" />
         </section>
       </div>
     );
