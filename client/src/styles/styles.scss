@@ -220,10 +220,10 @@
   // display: block;
   color: white;
   border-radius: 10px;
-  height: 15px;
-  line-height: 11px; // bottom: -5px;
+  // height: 15px;
+  line-height: 1rem; // bottom: -5px;
   // left: 5%;
-  font-size: 11px;
+  font-size: 1rem;
   box-sizing: border-box;
 }
 
@@ -552,6 +552,7 @@ footer {
 
 .red {
   color: $pink;
+  // color:red !important;
   &:hover {
     color: red;
   }
@@ -705,8 +706,13 @@ footer {
 
 .img-icon-review {
   // margin-top: 3px;
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
+  margin-top: .5rem;
+}
+
+.moniker{
+  font-size: 1.2rem;
 }
 
 .img-icon {
@@ -721,6 +727,12 @@ footer {
 
 .footer-main {
   height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  // height: 100px;
+  width: 100%;
+  // background: #00A7FF;
   a {
     color: white;
     &:hover {

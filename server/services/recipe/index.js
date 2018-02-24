@@ -1,9 +1,7 @@
-import { pick } from 'lodash';
-import { Users, TokenGen, Recipes } from '../../models';
-import { setStatus, signToken, mailer } from '../../middleware/helper';
+import { Users, Recipes } from '../../models';
+import { setStatus } from '../../middleware/helper';
 
 const convertToArray = (input) => {
-  console.log(input);
   if (input) {
     const initialArray = input.trim().split(/\s*,\s*/);
     const finalArray = [];
@@ -19,16 +17,58 @@ const convertToArray = (input) => {
 
 export const sortRecipe = (req, res, column, order) =>
   Recipes.findAll({
-    offset: req.params.offset,
-    limit: req.params.page,
+    limit: Number(req.query.limit) || 12,
+    offset: Number(req.query.offset) || 0,
     order: [[column, order]]
   })
     .then(recipes =>
       Recipes.count().then(count =>
         setStatus(res, { success: true, recipes, count }, 200)))
 
-    .catch(error =>
-      setStatus(res, { success: false, error: error.message }, 500));
+    .catch(() =>
+      setStatus(
+        res,
+        { success: false, error: 'query not properly constructed' },
+        500
+      ));
+
+export const searchRecipes = (req, res, query) =>
+  Recipes.findAndCountAll({
+    limit: req.query.limit || 12,
+    offset: req.query.offset || 0,
+    where: {
+      $or: [
+        { name: { ilike: `%${query}%` } },
+        { searchIng: { ilike: `%${query}%` } }
+      ]
+    }
+  })
+    .then(recipes =>
+      setStatus(
+        res,
+        { success: true, recipes: recipes.rows, count: recipes.count },
+        200
+      ))
+    .catch(() =>
+      setStatus(res, { success: false, error: 'Something went wrong' }, 500));
+
+export const fetchCategory = (res, req, category) =>
+  Recipes.findAndCountAll({
+    limit: req.query.limit,
+    offset: req.query.offset,
+    where: {
+      category
+    },
+    order: [['createdAt', 'DESC']]
+  })
+    .then(recipes =>
+      setStatus(
+        res,
+        { success: true, recipes: recipes.rows, count: recipes.count },
+        200
+      ))
+    .catch(() =>
+      setStatus(res, { success: false, error: 'something went wrong' }, 500));
 
 export const addNewRecipe = (res, req, request, ingredients) => {
   Users.findById(req.decoded.id)
@@ -41,7 +81,7 @@ export const addNewRecipe = (res, req, request, ingredients) => {
         where: { name: request.name, userId: req.decoded.id }
       }).then((recipeExist) => {
         if (recipeExist) {
-          return setStatus(res, { success: false, error: 'Added' }, 403);
+          return setStatus(res, { success: false, error: 'Already Added' }, 403);
         }
         return Recipes.create({
           name: request.name,
@@ -80,16 +120,10 @@ export const fetchOneRecipe = (res, req, recipe) => {
 };
 
 export const findAndUpdateRecipe = (res, req, recipe, ingredients) => {
-  Recipes.findOne({ where: { name: req.body.name } }).then((isExist) => {
-    if (isExist) {
-      return setStatus(
-        res,
-        { success: false, error: 'recipe already exist' },
-        409
-      );
-    }
-  });
   // Prevent other users from editing a recipe not theirs.
+  if (!recipe) {
+    return setStatus(res, { success: false, error: 'recipe not found' }, 404);
+  }
   if (recipe.userId === req.decoded.id) {
     return recipe
       .update({

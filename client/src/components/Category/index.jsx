@@ -43,7 +43,7 @@ export class Category extends Component {
 
   componentDidMount = () => {
     this.loadMoreRecipes();
-  }
+  };
 
   componentWillReceiveProps = nextProps => {
     if (this.state.offset > nextProps.recipes.count) {
@@ -56,10 +56,8 @@ export class Category extends Component {
   };
 
   loadMoreRecipes = () => {
-    const data = {
-      category: this.props.match.params.cat
-    };
-    this.props.getCategory(data, 4, this.state.offset);
+    const category = this.props.match.params.cat;
+    this.props.getCategory(category, 4, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 4
     }));

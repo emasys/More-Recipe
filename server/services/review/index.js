@@ -24,8 +24,10 @@ export const postReview = (res, req) => {
       setStatus(res, { success: false, error: 'recipe not found' }, 500));
 };
 
-export const fetchReview = (res, req) => {
+export const fetchReview = (res, req) =>
   Reviews.findAll({
+    limit: req.query.limit,
+    offset: req.query.offset,
     where: {
       recipeId: req.params.recipeId
     },
@@ -37,11 +39,15 @@ export const fetchReview = (res, req) => {
       }
     ]
   })
-    .then(reviews => setStatus(res, { reviews }, 200))
+    .then((reviews) => {
+      if (reviews.length < 1) {
+        return setStatus(res, { message: 'no review', reviews }, 200);
+      }
+      return setStatus(res, { reviews }, 200);
+    })
     .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
-};
 
-export const deleteReviewEntry = (res, req) => {
+export const deleteReviewEntry = (res, req) =>
   Reviews.findById(req.params.reviewId, {
     where: {
       userId: req.decoded.id
@@ -51,4 +57,3 @@ export const deleteReviewEntry = (res, req) => {
     .then(() =>
       setStatus(res, { success: true, message: 'review deleted' }, 200))
     .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
-};

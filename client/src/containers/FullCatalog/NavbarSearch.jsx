@@ -143,9 +143,13 @@ const NavbarSearch = props => (
 
 NavbarSearch.propTypes = {
   user: PropTypes.object.isRequired,
-  avatar: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
   onChanged: PropTypes.func.isRequired
+};
+
+NavbarSearch.defaultProps = {
+  avatar: 'someurl'
 };
 
 export default NavbarSearch;

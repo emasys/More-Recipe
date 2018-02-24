@@ -103,13 +103,22 @@ const UserInfo = props => {
 
 UserInfo.propTypes = {
   showForm: PropTypes.func.isRequired,
-  changeDp: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
+  changeDp: PropTypes.func,
+  data: PropTypes.object,
   state: PropTypes.object.isRequired,
   hoverIn: PropTypes.func.isRequired,
   hoverOut: PropTypes.func.isRequired,
   handleDrop: PropTypes.func.isRequired,
   handleImg: PropTypes.func.isRequired,
   notify: PropTypes.func.isRequired
+};
+
+UserInfo.defaultProps = {
+  changeDp: function () {},
+  data: {
+    data: {
+      id: ''
+    }
+  }
 };
 export default UserInfo;

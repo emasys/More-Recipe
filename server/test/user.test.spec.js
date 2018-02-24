@@ -1,22 +1,20 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import app from '../index';
-import seed from '../seeders/seeds';
 
-let xtoken = null;
-
+let firstToken = null;
 
 describe('Test suite for user controller', () => {
   describe('Sign in a new user to generate token', () => {
     it('should return status code 200 if a user is successfully logged in', (done) => {
       request(app)
         .post('/api/v1/users/signin')
-        .send(seed.setLogin('emasysnd@gmail.com', 'password'))
+        .send({ email: 'emasysnd@gmail.com', password: 'password' })
         .expect(200)
         .end((err, res) => {
           if (!err) {
             // make token accessible to protected routes
-            xtoken = res.body.token;
+            firstToken = res.body.token;
           }
           done();
         });
@@ -27,7 +25,12 @@ describe('Test suite for user controller', () => {
     it('should return status code 422 if email input format is not valid', (done) => {
       request(app)
         .post('/api/v1/users/signup')
-        .send(seed.setUserInput('jane', 'Jane', "John's wife", 'janedoe@gamil', 'password', 'password'))
+        .send({
+          email: 'emasys@gmailcom',
+          password: 'password',
+          confirmPassword: 'password',
+          moniker: 'admin2'
+        })
         .expect(422)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -40,7 +43,7 @@ describe('Test suite for user controller', () => {
     it('should return 400 if a user password is wrong', (done) => {
       request(app)
         .post('/api/v1/users/signin')
-        .send(seed.setLogin('emasysnd@gmail.com', 'wrong password'))
+        .send({ email: 'emasysnd@gmail.com', password: 'wrongpassword' })
         .expect(400)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -49,14 +52,45 @@ describe('Test suite for user controller', () => {
     });
   });
 
-  describe.skip('Send token to reset password,', () => {
+  describe('Signin with invalid credential,', () => {
+    it('should return 400 if email field is not available', (done) => {
+      request(app)
+        .post('/api/v1/users/signin')
+        .send({ password: 'wrongpassword' })
+        .expect(400)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
+        })
+        .end(done);
+    });
+  });
+  describe('Send token to reset password,', () => {
     it('should return status code 200 token is successfully sent to the user', (done) => {
       request(app)
         .post('/api/v1/reset')
         .send({ email: 'emasysnd@gmail.com' })
         .expect(200)
         .expect((res) => {
-          expect(res.body).to.include({ success: true, status: 'token sent' });
+          expect(res.body).to.deep.equal({
+            success: true,
+            status: 'token sent'
+          });
+        })
+        .end(done);
+    });
+  });
+
+  describe('Change user password,', () => {
+    it('should return status code 200 if password is successfully changed', (done) => {
+      request(app)
+        .put('/api/v1/users/changepassword')
+        .send({ email: 'emasys@gmail.com', password: 'password' })
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.deep.equal({
+            success: true,
+            status: 'updated'
+          });
         })
         .end(done);
     });
@@ -66,7 +100,7 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 200 if all user info are successfully fetched', (done) => {
       request(app)
         .get('/api/v1/users')
-        .set('x-access-token', xtoken)
+        .set('x-access-token', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -103,11 +137,23 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 200 if user data is successfully updated', (done) => {
       request(app)
         .put('/api/v1/users/1')
-        .send(seed.setUserInput('emasys', 'endy', 'I am emasys nd'))
-        .set('x-access-token', xtoken)
+        .send({ firstName: 'emasys', lastName: 'endy', Bio: 'I am emasys nd' })
+        .set('x-access-token', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+        })
+        .end(done);
+    });
+
+    it('should return a status code of 422 if the firstName field is omitted', (done) => {
+      request(app)
+        .put('/api/v1/users/1')
+        .send({ firstName: 123, lastName: 'endy', Bio: 'I am emasys nd' })
+        .set('x-access-token', firstToken)
+        .expect(422)
+        .expect((res) => {
+          expect(res.body).to.include({ success: false });
         })
         .end(done);
     });
@@ -117,11 +163,14 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 404 if user is not found', (done) => {
       request(app)
         .put('/api/v1/users/5')
-        .send(seed.setUserInput('emasys', 'endy', 'I am emasys nd'))
-        .set('x-access-token', xtoken)
+        .send({ firstName: 'emasys', lastName: 'endy', Bio: 'I am emasys nd' })
+        .set('x-access-token', firstToken)
         .expect(404)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({
+            success: false,
+            error: 'User not found'
+          });
         })
         .end(done);
     });
@@ -131,7 +180,7 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 404', (done) => {
       request(app)
         .delete('/api/v1/users/5')
-        .set('x-access-token', xtoken)
+        .set('x-access-token', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -144,7 +193,7 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 200 if all user info are successfully deleted', (done) => {
       request(app)
         .delete('/api/v1/users/1')
-        .set('x-access-token', xtoken)
+        .set('x-access-token', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });

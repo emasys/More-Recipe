@@ -21,9 +21,25 @@ import config from '../config';
  */
 export class Navbar extends Component {
   static propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     getProfile: PropTypes.func.isRequired,
     className: PropTypes.string.isRequired
+  };
+
+  static defaultProps = {
+    user: {
+      success: true,
+      data: {
+        id: 1,
+        firstName: '',
+        lastName: '',
+        bio: '',
+        email: '',
+        country: '',
+        avatar: '',
+        moniker: ''
+      }
+    }
   };
   /**
    * Creates an instance of Navbar.

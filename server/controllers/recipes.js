@@ -1,15 +1,9 @@
 import Validator from 'validatorjs';
+import { capitalize } from 'lodash';
 
-import { Users, Recipes, Reviews, Favorite } from '../models';
+import { Recipes, Reviews, Favorite } from '../models';
 import { validateAddRecipes, setStatus } from '../middleware/helper';
-import {
-  addNewRecipe,
-  sortRecipe,
-  fetchOneRecipe,
-  findAndUpdateRecipe,
-  cancelVote,
-  transferVote
-} from '../services/recipe';
+import * as services from '../services/recipe';
 
 // const sequelize = new Sequelize;
 
@@ -31,7 +25,7 @@ class RecipeController {
     // to convert ingredient's strings into and array with no trailing space
     const validator = new Validator(request, validateAddRecipes());
     if (validator.passes()) {
-      return addNewRecipe(res, req, request, ingredients);
+      return services.addNewRecipe(res, req, request, ingredients);
     }
     return setStatus(
       res,
@@ -54,43 +48,21 @@ class RecipeController {
    */
   static listRecipes(req, res) {
     // Get sorted recipe list
-    if (req.query.sort === 'upvotes' && req.query.order) {
-      return sortRecipe(req, res, 'upvote', 'DESC');
+    const sortBy = req.query.sort || 'createdAt';
+    const orderBy = req.query.order || 'desc';
+    const searchBy = req.query.search;
+    const byCategory = req.query.category;
+    if (sortBy && orderBy && !searchBy && !byCategory) {
+      return services.sortRecipe(req, res, sortBy, orderBy);
     }
-    if (req.query.sort === 'favorite' && req.query.order) {
-      return sortRecipe(req, res, 'favorite', 'DESC');
+    if (searchBy) {
+      const query = searchBy.trim();
+      return services.searchRecipes(req, res, query);
     }
-    if (req.query.sort === 'views' && req.query.order) {
-      return sortRecipe(req, res, 'views', 'DESC');
+    if (byCategory) {
+      const category = capitalize(byCategory.trim());
+      return services.fetchCategory(res, req, category);
     }
-    return sortRecipe(req, res, 'createdAt', 'DESC');
-  }
-  /**
-   *
-   *
-   * @static
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} {object} recipes of a particular category
-   * @memberof MoreRecipes
-   */
-  static listRecipeCategory(req, res) {
-    return Recipes.findAndCountAll({
-      limit: req.params.limit,
-      offset: req.params.offset,
-      where: {
-        category: req.body.category
-      },
-      order: [['createdAt', 'DESC']]
-    })
-      .then(recipes =>
-        setStatus(
-          res,
-          { success: true, recipes: recipes.rows, count: recipes.count },
-          200
-        ))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
   /**
    *
@@ -102,45 +74,12 @@ class RecipeController {
    * @memberof MoreRecipes
    */
   static listPrivateRecipes(req, res) {
-    return Recipes.findAll({
-      limit: req.params.limit,
-      offset: req.params.offset,
+    return Recipes.findAndCountAll({
+      limit: req.query.limit || 1,
+      offset: req.query.offset || 0,
       order: [['createdAt', 'DESC']],
       where: {
-        userId: req.params.id
-      }
-    })
-      .then(recipes => setStatus(res, { success: true, recipes }, 200))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
-  }
-
-  /**
-   *
-   *
-   * @static
-   * @param {object} req
-   * @param {object} res
-   * @returns {object}  result of search query
-   * @memberof MoreRecipes
-   */
-  static SearchRecipe(req, res) {
-    if (!req.body.query) {
-      return setStatus(
-        res,
-        { success: false, error: 'query cannot be empty' },
-        200
-      );
-    }
-    const query = req.body.query.trim();
-    return Recipes.findAndCountAll({
-      limit: req.params.limit,
-      offset: req.params.offset,
-      where: {
-        $or: [
-          { name: { ilike: `%${query}%` } },
-          { searchIng: { ilike: `%${query}%` } }
-        ]
+        userId: req.params.userId
       }
     })
       .then(recipes =>
@@ -150,7 +89,7 @@ class RecipeController {
           200
         ))
       .catch(() =>
-        setStatus(res, { success: false, error: 'Something went wrong' }, 500));
+        setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
   /**
    *
@@ -174,11 +113,10 @@ class RecipeController {
         }
       ]
     })
-      .then((recipe) => {
+      .then(recipe =>
         // if other users view the recipe, the view count increases
         // the creator of the recipe gets only one count
-        fetchOneRecipe(res, req, recipe);
-      })
+        services.fetchOneRecipe(res, req, recipe))
       .catch(() =>
         setStatus(res, { success: false, status: 'Recipes not found' }, 404));
   }
@@ -222,16 +160,15 @@ class RecipeController {
    * @returns {object} updated recipe
    */
   static updateRecipe(req, res) {
-    // const IngredientArray = req.body.ingredients;
     const { ingredients } = req.body;
-    // const getArr = input => input.trim().split(/\s*,\s*/);
     return Recipes.findById(req.params.recipeId, {
       include: [
         { model: Reviews, as: 'reviews' },
         { model: Favorite, as: 'favorites' }
       ]
     })
-      .then(recipe => findAndUpdateRecipe(res, req, recipe, ingredients))
+      .then(recipe =>
+        services.findAndUpdateRecipe(res, req, recipe, ingredients))
       .catch(() =>
         setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
@@ -257,7 +194,7 @@ class RecipeController {
           const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(req.decoded.id) !== -1) {
             // eslint-disable-next-line
-            return cancelVote(
+            return services.cancelVote(
               res,
               req,
               reactionUp,
@@ -272,7 +209,7 @@ class RecipeController {
             // check if a user has already downvoted,
             // then cancel it and upvote instead
             // eslint-disable-next-line
-            return transferVote(
+            return services.transferVote(
               res,
               req,
               reactionDown,
@@ -319,7 +256,7 @@ class RecipeController {
           const { reactionDown, reactionUp } = recipe;
           if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
             // if user has downvoted before, cancel it
-            return cancelVote(
+            return services.cancelVote(
               res,
               req,
               reactionDown,
@@ -333,7 +270,7 @@ class RecipeController {
           ) {
             // if user has not downvoted but have upvoted,
             // then cancel upvote and set downvote
-            return transferVote(
+            return services.transferVote(
               res,
               req,
               reactionUp,

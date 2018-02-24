@@ -27,18 +27,31 @@ import Preloader from '../../components/Preloader';
  * @extends {Component}
  */
 class FullCatalog extends Component {
-  static propTypes = {
-    recipes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    getRecipes: PropTypes.func.isRequired,
-    searchRecipes: PropTypes.func.isRequired,
-    getProfile: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired,
-    moniker: PropTypes.string.isRequired,
-    resetSearch: PropTypes.array.isRequired,
-    history: PropTypes.object.isRequired,
-    clearRecipes: PropTypes.func.isRequired
-  };
+  // static propTypes = {
+  //   recipes: PropTypes.object.isRequired,
+  //   user: PropTypes.object,
+  //   getRecipes: PropTypes.func.isRequired,
+  //   searchRecipes: PropTypes.func.isRequired,
+  //   getProfile: PropTypes.func.isRequired,
+  //   resetSearch: PropTypes.func.isRequired,
+  //   history: PropTypes.object.isRequired,
+  //   clearRecipes: PropTypes.func.isRequired
+  // };
+
+  // static defaultProps = {
+  //   user: {
+  //     data: {
+  //       id: 1,
+  //       firstName: "",
+  //       lastName: "",
+  //       bio: "",
+  //       email: "",
+  //       country: "",
+  //       avatar: "",
+  //       moniker: ""
+  //     }
+  //   }
+  // }
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
@@ -180,9 +193,7 @@ class FullCatalog extends Component {
   onSearch = event => {
     event.preventDefault();
     this.setState({ searching: true });
-    this.searchInput = {
-      query: event.target.elements.search.value.toLowerCase()
-    };
+    this.searchInput = event.target.elements.search.value.toLowerCase();
     this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset);
   };
   addMore = () => {

@@ -20,8 +20,12 @@ class Reviews extends Component {
     postReview: PropTypes.func.isRequired,
     recipes: PropTypes.object.isRequired,
     deleteReview: PropTypes.func.isRequired,
-    review: PropTypes.object.isRequired
+    review: PropTypes.object
   };
+
+  static defaultProps = {
+    review: { status: "no comment" }
+  }
   /**
    * Creates an instance of Reviews.
    * @param {any} props
@@ -69,7 +73,7 @@ class Reviews extends Component {
    * @memberof Reviews
    * @returns {any} textarea input
    */
-  txChanged = event => {
+  textChanged = event => {
     this.setState({
       content: event.target.value
     });
@@ -107,7 +111,7 @@ class Reviews extends Component {
                   className="special col-12"
                   id="FormControlTextarea"
                   rows="4"
-                  onChange={this.txChanged}
+                  onChange={this.textChanged}
                   value={content}
                 />
               </div>

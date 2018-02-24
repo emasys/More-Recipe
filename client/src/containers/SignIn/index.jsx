@@ -32,7 +32,7 @@ import errorMessages, {
 class SignIn extends Component {
   static propTypes = {
     msg: PropTypes.string,
-    reset: PropTypes.object.isRequired,
+    reset: PropTypes.object,
     resetPassword: PropTypes.func.isRequired,
     signin: PropTypes.object.isRequired,
     signIn: PropTypes.func.isRequired,
@@ -43,7 +43,8 @@ class SignIn extends Component {
   };
 
   static defaultProps = {
-    msg: 'No access'
+    msg: null,
+    reset: null
   };
   /**
    * Creates an instance of SignIn.

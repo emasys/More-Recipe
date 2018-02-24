@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import {
   getRecipeItem,
   editRecipe,
-  delRecipe
+  delRecipe,
+  clearRecipes
 } from '../../actions/recipeActions';
 import { setFavorite } from '../../actions/favoriteAction';
 import { upvote, downvote } from '../../actions/voteActions';
@@ -34,7 +35,7 @@ import { update, notify, failedUpdate } from './helperFunctions';
  */
 class RecipeItem extends Component {
   static propTypes = {
-    userInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object,
     uploadImg: PropTypes.func.isRequired,
     downvote: PropTypes.func.isRequired,
     upvote: PropTypes.func.isRequired,
@@ -46,6 +47,21 @@ class RecipeItem extends Component {
     getRecipeItem: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired
   };
+
+  static defaultProps = {
+    userInfo: {
+      data: {
+        id: 1,
+        firstName: "",
+        lastName: "",
+        bio: "",
+        email: "",
+        country: "",
+        avatar: "",
+        moniker: ""
+      }
+    }
+  }
   /**
    * Creates an instance of RecipeItem.
    * @param {any} props
@@ -143,6 +159,11 @@ class RecipeItem extends Component {
       });
     }
   }
+
+  componentWillUnmount = () => {
+    this.props.clearRecipes();
+  }
+  
   deleteRecipeInit = event => {
     event.preventDefault();
   };
@@ -203,6 +224,7 @@ class RecipeItem extends Component {
    * @returns {any} downvote a recipe
    */
   downvote = () => {
+    document.querySelector('#dislike').classList.toggle('red');
     this.props.downvote(this.props.match.params.id);
   };
   /**
@@ -411,7 +433,8 @@ const mapDispatchToProps = dispatch => ({
       upvote,
       uploadImg,
       downvote,
-      delRecipe
+      delRecipe,
+      clearRecipes
     },
     dispatch
   )

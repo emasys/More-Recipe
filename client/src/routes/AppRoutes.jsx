@@ -29,6 +29,7 @@ const AppRoutes = () => (
         <Route path="/catalog" exact component={FullCatalog} />
         <Route
           path="/recipe/:id"
+          exact
           render={props =>
             (Auth.loggedIn() ? (
               <RecipeItem {...props} />
@@ -79,7 +80,7 @@ const AppRoutes = () => (
         />
         <Route path="/profile/:id" component={Profile} />
         <Route path="/category/:cat" component={Category} />
-        <Route path="*" component={NotFound} />
+        {/* <Route path="*" component={NotFound} /> */}
       </Switch>
       <Footer />
     </div>

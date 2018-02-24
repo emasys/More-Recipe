@@ -6,5 +6,6 @@
     "moxios",
     "preloader",
     "upvote"
-  ]
+  ],
+  "mocha.enabled": true
 }

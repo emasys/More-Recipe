@@ -1,6 +1,11 @@
 import * as type from '../actions/types';
 
-export default (state = [], action) => {
+export default (
+  state = {
+    review: {}
+  },
+  action
+) => {
   switch (action.type) {
   case type.REVIEW:
     return {

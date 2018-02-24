@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+
 
 // Action
 import { getUserInfo, getUserRecipes } from '../../actions/userActions';
@@ -61,7 +63,7 @@ class UserProfile extends Component {
     this.setState(prevState => ({
       recipes: nextProps.user
     }));
-    if (this.state.offset - 6 > this.state.recipes.length) {
+    if (this.state.offset > this.props.count) {
       this.setState({
         showMore: false
       });
@@ -110,18 +112,26 @@ class UserProfile extends Component {
             <UserProfileInfo data={this.props.userInfo} />
             <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
               <div className="clearfix">
-                <h2 className="header-title float-left clearfix">
+                <h4 className="header-title float-left clearfix">
                   {this.props.userInfo ?
                     this.props.userInfo.data.moniker :
-                    null}{"'"}s recipes
-                </h2>
+                    'loading'}
+                  {"'"}s recipes
+                  {` `}
+                  <span
+                    data-tip="Total number of recipes added"
+                    className="badge badge-dark"
+                  >
+                    {this.props.count}
+                  </span>
+                </h4>
               </div>
               <hr />
               <div className="row justify-content-center">
                 <CatalogList
                   {...this.props}
                   showDeleteBtn={false}
-                  catalog={this.state.recipes}
+                  catalog={this.props.recipes}
                 />
               </div>
               <div className="row justify-content-center">
@@ -136,6 +146,7 @@ class UserProfile extends Component {
               </div>
             </div>
           </div>
+          <ReactTooltip place="bottom" type="dark" effect="float" />
         </section>
       </div>
     );
@@ -143,8 +154,9 @@ class UserProfile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.recipes.userRecipes,
-  userInfo: state.user.userInfo
+  recipes: state.recipes.userRecipes,
+  userInfo: state.user.userInfo,
+  count: state.recipes.userRecipesCount
 });
 
 const mapDispatchToProps = dispatch => ({
