@@ -157,10 +157,12 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SEARCH,
         payload: { success: true, recipe: recipeMocks.allRecipes }
-      }
+      },
+      { type: type.IS_LOADING, isLoading: false }
     ];
 
     const store = mockStore({ payload: {} });

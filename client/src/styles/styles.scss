@@ -427,6 +427,15 @@ footer {
   transition: ease-in 600ms;
 }
 
+.catalog-wrapper-full-grid{
+  background: rgba(255, 255, 255, 1);
+  padding: 3rem 1rem;
+  box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.205);
+  -webkit-transition: ease-in 600ms;
+  -moz-transition: ease-in 600ms;
+  transition: ease-in 600ms;
+}
+
 .category-wrapper {
   background-size: cover;
   background: #ffffff;

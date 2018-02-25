@@ -107,10 +107,10 @@ class UserProfile extends Component {
       <div>
         <Navbar className="bg-dark fixed-top" />
         <Preloader />
-        <section className="container-fluid profile catalog-wrapper mt-80">
+        <section className="container-fluid profile catalog-wrapper-full-grid mt-80">
           <div className="row justify-content-center">
             <UserProfileInfo data={this.props.userInfo} />
-            <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
+            <div className="col-lg-9 col-md-8 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h4 className="header-title float-left clearfix">
                   {this.props.userInfo ?

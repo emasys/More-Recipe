@@ -108,8 +108,6 @@ export class Category extends Component {
               }
               endMessage={
                 <p style={{ textAlign: 'center' }}>
-                  <b>Thank you for being Awesome</b>
-                  <br />
                   <button
                     onClick={this.gotoFullCatalog}
                     className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"

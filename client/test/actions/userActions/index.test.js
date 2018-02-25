@@ -55,7 +55,7 @@ describe('Test suite for user actions', () => {
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.USER_RECIPES,
-        payload: userMocks.userRecipes.recipes
+        payload: userMocks.userRecipes
       },
       { type: type.IS_LOADING, isLoading: false }
     ];

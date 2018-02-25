@@ -34,15 +34,23 @@ export default class FavoriteRecipes {
    * @param {object} res
    */
   static listFavorites(req, res) {
-    Favorite.findAll({
+    return Favorite.findAndCountAll({
       where: { userId: req.decoded.id },
+      limit: req.query.limit || 1,
+      offset: req.query.offset || 0,
+      attributes: ['recipeId'],
       include: [
         {
           model: Recipes
         }
       ]
     })
-      .then(favorites => setStatus(res, { success: true, favorites }, 200))
+      .then(favorites =>
+        setStatus(
+          res,
+          { success: true, favorites: favorites.rows, count: favorites.count },
+          200
+        ))
       .catch(error => setStatus(res, { success: false, error }, 500));
   }
 }

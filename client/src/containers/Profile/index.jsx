@@ -294,7 +294,7 @@ class Profile extends Component {
         <Navbar className="bg-dark fixed-top" />
         <Preloader />
         <ToastContainer />
-        <section className="container-fluid profile catalog-wrapper mt-70">
+        <section className="container-fluid profile catalog-wrapper-full-grid mt-70">
           <div className="row justify-content-center mx-3">
             <DeleteModal {...this.props} confirmDelete={this.confirmDelete} />
             <UserInfo
@@ -317,7 +317,7 @@ class Profile extends Component {
               </div>
             )}
             {!edit && (
-              <div className="col-lg-10 col-md-8 col-sm-12 recipe-lists">
+              <div className="col-lg-9 col-md-8 col-sm-12 recipe-lists">
                 <div className="clearfix">
                   <h2 className=" float-left clearfix">
                     Recipes{' '}

@@ -266,7 +266,7 @@ class FullCatalog extends Component {
 
         {dropdown && <CategoryList />}
         <section className="mt-100" id="catalog">
-          <div className="row catalog-wrapper mx-2 justify-content-center">
+          <div className="row catalog-wrapper-full-grid justify-content-center">
             {!searching && (
               <InfiniteScroll
                 next={this.loadMoreRecipes}

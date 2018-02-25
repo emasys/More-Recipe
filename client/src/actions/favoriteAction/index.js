@@ -4,10 +4,13 @@ import { isLoading, UTIL } from '../index';
 import { getRecipeReactions } from '../recipeActions';
 
 // Get user favorites
-export const getFavorite = () => dispatch => {
+export const getFavorite = (limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return axios
-    .get(`${UTIL.baseUrl}/favorites`, UTIL.config)
+    .get(
+      `${UTIL.baseUrl}/favorites?limit=${limit}&offset=${offset}`,
+      UTIL.config
+    )
     .then(response => {
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
       dispatch(isLoading(false));
@@ -31,4 +34,8 @@ export const setFavorite = id => dispatch => {
       dispatch({ type: type.SET_FAVORITE, payload: err.response });
       dispatch(isLoading(false));
     });
+};
+
+export const clearFavoriteList = () => dispatch => {
+  dispatch({ type: type.CLEAR_RECIPES, payload: [] });
 };
