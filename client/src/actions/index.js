@@ -21,17 +21,17 @@ export const isAuthenticated = () => {
     payload: {
       isLoggedIn,
       userId,
-      username,
+      username
     }
   };
 };
 
 export const isLoading = bool => dispatch => {
   dispatch(isAuthenticated());
-  return {
+  return dispatch({
     type: type.IS_LOADING,
     isLoading: bool
-  };
+  });
 };
 
 export const flashMessage = path => ({

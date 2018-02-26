@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
  */
 const Preloader = ({ isLoading }) => (
   <div className="fixed-top">
-    {isLoading ? <Pace color="#e7b52c" height={2} /> : null}
+    {isLoading ? <Pace color="#f5b339" height={4} /> : null}
   </div>
 );
 
