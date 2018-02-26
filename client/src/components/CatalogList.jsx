@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React from 'react';
 
-// Auth
-import Auth from './auth';
-
 /**
  *
  *
@@ -39,6 +36,7 @@ const onHoverOut = id => {
  * @returns {object} list of recipes
  */
 const generateList = props => {
+  console.log('props ======>', props.auth);
   if (props.isLoading) {
     return (
       <div className="text-center error-message">
@@ -97,7 +95,7 @@ const generateList = props => {
                 onMouseEnter={() => onHoverIn(item.id)}
                 onMouseLeave={() => onHoverOut(item.id)}
               >
-                {Auth.userID() === item.userId &&
+                {props.auth.authInfo.userId === item.userId &&
                   props.showDeleteBtn && (
                     <button
                       className="btn btn-danger btn-sm delete-btn"
@@ -172,10 +170,13 @@ const CatalogList = props => (
 
 generateList.propTypes = {
   showDeleteBtn: PropTypes.bool.isRequired,
-  catalog: PropTypes.object.isRequired
+  catalog: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  isLoading: state.isLoading
+const mapStateToProps = state => ({
+  isLoading: state.isLoading,
+  auth: state.user
 });
 export default connect(mapStateToProps, null)(CatalogList);

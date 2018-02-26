@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 // Action
@@ -20,7 +19,8 @@ class Reviews extends Component {
     postReview: PropTypes.func.isRequired,
     recipes: PropTypes.object.isRequired,
     deleteReview: PropTypes.func.isRequired,
-    review: PropTypes.object
+    review: PropTypes.object,
+    auth: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -128,6 +128,7 @@ class Reviews extends Component {
           <GenerateReviews
             review={this.props.review}
             deleteReview={this.deleteReview}
+            auth={this.props.auth}
           />
         </div>
       </div>
@@ -137,11 +138,8 @@ class Reviews extends Component {
 
 const mapStateToProps = state => ({
   review: state.review,
-  recipes: state.recipes
+  recipes: state.recipes,
+  auth: state.user
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ postReview, deleteReview }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default connect(mapStateToProps, { postReview, deleteReview })(Reviews);

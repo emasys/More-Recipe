@@ -1,14 +1,14 @@
-import axios from 'axios';
 import * as type from '../types';
-import { isLoading, UTIL } from '../index';
+import instance from '../../config/axios';
+import { isLoading } from '../index';
 import { getUserInfo, getUserRecipes } from '../userActions';
 import { getReviews } from '../reviewActions';
 
 // Fetch All recipes
 export const getRecipes = (limit, offset = 0) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .get(`${UTIL.baseUrl}/recipes?limit=${limit}&offset=${offset}`)
+  return instance
+    .get(`/recipes?limit=${limit}&offset=${offset}`)
     .then(response => {
       dispatch({ type: type.ALL_RECIPES, payload: response.data });
       dispatch(isLoading(false));
@@ -26,8 +26,8 @@ export const clearRecipes = () => dispatch => {
 // Get a single recipe
 export const getRecipeItem = id => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .get(`${UTIL.baseUrl}/recipes/${id}`, UTIL.config)
+  return instance
+    .get(`/recipes/${id}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE, payload: response.data });
       dispatch(getUserInfo(response.data.recipe.userId));
@@ -42,8 +42,8 @@ export const getRecipeItem = id => dispatch => {
 
 // Get a single recipe reactions
 export const getRecipeReactions = id => dispatch =>
-  axios
-    .get(`${UTIL.baseUrl}/recipes/reaction/${id}`, UTIL.config)
+  instance
+    .get(`/recipes/reaction/${id}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
       dispatch(isLoading(false));
@@ -55,8 +55,8 @@ export const getRecipeReactions = id => dispatch =>
 // edit recipe
 export const editRecipe = (data, id) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .put(`${UTIL.baseUrl}/recipes/${id}`, data, UTIL.config)
+  return instance
+    .put(`/recipes/${id}`, data)
     .then(response => {
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
       dispatch(isLoading(false));
@@ -70,8 +70,8 @@ export const editRecipe = (data, id) => dispatch => {
 // Delete Recipe
 export const delRecipe = (id, userId) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .delete(`${UTIL.baseUrl}/recipes/${id}`, UTIL.config)
+  return instance
+    .delete(`/recipes/${id}`)
     .then(response => {
       dispatch({ type: type.DELETE_RECIPE, payload: response.data });
       dispatch(getUserRecipes(userId, 6, 0));
@@ -85,8 +85,8 @@ export const delRecipe = (id, userId) => dispatch => {
 
 export const searchRecipes = (keyword, limit = 1, offset = 0) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .get(`${UTIL.baseUrl}/recipes?limit=${limit}&offset=${offset}&search=${keyword}`)
+  return instance
+    .get(`/recipes?limit=${limit}&offset=${offset}&search=${keyword}`)
     .then(response => {
       dispatch({ type: type.SEARCH, payload: response.data });
       dispatch(isLoading(false));
@@ -103,8 +103,8 @@ export const resetSearch = () => dispatch => {
 // Add a recipe
 export const addRecipe = data => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/recipes`, data, UTIL.config)
+  return instance
+    .post(`/recipes`, data)
     .then(response => {
       dispatch({ type: type.NEW_RECIPE, payload: response.data });
       dispatch(isLoading(false));
@@ -118,8 +118,8 @@ export const addRecipe = data => dispatch => {
 // Fetch All recipes
 export const getHotRecipes = (limit, offset = 0) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .get(`${UTIL.baseUrl}/recipes?limit=${limit}&offset=${offset}`)
+  return instance
+    .get(`/recipes?limit=${limit}&offset=${offset}`)
     .then(response => {
       dispatch({ type: type.HOT_RECIPES, payload: response.data });
       dispatch(isLoading(false));
@@ -133,8 +133,8 @@ export const getHotRecipes = (limit, offset = 0) => dispatch => {
 // Get recipe category
 export const getCategory = (category, limit, offset) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .get(`${UTIL.baseUrl}/recipes?limit=${limit}&offset=${offset}&category=${category}`)
+  return instance
+    .get(`/recipes?limit=${limit}&offset=${offset}&category=${category}`)
     .then(response => {
       dispatch({ type: type.GET_CATEGORY, payload: response.data });
       dispatch(isLoading(false));

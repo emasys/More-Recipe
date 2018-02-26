@@ -61,7 +61,7 @@ describe('Test suite for recipe controller:', () => {
           foodImg: 'http://example.com',
           ingredients: 'water, salt'
         })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(422)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
@@ -82,7 +82,7 @@ describe('Test suite for recipe controller:', () => {
           foodImg: 'http://example.com',
           ingredients: 'water, salt'
         })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(403)
         .expect((err, res) => {
           if (!err) {
@@ -123,7 +123,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a single recipe without an increment in the view count', (done) => {
       request(app)
         .get('/api/v1/recipes/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((err, res) => {
           if (!err) {
@@ -138,7 +138,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a single recipe with an increment in the view count', (done) => {
       request(app)
         .get('/api/v1/recipes/1')
-        .set('x-access-token', secondToken)
+        .set('more-recipe-access', secondToken)
         .expect(200)
         .expect((err, res) => {
           if (!err) {
@@ -154,7 +154,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status 404 if recipe is not found', (done) => {
       request(app)
         .get('/api/v1/recipes/5')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false, status: 'Recipes not found' });
@@ -187,7 +187,7 @@ describe('Test suite for recipe controller:', () => {
           foodImg: 'http://example.com',
           ingredients: 'water, salt'
         })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -208,7 +208,7 @@ describe('Test suite for recipe controller:', () => {
           foodImg: 'http://example.com',
           ingredients: 'water, salt'
         })
-        .set('x-access-token', secondToken)
+        .set('more-recipe-access', secondToken)
         .expect(401)
         .expect((res) => {
           expect(res.body).to.include({ success: false, status: 'cannot update this recipe' });
@@ -229,7 +229,7 @@ describe('Test suite for recipe controller:', () => {
           foodImg: 'http://example.com',
           ingredients: 'water, salt'
         })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.deep.equal({
@@ -246,7 +246,7 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ content: 'just added a comment' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(201)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: true });
@@ -260,7 +260,7 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .post('/api/v1/recipes/5/reviews')
         .send({ content: 'just added a comment' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(500)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
@@ -274,7 +274,7 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ content: '' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(422)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
@@ -288,7 +288,7 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .post('/api/v1/recipes/1/reviews')
         .send({ contents: 'just added a comment' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(422)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: false });
@@ -301,7 +301,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .post('/api/v1/recipes/upvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -314,7 +314,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if previous upvote is successfully cancelled', (done) => {
       request(app)
         .post('/api/v1/recipes/upvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'cancelled' });
@@ -328,7 +328,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -341,7 +341,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if previous downvote is successfully cancelled', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'cancelled' });
@@ -353,7 +353,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -365,7 +365,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .post('/api/v1/recipes/upvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'voted' });
@@ -378,7 +378,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'voted' });
@@ -391,7 +391,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 500 if recipe does not exist', (done) => {
       request(app)
         .post('/api/v1/recipes/upvote/10')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(500)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -404,7 +404,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 500 if recipe does not exist', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/10')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(500)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -416,7 +416,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if successful', (done) => {
       request(app)
         .get('/api/v1/recipes/user/1?limit=2&offset=0')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -429,7 +429,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 500 due to the typo', (done) => {
       request(app)
         .get('/api/v1/recipes/user/1?limit=u&offset=0')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(500)
         .expect((res) => {
           expect(res.body).to.include({ success: false, error: 'something went wrong' });
@@ -442,7 +442,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 401 if recipe was not created by the user', (done) => {
       request(app)
         .delete('/api/v1/recipes/1')
-        .set('x-access-token', secondToken)
+        .set('more-recipe-access', secondToken)
         .expect(401)
         .expect((res) => {
           expect(res.body).to.include({ success: false, status: 'cannot delete this recipe' });
@@ -455,7 +455,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 200 if recipe is successfully deleted', (done) => {
       request(app)
         .delete('/api/v1/recipes/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -468,7 +468,7 @@ describe('Test suite for recipe controller:', () => {
     it('should return a status code of 404 if recipe is not found', (done) => {
       request(app)
         .delete('/api/v1/recipes/5')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -492,7 +492,7 @@ describe('Test suite for middleware', () => {
   it('should return status code 400 if the param is not a number', (done) => {
     request(app)
       .get('/api/v1/recipes/string')
-      .set('x-access-token', firstToken)
+      .set('more-recipe-access', firstToken)
       .expect(400)
       .expect((err, res) => {
         if (!err) expect(res.body).to.include({ success: false });
@@ -503,7 +503,7 @@ describe('Test suite for middleware', () => {
   it('should return status code 400 if the param is not a number', (done) => {
     request(app)
       .delete('/api/v1/reviews/delete/string')
-      .set('x-access-token', firstToken)
+      .set('more-recipe-access', firstToken)
       .expect(400)
       .expect((err, res) => {
         if (!err) expect(res.body).to.include({ success: false });

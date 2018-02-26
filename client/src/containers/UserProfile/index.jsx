@@ -27,7 +27,9 @@ class UserProfile extends Component {
     clearRecipes: PropTypes.func.isRequired,
     user: PropTypes.array.isRequired,
     getUserInfo: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    count: PropTypes.number.isRequired,
+    recipes: PropTypes.object.isRequired
   };
   /**
    * Creates an instance of UserProfile.

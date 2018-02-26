@@ -1,12 +1,12 @@
-import axios from 'axios';
 import * as type from '../types';
-import { isLoading, UTIL } from '../index';
+import instance from '../../config/axios';
+import { isLoading } from '../index';
 
 // Create a new user
 export const signUp = data => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/users/signup`, data)
+  return instance
+    .post(`/users/signup`, data)
     .then(response => {
       window.localStorage.setItem('token', response.data.token);
       const jwtToken = window.localStorage.getItem('token');
@@ -27,8 +27,9 @@ export const signUp = data => dispatch => {
 // Login
 export const signIn = data => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/users/signin`, data)
+  console.log("auth=====>", data);
+  return instance
+    .post(`/users/signin`, data)
     .then(response => {
       window.localStorage.setItem('token', response.data.token);
       const jwtToken = window.localStorage.getItem('token');
@@ -49,8 +50,8 @@ export const signIn = data => dispatch => {
 // reset password
 export const resetPassword = data => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .put(`${UTIL.baseUrl}/users/changepassword`, data)
+  return instance
+    .put(`/users/changepassword`, data)
     .then(response => {
       dispatch({ type: type.RESET_PASSWORD, payload: response.data });
       dispatch(isLoading(false));
@@ -64,8 +65,8 @@ export const resetPassword = data => dispatch => {
 // send reset password token
 export const sendToken = data => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/reset`, data)
+  return instance
+    .post(`/reset`, data)
     .then(response => {
       dispatch({ type: type.SEND_TOKEN, payload: response.data });
       dispatch(isLoading(false));
@@ -79,8 +80,8 @@ export const sendToken = data => dispatch => {
 // compare reset password token
 export const compareToken = data => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/completereset`, data)
+  return instance
+    .post(`/completereset`, data)
     .then(response => {
       dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
       dispatch(isLoading(false));

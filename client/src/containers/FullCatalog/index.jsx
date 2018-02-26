@@ -16,7 +16,6 @@ import { getProfile } from '../../actions/userActions';
 // Components
 import CategoryList from '../../components/CategoryList';
 import CatalogList from '../../components/CatalogList';
-import Auth from '../../components/auth';
 import CategoryNavbar from './NavbarCategory';
 import Navbar from './NavbarSearch';
 import Preloader from '../../components/Preloader';
@@ -27,31 +26,17 @@ import Preloader from '../../components/Preloader';
  * @extends {Component}
  */
 class FullCatalog extends Component {
-  // static propTypes = {
-  //   recipes: PropTypes.object.isRequired,
-  //   user: PropTypes.object,
-  //   getRecipes: PropTypes.func.isRequired,
-  //   searchRecipes: PropTypes.func.isRequired,
-  //   getProfile: PropTypes.func.isRequired,
-  //   resetSearch: PropTypes.func.isRequired,
-  //   history: PropTypes.object.isRequired,
-  //   clearRecipes: PropTypes.func.isRequired
-  // };
-
-  // static defaultProps = {
-  //   user: {
-  //     data: {
-  //       id: 1,
-  //       firstName: "",
-  //       lastName: "",
-  //       bio: "",
-  //       email: "",
-  //       country: "",
-  //       avatar: "",
-  //       moniker: ""
-  //     }
-  //   }
-  // }
+  static propTypes = {
+    recipes: PropTypes.object.isRequired,
+    user: PropTypes.objectOf().isRequired,
+    getRecipes: PropTypes.func.isRequired,
+    searchRecipes: PropTypes.func.isRequired,
+    getProfile: PropTypes.func.isRequired,
+    resetSearch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    clearRecipes: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
@@ -82,9 +67,9 @@ class FullCatalog extends Component {
    */
   componentDidMount = () => {
     window.scrollTo(0, 0);
-    if (Auth.userID()) {
-      this.props.getProfile(Auth.userID());
-    }
+    // if (this.props.auth) {
+    //   this.props.getProfile(this.props.auth.userInfo.userId);
+    // }
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
@@ -247,7 +232,7 @@ class FullCatalog extends Component {
             search={search}
             avatar={avatar}
             onChanged={this.searchBar}
-            user={this.props.user}
+            user={this.props.auth}
           />
         </section>
         <Preloader />
@@ -330,7 +315,8 @@ class FullCatalog extends Component {
 }
 const mapStateToProps = state => ({
   recipes: state.recipes,
-  user: state.user.userProfile
+  user: state.user.userProfile,
+  auth: state.user
 });
 
 const mapDispatchToProps = dispatch => ({

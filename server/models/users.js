@@ -45,18 +45,8 @@ export default (sequelize, DataTypes) => {
     });
   };
 
-  // decrypt the password before login
-  Users.prototype.comparePassword = (user, password) =>
-    bcrypt.compareSync(password, user.password);
-
   // encrypt the password before saving data into database while signing up
   Users.beforeCreate((user) => {
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(user.password, salt);
-    user.password = hash;
-  });
-
-  Users.beforeUpdate((user) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(user.password, salt);
     user.password = hash;

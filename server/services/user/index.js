@@ -1,6 +1,16 @@
 import { pick } from 'lodash';
+import bcrypt from 'bcrypt-nodejs';
 import { Users, TokenGen } from '../../models';
 import { setStatus, signToken, mailer } from '../../middleware/helper';
+
+const hashPassword = (password) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+  return hash;
+};
+
+const comparePassword = (user, password) =>
+  bcrypt.compareSync(password, user.password);
 
 export const createUser = (res, request) =>
   Users.create(request)
@@ -26,7 +36,8 @@ export const AuthenticateUser = (res, request) => {
           404
         );
       }
-      if (!user.comparePassword(user, request.password)) {
+      console.log('bcrypt====>', comparePassword(user, request.password));
+      if (!comparePassword(user, request.password)) {
         return setStatus(
           res,
           { success: false, status: 'Invalid email/password' },
@@ -99,11 +110,13 @@ export const resetUserPassword = (res, request) => {
           404
         );
       }
-      user
+      return user
         .update({
-          password: request.password
+          password: hashPassword(request.password)
         })
-        .then(() => setStatus(res, { success: true, status: 'updated' }, 200));
+        .then(() => {
+          setStatus(res, { success: true, status: 'updated' }, 200);
+        });
     })
     .catch(() =>
       setStatus(res, { success: false, error: 'server error' }, 500));

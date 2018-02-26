@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -134,8 +133,4 @@ const mapStateToProps = state => ({
   recipes: state.recipes
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getCategory }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, { getCategory })(Category);

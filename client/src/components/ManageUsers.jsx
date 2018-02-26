@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import 'react-responsive-modal/lib/react-responsive-modal.css';
 import Modal from 'react-responsive-modal/lib/css';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 
 // Actions
 import { getAllUsers, deleteUser } from '../actions/userActions';
@@ -188,8 +187,5 @@ const mapStateToProps = state => ({
   users: state.user.allUsers,
   deluser: state.user.delUser
 });
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getAllUsers, deleteUser }, dispatch)
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);
+export default connect(mapStateToProps, { getAllUsers, deleteUser })(ManageUsers);

@@ -140,7 +140,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -202,7 +202,7 @@
               "method": "GET",
               "uri": "/recipes/user/24/1/0",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -249,7 +249,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -311,7 +311,7 @@
               "method": "GET",
               "uri": "/favorites",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -358,7 +358,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -409,7 +409,7 @@
               "method": "GET",
               "uri": "/recipe/48",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -456,7 +456,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -507,7 +507,7 @@
               "method": "GET",
               "uri": "/recipe/reaction/48",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -554,7 +554,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -594,7 +594,7 @@
               "method": "GET",
               "uri": "/reviews/48",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -641,7 +641,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -669,7 +669,7 @@
               "method": "DELETE",
               "uri": "/reviews/delete/13",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -716,7 +716,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -744,7 +744,7 @@
               "method": "DELETE",
               "uri": "/recipes/48",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -822,7 +822,7 @@
             "description": ""
           },
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -880,7 +880,7 @@
               "uri": "/recipes",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               },
               "body": "name=How to cook rice&direction=this is the direction field&ingredients=water, salt&description=Special asian delicacy"
             },
@@ -996,7 +996,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -1049,7 +1049,7 @@
               "method": "POST",
               "uri": "/recipes/upvote/47",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -1096,7 +1096,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -1150,7 +1150,7 @@
               "method": "POST",
               "uri": "/recipes/downvote/47",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -1207,7 +1207,7 @@
             "description": ""
           },
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -1267,7 +1267,7 @@
               "uri": "/recipes/47",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               },
               "body": "name=a different name"
             },
@@ -1315,7 +1315,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -1376,7 +1376,7 @@
               "method": "POST",
               "uri": "/recipes/47/fav",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {
@@ -1567,7 +1567,7 @@
             "description": ""
           },
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -1640,7 +1640,7 @@
               "uri": "/recipes/47/reviews",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               },
               "body": "content=This is a new comment"
             },
@@ -2071,7 +2071,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -2223,7 +2223,7 @@
             "description": ""
           },
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -2252,7 +2252,7 @@
               "uri": "/users/24",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               },
               "body": "firstName=emmy&lastName=do&bio=Super human&country=Odin's corridor"
             },
@@ -2300,7 +2300,7 @@
         ],
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "more-recipe-access",
             "in": "header",
             "required": true,
             "type": "string",
@@ -2328,7 +2328,7 @@
               "method": "DELETE",
               "uri": "/users/25",
               "headers": {
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
               }
             },
             "expectedResponse": {

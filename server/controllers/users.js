@@ -138,7 +138,7 @@ export default class MoreRecipeUsers {
         400
       );
     }
-    AuthenticateUser(res, request);
+    return AuthenticateUser(res, request);
   }
 
   /**

@@ -1,30 +1,53 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import * as type from './types';
 import config from '../config';
+import { updateUser, getUserInfo } from './userActions';
 
-// save token and base url
-export const UTIL = {
-  baseUrl: '/api/v1',
-  config: {
-    headers: { 'x-access-token': localStorage.getItem('token') }
+export const isAuthenticated = () => {
+  const jwtToken = window.localStorage.getItem('token');
+  let isLoggedIn = true;
+  let userId = null;
+  let username = null;
+  if (!jwtToken || !jwtToken.length > 9) {
+    isLoggedIn = false;
+  } else {
+    const decoded = jwtDecode(jwtToken);
+    userId = decoded.id;
+    username = decoded.moniker;
   }
+  return {
+    type: type.IS_LOGGEDIN,
+    payload: {
+      isLoggedIn,
+      userId,
+      username,
+    }
+  };
 };
 
-// Network request status
-export const isLoading = bool => ({
-  type: type.IS_LOADING,
-  isLoading: bool
+export const isLoading = bool => dispatch => {
+  dispatch(isAuthenticated());
+  return {
+    type: type.IS_LOADING,
+    isLoading: bool
+  };
+};
+
+export const flashMessage = path => ({
+  type: type.FLASH_MESSAGE,
+  message: 'You have to be logged in to view this content',
+  path
 });
 
 // Upload recipe image
-export const uploadImg = data => {
+export const uploadImg = (data, id) => {
   const formData = new FormData();
   formData.append('file', data);
   formData.append('tags', `morerecipe`);
   formData.append('upload_preset', config.UPLOAD_PRESET);
   formData.append('api_key', config.API_KEY);
   formData.append('timestamp', (Date.now() / 1000) | 0);
-
   return dispatch =>
     axios
       .post(config.CLOUD_URL, formData, {
@@ -34,6 +57,8 @@ export const uploadImg = data => {
         const responseData = response.data;
         const payload = responseData.secure_url;
         dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
+        dispatch(updateUser(id, { avatar: payload }));
+        dispatch(getUserInfo(id));
       })
       .catch(err => {
         dispatch({

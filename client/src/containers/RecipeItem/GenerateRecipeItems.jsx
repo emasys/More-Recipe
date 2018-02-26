@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import approx from 'approximate-number';
 import ReactTooltip from 'react-tooltip';
 
-import Auth from '../../components/auth';
 
 const GenerateRecipeItem = props => {
   const {
+    auth,
     state: {
       save,
       status,
@@ -21,6 +21,7 @@ const GenerateRecipeItem = props => {
       }
     }
   } = props;
+  console.log("Auth=======>", auth);
   return (
     <div className="mb-20">
       <div>
@@ -75,7 +76,7 @@ const GenerateRecipeItem = props => {
           <i
             data-tip="upvote"
             className={`material-icons ${
-              props.reactionUp.includes(Auth.userID()) ?
+              props.reactionUp.includes(auth.authInfo.userId) ?
                 ' animated bounceIn flash blue' :
                 ' gray'
             } fa-2x`}
@@ -90,7 +91,7 @@ const GenerateRecipeItem = props => {
           <i
             data-tip="Downvote"
             className={`material-icons ${
-              props.reactionDown.includes(Auth.userID()) ?
+              props.reactionDown.includes(auth.authInfo.userId) ?
                 ' animated bounceIn flash red' :
                 ' gray'
             }`}
@@ -137,6 +138,7 @@ GenerateRecipeItem.propTypes = {
   downvote: PropTypes.func.isRequired,
   foodImg: PropTypes.string.isRequired,
   reactionDown: PropTypes.array.isRequired,
-  reactionUp: PropTypes.array.isRequired
+  reactionUp: PropTypes.array.isRequired,
+  auth: PropTypes.object.isRequired
 };
 export default GenerateRecipeItem;

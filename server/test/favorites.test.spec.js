@@ -33,7 +33,7 @@ describe('Test suite for favorite controller', () => {
           foodImg: 'http://example.com',
           ingredients: 'water, salt'
         })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(201)
         .expect((err, res) => {
           if (!err) expect(res.body).to.include({ success: true });
@@ -45,7 +45,7 @@ describe('Test suite for favorite controller', () => {
     it('should return a status code of 200 if a recipe is successfully favorited', (done) => {
       request(app)
         .post('/api/v1/recipes/1/favorite')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ status: 'favorited' });
@@ -58,7 +58,7 @@ describe('Test suite for favorite controller', () => {
     it('should return an array of users that added this recipe to their favorite list', (done) => {
       request(app)
         .get('/api/v1/recipes/reaction/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body.recipe.favorites).to.be.an('array');
@@ -71,7 +71,7 @@ describe('Test suite for favorite controller', () => {
     it('should return an error message', (done) => {
       request(app)
         .get('/api/v1/recipes/reaction/10')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.deep.equal({
@@ -86,7 +86,7 @@ describe('Test suite for favorite controller', () => {
     it('should return a status code of 200 if a recipe is successfully removed from favorite list', (done) => {
       request(app)
         .post('/api/v1/recipes/1/favorite')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ status: 'cancelled' });
@@ -99,7 +99,7 @@ describe('Test suite for favorite controller', () => {
     it('should return a status code of 404 if a recipe to be added to favorite list is not found', (done) => {
       request(app)
         .post('/api/v1/recipes/5/favorite')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.include({
@@ -115,7 +115,7 @@ describe('Test suite for favorite controller', () => {
     it('should return a status code of 200 if all user recipes are successfully fetched', (done) => {
       request(app)
         .get('/api/v1/favorites')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .end(done);
     });

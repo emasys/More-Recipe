@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import config from '../../config';
-import Auth from '../../components/auth';
 
-const GenerateReviews = ({ review, deleteReview }) => {
+const GenerateReviews = ({ review, deleteReview, auth }) => {
   if (review.fetch_reviews) {
     return review.fetch_reviews.reviews.map((comment, index) => (
       <div
@@ -31,7 +30,7 @@ const GenerateReviews = ({ review, deleteReview }) => {
               <p className="text-dark date">
                 {moment(comment.updatedAt).fromNow()}
               </p>
-              {Auth.userID() === comment.userId && (
+              {auth.authInfo.userId === comment.userId && (
                 // eslint-disable-next-line
                 <i
                   onClick={() => deleteReview(comment.id, comment.recipeId)}

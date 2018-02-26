@@ -24,7 +24,7 @@ export default class Authorization {
    */
   static checkAdmin(req, res, next) {
     const token =
-      req.body.token || req.query.token || req.headers['x-access-token'];
+      req.body.token || req.query.token || req.headers['more-recipe-access'];
     jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
         return setStatus(res, { message: 'Invalid authorization status' }, 401);
@@ -54,7 +54,7 @@ export default class Authorization {
    */
   static verifyToken(req, res, next) {
     const token =
-      req.body.token || req.query.token || req.headers['x-access-token'];
+      req.body.token || req.query.token || req.headers['more-recipe-access'];
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
         if (error) {

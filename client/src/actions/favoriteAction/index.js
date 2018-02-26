@@ -1,16 +1,13 @@
-import axios from 'axios';
 import * as type from '../types';
-import { isLoading, UTIL } from '../index';
+import { isLoading } from '../index';
+import instance from '../../config/axios'
 import { getRecipeReactions } from '../recipeActions';
 
 // Get user favorites
 export const getFavorite = (limit, offset) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .get(
-      `${UTIL.baseUrl}/favorites?limit=${limit}&offset=${offset}`,
-      UTIL.config
-    )
+  return instance
+    .get(`/favorites?limit=${limit}&offset=${offset}`)
     .then(response => {
       dispatch({ type: type.GET_FAVORITES, payload: response.data });
       dispatch(isLoading(false));
@@ -24,8 +21,8 @@ export const getFavorite = (limit, offset) => dispatch => {
 // Add Favorite
 export const setFavorite = id => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/recipes/${id}/favorite`, null, UTIL.config)
+  return instance
+    .post(`/recipes/${id}/favorite`, null)
     .then(response => {
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
       dispatch(getRecipeReactions(id));

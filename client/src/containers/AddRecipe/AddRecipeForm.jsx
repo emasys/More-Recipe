@@ -85,6 +85,6 @@ const AddRecipeForm = props => (
 );
 
 AddRecipeForm.propTypes = {
-  handleForm: PropTypes.func
+  handleForm: PropTypes.func.isRequired
 };
 export default AddRecipeForm;

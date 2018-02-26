@@ -100,7 +100,7 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 200 if all user info are successfully fetched', (done) => {
       request(app)
         .get('/api/v1/users')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -138,7 +138,7 @@ describe('Test suite for user controller', () => {
       request(app)
         .put('/api/v1/users/1')
         .send({ firstName: 'emasys', lastName: 'endy', Bio: 'I am emasys nd' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
@@ -150,7 +150,7 @@ describe('Test suite for user controller', () => {
       request(app)
         .put('/api/v1/users/1')
         .send({ firstName: 123, lastName: 'endy', Bio: 'I am emasys nd' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(422)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -164,7 +164,7 @@ describe('Test suite for user controller', () => {
       request(app)
         .put('/api/v1/users/5')
         .send({ firstName: 'emasys', lastName: 'endy', Bio: 'I am emasys nd' })
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.deep.equal({
@@ -180,7 +180,7 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 404', (done) => {
       request(app)
         .delete('/api/v1/users/5')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
           expect(res.body).to.include({ success: false });
@@ -193,7 +193,7 @@ describe('Test suite for user controller', () => {
     it('should return a status code of 200 if all user info are successfully deleted', (done) => {
       request(app)
         .delete('/api/v1/users/1')
-        .set('x-access-token', firstToken)
+        .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });

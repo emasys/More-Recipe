@@ -10,7 +10,6 @@ import { addRecipe } from '../../actions/recipeActions';
 import Navbar from '../../components/Navbar';
 import AddRecipeForm from './AddRecipeForm';
 import config from '../../config';
-import Auth from '../../components/auth';
 import Preloader from '../../components/Preloader';
 
 /**
@@ -69,10 +68,9 @@ class AddRecipe extends Component {
         }
       }
     }
-  }
+  };
 
-
-  handleForm = (event) => {
+  handleForm = event => {
     event.preventDefault();
     let data = {
       name: event.target.elements.recipe.value.trim(),
@@ -105,7 +103,7 @@ class AddRecipe extends Component {
         this.sendData();
       });
     }
-  }
+  };
 
   /**
    *
@@ -135,7 +133,9 @@ class AddRecipe extends Component {
                 data-aos-delay="1000"
                 data-dos-duration="1000"
               />
-              <h3 className="text-white">Hey {Auth.moniker()}</h3>
+              <h3 className="text-white">
+                Hey {this.props.auth.authInfo.username}
+              </h3>
               <h4 className="mt-10 text-white p-10 ">
                 “Cooking is not a science but an art, mistakes are okay, messes
                 are fine—the pleasure is in the creating and the sharing of the
@@ -151,7 +151,8 @@ class AddRecipe extends Component {
 }
 
 const mapStateToProps = state => ({
-  new_recipe: state.recipes
+  new_recipe: state.recipes,
+  auth: state.user
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ addRecipe }, dispatch)

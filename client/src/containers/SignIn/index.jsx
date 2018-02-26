@@ -36,9 +36,8 @@ class SignIn extends Component {
     resetPassword: PropTypes.func.isRequired,
     signin: PropTypes.object.isRequired,
     signIn: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
     compareToken: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     sendToken: PropTypes.func.isRequired
   };
 
@@ -95,13 +94,12 @@ class SignIn extends Component {
           showErrMessage: 'fade'
         });
         let linkPath = '/';
-        if (nextProps.match.params) {
-          linkPath = nextProps.location.pathname;
+        if (nextProps.signin.path) {
+          linkPath = nextProps.signin.path;
           if (linkPath === '/signin') linkPath = '/';
         }
-        // nextProps.history.push(linkPath);
-        window.location.href = linkPath;
-      } else if (!nextProps.signin.signIn.data.success) {
+        nextProps.history.push(linkPath);
+      } else {
         this.setState({
           showErrMessage: 'show'
         });
@@ -243,16 +241,16 @@ class SignIn extends Component {
    */
   render() {
     const {
-      message, showProps, resetPass, success
+      resetPass, success
     } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
         <Preloader />
         <ToastContainer />
         <Navbar className="bg-dark fixed-top" />
-        {showProps && (
+        {this.props.signin.message && (
           <div className="alert alert-warning" role="alert">
-            <strong>{message}</strong>
+            <strong>{this.props.signin.message}</strong>
           </div>
         )}
         {success && (
@@ -323,7 +321,7 @@ class SignIn extends Component {
 
 const mapStateToProps = state => ({
   signin: state.user,
-  reset: state.user.reset
+  reset: state.user.reset,
 });
 
 const mapDispatchToProps = dispatch => ({

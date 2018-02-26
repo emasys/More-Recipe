@@ -16,11 +16,13 @@ import Preloader from '../../components/Preloader';
  *
  * @class Favorites
  * @extends {Component}
+ * @param {object} nextProps
  */
 export class Favorites extends Component {
   static propTypes = {
     favorites: PropTypes.object.isRequired,
-    getFavorite: PropTypes.func.isRequired
+    getFavorite: PropTypes.func.isRequired,
+    clearFavoriteList: PropTypes.func.isRequired
   };
   /**
    * Creates an instance of Favorites.

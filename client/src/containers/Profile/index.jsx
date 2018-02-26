@@ -22,7 +22,6 @@ import UserInfo from './UserInfo';
 import UserEditForm from './UserEditForm';
 import CatalogList from '../../components/CatalogList';
 import DeleteModal from './DeleteModal';
-import Auth from '../../components/auth';
 import Preloader from '../../components/Preloader';
 
 // Helper function
@@ -46,6 +45,8 @@ class Profile extends Component {
     user: PropTypes.array.isRequired,
     userInfo: PropTypes.object.isRequired,
     recipes: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    count: PropTypes.number.isRequired,
     delRecipe: PropTypes.func.isRequired
   };
 
@@ -168,7 +169,7 @@ class Profile extends Component {
 
   confirmDelete = event => {
     event.preventDefault();
-    this.props.delRecipe(this.recipeId, Auth.userID());
+    this.props.delRecipe(this.recipeId, this.props.auth.authInfo.userId);
   };
   /**
    *
@@ -215,23 +216,14 @@ class Profile extends Component {
    */
   handleImg = () => {
     const { files } = this.state;
-    let query = {
-      avatar: ''
-    };
-
     const file = files[0];
-    this.props.uploadImg(file).then(() => {
-      query.avatar = this.props.recipes.uploadedImg;
-      // for poor/no internet connection
-      if (typeof query.avatar === 'object') return this.failedUpdate();
-      this.props.updateUser(this.props.match.params.id, query).then(() => {
-        this.props.getUserInfo(this.props.match.params.id);
-        this.update();
-        this.setState({
-          save: 'd-none',
-          status: 'fade'
-        });
+    this.props.uploadImg(file, this.props.match.params.id).then(() => {
+      this.update();
+      this.setState({
+        save: 'd-none',
+        status: 'fade'
       });
+      // });
     });
   };
   /**
@@ -295,7 +287,7 @@ class Profile extends Component {
         <Preloader />
         <ToastContainer />
         <section className="container-fluid profile catalog-wrapper-full-grid mt-70">
-          <div className="row justify-content-center mx-3">
+          <div className="row justify-content-center">
             <DeleteModal {...this.props} confirmDelete={this.confirmDelete} />
             <UserInfo
               state={this.state}
@@ -307,6 +299,7 @@ class Profile extends Component {
               handleDrop={this.handleDrop}
               handleImg={this.handleImg}
               notify={this.notify}
+              auth={this.props.auth}
             />
             {edit && (
               <div className="col-lg-6 col-md-6 col-sm-12">
@@ -317,7 +310,7 @@ class Profile extends Component {
               </div>
             )}
             {!edit && (
-              <div className="col-lg-9 col-md-8 col-sm-12 recipe-lists">
+              <div className="col-lg-10 col-md-9 col-sm-6 col-12 recipe-lists">
                 <div className="clearfix">
                   <h2 className=" float-left clearfix">
                     Recipes{' '}
@@ -369,6 +362,7 @@ const mapStateToProps = state => ({
   recipes: state.recipes.userRecipes,
   count: state.recipes.userRecipesCount,
   userInfo: state.user.userInfo,
+  auth: state.user,
   updateUser: state.user.updateUser
 });
 

@@ -1,11 +1,11 @@
-import axios from 'axios';
 import * as type from '../types';
-import { isLoading, UTIL } from '../index';
+import instance from '../../config/axios'
+import { isLoading } from '../index';
 
 // Fetch reviews for a recipe
 export const getReviews = recipeId => dispatch =>
-  axios
-    .get(`${UTIL.baseUrl}/reviews/${recipeId}`, UTIL.config)
+  instance
+    .get(`/reviews/${recipeId}`)
     .then(response => {
       dispatch({ type: type.GET_REVIEWS, payload: response.data });
       dispatch(isLoading(false));
@@ -18,8 +18,8 @@ export const getReviews = recipeId => dispatch =>
 // Post a review
 export const postReview = (data, id) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/recipes/${id}/reviews`, data, UTIL.config)
+  return instance
+    .post(`/recipes/${id}/reviews`, data)
     .then(response => {
       dispatch({ type: type.REVIEW, payload: response.data });
       dispatch(getReviews(id));
@@ -33,8 +33,8 @@ export const postReview = (data, id) => dispatch => {
 // Delete a review
 export const deleteReview = (reviewId, recipeId) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .delete(`${UTIL.baseUrl}/reviews/delete/${reviewId}`, UTIL.config)
+  return instance
+    .delete(`/reviews/delete/${reviewId}`)
     .then(response => {
       dispatch({ type: type.DELETE_REVIEWS, payload: response.data });
       dispatch(getReviews(recipeId));

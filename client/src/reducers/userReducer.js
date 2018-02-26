@@ -1,6 +1,14 @@
 import * as type from '../actions/types';
 
-export default (state = {}, action) => {
+export default (
+  state = {
+    message: null,
+    authInfo: {
+      username: ''
+    }
+  },
+  action
+) => {
   switch (action.type) {
   case type.SIGN_IN:
     return {
@@ -56,6 +64,20 @@ export default (state = {}, action) => {
     return {
       ...state,
       compareToken: action.payload
+    };
+
+  case type.IS_LOGGEDIN:
+    return {
+      ...state,
+      isLoggedIn: action.payload.isLoggedIn,
+      authInfo: action.payload
+    };
+
+  case type.FLASH_MESSAGE:
+    return {
+      ...state,
+      message: action.message,
+      path: action.path
     };
 
   default:

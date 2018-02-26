@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
-// components
 import Auth from './auth';
 
 const logout = () => {
@@ -14,8 +15,9 @@ const logout = () => {
  *
  * @class Navbar
  * @extends {Component}
+ * @param {qny} props
  */
-const Navbar = () => (
+const Navbar = props => (
   <section className="container-fluid m-0 p-0">
     <nav
       data-aos="flip-up"
@@ -42,10 +44,13 @@ const Navbar = () => (
           id="navbarSupportedContent"
         >
           <ul className="navbar-nav bold">
-            {Auth.loggedIn() ? (
+            {props.auth.isLoggedIn ? (
               <li className="nav-item mt-5 pr-15 ml-3">
-                <Link className=" text-orange" to={`/profile/${Auth.userID()}`}>
-                  Hi {Auth.moniker()},
+                <Link
+                  className=" text-orange"
+                  to={`/profile/${props.auth.authInfo.userId}`}
+                >
+                  Hi {props.auth.authInfo.username},
                 </Link>
               </li>
             ) : (
@@ -56,7 +61,7 @@ const Navbar = () => (
               </li>
             )}
             <li className="nav-item">
-              {Auth.loggedIn() ? (
+              {props.auth.isLoggedIn ? (
                 <a
                   onClick={logout}
                   className="nav-link btn btn-outline-light btn-lg btn-sign "
@@ -80,5 +85,12 @@ const Navbar = () => (
     </nav>
   </section>
 );
+const mapStateToProps = state => ({
+  auth: state.user
+});
 
-export default Navbar;
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps, null)(Navbar);

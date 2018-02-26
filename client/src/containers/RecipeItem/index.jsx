@@ -16,7 +16,7 @@ import { upvote, downvote } from '../../actions/voteActions';
 import { uploadImg } from '../../actions';
 
 // components
-import Auth from '../../components/auth';
+// import Auth from '../../components/auth';
 import RecipeIngredients from './Ingredients';
 import Reviews from './Reviews';
 import Navbar from '../../components/Navbar';
@@ -45,23 +45,25 @@ class RecipeItem extends Component {
     history: PropTypes.object.isRequired,
     recipes: PropTypes.object.isRequired,
     getRecipeItem: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    clearRecipes: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
   };
 
   static defaultProps = {
     userInfo: {
       data: {
         id: 1,
-        firstName: "",
-        lastName: "",
-        bio: "",
-        email: "",
-        country: "",
-        avatar: "",
-        moniker: ""
+        firstName: '',
+        lastName: '',
+        bio: '',
+        email: '',
+        country: '',
+        avatar: '',
+        moniker: ''
       }
     }
-  }
+  };
   /**
    * Creates an instance of RecipeItem.
    * @param {any} props
@@ -71,6 +73,7 @@ class RecipeItem extends Component {
     super(props);
     this.foodImg = null;
     this.state = {
+      authInfo: {},
       edit: false,
       error: 'd-none',
       favoriteStatus: false,
@@ -107,6 +110,9 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
+    this.setState({
+      authInfo: nextProps.auth.authInfo
+    });
     if (nextProps.recipes.updated) {
       update();
       this.setState({
@@ -115,14 +121,14 @@ class RecipeItem extends Component {
         error: 'd-none'
       });
     }
-    if (nextProps.recipes.recipeItem.data) {
-      if (nextProps.recipes.recipeItem.data.status === 'Recipes not found') {
-        nextProps.history.push('/NotFound');
-      }
-      this.setState({
-        error: 'd-block'
-      });
-    }
+    // if (nextProps.recipes.recipeItem.data) {
+    //   if (nextProps.recipes.recipeItem.data.status === 'Recipes not found') {
+    //     nextProps.history.push('/NotFound');
+    //   }
+    //   this.setState({
+    //     error: 'd-block'
+    //   });
+    // }
     if (nextProps.recipes.recipeItem.recipe) {
       this.setState({
         favoriteStatus: false,
@@ -138,7 +144,7 @@ class RecipeItem extends Component {
         category,
         userId
       } = nextProps.recipes.recipeItem.recipe;
-      if (userId === Auth.userID()) {
+      if (userId === this.state.authInfo.userId) {
         this.setState({
           name,
           description,
@@ -150,7 +156,7 @@ class RecipeItem extends Component {
         });
       }
       favorites.map(user => {
-        if (user.userId === Auth.userID()) {
+        if (user.userId === this.state.authInfo.userId) {
           return this.setState({
             favoriteStatus: true
           });
@@ -162,8 +168,8 @@ class RecipeItem extends Component {
 
   componentWillUnmount = () => {
     this.props.clearRecipes();
-  }
-  
+  };
+
   deleteRecipeInit = event => {
     event.preventDefault();
   };
@@ -175,11 +181,13 @@ class RecipeItem extends Component {
    * @returns {any} redirects a user back to catalog page after deletion
    */
   delRecipe = () => {
-    this.props.delRecipe(this.props.match.params.id, Auth.userID()).then(() => {
-      if (this.props.recipes.del_recipe.success) {
-        this.props.history.push('/catalog');
-      }
-    });
+    this.props
+      .delRecipe(this.props.match.params.id, this.state.authInfo.userId)
+      .then(() => {
+        if (this.props.recipes.del_recipe.success) {
+          this.props.history.push('/catalog');
+        }
+      });
   };
   /**
    *
@@ -337,6 +345,7 @@ class RecipeItem extends Component {
           hoverOut={this.hoverOut}
           handleImg={this.handleImg}
           handleDrop={this.handleDrop}
+          auth={this.props.auth}
         />
       );
     }
@@ -421,7 +430,8 @@ const mapStateToProps = state => ({
   favorite: state.favorite,
   votes: state.votes,
   userInfo: state.user.userInfo,
-  review: state.review
+  review: state.review,
+  auth: state.user
 });
 
 const mapDispatchToProps = dispatch => ({
