@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Textarea from 'react-textarea-autosize';
 
 // Action
 import { postReview, deleteReview } from '../../actions/reviewActions';
@@ -107,8 +108,8 @@ class Reviews extends Component {
           <form onSubmit={this.handleForm} className="text-center">
             <div className="form-row">
               <div className="form-group col-md-12 col-sm-12">
-                <textarea
-                  className="special col-12"
+                <Textarea
+                  className="textarea col-12"
                   id="FormControlTextarea"
                   rows="4"
                   onChange={this.textChanged}

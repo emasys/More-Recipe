@@ -44,3 +44,4 @@ server/playground/index.js
 client/src/components/CategoryOrginal.jsx
 server/migrations/addColumn.js
 webpack.prod.config.js
+client/public/css/custom-style.css

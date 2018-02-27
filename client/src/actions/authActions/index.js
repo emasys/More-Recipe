@@ -27,7 +27,6 @@ export const signUp = data => dispatch => {
 // Login
 export const signIn = data => dispatch => {
   dispatch(isLoading(true));
-  console.log("auth=====>", data);
   return instance
     .post(`/users/signin`, data)
     .then(response => {

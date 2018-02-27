@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
 
-// /* eslint-disable react/prefer-stateless-function*/
 /**
  *
  *

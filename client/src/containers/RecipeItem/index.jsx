@@ -89,7 +89,8 @@ class RecipeItem extends Component {
       ingredients: '',
       direction: '',
       description: '',
-      recipeItem: undefined
+      recipeItem: undefined,
+      fetchRecipe: false
     };
   }
   /**
@@ -102,6 +103,8 @@ class RecipeItem extends Component {
     this.props.getRecipeItem(this.props.match.params.id);
     window.scrollTo(0, 0);
   }
+
+
   /**
    *
    *
@@ -111,7 +114,8 @@ class RecipeItem extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState({
-      authInfo: nextProps.auth.authInfo
+      authInfo: nextProps.auth.authInfo,
+      fetchRecipe: nextProps.auth.isLoggedIn
     });
     if (nextProps.recipes.updated) {
       update();
@@ -121,14 +125,14 @@ class RecipeItem extends Component {
         error: 'd-none'
       });
     }
-    // if (nextProps.recipes.recipeItem.data) {
-    //   if (nextProps.recipes.recipeItem.data.status === 'Recipes not found') {
-    //     nextProps.history.push('/NotFound');
-    //   }
-    //   this.setState({
-    //     error: 'd-block'
-    //   });
-    // }
+    if (nextProps.recipes.recipeItem.data) {
+      if (nextProps.recipes.recipeItem.data.status === 'Recipes not found') {
+        nextProps.history.push('/NotFound');
+      }
+      this.setState({
+        error: 'd-block'
+      });
+    }
     if (nextProps.recipes.recipeItem.recipe) {
       this.setState({
         favoriteStatus: false,
@@ -232,7 +236,6 @@ class RecipeItem extends Component {
    * @returns {any} downvote a recipe
    */
   downvote = () => {
-    document.querySelector('#dislike').classList.toggle('red');
     this.props.downvote(this.props.match.params.id);
   };
   /**

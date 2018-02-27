@@ -21,7 +21,6 @@ const GenerateRecipeItem = props => {
       }
     }
   } = props;
-  console.log("Auth=======>", auth);
   return (
     <div className="mb-20">
       <div>

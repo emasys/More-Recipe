@@ -37,6 +37,13 @@ const Composer = WrappedComponent => {
       }
     };
 
+    // componentDidUpdate = (prevProps, prevState) => {
+    //   if (!prevProps.auth.isLoggedIn) {
+    //     this.props.flashMessage(this.props.location.pathname);
+    //     // this.props.history.push('/signin');
+    //   }
+    // }
+
     /**
      *
      *
@@ -45,7 +52,9 @@ const Composer = WrappedComponent => {
      * @memberOf Authenticate
      */
     render() {
-      return <WrappedComponent {...this.props} />;
+      return (
+        <WrappedComponent {...this.props} />
+      );
     }
   }
 

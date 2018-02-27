@@ -36,7 +36,6 @@ const onHoverOut = id => {
  * @returns {object} list of recipes
  */
 const generateList = props => {
-  console.log('props ======>', props.auth);
   if (props.isLoading) {
     return (
       <div className="text-center error-message">

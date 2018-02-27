@@ -4,23 +4,23 @@
   transition: ease-in 1000ms;
 }
 
-body {
+/* body {
   padding: 0;
   margin: 0;
   background: url('https://res.cloudinary.com/emasys/image/upload/v1514493161/bgp.fw_cnwm3q.png') center center;
-}
+} */
 
-.wide-dropdown a:hover {
+/* .wide-dropdown a:hover {
   color: rgb(177, 114, 5);
   font-weight: 700;
-}
+} */
 
-.category-image {
+/* .category-image {
   width: 18rem;
   height: 18rem;
-}
+} */
 
-#floating-edit:hover {
+/* #floating-edit:hover {
   transition: 0.70s;
   -webkit-transition: 0.70s;
   -moz-transition: 0.70s;
@@ -31,9 +31,9 @@ body {
   -o-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-}
+} */
 
-.hvr-icon-spin:before {
+/* .hvr-icon-spin:before {
   content: "\f040";
   position: absolute;
   right: 1em;
@@ -43,38 +43,37 @@ body {
   transition-duration: 0.1s;
   transition-property: transform;
   transition-timing-function: ease-out;
-}
+} */
 
-.new-ribbon {
+/* .new-ribbon {
   width: 100%;
   height: auto;
   padding: 10px;
-}
+} */
 
-.signUp-btn {
-  /* font-family: Helvetica; */
+/* .signUp-btn {
   border-radius: 2rem;
   padding: .6rem 3rem !important;
-}
+} */
 
-.categories {
+/* .categories {
   padding: 5px;
   color: orange;
   font-family: satisfy;
-}
+} */
 
-.categories p {
+/* .categories p {
   line-height: 2rem;
   font-size: 2rem;
   padding-top: 1rem;
-}
+} */
 
-.categories:hover {
+/* .categories:hover {
   background: black !important;
   color: orange !important;
-}
+} */
 
-@media screen and (max-width: 380px) {
+/* @media screen and (max-width: 380px) {
   .navbar-brand {
     visibility: hidden;
     text-indent: -9999px;
@@ -86,9 +85,9 @@ body {
     display: block;
     text-indent: 0;
   }
-}
+} */
 
-@media screen and (max-width: 990px) {
+/* @media screen and (max-width: 990px) {
   #catalog {
     margin-top: 80px;
   }
@@ -103,13 +102,13 @@ body {
   .custom-fixed {
     top: -10px !important;
   }
-}
+} */
 
-.custom-fixed {
+/* .custom-fixed {
   top: -5px;
-}
+} */
 
-@media screen and (max-width: 575px) {
+/* @media screen and (max-width: 575px) {
   #catalog {
     margin-top: 80px;
   }
@@ -123,29 +122,25 @@ body {
     flex: 0 0 50.666667%;
     max-width: 50.666667%;
   }
-}
+} */
 
-body {
-  padding: 0;
-  margin: 0;
-}
 
-.fixed-top {
+/* .fixed-top {
   margin-bottom: 0 !important;
-}
+} */
 
-.header {
+/* .header {
   margin: 0 !important;
   padding: 0;
-}
+} */
 
-@media screen and (max-width: 500px) {
+/* @media screen and (max-width: 500px) {
   .wide-dropdown {
     min-width: 100% !important;
   }
-}
+} */
 
-@media screen and (min-width: 1444px) {
+/* @media screen and (min-width: 1444px) {
   .catalog-wrapper {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -156,17 +151,17 @@ body {
     margin-right: auto;
     max-width: 120rem;
   }
-}
+} */
 
-@media screen and (max-width: 1300px) and (min-width: 990px) {
+/* @media screen and (max-width: 1300px) and (min-width: 990px) {
   .col-lg-9 {
     -ms-flex: 0 0 66.666667%;
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
   }
-}
+} */
 
-.wrapper {
+/* .wrapper {
   height: auto;
   width: 700px;
   margin: 50px auto;
@@ -184,13 +179,12 @@ body {
 
 .headers p {
   margin: 30px 20px;
-}
+} */
 
-.form {
+/* .form {
   margin: 10px auto;
   max-width: 550px;
   padding: 20px 12px 10px 20px;
-  font: 14px 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 
 .form li {
@@ -265,19 +259,19 @@ select:focus {
 
 .form .special select {
   /* border: 1px solid lightgray; */
-  padding: 11px;
+  /* padding: 11px;
   background: transparent;
   margin: 0px;
-  font-size: 16px;
+  font-size: 16px; */
   /* width: 20%; */
-}
+/* } */
 
 
 /* .form .special select:focus {
     border: 1px solid #6AAD4B;
 } */
 
-.form .special input[type='text'] {
+/* .form .special input[type='text'] {
   padding: 12px;
   border-right: 1px solid lightgray;
   border-left: 0;
@@ -320,4 +314,19 @@ select:focus {
   background: linear-gradient(180deg, rgba(3, 8, 14, 0.9), rgba(3, 8, 14, 0.89), rgba(3, 8, 14, 0.8), rgba(3, 8, 14, 0.79)), url('https://res.cloudinary.com/emasys/image/upload/v1516437747/bgfood_kzyzut.jpg') no-repeat center center;
   background-size: cover;
   border-radius: 8px 8px 0 0;
+}  */
+/* .form input[type='submit'],
+.form input[type='button'] {
+  padding: 12px;
+  border: none;
+  color: #fff;
+  width: 100%;
+  margin-top: 50px;
+  font-size: 16px;
 }
+.form input[type='submit']:hover,
+.form input[type='button']:hover {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+} */
