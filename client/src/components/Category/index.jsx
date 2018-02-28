@@ -10,7 +10,6 @@ import { getCategory } from '../../actions/recipeActions';
 // Components
 import Navbar from '../Navbar';
 import CatalogList from '../CatalogList';
-import Preloader from '../../components/Preloader';
 
 /**
  *@param {object} nextProps
@@ -72,7 +71,6 @@ export class Category extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <Preloader />
         <div className="mt-80 mb-3 p-15">
           <div className="catalog-wrapper" id="catalog">
             <div className="row">

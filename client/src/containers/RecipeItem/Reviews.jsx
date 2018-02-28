@@ -101,7 +101,7 @@ class Reviews extends Component {
     return (
       <div className="row justify-content-center mt-2 catalog-wrapper">
         <div className="col-12">
-          <h5 className="text-center text-muted">Reviews</h5>
+          <h5 className="text-center text-muted">Review</h5>
           <hr />
         </div>
         <div className="col-lg-7 col-sm-12 recipe-image">
@@ -111,7 +111,8 @@ class Reviews extends Component {
                 <Textarea
                   className="textarea col-12"
                   id="FormControlTextarea"
-                  rows="4"
+                  // rows="4"
+                  placeholder="leave a review"
                   onChange={this.textChanged}
                   value={content}
                 />

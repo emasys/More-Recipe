@@ -13,7 +13,6 @@ import { clearRecipes } from '../../actions/recipeActions';
 import Navbar from '../../components/Navbar';
 import CatalogList from '../../components/CatalogList';
 import UserProfileInfo from './UserProfileInfo';
-import Preloader from '../../components/Preloader';
 /**
  *
  *
@@ -108,7 +107,6 @@ class UserProfile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <Preloader />
         <section className="container-fluid profile catalog-wrapper-full-grid mt-80">
           <div className="row justify-content-center">
             <UserProfileInfo data={this.props.userInfo} />

@@ -17,7 +17,6 @@ import { signUp } from '../../actions/authActions';
 //component
 import Navbar from '../../components/Navbar';
 import Form from './SignUpForms';
-import Preloader from '../../components/Preloader';
 
 /**
  *
@@ -114,7 +113,6 @@ class SignUp extends Component {
   render() {
     return (
       <section className="">
-        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         <div className="container">
           <div

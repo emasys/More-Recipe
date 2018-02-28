@@ -18,7 +18,6 @@ import CategoryList from '../../components/CategoryList';
 import CatalogList from '../../components/CatalogList';
 import CategoryNavbar from './NavbarCategory';
 import Navbar from './NavbarSearch';
-import Preloader from '../../components/Preloader';
 
 /**
  *@param {object} event
@@ -235,7 +234,6 @@ class FullCatalog extends Component {
             user={this.props.auth}
           />
         </section>
-        <Preloader />
         <div
           className="category-bar fixed-top custom-fixed custom-bg-color"
           style={{ zIndex: 900 }}

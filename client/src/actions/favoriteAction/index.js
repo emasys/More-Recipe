@@ -20,7 +20,7 @@ export const getFavorite = (limit, offset) => dispatch => {
 
 // Add Favorite
 export const setFavorite = id => dispatch => {
-  dispatch(isLoading(true));
+  // dispatch(isLoading(true));
   return instance
     .post(`/recipes/${id}/favorite`, null)
     .then(response => {

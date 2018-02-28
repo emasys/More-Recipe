@@ -9,7 +9,6 @@ import { getAllUsers, deleteUser } from '../actions/userActions';
 
 //components
 import Navbar from './Navbar';
-import Preloader from './Preloader';
 
 /**
  *
@@ -137,7 +136,6 @@ class ManageUsers extends Component {
 
     return (
       <div>
-        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         <Modal open={open} onClose={this.onCloseModal} little>
           <div className="text-center mt-10">

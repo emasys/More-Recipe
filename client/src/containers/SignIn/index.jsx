@@ -14,7 +14,6 @@ import {
 
 //components
 import Navbar from '../../components/Navbar';
-import Preloader from '../../components/Preloader';
 import SignInForm from './SignInForm';
 import ResetPasswordForm from './ResetPassword';
 import errorMessages, {
@@ -245,7 +244,6 @@ class SignIn extends Component {
     } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
-        <Preloader />
         <ToastContainer />
         <Navbar className="bg-dark fixed-top" />
         {this.props.signin.message && (

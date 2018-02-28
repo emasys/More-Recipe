@@ -10,7 +10,6 @@ import { getFavorite, clearFavoriteList } from '../../actions/favoriteAction';
 //components
 import Navbar from '../../components/Navbar';
 import FavoriteList from './FavoriteList';
-import Preloader from '../../components/Preloader';
 /**
  *
  *
@@ -78,7 +77,6 @@ export class Favorites extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <Preloader />
         <div className="mt-80 mb-3">
           <div className=" catalog-wrapper-full-grid" id="catalog">
             <div className="row">

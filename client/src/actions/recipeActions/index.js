@@ -41,8 +41,9 @@ export const getRecipeItem = id => dispatch => {
 };
 
 // Get a single recipe reactions
-export const getRecipeReactions = id => dispatch =>
-  instance
+export const getRecipeReactions = id => dispatch => {
+  dispatch(isLoading(true));
+  return instance
     .get(`/recipes/reaction/${id}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
@@ -50,7 +51,9 @@ export const getRecipeReactions = id => dispatch =>
     })
     .catch(err => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: err.response });
+      dispatch(isLoading(false));
     });
+};
 
 // edit recipe
 export const editRecipe = (data, id) => dispatch => {

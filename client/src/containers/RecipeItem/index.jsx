@@ -22,7 +22,6 @@ import Reviews from './Reviews';
 import Navbar from '../../components/Navbar';
 import EditForm from './EditForm';
 import GenerateItems from './GenerateRecipeItems';
-import Preloader from '../../components/Preloader';
 import DeleteModal from './DeleteModal';
 
 //Helper functions
@@ -100,7 +99,9 @@ class RecipeItem extends Component {
    * @returns {any} cdm
    */
   componentDidMount() {
-    this.props.getRecipeItem(this.props.match.params.id);
+    if (!this.props.recipes.recipeItem.success) {
+      this.props.getRecipeItem(this.props.match.params.id);
+    }
     window.scrollTo(0, 0);
   }
 
@@ -113,6 +114,7 @@ class RecipeItem extends Component {
    * @returns {any} cwrp
    */
   componentWillReceiveProps(nextProps) {
+   
     this.setState({
       authInfo: nextProps.auth.authInfo,
       fetchRecipe: nextProps.auth.isLoggedIn
@@ -376,7 +378,6 @@ class RecipeItem extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <Preloader />
         <ToastContainer />
         <DeleteModal delRecipe={this.delRecipe} />
         <section

@@ -10,7 +10,6 @@ import { addRecipe } from '../../actions/recipeActions';
 import Navbar from '../../components/Navbar';
 import AddRecipeForm from './AddRecipeForm';
 import config from '../../config';
-import Preloader from '../../components/Preloader';
 
 /**
  *
@@ -114,7 +113,6 @@ class AddRecipe extends Component {
   render() {
     return (
       <section className="container ">
-        <Preloader />
         <Navbar className="bg-dark fixed-top" />
         <div
           data-aos="fade-up"

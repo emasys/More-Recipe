@@ -27,7 +27,9 @@ export const isAuthenticated = () => {
 };
 
 export const isLoading = bool => dispatch => {
-  dispatch(isAuthenticated());
+  if (bool) {
+    dispatch(isAuthenticated());
+  }
   return dispatch({
     type: type.IS_LOADING,
     isLoading: bool

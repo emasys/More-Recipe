@@ -22,7 +22,6 @@ import UserInfo from './UserInfo';
 import UserEditForm from './UserEditForm';
 import CatalogList from '../../components/CatalogList';
 import DeleteModal from './DeleteModal';
-import Preloader from '../../components/Preloader';
 
 // Helper function
 import { validate } from './helper';
@@ -284,7 +283,6 @@ class Profile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <Preloader />
         <ToastContainer />
         <section className="container-fluid profile catalog-wrapper-full-grid mt-70">
           <div className="row justify-content-center">

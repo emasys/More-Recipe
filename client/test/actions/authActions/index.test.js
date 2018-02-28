@@ -5,16 +5,18 @@ import thunk from 'redux-thunk';
 import * as actions from '../../../src/actions/authActions';
 import * as authMocks from '../../__mocks__/authMocks';
 import * as type from '../../../src/actions/types';
+import instance from '../../../src/config/axios'; 
+
 
 const mockStore = configureStore([thunk]);
 
 describe('Test suite for Authentication actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
 
   it('should return an object containing token after sign up', () => {
