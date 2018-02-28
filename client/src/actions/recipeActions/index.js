@@ -42,7 +42,6 @@ export const getRecipeItem = id => dispatch => {
 
 // Get a single recipe reactions
 export const getRecipeReactions = id => dispatch => {
-  dispatch(isLoading(true));
   return instance
     .get(`/recipes/reaction/${id}`)
     .then(response => {

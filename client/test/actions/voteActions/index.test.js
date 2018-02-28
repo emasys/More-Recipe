@@ -2,6 +2,8 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import instance from '../../../src/config/axios';
+import { isLoggedInFalse } from '../../__mocks__/authMocks';
 import * as actions from '../../../src/actions/voteActions';
 import * as voteMocks from '../../__mocks__/voteMocks';
 import * as type from '../../../src/actions/types';
@@ -10,11 +12,11 @@ const mockStore = configureStore([thunk]);
 
 describe('Test suite for vote actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
 
   it('should return an object containing confirmation of upvote', () => {
@@ -27,6 +29,7 @@ describe('Test suite for vote actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.UPVOTE,
@@ -53,6 +56,7 @@ describe('Test suite for vote actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.DOWNVOTE,

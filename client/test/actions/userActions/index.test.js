@@ -2,6 +2,8 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import instance from '../../../src/config/axios';
+import { isLoggedInFalse } from '../../__mocks__/authMocks';
 import * as actions from '../../../src/actions/userActions';
 import * as userMocks from '../../__mocks__/userMocks';
 import * as type from '../../../src/actions/types';
@@ -10,11 +12,11 @@ const mockStore = configureStore([thunk]);
 
 describe('Test suite for user actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
   it('should return an object containing user data of a particular user', () => {
     moxios.wait(() => {
@@ -26,6 +28,7 @@ describe('Test suite for user actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.USER_INFO,
@@ -52,6 +55,7 @@ describe('Test suite for user actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.USER_RECIPES,
@@ -78,6 +82,7 @@ describe('Test suite for user actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.USER_PROFILE,
@@ -103,6 +108,7 @@ describe('Test suite for user actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.ALL_USERS,
@@ -129,11 +135,13 @@ describe('Test suite for user actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.DELETE_USER,
         payload: { success: true, status: 'user deleted' }
       },
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       { type: type.IS_LOADING, isLoading: false }
     ];
@@ -156,12 +164,15 @@ describe('Test suite for user actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.UPDATE_USER,
         payload: { success: true, status: 'updated' }
       },
-      { type: type.IS_LOADING, isLoading: false }
+      { type: type.IS_LOADING, isLoading: false },
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
+      { type: type.IS_LOADING, isLoading: true },
     ];
 
     const store = mockStore({ payload: {} });

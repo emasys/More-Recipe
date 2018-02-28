@@ -1,6 +1,6 @@
 import * as type from '../types';
 import { isLoading } from '../index';
-import instance from '../../config/axios'
+import instance from '../../config/axios';
 import { getRecipeReactions } from '../recipeActions';
 
 // Get user favorites
@@ -20,7 +20,7 @@ export const getFavorite = (limit, offset) => dispatch => {
 
 // Add Favorite
 export const setFavorite = id => dispatch => {
-  // dispatch(isLoading(true));
+  dispatch(isLoading(true));
   return instance
     .post(`/recipes/${id}/favorite`, null)
     .then(response => {

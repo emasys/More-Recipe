@@ -1,17 +1,6 @@
 import * as type from '../actions/types';
 
-const initialState = {
-  votes: {
-    downvote: { success: false },
-    upvote: { success: true }
-  }
-};
-export default (
-  state = {
-    // upvote: []
-  },
-  action
-) => {
+export default (state = {}, action) => {
   switch (action.type) {
   case type.UPVOTE:
     return {
@@ -25,11 +14,6 @@ export default (
       ...state,
       downvote: action.payload,
       upvote: action.payload
-    };
-  case type.GET_VOTE_STATUS:
-    return {
-      ...state,
-      votes: action.payload
     };
 
   default:

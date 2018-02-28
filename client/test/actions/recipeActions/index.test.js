@@ -2,6 +2,8 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import instance from '../../../src/config/axios';
+import { isLoggedInFalse } from '../../__mocks__/authMocks';
 import * as actions from '../../../src/actions/recipeActions';
 import * as recipeMocks from '../../__mocks__/recipeMocks';
 import * as type from '../../../src/actions/types';
@@ -10,11 +12,11 @@ const mockStore = configureStore([thunk]);
 
 describe('Test suite for recipe actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
 
   it('should return an array of objects containing load state and all the recipes available', () => {
@@ -27,6 +29,7 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       { type: type.ALL_RECIPES, payload: recipeMocks.allRecipes },
       { type: type.IS_LOADING, isLoading: false }
@@ -50,11 +53,13 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SINGLE_RECIPE,
         payload: { success: true, recipe: recipeMocks.singleRecipe }
       },
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       { type: type.IS_LOADING, isLoading: false }
     ];
@@ -102,6 +107,7 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.EDIT_RECIPE,
@@ -130,11 +136,13 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.DELETE_RECIPE,
         payload: { success: true, recipe: recipeMocks.deleteRecipe }
       },
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       { type: type.IS_LOADING, isLoading: false }
     ];
@@ -157,6 +165,7 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SEARCH,
@@ -185,6 +194,7 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.NEW_RECIPE,
@@ -213,6 +223,7 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.HOT_RECIPES,
@@ -239,6 +250,7 @@ describe('Test suite for recipe actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.GET_CATEGORY,
