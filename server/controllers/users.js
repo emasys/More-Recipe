@@ -166,7 +166,12 @@ export default class MoreRecipeUsers {
    */
   static sendToken(req, res) {
     const request = req.body;
-    return sendGeneratedToken(res, request);
+    return Users.findAll({ where: { email: request.email } }).then((user) => {
+      if (user.length < 1) {
+        return setStatus(res, { success: true, status: 'user not found' }, 404);
+      }
+      return sendGeneratedToken(res, request);
+    });
   }
 
   /**

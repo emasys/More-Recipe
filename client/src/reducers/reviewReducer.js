@@ -2,7 +2,8 @@ import * as type from '../actions/types';
 
 export default (
   state = {
-    review: {}
+    review: {},
+    fetch_reviews: []
   },
   action
 ) => {
@@ -13,6 +14,12 @@ export default (
       review: action.payload
     };
   case type.GET_REVIEWS:
+    return {
+      ...state,
+      fetch_reviews: [...state.fetch_reviews, ...action.payload.reviews],
+      count_reviews: action.payload.count
+    };
+  case type.CLEAR_REVIEW:
     return {
       ...state,
       fetch_reviews: action.payload

@@ -569,8 +569,14 @@ footer {
 
 .direction {
   box-sizing: border-box;
-  overflow-wrap: break-word; // background: rgb(134, 133, 133);
-  border-radius: 30px;
+  background: rgb(252, 252, 252);
+  overflow-wrap: break-word; 
+  -webkit-transition: 400ms ease-in;
+  -moz-transition: 400ms ease-in;
+  transition: 400ms ease-in;
+  &:hover {
+    background: rgb(245, 245, 245);
+  }
 }
 
 .wrapWord {
@@ -992,7 +998,6 @@ input[type='search'] {
       -webkit-box-shadow: none;
     }
   }
- 
   input[type='text'],
   input[type='date'],
   input[type='datetime'],
@@ -1058,11 +1063,11 @@ input[type='search'] {
   border-radius: 8px 8px 0 0;
 }
 
- .textarea {
-   border: none;
-    border-bottom: 1.8px solid lightgray !important;
-  }
+.textarea {
+  border: none;
+  border-bottom: 1.8px solid lightgray !important;
+}
 
-  select{
-    background: transparent;
-  }
+select {
+  background: transparent;
+}

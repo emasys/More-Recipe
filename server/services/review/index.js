@@ -21,11 +21,11 @@ export const postReview = (res, req) => {
       });
     })
     .catch(() =>
-      setStatus(res, { success: false, error: 'recipe not found' }, 500));
+      setStatus(res, { success: false, error: 'recipe not found' }, 404));
 };
 
 export const fetchReview = (res, req) =>
-  Reviews.findAll({
+  Reviews.findAndCountAll({
     limit: req.query.limit,
     offset: req.query.offset,
     where: {
@@ -41,9 +41,17 @@ export const fetchReview = (res, req) =>
   })
     .then((reviews) => {
       if (reviews.length < 1) {
-        return setStatus(res, { message: 'no review', reviews }, 200);
+        return setStatus(
+          res,
+          { message: 'no review', reviews: reviews.rows },
+          200
+        );
       }
-      return setStatus(res, { reviews }, 200);
+      return setStatus(
+        res,
+        { reviews: reviews.rows, count: reviews.count },
+        200
+      );
     })
     .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
 

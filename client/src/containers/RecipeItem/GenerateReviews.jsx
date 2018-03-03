@@ -7,14 +7,14 @@ import config from '../../config';
 
 const GenerateReviews = ({ review, deleteReview, auth }) => {
   if (review.fetch_reviews) {
-    return review.fetch_reviews.reviews.map((comment, index) => (
+    return review.fetch_reviews.map((comment, index) => (
       <div
         data-aos="fade-left"
         data-aos-offset="20"
         className="comment-wrapper"
         key={comment.id}
       >
-        <div className="direction mt-50 p-15 bg-light my-2">
+        <div className="direction rounded mt-50 p-15 my-2">
           <div className="commentTitle ">
             <div className="float-left  mr-5">
               <img
@@ -49,7 +49,7 @@ const GenerateReviews = ({ review, deleteReview, auth }) => {
       </div>
     ));
   }
-  return 'Loading...';
+  return 'Loading comments...';
 };
 
 export default GenerateReviews;

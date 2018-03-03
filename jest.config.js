@@ -7,5 +7,5 @@ module.exports = {
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   roots: ['client/test'],
-  modulePathIgnorePatterns: ['server', 'client/test/components']
+  modulePathIgnorePatterns: ['server']
 };

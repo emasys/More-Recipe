@@ -126,6 +126,10 @@ export const sendGeneratedToken = (res, request) => {
   let token = null;
   return TokenGen.findOne({ where: { email: request.email } })
     .then((user) => {
+      // console.log("user info=======>", user);
+      // if (!user) {
+      //   return setStatus(res, { success: true, status: 'user not found' }, 404);
+      // }
       // eslint-disable-next-line no-mixed-operators
       token = Math.floor(1000 + Math.random() * 9000);
       request.token = token;

@@ -36,30 +36,30 @@ const onHoverOut = id => {
  * @returns {object} list of recipes
  */
 const generateList = props => {
-  if (props.isLoading) {
-    return (
-      <div className="text-center error-message">
-        <div>
-          <img
-            className="img-fluid"
-            src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
-            alt="logo"
-            height="200"
-            width="200"
-          />
-          <h4 className="p-3 m-2 text-center">...Fetching Recipes</h4>
-          <img
-            src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
-            width="100"
-            height="100"
-            alt="loading..."
-          />
-        </div>
-      </div>
-    );
-  }
   if (props.catalog) {
     if (props.catalog.length < 1) {
+      if (props.isLoading) {
+        return (
+          <div className="text-center error-message">
+            <div>
+              <img
+                className="img-fluid"
+                src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+                alt="logo"
+                height="200"
+                width="200"
+              />
+              <h4 className="p-3 m-2 text-center">...Fetching Recipes</h4>
+              <img
+                src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                width="100"
+                height="100"
+                alt="loading..."
+              />
+            </div>
+          </div>
+        );
+      }
       return (
         <div className="text-center error-message">
           <div>

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
-
 // Action
 import { getUserInfo, getUserRecipes } from '../../actions/userActions';
 import { clearRecipes } from '../../actions/recipeActions';
@@ -64,11 +63,15 @@ class UserProfile extends Component {
     this.setState(prevState => ({
       recipes: nextProps.user
     }));
-    if (this.state.offset > this.props.count) {
+    if (this.state.offset >= nextProps.count) {
       this.setState({
         showMore: false
       });
-    }
+    } else {
+      this.setState({
+        showMore: true
+      });
+    }   
   }
 
   componentWillUnmount = () => {
@@ -78,23 +81,22 @@ class UserProfile extends Component {
   loadMore = () => {
     this.props.getUserRecipes(
       this.props.match.params.id,
-      this.state.limit,
+      2,
       this.state.offset
     );
     this.setState(prevState => ({
-      offset: prevState.offset + 6
+      offset: prevState.offset + 2
     }));
   };
-  /**
-   *
-   *
-   * @memberof UserProfile
-   * @returns {any} pagination
-   */
-  viewMore = () => {
-    this.setState(prevState => ({
-      limit: prevState.limit + 6
-    }));
+
+  viewMore = event => {
+    console.log('events=======>', event);
+    event.preventDefault();
+    console.log('events=======>', event);    
+    this.loadMore();
+    // this.setState(prevState => ({
+    //   limit: prevState.limit + 6
+    // }));
   };
   /**
    *
@@ -137,7 +139,7 @@ class UserProfile extends Component {
               <div className="row justify-content-center">
                 {showMore && (
                   <button
-                    onClick={this.loadMore}
+                    onClick={this.viewMore}
                     className=" btn btn-lg btn-outline-dark text-center"
                   >
                     View more

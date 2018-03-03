@@ -103,7 +103,7 @@ class Profile extends Component {
    * @returns {any} a new state
    */
   componentWillReceiveProps(nextProps) {
-    if (this.state.offset > nextProps.count) {
+    if (this.state.offset >= nextProps.count) {
       this.setState({
         showMore: false
       });

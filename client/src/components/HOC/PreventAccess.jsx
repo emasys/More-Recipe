@@ -23,13 +23,9 @@ const Composer = WrappedComponent => {
       history: PropTypes.object.isRequired,
       location: PropTypes.object.isRequired
     };
-    componentDidMount = () => {
-      this.props.isAuthenticated();
-    };
-
-    componentWillReceiveProps = nextProps => {
-      if (nextProps.auth) {
-        if (nextProps.auth.isLoggedIn) {
+    componentWillMount = () => {
+      if (this.props.auth) {
+        if (this.props.auth.isLoggedIn) {
           this.props.history.push('/');
         }
       }
@@ -43,15 +39,12 @@ const Composer = WrappedComponent => {
      * @memberOf Authenticate
      */
     render() {
-      return (
-        <WrappedComponent {...this.props} />
-      );
+      return <WrappedComponent {...this.props} />;
     }
   }
 
   //eslint-disable-next-line
-  return connect(mapStateToProps, { isAuthenticated })(
-    Authenticate);
+  return connect(mapStateToProps, { isAuthenticated })(Authenticate);
 };
 
 export default Composer;

@@ -33,3 +33,4 @@ export const DELETE_REVIEWS = 'delete reviews';
 export const IS_LOGGEDIN = 'check if user is logged in';
 export const RESET_SEARCH = 'reset search payload';
 export const FLASH_MESSAGE = ' flash message';
+export const CLEAR_REVIEW = 'clear review array';

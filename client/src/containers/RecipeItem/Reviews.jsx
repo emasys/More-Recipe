@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Textarea from 'react-textarea-autosize';
+import { bindActionCreators } from 'redux';
 
 // Action
-import { postReview, deleteReview } from '../../actions/reviewActions';
+import {
+  postReview,
+  deleteReview,
+  getReviews,
+  clearReview
+} from '../../actions/reviewActions';
 
 // Component
 import GenerateReviews from './GenerateReviews';
@@ -25,8 +31,8 @@ class Reviews extends Component {
   };
 
   static defaultProps = {
-    review: { status: "no comment" }
-  }
+    review: { status: 'no comment' }
+  };
   /**
    * Creates an instance of Reviews.
    * @param {any} props
@@ -35,10 +41,32 @@ class Reviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      content: '',
+      offset: 1,
+      showMore: true
     };
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (this.state.offset >= nextProps.review.count_reviews) {
+      this.setState({ showMore: false });
+    } else {
+      this.setState({ showMore: true });
+    }
+  };
+
+  componentWillUnmount = () => {
+    this.props.clearReview();
+  };
+
+  loadMoreReviews = event => {
+    event.preventDefault();
+    const { id } = this.props.recipes.recipeItem.recipe;
+    this.props.getReviews(id, 4, this.state.offset);
+    this.setState(prevState => ({
+      offset: prevState.offset + 4
+    }));
+  };
   /**
    *
    *
@@ -64,6 +92,7 @@ class Reviews extends Component {
     const { id } = this.props.recipes.recipeItem.recipe;
     if (data.content.trim()) {
       this.props.postReview(data, id);
+      this.setState({ offset: 1 });
     }
     this.resetState();
   };
@@ -88,6 +117,7 @@ class Reviews extends Component {
    * @memberOf Reviews
    */
   deleteReview = (reviewId, recipeId) => {
+    this.setState({ offset: 1 });
     this.props.deleteReview(reviewId, recipeId);
   };
   /**
@@ -97,11 +127,19 @@ class Reviews extends Component {
    * @memberof Reviews
    */
   render() {
-    const { content } = this.state;
+    const { content, showMore } = this.state;
     return (
       <div className="row justify-content-center mt-2 catalog-wrapper">
         <div className="col-12">
-          <h5 className="text-center text-muted">Review</h5>
+          <h5 className="text-center text-muted">
+            Reviews{' '}
+            <span
+              data-tip="Total number of reviews"
+              className="badge badge-dark"
+            >
+              {this.props.review.count_reviews}
+            </span>
+          </h5>
           <hr />
         </div>
         <div className="col-lg-7 col-sm-12 recipe-image">
@@ -132,6 +170,14 @@ class Reviews extends Component {
             deleteReview={this.deleteReview}
             auth={this.props.auth}
           />
+          {showMore && (
+            <button
+              className="btn mt-10 btn-lg btn-block bg-light"
+              onClick={this.loadMoreReviews}
+            >
+              show more reviews
+            </button>
+          )}
         </div>
       </div>
     );
@@ -144,4 +190,16 @@ const mapStateToProps = state => ({
   auth: state.user
 });
 
-export default connect(mapStateToProps, { postReview, deleteReview })(Reviews);
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      postReview,
+      deleteReview,
+      getReviews,
+      clearReview
+    },
+    dispatch
+  )
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

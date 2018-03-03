@@ -230,8 +230,8 @@ class RecipeController {
             .then(() => setStatus(res, { success: true, recipe }, 200));
         }
       })
-      .catch(error =>
-        setStatus(res, { success: false, error: error.message }, 500));
+      .catch(() =>
+        setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
 
   /**
@@ -295,8 +295,8 @@ class RecipeController {
           );
         }
       })
-      .catch(error =>
-        setStatus(res, { success: false, error: error.message }, 500));
+      .catch(() =>
+        setStatus(res, { success: false, error: 'something went wrong' }, 500));
   }
 
   /**
