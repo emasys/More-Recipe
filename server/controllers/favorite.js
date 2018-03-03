@@ -39,11 +39,8 @@ export default class FavoriteRecipes {
       limit: req.query.limit || 1,
       offset: req.query.offset || 0,
       attributes: ['recipeId'],
-      include: [
-        {
-          model: Recipes
-        }
-      ]
+      include: [{ model: Recipes }],
+      order: [[{ model: Recipes }, 'category']]
     })
       .then(favorites =>
         setStatus(

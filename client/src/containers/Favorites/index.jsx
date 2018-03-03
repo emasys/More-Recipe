@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { filter } from 'lodash';
 
 // Actions
 import { getFavorite, clearFavoriteList } from '../../actions/favoriteAction';
@@ -10,6 +11,7 @@ import { getFavorite, clearFavoriteList } from '../../actions/favoriteAction';
 //components
 import Navbar from '../../components/Navbar';
 import FavoriteList from './FavoriteList';
+import FavoriteCategoryList from './FavoriteCategoryList';
 /**
  *
  *
@@ -33,7 +35,8 @@ export class Favorites extends Component {
     super(props);
     this.state = {
       showMore: true,
-      offset: 0
+      offset: 0,
+      filterBy: 'Recipe'
     };
   }
 
@@ -43,10 +46,10 @@ export class Favorites extends Component {
    * @memberof Favorites
    * @returns {any} favorite list
    */
-  componentDidMount() {
+  componentDidMount = () => {
     // this.props.getFavorite();
     this.loadMoreRecipes();
-  }
+  };
 
   componentWillReceiveProps = nextProps => {
     if (this.state.offset > nextProps.favorites.favoriteCount) {
@@ -66,6 +69,16 @@ export class Favorites extends Component {
     this.setState(prevState => ({
       offset: prevState.offset + 4
     }));
+  };
+
+  filterFavorites = (event, category) => {
+    event.preventDefault();
+    const setParams = {
+      Recipe: { category }
+    };
+    this.setState({
+      filterBy: setParams
+    });
   };
   /**
    *
@@ -94,36 +107,47 @@ export class Favorites extends Component {
             </div>
             <hr />
             <div className="row justify-content-center">
-              <InfiniteScroll
-                next={this.loadMoreRecipes}
-                hasMore={this.state.showMore}
-                scrollThreshold={0.5}
-                loader={
-                  <div className="loader text-center" key={0}>
-                    <img
-                      src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
-                      width="30"
-                      height="30"
-                      alt="loading..."
+              <div className="col-lg-2 col-md-3 col-sm-4 col-12">
+                <FavoriteCategoryList
+                  list={this.props.favorites.userFavorites}
+                  filterList={this.filterFavorites}
+                />
+              </div>
+              <div className="col-lg-10 col-md-9 col-sm-8 col-12">
+                <InfiniteScroll
+                  next={this.loadMoreRecipes}
+                  hasMore={this.state.showMore}
+                  scrollThreshold={0.5}
+                  loader={
+                    <div className="loader text-center" key={0}>
+                      <img
+                        src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                        width="30"
+                        height="30"
+                        alt="loading..."
+                      />
+                    </div>
+                  }
+                  endMessage={
+                    <p style={{ textAlign: 'center' }}>
+                      <b>Thank you for being Awesome</b>
+                    </p>
+                  }
+                >
+                  <div
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    className="row justify-content-center"
+                  >
+                    <FavoriteList
+                      favorites={filter(
+                        this.props.favorites.userFavorites,
+                        this.state.filterBy
+                      )}
                     />
                   </div>
-                }
-                endMessage={
-                  <p style={{ textAlign: 'center' }}>
-                    <b>Thank you for being Awesome</b>
-                  </p>
-                }
-              >
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                  className="row justify-content-center"
-                >
-                  <FavoriteList
-                    favorites={this.props.favorites.userFavorites}
-                  />
-                </div>
-              </InfiniteScroll>
+                </InfiniteScroll>
+              </div>
             </div>
           </div>
         </div>
