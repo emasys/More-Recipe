@@ -2,12 +2,15 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { uniqWith, isEqual } from 'lodash';
 
 import config from '../../config';
 
 const GenerateReviews = ({ review, deleteReview, auth }) => {
   if (review.fetch_reviews) {
-    return review.fetch_reviews.map((comment, index) => (
+    //handle bug of duplicate objects due to redirection from sign in page
+    const reviews = uniqWith(review.fetch_reviews, isEqual);
+    return reviews.map((comment, index) => (
       <div
         data-aos="fade-left"
         data-aos-offset="20"
@@ -24,7 +27,10 @@ const GenerateReviews = ({ review, deleteReview, auth }) => {
               />
             </div>
             <div className="clearfix mb-10">
-              <Link className="text-dark bolder moniker" to={`/user/${comment.userId}`}>
+              <Link
+                className="text-dark bolder moniker"
+                to={`/user/${comment.userId}`}
+              >
                 {comment.User.moniker}
               </Link>
               <p className="text-dark date">
