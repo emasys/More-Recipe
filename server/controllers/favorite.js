@@ -1,6 +1,6 @@
 import { Recipes, Favorite } from '../models';
 import { setStatus } from '../middleware/helper';
-import { setFavorite } from '../services/favorite';
+import setFavorite from '../services/favorite';
 
 /**
  *
@@ -18,13 +18,11 @@ export default class FavoriteRecipes {
   static addFavorite(req, res) {
     return Favorite.findOne({
       where: { recipeId: req.params.recipeId, userId: req.decoded.id },
-      include: [
-        { model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }
-      ]
+      include: [{ model: Recipes }]
     })
       .then(favorite => setFavorite(req, res, favorite))
-      .catch(() =>
-        setStatus(res, { success: false, message: 'recipe not found' }, 404));
+      .catch(error =>
+        setStatus(res, { success: false, error: error.message }, 500));
   }
 
   /**

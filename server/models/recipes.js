@@ -77,20 +77,16 @@ export default (sequelize, DataTypes) => {
       as: 'favorites'
     });
   };
-  Recipes.createRules = () => {
-    return {
-      name: 'required',
-      direction: 'required',
-      ingredients: 'required',
-      description: 'required'
-    };
-  };
-  Recipes.updateRules = () => {
-    return {
-      name: 'required',
-      direction: 'required',
-      ingredients: 'required'
-    };
-  };
+  Recipes.createRules = () => ({
+    name: 'required',
+    direction: 'required',
+    ingredients: 'required',
+    description: 'required'
+  });
+  Recipes.updateRules = () => ({
+    name: 'required',
+    direction: 'required',
+    ingredients: 'required'
+  });
   return Recipes;
 };

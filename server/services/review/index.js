@@ -10,7 +10,7 @@ export const postReview = (res, req) => {
   })
     .then((recipe) => {
       const { name, User: { email, moniker } } = recipe;
-      recipe.update({ comments: recipe.comments + 1 });
+      recipe.increment('comments');
       return Reviews.create({
         content: req.body.content,
         userId: req.decoded.id,
@@ -57,11 +57,21 @@ export const fetchReview = (res, req) =>
 
 export const deleteReviewEntry = (res, req) =>
   Reviews.findById(req.params.reviewId, {
-    where: {
-      userId: req.decoded.id
-    }
+    where: { userId: req.decoded.id },
+    include: [{ model: Recipes }]
   })
-    .then(reviews => reviews.destroy())
-    .then(() =>
-      setStatus(res, { success: true, message: 'review deleted' }, 200))
-    .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
+    .then((reviews) => {
+      if (reviews) {
+        return reviews.Recipe.decrement('comments').then(() =>
+          reviews
+            .destroy()
+            .then(() =>
+              setStatus(res, { success: true, message: 'review deleted' }, 200)));
+      }
+      return setStatus(
+        res,
+        { success: false, message: 'review not found' },
+        404
+      );
+    })
+    .catch(error => setStatus(res, { error: error.message }, 500));

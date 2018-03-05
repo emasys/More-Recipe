@@ -104,7 +104,7 @@ export const fetchOneRecipe = (res, req, recipe) => {
     if (req.decoded.id !== recipe.userId) {
       return recipe
         .update({
-          comments: recipe.reviews.length,
+          // comments: recipe.reviews.length,
           favorite: recipe.favorites.length,
           views: recipe.views + 1
         })
@@ -112,7 +112,7 @@ export const fetchOneRecipe = (res, req, recipe) => {
     }
     return recipe
       .update({
-        comments: recipe.reviews.length,
+        // comments: recipe.reviews.length,
         favorite: recipe.favorites.length
       })
       .then(() => setStatus(res, { success: true, recipe }, 200));

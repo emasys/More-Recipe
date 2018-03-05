@@ -1,11 +1,9 @@
 import Validator from 'validatorjs';
 import { capitalize } from 'lodash';
-
+import sequelize from 'sequelize';
 import { Recipes, Reviews, Favorite } from '../models';
 import { validateAddRecipes, setStatus } from '../middleware/helper';
 import * as services from '../services/recipe';
-
-// const sequelize = new Sequelize;
 
 /**
  * parent class
@@ -104,21 +102,18 @@ class RecipeController {
     return Recipes.findById(req.params.recipeId, {
       include: [
         {
-          model: Reviews,
-          as: 'reviews'
-        },
-        {
           model: Favorite,
           as: 'favorites'
         }
       ]
     })
-      .then(recipe =>
-        // if other users view the recipe, the view count increases
-        // the creator of the recipe gets only one count
-        services.fetchOneRecipe(res, req, recipe))
-      .catch(() =>
-        setStatus(res, { success: false, status: 'Recipes not found' }, 404));
+      .then(recipe => services.fetchOneRecipe(res, req, recipe))
+      .catch(error =>
+        setStatus(
+          res,
+          { success: false, status: 'Recipes not found', error: error.message },
+          500
+        ));
   }
 
   /**
@@ -134,20 +129,20 @@ class RecipeController {
   static getReactionCount(req, res) {
     return Recipes.findById(req.params.recipeId, {
       include: [
-        { model: Reviews, as: 'reviews' },
         { model: Favorite, as: 'favorites' }
       ],
-      order: [[{ model: Reviews, as: 'reviews' }, 'createdAt', 'DESC']]
+      // order: [[{ model: Reviews, as: 'reviews' }, 'createdAt', 'DESC']]
     })
-      .then((recipe) => {
-        if (req.decoded.id) {
-          return recipe
-            .update({
-              favorite: recipe.favorites.length
-            })
-            .then(() => setStatus(res, { success: true, recipe }, 200));
-        }
-      })
+      .then(recipe => setStatus(res, { success: true, recipe }, 200)
+        // if (req.decoded.id) {
+
+        //   return recipe
+        //     .update({
+        //       favorite: recipe.favorites.length
+        //     })
+        //     .then(() => setStatus(res, { success: true, recipe }, 200));
+        // }
+      )
       .catch(() =>
         setStatus(res, { success: false, status: 'Recipes not found' }, 404));
   }
