@@ -117,6 +117,14 @@ class SignIn extends Component {
     }
   }
 
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (nextProps.signin.signIn) {
+      if (nextProps.isLoading) return false;
+      return true;
+    }
+    return true;
+  }
+
   tokenSent = () =>
     toast('Token Sent! check your email', {
       type: toast.TYPE.SUCCESS,
@@ -128,6 +136,9 @@ class SignIn extends Component {
       showErrMessage: 'fade'
     });
   };
+
+ 
+
   /**
    *
    *
@@ -320,6 +331,7 @@ class SignIn extends Component {
 const mapStateToProps = state => ({
   signin: state.user,
   reset: state.user.reset,
+  isLoading: state.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

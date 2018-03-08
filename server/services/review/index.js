@@ -16,7 +16,11 @@ export const postReview = (res, req) => {
         userId: req.decoded.id,
         recipeId: req.params.recipeId
       }).then((reviewedRecipe) => {
-        mailer(moniker, email, `has reviewed your recipe (${name})`);
+        const emailBody = {
+          name,
+          recipeId: recipe.id
+        }
+        mailer(moniker, email, emailBody);
         return setStatus(res, { success: true, reviewedRecipe, recipe }, 201);
       });
     })
@@ -24,54 +28,20 @@ export const postReview = (res, req) => {
       setStatus(res, { success: false, error: 'recipe not found' }, 404));
 };
 
-export const fetchReview = (res, req) =>
-  Reviews.findAndCountAll({
-    limit: req.query.limit,
-    offset: req.query.offset,
-    where: {
-      recipeId: req.params.recipeId
-    },
-    order: [['createdAt', 'DESC']],
-    include: [
-      {
-        model: Users,
-        attributes: ['moniker', 'avatar']
-      }
-    ]
-  })
-    .then((reviews) => {
-      if (reviews.length < 1) {
-        return setStatus(
-          res,
-          { message: 'no review', reviews: reviews.rows },
-          200
-        );
-      }
-      return setStatus(
-        res,
-        { reviews: reviews.rows, count: reviews.count },
-        200
-      );
-    })
-    .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
+export const fetchReview = (res, req, reviews) => {
+  if (reviews.count < 1) {
+    return setStatus(res, { message: 'no review', reviews: reviews.rows }, 404);
+  }
+  return setStatus(res, { reviews: reviews.rows, count: reviews.count }, 200);
+};
 
-export const deleteReviewEntry = (res, req) =>
-  Reviews.findById(req.params.reviewId, {
-    where: { userId: req.decoded.id },
-    include: [{ model: Recipes }]
-  })
-    .then((reviews) => {
-      if (reviews) {
-        return reviews.Recipe.decrement('comments').then(() =>
-          reviews
-            .destroy()
-            .then(() =>
-              setStatus(res, { success: true, message: 'review deleted' }, 200)));
-      }
-      return setStatus(
-        res,
-        { success: false, message: 'review not found' },
-        404
-      );
-    })
-    .catch(error => setStatus(res, { error: error.message }, 500));
+export const deleteReviewEntry = (res, req, reviews) => {
+  if (req.decoded.id !== reviews.userId) {
+    return setStatus(res, { error: 'cannot delete review' }, 401);
+  }
+  return reviews.Recipe.decrement('comments').then(() =>
+    reviews
+      .destroy()
+      .then(() =>
+        setStatus(res, { success: true, message: 'review deleted' }, 200)));
+};

@@ -4,6 +4,7 @@ import logger from 'morgan';
 import path from 'path';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
+import log from 'fancy-log';
 // Routes
 import routes from './routes/index';
 
@@ -24,7 +25,6 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(require('./moreRecipe.json')))
 
 app.use('/api/v1/', routes);
 
-// routes(app);
 
 // Catch all routes not available above
 app.use('/api/v1/*', (req, res) => {
@@ -40,8 +40,7 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line
-  console.log(`app running on port ${PORT}`);
+  log(`app running on port ${PORT}`);
 });
 
 export default app;

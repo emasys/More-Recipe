@@ -3,7 +3,8 @@ import * as types from '../../src/actions/types';
 import * as mockData from '../__mocks__/reviewMocks';
 
 const initialState = {
-  review: {}
+  review: {},
+  fetch_reviews: []
 };
 
 describe('Test suite for review reducer', () => {
@@ -26,7 +27,8 @@ describe('Test suite for review reducer', () => {
       payload: mockData.fetchReviews
     })).toEqual({
       ...initialState,
-      fetch_reviews: mockData.fetchReviews
+      fetch_reviews: mockData.fetchReviews.reviews,
+      count_reviews: mockData.fetchReviews.count
     });
   });
 

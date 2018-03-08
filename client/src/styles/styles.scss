@@ -1035,10 +1035,7 @@ input[type='search'] {
         font-size: 16px;
       }
       input[type='text'] {
-        padding: 12px; // border-right: 1px solid lightgray;
-        // border-left: 0;
-        // border-bottom: 1px solid lightgray;
-        // border-top: 1px solid lightgray;
+        padding: 12px; 
         margin: 0 !important;
         font-size: 16px;
       }
@@ -1070,4 +1067,9 @@ input[type='search'] {
 
 select {
   background: transparent;
+}
+
+.not-found-logo{
+  max-height: 50rem;
+  max-width: 50rem;
 }

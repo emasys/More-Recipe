@@ -12,6 +12,7 @@ const NotFound = () => (
         <img
           src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
           alt="logo"
+          className="col-12 not-found-logo"
         />
         <h2 className="p-3 m-20">Oops...</h2>
         <h2 className="p-3 m-20">

@@ -59,7 +59,8 @@ describe('Test suite for review actions', () => {
       {
         type: type.REVIEW,
         payload: reviewMocks.postReview
-      }
+      },
+      { type: type.CLEAR_REVIEW, payload: [] }
     ];
 
     const store = mockStore({ payload: {} });
@@ -85,7 +86,9 @@ describe('Test suite for review actions', () => {
       {
         type: type.DELETE_REVIEWS,
         payload: { success: true, message: 'review deleted' }
-      }
+      },
+      { type: type.CLEAR_REVIEW, payload: [] },
+      { type: type.IS_LOADING, isLoading: false }
     ];
 
     const store = mockStore({ payload: {} });

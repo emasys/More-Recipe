@@ -11,13 +11,11 @@ describe('Test suite for user controller', () => {
         .post('/api/v1/users/signin')
         .send({ email: 'emasysnd@gmail.com', password: 'password' })
         .expect(200)
-        .end((err, res) => {
-          if (!err) {
-            // make token accessible to protected routes
-            firstToken = res.body.token;
-          }
-          done();
-        });
+        .expect((res) => {
+          // make token accessible to protected routes
+          firstToken = res.body.token;
+        })
+        .end(done);
     });
   });
 
@@ -33,7 +31,12 @@ describe('Test suite for user controller', () => {
         })
         .expect(422)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({
+            success: false,
+            status: {
+              email: ['The email format is invalid.']
+            }
+          });
         })
         .end(done);
     });
@@ -46,7 +49,10 @@ describe('Test suite for user controller', () => {
         .send({ email: 'emasysnd@gmail.com', password: 'wrongpassword' })
         .expect(400)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({
+            success: false,
+            status: 'Invalid email/password'
+          });
         })
         .end(done);
     });
@@ -59,7 +65,12 @@ describe('Test suite for user controller', () => {
         .send({ password: 'wrongpassword' })
         .expect(400)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({
+            success: false,
+            status: {
+              email: ['The email field is required.']
+            }
+          });
         })
         .end(done);
     });
@@ -104,6 +115,12 @@ describe('Test suite for user controller', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+          expect(res.body.users).to.be.an('array');
+          expect(res.body.users[0]).to.include({
+            email: 'emasysnd@gmail.com',
+            moniker: 'admin',
+            id: 1
+          });
         })
         .end(done);
     });
@@ -116,6 +133,12 @@ describe('Test suite for user controller', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data).to.include({
+            email: 'emasysnd@gmail.com',
+            moniker: 'admin',
+            id: 1
+          });
         })
         .end(done);
     });
@@ -141,19 +164,29 @@ describe('Test suite for user controller', () => {
         .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
-          expect(res.body).to.include({ success: true });
+          expect(res.body).to.deep.equal({
+            success: true,
+            status: 'updated'
+          });
         })
         .end(done);
     });
 
-    it('should return a status code of 422 if the firstName field is omitted', (done) => {
+    it('should return a status code of 422 if the firstName field have invalid characters', (done) => {
       request(app)
         .put('/api/v1/users/1')
         .send({ firstName: 123, lastName: 'endy', Bio: 'I am emasys nd' })
         .set('more-recipe-access', firstToken)
         .expect(422)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({
+            success: false,
+            status: {
+              firstName: [
+                'The firstName field must contain only alphabetic characters.'
+              ]
+            }
+          });
         })
         .end(done);
     });
@@ -183,7 +216,10 @@ describe('Test suite for user controller', () => {
         .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({
+            success: false,
+            message: 'Not found'
+          });
         })
         .end(done);
     });
@@ -196,7 +232,10 @@ describe('Test suite for user controller', () => {
         .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
-          expect(res.body).to.include({ success: true });
+          expect(res.body).to.deep.equal({
+            success: true,
+            status: 'user deleted'
+          });
         })
         .end(done);
     });

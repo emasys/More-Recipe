@@ -32,11 +32,10 @@ export const AuthenticateUser = (res, request) => {
       if (!user) {
         return setStatus(
           res,
-          { success: false, status: 'user not found' },
-          404
+          { success: false, status: 'Invalid email/password' },
+          400
         );
       }
-      console.log('bcrypt====>', comparePassword(user, request.password));
       if (!comparePassword(user, request.password)) {
         return setStatus(
           res,
@@ -75,67 +74,38 @@ export const updateUserInfo = (res, req, request) =>
     .catch(error =>
       setStatus(res, { success: false, error: error.message }, 500));
 
-export const fetchUser = (res, req) => {
-  Users.findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        return setStatus(
-          res,
-          { success: false, message: 'User not found' },
-          404
-        );
-      }
-      const data = pick(user, [
-        'id',
-        'firstName',
-        'lastName',
-        'bio',
-        'email',
-        'country',
-        'avatar',
-        'moniker'
-      ]);
-      return setStatus(res, { success: true, data }, 200);
-    })
-    .catch(error => setStatus(res, { success: false, error }, 500));
+export const fetchUser = (res, req, user) => {
+  const data = pick(user, [
+    'id',
+    'firstName',
+    'lastName',
+    'bio',
+    'email',
+    'country',
+    'avatar',
+    'moniker'
+  ]);
+  return setStatus(res, { success: true, data }, 200);
 };
 
-export const resetUserPassword = (res, request) => {
-  Users.findOne({ where: { email: request.email } })
-    .then((user) => {
-      if (!user) {
-        return setStatus(
-          res,
-          { success: false, status: 'user not found' },
-          404
-        );
-      }
-      return user
-        .update({
-          password: hashPassword(request.password)
-        })
-        .then(() => {
-          setStatus(res, { success: true, status: 'updated' }, 200);
-        });
-    })
-    .catch(() =>
-      setStatus(res, { success: false, error: 'server error' }, 500));
-};
+export const resetUserPassword = (res, request, user) => user
+  .update({
+    password: hashPassword(request.password)
+  })
+  .then(() => {
+    setStatus(res, { success: true, status: 'updated' }, 200);
+  });
 
 export const sendGeneratedToken = (res, request) => {
   let token = null;
   return TokenGen.findOne({ where: { email: request.email } })
     .then((user) => {
-      // console.log("user info=======>", user);
-      // if (!user) {
-      //   return setStatus(res, { success: true, status: 'user not found' }, 404);
-      // }
       // eslint-disable-next-line no-mixed-operators
       token = Math.floor(1000 + Math.random() * 9000);
       request.token = token;
       if (!user) {
         return TokenGen.create(request).then((newuser) => {
-          mailer('Reset password Token:', newuser.email, token);
+          mailer(null, newuser.email, token);
           return setStatus(res, { success: true, status: 'token sent' }, 200);
         });
       }
@@ -144,7 +114,7 @@ export const sendGeneratedToken = (res, request) => {
           token: token || user.token
         })
         .then(() => {
-          mailer('Reset password Token:', user.email, token);
+          mailer(null, user.email, token);
           return setStatus(res, { success: true, status: 'token sent' }, 200);
         });
     })

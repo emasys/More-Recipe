@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 404 page without errors 1`] = `
+<div
+  className="container"
+>
+  <Connect(Navbar)
+    className="bg-dark fixed-top"
+  />
+  <div
+    className=" row catalog-wrapper text-center justify-content-center  mt-80 mb-20"
+  >
+    <div
+      className="col"
+    >
+      <img
+        alt="logo"
+        src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+      />
+      <h2
+        className="p-3 m-20"
+      >
+        Oops...
+      </h2>
+      <h2
+        className="p-3 m-20"
+      >
+        The content you are looking for does not exist
+      </h2>
+      <h2>
+        <Link
+          className="btn btn-dark btn-lg hvr-icon-back"
+          replace={false}
+          role="button"
+          to="/"
+        >
+          ...Go back Home
+        </Link>
+      </h2>
+    </div>
+  </div>
+</div>
+`;

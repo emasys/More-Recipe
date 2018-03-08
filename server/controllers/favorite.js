@@ -1,9 +1,12 @@
 import { Recipes, Favorite } from '../models';
-import { setStatus } from '../middleware/helper';
+import {
+  setStatus,
+  serverErrorDispatcher
+} from '../middleware/helper';
 import setFavorite from '../services/favorite';
 
 /**
- *
+ * Favorite Recipes Controller
  *
  * @export
  * @class FavoriteRecipes
@@ -11,7 +14,9 @@ import setFavorite from '../services/favorite';
 export default class FavoriteRecipes {
   /**
    * Add a recipe to User favorites list
-   * @returns {object} success message
+   *
+   * @returns {object} status message
+   *
    * @param {object} req
    * @param {object} res
    */
@@ -21,13 +26,14 @@ export default class FavoriteRecipes {
       include: [{ model: Recipes }]
     })
       .then(favorite => setFavorite(req, res, favorite))
-      .catch(error =>
-        setStatus(res, { success: false, error: error.message }, 500));
+      .catch(error => serverErrorDispatcher(res, error));
   }
 
   /**
-   * List all favorited recipes
+   * List all favorite recipes
+   *
    * @returns {object} list of favorite recipes
+   *
    * @param {object} req
    * @param {object} res
    */
@@ -46,6 +52,6 @@ export default class FavoriteRecipes {
           { success: true, favorites: favorites.rows, count: favorites.count },
           200
         ))
-      .catch(error => setStatus(res, { success: false, error }, 500));
+      .catch(error => serverErrorDispatcher(res, error));
   }
 }

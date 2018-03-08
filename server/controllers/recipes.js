@@ -1,8 +1,12 @@
 import Validator from 'validatorjs';
 import { capitalize } from 'lodash';
-import sequelize from 'sequelize';
 import { Recipes, Reviews, Favorite } from '../models';
-import { validateAddRecipes, setStatus } from '../middleware/helper';
+import {
+  validateAddRecipes,
+  setStatus,
+  notFoundDispatcher,
+  serverErrorDispatcher
+} from '../middleware/helper';
 import * as services from '../services/recipe';
 
 /**
@@ -13,9 +17,14 @@ import * as services from '../services/recipe';
 class RecipeController {
   /**
    * Add a new recipe to the catalog
-   * @returns {object} new recipe
+   * @static
+   *
    * @param {object} req
    * @param {object} res
+   *
+   * @returns {object} New recipe
+   *
+   * @memberof RecipeController
    */
   static addRecipe(req, res) {
     const request = req.body;
@@ -32,17 +41,17 @@ class RecipeController {
     );
   }
 
-  // counter(){
-  //   Recipes.findAll({})
-  // }
   /**
-   *
+   * Fetch all recipes in the database
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
+   *
    * @returns {object} list of all recipes
-   * @memberof MoreRecipes
+   *
+   * @memberof RecipeController
    */
   static listRecipes(req, res) {
     // Get sorted recipe list
@@ -63,12 +72,15 @@ class RecipeController {
     }
   }
   /**
-   *
+   * list recipes of a particular user
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
+   *
    * @returns {object} list of recipes of a particular user
+   *
    * @memberof MoreRecipes
    */
   static listPrivateRecipes(req, res) {
@@ -80,71 +92,66 @@ class RecipeController {
         userId: req.params.userId
       }
     })
-      .then(recipes =>
-        setStatus(
+      .then((recipes) => {
+        if (!recipes) {
+          return notFoundDispatcher(res);
+        }
+        return setStatus(
           res,
           { success: true, recipes: recipes.rows, count: recipes.count },
           200
-        ))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
+        );
+      })
+      .catch(error => serverErrorDispatcher(res, error));
   }
   /**
-   *
+   * Fetch a single recipe
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
-   * @returns {object} a single recipe and increment views count
-   * @memberof MoreRecipes
+   *
+   * @returns {object} a single recipe
+   *
+   * @memberof RecipeController
    */
   static getRecipe(req, res) {
     return Recipes.findById(req.params.recipeId, {
-      include: [
-        {
-          model: Favorite,
-          as: 'favorites'
-        }
-      ]
+      include: [{ model: Favorite, as: 'favorites' }]
     })
-      .then(recipe => services.fetchOneRecipe(res, req, recipe))
-      .catch(error =>
-        setStatus(
-          res,
-          { success: false, status: 'Recipes not found', error: error.message },
-          500
-        ));
+      .then((recipe) => {
+        if (!recipe) {
+          return notFoundDispatcher(res);
+        }
+        return services.fetchOneRecipe(res, req, recipe);
+      })
+      .catch(error => serverErrorDispatcher(res, error));
   }
 
   /**
-   *
+   * Fetch single recipe without view count
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
+   *
    * @returns {object}
    * get reaction counts eg favorite, likes
-   * @memberof MoreRecipes
+   * @memberof RecipeController
    */
   static getReactionCount(req, res) {
     return Recipes.findById(req.params.recipeId, {
-      include: [
-        { model: Favorite, as: 'favorites' }
-      ],
-      // order: [[{ model: Reviews, as: 'reviews' }, 'createdAt', 'DESC']]
+      include: [{ model: Favorite, as: 'favorites' }]
     })
-      .then(recipe => setStatus(res, { success: true, recipe }, 200)
-        // if (req.decoded.id) {
-
-        //   return recipe
-        //     .update({
-        //       favorite: recipe.favorites.length
-        //     })
-        //     .then(() => setStatus(res, { success: true, recipe }, 200));
-        // }
-      )
-      .catch(() =>
-        setStatus(res, { success: false, status: 'Recipes not found' }, 404));
+      .then((recipe) => {
+        if (!recipe) {
+          return notFoundDispatcher(res);
+        }
+        return setStatus(res, { success: true, recipe }, 200);
+      })
+      .catch(error => serverErrorDispatcher(res, error));
   }
 
   /**
@@ -152,7 +159,10 @@ class RecipeController {
    *
    * @param {object} req
    * @param {object} res
+   *
    * @returns {object} updated recipe
+   *
+   * @memberof RecipeController
    */
   static updateRecipe(req, res) {
     const { ingredients } = req.body;
@@ -162,33 +172,38 @@ class RecipeController {
         { model: Favorite, as: 'favorites' }
       ]
     })
-      .then(recipe =>
-        services.findAndUpdateRecipe(res, req, recipe, ingredients))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
+      .then((recipe) => {
+        if (!recipe) {
+          return notFoundDispatcher(res);
+        }
+        return services.findAndUpdateRecipe(res, req, recipe, ingredients);
+      })
+      .catch(error => serverErrorDispatcher(res, error));
   }
   /**
-   *
+   * Upvote a recipe
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
-   * @returns {object} a new value for upvote
-   * @memberof MoreRecipes
+   *
+   * @returns {object} recipe object
+   *
+   * @memberof RecipeController
    */
   static upvote(req, res) {
     return Recipes.findById(req.params.recipeId, {
-      include: [
-        { model: Reviews, as: 'reviews' },
-        { model: Favorite, as: 'favorites' }
-      ]
+      include: [{ model: Favorite, as: 'favorites' }]
     })
       .then((recipe) => {
+        if (!recipe) {
+          return notFoundDispatcher(res);
+        }
         // check if a user is logged in
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
           if (reactionUp.indexOf(req.decoded.id) !== -1) {
-            // eslint-disable-next-line
             return services.cancelVote(
               res,
               req,
@@ -225,31 +240,32 @@ class RecipeController {
             .then(() => setStatus(res, { success: true, recipe }, 200));
         }
       })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
+      .catch(error => serverErrorDispatcher(res, error));
   }
 
   /**
-   *
+   * Downvote
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
    *
-   * @returns {object} a new value for downvote
-   * @memberof MoreRecipes
+   * @returns {object} a new value for downvote and recipe object
+   *
+   * @memberof RecipeController
    */
   static downvote(req, res) {
     return Recipes.findById(req.params.recipeId, {
-      include: [
-        { model: Reviews, as: 'reviews' },
-        { model: Favorite, as: 'favorites' }
-      ]
+      include: [{ model: Favorite, as: 'favorites' }]
     })
       .then((recipe) => {
+        if (!recipe) {
+          return notFoundDispatcher(res);
+        }
         if (req.decoded.id) {
           const { reactionDown, reactionUp } = recipe;
-          if (reactionDown.indexOf(Number(req.decoded.id)) !== -1) {
+          if (reactionDown.indexOf(req.decoded.id) !== -1) {
             // if user has downvoted before, cancel it
             return services.cancelVote(
               res,
@@ -260,8 +276,8 @@ class RecipeController {
               'reactionDown'
             );
           } else if (
-            reactionDown.indexOf(Number(req.decoded.id)) === -1 &&
-            reactionUp.indexOf(Number(req.decoded.id)) !== -1
+            reactionDown.indexOf(req.decoded.id) === -1 &&
+            reactionUp.indexOf(req.decoded.id) !== -1
           ) {
             // if user has not downvoted but have upvoted,
             // then cancel upvote and set downvote
@@ -290,21 +306,26 @@ class RecipeController {
           );
         }
       })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'something went wrong' }, 500));
+      .catch(error => serverErrorDispatcher(res, error));
   }
 
   /**
-   * Delete a Recipe from the catalog
+   * Delete a Recipe from the database
    *
    * @param {object} req
    * @param {object} res
-   * @returns {object} success message
+   *
+   * @returns {object} status message
+   *
+   * @memberof RecipeController
    */
   static deleteRecipe(req, res) {
     return Recipes.findById(req.params.recipeId)
       .then((recipe) => {
-        // Check if the deletor is the creator of the recipe
+        if (!recipe) {
+          return notFoundDispatcher(res);
+        }
+        // Check if the user is the creator of the recipe
         if (recipe.userId === req.decoded.id) {
           return recipe
             .destroy()
@@ -317,8 +338,7 @@ class RecipeController {
           401
         );
       })
-      .catch(() =>
-        setStatus(res, { success: false, error: 'recipe not found' }, 404));
+      .catch(error => serverErrorDispatcher(res, error));
   }
 }
 

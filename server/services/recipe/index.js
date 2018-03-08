@@ -1,5 +1,5 @@
 import { Users, Recipes } from '../../models';
-import { setStatus } from '../../middleware/helper';
+import { setStatus, notFoundDispatcher } from '../../middleware/helper';
 
 const convertToArray = (input) => {
   if (input) {
@@ -81,7 +81,11 @@ export const addNewRecipe = (res, req, request, ingredients) => {
         where: { name: request.name, userId: req.decoded.id }
       }).then((recipeExist) => {
         if (recipeExist) {
-          return setStatus(res, { success: false, error: 'Already Added' }, 403);
+          return setStatus(
+            res,
+            { success: false, error: 'Already Added' },
+            403
+          );
         }
         return Recipes.create({
           name: request.name,
@@ -104,39 +108,45 @@ export const fetchOneRecipe = (res, req, recipe) => {
     if (req.decoded.id !== recipe.userId) {
       return recipe
         .update({
-          // comments: recipe.reviews.length,
-          favorite: recipe.favorites.length,
           views: recipe.views + 1
         })
         .then(() => setStatus(res, { success: true, recipe }, 200));
     }
-    return recipe
-      .update({
-        // comments: recipe.reviews.length,
-        favorite: recipe.favorites.length
-      })
-      .then(() => setStatus(res, { success: true, recipe }, 200));
+    return setStatus(res, { success: true, recipe }, 200);
   }
 };
 
 export const findAndUpdateRecipe = (res, req, recipe, ingredients) => {
   // Prevent other users from editing a recipe not theirs.
-  if (!recipe) {
-    return setStatus(res, { success: false, error: 'recipe not found' }, 404);
-  }
   if (recipe.userId === req.decoded.id) {
-    return recipe
-      .update({
-        name: req.body.name || recipe.name,
-        direction: req.body.direction || recipe.direction,
-        description: req.body.description || recipe.description,
-        ingredients: convertToArray(ingredients) || recipe.ingredients,
-        searchIng: ingredients,
-        foodImg: req.body.foodImg || recipe.foodImg,
-        category: req.body.category || recipe.category
-      })
-      .then(() => setStatus(res, { success: true, recipe }, 200));
-    // Send back the updated recipe.
+    return Recipes.findOne({
+      where: { name: req.body.name, userId: req.decoded.id }
+    }).then((isExist) => {
+      if (isExist) {
+        return setStatus(
+          res,
+          {
+            success: false,
+            message: 'you already have a recipe with the same name'
+          },
+          409
+        );
+      }
+      return (
+        recipe
+          .update({
+            name: req.body.name || recipe.name,
+            direction: req.body.direction || recipe.direction,
+            description: req.body.description || recipe.description,
+            ingredients: convertToArray(ingredients) || recipe.ingredients,
+            searchIng: ingredients,
+            foodImg: req.body.foodImg || recipe.foodImg,
+            category: req.body.category || recipe.category
+          })
+          // Send back the updated recipe.
+          .then(() => setStatus(res, { success: true, recipe }, 200))
+      );
+    });
   }
   return setStatus(
     res,
@@ -189,3 +199,9 @@ export const transferVote = (
     .then(() =>
       setStatus(res, { success: true, recipe, status: 'voted' }, 200));
 };
+
+// export const notFoundDispatcher = res =>
+//   setStatus(res, { success: false, message: 'Not found' }, 404);
+
+// export const serverErrorDispatcher = (res, error = null) =>
+//   setStatus(res, { success: false, error: error.message }, 500);

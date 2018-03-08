@@ -90,13 +90,8 @@ class UserProfile extends Component {
   };
 
   viewMore = event => {
-    console.log('events=======>', event);
     event.preventDefault();
-    console.log('events=======>', event);    
     this.loadMore();
-    // this.setState(prevState => ({
-    //   limit: prevState.limit + 6
-    // }));
   };
   /**
    *

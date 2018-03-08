@@ -8,7 +8,8 @@ export const fetchReviews = {
       recipeId: 28,
       userId: 24
     }
-  ]
+  ],
+  count: 1
 };
 
 export const postReview = {

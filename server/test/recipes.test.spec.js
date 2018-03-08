@@ -42,7 +42,7 @@ describe('Test suite for recipe controller:', () => {
         .get('/api/v1/recipesds/misplaced')
         .expect(404)
         .expect((res) => {
-          expect(res.body).to.include({
+          expect(res.body).to.deep.equal({
             error: 'page not found',
           });
         })
@@ -63,8 +63,11 @@ describe('Test suite for recipe controller:', () => {
         })
         .set('more-recipe-access', firstToken)
         .expect(422)
-        .expect((err, res) => {
-          if (!err) expect(res.body).to.include({ success: false });
+        .expect((res) => {
+          expect(res.body).to.deep.equal({
+            success: false,
+            error: { name: ['The name field is required.'] }
+          });
         })
         .end(done);
     });
@@ -84,13 +87,11 @@ describe('Test suite for recipe controller:', () => {
         })
         .set('more-recipe-access', firstToken)
         .expect(403)
-        .expect((err, res) => {
-          if (!err) {
-            expect(res.body).to.deep.equal({
-              success: false,
-              error: 'Already Added'
-            });
-          }
+        .expect((res) => {
+          expect(res.body).to.deep.equal({
+            success: false,
+            error: 'Already Added'
+          });
         })
         .end(done);
     });
@@ -101,19 +102,29 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .get('/api/v1/recipes?limit=2&offset=0')
         .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({
+            success: true
+          });
+          expect(res.body.recipes).to.be.an('Array');
+          expect(res.body.recipes).to.have.lengthOf(1);
+        })
         .end(done);
     });
   });
 
+
   describe('fetch all recipes from a particular category:', () => {
-    it('should return all recipes in the database, filtered by category', (done) => {
+    it('should return an empty array if filtered by category not yet available', (done) => {
       request(app)
-        .get('/api/v1/recipes?limit=2&offset=0&category=pasta')
+        .get('/api/v1/recipes?limit=2&category=rice')
         .expect(200)
-        .expect((err, res) => {
-          if (!err) {
-            expect(res.body).to.include({ success: true, recipe: { category: 'pasta' } });
-          }
+        .expect((res) => {
+          expect(res.body).to.include({
+            success: true
+          });
+          expect(res.body.recipes).to.be.an('array');
+          expect(res.body.recipes).to.have.lengthOf(0);
         })
         .end(done);
     });
@@ -125,10 +136,9 @@ describe('Test suite for recipe controller:', () => {
         .get('/api/v1/recipes/1')
         .set('more-recipe-access', firstToken)
         .expect(200)
-        .expect((err, res) => {
-          if (!err) {
-            expect(res.body).to.include({ success: true, recipe: { views: 0 } });
-          }
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+          expect(res.body.recipe.views).to.be.equal(0);
         })
         .end(done);
     });
@@ -140,11 +150,9 @@ describe('Test suite for recipe controller:', () => {
         .get('/api/v1/recipes/1')
         .set('more-recipe-access', secondToken)
         .expect(200)
-        .expect((err, res) => {
-          if (!err) {
-            expect(res.body).to
-              .include({ success: true, recipe: { views: 1 } });
-          }
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+          expect(res.body.recipe.views).to.be.equal(1);
         })
         .end(done);
     });
@@ -168,8 +176,11 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .get('/api/v1/recipes?limit=2&offset=0&search=water')
         .expect(200)
-        .expect((err, res) => {
-          if (!err) expect(res.body).to.include({ success: true });
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+          expect(res.body.recipes).to.be.a('array');
+          expect(res.body.recipes).to.have.length.of.at.most(1);
+          expect(res.body.recipes[0].ingredients).to.contain('water');
         })
         .end(done);
     });
@@ -180,17 +191,38 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .put('/api/v1/recipes/1')
         .send({
-          name: 'fried yam',
-          direction: 'how to cook it',
-          description: 'regular food',
-          category: 'yam',
-          foodImg: 'http://example.com',
-          ingredients: 'water, salt'
+          name: 'fried yam updated',
+          direction: 'how to cook it very well',
+          ingredients: 'water, salt, oil'
         })
         .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+          expect(res.body.recipe.name).to.equal('fried yam updated');
+          expect(res.body.recipe.direction).to.equal('how to cook it very well');
+          expect(res.body.recipe.ingredients).to.be.an('array');
+          expect(res.body.recipe.ingredients).to.have.lengthOf(3);
+          expect(res.body.recipe.ingredients).to.contain('water', 'salt', 'oil');
+        })
+        .end(done);
+    });
+  });
+
+  describe('Update an existing recipe with an already existing name', () => {
+    it('should return fail to update the recipe', (done) => {
+      request(app)
+        .put('/api/v1/recipes/1')
+        .send({
+          name: 'fried yam updated',
+        })
+        .set('more-recipe-access', firstToken)
+        .expect(409)
+        .expect((res) => {
+          expect(res.body).to.be.deep.equal({
+            success: false,
+            message: 'you already have a recipe with the same name'
+          });
         })
         .end(done);
     });
@@ -211,7 +243,7 @@ describe('Test suite for recipe controller:', () => {
         .set('more-recipe-access', secondToken)
         .expect(401)
         .expect((res) => {
-          expect(res.body).to.include({ success: false, status: 'cannot update this recipe' });
+          expect(res.body).to.deep.equal({ success: false, status: 'cannot update this recipe' });
         })
         .end(done);
     });
@@ -234,7 +266,7 @@ describe('Test suite for recipe controller:', () => {
         .expect((res) => {
           expect(res.body).to.deep.equal({
             success: false,
-            error: 'recipe not found'
+            message: 'Not found'
           });
         })
         .end(done);
@@ -248,8 +280,10 @@ describe('Test suite for recipe controller:', () => {
         .send({ content: 'just added a comment' })
         .set('more-recipe-access', firstToken)
         .expect(201)
-        .expect((err, res) => {
-          if (!err) expect(res.body).to.include({ success: true });
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+          expect(res.body.reviewedRecipe.content).to.be.equal('just added a comment');
+          expect(res.body.recipe.comments).to.be.equals(1);
         })
         .end(done);
     });
@@ -261,9 +295,12 @@ describe('Test suite for recipe controller:', () => {
         .post('/api/v1/recipes/5/reviews')
         .send({ content: 'just added a comment' })
         .set('more-recipe-access', firstToken)
-        .expect(500)
-        .expect((err, res) => {
-          if (!err) expect(res.body).to.include({ success: false });
+        .expect(404)
+        .expect((res) => {
+          expect(res.body).to.deep.equal({
+            success: false,
+            error: 'recipe not found'
+          });
         })
         .end(done);
     });
@@ -276,22 +313,15 @@ describe('Test suite for recipe controller:', () => {
         .send({ content: '' })
         .set('more-recipe-access', firstToken)
         .expect(422)
-        .expect((err, res) => {
-          if (!err) expect(res.body).to.include({ success: false });
-        })
-        .end(done);
-    });
-  });
-
-  describe('Post a review', () => {
-    it('should return a status code of 422 if a review is not successfully added due to wrong keyword', (done) => {
-      request(app)
-        .post('/api/v1/recipes/1/reviews')
-        .send({ contents: 'just added a comment' })
-        .set('more-recipe-access', firstToken)
-        .expect(422)
-        .expect((err, res) => {
-          if (!err) expect(res.body).to.include({ success: false });
+        .expect((res) => {
+          expect(res.body).to.deep.equal({
+            success: false,
+            status: {
+              content: [
+                'The content field is required.'
+              ]
+            }
+          });
         })
         .end(done);
     });
@@ -305,6 +335,8 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+          expect(res.body.recipe.upvote).to.equal(1);
+          expect(res.body.recipe.reactionUp).to.contain(1);
         })
         .end(done);
     });
@@ -318,6 +350,8 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'cancelled' });
+          expect(res.body.recipe.upvote).to.equal(0);
+          expect(res.body.recipe.reactionUp).to.not.contain(1);
         })
         .end(done);
     });
@@ -332,6 +366,8 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+          expect(res.body.recipe.downvote).to.equal(1);
+          expect(res.body.recipe.reactionDown).to.contain(1);
         })
         .end(done);
     });
@@ -345,6 +381,8 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'cancelled' });
+          expect(res.body.recipe.downvote).to.equal(0);
+          expect(res.body.recipe.reactionDown).to.not.contain(1);
         })
         .end(done);
     });
@@ -369,6 +407,10 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'voted' });
+          expect(res.body.recipe.upvote).to.equal(1);
+          expect(res.body.recipe.reactionUp).to.contain(1);
+          expect(res.body.recipe.downvote).to.equal(0);
+          expect(res.body.recipe.reactionDown).to.not.contain(1);
         })
         .end(done);
     });
@@ -382,32 +424,36 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true, status: 'voted' });
+          expect(res.body.recipe.downvote).to.equal(1);
+          expect(res.body.recipe.reactionDown).to.contain(1);
+          expect(res.body.recipe.upvote).to.equal(0);
+          expect(res.body.recipe.reactionUp).to.not.contain(1);
         })
         .end(done);
     });
   });
 
   describe('Upvote a recipe that does not exist,', () => {
-    it('should return a status code of 500 if recipe does not exist', (done) => {
+    it('should return a status code of 404 if recipe does not exist', (done) => {
       request(app)
         .post('/api/v1/recipes/upvote/10')
         .set('more-recipe-access', firstToken)
-        .expect(500)
+        .expect(404)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({ success: false, message: 'Not found' });
         })
         .end(done);
     });
   });
 
   describe('Downvote a recipe that does not exist,', () => {
-    it('should return a status code of 500 if recipe does not exist', (done) => {
+    it('should return a status code of 404 if recipe does not exist', (done) => {
       request(app)
         .post('/api/v1/recipes/downvote/10')
         .set('more-recipe-access', firstToken)
-        .expect(500)
+        .expect(404)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({ success: false, message: 'Not found' });
         })
         .end(done);
     });
@@ -420,6 +466,9 @@ describe('Test suite for recipe controller:', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).to.include({ success: true });
+          expect(res.body.recipes).to.be.an('array');
+          expect(res.body.recipes).to.have.lengthOf(1);
+          expect(res.body.recipes[0].userId).to.equal(1);
         })
         .end(done);
     });
@@ -432,7 +481,7 @@ describe('Test suite for recipe controller:', () => {
         .set('more-recipe-access', firstToken)
         .expect(500)
         .expect((res) => {
-          expect(res.body).to.include({ success: false, error: 'something went wrong' });
+          expect(res.body).to.include({ success: false, error: 'invalid input syntax for integer: "u"' });
         })
         .end(done);
     });
@@ -458,7 +507,7 @@ describe('Test suite for recipe controller:', () => {
         .set('more-recipe-access', firstToken)
         .expect(200)
         .expect((res) => {
-          expect(res.body).to.include({ success: true });
+          expect(res.body).to.deep.equal({ success: true, status: 'Recipe deleted' });
         })
         .end(done);
     });
@@ -471,7 +520,7 @@ describe('Test suite for recipe controller:', () => {
         .set('more-recipe-access', firstToken)
         .expect(404)
         .expect((res) => {
-          expect(res.body).to.include({ success: false });
+          expect(res.body).to.deep.equal({ success: false, message: 'Not found' });
         })
         .end(done);
     });
@@ -483,8 +532,8 @@ describe('Test suite for middleware', () => {
     request(app)
       .get('/api/v1/users/string')
       .expect(400)
-      .expect((err, res) => {
-        if (!err) expect(res.body).to.include({ success: false });
+      .expect((res) => {
+        expect(res.body).to.deep.equal({ error: 'invalid params' });
       })
       .end(done);
   });
@@ -494,8 +543,8 @@ describe('Test suite for middleware', () => {
       .get('/api/v1/recipes/string')
       .set('more-recipe-access', firstToken)
       .expect(400)
-      .expect((err, res) => {
-        if (!err) expect(res.body).to.include({ success: false });
+      .expect((res) => {
+        expect(res.body).to.deep.equal({ error: 'invalid params' });
       })
       .end(done);
   });
@@ -505,18 +554,18 @@ describe('Test suite for middleware', () => {
       .delete('/api/v1/reviews/delete/string')
       .set('more-recipe-access', firstToken)
       .expect(400)
-      .expect((err, res) => {
-        if (!err) expect(res.body).to.include({ success: false });
+      .expect((res) => {
+        expect(res.body).to.deep.equal({ error: 'invalid params' });
       })
       .end(done);
   });
 
-  it('should return status code 400 if token is not provided', (done) => {
+  it('should return status code 401 if token is not provided', (done) => {
     request(app)
       .get('/api/v1/reviews/string')
-      .expect(403)
-      .expect((err, res) => {
-        if (!err) expect(res.body).to.include({ success: false });
+      .expect(401)
+      .expect((res) => {
+        expect(res.body).to.deep.equal({ error: 'Invalid authorization status' });
       })
       .end(done);
   });

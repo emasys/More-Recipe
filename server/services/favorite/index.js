@@ -1,5 +1,5 @@
 import { Favorite, Recipes } from '../../models';
-import { setStatus } from '../../middleware/helper';
+import { setStatus, notFoundDispatcher } from '../../middleware/helper';
 
 const setFavorite = (req, res, favorite) => {
   if (favorite) {
@@ -18,20 +18,22 @@ const setFavorite = (req, res, favorite) => {
   return Favorite.create({
     recipeId: req.params.recipeId,
     userId: req.decoded.id
-  }).then(() => {
-    Recipes.findOne({
-      where: { id: req.params.recipeId }
-    }).then((response) => {
-      response
-        .increment('favorite')
-        .then(() =>
-          setStatus(
-            res,
-            { success: true, status: 'favorited', recipe: response },
-            200
-          ));
-    });
-  });
+  })
+    .then(() => {
+      Recipes.findOne({
+        where: { id: req.params.recipeId }
+      }).then((response) => {
+        response
+          .increment('favorite')
+          .then(() =>
+            setStatus(
+              res,
+              { success: true, status: 'favorited', recipe: response },
+              200
+            ));
+      });
+    })
+    .catch(() => notFoundDispatcher(res));
 };
 
 export default setFavorite;

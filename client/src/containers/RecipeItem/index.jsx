@@ -128,7 +128,8 @@ class RecipeItem extends Component {
       });
     }
     if (nextProps.recipes.recipeItem.data) {
-      if (nextProps.recipes.recipeItem.data.status === 'Recipes not found') {
+      console.log("not found controller =====>",nextProps.recipes.recipeItem);
+      if (nextProps.recipes.recipeItem.status > 200) {
         nextProps.history.push('/NotFound');
       }
       this.setState({
