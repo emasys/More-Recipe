@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Navbar with category dropdown menu
+ *
+ * @param {any} props
+ *
+ * @returns {void}
+ */
 const NavbarCategory = props => (
   <div>
     <ul className="nav justify-content-center">
@@ -29,11 +36,7 @@ const NavbarCategory = props => (
           <i className="fa fa-sort-amount-asc" aria-hidden="true" /> sort by
         </a>
         <div className="dropdown-menu custom-dropdown-menu">
-          <a
-            href="#"
-            className="dropdown-item"
-            onClick={props.recentlyAdded}
-          >
+          <a href="#" className="dropdown-item" onClick={props.recentlyAdded}>
             Recently Added
           </a>
           <div className="dropdown-divider" />

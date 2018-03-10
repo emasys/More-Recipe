@@ -16,8 +16,9 @@ import FavoriteCategoryList from './FavoriteCategoryList';
  *
  *
  * @class Favorites
+ *
  * @extends {Component}
- * @param {object} nextProps
+ *
  */
 export class Favorites extends Component {
   static propTypes = {
@@ -44,13 +45,19 @@ export class Favorites extends Component {
    *
    *
    * @memberof Favorites
-   * @returns {any} favorite list
+   * @returns {void}
    */
   componentDidMount = () => {
-    // this.props.getFavorite();
     this.loadMoreRecipes();
   };
 
+  /**
+   * @param {object} nextProps
+   *
+   * @memberOf Favorites
+   *
+   * @returns {void}
+   */
   componentWillReceiveProps = nextProps => {
     if (this.state.offset > nextProps.favorites.favoriteCount) {
       this.setState({ showMore: false });
@@ -60,10 +67,26 @@ export class Favorites extends Component {
     }
   };
 
+  /**
+   *
+   *
+   *
+   * @memberOf Favorites
+   *
+   * @returns {void}
+   */
   componentWillUnmount = () => {
     this.props.clearFavoriteList();
   };
 
+  /**
+   *
+   *
+   *
+   * @memberOf Favorites
+   *
+   * @returns {void}
+   */
   loadMoreRecipes = () => {
     this.props.getFavorite(12, this.state.offset);
     this.setState(prevState => ({
@@ -71,6 +94,15 @@ export class Favorites extends Component {
     }));
   };
 
+  /**
+   *
+   * @param {object} event
+   * @param {object} category
+   *
+   * @returns {void}
+   *
+   * @memberOf Favorites
+   */
   filterFavorites = (event, category) => {
     event.preventDefault();
     const setParams = {
@@ -83,7 +115,8 @@ export class Favorites extends Component {
   /**
    *
    *
-   * @returns {any} jsx
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof Favorites
    */
   render() {

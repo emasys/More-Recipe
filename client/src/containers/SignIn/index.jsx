@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { toast, ToastContainer } from 'react-toastify';
+import { validate } from 'email-validator';
 
 // actions
 import {
@@ -24,7 +25,6 @@ import errorMessages, {
 
 /**
  *
- *@param {object} event
  * @class SignIn
  * @extends {Component}
  */
@@ -46,7 +46,7 @@ class SignIn extends Component {
   };
   /**
    * Creates an instance of SignIn.
-   * @param {any} props
+   * @param {object} props
    * @memberof SignIn
    */
   constructor(props) {
@@ -65,7 +65,7 @@ class SignIn extends Component {
     };
   }
   /**
-   * @returns {any}
+   * @returns {void}
    * invoked immediately after a
    * component is mounted
    * @memberof SignIn
@@ -80,10 +80,10 @@ class SignIn extends Component {
     }
   }
   /**
-   * @returns {any}
+   * @returns {void}
    * invoked before a mounted component
    * receives new props
-   * @param {any} nextProps
+   * @param {object} nextProps
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
@@ -123,7 +123,7 @@ class SignIn extends Component {
       return true;
     }
     return true;
-  }
+  };
 
   tokenSent = () =>
     toast('Token Sent! check your email', {
@@ -137,14 +137,12 @@ class SignIn extends Component {
     });
   };
 
- 
-
   /**
    *
    *
-   * @param {any} event
+   * @param {object} event
    * @memberof SignIn
-   * @returns {any} password input text
+   * @returns {object} state change
    */
   onChange = event => {
     this.setState(
@@ -181,7 +179,7 @@ class SignIn extends Component {
    *
    *
    * @memberof SignIn
-   * @returns {any} password input text
+   * @returns {void}
    */
   resetForm = () => {
     if (!this.state.resetPass) {
@@ -199,9 +197,11 @@ class SignIn extends Component {
   /**
    *
    *
-   * @param {any} event
+   * @param {void} event
+   * 
    * @memberof SignIn
-   * @returns {any}
+   * 
+   * @returns {void}
    * triggers reset password action
    */
   resetPassword = event => {
@@ -223,17 +223,39 @@ class SignIn extends Component {
     }
   };
 
+  /**
+   * Generate Token
+   * 
+   * @param {object} event
+   * 
+   * @returns {void}
+   * 
+   * @memberOf SignIn
+   */
   generateToken = event => {
     event.preventDefault();
-    this.props.sendToken({ email: this.state.recoveryEmail });
-    this.tokenSent();
+    if (validate(this.state.recoveryEmail)) {
+      this.props.sendToken({ email: this.state.recoveryEmail }).then(() => {
+        if (this.props.tokenStatus && this.props.tokenStatus.data) {
+          document.querySelector('#recoverEmail_error').innerHTML =
+            'This email address is not in our records';
+        } else {
+          document.form.sendToken.innerHTML = 'Re-send token';
+          Array.from(document.querySelectorAll('.hideForm')).forEach(element =>
+            element.classList.add('d-block'));
+          this.tokenSent();
+        }
+      });
+    }
   };
   /**
    *
    *
-   * @param {any} event
+   * @param {object} event
+   * 
    * @memberof SignIn
-   * @returns {any} a new page
+   * 
+   * @returns {void}
    */
   handleSubmit = event => {
     event.preventDefault();
@@ -246,13 +268,12 @@ class SignIn extends Component {
   /**
    *
    *
-   * @returns {any} jsx
+   * @returns {JSX.Element} React element
+   * 
    * @memberof SignIn
    */
   render() {
-    const {
-      resetPass, success
-    } = this.state;
+    const { resetPass, success } = this.state;
     return (
       <section className="container mt-100 mb-100 ">
         <ToastContainer />
@@ -331,7 +352,8 @@ class SignIn extends Component {
 const mapStateToProps = state => ({
   signin: state.user,
   reset: state.user.reset,
-  isLoading: state.isLoading
+  isLoading: state.isLoading,
+  tokenStatus: state.user.sendToken
 });
 
 const mapDispatchToProps = dispatch => ({

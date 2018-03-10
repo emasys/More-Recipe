@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
+import { uniq } from 'lodash';
 
+/**
+ *
+ *
+ * @param {object} { favorites }
+ * @returns {JSX.Element} react element
+ */
 const FavoriteList = ({ favorites }) => {
   if (favorites) {
     if (favorites.length < 1) {
@@ -20,12 +27,14 @@ const FavoriteList = ({ favorites }) => {
         </div>
       );
     }
-    return favorites.map(item => (
-      <div
-        key={item.recipeId}
-        className="row"
-      >
-        <div data-aos="fade-up" data-aos-duration="2000" className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12">
+    const uniqueFavorites = uniq(favorites);
+    return uniqueFavorites.map(item => (
+      <div key={item.recipeId} className="row">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="2000"
+          className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12"
+        >
           <Link to={`/recipe/${item.recipeId}`} className="hvr-push">
             <div className="card animate">
               <img

@@ -2,7 +2,13 @@ import * as type from '../types';
 import instance from '../../config/axios';
 import { isLoading } from '../index';
 
-// Get a specific user
+/**
+ * Fetch user data of one user
+ *
+ * @param {number} id
+ *
+ * @returns {object} user data of one user
+ */
 export const getUserInfo = id => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -17,7 +23,15 @@ export const getUserInfo = id => dispatch => {
     });
 };
 
-// Get user specific recipes
+/**
+ * Fetch all the recipes of one user
+ *
+ * @param {number} id
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested recipes
+ */
 export const getUserRecipes = (id, limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -32,7 +46,13 @@ export const getUserRecipes = (id, limit, offset) => dispatch => {
     });
 };
 
-// user profile
+/**
+ * Fetch user data of one user
+ *
+ * @param {number} id
+ *
+ * @returns {object} user data of one user
+ */
 export const getProfile = id => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -47,7 +67,11 @@ export const getProfile = id => dispatch => {
     });
 };
 
-// fetch all users
+/**
+ * Fetch user data of all users
+ *
+ * @returns {object} list of requested data
+ */
 export const getAllUsers = () => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -62,6 +86,13 @@ export const getAllUsers = () => dispatch => {
     });
 };
 
+/**
+ * Delete a user
+ *
+ * @param {number} id
+ *
+ * @returns {object} confirmation status
+ */
 export const deleteUser = id => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -77,7 +108,14 @@ export const deleteUser = id => dispatch => {
     });
 };
 
-// update users
+/**
+ * Update user data
+ *
+ * @param {number} id
+ * @param {object} data
+ *
+ * @returns {object} updated user data
+ */
 export const updateUser = (id, data) => dispatch => {
   dispatch(isLoading(true));
   return instance

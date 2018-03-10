@@ -1,9 +1,14 @@
-import axios from 'axios';
 import * as type from '../types';
 import instance from '../../config/axios'
 import { isLoading } from '../index';
 
-// upvote
+/**
+ * Upvote a recipe
+ *
+ * @param {number} id
+ *
+ * @returns {object} updated recipe
+ */
 export const upvote = id => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -18,7 +23,13 @@ export const upvote = id => dispatch => {
     });
 };
 
-// downvote
+/**
+ * Downvote a recipe
+ *
+ * @param {number} id
+ *
+ * @returns {object} updated recipe
+ */
 export const downvote = id => dispatch => {
   dispatch(isLoading(true));
   return instance

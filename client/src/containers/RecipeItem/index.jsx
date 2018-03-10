@@ -16,19 +16,19 @@ import { upvote, downvote } from '../../actions/voteActions';
 import { uploadImg } from '../../actions';
 
 // components
-// import Auth from '../../components/auth';
 import RecipeIngredients from './Ingredients';
 import Reviews from './Reviews';
 import Navbar from '../../components/Navbar';
 import EditForm from './EditForm';
 import GenerateItems from './GenerateRecipeItems';
-import DeleteModal from './DeleteModal';
+import DeleteModal from '../Profile/DeleteModal';
 
 //Helper functions
 import { update, notify, failedUpdate } from './helperFunctions';
+
 /**
  *
- * @param {object} event
+ *
  * @class RecipeItem
  * @extends {Component}
  */
@@ -65,7 +65,7 @@ class RecipeItem extends Component {
   };
   /**
    * Creates an instance of RecipeItem.
-   * @param {any} props
+   * @param {object} props
    * @memberof RecipeItem
    */
   constructor(props) {
@@ -93,28 +93,28 @@ class RecipeItem extends Component {
     };
   }
   /**
-   *
+   * Invoked immediately after component is mounted
    *
    * @memberof RecipeItem
-   * @returns {any} cdm
+   * @returns {void}
    */
-  componentDidMount() {
+  componentDidMount = () => {
     if (!this.props.recipes.recipeItem.success) {
       this.props.getRecipeItem(this.props.match.params.id);
     }
     window.scrollTo(0, 0);
-  }
-
+  };
 
   /**
-   *
+   * Invoked before a mounted component receives new props.
    *
    * @param {any} nextProps
+   * 
    * @memberof RecipeItem
-   * @returns {any} cwrp
+   * 
+   * @returns {void}
    */
   componentWillReceiveProps(nextProps) {
-   
     this.setState({
       authInfo: nextProps.auth.authInfo,
       fetchRecipe: nextProps.auth.isLoggedIn
@@ -128,7 +128,6 @@ class RecipeItem extends Component {
       });
     }
     if (nextProps.recipes.recipeItem.data) {
-      console.log("not found controller =====>",nextProps.recipes.recipeItem);
       if (nextProps.recipes.recipeItem.status > 200) {
         nextProps.history.push('/NotFound');
       }
@@ -173,19 +172,36 @@ class RecipeItem extends Component {
     }
   }
 
+  /**
+   * 
+   * 
+   * 
+   * @memberOf RecipeItem
+   * 
+   * @returns {void}
+   */
   componentWillUnmount = () => {
     this.props.clearRecipes();
   };
 
+  /**
+   * 
+   * @param {object} event
+   * 
+   * @memberOf RecipeItem
+   * 
+   * @returns {void}
+   */
   deleteRecipeInit = event => {
     event.preventDefault();
   };
+ 
   /**
-  /**
-   *
+   *redirects a user back to catalog page after deletion
    *
    * @memberof RecipeItem
-   * @returns {any} redirects a user back to catalog page after deletion
+   * 
+   * @returns {void} 
    */
   delRecipe = () => {
     this.props
@@ -197,55 +213,64 @@ class RecipeItem extends Component {
       });
   };
   /**
-   *
+   * sets modal display to true
    *
    * @memberof RecipeItem
-   * @returns {bool} sets modal display to true
+   * 
+   * @returns {void} 
    */
   onOpenDeleteModal = () => {
     this.setState({ deleteRecipe: true });
   };
   /**
-   *
+   * sets modal display to false
    *
    * @memberof RecipeItem
-   * @returns {bool} sets modal display to false
+   * 
+   * @returns {void} 
    */
   onCloseDeleteModal = () => {
     this.setState({ deleteRecipe: false });
   };
   /**
-   *
+   * Add a recipe to user's favorite list
    *
    * @memberof RecipeItem
-   * @returns {any} add a recipe to user's favorite list
+   * 
+   * @returns {void} 
    */
   favIt = () => {
     this.props.setFavorite(this.props.match.params.id);
   };
   /**
-   *
+   * upvote a recipe
    *
    * @memberof RecipeItem
-   * @returns {any} upvote a recipe
+   * 
+   * @returns {void} 
    */
   upvote = () => {
     this.props.upvote(this.props.match.params.id);
   };
   /**
-   *
+   * Downvote a recipe
    *
    * @memberof RecipeItem
-   * @returns {any} downvote a recipe
+   * 
+   * @returns {void} 
    */
   downvote = () => {
     this.props.downvote(this.props.match.params.id);
   };
   /**
-   * @returns {any}
+   * 
    * edit recipe helper function
+   * 
    * @param {any} data
+   * 
    * @memberof RecipeItem
+   * 
+   * @returns {void}
    */
   edited = data => {
     this.props.editRecipe(data, this.props.match.params.id);
@@ -255,8 +280,10 @@ class RecipeItem extends Component {
    *
    * @param {event} event
    * @param {string} foodImg
+   * 
    * @memberof RecipeItem
-   * @returns {any} an updated recipe
+   * 
+   * @returns {void}
    */
   handleSubmit = event => {
     const { foodImg, recipeItem: { recipe: { name } } } = this.state;
@@ -277,7 +304,8 @@ class RecipeItem extends Component {
 
   /**
    *
-   * @returns {any} a new state
+   * @returns {void} 
+   * 
    * @memberof RecipeItem
    */
   hoverIn = () => {
@@ -285,18 +313,21 @@ class RecipeItem extends Component {
   };
   /**
    *
-   * @returns {any} a new state
+   * @returns {void}
+   * 
    * @memberof RecipeItem
    */
   hoverOut = () => {
     this.setState({ status: 'fade' });
   };
   /**
-   *
+   * Preview of image
    *
    * @param {any} files
+   * 
    * @memberof RecipeItem
-   * @returns {object} a preview of image
+   * 
+   * @returns {void} 
    */
   handleDrop = files => {
     const [{ preview }] = files;
@@ -304,12 +335,12 @@ class RecipeItem extends Component {
   };
 
   /**
-   *
-   *
-   * @param {any} files
-   * @memberof RecipeItem
-   * @returns {object}
    * upload image
+   *
+   * @memberof RecipeItem
+   * 
+   * @returns {void}
+   * 
    */
   handleImg = () => {
     notify();
@@ -333,7 +364,8 @@ class RecipeItem extends Component {
    *
    *
    * @param {object} reactions
-   * @returns {any} jsx elements
+   * 
+   * @returns {JSX.Element} Jsx element
    * @memberof RecipeItem
    */
   generateItems = reactions => {
@@ -358,8 +390,10 @@ class RecipeItem extends Component {
     return 'Loading...';
   };
   /**
-   * @returns {any}
-   * set a new edit state
+   * Set a new edit state
+   * 
+   * @returns {void}
+   * 
    * @memberof RecipeItem
    */
   showEditForm = () => {
@@ -371,7 +405,8 @@ class RecipeItem extends Component {
   /**
    *
    *
-   * @returns {jsx} render elements
+   * @returns {JSX.Element} render elements
+   * 
    * @memberof RecipeItem
    */
   render() {
@@ -380,7 +415,7 @@ class RecipeItem extends Component {
       <div>
         <Navbar className="bg-dark fixed-top" />
         <ToastContainer />
-        <DeleteModal delRecipe={this.delRecipe} />
+        <DeleteModal confirmDelete={this.delRecipe} />
         <section
           data-aos="fade-up"
           data-duration="800"

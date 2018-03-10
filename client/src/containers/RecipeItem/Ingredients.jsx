@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+/**
+ *
+ *
+ * @param {object} { ingredients }
+ *
+ * @returns {JSX.Element} react element
+ */
 const generateList = ({ ingredients }) => {
   if (ingredients.recipe) {
     const list = ingredients.recipe.ingredients;
@@ -19,6 +26,13 @@ const generateList = ({ ingredients }) => {
   }
 };
 
+/**
+ *
+ *
+ * @param {object} props
+ *
+ * @returns {JSX.Element} react element
+ */
 const Ingredients = props => (
   <div className="col-lg-5 col-sm-12">
     <h2 className="wrapWord text-capitalize">
@@ -58,7 +72,9 @@ const Ingredients = props => (
     <h5 className="text-muted">Directions</h5>
     <hr />
     <div className="p-10 direction rounded  bg-light">
-      {props.ingredients.recipe ? props.ingredients.recipe.direction : 'loading...'}
+      {props.ingredients.recipe ?
+        props.ingredients.recipe.direction :
+        'loading...'}
     </div>
   </div>
 );

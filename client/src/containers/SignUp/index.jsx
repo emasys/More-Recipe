@@ -23,9 +23,6 @@ import Form from './SignUpForms';
  *
  * @class SignUp
  * @extends {Component}
- * @param {object} event
- * @param {string} inputName
- * @param {object} nextProps
  */
 class SignUp extends Component {
   static propTypes = {
@@ -33,10 +30,23 @@ class SignUp extends Component {
     signUp: PropTypes.func.isRequired
   };
 
+  /**
+   * @returns {void}
+   * 
+   * 
+   * @memberOf SignUp
+   */
   componentDidMount = () => {
     window.scrollTo(0, 0);
   };
 
+  /**
+   * @param {object} nextProps
+   * 
+   * @returns {void}
+   * 
+   * @memberOf SignUp
+   */
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.signUp) {
       if (nextProps.user.signUp.success) {
@@ -56,9 +66,26 @@ class SignUp extends Component {
     }
   };
 
+  /**
+   * clear input field
+   * 
+   * @param {string} inputName
+   * 
+   * @returns {void}
+   * @memberOf SignUp
+   */
   onFocused = inputName => {
     document.querySelector(`#${inputName}`).innerHTML = '';
   };
+
+  /**
+   * Validate field on value change
+   * 
+   * @param {object} event
+   * 
+   * @returns {void}
+   * @memberOf SignUp
+   */
   onChange = event => {
     this.setState(
       {
@@ -86,11 +113,12 @@ class SignUp extends Component {
     );
   };
   /**
+   * Submit form
    *
-   *
-   * @param {any} event
+   * @param {object} event
+   * 
    * @memberof SignUp
-   * @returns {any} submits form
+   * @returns {void}
    */
   handleSubmit = event => {
     event.preventDefault();
@@ -107,7 +135,7 @@ class SignUp extends Component {
   /**
    *
    *
-   * @returns {any} jsx
+   * @returns {JSX.Element} React element
    * @memberof SignUp
    */
   render() {

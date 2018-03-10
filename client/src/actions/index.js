@@ -4,6 +4,12 @@ import * as type from './types';
 import config from '../config';
 import { updateUser, getUserInfo } from './userActions';
 
+/**
+ * Check if token is valid
+ *
+ *
+ * @returns {object} decoded token
+ */
 export const isAuthenticated = () => {
   const jwtToken = window.localStorage.getItem('token');
   let isLoggedIn = true;
@@ -25,7 +31,13 @@ export const isAuthenticated = () => {
     }
   };
 };
-
+/**
+ * Check network request status
+ *
+ * @param {boolean} bool
+ *
+ * @returns {object} boolean value
+ */
 export const isLoading = bool => dispatch => {
   if (bool) {
     dispatch(isAuthenticated());
@@ -42,8 +54,16 @@ export const flashMessage = path => ({
   path
 });
 
-// Upload recipe image
+/**
+ * Upload image to cloudinary
+ *
+ * @param {boolean} data
+ * @param {boolean} id
+ *
+ * @returns {string} secure url
+ */
 export const uploadImg = (data, id) => {
+  console.log('id======>', id);
   const formData = new FormData();
   formData.append('file', data);
   formData.append('tags', `morerecipe`);
@@ -59,8 +79,10 @@ export const uploadImg = (data, id) => {
         const responseData = response.data;
         const payload = responseData.secure_url;
         dispatch({ type: type.UPLOAD_FOOD_IMG, payload });
-        dispatch(updateUser(id, { avatar: payload }));
-        dispatch(getUserInfo(id));
+        if (id) {
+          dispatch(updateUser(id, { avatar: payload }));
+          dispatch(getUserInfo(id));
+        }
       })
       .catch(err => {
         dispatch({

@@ -15,6 +15,7 @@ exports[`should render 404 page without errors 1`] = `
     >
       <img
         alt="logo"
+        className="col-12 not-found-logo"
         src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
       />
       <h2

@@ -1,4 +1,10 @@
-export const validate = data => {
+/**
+ *
+ *
+ * @param {object} data
+ * @returns {bool} validation status
+ */
+const validate = data => {
   const re = /[\s\d]/;
   let firstName = true,
     lastName = true;
@@ -26,6 +32,4 @@ export const validate = data => {
   }
 };
 
-export const uploader = () => {
-  //
-};
+export default validate;

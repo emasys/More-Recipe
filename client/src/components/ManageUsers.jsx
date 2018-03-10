@@ -11,9 +11,10 @@ import { getAllUsers, deleteUser } from '../actions/userActions';
 import Navbar from './Navbar';
 
 /**
+ * ManageUsers
  *
+ * @class
  *
- * @class ManageUsers
  * @extends {Component}
  */
 class ManageUsers extends Component {
@@ -24,7 +25,9 @@ class ManageUsers extends Component {
   };
   /**
    * Creates an instance of ManageUsers.
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof ManageUsers
    */
   constructor(props) {
@@ -37,22 +40,26 @@ class ManageUsers extends Component {
     this.globalId = 0;
   }
   /**
+   *  Invoked immediately after component is mounted
    *
+   *@returns {object} response after instantiating
+   * network request
    *
-   * @memberof ManageUsers
-   * @returns {object} list of users
    */
   componentDidMount() {
     this.props.getAllUsers();
   }
   /**
    *
+   *@description this will fetch the id of the recipe to
+   * be deleted, then pass it to the globalId to be used in the api call
    *
-   * @param {any} event
+   * @param {object} event
+   *
    * @memberof ManageUsers
-   * @returns {any} delete user
-   * @description this will fetch the id of the recipe to
-   * be deleted, then pass it to the globalId to the used in the api call
+   *
+   * @returns {void}
+   *
    */
   deleteUser = event => {
     if (event.target.id) {
@@ -61,21 +68,25 @@ class ManageUsers extends Component {
     }
   };
   /**
+   * Open modal
    *
+   * @param {object} event
    *
-   * @param {any} event
    * @memberof ManageUsers
-   * @returns {any} modal state
+   *
+   * @returns {void}
    */
   onOpenModal = event => {
     this.setState({ open: true });
   };
   /**
-   *
+   * Confirm deletion of a user
    *
    * @param {any} event
+   *
    * @memberof ManageUsers
-   * @returns {any} recieves the globalId and do the needful
+   *
+   * @returns {void}
    */
   confirmDelete = event => {
     if (event.target.id === 'yes') {
@@ -84,19 +95,22 @@ class ManageUsers extends Component {
     }
   };
   /**
-   *
+   * Close modal
    *
    * @memberof ManageUsers
-   * @returns {any} Modal state
+   *
+   * @returns {void}
    */
   onCloseModal = () => {
     this.setState({ open: false });
   };
   /**
+   * Generate a list of users
    *
+   * @param {object} user
    *
-   * @param {any} user
-   * @returns {object} a table of list of users
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof ManageUsers
    */
   generateTable = user => {
@@ -127,8 +141,8 @@ class ManageUsers extends Component {
   };
   /**
    *
-   *
-   * @returns {any} jsx
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof ManageUsers
    */
   render() {

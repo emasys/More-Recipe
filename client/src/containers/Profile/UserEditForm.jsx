@@ -5,6 +5,12 @@ import countryList from '../../components/CountryList';
 const focus = () => {
   document.querySelector('.text-danger').innerHTML = '';
 };
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {JSX.Element} react element
+ */
 const UserEditForm = props => {
   const { firstName, lastName, bio } = props.state;
   return (

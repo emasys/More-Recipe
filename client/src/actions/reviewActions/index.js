@@ -2,7 +2,15 @@ import * as type from '../types';
 import instance from '../../config/axios';
 import { isLoading } from '../index';
 
-// Fetch reviews for a recipe
+/**
+ * Fetch all the review of a recipe
+ *
+ * @param {number} recipeId
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested reviews
+ */
 export const getReviews = (recipeId, limit = 1, offset = 0) => dispatch =>
   instance
     .get(`/reviews/${recipeId}?limit=${limit}&offset=${offset}`)
@@ -15,6 +23,12 @@ export const getReviews = (recipeId, limit = 1, offset = 0) => dispatch =>
       dispatch(isLoading(false));
     });
 
+/**
+ * Remove the list of review from the store
+ *
+ *
+ * @returns {object} empty array
+ */
 export const clearReview = () => dispatch =>
   dispatch({ type: type.CLEAR_REVIEW, payload: [] });
 
@@ -34,7 +48,14 @@ export const postReview = (data, id) => dispatch => {
     });
 };
 
-// Delete a review
+/**
+ * Delete a recipe
+ *
+ * @param {number} reviewId
+ * @param {number} recipeId
+ *
+ * @returns {object} list of remaining recipes
+ */
 export const deleteReview = (reviewId, recipeId) => dispatch => {
   dispatch(isLoading(true));
   return instance

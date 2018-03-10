@@ -4,7 +4,14 @@ import { isLoading } from '../index';
 import { getUserInfo, getUserRecipes } from '../userActions';
 import { getReviews } from '../reviewActions';
 
-// Fetch All recipes
+/**
+ * Fetch all the recipes in the database
+ *
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested recipes
+ */
 export const getRecipes = (limit, offset = 0) => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -18,12 +25,22 @@ export const getRecipes = (limit, offset = 0) => dispatch => {
       dispatch(isLoading(false));
     });
 };
-
+/**
+ * Remove the list of recipes from the store
+ *
+ * @returns {object} empty array
+ */
 export const clearRecipes = () => dispatch => {
   dispatch({ type: type.CLEAR_RECIPES, payload: [] });
 };
 
-// Get a single recipe
+/**
+ * Fetch a single recipes from the database
+ *
+ * @param {number} id
+ *
+ * @returns {object} recipe detail
+ */
 export const getRecipeItem = id => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -40,9 +57,16 @@ export const getRecipeItem = id => dispatch => {
     });
 };
 
-// Get a single recipe reactions
-export const getRecipeReactions = id => dispatch => {
-  return instance
+/**
+ * Fetch a single recipe with the most recent reactions
+ * including upvotes, downvotes and favorite
+ *
+ * @param {number} id
+ *
+ * @returns {object} Recipe detail
+ */
+export const getRecipeReactions = id => dispatch =>
+  instance
     .get(`/recipes/reaction/${id}`)
     .then(response => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
@@ -52,9 +76,15 @@ export const getRecipeReactions = id => dispatch => {
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: err.response });
       dispatch(isLoading(false));
     });
-};
 
-// edit recipe
+/**
+ * Edit a recipe
+ *
+ * @param {object} data
+ * @param {number} id
+ *
+ * @returns {object} Updated recipe
+ */
 export const editRecipe = (data, id) => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -69,7 +99,14 @@ export const editRecipe = (data, id) => dispatch => {
     });
 };
 
-// Delete Recipe
+/**
+ * Delete a recipe
+ *
+ * @param {number} id
+ * @param {number} userId
+ *
+ * @returns {object} list of recipes without the deleted one
+ */
 export const delRecipe = (id, userId) => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -85,6 +122,16 @@ export const delRecipe = (id, userId) => dispatch => {
     });
 };
 
+/**
+ * Fetch all the recipes in the database
+ * that matches the keyword
+ *
+ * @param {string} keyword
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested recipes
+ */
 export const searchRecipes = (keyword, limit = 1, offset = 0) => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -102,7 +149,13 @@ export const searchRecipes = (keyword, limit = 1, offset = 0) => dispatch => {
 export const resetSearch = () => dispatch => {
   dispatch({ type: type.RESET_SEARCH, payload: [] });
 };
-// Add a recipe
+/**
+ * Add Recipe
+ *
+ * @param {object} data
+ *
+ * @returns {object} Recently added recipe
+ */
 export const addRecipe = data => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -117,7 +170,14 @@ export const addRecipe = data => dispatch => {
     });
 };
 
-// Fetch All recipes
+/**
+ * Fetch first 12 recipes with most views
+ *
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested recipes
+ */
 export const getHotRecipes = (limit, offset = 0) => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -132,7 +192,16 @@ export const getHotRecipes = (limit, offset = 0) => dispatch => {
     });
 };
 
-// Get recipe category
+/**
+ * Fetch all the recipes in the database
+ * that matches the category keyword
+ *
+ * @param {number} category
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested recipes
+ */
 export const getCategory = (category, limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return instance

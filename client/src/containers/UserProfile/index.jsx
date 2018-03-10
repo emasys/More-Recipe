@@ -31,7 +31,7 @@ class UserProfile extends Component {
   };
   /**
    * Creates an instance of UserProfile.
-   * @param {any} props
+   * @param {object} props
    * @memberof UserProfile
    */
   constructor(props) {
@@ -47,7 +47,8 @@ class UserProfile extends Component {
    *
    *
    * @memberof UserProfile
-   * @returns {any} cdm
+   *
+   * @returns {void}
    */
   componentDidMount() {
     this.props.getUserInfo(this.props.match.params.id);
@@ -55,8 +56,10 @@ class UserProfile extends Component {
   }
   /**
    *
-   * @returns {any} cwr
+   * @returns {void}
+   *
    * @param {any} nextProps
+   *
    * @memberof UserProfile
    */
   componentWillReceiveProps(nextProps) {
@@ -71,24 +74,42 @@ class UserProfile extends Component {
       this.setState({
         showMore: true
       });
-    }   
+    }
   }
 
+  /**
+   *
+   * @returns {void}
+   *
+   *
+   * @memberof UserProfile
+   */
   componentWillUnmount = () => {
     this.props.clearRecipes();
   };
 
+  /**
+   * Fetch more recipes
+   *
+   * @returns {void}
+   *
+   * @memberOf UserProfile
+   */
   loadMore = () => {
-    this.props.getUserRecipes(
-      this.props.match.params.id,
-      2,
-      this.state.offset
-    );
+    this.props.getUserRecipes(this.props.match.params.id, 2, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 2
     }));
   };
 
+  /**
+   * View more recipes
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   * @memberOf UserProfile
+   */
   viewMore = event => {
     event.preventDefault();
     this.loadMore();
@@ -96,7 +117,7 @@ class UserProfile extends Component {
   /**
    *
    *
-   * @returns {any} render
+   * @returns {JSX.Element} render react element
    * @memberof UserProfile
    */
   render() {

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import config from '../config/index';
 
-
 export const list = [
   'Breakfast',
   'Brunch',
@@ -27,6 +26,13 @@ export const list = [
   'Salads'
 ];
 
+/**
+ * Renders the category list
+ *
+ * @param {any} props
+ *
+ * @returns {JSX.Element} category list
+ */
 const CategoryList = props => (
   <section className="mt-0 mb-20 text-center">
     <div className="category-wrapper container-fluid">

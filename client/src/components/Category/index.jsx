@@ -12,9 +12,10 @@ import Navbar from '../Navbar';
 import CatalogList from '../CatalogList';
 
 /**
- *@param {object} nextProps
+ * Category Class
  *
- * @class Category
+ * @class
+ * @param {object} nextProps
  * @extends {Component}
  */
 export class Category extends Component {
@@ -27,7 +28,8 @@ export class Category extends Component {
   };
   /**
    * Creates an instance of Category.
-   * @param {any} props
+   *
+   * @param {object} props
    *
    * @memberOf Category
    */
@@ -39,20 +41,51 @@ export class Category extends Component {
     };
   }
 
+  /**
+   *  Invoked immediately after component is mounted
+   *
+   *@returns {object} response after instantiating
+   * network request
+   *
+   * @memberOf Category
+   */
   componentDidMount = () => {
     this.loadMoreRecipes();
   };
-
+  /**
+   *  Invoked before a mounted component receives new props.
+   *
+   * @param {object} nextProps
+   *
+   * @returns {object} response after instantiating
+   * network request
+   *
+   * @memberOf Category
+   */
   componentWillReceiveProps = nextProps => {
     if (this.state.offset > nextProps.recipes.count) {
       this.setState({ showMore: false });
     }
   };
 
+  /**
+   *
+   * @returns {void}
+   *
+   * @memberOf Category
+   */
   gotoFullCatalog = () => {
     this.props.history.push('/catalog');
   };
 
+  /**
+   * Instantiate network request to fetch
+   * more recipes from the database
+   *
+   * @returns {void}
+   *
+   * @memberOf Category
+   */
   loadMoreRecipes = () => {
     const category = this.props.match.params.cat;
     this.props.getCategory(category, 4, this.state.offset);

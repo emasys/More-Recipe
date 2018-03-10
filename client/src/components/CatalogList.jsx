@@ -8,7 +8,7 @@ import React from 'react';
  *
  *
  * @param {number} id
- * @returns {object} toggle classes on mouse in
+ * @returns {Void} toggle classes on mouse in
  */
 const onHoverIn = id => {
   document.querySelector(`#recipe-${id}`).classList.remove('crop-text');
@@ -21,7 +21,7 @@ const onHoverIn = id => {
  *
  *
  * @param {number} id
- * @returns {object} toggle classes on mouse out
+ * @returns {void} toggle classes on mouse out
  */
 const onHoverOut = id => {
   document.querySelector(`#img-${id}`).classList.remove('d-half');
@@ -30,10 +30,10 @@ const onHoverOut = id => {
   document.querySelector(`#recipe-${id}`).classList.add('crop-text');
 };
 /**
- *
+ * Generate cards of recipes
  *
  * @param {object} props
- * @returns {object} list of recipes
+ * @returns {JSX.Element} list of recipes
  */
 const generateList = props => {
   if (props.catalog) {
@@ -161,7 +161,7 @@ const generateList = props => {
  *
  *
  * @param {object} props
- * @returns {object} container function
+ * @returns {JSX.Element} recipe cards
  */
 const CatalogList = props => (
   <div className="row justify-content-center">{generateList(props)}</div>

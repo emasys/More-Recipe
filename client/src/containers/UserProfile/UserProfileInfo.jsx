@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 // Config
 import config from '../../config';
 
+/**
+ * User profile data
+ *
+ * @param {object} props
+ * @returns {JSX.Element} react element
+ */
 const UserProfileInfo = props => {
   if (props.data) {
     const {

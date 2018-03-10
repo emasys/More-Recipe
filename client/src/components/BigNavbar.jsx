@@ -11,11 +11,10 @@ const logout = () => {
 };
 
 /**
+ * Navbar
  *
- *
- * @class Navbar
- * @extends {Component}
- * @param {qny} props
+ * @param {object} props
+ * @returns {JSX.Element} React element
  */
 const Navbar = props => (
   <section className="container-fluid m-0 p-0">

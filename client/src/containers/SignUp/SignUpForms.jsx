@@ -2,10 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+/**
+ * Clear error message on focus
+ * @returns {void}
+ */
 const onFocus = () => {
   document.querySelector('.rubics').classList.add('d-block');
 };
 
+/**
+ * Sign up form
+ *
+ * @param {object} props
+ *
+ * @returns {JSX.Element} React element
+ */
 const SignUpForm = props => (
   <form onSubmit={props.handleSubmit}>
     <ul className="form row p-10">

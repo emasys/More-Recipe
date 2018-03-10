@@ -8,7 +8,7 @@ const onFocus = () => {
 const ResetPasswordForm = props => {
   const { recoveryEmail, newPassword } = props.state;
   return (
-    <form className="" onSubmit={props.resetPassword}>
+    <form name="form" className="" onSubmit={props.resetPassword}>
       <ul className="form row">
         <li className="col-lg-12 col-sm-12">
           <label>Email</label>
@@ -23,12 +23,21 @@ const ResetPasswordForm = props => {
             placeholder="example@example.com"
           />
           <div className="text-danger" id="recoverEmail_error" />
+          <button
+            className="btn btn-info mt-5 btn-block btn-lg "
+            onClick={props.generateToken}
+            name="sendToken"
+            id="sendToken"
+          >
+            Send token to my mail
+          </button>
         </li>
-        <li className="col-lg-12 col-sm-12">
+        <li className="col-lg-12 col-sm-12 hideForm d-none">
           <label>New Password</label>
           <input
             type="password"
             required
+            
             className="col-lg-12 col-sm-12"
             onChange={props.onChange}
             onFocus={onFocus}
@@ -52,11 +61,12 @@ const ResetPasswordForm = props => {
             </p>
           </div>
         </li>
-        <li className="col-lg-12 col-sm-12">
+        <li className="col-lg-12 col-sm-12 hideForm d-none">
           <label>Confirm New Password</label>
           <input
             type="password"
             required
+            
             onChange={props.onChange}
             className="col-lg-12 col-sm-12"
             name="confirmPassword"
@@ -65,25 +75,20 @@ const ResetPasswordForm = props => {
           />
           <div className="text-danger" id="confirmPassword_error" />
         </li>
-        <li className="col-lg-12 col-sm-12">
+        <li className="col-lg-12 col-sm-12 hideForm d-none">
           <label>Token</label>
           <input
             type="text"
             required
-            className="col-lg-12 col-sm-12"
+            
+            className="col-lg-12 col-sm-12 "
             name="token"
             placeholder="enter 4-digit token"
           />
           <div className="text-danger" id="token_error" />
-          <button
-            className="btn btn-info mt-5 btn-block btn-lg "
-            onClick={props.generateToken}
-          >
-            Send token to my mail
-          </button>
         </li>
-        <li className="col-lg-12 col-sm-12">
-          <button type="submit" className="btn btn-dark btn-block btn-lg ">
+        <li className="col-lg-12 col-sm-12 hideForm d-none">
+          <button type="submit" className="btn btn-dark btn-block btn-lg" >
             Save New Password
           </button>
         </li>

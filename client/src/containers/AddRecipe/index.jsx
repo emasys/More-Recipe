@@ -13,15 +13,16 @@ import config from '../../config';
 
 /**
  *
- *@param {object} event
  * @class AddRecipe
+ *
  * @extends {Component}
  */
 class AddRecipe extends Component {
   static propTypes = {
     new_recipe: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-    addRecipe: PropTypes.func.isRequired
+    addRecipe: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
   };
 
   /**
@@ -69,6 +70,15 @@ class AddRecipe extends Component {
     }
   };
 
+  /**
+   * Handle edit form
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberOf AddRecipe
+   */
   handleForm = event => {
     event.preventDefault();
     let data = {
@@ -105,9 +115,8 @@ class AddRecipe extends Component {
   };
 
   /**
-   *
-   *
-   * @returns {any} jsx
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof AddRecipe
    */
   render() {

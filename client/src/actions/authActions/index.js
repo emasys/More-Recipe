@@ -2,7 +2,13 @@ import * as type from '../types';
 import instance from '../../config/axios';
 import { isLoading } from '../index';
 
-// Create a new user
+/**
+ * Create a new user
+ *
+ * @param {object} data
+ *
+ * @return {object} success status and jwt token
+ */
 export const signUp = data => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -24,7 +30,13 @@ export const signUp = data => dispatch => {
     });
 };
 
-// Login
+/**
+ * Initiates a login process
+ *
+ * @param {object} data
+ *
+ * @return {object} success status and jwt token
+ */
 export const signIn = data => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -46,7 +58,13 @@ export const signIn = data => dispatch => {
     });
 };
 
-// reset password
+/**
+ * Reset password
+ *
+ * @param {object} data
+ *
+ * @returns {object} success status
+ */
 export const resetPassword = data => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -61,7 +79,14 @@ export const resetPassword = data => dispatch => {
     });
 };
 
-// send reset password token
+/**
+ * Send generated token to user
+ *
+ * @param {object} data
+ *
+ * @returns {object} success status
+ *
+ */
 export const sendToken = data => dispatch => {
   dispatch(isLoading(true));
   return instance
@@ -76,7 +101,13 @@ export const sendToken = data => dispatch => {
     });
 };
 
-// compare reset password token
+/**
+ * compare password in the db with password in param
+ *
+ * @param {object} data
+ *
+ * @returns {object} success status
+ */
 export const compareToken = data => dispatch => {
   dispatch(isLoading(true));
   return instance

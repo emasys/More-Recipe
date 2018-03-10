@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { countBy } from 'lodash';
 
+/**
+ *
+ *
+ * @param {object} { list, filterList }
+ * @returns {JSX.Element} React element
+ */
 const FavoriteCategoryList = ({ list, filterList }) => {
   const orderedList = [];
   if (list) {
@@ -35,7 +41,8 @@ const FavoriteCategoryList = ({ list, filterList }) => {
 };
 
 FavoriteCategoryList.propTypes = {
-  list: PropTypes.array.isRequired
+  list: PropTypes.array.isRequired,
+  filterList: PropTypes.func.isRequired
 };
 
 export default FavoriteCategoryList;

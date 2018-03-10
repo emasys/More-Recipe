@@ -8,6 +8,13 @@ const logout = () => {
   Auth.logout();
 };
 
+/**
+ * Extra links in the navbar
+ *
+ * @param {object} { user }
+ * @returns {JSX.Element}
+ * render react element into the DOM
+ */
 const NavLinks = ({ user }) => {
   if (user.authInfo) {
     const { authInfo: { userId, username }, isLoggedIn } = user;

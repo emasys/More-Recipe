@@ -30,7 +30,7 @@ export const postReview = (res, req) => {
 
 export const fetchReview = (res, req, reviews) => {
   if (reviews.count < 1) {
-    return setStatus(res, { message: 'no review', reviews: reviews.rows }, 404);
+    return setStatus(res, { message: 'no review', reviews: reviews.rows }, 200);
   }
   return setStatus(res, { reviews: reviews.rows, count: reviews.count }, 200);
 };

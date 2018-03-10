@@ -19,14 +19,18 @@ import config from '../config';
  */
 export class Navbar extends Component {
   static propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     getProfile: PropTypes.func.isRequired,
     className: PropTypes.string.isRequired,
     auth: PropTypes.object.isRequired
   };
+
+  static defaultProps = {
+    user: null
+  }
   /**
    * Creates an instance of Navbar.
-   * @param {any} props
+   * @param {object} props
    * @memberof Navbar
    */
   constructor(props) {
@@ -40,10 +44,11 @@ export class Navbar extends Component {
    *
    *
    * @memberof Navbar
-   * @returns {any}
+   *
+   * @returns {object}
    * invoked immediately after a component is mounted
    */
-  componentDidMount() {
+  componentDidMount = () => {
     if (this.props.auth.isLoggedIn && !this.props.user) {
       this.props.getProfile(this.props.auth.authInfo.userId);
     } else if (this.props.auth.isLoggedIn && this.props.user) {
@@ -51,25 +56,24 @@ export class Navbar extends Component {
         avatar: this.props.user.data.avatar
       });
     }
-  }
+  };
   /**
    *
-   * @returns {any}
    * invoked before a mounted component receives new props.
-   * @param {any} nextProps
+   * @param {object} nextProps
    * @memberof Navbar
+   * @returns {void}
    */
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = nextProps => {
     if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
       });
     }
-  }
+  };
   /**
    *
-   *
-   * @returns {any}
+   * @returns {JSX.Element}
    * render react element into the DOM
    * @memberof Navbar
    */

@@ -15,7 +15,7 @@ import BigNavbar from './BigNavbar';
 /**
  * Component for Home page
  *
- * @class Home
+ * @class
  * @extends {Component}
  */
 export class Home extends Component {
@@ -23,11 +23,10 @@ export class Home extends Component {
     recipes: PropTypes.object.isRequired,
     getHotRecipes: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
-
   };
   /**
    * Creates an instance of Home.
-   * @param {any} props
+   * @param {object} props
    * @memberof Home
    */
   constructor(props) {
@@ -37,11 +36,11 @@ export class Home extends Component {
     };
   }
   /**
+   *  Invoked immediately after component is mounted
    *
+   *@returns {object} response after instantiating
+   * network request
    *
-   * @memberof Home
-   *
-   * @returns {any} react lifecycle method
    */
   componentDidMount() {
     const query = '?sort=views&order=desc';
@@ -51,7 +50,8 @@ export class Home extends Component {
   /**
    *
    *
-   * @returns {any} renders jsx elements
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof Home
    */
   render() {

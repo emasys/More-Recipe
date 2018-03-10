@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom';
 
 import config from '../../config';
 
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {JSX} react element
+ */
 const UserInfo = props => {
   if (props.data) {
     const {

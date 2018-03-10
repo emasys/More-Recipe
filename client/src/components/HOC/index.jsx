@@ -19,8 +19,8 @@ const Composer = WrappedComponent => {
   class Authenticate extends Component {
     static propTypes = {
       isAuthenticated: PropTypes.func.isRequired,
-      auth: PropTypes.bool.isRequired,
-      flashMessage: PropTypes.string.isRequired,
+      auth: PropTypes.object.isRequired,
+      flashMessage: PropTypes.func.isRequired,
       history: PropTypes.object.isRequired,
       location: PropTypes.object.isRequired
     };
@@ -41,7 +41,7 @@ const Composer = WrappedComponent => {
     /**
      *
      *
-     * @returns {any}
+     * @returns {JSX.Element}
      * render react element
      * @memberOf Authenticate
      */

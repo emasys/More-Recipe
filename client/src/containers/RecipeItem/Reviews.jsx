@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Textarea from 'react-textarea-autosize';
 import { bindActionCreators } from 'redux';
 
-
 // Action
 import {
   postReview,
@@ -20,6 +19,7 @@ import GenerateReviews from './GenerateReviews';
  *
  *
  * @class Reviews
+ *
  * @extends {Component}
  */
 class Reviews extends Component {
@@ -44,22 +44,43 @@ class Reviews extends Component {
     this.state = {
       content: '',
       offset: 1,
-      showMore: true
+      showMore: false
     };
   }
 
+  /**
+   *
+   * @param {object} nextProps
+   *
+   * @returns {void}
+   *
+   * @memberOf Reviews
+   */
   componentWillReceiveProps = nextProps => {
     if (this.state.offset >= nextProps.review.count_reviews) {
       this.setState({ showMore: false });
-    } else {
+    } else if (this.state.offset < nextProps.review.count_reviews) {
       this.setState({ showMore: true });
     }
   };
 
+  /**
+   *
+   * @returns {void}
+   *
+   * @memberOf Reviews
+   */
   componentWillUnmount = () => {
     this.props.clearReview();
   };
 
+  /**
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberOf Reviews
+   */
   loadMoreReviews = event => {
     event.preventDefault();
     const { id } = this.props.recipes.recipeItem.recipe;
@@ -69,10 +90,10 @@ class Reviews extends Component {
     }));
   };
   /**
-   *
+   * Reset input field
    *
    * @memberof Reviews
-   * @returns {any} content input texts
+   * @returns {void}
    */
   resetState = () => {
     this.setState({
@@ -81,11 +102,13 @@ class Reviews extends Component {
   };
 
   /**
+   * Update page with new reviews
    *
+   * @param {object} event
    *
-   * @param {any} event
    * @memberof Reviews
-   * @returns {any} updated page with new reviews
+   *
+   * @returns {void}
    */
   handleForm = event => {
     event.preventDefault();
@@ -100,9 +123,9 @@ class Reviews extends Component {
   /**
    *
    *
-   * @param {any} event
+   * @param {object} event
    * @memberof Reviews
-   * @returns {any} textarea input
+   * @returns {void}
    */
   textChanged = event => {
     this.setState({
@@ -114,7 +137,8 @@ class Reviews extends Component {
    *
    * @param {number} reviewId
    * @param {number} recipeId
-   * @returns {object} confrimation
+   *
+   * @returns {void}
    * @memberOf Reviews
    */
   deleteReview = (reviewId, recipeId) => {
@@ -124,7 +148,7 @@ class Reviews extends Component {
   /**
    *
    *
-   * @returns {any} jsx
+   * @returns {JSX.Element} React element
    * @memberof Reviews
    */
   render() {

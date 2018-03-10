@@ -7,6 +7,13 @@ import PropTypes from 'prop-types';
 import config from '../../config/index';
 import Navlinks from '../../components/Navlinks';
 
+/**
+ * Navbar with search bar
+ *
+ * @param {any} props
+ *
+ * @returns {void}
+ */
 const NavbarSearch = props => (
   <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
     <div className="container">

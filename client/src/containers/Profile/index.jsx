@@ -24,7 +24,7 @@ import CatalogList from '../../components/CatalogList';
 import DeleteModal from './DeleteModal';
 
 // Helper function
-import { validate } from './helper';
+import validate from './helper';
 
 /**
  *@param {object} event

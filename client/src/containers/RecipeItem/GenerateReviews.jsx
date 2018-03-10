@@ -6,6 +6,12 @@ import { uniqWith, isEqual } from 'lodash';
 
 import config from '../../config';
 
+/**
+ *
+ *
+ * @param {object} { review, deleteReview, auth }
+ * @returns {JSX.Element} React element
+ */
 const GenerateReviews = ({ review, deleteReview, auth }) => {
   if (review.fetch_reviews) {
     //handle bug of duplicate objects due to redirection from sign in page
