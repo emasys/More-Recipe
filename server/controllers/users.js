@@ -5,7 +5,9 @@ import {
   setStatus,
   validateSignInForm,
   validateSignUpForm,
-  validateUpdateUser
+  validateUpdateUser,
+  notFoundDispatcher,
+  serverErrorDispatcher
 } from '../middleware/helper';
 import {
   createUser,
@@ -27,10 +29,11 @@ dotenv.config();
  */
 export default class MoreRecipeUsers {
   /**
-   *
+   * User registration
    *
    * @param {object} req
    * @param {object} res
+   *
    * @returns {object}
    *
    * Create a new user and add into the database
@@ -56,11 +59,13 @@ export default class MoreRecipeUsers {
     return createUser(res, request);
   }
   /**
-   *
+   * Fetch data of all the users in the database
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object} The list of all users in the database
    */
   static getUsers(req, res) {
@@ -69,22 +74,33 @@ export default class MoreRecipeUsers {
       .catch(error => setStatus(res, { success: false, error }, 500));
   }
   /**
-   *
+   * Fetch user info of a single user
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object} a user profile
    */
   static getOneUser(req, res) {
-    return fetchUser(res, req);
+    return Users.findById(req.params.userId)
+      .then((user) => {
+        if (!user) {
+          return notFoundDispatcher(res);
+        }
+        return fetchUser(res, req, user);
+      })
+      .catch(error => serverErrorDispatcher(res, error));
   }
   /**
-   *
+   * Update user info
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object} an updated user data if successful
    */
   static updateUser(req, res) {
@@ -101,30 +117,37 @@ export default class MoreRecipeUsers {
     );
   }
   /**
-   *
+   * Delete a user from the database
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object}
    *  Delete's user data from the database
    */
   static deleteUser(req, res) {
     return Users.findById(req.params.userId)
-      .then(user =>
-        user
+      .then((user) => {
+        if (!user) {
+          return notFoundDispatcher(res);
+        }
+        return user
           .destroy()
           .then(() =>
-            setStatus(res, { success: true, status: 'user deleted' }, 200)))
-      .catch(() =>
-        setStatus(res, { success: false, error: 'user not found' }, 404));
+            setStatus(res, { success: true, status: 'user deleted' }, 200));
+      })
+      .catch(error => serverErrorDispatcher(res, error));
   }
   /**
-   *
+   * User sign in
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object}
    * true and relevant user info, if a user successfully log's in
    */
@@ -138,43 +161,59 @@ export default class MoreRecipeUsers {
         400
       );
     }
-    AuthenticateUser(res, request);
+    return AuthenticateUser(res, request);
   }
 
   /**
-   *
+   * Change user password
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object}
-   * true and relevant user info, if a user successfully log's in
+   * status message
    */
   static resetPassword(req, res) {
     const request = req.body;
-    return resetUserPassword(res, request);
+    return Users.findOne({ where: { email: request.email } }).then((user) => {
+      if (!user) {
+        return notFoundDispatcher(res);
+      }
+      return resetUserPassword(res, request, user);
+    });
   }
 
   /**
-   *
+   * Send token to user
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object}
    * add generated token to database
    */
   static sendToken(req, res) {
     const request = req.body;
-    return sendGeneratedToken(res, request);
+    return Users.findOne({ where: { email: request.email } }).then((user) => {
+      if (!user) {
+        return notFoundDispatcher(res);
+      }
+      return sendGeneratedToken(res, request);
+    });
   }
 
   /**
-   *
+   * Compare tokens
    *
    * @static
+   *
    * @param { object } req
    * @param { object } res
+   *
    * @returns {object}
    * fetch generated token from database
    */

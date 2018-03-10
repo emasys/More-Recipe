@@ -8,13 +8,13 @@ import middleware from '../middleware/authorization';
 const router = express.Router();
 // Recipe requests
 router.get('/recipes', Recipes.listRecipes);
-router.get('/recipes/user/:userId', middleware.verifyToken, middleware.checkParams, Recipes.listPrivateRecipes);
+router.get('/recipes/user/:userId', middleware.checkParams, middleware.verifyToken, Recipes.listPrivateRecipes);
 router.get('/favorites', middleware.verifyToken, Favorite.listFavorites);
 router.get('/recipes/:recipeId', middleware.verifyToken, middleware.checkParams, Recipes.getRecipe);
 router.get('/recipes/reaction/:recipeId', middleware.verifyToken, middleware.checkParams, Recipes.getReactionCount);
 router.get('/reviews/:recipeId', middleware.verifyToken, middleware.checkParams, Reviews.getReviews);
-router.delete('/reviews/delete/:reviewId', middleware.verifyToken, middleware.checkParams, Reviews.deleteReviews);
-router.delete('/recipes/:recipeId', middleware.verifyToken, middleware.checkParams, Recipes.deleteRecipe);
+router.delete('/reviews/delete/:reviewId', middleware.checkParams, middleware.verifyToken, Reviews.deleteReviews);
+router.delete('/recipes/:recipeId', middleware.checkParams, middleware.verifyToken, Recipes.deleteRecipe);
 
 // POST recipe requests
 router.post('/recipes', middleware.verifyToken, Recipes.addRecipe);

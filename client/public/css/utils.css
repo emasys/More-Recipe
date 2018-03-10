@@ -493,11 +493,11 @@ Background colors*/
 }
 .simplebox, input, select, textarea {
     outline: none;
-    /*  border: none !important;*/
+     /* border: none !important; */
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
-    border-radius: 2px;
+    /* border-radius: 2px; */
 }
 .simplebox.blade{border-radius: 0;}
 .sweet-scroll::-webkit-scrollbar-track

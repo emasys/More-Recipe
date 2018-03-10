@@ -1,11 +1,19 @@
-import axios from 'axios';
 import * as type from '../types';
-import { isLoading, UTIL } from '../index';
+import instance from '../../config/axios';
+import { isLoading } from '../index';
 
-// Fetch reviews for a recipe
-export const getReviews = recipeId => dispatch =>
-  axios
-    .get(`${UTIL.baseUrl}/reviews/${recipeId}`, UTIL.config)
+/**
+ * Fetch all the review of a recipe
+ *
+ * @param {number} recipeId
+ * @param {number} limit
+ * @param {number} offset
+ *
+ * @returns {object} list of requested reviews
+ */
+export const getReviews = (recipeId, limit = 1, offset = 0) => dispatch =>
+  instance
+    .get(`/reviews/${recipeId}?limit=${limit}&offset=${offset}`)
     .then(response => {
       dispatch({ type: type.GET_REVIEWS, payload: response.data });
       dispatch(isLoading(false));
@@ -15,13 +23,23 @@ export const getReviews = recipeId => dispatch =>
       dispatch(isLoading(false));
     });
 
+/**
+ * Remove the list of review from the store
+ *
+ *
+ * @returns {object} empty array
+ */
+export const clearReview = () => dispatch =>
+  dispatch({ type: type.CLEAR_REVIEW, payload: [] });
+
 // Post a review
 export const postReview = (data, id) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/recipes/${id}/reviews`, data, UTIL.config)
+  return instance
+    .post(`/recipes/${id}/reviews`, data)
     .then(response => {
       dispatch({ type: type.REVIEW, payload: response.data });
+      dispatch(clearReview());
       dispatch(getReviews(id));
     })
     .catch(err => {
@@ -30,14 +48,23 @@ export const postReview = (data, id) => dispatch => {
     });
 };
 
-// Delete a review
+/**
+ * Delete a recipe
+ *
+ * @param {number} reviewId
+ * @param {number} recipeId
+ *
+ * @returns {object} list of remaining recipes
+ */
 export const deleteReview = (reviewId, recipeId) => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .delete(`${UTIL.baseUrl}/reviews/delete/${reviewId}`, UTIL.config)
+  return instance
+    .delete(`/reviews/delete/${reviewId}`)
     .then(response => {
       dispatch({ type: type.DELETE_REVIEWS, payload: response.data });
-      dispatch(getReviews(recipeId));
+      dispatch(clearReview());
+      dispatch(getReviews(recipeId, 1, 0));
+      dispatch(isLoading(false));
     })
     .catch(err => {
       dispatch({ type: type.DELETE_REVIEWS, payload: err.response });

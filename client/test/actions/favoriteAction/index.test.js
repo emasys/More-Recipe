@@ -2,19 +2,21 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import instance from '../../../src/config/axios';
 import * as actions from '../../../src/actions/favoriteAction';
 import * as favoriteMocks from '../../__mocks__/favoriteMocks';
+import { isLoggedInFalse } from '../../__mocks__/authMocks';
 import * as type from '../../../src/actions/types';
 
 const mockStore = configureStore([thunk]);
 
-describe('Test suite for review actions', () => {
+describe('Test suite for favorite actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
 
   it('should return an object containing an array of all favorite recipes of a user', () => {
@@ -27,6 +29,7 @@ describe('Test suite for review actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.GET_FAVORITES,
@@ -37,7 +40,7 @@ describe('Test suite for review actions', () => {
 
     const store = mockStore({ payload: {} });
 
-    return store.dispatch(actions.getFavorite(1)).then(() => {
+    return store.dispatch(actions.getFavorite(1, 0)).then(() => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -53,6 +56,7 @@ describe('Test suite for review actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SET_FAVORITE,

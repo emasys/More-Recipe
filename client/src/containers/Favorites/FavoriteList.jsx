@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
+import { uniq } from 'lodash';
 
+/**
+ *
+ *
+ * @param {object} { favorites }
+ * @returns {JSX.Element} react element
+ */
 const FavoriteList = ({ favorites }) => {
-  if (favorites.userFav) {
-    if (favorites.userFav.favorites.length < 1) {
+  if (favorites) {
+    if (favorites.length < 1) {
       return (
         <div className="text-center error-message">
           <div>
@@ -20,17 +27,15 @@ const FavoriteList = ({ favorites }) => {
         </div>
       );
     }
-    return favorites.userFav.favorites.map(item => (
-      <div
-        key={item.recipeId}
-        className="col-lg-12 col-sm-10 mb-20  col-md-12 animate-catalog"
-        data-animate="bounceIn"
-        data-duration="1.0s"
-        data-delay="0.1s"
-        data-offset="100"
-      >
-        <div data-aos="fade-up" data-duration="2000">
-          <Link to={`/recipe/${item.recipeId}`} className=" hvr-grow-shadow">
+    const uniqueFavorites = uniq(favorites);
+    return uniqueFavorites.map(item => (
+      <div key={item.recipeId} className="row">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="2000"
+          className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12"
+        >
+          <Link to={`/recipe/${item.recipeId}`} className="hvr-push">
             <div className="card animate">
               <img
                 className="card-img-top img-box"
@@ -44,7 +49,7 @@ const FavoriteList = ({ favorites }) => {
                     item.Recipe.name.slice(0, 25).concat('...') :
                     item.Recipe.name}
                 </h4>
-                <div className="card-body p-5 text-left bg-light text-dark">
+                <div className="card-body p-5 text-left bg-wheat text-dark">
                   <p className="crop-text">{item.Recipe.description}</p>
                 </div>
                 <span>
@@ -78,7 +83,7 @@ const FavoriteList = ({ favorites }) => {
 };
 
 FavoriteList.propTypes = {
-  favorites: PropTypes.object.isRequired
+  favorites: PropTypes.array.isRequired
 };
 
 export default FavoriteList;

@@ -4,8 +4,13 @@ import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
 import config from '../../config';
-import Auth from '../../components/auth';
 
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {JSX} react element
+ */
 const UserInfo = props => {
   if (props.data) {
     const {
@@ -17,10 +22,9 @@ const UserInfo = props => {
       moniker,
       country
     } = props.data.data;
-
     const { status, preview, save } = props.state;
     return (
-      <div className="col-lg-2 col-md-4 col-sm-12 mb-10">
+      <div className="col-lg-2 col-md-3 col-sm-6 mb-10 col-12">
         <div
           className="img-wrapper"
           onMouseEnter={props.hoverIn}
@@ -80,7 +84,7 @@ const UserInfo = props => {
             </button>
           </div>
           <div className="mt-5">
-            {Auth.moniker() === 'admin' ? (
+            {props.auth.authInfo.username === 'admin' ? (
               <Link to="/manageUsers" className="btn btn-lg btn-light">
                 {' '}
                 Manage Users
@@ -105,6 +109,7 @@ UserInfo.propTypes = {
   showForm: PropTypes.func.isRequired,
   changeDp: PropTypes.func,
   data: PropTypes.object,
+  auth: PropTypes.object.isRequired,
   state: PropTypes.object.isRequired,
   hoverIn: PropTypes.func.isRequired,
   hoverOut: PropTypes.func.isRequired,

@@ -1,12 +1,18 @@
-import axios from 'axios';
 import * as type from '../types';
-import { isLoading, UTIL } from '../index';
+import instance from '../../config/axios'
+import { isLoading } from '../index';
 
-// upvote
+/**
+ * Upvote a recipe
+ *
+ * @param {number} id
+ *
+ * @returns {object} updated recipe
+ */
 export const upvote = id => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/recipes/upvote/${id}`, null, UTIL.config)
+  return instance
+    .post(`/recipes/upvote/${id}`, null)
     .then(response => {
       dispatch({ type: type.UPVOTE, payload: response.data });
       dispatch(isLoading(false));
@@ -17,11 +23,17 @@ export const upvote = id => dispatch => {
     });
 };
 
-// downvote
+/**
+ * Downvote a recipe
+ *
+ * @param {number} id
+ *
+ * @returns {object} updated recipe
+ */
 export const downvote = id => dispatch => {
   dispatch(isLoading(true));
-  return axios
-    .post(`${UTIL.baseUrl}/recipes/downvote/${id}`, null, UTIL.config)
+  return instance
+    .post(`/recipes/downvote/${id}`, null)
     .then(response => {
       dispatch({ type: type.DOWNVOTE, payload: response.data });
       dispatch(isLoading(false));

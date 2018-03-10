@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React from 'react';
 
-// Auth
-import Auth from './auth';
-
 /**
  *
  *
  * @param {number} id
- * @returns {object} toggle classes on mouse in
+ * @returns {Void} toggle classes on mouse in
  */
 const onHoverIn = id => {
   document.querySelector(`#recipe-${id}`).classList.remove('crop-text');
@@ -24,7 +21,7 @@ const onHoverIn = id => {
  *
  *
  * @param {number} id
- * @returns {object} toggle classes on mouse out
+ * @returns {void} toggle classes on mouse out
  */
 const onHoverOut = id => {
   document.querySelector(`#img-${id}`).classList.remove('d-half');
@@ -33,36 +30,36 @@ const onHoverOut = id => {
   document.querySelector(`#recipe-${id}`).classList.add('crop-text');
 };
 /**
- *
+ * Generate cards of recipes
  *
  * @param {object} props
- * @returns {object} list of recipes
+ * @returns {JSX.Element} list of recipes
  */
 const generateList = props => {
-  if (props.isLoading) {
-    return (
-      <div className="text-center error-message">
-        <div>
-          <img
-            className="img-fluid"
-            src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
-            alt="logo"
-            height="200"
-            width="200"
-          />
-          <h4 className="p-3 m-2 text-center">...Fetching Recipes</h4>
-          <img
-            src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
-            width="100"
-            height="100"
-            alt="loading..."
-          />
-        </div>
-      </div>
-    );
-  }
   if (props.catalog) {
     if (props.catalog.length < 1) {
+      if (props.isLoading) {
+        return (
+          <div className="text-center error-message">
+            <div>
+              <img
+                className="img-fluid"
+                src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+                alt="logo"
+                height="200"
+                width="200"
+              />
+              <h4 className="p-3 m-2 text-center">...Fetching Recipes</h4>
+              <img
+                src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                width="100"
+                height="100"
+                alt="loading..."
+              />
+            </div>
+          </div>
+        );
+      }
       return (
         <div className="text-center error-message">
           <div>
@@ -97,7 +94,7 @@ const generateList = props => {
                 onMouseEnter={() => onHoverIn(item.id)}
                 onMouseLeave={() => onHoverOut(item.id)}
               >
-                {Auth.userID() === item.userId &&
+                {props.auth.authInfo.userId === item.userId &&
                   props.showDeleteBtn && (
                     <button
                       className="btn btn-danger btn-sm delete-btn"
@@ -164,7 +161,7 @@ const generateList = props => {
  *
  *
  * @param {object} props
- * @returns {object} container function
+ * @returns {JSX.Element} recipe cards
  */
 const CatalogList = props => (
   <div className="row justify-content-center">{generateList(props)}</div>
@@ -172,10 +169,13 @@ const CatalogList = props => (
 
 generateList.propTypes = {
   showDeleteBtn: PropTypes.bool.isRequired,
-  catalog: PropTypes.object.isRequired
+  catalog: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  isLoading: state.isLoading
+const mapStateToProps = state => ({
+  isLoading: state.isLoading,
+  auth: state.user
 });
 export default connect(mapStateToProps, null)(CatalogList);

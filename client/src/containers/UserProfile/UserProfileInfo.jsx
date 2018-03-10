@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 // Config
 import config from '../../config';
 
+/**
+ * User profile data
+ *
+ * @param {object} props
+ * @returns {JSX.Element} react element
+ */
 const UserProfileInfo = props => {
   if (props.data) {
     const {
@@ -16,7 +22,7 @@ const UserProfileInfo = props => {
       moniker
     } = props.data.data;
     return (
-      <div className="col-lg-2 col-md-4 col-sm-12 mb-10">
+      <div className="col-lg-3 col-md-4 col-sm-12 mb-10">
         <img
           src={avatar || config.DEFAULT_DISPLAY_PICTURE}
           alt="avi"

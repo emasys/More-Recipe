@@ -13,18 +13,21 @@ dotenv.config();
  */
 export default class Authorization {
   /**
-   *
+   * Check if user is an administrator
    *
    * @static
+   *
    * @param {object} req
    * @param {object} res
    * @param {object} next
+   *
    * @returns {object} auth status
+   *
    * @memberof Authorization
    */
   static checkAdmin(req, res, next) {
     const token =
-      req.body.token || req.query.token || req.headers['x-access-token'];
+      req.body.token || req.query.token || req.headers['more-recipe-access'];
     jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
         return setStatus(res, { message: 'Invalid authorization status' }, 401);
@@ -40,21 +43,24 @@ export default class Authorization {
           }
           return next();
         })
-        .catch(() => setStatus(res, { error: 'something went wrong' }, 501));
+        .catch(err => setStatus(res, { error: err.message }, 501));
     });
   }
 
   /**
+   * Verify token
    *
-   * @param {any} req
-   * @param {any} res
-   * @param {any} next
-   * @memberof protectRoute
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   *
+   * @memberof Authorization
+   *
    * @returns {object} Auth status
    */
   static verifyToken(req, res, next) {
     const token =
-      req.body.token || req.query.token || req.headers['x-access-token'];
+      req.body.token || req.query.token || req.headers['more-recipe-access'];
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
         if (error) {
@@ -67,14 +73,13 @@ export default class Authorization {
         return Users.findById(decoded.id)
           .then((user) => {
             if (!user) return setStatus(res, { error: 'user not found' }, 404);
-            // assign decoded data to req.decoded
             req.decoded = decoded;
             return next();
           })
-          .catch(() => setStatus(res, { error: 'something went wrong' }, 500));
+          .catch(err => setStatus(res, { error: err.message }, 500));
       });
     } else {
-      return setStatus(res, { error: 'Token not provided' }, 403);
+      return setStatus(res, { error: 'Invalid authorization status' }, 401);
     }
   }
 

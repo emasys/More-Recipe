@@ -7,11 +7,12 @@ import Navbar from './Navbar';
 const NotFound = () => (
   <div className="container">
     <Navbar className="bg-dark fixed-top" />
-    <div className=" row catalog-wrapper text-center justify-content-center  mt-80 mb-20">
+    <div className="row catalog-wrapper text-center justify-content-center  mt-80 mb-20">
       <div className="col">
         <img
           src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
           alt="logo"
+          className="col-12 not-found-logo"
         />
         <h2 className="p-3 m-20">Oops...</h2>
         <h2 className="p-3 m-20">

@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
+import log from 'fancy-log';
+import emailTemplate from '../email-template/index.js';
 
 dotenv.config();
 
@@ -90,29 +92,31 @@ export const mailer = (moniker = null, email, message) => {
   // setup e-mail data
   const mailOptions = {
     // sender address
-    from: 'MoreRecipe <morerecipe23@gmail.com>',
-    // list of receivers
+    from: 'MoreRecipes <morerecipe23@gmail.com>',
     to: email,
-    // Subject line
     subject: '[Alert] MoreRecipe',
-    // plaintext body
-    // text: `${moniker} ${message}`,
-    // html body
-    html: `
-    <p>
-    <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" width="120" height="120" alt="logo"/>
-    </p>
-    <h4>${moniker} <b>${message} </b></h4>
-    `
+    html: emailTemplate(moniker, message)
   };
 
+  // `
+  //   <p>
+  //   <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" width="250" height="250" alt="logo"/>
+  //   </p>
+  //   <h4>${moniker} <b>${message} </b></h4>
+  //   `
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       // eslint-disable-next-line
-      return console.log(error);
+      return log(error);
     }
     // eslint-disable-next-line
-    console.log(`Message sent: ${info.response}`);
+    log(`Message sent: ${info.response}`);
   });
 };
+
+export const notFoundDispatcher = res =>
+  setStatus(res, { success: false, message: 'Not found' }, 404);
+
+export const serverErrorDispatcher = (res, error = null) =>
+  setStatus(res, { success: false, error: error.message }, 500);

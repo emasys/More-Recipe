@@ -1,33 +1,39 @@
-import { Recipes, Favorite } from '../../models';
-import { setStatus } from '../../middleware/helper';
+import { Favorite, Recipes } from '../../models';
+import { setStatus, notFoundDispatcher } from '../../middleware/helper';
 
-export const setFavorite = (req, res, favorite) => {
+const setFavorite = (req, res, favorite) => {
   if (favorite) {
-    setStatus(
-      res,
-      { success: true, status: 'cancelled', recipe: favorite.Recipe },
-      200
-    );
-    return favorite.destroy();
+    return favorite.Recipe.decrement('favorite').then(() =>
+      favorite.destroy().then(() =>
+        setStatus(
+          res,
+          {
+            success: true,
+            status: 'cancelled',
+            recipe: favorite.Recipe
+          },
+          200
+        )));
   }
   return Favorite.create({
     recipeId: req.params.recipeId,
     userId: req.decoded.id
-  }).then(() =>
-    Favorite.findOne({
-      where: {
-        recipeId: req.params.recipeId,
-        userId: req.decoded.id
-      },
-      include: [
-        { model: Recipes, include: [{ model: Favorite, as: 'favorites' }] }
-      ]
-    }).then(response =>
-      setStatus(
-        res,
-        { success: true, status: 'favorited', recipe: response.Recipe },
-        200
-      )));
+  })
+    .then(() => {
+      Recipes.findOne({
+        where: { id: req.params.recipeId }
+      }).then((response) => {
+        response
+          .increment('favorite')
+          .then(() =>
+            setStatus(
+              res,
+              { success: true, status: 'favorited', recipe: response },
+              200
+            ));
+      });
+    })
+    .catch(() => notFoundDispatcher(res));
 };
 
-export const fetchFavorite = () => {};
+export default setFavorite;

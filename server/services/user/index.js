@@ -1,6 +1,16 @@
 import { pick } from 'lodash';
+import bcrypt from 'bcrypt-nodejs';
 import { Users, TokenGen } from '../../models';
 import { setStatus, signToken, mailer } from '../../middleware/helper';
+
+const hashPassword = (password) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+  return hash;
+};
+
+const comparePassword = (user, password) =>
+  bcrypt.compareSync(password, user.password);
 
 export const createUser = (res, request) =>
   Users.create(request)
@@ -22,11 +32,11 @@ export const AuthenticateUser = (res, request) => {
       if (!user) {
         return setStatus(
           res,
-          { success: false, status: 'user not found' },
-          404
+          { success: false, status: 'Invalid email/password' },
+          400
         );
       }
-      if (!user.comparePassword(user, request.password)) {
+      if (!comparePassword(user, request.password)) {
         return setStatus(
           res,
           { success: false, status: 'Invalid email/password' },
@@ -64,50 +74,27 @@ export const updateUserInfo = (res, req, request) =>
     .catch(error =>
       setStatus(res, { success: false, error: error.message }, 500));
 
-export const fetchUser = (res, req) => {
-  Users.findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        return setStatus(
-          res,
-          { success: false, message: 'User not found' },
-          404
-        );
-      }
-      const data = pick(user, [
-        'id',
-        'firstName',
-        'lastName',
-        'bio',
-        'email',
-        'country',
-        'avatar',
-        'moniker'
-      ]);
-      return setStatus(res, { success: true, data }, 200);
-    })
-    .catch(error => setStatus(res, { success: false, error }, 500));
+export const fetchUser = (res, req, user) => {
+  const data = pick(user, [
+    'id',
+    'firstName',
+    'lastName',
+    'bio',
+    'email',
+    'country',
+    'avatar',
+    'moniker'
+  ]);
+  return setStatus(res, { success: true, data }, 200);
 };
 
-export const resetUserPassword = (res, request) => {
-  Users.findOne({ where: { email: request.email } })
-    .then((user) => {
-      if (!user) {
-        return setStatus(
-          res,
-          { success: false, status: 'user not found' },
-          404
-        );
-      }
-      user
-        .update({
-          password: request.password
-        })
-        .then(() => setStatus(res, { success: true, status: 'updated' }, 200));
-    })
-    .catch(() =>
-      setStatus(res, { success: false, error: 'server error' }, 500));
-};
+export const resetUserPassword = (res, request, user) => user
+  .update({
+    password: hashPassword(request.password)
+  })
+  .then(() => {
+    setStatus(res, { success: true, status: 'updated' }, 200);
+  });
 
 export const sendGeneratedToken = (res, request) => {
   let token = null;
@@ -118,7 +105,7 @@ export const sendGeneratedToken = (res, request) => {
       request.token = token;
       if (!user) {
         return TokenGen.create(request).then((newuser) => {
-          mailer('Reset password Token:', newuser.email, token);
+          mailer(null, newuser.email, token);
           return setStatus(res, { success: true, status: 'token sent' }, 200);
         });
       }
@@ -127,7 +114,7 @@ export const sendGeneratedToken = (res, request) => {
           token: token || user.token
         })
         .then(() => {
-          mailer('Reset password Token:', user.email, token);
+          mailer(null, user.email, token);
           return setStatus(res, { success: true, status: 'token sent' }, 200);
         });
     })

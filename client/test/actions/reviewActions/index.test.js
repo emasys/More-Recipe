@@ -2,6 +2,8 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import instance from '../../../src/config/axios';
+import { isLoggedInFalse } from '../../__mocks__/authMocks';
 import * as actions from '../../../src/actions/reviewActions';
 import * as reviewMocks from '../../__mocks__/reviewMocks';
 import * as type from '../../../src/actions/types';
@@ -10,11 +12,11 @@ const mockStore = configureStore([thunk]);
 
 describe('Test suite for review actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
 
   it('should return an object containing review for a particular recipe', () => {
@@ -52,11 +54,13 @@ describe('Test suite for review actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },      
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.REVIEW,
         payload: reviewMocks.postReview
-      }
+      },
+      { type: type.CLEAR_REVIEW, payload: [] }
     ];
 
     const store = mockStore({ payload: {} });
@@ -77,11 +81,14 @@ describe('Test suite for review actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.DELETE_REVIEWS,
         payload: { success: true, message: 'review deleted' }
-      }
+      },
+      { type: type.CLEAR_REVIEW, payload: [] },
+      { type: type.IS_LOADING, isLoading: false }
     ];
 
     const store = mockStore({ payload: {} });

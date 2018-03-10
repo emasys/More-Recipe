@@ -5,16 +5,17 @@ import thunk from 'redux-thunk';
 import * as actions from '../../../src/actions/authActions';
 import * as authMocks from '../../__mocks__/authMocks';
 import * as type from '../../../src/actions/types';
+import instance from '../../../src/config/axios';
 
 const mockStore = configureStore([thunk]);
 
 describe('Test suite for Authentication actions', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(instance);
   });
 
   afterEach(() => {
-    moxios.uninstall();
+    moxios.uninstall(instance);
   });
 
   it('should return an object containing token after sign up', () => {
@@ -27,6 +28,7 @@ describe('Test suite for Authentication actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SIGN_UP,
@@ -53,6 +55,7 @@ describe('Test suite for Authentication actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SIGN_IN,
@@ -79,6 +82,7 @@ describe('Test suite for Authentication actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.RESET_PASSWORD,
@@ -107,6 +111,7 @@ describe('Test suite for Authentication actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.SEND_TOKEN,
@@ -135,6 +140,7 @@ describe('Test suite for Authentication actions', () => {
     });
 
     const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.COMPARE_TOKEN,

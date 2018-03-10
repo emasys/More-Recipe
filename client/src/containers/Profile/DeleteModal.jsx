@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Delete modal
+ *
+ * @param {object} props
+ *
+ * @returns {JSX.Element} react element
+ */
 const DeleteModal = props => (
   <div
     className="modal fade"

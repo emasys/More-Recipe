@@ -4,10 +4,16 @@ import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
 // Components
-import Auth from '../../components/auth';
 import config from '../../config/index';
 import Navlinks from '../../components/Navlinks';
 
+/**
+ * Navbar with search bar
+ *
+ * @param {any} props
+ *
+ * @returns {void}
+ */
 const NavbarSearch = props => (
   <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
     <div className="container">
@@ -44,7 +50,7 @@ const NavbarSearch = props => (
         id="navbarSupportedContent"
       >
         <ul className="navbar-nav">
-          {Auth.loggedIn() ? (
+          {props.user.isLoggedIn ? (
             <li className="nav-item ">
               <NavLink
                 className="nav-link"
@@ -61,6 +67,7 @@ const NavbarSearch = props => (
                 <span className="d-lg-none" style={{ verticalAlign: 'top' }}>
                   Add new recipe
                 </span>
+                <ReactTooltip place="bottom" type="dark" effect="float" />
               </NavLink>
             </li>
           ) : (
@@ -100,7 +107,7 @@ const NavbarSearch = props => (
             </NavLink>
           </li>
           <li className="nav-item dropdown">
-            {Auth.loggedIn() ? (
+            {props.user.isLoggedIn ? (
               <a
                 className="nav-link dropdown-toggle"
                 href="#"

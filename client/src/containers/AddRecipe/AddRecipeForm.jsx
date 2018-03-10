@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 
 import { list as categoryList } from '../../components/CategoryList';
 
+/**
+ * Add new recipe form
+ *
+ * @param {object} props
+ *
+ * @returns {JSX.Element} render react element
+ */
 const AddRecipeForm = props => (
   <form onSubmit={props.handleForm}>
     <ul className="form row p-10 mb-10">
@@ -85,6 +92,6 @@ const AddRecipeForm = props => (
 );
 
 AddRecipeForm.propTypes = {
-  handleForm: PropTypes.func
+  handleForm: PropTypes.func.isRequired
 };
 export default AddRecipeForm;

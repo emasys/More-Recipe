@@ -5,10 +5,16 @@ import PropTypes from 'prop-types';
 import approx from 'approximate-number';
 import ReactTooltip from 'react-tooltip';
 
-import Auth from '../../components/auth';
-
+/**
+ * Generate recipe detail
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ * React element
+ */
 const GenerateRecipeItem = props => {
   const {
+    auth,
     state: {
       save,
       status,
@@ -60,22 +66,18 @@ const GenerateRecipeItem = props => {
           <i
             data-tip="Add to favorites"
             className={`material-icons hovered ${
-              favoriteStatus ?
-                ' red animated bounceIn flash' :
-                'gray'
+              favoriteStatus ? ' red animated bounceIn flash' : 'gray'
             }`}
           >
             &#xE87D;
           </i>
-          <em className="bold">
-            {approx(favorite)}
-          </em>
+          <em className="bold">{approx(favorite)}</em>
         </span>
         <span className="text-center card-link mr-1" onClick={props.upvote}>
           <i
             data-tip="upvote"
             className={`material-icons ${
-              props.reactionUp.includes(Auth.userID()) ?
+              props.reactionUp.includes(auth.authInfo.userId) ?
                 ' animated bounceIn flash blue' :
                 ' gray'
             } fa-2x`}
@@ -90,7 +92,7 @@ const GenerateRecipeItem = props => {
           <i
             data-tip="Downvote"
             className={`material-icons ${
-              props.reactionDown.includes(Auth.userID()) ?
+              props.reactionDown.includes(auth.authInfo.userId) ?
                 ' animated bounceIn flash red' :
                 ' gray'
             }`}
@@ -99,9 +101,7 @@ const GenerateRecipeItem = props => {
           >
             &#xE8DB;
           </i>
-          <em style={{ verticalAlign: 'middle' }}>
-            {approx(downvote)}
-          </em>
+          <em style={{ verticalAlign: 'middle' }}>{approx(downvote)}</em>
         </span>
         <span className="text-center card-link m-1">
           <i data-tip="Views" className="material-icons gray">
@@ -137,6 +137,7 @@ GenerateRecipeItem.propTypes = {
   downvote: PropTypes.func.isRequired,
   foodImg: PropTypes.string.isRequired,
   reactionDown: PropTypes.array.isRequired,
-  reactionUp: PropTypes.array.isRequired
+  reactionUp: PropTypes.array.isRequired,
+  auth: PropTypes.object.isRequired
 };
 export default GenerateRecipeItem;

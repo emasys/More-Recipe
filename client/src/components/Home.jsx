@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import DynamicHeader from 'react-sticky-dynamic-header';
 import PropTypes from 'prop-types';
 
@@ -11,24 +10,23 @@ import { getHotRecipes } from '../actions/recipeActions';
 //component
 import CatalogList from '../components/CatalogList';
 import Navbar from './Navbar';
-import Auth from './auth';
 import BigNavbar from './BigNavbar';
-import Preloader from './Preloader';
 
 /**
  * Component for Home page
  *
- * @class Home
+ * @class
  * @extends {Component}
  */
 export class Home extends Component {
   static propTypes = {
     recipes: PropTypes.object.isRequired,
-    getHotRecipes: PropTypes.func.isRequired
+    getHotRecipes: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
   };
   /**
    * Creates an instance of Home.
-   * @param {any} props
+   * @param {object} props
    * @memberof Home
    */
   constructor(props) {
@@ -38,11 +36,11 @@ export class Home extends Component {
     };
   }
   /**
+   *  Invoked immediately after component is mounted
    *
+   *@returns {object} response after instantiating
+   * network request
    *
-   * @memberof Home
-   *
-   * @returns {any} react lifecycle method
    */
   componentDidMount() {
     const query = '?sort=views&order=desc';
@@ -52,14 +50,14 @@ export class Home extends Component {
   /**
    *
    *
-   * @returns {any} renders jsx elements
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof Home
    */
   render() {
     return (
       <div>
         <section className="container-fluid">
-          <Preloader />
           <div className="header">
             <DynamicHeader hasEffect effectDuration={600} useHeadersDifference>
               <BigNavbar />
@@ -89,7 +87,7 @@ export class Home extends Component {
                     is how they improve, are changed, how new ideas are formed.
                   </p>
                   <p>Have fun as you share and explore exciting recipes</p>
-                  {!Auth.loggedIn() && (
+                  {!this.props.auth.isLoggedIn && (
                     <div className="mt-0">
                       <Link
                         to="/signup"
@@ -99,7 +97,7 @@ export class Home extends Component {
                       </Link>
                     </div>
                   )}
-                  {Auth.loggedIn() && (
+                  {this.props.auth.isLoggedIn && (
                     <div className="">
                       <Link
                         to="/new"
@@ -154,8 +152,5 @@ export class Home extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getHotRecipes }, dispatch)
-});
-const mapStateToProps = state => ({ recipes: state.recipes });
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const mapStateToProps = state => ({ recipes: state.recipes, auth: state.user });
+export default connect(mapStateToProps, { getHotRecipes })(Home);

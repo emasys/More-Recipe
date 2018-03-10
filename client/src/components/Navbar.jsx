@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
@@ -9,7 +8,6 @@ import PropTypes from 'prop-types';
 import { getProfile } from '../actions/userActions';
 
 // components
-import Auth from './auth';
 import Navlinks from './Navlinks';
 import config from '../config';
 
@@ -23,27 +21,16 @@ export class Navbar extends Component {
   static propTypes = {
     user: PropTypes.object,
     getProfile: PropTypes.func.isRequired,
-    className: PropTypes.string.isRequired
+    className: PropTypes.string.isRequired,
+    auth: PropTypes.object.isRequired
   };
 
   static defaultProps = {
-    user: {
-      success: true,
-      data: {
-        id: 1,
-        firstName: '',
-        lastName: '',
-        bio: '',
-        email: '',
-        country: '',
-        avatar: '',
-        moniker: ''
-      }
-    }
-  };
+    user: null
+  }
   /**
    * Creates an instance of Navbar.
-   * @param {any} props
+   * @param {object} props
    * @memberof Navbar
    */
   constructor(props) {
@@ -57,44 +44,36 @@ export class Navbar extends Component {
    *
    *
    * @memberof Navbar
-   * @returns {any}
+   *
+   * @returns {object}
    * invoked immediately after a component is mounted
    */
-  componentDidMount() {
-    if (Auth.userID() && !this.props.user) {
-      this.props.getProfile(Auth.userID());
+  componentDidMount = () => {
+    if (this.props.auth.isLoggedIn && !this.props.user) {
+      this.props.getProfile(this.props.auth.authInfo.userId);
+    } else if (this.props.auth.isLoggedIn && this.props.user) {
+      this.setState({
+        avatar: this.props.user.data.avatar
+      });
     }
-  }
+  };
   /**
    *
-   * @returns {any}
    * invoked before a mounted component receives new props.
-   * @param {any} nextProps
+   * @param {object} nextProps
    * @memberof Navbar
+   * @returns {void}
    */
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      avatar: nextProps.user.data.avatar
-    });
-  }
-
-  /**
-   *
-   *
-   * @readonly
-   *
-   * @memberOf Navbar
-   */
-  get avatar() {
-    if (this.props.user) {
-      return this.props.user.data.avatar;
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.user) {
+      this.setState({
+        avatar: nextProps.user.data.avatar
+      });
     }
-    return null;
-  }
+  };
   /**
    *
-   *
-   * @returns {any}
+   * @returns {JSX.Element}
    * render react element into the DOM
    * @memberof Navbar
    */
@@ -106,7 +85,6 @@ export class Navbar extends Component {
           className={`navbar navbar-expand-lg navbar-dark ${
             this.props.className
           }`}
-          // style={{ zIndex: 1000 }}
         >
           <div className="container">
             <Link className="navbar-brand bolder ml-3 text-orange" to="/">
@@ -171,7 +149,7 @@ export class Navbar extends Component {
                   </NavLink>
                 </li>
                 <li className="nav-item dropdown">
-                  {Auth.loggedIn() ? (
+                  {this.props.auth.isLoggedIn ? (
                     <a
                       className="nav-link dropdown-toggle"
                       href="#"
@@ -181,7 +159,9 @@ export class Navbar extends Component {
                       aria-expanded="false"
                     >
                       <img
-                        src={this.avatar || config.DEFAULT_DISPLAY_PICTURE}
+                        src={
+                          this.state.avatar || config.DEFAULT_DISPLAY_PICTURE
+                        }
                         alt="avi"
                         className="fa-2x img-icon rounded-circle"
                       />
@@ -203,7 +183,7 @@ export class Navbar extends Component {
                     className="dropdown-menu dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    <Navlinks user={this.props.user} />
+                    <Navlinks user={this.props.auth} />
                   </div>
                 </li>
               </ul>
@@ -217,11 +197,8 @@ export class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.user,
   user: state.user.userProfile
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getProfile }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, { getProfile })(Navbar);

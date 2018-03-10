@@ -7,8 +7,8 @@ describe('Test suite for middleware', () => {
     request(app)
       .get('/api/v1/users/very')
       .expect(400)
-      .expect((err, res) => {
-        if (!err) expect(res.body).to.include({ success: true });
+      .expect((res) => {
+        expect(res.body).to.deep.equal({ error: 'invalid params' });
       })
       .end(done);
   });

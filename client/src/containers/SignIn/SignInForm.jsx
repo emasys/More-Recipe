@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {JSX.Element} React element
+ */
 const SignInForm = props => {
   const { showErrMessage } = props.state;
-
   return (
     <form id="signin" className="form-ite" onSubmit={props.handleSubmit}>
       <ul className="form row">

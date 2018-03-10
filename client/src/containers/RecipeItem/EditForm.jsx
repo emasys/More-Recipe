@@ -4,6 +4,14 @@ import PropTypes from 'prop-types';
 
 import { list as categoryList } from '../../components/CategoryList';
 
+/**
+ *
+ *
+ * @param {object} props
+ *
+ * @returns {JSX.Element}
+ * react element
+ */
 const EditForm = props => (
   <div>
     <form onSubmit={props.handleSubmit}>
@@ -26,7 +34,7 @@ const EditForm = props => (
           <label>
             Ingredients{' '}
             <small>
-              <em>separate each ingredient with a comma {","}</em>
+              <em>separate each ingredient with a comma {','}</em>
             </small>
           </label>
           <Textarea

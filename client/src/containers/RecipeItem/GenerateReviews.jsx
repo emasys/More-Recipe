@@ -2,20 +2,28 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { uniqWith, isEqual } from 'lodash';
 
 import config from '../../config';
-import Auth from '../../components/auth';
 
-const GenerateReviews = ({ review, deleteReview }) => {
+/**
+ *
+ *
+ * @param {object} { review, deleteReview, auth }
+ * @returns {JSX.Element} React element
+ */
+const GenerateReviews = ({ review, deleteReview, auth }) => {
   if (review.fetch_reviews) {
-    return review.fetch_reviews.reviews.map((comment, index) => (
+    //handle bug of duplicate objects due to redirection from sign in page
+    const reviews = uniqWith(review.fetch_reviews, isEqual);
+    return reviews.map((comment, index) => (
       <div
         data-aos="fade-left"
         data-aos-offset="20"
         className="comment-wrapper"
         key={comment.id}
       >
-        <div className="direction mt-50 p-15 bg-light my-2">
+        <div className="direction rounded mt-50 p-15 my-2">
           <div className="commentTitle ">
             <div className="float-left  mr-5">
               <img
@@ -25,13 +33,16 @@ const GenerateReviews = ({ review, deleteReview }) => {
               />
             </div>
             <div className="clearfix mb-10">
-              <Link className="text-dark bolder moniker" to={`/user/${comment.userId}`}>
+              <Link
+                className="text-dark bolder moniker"
+                to={`/user/${comment.userId}`}
+              >
                 {comment.User.moniker}
               </Link>
               <p className="text-dark date">
                 {moment(comment.updatedAt).fromNow()}
               </p>
-              {Auth.userID() === comment.userId && (
+              {auth.authInfo.userId === comment.userId && (
                 // eslint-disable-next-line
                 <i
                   onClick={() => deleteReview(comment.id, comment.recipeId)}
@@ -50,7 +61,7 @@ const GenerateReviews = ({ review, deleteReview }) => {
       </div>
     ));
   }
-  return 'Loading...';
+  return 'Loading comments...';
 };
 
 export default GenerateReviews;

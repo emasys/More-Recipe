@@ -16,42 +16,25 @@ import { getProfile } from '../../actions/userActions';
 // Components
 import CategoryList from '../../components/CategoryList';
 import CatalogList from '../../components/CatalogList';
-import Auth from '../../components/auth';
 import CategoryNavbar from './NavbarCategory';
 import Navbar from './NavbarSearch';
-import Preloader from '../../components/Preloader';
 
 /**
- *@param {object} event
  * @class FullCatalog
  * @extends {Component}
  */
 class FullCatalog extends Component {
-  // static propTypes = {
-  //   recipes: PropTypes.object.isRequired,
-  //   user: PropTypes.object,
-  //   getRecipes: PropTypes.func.isRequired,
-  //   searchRecipes: PropTypes.func.isRequired,
-  //   getProfile: PropTypes.func.isRequired,
-  //   resetSearch: PropTypes.func.isRequired,
-  //   history: PropTypes.object.isRequired,
-  //   clearRecipes: PropTypes.func.isRequired
-  // };
-
-  // static defaultProps = {
-  //   user: {
-  //     data: {
-  //       id: 1,
-  //       firstName: "",
-  //       lastName: "",
-  //       bio: "",
-  //       email: "",
-  //       country: "",
-  //       avatar: "",
-  //       moniker: ""
-  //     }
-  //   }
-  // }
+  static propTypes = {
+    recipes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    getRecipes: PropTypes.func.isRequired,
+    searchRecipes: PropTypes.func.isRequired,
+    getProfile: PropTypes.func.isRequired,
+    resetSearch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    clearRecipes: PropTypes.func.isRequired
+  };
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
@@ -75,27 +58,23 @@ class FullCatalog extends Component {
     };
   }
   /**
+   *  Invoked immediately after component is mounted
    *
-   *
-   * @memberof FullCatalog
-   * @returns {any} react lifecycle method
+   *@returns {void}
    */
   componentDidMount = () => {
     window.scrollTo(0, 0);
-    if (Auth.userID()) {
-      this.props.getProfile(Auth.userID());
-    }
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
     }));
   };
   /**
+   *  Invoked before a mounted component receives new props.
    *
+   * @param {object} nextProps
    *
-   * @memberof FullCatalog
-   * @param {any} nextProps
-   * @returns {any} updated props
+   * @returns {void}
    *
    */
   componentWillReceiveProps = nextProps => {
@@ -116,11 +95,26 @@ class FullCatalog extends Component {
       this.setState({ showMoreSearchResult: false });
     }
   };
-
+  /**
+   *  Invoked immediately before a component
+   * is unmounted and destroyed
+   *
+   * @returns {void}
+   *
+   */
   componentWillUnmount = () => {
     this.props.clearRecipes();
   };
 
+  /**
+   * Sort payload
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberOf FullCatalog
+   */
   recentlyAdded = event => {
     event.preventDefault();
     const compare = (a, b) => {
@@ -131,7 +125,15 @@ class FullCatalog extends Component {
     this.setState({ compare });
     this.loadMoreRecipes();
   };
-
+  /**
+   * Sort payload
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberOf FullCatalog
+   */
   mostUpvoted = event => {
     event.preventDefault();
     const compare = (a, b) => {
@@ -142,14 +144,29 @@ class FullCatalog extends Component {
     this.setState({ compare });
     this.loadMoreRecipes();
   };
-
+  /**
+   * Instantiate network request to fetch recipes
+   *
+   *
+   * @returns {void}
+   *
+   * @memberOf FullCatalog
+   */
   loadMoreRecipes = () => {
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
     }));
   };
-
+  /**
+   * Sort payload
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberOf FullCatalog
+   */
   mostFavorited = event => {
     event.preventDefault();
     const compare = (a, b) => {
@@ -160,7 +177,15 @@ class FullCatalog extends Component {
     this.setState({ compare });
     this.loadMoreRecipes();
   };
-
+  /**
+   * Sort payload
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberOf FullCatalog
+   */
   mostViewed = event => {
     event.preventDefault();
     const compare = (a, b) => {
@@ -173,11 +198,13 @@ class FullCatalog extends Component {
   };
 
   /**
-   *
+   * Clear search results
    *
    * @param {any} event
+   *
    * @memberof FullCatalog
-   * @returns {any} onChange event for the search bar
+   *
+   * @returns {void}
    */
   searchBar = event => {
     event.preventDefault();
@@ -190,20 +217,42 @@ class FullCatalog extends Component {
       this.setState({ searching: false });
     }
   };
+
+  /**
+   * Search for recipes
+   *
+   * @param {any} event
+   *
+   * @memberof FullCatalog
+   *
+   * @returns {void}
+   */
   onSearch = event => {
     event.preventDefault();
     this.setState({ searching: true });
     this.searchInput = event.target.elements.search.value.toLowerCase();
     this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset);
   };
+
+  /**
+   * Goto "add new" recipe page
+   *
+   * @param {any} event
+   *
+   * @memberof FullCatalog
+   *
+   * @returns {void}
+   */
   addMore = () => {
     this.props.history.push('/new');
   };
   /**
+   * Display dropdown menu
    *
    *
    * @memberof FullCatalog
-   * @returns {any} dropdown
+   *
+   * @returns {void}
    */
   dropdownCtrl = () => {
     const { dropdown } = this.state;
@@ -217,7 +266,14 @@ class FullCatalog extends Component {
       });
     }
   };
-
+  /**
+   * Paginate search result
+   *
+   *
+   * @memberof FullCatalog
+   *
+   * @returns {void}
+   */
   showMoreSearchResult = () => {
     this.setState(prevState => ({
       searchOffset: prevState.searchOffset + 4
@@ -227,7 +283,8 @@ class FullCatalog extends Component {
   /**
    *
    *
-   * @returns {any} renders jsx elements
+   * @returns {JSX.Element}
+   * render react element into the DOM
    * @memberof FullCatalog
    */
   render() {
@@ -247,10 +304,9 @@ class FullCatalog extends Component {
             search={search}
             avatar={avatar}
             onChanged={this.searchBar}
-            user={this.props.user}
+            user={this.props.auth}
           />
         </section>
-        <Preloader />
         <div
           className="category-bar fixed-top custom-fixed custom-bg-color"
           style={{ zIndex: 900 }}
@@ -266,7 +322,7 @@ class FullCatalog extends Component {
 
         {dropdown && <CategoryList />}
         <section className="mt-100" id="catalog">
-          <div className="row catalog-wrapper mx-2 justify-content-center">
+          <div className="row catalog-wrapper-full-grid justify-content-center">
             {!searching && (
               <InfiniteScroll
                 next={this.loadMoreRecipes}
@@ -330,7 +386,8 @@ class FullCatalog extends Component {
 }
 const mapStateToProps = state => ({
   recipes: state.recipes,
-  user: state.user.userProfile
+  user: state.user.userProfile,
+  auth: state.user
 });
 
 const mapDispatchToProps = dispatch => ({

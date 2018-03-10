@@ -1,6 +1,11 @@
 import * as type from '../actions/types';
 
-export default (state = { }, action) => {
+export default (
+  state = {
+    userFavorites: []
+  },
+  action
+) => {
   switch (action.type) {
   case type.SET_FAVORITE:
     return {
@@ -10,7 +15,13 @@ export default (state = { }, action) => {
   case type.GET_FAVORITES:
     return {
       ...state,
-      userFav: action.payload
+      userFavorites: [...state.userFavorites, ...action.payload.favorites],
+      favoriteCount: action.payload.count
+    };
+  case type.CLEAR_RECIPES:
+    return {
+      ...state,
+      userFavorites: []
     };
   default:
     return state;
