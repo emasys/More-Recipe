@@ -109,9 +109,9 @@ class RecipeItem extends Component {
    * Invoked before a mounted component receives new props.
    *
    * @param {any} nextProps
-   * 
+   *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -173,11 +173,11 @@ class RecipeItem extends Component {
   }
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf RecipeItem
-   * 
+   *
    * @returns {void}
    */
   componentWillUnmount = () => {
@@ -185,23 +185,23 @@ class RecipeItem extends Component {
   };
 
   /**
-   * 
+   *
    * @param {object} event
-   * 
+   *
    * @memberOf RecipeItem
-   * 
+   *
    * @returns {void}
    */
   deleteRecipeInit = event => {
     event.preventDefault();
   };
- 
+
   /**
    *redirects a user back to catalog page after deletion
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   delRecipe = () => {
     this.props
@@ -216,8 +216,8 @@ class RecipeItem extends Component {
    * sets modal display to true
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   onOpenDeleteModal = () => {
     this.setState({ deleteRecipe: true });
@@ -226,8 +226,8 @@ class RecipeItem extends Component {
    * sets modal display to false
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   onCloseDeleteModal = () => {
     this.setState({ deleteRecipe: false });
@@ -236,8 +236,8 @@ class RecipeItem extends Component {
    * Add a recipe to user's favorite list
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   favIt = () => {
     this.props.setFavorite(this.props.match.params.id);
@@ -246,8 +246,8 @@ class RecipeItem extends Component {
    * upvote a recipe
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   upvote = () => {
     this.props.upvote(this.props.match.params.id);
@@ -256,20 +256,20 @@ class RecipeItem extends Component {
    * Downvote a recipe
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   downvote = () => {
     this.props.downvote(this.props.match.params.id);
   };
   /**
-   * 
+   *
    * edit recipe helper function
-   * 
+   *
    * @param {any} data
-   * 
+   *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
    */
   edited = data => {
@@ -280,9 +280,9 @@ class RecipeItem extends Component {
    *
    * @param {event} event
    * @param {string} foodImg
-   * 
+   *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
    */
   handleSubmit = event => {
@@ -304,8 +304,22 @@ class RecipeItem extends Component {
 
   /**
    *
-   * @returns {void} 
-   * 
+   *
+   * @param {event} event
+   * @param {string} foodImg
+   *
+   * @memberof RecipeItem
+   *
+   * @returns {void}
+   */
+  goBack = event => {
+    event.preventDefault();
+    this.setState({ editRecipeItem: false });
+  };
+  /**
+   *
+   * @returns {void}
+   *
    * @memberof RecipeItem
    */
   hoverIn = () => {
@@ -314,7 +328,7 @@ class RecipeItem extends Component {
   /**
    *
    * @returns {void}
-   * 
+   *
    * @memberof RecipeItem
    */
   hoverOut = () => {
@@ -324,10 +338,10 @@ class RecipeItem extends Component {
    * Preview of image
    *
    * @param {any} files
-   * 
+   *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   handleDrop = files => {
     const [{ preview }] = files;
@@ -338,9 +352,9 @@ class RecipeItem extends Component {
    * upload image
    *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
-   * 
+   *
    */
   handleImg = () => {
     notify();
@@ -364,7 +378,7 @@ class RecipeItem extends Component {
    *
    *
    * @param {object} reactions
-   * 
+   *
    * @returns {JSX.Element} Jsx element
    * @memberof RecipeItem
    */
@@ -391,9 +405,9 @@ class RecipeItem extends Component {
   };
   /**
    * Set a new edit state
-   * 
+   *
    * @returns {void}
-   * 
+   *
    * @memberof RecipeItem
    */
   showEditForm = () => {
@@ -406,7 +420,7 @@ class RecipeItem extends Component {
    *
    *
    * @returns {JSX.Element} render elements
-   * 
+   *
    * @memberof RecipeItem
    */
   render() {
@@ -429,7 +443,11 @@ class RecipeItem extends Component {
               {this.generateItems(recipeItem)}
             </div>
             {editRecipeItem && (
-              <EditForm handleSubmit={this.handleSubmit} state={this.state} />
+              <EditForm
+                handleSubmit={this.handleSubmit}
+                goBack={this.goBack}
+                state={this.state}
+              />
             )}
             {!editRecipeItem && (
               <RecipeIngredients

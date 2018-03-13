@@ -63,7 +63,6 @@ export const flashMessage = path => ({
  * @returns {string} secure url
  */
 export const uploadImg = (data, id) => {
-  console.log('id======>', id);
   const formData = new FormData();
   formData.append('file', data);
   formData.append('tags', `morerecipe`);

@@ -79,6 +79,7 @@ const UserInfo = props => {
                 props.handleImg();
                 props.notify();
               }}
+              id="upload-dp"
             >
               Upload Image
             </button>
@@ -94,7 +95,7 @@ const UserInfo = props => {
             )}
           </div>
           <div className="mt-5">
-            <button className="btn btn-dark" onClick={props.showForm}>
+            <button className="btn btn-dark" id="edit-profile" onClick={props.showForm}>
               Edit profile
             </button>
           </div>

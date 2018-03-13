@@ -62,45 +62,57 @@ export const confirmPassword = (
 export const validatePassword = (password, inputName, handlerId) => {
   const re = [/.*[a-zA-Z]+.*/, /.*[0-9].*/, /[!@#$%^&*(){}[\]<>?/|.:;_'"-]/];
   if (password === '') {
+    error.push(5);
     document.querySelector(`#${handlerId}`).innerHTML =
       'This field is required';
     document.querySelector(`#${inputName}`).classList.add('error-border');
   } else {
+    error = error.filter(item => item !== 5);
     document.querySelector(`#${handlerId}`).innerHTML = '';
     document.querySelector(`#${inputName}`).classList.remove('error-border');
   }
   if (!re[0].test(password)) {
+    error.push(6);
     document.querySelector('.alpha').classList.add('text-danger');
     document.querySelector(`#${inputName}`).classList.add('error-border');
   } else {
+    error = error.filter(item => item !== 6);
     document.querySelector('.alpha').classList.remove('text-danger');
     document.querySelector('.alpha').classList.add('text-success');
   }
   if (!re[1].test(password)) {
+    error.push(7);
     document.querySelector('#check_numbers').classList.add('text-danger');
     document.querySelector(`#${inputName}`).classList.add('error-border');
   } else {
+    error = error.filter(item => item !== 7);
     document.querySelector('#check_numbers').classList.remove('text-danger');
     document.querySelector('#check_numbers').classList.add('text-success');
   }
   if (!re[2].test(password)) {
+    error.push(8);
     document.querySelector('.characters').classList.add('text-danger');
     document.querySelector(`#${inputName}`).classList.add('error-border');
   } else {
+    error = error.filter(item => item !== 8);
     document.querySelector('.characters').classList.remove('text-danger');
     document.querySelector('.characters').classList.add('text-success');
   }
   if (password.length < 8) {
+    error.push(9);
     document.querySelector('.minLength').classList.add('text-danger');
     document.querySelector(`#${inputName}`).classList.add('error-border');
   } else {
+    error = error.filter(item => item !== 9);
     document.querySelector('.minLength').classList.remove('text-danger');
     document.querySelector('.minLength').classList.add('text-success');
   }
   if (password.length > 20) {
+    error.push(10);
     document.querySelector('.maxLength').classList.add('text-danger');
     document.querySelector(`#${inputName}`).classList.add('error-border');
   } else {
+    error = error.filter(item => item !== 10);
     document.querySelector('.maxLength').classList.remove('text-danger');
     document.querySelector('.maxLength').classList.add('text-success');
   }
@@ -109,14 +121,14 @@ export const validatePassword = (password, inputName, handlerId) => {
 export const validateMoniker = moniker => {
   const re = /^[a-z0-9]+$/i;
   if (!re.test(moniker)) {
-    error.push(5);
+    error.push(11);
     document
       .querySelector("input[name='moniker']")
       .classList.add('error-border');
     document.querySelector('#moniker_error').innerHTML =
       'Alphanumeric characters only';
   } else {
-    error = error.filter(item => item !== 5);
+    error = error.filter(item => item !== 11);
     document
       .querySelector("input[name='moniker']")
       .classList.remove('error-border');

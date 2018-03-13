@@ -55,7 +55,7 @@ const UserEditForm = props => {
         </li>
         <li className="special col-lg-6 p-3">
           <label>Country</label>
-          <select name="country" className="col-12 " style={{ height: '50px' }}>
+          <select id="country" name="country" className="col-12 " style={{ height: '50px' }}>
             {countryList.map(country => (
               <option key={country.code} value={country.name}>
                 {country.name}
@@ -68,8 +68,11 @@ const UserEditForm = props => {
             type="submit"
             value="save"
             id="submit"
-            className="btn bg-dark hovered"
+            className="btn bg-success hovered"
           />
+        </li>
+        <li className=" col-12 ">
+          <button onClick={props.goBack} className="btn btn-block btn-lg col-12 bg-warning hovered">Back</button>
         </li>
       </ul>
     </form>

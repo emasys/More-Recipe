@@ -264,13 +264,23 @@ class Profile extends Component {
   };
   /**
    *
-   *@param {object} event
+   * @param {object} event
    * @memberof Profile
    * @returns {any} pagination
    */
   viewMore = event => {
     event.preventDefault();
     this.loadMore();
+  };
+  /**
+   *
+   * @param {object} event
+   * @memberof Profile
+   * @returns {any} pagination
+   */
+  goBack = event => {
+    event.preventDefault();
+    this.setState({ edit: false });
   };
   /**
    *
@@ -304,6 +314,7 @@ class Profile extends Component {
                 <UserEditForm
                   state={this.state}
                   editProfile={this.editProfile}
+                  goBack={this.goBack}
                 />
               </div>
             )}

@@ -79,6 +79,7 @@ const EditForm = props => (
           <select
             name="category"
             className="col-12 "
+            id="selectBox"
             style={{ height: '50px' }}
             defaultValue={props.state.category}
           >
@@ -94,8 +95,11 @@ const EditForm = props => (
             type="submit"
             value="save"
             id="submit"
-            className="btn bg-dark hovered"
+            className="btn bg-success hovered"
           />
+        </li>
+        <li className=" col-12 ">
+          <button onClick={props.goBack} className="btn btn-block btn-lg col-12 bg-warning hovered">Back</button>
         </li>
       </ul>
     </form>
@@ -104,6 +108,7 @@ const EditForm = props => (
 
 EditForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired
 };
 

@@ -46,6 +46,7 @@ const Navbar = props => (
             {props.auth.isLoggedIn ? (
               <li className="nav-item mt-5 pr-15 ml-3">
                 <Link
+                  id="greetings"
                   className=" text-orange"
                   to={`/profile/${props.auth.authInfo.userId}`}
                 >

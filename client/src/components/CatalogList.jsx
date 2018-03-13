@@ -72,11 +72,11 @@ const generateList = props => {
             />
             <h4 className="p-3 m-2 text-center">...Oops</h4>
             <p className="p-3 m-2 text-center">No recipe here</p>
-            <p className="p-3 m-2 text-center">
+            {/* <p className="p-3 m-2 text-center">
               <Link to="/" className="btn btn-outline-dark hvr-icon-back">
                 ...go back home
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
       );

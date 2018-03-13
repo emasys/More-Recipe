@@ -32,8 +32,8 @@ class SignUp extends Component {
 
   /**
    * @returns {void}
-   * 
-   * 
+   *
+   *
    * @memberOf SignUp
    */
   componentDidMount = () => {
@@ -42,15 +42,15 @@ class SignUp extends Component {
 
   /**
    * @param {object} nextProps
-   * 
+   *
    * @returns {void}
-   * 
+   *
    * @memberOf SignUp
    */
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.signUp) {
-      if (nextProps.user.signUp.success) {
-        window.location.href = '/';
+      if (nextProps.user.signUp.success && !nextProps.isLoading) {
+        nextProps.history.push('/');
       }
       if (nextProps.user.signUp.data) {
         switch (nextProps.user.signUp.data.error[0].path) {
@@ -68,9 +68,9 @@ class SignUp extends Component {
 
   /**
    * clear input field
-   * 
+   *
    * @param {string} inputName
-   * 
+   *
    * @returns {void}
    * @memberOf SignUp
    */
@@ -80,9 +80,9 @@ class SignUp extends Component {
 
   /**
    * Validate field on value change
-   * 
+   *
    * @param {object} event
-   * 
+   *
    * @returns {void}
    * @memberOf SignUp
    */
@@ -116,7 +116,7 @@ class SignUp extends Component {
    * Submit form
    *
    * @param {object} event
-   * 
+   *
    * @memberof SignUp
    * @returns {void}
    */
@@ -184,7 +184,8 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  isLoading: state.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

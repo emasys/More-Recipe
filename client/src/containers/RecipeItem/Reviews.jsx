@@ -174,6 +174,7 @@ class Reviews extends Component {
                 <Textarea
                   className="textarea col-12"
                   id="FormControlTextarea"
+                  name="reviewBox"
                   // rows="4"
                   placeholder="leave a review"
                   onChange={this.textChanged}

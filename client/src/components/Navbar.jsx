@@ -141,6 +141,7 @@ export class Navbar extends Component {
                     activeClassName="active"
                     to="/favorites"
                     data-tip="Your favorites"
+                    id="favorite"
                   >
                     <i className="material-icons fa-2x red d-none d-lg-inline">
                       &#xE87D;

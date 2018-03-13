@@ -20,7 +20,7 @@ export const getFavorite = (limit, offset) => dispatch => {
       dispatch(isLoading(false));
     })
     .catch(err => {
-      dispatch({ type: type.GET_FAVORITES, payload: err.response });
+      dispatch({ type: type.GET_FAVORITES, payload: { favorites: [] } });
       dispatch(isLoading(false));
     });
 };
