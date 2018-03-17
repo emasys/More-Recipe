@@ -29,6 +29,7 @@ class RecipeController {
   static addRecipe(req, res) {
     const request = req.body;
     const { ingredients } = req.body;
+    request.name = req.body.name.toLowerCase();
     // to convert ingredient's strings into and array with no trailing space
     const validator = new Validator(request, validateAddRecipes());
     if (validator.passes()) {

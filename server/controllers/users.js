@@ -40,7 +40,8 @@ export default class MoreRecipeUsers {
    */
   static signUp(req, res) {
     const request = req.body;
-
+    request.moniker = req.body.moniker.toLowerCase();
+    request.email = req.body.email.toLowerCase();
     const validator = new Validator(request, validateSignUpForm());
     if (validator.fails()) {
       return setStatus(

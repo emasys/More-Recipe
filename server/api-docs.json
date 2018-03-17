@@ -5,7 +5,7 @@
     "title": "New More Recipe",
     "description": "Docs for more recipe API"
   },
-  "host": "localhost:8080",
+  "host": "more-recipe-api.herokuapp.com",
   "basePath": "/api/v1",
   "schemes": [
     "http"
@@ -17,1198 +17,51 @@
     "application/json"
   ],
   "paths": {
-    "/recipes/2/0": {
-      "get": {
-        "description": "This route fetches all the recipes in the database.\nIt has two parameters - limit and offset in that order",
-        "summary": "Fetch all recipes",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Recipes20Get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/FetchAllRecipesresponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipes": [
-                  {
-                    "id": 48,
-                    "name": "How to cook yam",
-                    "ingredients": [
-                      "water"
-                    ],
-                    "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    "searchIng": "water",
-                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                    "category": "Breakfast",
-                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                    "userId": 24,
-                    "upvote": 0,
-                    "downvote": 0,
-                    "reactionUp": [],
-                    "reactionDown": [],
-                    "views": 0,
-                    "comments": 0,
-                    "favorite": 0,
-                    "createdAt": "2018-02-19T08:21:09.116Z",
-                    "updatedAt": "2018-02-19T08:21:09.116Z"
-                  },
-                  {
-                    "id": 47,
-                    "name": "how to fry yam",
-                    "ingredients": [
-                      "water"
-                    ],
-                    "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    "searchIng": "water",
-                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                    "category": "Breakfast",
-                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                    "userId": 24,
-                    "upvote": 0,
-                    "downvote": 0,
-                    "reactionUp": [],
-                    "reactionDown": [],
-                    "views": 0,
-                    "comments": 0,
-                    "favorite": 0,
-                    "createdAt": "2018-02-19T08:20:44.882Z",
-                    "updatedAt": "2018-02-19T08:20:44.882Z"
-                  }
-                ],
-                "count": 5
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "GET",
-              "uri": "/recipes/2/0"
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "2558",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 15:17:33 GMT",
-                "ETag": "W/\"9fe-MXJ/apderwIM30EM3sBIjbVV2ps\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"recipes\": [\n        {\n            \"id\": 48,\n            \"name\": \"How to cook yam\",\n            \"ingredients\": [\n                \"water\"\n            ],\n            \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n            \"searchIng\": \"water\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n            \"category\": \"Breakfast\",\n            \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n            \"userId\": 24,\n            \"upvote\": 0,\n            \"downvote\": 0,\n            \"reactionUp\": [],\n            \"reactionDown\": [],\n            \"views\": 0,\n            \"comments\": 0,\n            \"favorite\": 0,\n            \"createdAt\": \"2018-02-19T08:21:09.116Z\",\n            \"updatedAt\": \"2018-02-19T08:21:09.116Z\"\n        },\n        {\n            \"id\": 47,\n            \"name\": \"how to fry yam\",\n            \"ingredients\": [\n                \"water\"\n            ],\n            \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n            \"searchIng\": \"water\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n            \"category\": \"Breakfast\",\n            \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n            \"userId\": 24,\n            \"upvote\": 0,\n            \"downvote\": 0,\n            \"reactionUp\": [],\n            \"reactionDown\": [],\n            \"views\": 0,\n            \"comments\": 0,\n            \"favorite\": 0,\n            \"createdAt\": \"2018-02-19T08:20:44.882Z\",\n            \"updatedAt\": \"2018-02-19T08:20:44.882Z\"\n        }\n    ],\n    \"count\": 5\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Fetch all recipes",
-            "x-testDescription": "This route fetches all the recipes in the database.\nIt has two parameters - limit and offset in that order"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/user/24/1/0": {
-      "get": {
-        "description": "Fetch all the recipe from a particular user.\nparams: recipeId, limit, offset",
-        "summary": "fetch all recipe of a particular user",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RecipesUser2410Get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/FetchAllRecipeOfAParticularUserresponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipes": [
-                  {
-                    "id": 48,
-                    "name": "how to cook yam",
-                    "ingredients": [
-                      "water"
-                    ],
-                    "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    "searchIng": "water",
-                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                    "category": "Breakfast",
-                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                    "userId": 24,
-                    "upvote": 0,
-                    "downvote": 0,
-                    "reactionUp": [],
-                    "reactionDown": [],
-                    "views": 0,
-                    "comments": 0,
-                    "favorite": 0,
-                    "createdAt": "2018-02-19T08:21:09.116Z",
-                    "updatedAt": "2018-02-19T08:21:09.116Z"
-                  }
-                ]
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/FetchAllRecipeOfAParticularUsererrorresponse"
-            },
-            "examples": {
-              "application/json": {
-                "error": "Token not provided"
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "GET",
-              "uri": "/recipes/user/24/1/0",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1289",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 15:35:05 GMT",
-                "ETag": "W/\"509-wIBqV9014gLo2AQDM5t58jlyGbg\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"recipes\": [\n        {\n            \"id\": 48,\n            \"name\": \"how to cook yam\",\n            \"ingredients\": [\n                \"water\"\n            ],\n            \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n            \"searchIng\": \"water\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n            \"category\": \"Breakfast\",\n            \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n            \"userId\": 24,\n            \"upvote\": 0,\n            \"downvote\": 0,\n            \"reactionUp\": [],\n            \"reactionDown\": [],\n            \"views\": 0,\n            \"comments\": 0,\n            \"favorite\": 0,\n            \"createdAt\": \"2018-02-19T08:21:09.116Z\",\n            \"updatedAt\": \"2018-02-19T08:21:09.116Z\"\n        }\n    ]\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "fetch all recipe of a particular user",
-            "x-testDescription": "Fetch all the recipe from a particular user.\nparams: recipeId, limit, offset"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/favorites": {
-      "get": {
-        "description": "Fetch all the favorite recipes of a particular user",
-        "summary": "Fetch all user's favorite recipes",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "FavoritesGet",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/FetchAllUser'sFavoriteRecipesresponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "favorites": [
-                  {
-                    "id": 7,
-                    "recipeId": 28,
-                    "userId": 24,
-                    "createdAt": "2018-02-18T11:41:14.662Z",
-                    "updatedAt": "2018-02-18T11:41:14.662Z",
-                    "Recipe": {
-                      "id": 28,
-                      "name": "how to boil beans",
-                      "ingredients": [
-                        "water",
-                        "salt"
-                      ],
-                      "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.",
-                      "searchIng": "water,salt",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.",
-                      "category": "Breakfast",
-                      "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1518694369/soxukmhdrqtzwlmflnkx.jpg",
-                      "userId": 24,
-                      "upvote": 2,
-                      "downvote": 0,
-                      "reactionUp": [
-                        24,
-                        29
-                      ],
-                      "reactionDown": [],
-                      "views": 43,
-                      "comments": 4,
-                      "favorite": 2,
-                      "createdAt": "2018-02-15T11:25:43.204Z",
-                      "updatedAt": "2018-02-18T15:01:49.912Z"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "GET",
-              "uri": "/favorites",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1377",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 15:39:50 GMT",
-                "ETag": "W/\"561-zLMLJ8ENvBKAmRZ88Rv5SKG8PTY\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"favorites\": [\n        {\n            \"id\": 7,\n            \"recipeId\": 28,\n            \"userId\": 24,\n            \"createdAt\": \"2018-02-18T11:41:14.662Z\",\n            \"updatedAt\": \"2018-02-18T11:41:14.662Z\",\n            \"Recipe\": {\n                \"id\": 28,\n                \"name\": \"how to boil beans\",\n                \"ingredients\": [\n                    \"water\",\n                    \"salt\"\n                ],\n                \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.\",\n                \"searchIng\": \"water,salt\",\n                \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.\",\n                \"category\": \"Breakfast\",\n                \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1518694369/soxukmhdrqtzwlmflnkx.jpg\",\n                \"userId\": 24,\n                \"upvote\": 2,\n                \"downvote\": 0,\n                \"reactionUp\": [\n                    24,\n                    29\n                ],\n                \"reactionDown\": [],\n                \"views\": 43,\n                \"comments\": 4,\n                \"favorite\": 2,\n                \"createdAt\": \"2018-02-15T11:25:43.204Z\",\n                \"updatedAt\": \"2018-02-18T15:01:49.912Z\"\n            }\n        }\n    ]\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Fetch all user's favorite recipes",
-            "x-testDescription": "Fetch all the favorite recipes of a particular user"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipe/48": {
-      "get": {
-        "description": "Fetch single recipe from the database.\nparams: recipeId",
-        "summary": "Fetch single recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Recipe48Get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/FetchSingleReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipe": {
-                  "id": 48,
-                  "name": "how to cook yam",
-                  "ingredients": [
-                    "water"
-                  ],
-                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                  "searchIng": "water",
-                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                  "category": "Breakfast",
-                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                  "userId": 24,
-                  "upvote": 0,
-                  "downvote": 0,
-                  "reactionUp": [],
-                  "reactionDown": [],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "createdAt": "2018-02-19T08:21:09.116Z",
-                  "updatedAt": "2018-02-19T08:21:09.116Z",
-                  "reviews": [],
-                  "favorites": []
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "GET",
-              "uri": "/recipe/48",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1314",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 15:46:51 GMT",
-                "ETag": "W/\"522-hrj42N4b/e4TwNR7zAy+Xc+2g7s\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"recipe\": {\n        \"id\": 48,\n        \"name\": \"how to cook yam\",\n        \"ingredients\": [\n            \"water\"\n        ],\n        \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n        \"searchIng\": \"water\",\n        \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n        \"category\": \"Breakfast\",\n        \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n        \"userId\": 24,\n        \"upvote\": 0,\n        \"downvote\": 0,\n        \"reactionUp\": [],\n        \"reactionDown\": [],\n        \"views\": 0,\n        \"comments\": 0,\n        \"favorite\": 0,\n        \"createdAt\": \"2018-02-19T08:21:09.116Z\",\n        \"updatedAt\": \"2018-02-19T08:21:09.116Z\",\n        \"reviews\": [],\n        \"favorites\": []\n    }\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Fetch single recipe",
-            "x-testDescription": "Fetch single recipe from the database.\nparams: recipeId"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipe/reaction/48": {
-      "get": {
-        "description": "Get the reaction status of a single recipe.\nchecks for vote count and favorite count",
-        "summary": "Get the status of a single recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RecipeReaction48Get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/GetTheStatusOfASingleReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipe": {
-                  "id": 48,
-                  "name": "how to cook yam",
-                  "ingredients": [
-                    "water"
-                  ],
-                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                  "searchIng": "water",
-                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                  "category": "Breakfast",
-                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                  "userId": 24,
-                  "upvote": 0,
-                  "downvote": 0,
-                  "reactionUp": [],
-                  "reactionDown": [],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "createdAt": "2018-02-19T08:21:09.116Z",
-                  "updatedAt": "2018-02-19T08:21:09.116Z",
-                  "reviews": [],
-                  "favorites": []
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "GET",
-              "uri": "/recipe/reaction/48",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1314",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 15:51:17 GMT",
-                "ETag": "W/\"522-hrj42N4b/e4TwNR7zAy+Xc+2g7s\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"recipe\": {\n        \"id\": 48,\n        \"name\": \"how to cook yam\",\n        \"ingredients\": [\n            \"water\"\n        ],\n        \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n        \"searchIng\": \"water\",\n        \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n        \"category\": \"Breakfast\",\n        \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n        \"userId\": 24,\n        \"upvote\": 0,\n        \"downvote\": 0,\n        \"reactionUp\": [],\n        \"reactionDown\": [],\n        \"views\": 0,\n        \"comments\": 0,\n        \"favorite\": 0,\n        \"createdAt\": \"2018-02-19T08:21:09.116Z\",\n        \"updatedAt\": \"2018-02-19T08:21:09.116Z\",\n        \"reviews\": [],\n        \"favorites\": []\n    }\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Get the status of a single recipe",
-            "x-testDescription": "Get the reaction status of a single recipe.\nchecks for vote count and favorite count"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/reviews/48": {
-      "get": {
-        "description": "Fetch all the reviews associated with a single recipe",
-        "summary": "Get all the reviews for a particular recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Reviews48Get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/GetAllTheReviewsForAParticularReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "reviews": [
-                  {
-                    "id": 13,
-                    "content": "Great recipe, I love it!",
-                    "createdAt": "2018-02-19T15:54:51.111Z",
-                    "updatedAt": "2018-02-19T15:54:51.111Z",
-                    "recipeId": 48,
-                    "userId": 24,
-                    "User": {
-                      "moniker": "admin",
-                      "avatar": null
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "GET",
-              "uri": "/reviews/48",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "205",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 15:56:49 GMT",
-                "ETag": "W/\"cd-LE5qsMHrGXGnbfdEaxYvdHgnAog\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\"reviews\":[{\"id\":13,\"content\":\"Great recipe, I love it!\",\"createdAt\":\"2018-02-19T15:54:51.111Z\",\"updatedAt\":\"2018-02-19T15:54:51.111Z\",\"recipeId\":48,\"userId\":24,\"User\":{\"moniker\":\"admin\",\"avatar\":null}}]}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Get all the reviews for a particular recipe",
-            "x-testDescription": "Fetch all the reviews associated with a single recipe"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/reviews/delete/13": {
-      "delete": {
-        "description": "Delete a review recently added.\nA user can only delete a review he/she added",
-        "summary": "Delete review",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "ReviewsDelete13Delete",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/DeleteReviewresponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "message": "review deleted"
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "DELETE",
-              "uri": "/reviews/delete/13",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "43",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:01:09 GMT",
-                "ETag": "W/\"2b-Z50VaT3C0btKBIAjT7iinWcyg04\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\"success\":true,\"message\":\"review deleted\"}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Delete review",
-            "x-testDescription": "Delete a review recently added.\nA user can only delete a review he/she added"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/48": {
-      "delete": {
-        "description": "Delete a recipe.\nOnly the creator of a recipe can delete it.",
-        "summary": "Delete a recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Recipes48Delete",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/DeleteAReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "status": "Recipe deleted"
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "DELETE",
-              "uri": "/recipes/48",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "42",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:03:15 GMT",
-                "ETag": "W/\"2a-BdWeJzWBWdE6pgHglB9jtoG9Fpw\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\"success\":true,\"status\":\"Recipe deleted\"}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Delete a recipe",
-            "x-testDescription": "Delete a recipe.\nOnly the creator of a recipe can delete it."
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
     "/recipes": {
-      "post": {
-        "description": "Add a new recipe ",
-        "summary": "Add a new recipe",
+      "get": {
+        "description": "Fetch all the recipes ",
+        "summary": "Fetch all recipes in the database",
         "tags": [
-          "Misc"
+          "Get"
         ],
-        "operationId": "RecipesPost",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "direction",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "ingredients",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "description",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddANewReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipe": {
-                  "category": "none",
-                  "upvote": 0,
-                  "downvote": 0,
-                  "reactionUp": [],
-                  "reactionDown": [],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "id": 49,
-                  "name": "How to cook rice",
-                  "direction": "this is the direction field",
-                  "userId": 24,
-                  "description": "Special asian delicacy",
-                  "foodImg": null,
-                  "ingredients": [
-                    "water",
-                    "salt"
-                  ],
-                  "searchIng": "water, salt",
-                  "updatedAt": "2018-02-19T16:19:26.06Z",
-                  "createdAt": "2018-02-19T16:19:26.06Z"
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "POST",
-              "uri": "/recipes",
-              "headers": {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              },
-              "body": "name=How to cook rice&direction=this is the direction field&ingredients=water, salt&description=Special asian delicacy"
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "416",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:19:26 GMT",
-                "ETag": "W/\"1a0-0l3Czy80VWjt7V4GBwKtgE2b8Rc\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\"success\":true,\"recipe\":{\"category\":\"none\",\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"id\":49,\"name\":\"How to cook rice\",\"direction\":\"this is the direction field\",\"userId\":24,\"description\":\"Special asian delicacy\",\"foodImg\":null,\"ingredients\":[\"water\",\"salt\"],\"searchIng\":\"water, salt\",\"updatedAt\":\"2018-02-19T16:19:26.060Z\",\"createdAt\":\"2018-02-19T16:19:26.060Z\"}}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Add a new recipe",
-            "x-testDescription": "Add a new recipe "
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/category/1/0": {
-      "post": {
-        "description": "Fetch all recipe in a particular category.\ncategory will be gotten from the body.",
-        "summary": "Fetch recipes in the same category",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RecipesCategory10Post",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "parameters": [
-          {
-            "name": "category",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "POST",
-              "uri": "/recipes/category/1/0",
-              "headers": {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              "body": "category=Breakfast"
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "NONE",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {}
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Fetch recipes in the same category",
-            "x-testDescription": "Fetch all recipe in a particular category.\ncategory will be gotten from the body."
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/upvote/47": {
-      "post": {
-        "description": "Upvote a recipe, if the route is accessed twice, it will first upvote a recipe, then cancel the vote the second time.\n\nparams: recipeId",
-        "summary": "Upvote a recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RecipesUpvote47Post",
+        "operationId": "RecipesGet2",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpvoteAReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipe": {
-                  "id": 47,
-                  "name": "how to cook something",
-                  "ingredients": [
-                    "water"
-                  ],
-                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                  "searchIng": "water",
-                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                  "category": "Breakfast",
-                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                  "userId": 24,
-                  "upvote": 1,
-                  "downvote": 0,
-                  "reactionUp": [
-                    24
-                  ],
-                  "reactionDown": [],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "createdAt": "2018-02-19T08:20:44.882Z",
-                  "updatedAt": "2018-02-19T16:34:15.758Z",
-                  "reviews": [],
-                  "favorites": []
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "POST",
-              "uri": "/recipes/upvote/47",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1314",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:34:15 GMT",
-                "ETag": "W/\"522-NGHnOBZR7etMVqVwlTgtLW95obc\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"recipe\": {\n        \"id\": 47,\n        \"name\": \"how to cook something\",\n        \"ingredients\": [\n            \"water\"\n        ],\n        \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n        \"searchIng\": \"water\",\n        \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n        \"category\": \"Breakfast\",\n        \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n        \"userId\": 24,\n        \"upvote\": 1,\n        \"downvote\": 0,\n        \"reactionUp\": [\n            24\n        ],\n        \"reactionDown\": [],\n        \"views\": 0,\n        \"comments\": 0,\n        \"favorite\": 0,\n        \"createdAt\": \"2018-02-19T08:20:44.882Z\",\n        \"updatedAt\": \"2018-02-19T16:34:15.758Z\",\n        \"reviews\": [],\n        \"favorites\": []\n    }\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Upvote a recipe",
-            "x-testDescription": "Upvote a recipe, if the route is accessed twice, it will first upvote a recipe, then cancel the vote the second time.\n\nparams: recipeId"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/downvote/47": {
-      "post": {
-        "description": "Downvote a recipe.\nparams: recipeId",
-        "summary": "Downvote a recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RecipesDownvote47Post",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/DownvoteAReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipe": {
-                  "id": 47,
-                  "name": "how to fry eggs",
-                  "ingredients": [
-                    "water"
-                  ],
-                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                  "searchIng": "water",
-                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                  "category": "Breakfast",
-                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                  "userId": 24,
-                  "upvote": 0,
-                  "downvote": 1,
-                  "reactionUp": [],
-                  "reactionDown": [
-                    24
-                  ],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "createdAt": "2018-02-19T08:20:44.882Z",
-                  "updatedAt": "2018-02-19T16:39:12.017Z",
-                  "reviews": [],
-                  "favorites": []
-                },
-                "status": "voted"
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "POST",
-              "uri": "/recipes/downvote/47",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1331",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:39:12 GMT",
-                "ETag": "W/\"533-G+BSm+8PsK1cppMOGnSzZRZ5jWE\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\n    \"success\": true,\n    \"recipe\": {\n        \"id\": 47,\n        \"name\": \"how to fry eggs\",\n        \"ingredients\": [\n            \"water\"\n        ],\n        \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n        \"searchIng\": \"water\",\n        \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n        \"category\": \"Breakfast\",\n        \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n        \"userId\": 24,\n        \"upvote\": 0,\n        \"downvote\": 1,\n        \"reactionUp\": [],\n        \"reactionDown\": [\n            24\n        ],\n        \"views\": 0,\n        \"comments\": 0,\n        \"favorite\": 0,\n        \"createdAt\": \"2018-02-19T08:20:44.882Z\",\n        \"updatedAt\": \"2018-02-19T16:39:12.017Z\",\n        \"reviews\": [],\n        \"favorites\": []\n    },\n    \"status\": \"voted\"\n}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Downvote a recipe",
-            "x-testDescription": "Downvote a recipe.\nparams: recipeId"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/47": {
-      "put": {
-        "description": "Update a recipe.\nOnly the creator of the recipe can edit it.\nparams: recipeId",
-        "summary": "Update a recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Recipes47Put",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "formData",
+            "name": "sort",
+            "in": "query",
             "required": true,
             "type": "string",
             "description": ""
           },
           {
-            "name": "more-recipe-access",
-            "in": "header",
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "search",
+            "in": "query",
             "required": true,
             "type": "string",
             "description": ""
@@ -1225,226 +78,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/UpdateAReciperesponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "recipe": {
-                  "id": 47,
-                  "name": "a different name",
-                  "ingredients": [
-                    "water"
-                  ],
-                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                  "category": "Breakfast",
-                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                  "userId": 24,
-                  "upvote": 0,
-                  "downvote": 1,
-                  "reactionUp": [],
-                  "reactionDown": [
-                    24
-                  ],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "createdAt": "2018-02-19T08:20:44.882Z",
-                  "updatedAt": "2018-02-19T16:48:10.496Z",
-                  "reviews": [],
-                  "favorites": []
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "PUT",
-              "uri": "/recipes/47",
-              "headers": {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              },
-              "body": "name=a different name"
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1307",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:48:10 GMT",
-                "ETag": "W/\"51b-JrcmuBDfTVPMQLouQdLarsgYS9Y\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\"success\":true,\"recipe\":{\"id\":47,\"name\":\"a different name\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T16:48:10.496Z\",\"reviews\":[],\"favorites\":[]}}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Update a recipe",
-            "x-testDescription": "Update a recipe.\nOnly the creator of the recipe can edit it.\nparams: recipeId"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/47/fav": {
-      "post": {
-        "description": "Let a user add a recipe to his/her list of favorite recipes",
-        "summary": "Add a recipe to user favorite",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Recipes47FavPost",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "more-recipe-access",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddARecipeToUserFavoriteresponse"
-            },
-            "examples": {
-              "application/json": {
-                "success": true,
-                "status": "favorited",
-                "recipe": {
-                  "id": 47,
-                  "name": "a different name",
-                  "ingredients": [
-                    "water"
-                  ],
-                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                  "searchIng": "water",
-                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
-                  "category": "Breakfast",
-                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
-                  "userId": 24,
-                  "upvote": 0,
-                  "downvote": 1,
-                  "reactionUp": [],
-                  "reactionDown": [
-                    24
-                  ],
-                  "views": 0,
-                  "comments": 0,
-                  "favorite": 0,
-                  "createdAt": "2018-02-19T08:20:44.882Z",
-                  "updatedAt": "2018-02-19T16:48:10.496Z",
-                  "favorites": [
-                    {
-                      "id": 9,
-                      "recipeId": 47,
-                      "userId": 24,
-                      "createdAt": "2018-02-19T16:57:13.981Z",
-                      "updatedAt": "2018-02-19T16:57:13.981Z"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "x-unitTests": [
-          {
-            "request": {
-              "method": "POST",
-              "uri": "/recipes/47/fav",
-              "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
-              }
-            },
-            "expectedResponse": {
-              "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "RAW",
-              "x-arrayOrderedMatching": false,
-              "x-arrayCheckCount": false,
-              "x-matchResponseSchema": true,
-              "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Connection": "keep-alive",
-                "Content-Length": "1447",
-                "Content-Type": "application/json; charset=utf-8",
-                "Date": "Mon, 19 Feb 2018 16:57:13 GMT",
-                "ETag": "W/\"5a7-7ULpmccYI38C/e7CAaXrZ2odnnc\"",
-                "X-Powered-By": "Express"
-              },
-              "body": "{\"success\":true,\"status\":\"favorited\",\"recipe\":{\"id\":47,\"name\":\"a different name\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T16:48:10.496Z\",\"favorites\":[{\"id\":9,\"recipeId\":47,\"userId\":24,\"createdAt\":\"2018-02-19T16:57:13.981Z\",\"updatedAt\":\"2018-02-19T16:57:13.981Z\"}]}}"
-            },
-            "x-testShouldPass": true,
-            "x-testEnabled": true,
-            "x-testName": "Add a recipe to user favorite",
-            "x-testDescription": "Let a user add a recipe to his/her list of favorite recipes"
-          }
-        ],
-        "x-operation-settings": {
-          "CollectParameters": false,
-          "AllowDynamicQueryParameters": false,
-          "AllowDynamicFormParameters": false,
-          "IsMultiContentStreaming": false
-        }
-      }
-    },
-    "/recipes/search/2/0": {
-      "post": {
-        "description": "Search for a recipe with it's name or ingredients",
-        "summary": "Search for a recipe",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RecipesSearch20Post",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "parameters": [
-          {
-            "name": "query",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/SearchForAReciperesponse"
+              "$ref": "#/definitions/SearchForARecipe"
             },
             "examples": {
               "application/json": {
@@ -1506,12 +140,11 @@
         "x-unitTests": [
           {
             "request": {
-              "method": "POST",
-              "uri": "/recipes/search/2/0",
+              "method": "GET",
+              "uri": "/recipes?sort=upvote&order=desc&limit=1&offset=0&search=water",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
-              },
-              "body": "query=    water"
+              }
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -1528,7 +161,7 @@
                 "ETag": "W/\"a1e-9MC6PBngzpOAf4ijA/Kx6VH5jVc\"",
                 "X-Powered-By": "Express"
               },
-              "body": "{\n    \"success\": true,\n    \"recipes\": [\n        {\n            \"id\": 45,\n            \"name\": \"how to fry eggs\",\n            \"ingredients\": [\n                \"water\",\n                \"oil\"\n            ],\n            \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n            \"searchIng\": \"water, oil\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n            \"category\": \"Breakfast\",\n            \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n            \"userId\": 24,\n            \"upvote\": 0,\n            \"downvote\": 0,\n            \"reactionUp\": [],\n            \"reactionDown\": [],\n            \"views\": 0,\n            \"comments\": 0,\n            \"favorite\": 0,\n            \"createdAt\": \"2018-02-19T08:19:15.210Z\",\n            \"updatedAt\": \"2018-02-19T08:19:15.210Z\"\n        },\n        {\n            \"id\": 46,\n            \"name\": \"how to cook beans\",\n            \"ingredients\": [\n                \"water\",\n                \"oil\"\n            ],\n            \"direction\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n            \"searchIng\": \"water, oil\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\n            \"category\": \"Breakfast\",\n            \"foodImg\": \"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\n            \"userId\": 24,\n            \"upvote\": 0,\n            \"downvote\": 0,\n            \"reactionUp\": [],\n            \"reactionDown\": [],\n            \"views\": 0,\n            \"comments\": 0,\n            \"favorite\": 0,\n            \"createdAt\": \"2018-02-19T08:19:36.886Z\",\n            \"updatedAt\": \"2018-02-19T08:19:36.886Z\"\n        }\n    ],\n    \"count\": 5\n}"
+              "body": "{\"success\":true,\"recipes\":[{\"id\":45,\"name\":\"how to fry eggs\",\"ingredients\":[\"water\",\"oil\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water, oil\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:19:15.21Z\",\"updatedAt\":\"2018-02-19T08:19:15.21Z\"},{\"id\":46,\"name\":\"how to cook beans\",\"ingredients\":[\"water\",\"oil\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water, oil\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:19:36.886Z\",\"updatedAt\":\"2018-02-19T08:19:36.886Z\"}],\"count\":5}"
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
@@ -1542,16 +175,1268 @@
           "AllowDynamicFormParameters": false,
           "IsMultiContentStreaming": false
         }
+      },
+      "post": {
+        "description": "Add a new recipe ",
+        "summary": "Add a new recipe",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "RecipesPost",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "direction",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ingredients",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Add a new recipe  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipe": {
+                  "category": "none",
+                  "upvote": 0,
+                  "downvote": 0,
+                  "reactionUp": [],
+                  "reactionDown": [],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "id": 49,
+                  "name": "How to cook rice",
+                  "direction": "this is the direction field",
+                  "userId": 24,
+                  "description": "Special asian delicacy",
+                  "foodImg": null,
+                  "ingredients": [
+                    "water",
+                    "salt"
+                  ],
+                  "searchIng": "water, salt",
+                  "updatedAt": "2018-02-19T16:19:26.06Z",
+                  "createdAt": "2018-02-19T16:19:26.06Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm1vbmlrZXIiOiJuYjMiLCJhdmF0YXIiOm51bGwsImlhdCI6MTUxOTg0MjcyOCwiZXhwIjoxNTUxMzc4NzI4fQ.J0h53XjwZxZBcs7RMdVPix3HQnMDXfVbpLFSlnSe1qA"
+              },
+              "body": "name=How to cook fried rice and eggs h&direction=this is the direction field&ingredients=water, salt&description=Special asian delicacy"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "416",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:19:26 GMT",
+                "ETag": "W/\"1a0-0l3Czy80VWjt7V4GBwKtgE2b8Rc\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipe\":{\"category\":\"none\",\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"id\":49,\"name\":\"How to cook rice\",\"direction\":\"this is the direction field\",\"userId\":24,\"description\":\"Special asian delicacy\",\"foodImg\":null,\"ingredients\":[\"water\",\"salt\"],\"searchIng\":\"water, salt\",\"updatedAt\":\"2018-02-19T16:19:26.06Z\",\"createdAt\":\"2018-02-19T16:19:26.06Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Add a new recipe",
+            "x-testDescription": "Add a new recipe "
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
       }
     },
-    "/recipes/47/reviews": {
+    "/recipes/user/:id": {
+      "get": {
+        "description": "Fetch all the recipe from a particular user.\nparams: recipeId, limit, offset",
+        "summary": "fetch all recipe of a particular user",
+        "tags": [
+          "Get"
+        ],
+        "operationId": "RecipesUser1Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Fetch all recipe of a particular user  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipes": [
+                  {
+                    "id": 48,
+                    "name": "how to cook yam",
+                    "ingredients": [
+                      "water"
+                    ],
+                    "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    "searchIng": "water",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                    "category": "Breakfast",
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "userId": 24,
+                    "upvote": 0,
+                    "downvote": 0,
+                    "reactionUp": [],
+                    "reactionDown": [],
+                    "views": 0,
+                    "comments": 0,
+                    "favorite": 0,
+                    "createdAt": "2018-02-19T08:21:09.116Z",
+                    "updatedAt": "2018-02-19T08:21:09.116Z"
+                  }
+                ]
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Fetch all recipe of a particular user  error"
+            },
+            "examples": {
+              "application/json": {
+                "error": "Token not provided"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/user/1?limit=2&offset=0",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE1MTkxNTEwNTYsImV4cCI6MTU1MDY4NzA1Nn0.ujdC9bBhzQJpzVLDRXVnQGle3vciBjAeZsck1SlEdWU"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1289",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 15:35:05 GMT",
+                "ETag": "W/\"509-wIBqV9014gLo2AQDM5t58jlyGbg\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipes\":[{\"id\":48,\"name\":\"how to cook yam\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:21:09.116Z\",\"updatedAt\":\"2018-02-19T08:21:09.116Z\"}]}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "fetch all recipe of a particular user",
+            "x-testDescription": "Fetch all the recipe from a particular user.\nparams: recipeId, limit, offset"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/favorites": {
+      "get": {
+        "description": "Fetch all the favorite recipes of a particular user",
+        "summary": "Fetch all user's favorite recipes",
+        "tags": [
+          "Get"
+        ],
+        "operationId": "FavoritesGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Fetch all user's favorite recipes  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "favorites": [
+                  {
+                    "id": 7,
+                    "recipeId": 28,
+                    "userId": 24,
+                    "createdAt": "2018-02-18T11:41:14.662Z",
+                    "updatedAt": "2018-02-18T11:41:14.662Z",
+                    "Recipe": {
+                      "id": 28,
+                      "name": "how to boil beans",
+                      "ingredients": [
+                        "water",
+                        "salt"
+                      ],
+                      "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.",
+                      "searchIng": "water,salt",
+                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.",
+                      "category": "Breakfast",
+                      "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1518694369/soxukmhdrqtzwlmflnkx.jpg",
+                      "userId": 24,
+                      "upvote": 2,
+                      "downvote": 0,
+                      "reactionUp": [
+                        24,
+                        29
+                      ],
+                      "reactionDown": [],
+                      "views": 43,
+                      "comments": 4,
+                      "favorite": 2,
+                      "createdAt": "2018-02-15T11:25:43.204Z",
+                      "updatedAt": "2018-02-18T15:01:49.912Z"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/favorites",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE1MTkzNzU3ODIsImV4cCI6MTU1MDkxMTc4Mn0.wNUbaEZJDxNTkZ3Y8-xyTSJ4rSykLdksqyYvzWWT3WI"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1377",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 15:39:50 GMT",
+                "ETag": "W/\"561-zLMLJ8ENvBKAmRZ88Rv5SKG8PTY\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"favorites\":[{\"id\":7,\"recipeId\":28,\"userId\":24,\"createdAt\":\"2018-02-18T11:41:14.662Z\",\"updatedAt\":\"2018-02-18T11:41:14.662Z\",\"Recipe\":{\"id\":28,\"name\":\"how to boil beans\",\"ingredients\":[\"water\",\"salt\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.\",\"searchIng\":\"water,salt\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida in fermentum et sollicitudin ac orci phasellus egestas. Aliquet bibendum enim facilisis gravida neque convallis a cras semper. Phasellus egestas tellus rutrum tellus pellentesque eu. Ornare arcu odio ut sem. Maecenas pharetra convallis posuere morbi leo urna molestie.\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1518694369/soxukmhdrqtzwlmflnkx.jpg\",\"userId\":24,\"upvote\":2,\"downvote\":0,\"reactionUp\":[24,29],\"reactionDown\":[],\"views\":43,\"comments\":4,\"favorite\":2,\"createdAt\":\"2018-02-15T11:25:43.204Z\",\"updatedAt\":\"2018-02-18T15:01:49.912Z\"}}]}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Fetch all user's favorite recipes",
+            "x-testDescription": "Fetch all the favorite recipes of a particular user"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "recipes/:id": {
+      "get": {
+        "description": "Fetch single recipe from the database.\nparams: recipeId",
+        "summary": "Fetch single recipe",
+        "tags": [
+          "Get"
+        ],
+        "operationId": "13Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Fetch single recipe item  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipe": {
+                  "id": 48,
+                  "name": "how to cook yam",
+                  "ingredients": [
+                    "water"
+                  ],
+                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  "searchIng": "water",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                  "category": "Breakfast",
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "userId": 24,
+                  "upvote": 0,
+                  "downvote": 0,
+                  "reactionUp": [],
+                  "reactionDown": [],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "createdAt": "2018-02-19T08:21:09.116Z",
+                  "updatedAt": "2018-02-19T08:21:09.116Z",
+                  "reviews": [],
+                  "favorites": []
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/13",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjoiaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZW1hc3lzL2ltYWdlL3VwbG9hZC92MTUyMDI0Njk1MS9keHZneGFqZWxkeW9zajgzNGtuai5naWYiLCJpYXQiOjE1MjA1MjU2NzAsImV4cCI6MTU1MjA2MTY3MH0.HQ8MNhS_uadWiEuf-bvjES-4bCnbt_PPNR0D5-k0rE0"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1314",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 15:46:51 GMT",
+                "ETag": "W/\"522-hrj42N4b/e4TwNR7zAy+Xc+2g7s\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipe\":{\"id\":48,\"name\":\"how to cook yam\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:21:09.116Z\",\"updatedAt\":\"2018-02-19T08:21:09.116Z\",\"reviews\":[],\"favorites\":[]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Fetch single recipe",
+            "x-testDescription": "Fetch single recipe from the database.\nparams: recipeId"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/reaction/:id": {
+      "get": {
+        "description": "Get the reaction status of a single recipe.\nchecks for vote count and favorite count",
+        "summary": "Get the status of a single recipe",
+        "tags": [
+          "Get"
+        ],
+        "operationId": "RecipesReaction13Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Get the status of a single recipe  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipe": {
+                  "id": 48,
+                  "name": "how to cook yam",
+                  "ingredients": [
+                    "water"
+                  ],
+                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  "searchIng": "water",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                  "category": "Breakfast",
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "userId": 24,
+                  "upvote": 0,
+                  "downvote": 0,
+                  "reactionUp": [],
+                  "reactionDown": [],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "createdAt": "2018-02-19T08:21:09.116Z",
+                  "updatedAt": "2018-02-19T08:21:09.116Z",
+                  "reviews": [],
+                  "favorites": []
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/reaction/13",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjoiaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZW1hc3lzL2ltYWdlL3VwbG9hZC92MTUyMDI0Njk1MS9keHZneGFqZWxkeW9zajgzNGtuai5naWYiLCJpYXQiOjE1MjA1MjU2NzAsImV4cCI6MTU1MjA2MTY3MH0.HQ8MNhS_uadWiEuf-bvjES-4bCnbt_PPNR0D5-k0rE0"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1314",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 15:51:17 GMT",
+                "ETag": "W/\"522-hrj42N4b/e4TwNR7zAy+Xc+2g7s\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipe\":{\"id\":48,\"name\":\"how to cook yam\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":0,\"reactionUp\":[],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:21:09.116Z\",\"updatedAt\":\"2018-02-19T08:21:09.116Z\",\"reviews\":[],\"favorites\":[]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get the status of a single recipe",
+            "x-testDescription": "Get the reaction status of a single recipe.\nchecks for vote count and favorite count"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/reviews/:id": {
+      "get": {
+        "description": "Fetch all the reviews associated with a single recipe",
+        "summary": "Get all the reviews for a particular recipe",
+        "tags": [
+          "Get"
+        ],
+        "operationId": "Reviews7Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetAllTheReviewsForAParticularRecipe"
+            },
+            "examples": {
+              "application/json": {
+                "reviews": [
+                  {
+                    "id": 13,
+                    "content": "Great recipe, I love it!",
+                    "createdAt": "2018-02-19T15:54:51.111Z",
+                    "updatedAt": "2018-02-19T15:54:51.111Z",
+                    "recipeId": 48,
+                    "userId": 24,
+                    "User": {
+                      "moniker": "admin",
+                      "avatar": null
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/reviews/7?limit=2&offset=0",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE1MTkyMDc0NzcsImV4cCI6MTU1MDc0MzQ3N30.TEmU98J8rTVXG5jdwQ_nU2YBM4UW4idGRpPpwdiFgxE"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "205",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 15:56:49 GMT",
+                "ETag": "W/\"cd-LE5qsMHrGXGnbfdEaxYvdHgnAog\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"reviews\":[{\"id\":13,\"content\":\"Great recipe, I love it!\",\"createdAt\":\"2018-02-19T15:54:51.111Z\",\"updatedAt\":\"2018-02-19T15:54:51.111Z\",\"recipeId\":48,\"userId\":24,\"User\":{\"moniker\":\"admin\",\"avatar\":null}}]}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all the reviews for a particular recipe",
+            "x-testDescription": "Fetch all the reviews associated with a single recipe"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/reviews/delete/:id": {
+      "delete": {
+        "description": "Delete a review recently added.\nA user can only delete a review he/she added",
+        "summary": "Delete review",
+        "tags": [
+          "Delete"
+        ],
+        "operationId": "ReviewsDelete13Delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Delete review  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "message": "review deleted"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/reviews/delete/13",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm1vbmlrZXIiOiJuYjMiLCJhdmF0YXIiOm51bGwsImlhdCI6MTUxOTg0MjcyOCwiZXhwIjoxNTUxMzc4NzI4fQ.J0h53XjwZxZBcs7RMdVPix3HQnMDXfVbpLFSlnSe1qA"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "43",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:01:09 GMT",
+                "ETag": "W/\"2b-Z50VaT3C0btKBIAjT7iinWcyg04\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"message\":\"review deleted\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Delete review",
+            "x-testDescription": "Delete a review recently added.\nA user can only delete a review he/she added"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/:id": {
+      "delete": {
+        "description": "Delete a recipe.\nOnly the creator of a recipe can delete it.",
+        "summary": "Delete a recipe",
+        "tags": [
+          "Delete"
+        ],
+        "operationId": "Recipes19Delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DeleteARecipe"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "status": "Recipe deleted"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/recipes/19",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm1vbmlrZXIiOiJuYjMiLCJhdmF0YXIiOm51bGwsImlhdCI6MTUxOTg0MjcyOCwiZXhwIjoxNTUxMzc4NzI4fQ.J0h53XjwZxZBcs7RMdVPix3HQnMDXfVbpLFSlnSe1qA"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "42",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:03:15 GMT",
+                "ETag": "W/\"2a-BdWeJzWBWdE6pgHglB9jtoG9Fpw\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"status\":\"Recipe deleted\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Delete a recipe",
+            "x-testDescription": "Delete a recipe.\nOnly the creator of a recipe can delete it."
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/upvote/:id": {
+      "post": {
+        "description": "Upvote a recipe, if the route is accessed twice, it will first upvote a recipe, then cancel the vote the second time.\n\nparams: recipeId",
+        "summary": "Upvote a recipe",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "RecipesUpvote8Post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Upvote a recipe  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipe": {
+                  "id": 47,
+                  "name": "how to cook something",
+                  "ingredients": [
+                    "water"
+                  ],
+                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  "searchIng": "water",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                  "category": "Breakfast",
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "userId": 24,
+                  "upvote": 1,
+                  "downvote": 0,
+                  "reactionUp": [
+                    24
+                  ],
+                  "reactionDown": [],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "createdAt": "2018-02-19T08:20:44.882Z",
+                  "updatedAt": "2018-02-19T16:34:15.758Z",
+                  "reviews": [],
+                  "favorites": []
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes/upvote/8",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibW9uaWtlciI6ImVtYXN5c25kIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE1MTkyMjE3NzUsImV4cCI6MTU1MDc1Nzc3NX0.FDHKWiPDMrVOHSmmCHRGKOg2iVxgeVB8KdZLA6BVFF4"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1314",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:34:15 GMT",
+                "ETag": "W/\"522-NGHnOBZR7etMVqVwlTgtLW95obc\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipe\":{\"id\":47,\"name\":\"how to cook something\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":1,\"downvote\":0,\"reactionUp\":[24],\"reactionDown\":[],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T16:34:15.758Z\",\"reviews\":[],\"favorites\":[]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Upvote a recipe",
+            "x-testDescription": "Upvote a recipe, if the route is accessed twice, it will first upvote a recipe, then cancel the vote the second time.\n\nparams: recipeId"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/downvote/:id": {
+      "post": {
+        "description": "Downvote a recipe.\nparams: recipeId",
+        "summary": "Downvote a recipe",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "RecipesDownvote13Post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DownvoteARecipe"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipe": {
+                  "id": 47,
+                  "name": "how to fry eggs",
+                  "ingredients": [
+                    "water"
+                  ],
+                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  "searchIng": "water",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                  "category": "Breakfast",
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "userId": 24,
+                  "upvote": 0,
+                  "downvote": 1,
+                  "reactionUp": [],
+                  "reactionDown": [
+                    24
+                  ],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "createdAt": "2018-02-19T08:20:44.882Z",
+                  "updatedAt": "2018-02-19T16:39:12.017Z",
+                  "reviews": [],
+                  "favorites": []
+                },
+                "status": "voted"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes/downvote/13",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibW9uaWtlciI6ImVtYXN5c25kIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE1MTkyMjE3NzUsImV4cCI6MTU1MDc1Nzc3NX0.FDHKWiPDMrVOHSmmCHRGKOg2iVxgeVB8KdZLA6BVFF4"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1331",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:39:12 GMT",
+                "ETag": "W/\"533-G+BSm+8PsK1cppMOGnSzZRZ5jWE\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipe\":{\"id\":47,\"name\":\"how to fry eggs\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T16:39:12.017Z\",\"reviews\":[],\"favorites\":[]},\"status\":\"voted\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Downvote a recipe",
+            "x-testDescription": "Downvote a recipe.\nparams: recipeId"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/:id": {
+      "put": {
+        "description": "Update a recipe.\nOnly the creator of the recipe can edit it.\nparams: recipeId",
+        "summary": "Update a recipe",
+        "tags": [
+          "Put"
+        ],
+        "operationId": "Recipes1Put",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ingredients",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateARecipe"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "recipe": {
+                  "id": 47,
+                  "name": "a different name",
+                  "ingredients": [
+                    "water"
+                  ],
+                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                  "category": "Breakfast",
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "userId": 24,
+                  "upvote": 0,
+                  "downvote": 1,
+                  "reactionUp": [],
+                  "reactionDown": [
+                    24
+                  ],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "createdAt": "2018-02-19T08:20:44.882Z",
+                  "updatedAt": "2018-02-19T16:48:10.496Z",
+                  "reviews": [],
+                  "favorites": []
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/recipes/1",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibW9uaWtlciI6Im5vbmFtZSIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MjE0NDU4LCJleHAiOjE1NTA3NTA0NTh9.77cmNHZw_4m2vzSpJFRWY81byShle1JFwcJXu7fn7KE"
+              },
+              "body": "name=a random name&ingredients=water, salt, oil"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1307",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:48:10 GMT",
+                "ETag": "W/\"51b-JrcmuBDfTVPMQLouQdLarsgYS9Y\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"recipe\":{\"id\":47,\"name\":\"a different name\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T16:48:10.496Z\",\"reviews\":[],\"favorites\":[]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Update a recipe",
+            "x-testDescription": "Update a recipe.\nOnly the creator of the recipe can edit it.\nparams: recipeId"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/:id/favorite": {
+      "post": {
+        "description": "Let a user add a recipe to his/her list of favorite recipes",
+        "summary": "Add a recipe to user favorite",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Recipes13FavoritePost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "more-recipe-access",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Add a recipe to user favorite  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "status": "favorited",
+                "recipe": {
+                  "id": 47,
+                  "name": "a different name",
+                  "ingredients": [
+                    "water"
+                  ],
+                  "direction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                  "searchIng": "water",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui",
+                  "category": "Breakfast",
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "userId": 24,
+                  "upvote": 0,
+                  "downvote": 1,
+                  "reactionUp": [],
+                  "reactionDown": [
+                    24
+                  ],
+                  "views": 0,
+                  "comments": 0,
+                  "favorite": 0,
+                  "createdAt": "2018-02-19T08:20:44.882Z",
+                  "updatedAt": "2018-02-19T16:48:10.496Z",
+                  "favorites": [
+                    {
+                      "id": 9,
+                      "recipeId": 47,
+                      "userId": 24,
+                      "createdAt": "2018-02-19T16:57:13.981Z",
+                      "updatedAt": "2018-02-19T16:57:13.981Z"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes/13/favorite",
+              "headers": {
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE1MTkzNzU3ODIsImV4cCI6MTU1MDkxMTc4Mn0.wNUbaEZJDxNTkZ3Y8-xyTSJ4rSykLdksqyYvzWWT3WI"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "1447",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 19 Feb 2018 16:57:13 GMT",
+                "ETag": "W/\"5a7-7ULpmccYI38C/e7CAaXrZ2odnnc\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"status\":\"favorited\",\"recipe\":{\"id\":47,\"name\":\"a different name\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":0,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T16:48:10.496Z\",\"favorites\":[{\"id\":9,\"recipeId\":47,\"userId\":24,\"createdAt\":\"2018-02-19T16:57:13.981Z\",\"updatedAt\":\"2018-02-19T16:57:13.981Z\"}]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Add a recipe to user favorite",
+            "x-testDescription": "Let a user add a recipe to his/her list of favorite recipes"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/:id/reviews": {
       "post": {
         "description": "Allows an authenticated user post a review about a particular recipe",
         "summary": "Add a review",
         "tags": [
-          "Misc"
+          "Post"
         ],
-        "operationId": "Recipes47ReviewsPost",
+        "operationId": "Recipes13ReviewsPost",
         "produces": [
           "application/json"
         ],
@@ -1585,7 +1470,7 @@
           "201": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/AddAReviewresponse"
+              "$ref": "#/definitions/AddAReview"
             },
             "examples": {
               "application/json": {
@@ -1637,12 +1522,12 @@
           {
             "request": {
               "method": "POST",
-              "uri": "/recipes/47/reviews",
+              "uri": "/recipes/13/reviews",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm1vbmlrZXIiOiJuYjMiLCJhdmF0YXIiOm51bGwsImlhdCI6MTUxOTg0MjcyOCwiZXhwIjoxNTUxMzc4NzI4fQ.J0h53XjwZxZBcs7RMdVPix3HQnMDXfVbpLFSlnSe1qA"
               },
-              "body": "content=This is a new comment"
+              "body": "content=fresh stuff"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -1659,7 +1544,7 @@
                 "ETag": "W/\"603-bBQ6ulH17kWDMxrr1zdPJfyZ3xk\"",
                 "X-Powered-By": "Express"
               },
-              "body": "{\"success\":true,\"reviewedRecipe\":{\"id\":14,\"content\":\"This is a new comment\",\"userId\":24,\"recipeId\":47,\"updatedAt\":\"2018-02-19T17:11:10.941Z\",\"createdAt\":\"2018-02-19T17:11:10.941Z\"},\"recipe\":{\"id\":47,\"name\":\"a different name\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":1,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T17:11:10.940Z\",\"User\":{\"moniker\":\"admin\",\"avatar\":null,\"email\":\"admin@gmail.com\",\"id\":24}}}"
+              "body": "{\"success\":true,\"reviewedRecipe\":{\"id\":14,\"content\":\"This is a new comment\",\"userId\":24,\"recipeId\":47,\"updatedAt\":\"2018-02-19T17:11:10.941Z\",\"createdAt\":\"2018-02-19T17:11:10.941Z\"},\"recipe\":{\"id\":47,\"name\":\"a different name\",\"ingredients\":[\"water\"],\"direction\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\"searchIng\":\"water\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\",\"category\":\"Breakfast\",\"foodImg\":\"https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png\",\"userId\":24,\"upvote\":0,\"downvote\":1,\"reactionUp\":[],\"reactionDown\":[24],\"views\":0,\"comments\":1,\"favorite\":0,\"createdAt\":\"2018-02-19T08:20:44.882Z\",\"updatedAt\":\"2018-02-19T17:11:10.94Z\",\"User\":{\"moniker\":\"admin\",\"avatar\":null,\"email\":\"admin@gmail.com\",\"id\":24}}}"
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
@@ -1680,7 +1565,7 @@
         "description": "Generates a token and send to the email address provided in the body. This token will be saved in the database and used to reset the account associated with the email address provided",
         "summary": "Reset password",
         "tags": [
-          "Misc"
+          "Post"
         ],
         "operationId": "ResetPost",
         "produces": [
@@ -1709,7 +1594,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ResetPasswordresponse"
+              "$ref": "#/definitions/Reset password  success"
             },
             "examples": {
               "application/json": {
@@ -1728,7 +1613,7 @@
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
               },
-              "body": "email=admin@gmail.com"
+              "body": "email=amanhasnoname@gmail.com"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -1766,7 +1651,7 @@
         "description": "compare provided token and reset the user password",
         "summary": "compare token",
         "tags": [
-          "Misc"
+          "Post"
         ],
         "operationId": "CompleteresetPost",
         "produces": [
@@ -1802,7 +1687,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/CompareTokenresponse"
+              "$ref": "#/definitions/CompareToken"
             },
             "examples": {
               "application/json": {
@@ -1820,7 +1705,7 @@
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
               },
-              "body": "token=5585&email=admin@gmail.com"
+              "body": "token=6772&email=emasysnd@gmail.com"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -1858,7 +1743,7 @@
         "description": "Register a new user and return token to sign in immediately",
         "summary": "New user sign up",
         "tags": [
-          "Misc"
+          "Post"
         ],
         "operationId": "UsersSignupPost",
         "produces": [
@@ -1908,7 +1793,7 @@
           "201": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/NewUserSignUpresponse"
+              "$ref": "#/definitions/NewUserSignUp"
             },
             "examples": {
               "application/json": {
@@ -1932,7 +1817,7 @@
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
               },
-              "body": "email=admin2@gmail.com&moniker=adminlala&password=password&confirmPassword=password"
+              "body": "email=amanhasnoname@gmail.com&moniker=hasnoname2&password=password&confirmPassword=password"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -1970,7 +1855,7 @@
         "description": "New user login ",
         "summary": "Sign in",
         "tags": [
-          "Misc"
+          "Post"
         ],
         "operationId": "UsersSigninPost",
         "produces": [
@@ -2006,7 +1891,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/SignInresponse"
+              "$ref": "#/definitions/SignIn"
             },
             "examples": {
               "application/json": {
@@ -2025,7 +1910,7 @@
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
               },
-              "body": "email=admin@gmail.com&password=password1'"
+              "body": "email=amanhasnoname@gmail.com&password=password123"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -2063,7 +1948,7 @@
         "description": "Fetch all the details of registered users.\nThis feature is only available to the admin",
         "summary": "Fetch all the registered user detail",
         "tags": [
-          "Misc"
+          "Get"
         ],
         "operationId": "UsersGet",
         "produces": [
@@ -2071,7 +1956,7 @@
         ],
         "parameters": [
           {
-            "name": "more-recipe-access",
+            "name": "x-access-token",
             "in": "header",
             "required": true,
             "type": "string",
@@ -2082,7 +1967,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/FetchAllTheRegisteredUserDetailresponse"
+              "$ref": "#/definitions/Fetch all the registered user detail  success"
             },
             "examples": {}
           }
@@ -2102,7 +1987,7 @@
         "description": "Change user password",
         "summary": "Change password",
         "tags": [
-          "Misc"
+          "Put"
         ],
         "operationId": "UsersChangepasswordPut",
         "produces": [
@@ -2136,7 +2021,16 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Change password  success"
+            },
+            "examples": {
+              "application/json": {
+                "success": true,
+                "status": "updated"
+              }
+            }
           }
         },
         "security": [],
@@ -2148,15 +2042,24 @@
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
               },
-              "body": "email=admin@gmail.com&password=password"
+              "body": "email=amanhasnoname@gmail.com&password=password123"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
-              "x-bodyMatchMode": "NONE",
+              "x-bodyMatchMode": "RAW",
               "x-arrayOrderedMatching": false,
               "x-arrayCheckCount": false,
               "x-matchResponseSchema": true,
-              "headers": {}
+              "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Connection": "keep-alive",
+                "Content-Length": "35",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Fri, 02 Mar 2018 14:58:15 GMT",
+                "ETag": "W/\"23-nIbd5ID29zXZqC5YCjSB5qVNC38\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"success\":true,\"status\":\"updated\"}"
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
@@ -2172,14 +2075,14 @@
         }
       }
     },
-    "/users/24": {
+    "/users/:id": {
       "put": {
         "description": "Update user data",
         "summary": "Update user",
         "tags": [
-          "Misc"
+          "Put"
         ],
-        "operationId": "Users24Put",
+        "operationId": "Users1Put",
         "produces": [
           "application/json"
         ],
@@ -2196,13 +2099,6 @@
           },
           {
             "name": "lastName",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "bio",
             "in": "formData",
             "required": true,
             "type": "string",
@@ -2234,7 +2130,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/UpdateUserresponse"
+              "$ref": "#/definitions/Update user  success"
             },
             "examples": {
               "application/json": {
@@ -2249,12 +2145,12 @@
           {
             "request": {
               "method": "PUT",
-              "uri": "/users/24",
+              "uri": "/users/1",
               "headers": {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibW9uaWtlciI6ImFkbWluIiwiYXZhdGFyIjoiaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZW1hc3lzL2ltYWdlL3VwbG9hZC92MTUyMDUyOTEyNS9sNnp5c2k0ajJvc2NnOXY5bjhsci5wbmciLCJpYXQiOjE1MjA2ODM5NjAsImV4cCI6MTU1MjIxOTk2MH0.IjNKFQe6o9lU5QCb09lojTl-KE1hF7FfsjTvdiz7raQ"
               },
-              "body": "firstName=emmy&lastName=do&bio=Super human&country=Odin's corridor"
+              "body": "firstName=Emasys&lastName=Endy&country=Odin's corridor"
             },
             "expectedResponse": {
               "x-allowExtraHeaders": true,
@@ -2287,14 +2183,14 @@
         }
       }
     },
-    "/users/25": {
+    "/users/:id": {
       "delete": {
         "description": "Delete a user, including all his recipes. This is only available to the admin",
         "summary": "Delete a user",
         "tags": [
-          "Misc"
+          "Delete"
         ],
-        "operationId": "Users25Delete",
+        "operationId": "Users24Delete",
         "produces": [
           "application/json"
         ],
@@ -2311,7 +2207,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/DeleteAUserresponse"
+              "$ref": "#/definitions/DeleteAUser"
             },
             "examples": {
               "application/json": {
@@ -2326,9 +2222,9 @@
           {
             "request": {
               "method": "DELETE",
-              "uri": "/users/25",
+              "uri": "/users/24",
               "headers": {
-                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDQ1NjI4LCJleHAiOjE1NTA1ODE2Mjh9.h49CJpI8cCgvbm1rsLFoS3BOfKc7H7ld9YLhIsFSmJE"
+                "more-recipe-access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm1vbmlrZXIiOiJuYjMiLCJhdmF0YXIiOm51bGwsImlhdCI6MTUxOTg0MjcyOCwiZXhwIjoxNTUxMzc4NzI4fQ.J0h53XjwZxZBcs7RMdVPix3HQnMDXfVbpLFSlnSe1qA"
               }
             },
             "expectedResponse": {
@@ -2364,8 +2260,8 @@
     }
   },
   "definitions": {
-    "FetchAllRecipesresponse": {
-      "title": "Fetch all recipesResponse",
+    "FetchAllRecipes": {
+      "title": "fetch all recipes",
       "example": {
         "success": true,
         "recipes": [
@@ -2645,8 +2541,8 @@
         "updatedAt"
       ]
     },
-    "FetchAllRecipeOfAParticularUsererrorresponse": {
-      "title": "fetch all recipe of a particular userErrorResponse",
+    "Fetch all recipe of a particular user  error": {
+      "title": "fetch all recipe of a particular user - error",
       "example": {
         "error": "Token not provided"
       },
@@ -2662,8 +2558,8 @@
         "error"
       ]
     },
-    "FetchAllRecipeOfAParticularUserresponse": {
-      "title": "fetch all recipe of a particular userResponse",
+    "Fetch all recipe of a particular user  success": {
+      "title": "fetch all recipe of a particular user - success",
       "example": {
         "success": true,
         "recipes": [
@@ -2735,8 +2631,8 @@
         "recipes"
       ]
     },
-    "FetchAllUser'sFavoriteRecipesresponse": {
-      "title": "Fetch all user's favorite recipesResponse",
+    "Fetch all user's favorite recipes  success": {
+      "title": "Fetch all user's favorite recipes - success",
       "example": {
         "success": true,
         "favorites": [
@@ -3073,8 +2969,8 @@
         "updatedAt"
       ]
     },
-    "FetchSingleReciperesponse": {
-      "title": "Fetch single recipeResponse",
+    "Fetch single recipe item  success": {
+      "title": "Fetch single recipe item - success",
       "example": {
         "success": true,
         "recipe": {
@@ -3294,8 +3190,8 @@
         "favorites"
       ]
     },
-    "GetTheStatusOfASingleReciperesponse": {
-      "title": "Get the status of a single recipeResponse",
+    "Get the status of a single recipe  success": {
+      "title": "Get the status of a single recipe - success",
       "example": {
         "success": true,
         "recipe": {
@@ -3339,8 +3235,8 @@
         "recipe"
       ]
     },
-    "GetAllTheReviewsForAParticularReciperesponse": {
-      "title": "Get all the reviews for a particular recipeResponse",
+    "GetAllTheReviewsForAParticularRecipe": {
+      "title": "Get all the reviews for a particular recipe",
       "example": {
         "reviews": [
           {
@@ -3470,8 +3366,8 @@
         "avatar"
       ]
     },
-    "DeleteReviewresponse": {
-      "title": "Delete reviewResponse",
+    "Delete review  success": {
+      "title": "Delete review - success",
       "example": {
         "success": true,
         "message": "review deleted"
@@ -3494,8 +3390,8 @@
         "message"
       ]
     },
-    "DeleteAReciperesponse": {
-      "title": "Delete a recipeResponse",
+    "DeleteARecipe": {
+      "title": "Delete a recipe",
       "example": {
         "success": true,
         "status": "Recipe deleted"
@@ -3518,8 +3414,8 @@
         "status"
       ]
     },
-    "AddANewReciperesponse": {
-      "title": "Add a new recipeResponse",
+    "Add a new recipe  success": {
+      "title": "Add a new recipe - success",
       "example": {
         "success": true,
         "recipe": {
@@ -3718,8 +3614,8 @@
         "createdAt"
       ]
     },
-    "UpvoteAReciperesponse": {
-      "title": "Upvote a recipeResponse",
+    "Upvote a recipe  success": {
+      "title": "Upvote a recipe - success",
       "example": {
         "success": true,
         "recipe": {
@@ -3946,8 +3842,8 @@
         "favorites"
       ]
     },
-    "DownvoteAReciperesponse": {
-      "title": "Downvote a recipeResponse",
+    "DownvoteARecipe": {
+      "title": "Downvote a recipe",
       "example": {
         "success": true,
         "recipe": {
@@ -4181,8 +4077,8 @@
         "favorites"
       ]
     },
-    "UpdateAReciperesponse": {
-      "title": "Update a recipeResponse",
+    "UpdateARecipe": {
+      "title": "Update a recipe",
       "example": {
         "success": true,
         "recipe": {
@@ -4401,8 +4297,8 @@
         "favorites"
       ]
     },
-    "AddARecipeToUserFavoriteresponse": {
-      "title": "Add a recipe to user favoriteResponse",
+    "Add a recipe to user favorite  success": {
+      "title": "Add a recipe to user favorite - success",
       "example": {
         "success": true,
         "status": "favorited",
@@ -4697,8 +4593,8 @@
         "updatedAt"
       ]
     },
-    "SearchForAReciperesponse": {
-      "title": "Search for a recipeResponse",
+    "SearchForARecipe": {
+      "title": "Search for a recipe",
       "example": {
         "success": true,
         "recipes": [
@@ -4826,8 +4722,8 @@
         "count"
       ]
     },
-    "AddAReviewresponse": {
-      "title": "Add a reviewResponse",
+    "AddAReview": {
+      "title": "Add a review",
       "example": {
         "success": true,
         "reviewedRecipe": {
@@ -5152,8 +5048,8 @@
         "id"
       ]
     },
-    "ResetPasswordresponse": {
-      "title": "Reset passwordResponse",
+    "Reset password  success": {
+      "title": "Reset password - success",
       "example": {
         "success": true,
         "status": "token sent"
@@ -5176,8 +5072,8 @@
         "status"
       ]
     },
-    "CompareTokenresponse": {
-      "title": "compare tokenResponse",
+    "CompareToken": {
+      "title": "compare token",
       "example": {
         "success": true
       },
@@ -5193,8 +5089,8 @@
         "success"
       ]
     },
-    "NewUserSignUpresponse": {
-      "title": "New user sign upResponse",
+    "NewUserSignUp": {
+      "title": "New user sign up",
       "example": {
         "success": true,
         "user": {
@@ -5256,8 +5152,8 @@
         "avatar"
       ]
     },
-    "SignInresponse": {
-      "title": "Sign inResponse",
+    "SignIn": {
+      "title": "Sign in",
       "example": {
         "success": true,
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm1vbmlrZXIiOiJhZG1pbiIsImF2YXRhciI6bnVsbCwiaWF0IjoxNTE5MDYxMzIzLCJleHAiOjE1NTA1OTczMjN9.eGnP6PqzuMIrSoDdiE6hesCELQhg4r2xYl1rEP_4neM"
@@ -5280,8 +5176,8 @@
         "token"
       ]
     },
-    "FetchAllTheRegisteredUserDetailresponse": {
-      "title": "Fetch all the registered user detailResponse",
+    "Fetch all the registered user detail  success": {
+      "title": "Fetch all the registered user detail - success",
       "type": "object",
       "properties": {
         "success": {
@@ -5367,8 +5263,8 @@
         "updatedAt"
       ]
     },
-    "UpdateUserresponse": {
-      "title": "Update userResponse",
+    "Change password  success": {
+      "title": "Change password - success",
       "example": {
         "success": true,
         "status": "updated"
@@ -5391,8 +5287,32 @@
         "status"
       ]
     },
-    "DeleteAUserresponse": {
-      "title": "Delete a userResponse",
+    "Update user  success": {
+      "title": "Update user - success",
+      "example": {
+        "success": true,
+        "status": "updated"
+      },
+      "type": "object",
+      "properties": {
+        "success": {
+          "description": "",
+          "example": true,
+          "type": "boolean"
+        },
+        "status": {
+          "description": "",
+          "example": "updated",
+          "type": "string"
+        }
+      },
+      "required": [
+        "success",
+        "status"
+      ]
+    },
+    "DeleteAUser": {
+      "title": "Delete a user",
       "example": {
         "success": true,
         "status": "user deleted"

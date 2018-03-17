@@ -55,6 +55,7 @@ describe('Test suite for recipe controller:', () => {
       request(app)
         .post('/api/v1/recipes')
         .send({
+          name: '',
           direction: 'how to cook it',
           description: 'regular food',
           category: 'yam',

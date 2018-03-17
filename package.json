@@ -17,12 +17,12 @@
     "dev-server": "webpack-dev-server ",
     "prod": "NODE_ENV=production npm run build",
     "dev": "webpack-dev-server --watch --hot --config webpack.dev.js --port 8081",
-    "db:migrate" : " NODE_ENV=test sequelize db:migrate:undo:all &&sequelize db:migrate",
+    "db:migrate": " NODE_ENV=test sequelize db:migrate:undo:all &&sequelize db:migrate",
     "server:e2e": " NODE_ENV=test npm run db:migrate && NODE_ENV=test npm run build && NODE_ENV=test npm start --timeout=50000",
     "test:e2e": "NODE_ENV=test ./node_modules/.bin/nightwatch",
-    "test:client": "jest --config=jest.config.js",
-    "jest:coverage": "jest --config=jest.config.js --coverage",
-    "test:watch": "npm run test:client -- --watch",
+    "test:client": "NODE_ENV=test jest --config=jest.config.js",
+    "jest:coverage": "NODE_ENV=test jest --config=jest.config.js --coverage --silent",
+    "test:watch": "npm run test:client -- --watch --silent",
     "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout=50000 ./server/test/*.test.spec.js --require babel-register ",
     "test:server": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout=50000 ./server/test/*.test.spec.js --require babel-register --watch --recursive",
     "start": "node --require babel-register server/index.js",
@@ -165,6 +165,8 @@
     "nightwatch": "^0.9.20",
     "nyc": "^11.3.0",
     "prettier-eslint": "^8.2.5",
-    "react-test-renderer": "^16.2.0"
+    "react-mock-router": "^1.0.11",
+    "react-test-renderer": "^16.2.0",
+    "sinon": "^4.4.5"
   }
 }

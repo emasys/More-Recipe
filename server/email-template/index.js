@@ -164,7 +164,7 @@ const email = (moniker, message) =>{
         <tr>
             <td>
                 <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;font-family:Arial;maxheight:0px;max-width:0px;opacity:0;">
-                    Pre-header for the newsletter template
+                    Alert!
                 </div>
             </td>
         </tr>
@@ -188,7 +188,7 @@ const email = (moniker, message) =>{
 
                                 <tr>
                                     <td align="center" height="70" style="height:70px;">
-                                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"  alt="" /></a>
+                                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"  alt="more recipe" /></a>
                                     </td>
                                 </tr>
                             </table>
@@ -214,7 +214,7 @@ const email = (moniker, message) =>{
                     <tr>
 
                         <td align="center" class="section-img">
-                            <a href="" style=" border-style: none !important; display: block; border: 0 !important;"><img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png (67).jpg" style="display: block; width: 590px;" width="590" border="0" alt="" /></a>
+                            <a href="" style=" border-style: none !important; display: block; border: 0 !important;"><img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" style="display: block; width: 590px;" width="590" border="0" alt="more recipe" /></a>
                         </td>
                     </tr>
                     <tr>
