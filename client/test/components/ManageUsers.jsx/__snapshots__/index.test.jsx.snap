@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Manage User component should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <ManageUsers
+    deleteUser={[Function]}
+    getAllUsers={[Function]}
+    users={
+      Object {
+        "success": true,
+        "users": Array [
+          Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "createdAt": "2018-03-13T05:04:37.443Z",
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+            "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+            "updatedAt": "2018-03-13T05:04:37.443Z",
+          },
+        ],
+      }
+    }
+  >
+    <div>
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <DeleteModal
+        confirmDelete={[Function]}
+        deleteUser={[Function]}
+        getAllUsers={[Function]}
+        users={
+          Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          }
+        }
+      >
+        <div
+          aria-hidden="true"
+          aria-labelledby="deleteModalTitle"
+          className="modal fade"
+          id="deleteModal"
+          role="dialog"
+          tabIndex="-1"
+        >
+          <div
+            className="modal-dialog modal-dialog-centered"
+            role="document"
+          >
+            <div
+              className="modal-content"
+            >
+              <div
+                className="modal-header"
+              >
+                <h5
+                  className="modal-title"
+                  id="exampleModalLongTitle"
+                >
+                  Delete Item
+                </h5>
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                  >
+                    ×
+                  </span>
+                </button>
+              </div>
+              <div
+                className="modal-body"
+              >
+                Are you sure you want to continue with this action?
+              </div>
+              <div
+                className="modal-footer"
+              >
+                <button
+                  className="btn btn-secondary btn-lg"
+                  data-dismiss="modal"
+                  type="button"
+                >
+                  No
+                </button>
+                <button
+                  className="btn btn-danger btn-lg"
+                  data-dismiss="modal"
+                  id="confirmDelete"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DeleteModal>
+      <div
+        className="container mt-80 mb-20"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="catalog-wrapper col-12"
+          >
+            <table
+              className="table table-hover"
+            >
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                  >
+                    #
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    First Name
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    last Name
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Moniker
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Email
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                key="1"
+              >
+                <tr>
+                  <th
+                    name={1}
+                    scope="row"
+                  >
+                    1
+                  </th>
+                  <td />
+                  <td />
+                  <td
+                    className="moniker"
+                  >
+                    admin
+                  </td>
+                  <td>
+                    emasysnd@gmail.com
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-danger delete-user-btn"
+                      data-target="#deleteModal"
+                      data-toggle="modal"
+                      id={1}
+                      onClick={[Function]}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ManageUsers>
+</MockRouter>
+`;

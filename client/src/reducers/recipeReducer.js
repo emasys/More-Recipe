@@ -19,6 +19,7 @@ export default (
       allRecipes: [],
       userRecipes: action.payload,
       recipeItem: {},
+      del_recipe: { success: false }
     };
   case type.ALL_RECIPES:
     return {
@@ -32,11 +33,11 @@ export default (
       ...state,
       hotRecipes: action.payload.recipes
     };
-  // case type.SET_FAVORITE:
-  //   return {
-  //     ...state,
-  //     recipeItem: action.payload
-  //   };
+    // case type.SET_FAVORITE:
+    //   return {
+    //     ...state,
+    //     recipeItem: action.payload
+    //   };
   case type.SINGLE_RECIPE:
   case type.UPVOTE:
   case type.DOWNVOTE:

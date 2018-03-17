@@ -40,8 +40,8 @@ export const setFavorite = id => dispatch => {
       dispatch({ type: type.SET_FAVORITE, payload: response.data });
       dispatch(getRecipeReactions(id));
     })
-    .catch(err => {
-      dispatch({ type: type.SET_FAVORITE, payload: err.response });
+    .catch(() => {
+      dispatch({ type: type.SET_FAVORITE, payload: { success: false } });
       dispatch(isLoading(false));
     });
 };
@@ -52,6 +52,7 @@ export const setFavorite = id => dispatch => {
  *
  * @returns {object} object containing an empty array
  */
-export const clearFavoriteList = () => dispatch => {
-  dispatch({ type: type.CLEAR_RECIPES, payload: [] });
-};
+export const clearFavoriteList = () => ({
+  type: type.CLEAR_RECIPES,
+  payload: []
+});

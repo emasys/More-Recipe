@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 
 // Validator helper
 import errorMessages, {
@@ -9,7 +8,7 @@ import errorMessages, {
   validatePassword,
   validateMoniker,
   confirmPassword
-} from './Validators';
+} from '../validator/index';
 
 // actions
 import { signUp } from '../../actions/authActions';
@@ -24,11 +23,32 @@ import Form from './SignUpForms';
  * @class SignUp
  * @extends {Component}
  */
-class SignUp extends Component {
+export class SignUp extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
     signUp: PropTypes.func.isRequired
   };
+
+  /**
+   * Creates an instance of SignUp.
+   * @param {any} props
+   *
+   * @memberOf SignUp
+   */
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      display: 'd-none',
+      emailError: 'd-none',
+      monikerError: 'd-none'
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onFocused = this.onFocused.bind(this);
+    this.showError = this.showError.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
 
   /**
    * @returns {void}
@@ -49,17 +69,21 @@ class SignUp extends Component {
    */
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.signUp) {
-      if (nextProps.user.signUp.success && !nextProps.isLoading) {
+      if (nextProps.user.signUp.success) {
         nextProps.history.push('/');
       }
       if (nextProps.user.signUp.data) {
         switch (nextProps.user.signUp.data.error[0].path) {
         case 'email':
-          document.querySelector('#email_error').innerHTML = `Your email address already exist.`;
+          this.setState({ emailError: 'd-block' });
+          this.setState({ monikerError: 'd-none' });
+          // document.querySelector('#email_error').innerHTML = `Your email address already exist.`;
           break;
         case 'moniker':
-          document.querySelector('#moniker_error').innerHTML =
-              'username already taken';
+          this.setState({ monikerError: 'd-block' });
+          this.setState({ emailError: 'd-none' });
+          // document.querySelector('#moniker_error').innerHTML =
+          //     'username already taken';
           break;
         }
       }
@@ -74,9 +98,21 @@ class SignUp extends Component {
    * @returns {void}
    * @memberOf SignUp
    */
-  onFocused = inputName => {
-    document.querySelector(`#${inputName}`).innerHTML = '';
-  };
+  onFocused(inputName) {
+    this.setState({ display: 'd-none' });
+    this.setState({ [inputName]: 'd-none' });
+  }
+
+  /**
+   * Toggle error message display status
+   *
+   * @returns {void}
+   *
+   * @memberOf SignUp
+   */
+  showError() {
+    this.setState({ display: 'd-block' });
+  }
 
   /**
    * Validate field on value change
@@ -86,7 +122,7 @@ class SignUp extends Component {
    * @returns {void}
    * @memberOf SignUp
    */
-  onChange = event => {
+  onChange(event) {
     this.setState(
       {
         [event.target.name]: event.target.value
@@ -120,7 +156,7 @@ class SignUp extends Component {
    * @memberof SignUp
    * @returns {void}
    */
-  handleSubmit = event => {
+  handleSubmit(event) {
     event.preventDefault();
     const data = {
       email: event.target.elements.email.value.trim(),
@@ -131,7 +167,7 @@ class SignUp extends Component {
     if (errorMessages()) {
       this.props.signUp(data);
     }
-  };
+  }
   /**
    *
    *
@@ -173,6 +209,8 @@ class SignUp extends Component {
                   handleSubmit={this.handleSubmit}
                   onChange={this.onChange}
                   onFocused={this.onFocused}
+                  showError={this.showError}
+                  state={this.state}
                 />
               </div>
             </div>
@@ -183,12 +221,8 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  isLoading: state.isLoading
+export const mapStateToProps = state => ({
+  user: state.user
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ signUp }, dispatch)
-});
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, { signUp })(SignUp);

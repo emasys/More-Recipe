@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const onFocus = () => {
-  document.querySelector('.rubics').classList.add('d-block');
-};
+// const onFocus = () => {
+//   document.querySelector('.rubics').classList.add('d-block');
+// };
 
 const ResetPasswordForm = props => {
-  const { recoveryEmail, newPassword } = props.state;
+  const {
+    onChange,
+    onFocus,
+    onBlur,
+    generateToken,
+    resetForm,
+    state: {
+      recoveryEmail, newPassword, display, buttonName, hideForm, showRubics, tokenError
+    }
+  } = props;
   return (
     <form name="form" className="" onSubmit={props.resetPassword}>
       <ul className="form row">
@@ -16,37 +25,40 @@ const ResetPasswordForm = props => {
             type="email"
             required
             value={recoveryEmail}
-            onChange={props.onChange}
+            onChange={onChange}
             className="col-lg-12 col-sm-12"
             name="recoveryEmail"
             id="recoveryEmail"
             placeholder="example@example.com"
           />
-          <div className="text-danger" id="recoverEmail_error" />
+          <div className={`text-danger ${display}`} id="recoverEmail_error" >
+          This email address is not in our records
+          </div>
           <button
             className="btn btn-info mt-5 btn-block btn-lg "
-            onClick={props.generateToken}
+            onClick={generateToken}
             name="sendToken"
             id="sendToken"
           >
-            Send token to my mail
+            {buttonName}
           </button>
         </li>
-        <li className="col-lg-12 col-sm-12 hideForm d-none">
+        <li className={`col-lg-12 col-sm-12 ${hideForm} d-none`}>
           <label>New Password</label>
           <input
             type="password"
             required
-            
+
             className="col-lg-12 col-sm-12"
-            onChange={props.onChange}
+            onChange={onChange}
             onFocus={onFocus}
+            onBlur={onBlur}
             value={newPassword}
             name="newPassword"
             id="newPassword"
             placeholder="min of 8 characters"
           />
-          <div className="rubics">
+          <div className={`rubics ${showRubics}`}>
             <p className="text-danger" id="password_error" />
             <p className="alpha">Should contain at least one alphabet</p>
             <p className="numbers" id="check_numbers">
@@ -61,13 +73,12 @@ const ResetPasswordForm = props => {
             </p>
           </div>
         </li>
-        <li className="col-lg-12 col-sm-12 hideForm d-none">
+        <li className={`col-lg-12 col-sm-12 ${hideForm} d-none`}>
           <label>Confirm New Password</label>
           <input
             type="password"
             required
-            
-            onChange={props.onChange}
+            onChange={onChange}
             className="col-lg-12 col-sm-12"
             name="confirmPassword"
             id="confirmPassword"
@@ -75,25 +86,25 @@ const ResetPasswordForm = props => {
           />
           <div className="text-danger" id="confirmPassword_error" />
         </li>
-        <li className="col-lg-12 col-sm-12 hideForm d-none">
+        <li className={`col-lg-12 col-sm-12 ${hideForm} d-none`}>
           <label>Token</label>
           <input
             type="text"
             required
-            
+            onFocus={onBlur}
             className="col-lg-12 col-sm-12 "
             name="token"
             placeholder="enter 4-digit token"
           />
-          <div className="text-danger" id="token_error" />
+          <div className={`text-danger ${tokenError}`} id="token_error" > Invalid Token</div>
         </li>
-        <li className="col-lg-12 col-sm-12 hideForm d-none">
+        <li className={`col-lg-12 col-sm-12 ${hideForm} d-none`}>
           <button type="submit" className="btn btn-dark btn-block btn-lg" >
             Save New Password
           </button>
         </li>
         <li className="col-12 text-center">
-          <span className="text-info hovered" onClick={props.resetForm}>
+          <span className="text-info hovered" onClick={resetForm}>
             Go back to sign in
           </span>
         </li>

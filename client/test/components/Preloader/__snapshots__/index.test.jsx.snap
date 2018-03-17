@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Preloader component hide preloader after a network request is complete should match snapshot 1`] = `
+<div
+  className="fixed-top"
+/>
+`;
+
+exports[`Test suite for Preloader component show proloader when a network request is triggered should match snapshot 1`] = `
+<div
+  className="fixed-top"
+>
+  <Pace
+    color="#f5b339"
+    height={4}
+  />
+</div>
+`;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Textarea from 'react-textarea-autosize';
-import { bindActionCreators } from 'redux';
 
 // Action
 import {
@@ -22,7 +21,7 @@ import GenerateReviews from './GenerateReviews';
  *
  * @extends {Component}
  */
-class Reviews extends Component {
+export class Reviews extends Component {
   static propTypes = {
     postReview: PropTypes.func.isRequired,
     recipes: PropTypes.object.isRequired,
@@ -31,9 +30,9 @@ class Reviews extends Component {
     auth: PropTypes.object.isRequired
   };
 
-  static defaultProps = {
-    review: { status: 'no comment' }
-  };
+  // static defaultProps = {
+  //   review: { status: 'no comment' }
+  // };
   /**
    * Creates an instance of Reviews.
    * @param {any} props
@@ -173,7 +172,7 @@ class Reviews extends Component {
               <div className="form-group col-md-12 col-sm-12">
                 <Textarea
                   className="textarea col-12"
-                  id="FormControlTextarea"
+                  id="reviewField"
                   name="reviewBox"
                   // rows="4"
                   placeholder="leave a review"
@@ -210,22 +209,15 @@ class Reviews extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   review: state.review,
   recipes: state.recipes,
   auth: state.user
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      postReview,
-      deleteReview,
-      getReviews,
-      clearReview
-    },
-    dispatch
-  )
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default connect(mapStateToProps, {
+  postReview,
+  deleteReview,
+  getReviews,
+  clearReview
+})(Reviews);

@@ -95,7 +95,11 @@ const UserInfo = props => {
             )}
           </div>
           <div className="mt-5">
-            <button className="btn btn-dark" id="edit-profile" onClick={props.showForm}>
+            <button
+              className="btn btn-dark"
+              id="edit-profile"
+              onClick={props.showForm}
+            >
               Edit profile
             </button>
           </div>
@@ -103,7 +107,7 @@ const UserInfo = props => {
       </div>
     );
   }
-  return 'loading...';
+  return <p id="loading">loading...</p>;
 };
 
 UserInfo.propTypes = {

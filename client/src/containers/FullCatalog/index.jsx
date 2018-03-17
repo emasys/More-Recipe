@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // Actions
@@ -23,7 +22,7 @@ import Navbar from './NavbarSearch';
  * @class FullCatalog
  * @extends {Component}
  */
-class FullCatalog extends Component {
+export class FullCatalog extends Component {
   static propTypes = {
     recipes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
@@ -56,19 +55,29 @@ class FullCatalog extends Component {
       searchOffset: 0,
       showMoreSearchResult: true
     };
+
+    this.mostFavorited = this.mostFavorited.bind(this);
+    this.mostUpvoted = this.mostUpvoted.bind(this);
+    this.mostViewed = this.mostViewed.bind(this);
+    this.recentlyAdded = this.recentlyAdded.bind(this);
+    this.searchBar = this.searchBar.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.loadMoreRecipes = this.loadMoreRecipes.bind(this);
+    this.dropdownCtrl = this.dropdownCtrl.bind(this);
+    this.addMore = this.addMore.bind(this);
   }
   /**
    *  Invoked immediately after component is mounted
    *
    *@returns {void}
    */
-  componentDidMount = () => {
+  componentDidMount() {
     window.scrollTo(0, 0);
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
     }));
-  };
+  }
   /**
    *  Invoked before a mounted component receives new props.
    *
@@ -77,7 +86,7 @@ class FullCatalog extends Component {
    * @returns {void}
    *
    */
-  componentWillReceiveProps = nextProps => {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
       this.setState({
         avatar: nextProps.user.data.avatar
@@ -94,7 +103,7 @@ class FullCatalog extends Component {
     if (this.state.searchOffset > nextProps.recipes.searchCount) {
       this.setState({ showMoreSearchResult: false });
     }
-  };
+  }
   /**
    *  Invoked immediately before a component
    * is unmounted and destroyed
@@ -102,9 +111,9 @@ class FullCatalog extends Component {
    * @returns {void}
    *
    */
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     this.props.clearRecipes();
-  };
+  }
 
   /**
    * Sort payload
@@ -115,7 +124,7 @@ class FullCatalog extends Component {
    *
    * @memberOf FullCatalog
    */
-  recentlyAdded = event => {
+  recentlyAdded(event) {
     event.preventDefault();
     const compare = (a, b) => {
       if (a.createdAt < b.createdAt) return 1;
@@ -124,7 +133,7 @@ class FullCatalog extends Component {
     };
     this.setState({ compare });
     this.loadMoreRecipes();
-  };
+  }
   /**
    * Sort payload
    *
@@ -134,7 +143,7 @@ class FullCatalog extends Component {
    *
    * @memberOf FullCatalog
    */
-  mostUpvoted = event => {
+  mostUpvoted(event) {
     event.preventDefault();
     const compare = (a, b) => {
       if (a.upvote < b.upvote) return 1;
@@ -143,7 +152,7 @@ class FullCatalog extends Component {
     };
     this.setState({ compare });
     this.loadMoreRecipes();
-  };
+  }
   /**
    * Instantiate network request to fetch recipes
    *
@@ -152,12 +161,12 @@ class FullCatalog extends Component {
    *
    * @memberOf FullCatalog
    */
-  loadMoreRecipes = () => {
+  loadMoreRecipes() {
     this.props.getRecipes(this.state.page_limit, this.state.offset);
     this.setState(prevState => ({
       offset: prevState.offset + 12
     }));
-  };
+  }
   /**
    * Sort payload
    *
@@ -167,7 +176,7 @@ class FullCatalog extends Component {
    *
    * @memberOf FullCatalog
    */
-  mostFavorited = event => {
+  mostFavorited(event) {
     event.preventDefault();
     const compare = (a, b) => {
       if (a.favorite < b.favorite) return 1;
@@ -176,7 +185,7 @@ class FullCatalog extends Component {
     };
     this.setState({ compare });
     this.loadMoreRecipes();
-  };
+  }
   /**
    * Sort payload
    *
@@ -186,7 +195,7 @@ class FullCatalog extends Component {
    *
    * @memberOf FullCatalog
    */
-  mostViewed = event => {
+  mostViewed(event) {
     event.preventDefault();
     const compare = (a, b) => {
       if (a.views < b.views) return 1;
@@ -195,7 +204,7 @@ class FullCatalog extends Component {
     };
     this.setState({ compare });
     this.loadMoreRecipes();
-  };
+  }
 
   /**
    * Clear search results
@@ -206,7 +215,7 @@ class FullCatalog extends Component {
    *
    * @returns {void}
    */
-  searchBar = event => {
+  searchBar(event) {
     event.preventDefault();
     if (this.state.searching) {
       this.props.resetSearch();
@@ -216,7 +225,7 @@ class FullCatalog extends Component {
     if (event.target.value.length < 1) {
       this.setState({ searching: false });
     }
-  };
+  }
 
   /**
    * Search for recipes
@@ -227,25 +236,24 @@ class FullCatalog extends Component {
    *
    * @returns {void}
    */
-  onSearch = event => {
+  onSearch(event) {
     event.preventDefault();
     this.setState({ searching: true });
     this.searchInput = event.target.elements.search.value.toLowerCase();
     this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset);
-  };
+  }
 
   /**
    * Goto "add new" recipe page
    *
-   * @param {any} event
    *
    * @memberof FullCatalog
    *
    * @returns {void}
    */
-  addMore = () => {
+  addMore() {
     this.props.history.push('/new');
-  };
+  }
   /**
    * Display dropdown menu
    *
@@ -254,7 +262,7 @@ class FullCatalog extends Component {
    *
    * @returns {void}
    */
-  dropdownCtrl = () => {
+  dropdownCtrl() {
     const { dropdown } = this.state;
     if (dropdown) {
       this.setState({
@@ -265,7 +273,7 @@ class FullCatalog extends Component {
         dropdown: true
       });
     }
-  };
+  }
   /**
    * Paginate search result
    *
@@ -274,12 +282,12 @@ class FullCatalog extends Component {
    *
    * @returns {void}
    */
-  showMoreSearchResult = () => {
+  showMoreSearchResult() {
     this.setState(prevState => ({
       searchOffset: prevState.searchOffset + 4
     }));
     this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset + 4);
-  };
+  }
   /**
    *
    *
@@ -342,6 +350,7 @@ class FullCatalog extends Component {
                     <b>Thank you for being Awesome</b>
                     <br />
                     <button
+                      id="addMore"
                       onClick={this.addMore}
                       className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                     >
@@ -384,22 +393,16 @@ class FullCatalog extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   recipes: state.recipes,
   user: state.user.userProfile,
   auth: state.user
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      getRecipes,
-      getProfile,
-      searchRecipes,
-      clearRecipes,
-      resetSearch
-    },
-    dispatch
-  )
-});
-export default connect(mapStateToProps, mapDispatchToProps)(FullCatalog);
+export default connect(mapStateToProps, {
+  getRecipes,
+  getProfile,
+  searchRecipes,
+  clearRecipes,
+  resetSearch
+})(FullCatalog);

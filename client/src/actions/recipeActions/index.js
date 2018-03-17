@@ -12,7 +12,7 @@ import { getReviews } from '../reviewActions';
  *
  * @returns {object} list of requested recipes
  */
-export const getRecipes = (limit, offset = 0) => dispatch => {
+export const getRecipes = (limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return instance
     .get(`/recipes?limit=${limit}&offset=${offset}`)
@@ -20,8 +20,8 @@ export const getRecipes = (limit, offset = 0) => dispatch => {
       dispatch({ type: type.ALL_RECIPES, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.ALL_RECIPES, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.ALL_RECIPES, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -30,9 +30,10 @@ export const getRecipes = (limit, offset = 0) => dispatch => {
  *
  * @returns {object} empty array
  */
-export const clearRecipes = () => dispatch => {
-  dispatch({ type: type.CLEAR_RECIPES, payload: [] });
-};
+export const clearRecipes = () => ({
+  type: type.CLEAR_RECIPES,
+  payload: []
+});
 
 /**
  * Fetch a single recipes from the database
@@ -51,8 +52,8 @@ export const getRecipeItem = id => dispatch => {
       dispatch(getReviews(id));
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.SINGLE_RECIPE, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.SINGLE_RECIPE, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -72,8 +73,11 @@ export const getRecipeReactions = id => dispatch =>
       dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.SINGLE_RECIPE_REACTION, payload: err.response });
+    .catch(error => {
+      dispatch({
+        type: type.SINGLE_RECIPE_REACTION,
+        payload: error.response.data
+      });
       dispatch(isLoading(false));
     });
 
@@ -93,8 +97,8 @@ export const editRecipe = (data, id) => dispatch => {
       dispatch({ type: type.EDIT_RECIPE, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.EDIT_RECIPE, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.EDIT_RECIPE, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -116,8 +120,8 @@ export const delRecipe = (id, userId) => dispatch => {
       dispatch(getUserRecipes(userId, 6, 0));
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.DELETE_RECIPE, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.DELETE_RECIPE, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -140,15 +144,13 @@ export const searchRecipes = (keyword, limit = 1, offset = 0) => dispatch => {
       dispatch({ type: type.SEARCH, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.SEARCH, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.SEARCH, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
 
-export const resetSearch = () => dispatch => {
-  dispatch({ type: type.RESET_SEARCH, payload: [] });
-};
+export const resetSearch = () => ({ type: type.RESET_SEARCH, payload: [] });
 /**
  * Add Recipe
  *
@@ -164,8 +166,8 @@ export const addRecipe = data => dispatch => {
       dispatch({ type: type.NEW_RECIPE, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.NEW_RECIPE, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.NEW_RECIPE, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -178,7 +180,7 @@ export const addRecipe = data => dispatch => {
  *
  * @returns {object} list of requested recipes
  */
-export const getHotRecipes = (limit, offset = 0) => dispatch => {
+export const getHotRecipes = (limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return instance
     .get(`/recipes?limit=${limit}&offset=${offset}`)
@@ -186,8 +188,8 @@ export const getHotRecipes = (limit, offset = 0) => dispatch => {
       dispatch({ type: type.HOT_RECIPES, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.HOT_RECIPES, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.HOT_RECIPES, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -210,8 +212,8 @@ export const getCategory = (category, limit, offset) => dispatch => {
       dispatch({ type: type.GET_CATEGORY, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.GET_CATEGORY, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.GET_CATEGORY, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };

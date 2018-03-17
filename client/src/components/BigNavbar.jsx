@@ -6,6 +6,12 @@ import ReactTooltip from 'react-tooltip';
 
 import Auth from './auth';
 
+/**
+ * log out, refresh the page and clear the store
+ *
+ * @returns {void}
+ *
+ */
 const logout = () => {
   Auth.logout();
 };
@@ -55,7 +61,7 @@ const Navbar = props => (
               </li>
             ) : (
               <li className="nav-item mt-5 pr-15 ml-3">
-                <Link className=" text-orange" to="/">
+                <Link className=" text-orange" to="/" id="attempt_greetings">
                   Hi there,
                 </Link>
               </li>
@@ -64,6 +70,7 @@ const Navbar = props => (
               {props.auth.isLoggedIn ? (
                 <a
                   onClick={logout}
+                  id="logout"
                   className="nav-link btn btn-outline-light btn-lg btn-sign "
                   href="/"
                 >
@@ -85,7 +92,7 @@ const Navbar = props => (
     </nav>
   </section>
 );
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   auth: state.user
 });
 
@@ -94,3 +101,4 @@ Navbar.propTypes = {
 };
 
 export default connect(mapStateToProps, null)(Navbar);
+export { Navbar as BigNavbar };

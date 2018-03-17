@@ -15,7 +15,7 @@ const NotFound = () => (
           className="col-12 not-found-logo"
         />
         <h2 className="p-3 m-20">Oops...</h2>
-        <h2 className="p-3 m-20">
+        <h2 className="p-3 m-20" id="error_msg">
           The content you are looking for does not exist
         </h2>
         <h2>

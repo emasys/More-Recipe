@@ -140,6 +140,7 @@ export class Category extends Component {
                 <p style={{ textAlign: 'center' }}>
                   <button
                     onClick={this.gotoFullCatalog}
+                    id="catalog"
                     className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
                   >
                     View full catalog
@@ -160,7 +161,7 @@ export class Category extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   recipes: state.recipes
 });
 

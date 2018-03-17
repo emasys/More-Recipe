@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { css } from 'glamor';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
@@ -33,7 +32,7 @@ import validate from './helper';
  * @class Profile
  * @extends {Component}
  */
-class Profile extends Component {
+export class Profile extends Component {
   static propTypes = {
     getUserInfo: PropTypes.func.isRequired,
     getUserRecipes: PropTypes.func.isRequired,
@@ -78,11 +77,22 @@ class Profile extends Component {
       lastName: '',
       bio: '',
       country: '',
+      display: 'd-block',
       edit: false,
       successMsg: false,
       save: 'd-none',
       showMore: true
     };
+
+    this.showForm = this.showForm.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.editProfile = this.editProfile.bind(this);
+    this.goBack = this.goBack.bind(this);
+    this.viewMore = this.viewMore.bind(this);
+    this.hoverIn = this.hoverIn.bind(this);
+    this.hoverOut = this.hoverOut.bind(this);
+    this.confirmDelete = this.confirmDelete.bind(this);
   }
   /**
    *
@@ -149,27 +159,35 @@ class Profile extends Component {
       })
     });
 
-  hoverIn = () => {
+  hoverIn() {
     this.setState({ status: 'show' });
-  };
+  }
   /**
    *
-   * @returns {any} a new state
+   * @returns {void}
    * @memberof Profile
    */
-  hoverOut = () => {
+  hoverOut() {
     this.setState({ status: 'fade' });
-  };
+  }
 
   deleteRecipe = (event, recipeId) => {
     event.preventDefault();
     this.recipeId = recipeId.id;
   };
 
-  confirmDelete = event => {
+  /**
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberof Profile
+   */
+  confirmDelete(event) {
     event.preventDefault();
     this.props.delRecipe(this.recipeId, this.props.auth.authInfo.userId);
-  };
+  }
   /**
    *
    *
@@ -226,25 +244,48 @@ class Profile extends Component {
     });
   };
   /**
+   *edit state
+   * @returns {void}
    *
-   * @returns {bool}
-   * edit state
    * @memberof Profile
    */
-  showForm = () => {
+  showForm() {
     this.setState({
       edit: true,
       status: 'show'
     });
-  };
+  }
 
+  /**
+   *
+   * @returns {void}
+   *
+   * @memberof Profile
+   */
+  onFocus() {
+    this.setState({
+      display: 'd-none'
+    });
+  }
+
+  /**
+   *
+   * @returns {void}
+   *
+   * @memberof Profile
+   */
+  onBlur() {
+    this.setState({
+      display: 'd-block'
+    });
+  }
   /**
    *
    * @returns {object} validates data and trigger the update user endpoint
    * @param {any} event
    * @memberof Profile
    */
-  editProfile = event => {
+  editProfile(event) {
     event.preventDefault();
     const data = {
       firstName: event.target.elements.firstName.value.trim(),
@@ -253,35 +294,33 @@ class Profile extends Component {
       country: event.target.elements.country.value
     };
     if (validate(data)) {
-      this.props.updateUser(this.props.match.params.id, data).then(() => {
-        this.props.getUserInfo(this.props.match.params.id);
-        this.saveInfo();
-        this.setState({
-          edit: false
-        });
+      this.props.updateUser(this.props.match.params.id, data);
+      this.saveInfo();
+      this.setState({
+        edit: false
       });
     }
-  };
+  }
   /**
    *
    * @param {object} event
    * @memberof Profile
    * @returns {any} pagination
    */
-  viewMore = event => {
+  viewMore(event) {
     event.preventDefault();
     this.loadMore();
-  };
+  }
   /**
    *
    * @param {object} event
    * @memberof Profile
    * @returns {any} pagination
    */
-  goBack = event => {
+  goBack(event) {
     event.preventDefault();
     this.setState({ edit: false });
-  };
+  }
   /**
    *
    *
@@ -315,6 +354,8 @@ class Profile extends Component {
                   state={this.state}
                   editProfile={this.editProfile}
                   goBack={this.goBack}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
                 />
               </div>
             )}
@@ -351,6 +392,7 @@ class Profile extends Component {
                   {showMore && (
                     <button
                       onClick={this.viewMore}
+                      id="viewMore"
                       className=" btn btn-lg btn-outline-dark text-center"
                     >
                       View more
@@ -367,7 +409,7 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   recipes: state.recipes.userRecipes,
   count: state.recipes.userRecipesCount,
   userInfo: state.user.userInfo,
@@ -375,18 +417,11 @@ const mapStateToProps = state => ({
   updateUser: state.user.updateUser
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      getUserInfo,
-      getUserRecipes,
-      clearRecipes,
-      updateUser,
-      uploadImg,
-      delRecipe
-    },
-    dispatch
-  )
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, {
+  getUserInfo,
+  getUserRecipes,
+  clearRecipes,
+  updateUser,
+  uploadImg,
+  delRecipe
+})(Profile);

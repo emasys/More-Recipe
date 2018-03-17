@@ -5,7 +5,7 @@ import 'hover.css/css/hover-min.css';
 import AppRoutes from './routes/AppRoutes';
 import './styles/styles.scss';
 import store from './store';
-import {isAuthenticated} from './actions'
+import { isAuthenticated } from './actions';
 
 store.dispatch(isAuthenticated());
 

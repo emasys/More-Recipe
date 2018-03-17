@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { validate } from 'email-validator';
 
@@ -10,7 +9,8 @@ import {
   resetPassword,
   signIn,
   compareToken,
-  sendToken
+  sendToken,
+  clearAuthInfo
 } from '../../actions/authActions';
 
 //components
@@ -21,18 +21,18 @@ import errorMessages, {
   validateEmail,
   validatePassword,
   confirmPassword
-} from '../SignUp/Validators';
+} from '../validator/index';
 
 /**
  *
  * @class SignIn
  * @extends {Component}
  */
-class SignIn extends Component {
+export class SignIn extends Component {
   static propTypes = {
     msg: PropTypes.string,
     reset: PropTypes.object,
-    resetPassword: PropTypes.func.isRequired,
+    // resetPassword: PropTypes.func.isRequired,
     signin: PropTypes.object.isRequired,
     signIn: PropTypes.func.isRequired,
     compareToken: PropTypes.func.isRequired,
@@ -59,10 +59,23 @@ class SignIn extends Component {
       confirmPassword: '',
       showErrMessage: 'fade',
       message: '',
+      display: 'd-none',
+      buttonName: 'Send Token',
+      hideForm: 'd-none',
+      showRubics: 'd-none',
+      tokenError: 'd-none',
       success: false,
       showProps: false,
       resetPass: false
     };
+    this.handleTokenDispatch = this.handleTokenDispatch.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.clearError = this.clearError.bind(this);
+    this.generateToken = this.generateToken.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
   }
   /**
    * @returns {void}
@@ -87,6 +100,13 @@ class SignIn extends Component {
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
+    if (nextProps.signin.compareToken && !nextProps.signin.compareToken.success) {
+      this.setState({ tokenError: 'd-block' });
+    } 
+    
+    if (nextProps.tokenStatus) {
+      this.handleTokenDispatch();
+    }
     if (nextProps.signin.signIn) {
       if (nextProps.signin.signIn.success) {
         this.setState({
@@ -110,41 +130,74 @@ class SignIn extends Component {
           resetPass: false,
           success: true
         });
-      } else {
-        document.querySelector('#recoverEmail_error').innerHTML =
-          "User account not found, <a href='/signup'>sign up</a>";
-      }
+      } 
     }
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
+  /**
+   *
+   *
+   * @param {object} nextProps
+   * @param {object} nextState
+   *
+   * @returns {bool} true
+   *
+   * @memberOf SignIn
+   */
+  shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.signin.signIn) {
       if (nextProps.isLoading) return false;
       return true;
     }
     return true;
-  };
-
+  }
+  
   tokenSent = () =>
     toast('Token Sent! check your email', {
       type: toast.TYPE.SUCCESS,
       autoClose: 3000
     });
 
-  clearError = () => {
+  /**
+   * Clear error on focus in login form
+   * 
+   * @returns {void}
+   * 
+   * @memberOf SignIn
+   */
+  clearError() {
     this.setState({
       showErrMessage: 'fade'
     });
   };
 
   /**
+   * Change value of button
+   *
+   *
+   * @returns {void}
+   *
+   * @memberOf SignIn
+   */
+  handleTokenDispatch() {
+    if (!this.props.tokenStatus || this.props.tokenStatus.data) {
+      this.setState({ display: 'd-block' });
+    } else {
+      this.setState({ display: 'd-none', buttonName: 'Re-send Token', hideForm: 'd-block' });
+      this.tokenSent();
+      this.props.clearAuthInfo();
+    }
+  }
+  /**
    *
    *
    * @param {object} event
+   *
    * @memberof SignIn
+   *
    * @returns {object} state change
    */
-  onChange = event => {
+  onChange(event) {
     this.setState(
       {
         [event.target.name]: event.target.value
@@ -174,7 +227,31 @@ class SignIn extends Component {
         }
       }
     );
-  };
+  }
+
+  /**
+   * Toggle password validation errors
+   *
+   * @returns {void}
+   *
+   * @memberOf SignIn
+   */
+  onFocus() {
+    this.setState({ showRubics: 'd-block' });
+  }
+
+  /**
+   * Toggle password validation errors
+   *
+   * @returns {void}
+   *
+   * @memberOf SignIn
+   */
+  onBlur() {
+    console.log("I have been called ====> blur");
+    this.setState({ showRubics: 'd-none' });
+    this.setState({tokenError: 'd-none'})
+  }
   /**
    *
    *
@@ -182,6 +259,7 @@ class SignIn extends Component {
    * @returns {void}
    */
   resetForm = () => {
+    this.props.clearAuthInfo();    
     if (!this.state.resetPass) {
       this.setState({
         resetPass: true,
@@ -198,13 +276,13 @@ class SignIn extends Component {
    *
    *
    * @param {void} event
-   * 
+   *
    * @memberof SignIn
-   * 
+   *
    * @returns {void}
    * triggers reset password action
    */
-  resetPassword = event => {
+  resetPassword(event) {
     event.preventDefault();
     const data = {
       email: event.target.elements.recoveryEmail.value.trim(),
@@ -213,63 +291,52 @@ class SignIn extends Component {
       token: event.target.elements.token.value.trim()
     };
     if (errorMessages()) {
-      this.props.compareToken(data).then(() => {
-        if (this.props.signin.compareToken.success === true) {
-          this.props.resetPassword(data);
-        } else {
-          document.querySelector('#token_error').innerHTML = 'invalid token';
-        }
-      });
+      this.props.compareToken(data);
     }
   };
 
   /**
    * Generate Token
-   * 
+   *
    * @param {object} event
-   * 
+   *
    * @returns {void}
-   * 
+   *
    * @memberOf SignIn
    */
-  generateToken = event => {
+  generateToken(event) {
     event.preventDefault();
     if (validate(this.state.recoveryEmail)) {
-      this.props.sendToken({ email: this.state.recoveryEmail }).then(() => {
-        if (this.props.tokenStatus && this.props.tokenStatus.data) {
-          document.querySelector('#recoverEmail_error').innerHTML =
-            'This email address is not in our records';
-        } else {
-          document.form.sendToken.innerHTML = 'Re-send token';
-          Array.from(document.querySelectorAll('.hideForm')).forEach(element =>
-            element.classList.add('d-block'));
-          this.tokenSent();
-        }
-      });
+      this.props.sendToken({ email: this.state.recoveryEmail });
+      // this.handleTokenDispatch();
     }
   };
+
+
   /**
    *
    *
    * @param {object} event
-   * 
+   *
    * @memberof SignIn
-   * 
+   *
    * @returns {void}
    */
-  handleSubmit = event => {
+  handleSubmit(event) {
     event.preventDefault();
     const data = {
       email: event.target.elements.email.value.trim(),
       password: event.target.elements.pass.value
     };
-    this.props.signIn(data);
+    if (data.email && data.password) {
+      this.props.signIn(data);
+    }
   };
   /**
    *
    *
    * @returns {JSX.Element} React element
-   * 
+   *
    * @memberof SignIn
    */
   render() {
@@ -335,6 +402,8 @@ class SignIn extends Component {
                 <ResetPasswordForm
                   state={this.state}
                   onChange={this.onChange}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
                   emailChanged={this.emailChanged}
                   resetPassword={this.resetPassword}
                   generateToken={this.generateToken}
@@ -349,23 +418,18 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   signin: state.user,
   reset: state.user.reset,
   isLoading: state.isLoading,
   tokenStatus: state.user.sendToken
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      resetPassword,
-      signIn,
-      compareToken,
-      sendToken
-    },
-    dispatch
-  )
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, {
+  resetPassword,
+  signIn,
+  compareToken,
+  sendToken,
+  clearAuthInfo
+})(SignIn);

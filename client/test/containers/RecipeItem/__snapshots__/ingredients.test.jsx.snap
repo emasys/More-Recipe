@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for add recipe page should match snapshot 1`] = `
+<div
+  className="col-lg-5 col-sm-12"
+>
+  <h2
+    className="wrapWord text-capitalize"
+  >
+    How to cook yam
+  </h2>
+  <small
+    className="text-capitalize"
+  >
+    A recipe by
+     
+    <Link
+      className=" bolder text-info"
+      replace={false}
+      to="/user/1"
+    >
+      admin
+    </Link>
+  </small>
+   
+  <br />
+  <small
+    className=""
+  >
+    Posted on:
+     
+    Mar 13th 2018
+  </small>
+  <hr />
+  <h5
+    className="text-muted"
+  >
+    Description
+  </h5>
+  <div
+    className="pb-3 "
+  >
+    <div
+      className="bg-light direction rounded p-15"
+    >
+      just do it
+    </div>
+  </div>
+  <hr />
+  <h5
+    className="text-muted"
+  >
+    Ingredients
+  </h5>
+  <hr />
+  <div
+    className="pb-3"
+  >
+    <ul
+      className="list-group wrapWord"
+    >
+      <a
+        className="list-group-item text-capitalize list-group-item-action"
+        href="https://en.wikipedia.org/wiki/water, salt"
+        key="water, salt"
+        target="_blank"
+      >
+        water, salt
+      </a>
+    </ul>
+  </div>
+  <h5
+    className="text-muted"
+  >
+    Directions
+  </h5>
+  <hr />
+  <div
+    className="p-10 direction rounded  bg-light"
+  >
+    just do it
+  </div>
+</div>
+`;

@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Manage User component should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Category
+    category={Object {}}
+    getCategory={[Function]}
+    history={Object {}}
+    match={
+      Object {
+        "params": Object {
+          "cat": "Breakfast",
+        },
+      }
+    }
+    recipes={
+      Object {
+        "allRecipes": Array [],
+        "category": Array [
+          Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "Normal food",
+            "direction": "Just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "A really long recipe title to make sure the words are truncated",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-13T05:12:41.611Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "count": 1,
+        "hotRecipes": Array [
+          Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "Normal food",
+            "direction": "Just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "A really long recipe title to make sure the words are truncated",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-13T05:12:41.611Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "recipeItem": Object {
+          "recipe": Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "favorites": Array [],
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "How to cook yam",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-14T18:21:16.794Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+          "success": true,
+        },
+        "searchResult": Array [],
+        "updated": false,
+        "userRecipes": Array [],
+        "userRecipesCount": 0,
+      }
+    }
+  >
+    <div>
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <div
+        className="mt-80 mb-3 p-15"
+      >
+        <div
+          className="catalog-wrapper"
+          id="catalog"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-12 "
+            >
+              <div
+                className="clearfix"
+                style={
+                  Object {
+                    "zIndex": 700,
+                  }
+                }
+              >
+                <h4
+                  className="float-left header-title"
+                >
+                  Breakfast
+                </h4>
+                <h5
+                  className="float-right"
+                >
+                  <Link
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                    replace={false}
+                    to="/catalog"
+                  >
+                    <a
+                      className="btn btn-dark hvr-icon-wobble-horizontal"
+                      onClick={[Function]}
+                    >
+                      see all recipes
+                       
+                    </a>
+                  </Link>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <InfiniteScroll
+            disableBrowserPullToRefresh={true}
+            endMessage={
+              <p
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <button
+                  className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                  id="catalog"
+                  onClick={[Function]}
+                >
+                  View full catalog
+                </button>
+              </p>
+            }
+            hasMore={true}
+            loader={
+              <div
+                className="loader text-center"
+              >
+                <img
+                  alt="loading..."
+                  height="30"
+                  src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                  width="30"
+                />
+              </div>
+            }
+            next={[Function]}
+            pullDownToRefreshContent={
+              <h3>
+                Pull down to refresh
+              </h3>
+            }
+            pullDownToRefreshThreshold={100}
+            releaseToRefreshContent={
+              <h3>
+                Release to refresh
+              </h3>
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </Category>
+</MockRouter>
+`;

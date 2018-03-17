@@ -66,6 +66,7 @@ const GenerateRecipeItem = props => {
         <span className="text-center card-link" onClick={props.favIt}>
           <i
             data-tip="Add to favorites"
+            id="favorite-recipe"
             className={`material-icons hovered ${
               favoriteStatus ? ' red animated bounceIn flash' : 'gray'
             }`}

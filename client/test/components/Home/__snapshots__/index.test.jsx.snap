@@ -1,0 +1,827 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Home page Render component for authenticated user should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Home
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    getHotRecipes={[Function]}
+    recipes={
+      Object {
+        "allRecipes": Array [],
+        "category": Array [
+          Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "Normal food",
+            "direction": "Just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "A really long recipe title to make sure the words are truncated",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-13T05:12:41.611Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "count": 1,
+        "hotRecipes": Array [
+          Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "Normal food",
+            "direction": "Just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "A really long recipe title to make sure the words are truncated",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-13T05:12:41.611Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "recipeItem": Object {
+          "recipe": Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "favorites": Array [],
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "How to cook yam",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-14T18:21:16.794Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+          "success": true,
+        },
+        "searchResult": Array [],
+        "updated": false,
+        "userRecipes": Array [],
+        "userRecipesCount": 0,
+      }
+    }
+  >
+    <div>
+      <section
+        className="container-fluid"
+      >
+        <div
+          className="header"
+        >
+          <DynamicHeader
+            effectDuration={600}
+            hasEffect={true}
+            useHeadersDifference={true}
+          />
+          <div
+            className="row header-items justify-content-center"
+          >
+            <div
+              className="col-lg-10 col-sm-10 text-left banner"
+            >
+              <div
+                className="home-title mt-100"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+              >
+                <span
+                  className="firstWord"
+                >
+                  More 
+                </span>
+                Recipes
+              </div>
+              <div
+                className=" text-white bg-mirror pb-30"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                id="welcome-note"
+              >
+                <p>
+                  This is a platform for you to share the awesome and exciting recipe ideas you have invented or learnt.
+                </p>
+                <p>
+                  Recipes are by nature derivative and meant to be shared that is how they improve, are changed, how new ideas are formed.
+                </p>
+                <p>
+                  Have fun as you share and explore exciting recipes
+                </p>
+                <div
+                  className=""
+                >
+                  <Link
+                    className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                    replace={false}
+                    to="/new"
+                  >
+                    <a
+                      className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                      onClick={[Function]}
+                    >
+                      Add new recipe
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        className="container "
+        id="catalog"
+      >
+        <div
+          className="catalog-wrapper"
+        >
+          <div
+            className="col-12 "
+          >
+            <div
+              className="clearfix"
+              style={
+                Object {
+                  "zIndex": 700,
+                }
+              }
+            >
+              <h4
+                className="float-left header-title"
+              >
+                Top Recipes
+              </h4>
+              <h5
+                className="float-right"
+              >
+                <Link
+                  className="btn btn-dark hvr-icon-wobble-horizontal"
+                  id="view-all-recipes"
+                  replace={false}
+                  to="/catalog"
+                >
+                  <a
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                    id="view-all-recipes"
+                    onClick={[Function]}
+                  >
+                    see all recipes
+                     
+                  </a>
+                </Link>
+              </h5>
+            </div>
+          </div>
+          <Connect(CatalogList)
+            auth={
+              Object {
+                "allUsers": Object {
+                  "success": true,
+                  "users": Array [
+                    Object {
+                      "avatar": null,
+                      "bio": null,
+                      "country": null,
+                      "createdAt": "2018-03-13T05:04:37.443Z",
+                      "email": "emasysnd@gmail.com",
+                      "firstName": null,
+                      "id": 1,
+                      "lastName": null,
+                      "moniker": "admin",
+                      "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                      "updatedAt": "2018-03-13T05:04:37.443Z",
+                    },
+                  ],
+                },
+                "authInfo": Object {
+                  "isLoggedIn": true,
+                  "userId": 1,
+                  "username": "admin",
+                },
+                "isLoggedIn": true,
+                "message": null,
+                "userInfo": Object {
+                  "data": Object {
+                    "avatar": null,
+                    "bio": null,
+                    "country": "Nigeria",
+                    "email": "emasysnd@gmail.com",
+                    "firstName": "emmy",
+                    "id": 1,
+                    "lastName": "endy",
+                    "moniker": "admin",
+                  },
+                  "success": true,
+                },
+                "userProfile": Object {
+                  "data": Object {
+                    "avatar": null,
+                    "bio": null,
+                    "country": null,
+                    "email": "emasysnd@gmail.com",
+                    "firstName": null,
+                    "id": 1,
+                    "lastName": null,
+                    "moniker": "admin",
+                  },
+                  "success": true,
+                },
+              }
+            }
+            catalog={
+              Array [
+                Object {
+                  "category": "Lunch",
+                  "comments": 0,
+                  "createdAt": "2018-03-13T05:05:02.553Z",
+                  "description": "Normal food",
+                  "direction": "Just do it",
+                  "downvote": 0,
+                  "favorite": 0,
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "id": 1,
+                  "ingredients": Array [
+                    "water, salt",
+                  ],
+                  "name": "A really long recipe title to make sure the words are truncated",
+                  "reactionDown": Array [],
+                  "reactionUp": Array [],
+                  "searchIng": "water, salt",
+                  "updatedAt": "2018-03-13T05:12:41.611Z",
+                  "upvote": 0,
+                  "userId": 1,
+                  "views": 0,
+                },
+              ]
+            }
+            getHotRecipes={[Function]}
+            recipes={
+              Object {
+                "allRecipes": Array [],
+                "category": Array [
+                  Object {
+                    "category": "Lunch",
+                    "comments": 0,
+                    "createdAt": "2018-03-13T05:05:02.553Z",
+                    "description": "Normal food",
+                    "direction": "Just do it",
+                    "downvote": 0,
+                    "favorite": 0,
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "id": 1,
+                    "ingredients": Array [
+                      "water, salt",
+                    ],
+                    "name": "A really long recipe title to make sure the words are truncated",
+                    "reactionDown": Array [],
+                    "reactionUp": Array [],
+                    "searchIng": "water, salt",
+                    "updatedAt": "2018-03-13T05:12:41.611Z",
+                    "upvote": 0,
+                    "userId": 1,
+                    "views": 0,
+                  },
+                ],
+                "count": 1,
+                "hotRecipes": Array [
+                  Object {
+                    "category": "Lunch",
+                    "comments": 0,
+                    "createdAt": "2018-03-13T05:05:02.553Z",
+                    "description": "Normal food",
+                    "direction": "Just do it",
+                    "downvote": 0,
+                    "favorite": 0,
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "id": 1,
+                    "ingredients": Array [
+                      "water, salt",
+                    ],
+                    "name": "A really long recipe title to make sure the words are truncated",
+                    "reactionDown": Array [],
+                    "reactionUp": Array [],
+                    "searchIng": "water, salt",
+                    "updatedAt": "2018-03-13T05:12:41.611Z",
+                    "upvote": 0,
+                    "userId": 1,
+                    "views": 0,
+                  },
+                ],
+                "recipeItem": Object {
+                  "recipe": Object {
+                    "category": "Lunch",
+                    "comments": 0,
+                    "createdAt": "2018-03-13T05:05:02.553Z",
+                    "description": "just do it",
+                    "direction": "just do it",
+                    "downvote": 0,
+                    "favorite": 0,
+                    "favorites": Array [],
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "id": 1,
+                    "ingredients": Array [
+                      "water, salt",
+                    ],
+                    "name": "How to cook yam",
+                    "reactionDown": Array [],
+                    "reactionUp": Array [],
+                    "searchIng": "water, salt",
+                    "updatedAt": "2018-03-14T18:21:16.794Z",
+                    "upvote": 0,
+                    "userId": 1,
+                    "views": 0,
+                  },
+                  "success": true,
+                },
+                "searchResult": Array [],
+                "updated": false,
+                "userRecipes": Array [],
+                "userRecipesCount": 0,
+              }
+            }
+            showDeleteBtn={false}
+          />
+          <div
+            className="col-12 "
+          >
+            <div
+              className="clearfix"
+            >
+              <h5
+                className="text-center"
+              >
+                <Link
+                  className="btn btn-dark hvr-icon-wobble-horizontal"
+                  replace={false}
+                  to="/catalog"
+                >
+                  <a
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                    onClick={[Function]}
+                  >
+                    View Latest Recipes
+                     
+                  </a>
+                </Link>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </Home>
+</MockRouter>
+`;
+
+exports[`Test suite for Home page Render component for unauthenticated user should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Home
+    auth={
+      Object {
+        "isLoggedIn": false,
+      }
+    }
+    getHotRecipes={[Function]}
+    recipes={
+      Object {
+        "allRecipes": Array [],
+        "category": Array [
+          Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "Normal food",
+            "direction": "Just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "A really long recipe title to make sure the words are truncated",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-13T05:12:41.611Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "count": 1,
+        "hotRecipes": Array [
+          Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "Normal food",
+            "direction": "Just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "A really long recipe title to make sure the words are truncated",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-13T05:12:41.611Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "recipeItem": Object {
+          "recipe": Object {
+            "category": "Lunch",
+            "comments": 0,
+            "createdAt": "2018-03-13T05:05:02.553Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 0,
+            "favorites": Array [],
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water, salt",
+            ],
+            "name": "How to cook yam",
+            "reactionDown": Array [],
+            "reactionUp": Array [],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-14T18:21:16.794Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+          "success": true,
+        },
+        "searchResult": Array [],
+        "updated": false,
+        "userRecipes": Array [],
+        "userRecipesCount": 0,
+      }
+    }
+  >
+    <div>
+      <section
+        className="container-fluid"
+      >
+        <div
+          className="header"
+        >
+          <DynamicHeader
+            effectDuration={600}
+            hasEffect={true}
+            useHeadersDifference={true}
+          />
+          <div
+            className="row header-items justify-content-center"
+          >
+            <div
+              className="col-lg-10 col-sm-10 text-left banner"
+            >
+              <div
+                className="home-title mt-100"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+              >
+                <span
+                  className="firstWord"
+                >
+                  More 
+                </span>
+                Recipes
+              </div>
+              <div
+                className=" text-white bg-mirror pb-30"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                id="welcome-note"
+              >
+                <p>
+                  This is a platform for you to share the awesome and exciting recipe ideas you have invented or learnt.
+                </p>
+                <p>
+                  Recipes are by nature derivative and meant to be shared that is how they improve, are changed, how new ideas are formed.
+                </p>
+                <p>
+                  Have fun as you share and explore exciting recipes
+                </p>
+                <div
+                  className="mt-0"
+                >
+                  <Link
+                    className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                    replace={false}
+                    to="/signup"
+                  >
+                    <a
+                      className="btn btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                      onClick={[Function]}
+                    >
+                      Signup to Get Started
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        className="container "
+        id="catalog"
+      >
+        <div
+          className="catalog-wrapper"
+        >
+          <div
+            className="col-12 "
+          >
+            <div
+              className="clearfix"
+              style={
+                Object {
+                  "zIndex": 700,
+                }
+              }
+            >
+              <h4
+                className="float-left header-title"
+              >
+                Top Recipes
+              </h4>
+              <h5
+                className="float-right"
+              >
+                <Link
+                  className="btn btn-dark hvr-icon-wobble-horizontal"
+                  id="view-all-recipes"
+                  replace={false}
+                  to="/catalog"
+                >
+                  <a
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                    id="view-all-recipes"
+                    onClick={[Function]}
+                  >
+                    see all recipes
+                     
+                  </a>
+                </Link>
+              </h5>
+            </div>
+          </div>
+          <Connect(CatalogList)
+            auth={
+              Object {
+                "isLoggedIn": false,
+              }
+            }
+            catalog={
+              Array [
+                Object {
+                  "category": "Lunch",
+                  "comments": 0,
+                  "createdAt": "2018-03-13T05:05:02.553Z",
+                  "description": "Normal food",
+                  "direction": "Just do it",
+                  "downvote": 0,
+                  "favorite": 0,
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "id": 1,
+                  "ingredients": Array [
+                    "water, salt",
+                  ],
+                  "name": "A really long recipe title to make sure the words are truncated",
+                  "reactionDown": Array [],
+                  "reactionUp": Array [],
+                  "searchIng": "water, salt",
+                  "updatedAt": "2018-03-13T05:12:41.611Z",
+                  "upvote": 0,
+                  "userId": 1,
+                  "views": 0,
+                },
+              ]
+            }
+            getHotRecipes={[Function]}
+            recipes={
+              Object {
+                "allRecipes": Array [],
+                "category": Array [
+                  Object {
+                    "category": "Lunch",
+                    "comments": 0,
+                    "createdAt": "2018-03-13T05:05:02.553Z",
+                    "description": "Normal food",
+                    "direction": "Just do it",
+                    "downvote": 0,
+                    "favorite": 0,
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "id": 1,
+                    "ingredients": Array [
+                      "water, salt",
+                    ],
+                    "name": "A really long recipe title to make sure the words are truncated",
+                    "reactionDown": Array [],
+                    "reactionUp": Array [],
+                    "searchIng": "water, salt",
+                    "updatedAt": "2018-03-13T05:12:41.611Z",
+                    "upvote": 0,
+                    "userId": 1,
+                    "views": 0,
+                  },
+                ],
+                "count": 1,
+                "hotRecipes": Array [
+                  Object {
+                    "category": "Lunch",
+                    "comments": 0,
+                    "createdAt": "2018-03-13T05:05:02.553Z",
+                    "description": "Normal food",
+                    "direction": "Just do it",
+                    "downvote": 0,
+                    "favorite": 0,
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "id": 1,
+                    "ingredients": Array [
+                      "water, salt",
+                    ],
+                    "name": "A really long recipe title to make sure the words are truncated",
+                    "reactionDown": Array [],
+                    "reactionUp": Array [],
+                    "searchIng": "water, salt",
+                    "updatedAt": "2018-03-13T05:12:41.611Z",
+                    "upvote": 0,
+                    "userId": 1,
+                    "views": 0,
+                  },
+                ],
+                "recipeItem": Object {
+                  "recipe": Object {
+                    "category": "Lunch",
+                    "comments": 0,
+                    "createdAt": "2018-03-13T05:05:02.553Z",
+                    "description": "just do it",
+                    "direction": "just do it",
+                    "downvote": 0,
+                    "favorite": 0,
+                    "favorites": Array [],
+                    "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                    "id": 1,
+                    "ingredients": Array [
+                      "water, salt",
+                    ],
+                    "name": "How to cook yam",
+                    "reactionDown": Array [],
+                    "reactionUp": Array [],
+                    "searchIng": "water, salt",
+                    "updatedAt": "2018-03-14T18:21:16.794Z",
+                    "upvote": 0,
+                    "userId": 1,
+                    "views": 0,
+                  },
+                  "success": true,
+                },
+                "searchResult": Array [],
+                "updated": false,
+                "userRecipes": Array [],
+                "userRecipesCount": 0,
+              }
+            }
+            showDeleteBtn={false}
+          />
+          <div
+            className="col-12 "
+          >
+            <div
+              className="clearfix"
+            >
+              <h5
+                className="text-center"
+              >
+                <Link
+                  className="btn btn-dark hvr-icon-wobble-horizontal"
+                  replace={false}
+                  to="/catalog"
+                >
+                  <a
+                    className="btn btn-dark hvr-icon-wobble-horizontal"
+                    onClick={[Function]}
+                  >
+                    View Latest Recipes
+                     
+                  </a>
+                </Link>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </Home>
+</MockRouter>
+`;

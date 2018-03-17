@@ -1,0 +1,412 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for catalog list Render catalog list with delete button should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <CatalogList
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    catalog={
+      Array [
+        Object {
+          "category": "Lunch",
+          "comments": 0,
+          "createdAt": "2018-03-13T05:05:02.553Z",
+          "description": "Normal food",
+          "direction": "Just do it",
+          "downvote": 0,
+          "favorite": 0,
+          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+          "id": 1,
+          "ingredients": Array [
+            "water, salt",
+          ],
+          "name": "A really long recipe title to make sure the words are truncated",
+          "reactionDown": Array [],
+          "reactionUp": Array [],
+          "searchIng": "water, salt",
+          "updatedAt": "2018-03-13T05:12:41.611Z",
+          "upvote": 0,
+          "userId": 1,
+          "views": 0,
+        },
+      ]
+    }
+    deleteRecipe={[Function]}
+    isLoading={false}
+    showDeleteBtn={true}
+  >
+    <div>
+      <div
+        className="row"
+        key="1"
+      >
+        <div
+          className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12"
+        >
+          <div>
+            <Link
+              className="hvr-grow-shadow"
+              replace={false}
+              to="/recipe/1"
+            >
+              <a
+                className="hvr-grow-shadow"
+                onClick={[Function]}
+              >
+                <div
+                  className="card"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  key="1"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                >
+                  <button
+                    className="btn btn-danger btn-sm delete-btn"
+                    data-target="#deleteModal"
+                    data-toggle="modal"
+                    onClick={[Function]}
+                  >
+                    Delete Recipe
+                  </button>
+                  <div
+                    id="img-1"
+                  >
+                    <img
+                      alt="recipeImage"
+                      className="card-img-top img-box "
+                      src="https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png"
+                    />
+                  </div>
+                  <div
+                    className="card-body p-0 text-center social-icons"
+                  >
+                    <span
+                      className="tag bg-danger"
+                      id="tag-1"
+                    >
+                      Lunch
+                    </span>
+                    <h4
+                      className="card-title custom-bg bg-dark p-2 m-0"
+                    >
+                      A really long recipe tit...
+                    </h4>
+                    <div
+                      className="card-body p-5 text-left bg-wheat"
+                    >
+                      <p
+                        className="crop-text"
+                        id="recipe-1"
+                      >
+                        Normal food
+                      </p>
+                    </div>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-heart-o"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-thumbs-o-up"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-thumbs-o-down"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-eye"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-comment-o"
+                      />
+                      0
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </CatalogList>
+</MockRouter>
+`;
+
+exports[`Test suite for catalog list Render catalog list without delete button should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <CatalogList
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    catalog={
+      Array [
+        Object {
+          "category": "Lunch",
+          "comments": 0,
+          "createdAt": "2018-03-13T05:05:02.553Z",
+          "description": "Normal food",
+          "direction": "Just do it",
+          "downvote": 0,
+          "favorite": 0,
+          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+          "id": 1,
+          "ingredients": Array [
+            "water, salt",
+          ],
+          "name": "A really long recipe title to make sure the words are truncated",
+          "reactionDown": Array [],
+          "reactionUp": Array [],
+          "searchIng": "water, salt",
+          "updatedAt": "2018-03-13T05:12:41.611Z",
+          "upvote": 0,
+          "userId": 1,
+          "views": 0,
+        },
+      ]
+    }
+    isLoading={false}
+    showDeleteBtn={false}
+  >
+    <div>
+      <div
+        className="row"
+        key="1"
+      >
+        <div
+          className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12"
+        >
+          <div>
+            <Link
+              className="hvr-grow-shadow"
+              replace={false}
+              to="/recipe/1"
+            >
+              <a
+                className="hvr-grow-shadow"
+                onClick={[Function]}
+              >
+                <div
+                  className="card"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  key="1"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                >
+                  <div
+                    id="img-1"
+                  >
+                    <img
+                      alt="recipeImage"
+                      className="card-img-top img-box "
+                      src="https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png"
+                    />
+                  </div>
+                  <div
+                    className="card-body p-0 text-center social-icons"
+                  >
+                    <span
+                      className="tag bg-danger"
+                      id="tag-1"
+                    >
+                      Lunch
+                    </span>
+                    <h4
+                      className="card-title custom-bg bg-dark p-2 m-0"
+                    >
+                      A really long recipe tit...
+                    </h4>
+                    <div
+                      className="card-body p-5 text-left bg-wheat"
+                    >
+                      <p
+                        className="crop-text"
+                        id="recipe-1"
+                      >
+                        Normal food
+                      </p>
+                    </div>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-heart-o"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-thumbs-o-up"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-thumbs-o-down"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-eye"
+                      />
+                      0
+                    </span>
+                    <span>
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-comment-o"
+                      />
+                      0
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </CatalogList>
+</MockRouter>
+`;

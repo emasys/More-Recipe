@@ -1,0 +1,865 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Add recipe page Render component for unauthenticated user should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <AddRecipe
+    addRecipe={[Function]}
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    history={Object {}}
+    new_recipe={Object {}}
+  >
+    <section
+      className="container "
+    >
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <div
+        className="row p-0 justify-content-center mt-80"
+        data-aos="fade-up"
+        data-duration="1000"
+      >
+        <div
+          className=" catalog-wrapper col-lg-6 col-md-9 p-0"
+        >
+          <div
+            className="col-12 text-center AuthInfo"
+          >
+            <img
+              alt="logo"
+              className="mt-30"
+              data-aos="flip-right"
+              data-aos-delay="1000"
+              data-dos-duration="1000"
+              height="200"
+              src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+              width="200"
+            />
+            <h3
+              className="text-white"
+            >
+              Hey 
+              admin
+            </h3>
+            <h4
+              className="mt-10 text-white p-10 "
+            >
+              “Cooking is not a science but an art, mistakes are okay, messes are fine—the pleasure is in the creating and the sharing of the result.” ― Lori Pollan
+            </h4>
+          </div>
+          <AddRecipeForm
+            handleForm={[Function]}
+            onFocus={[Function]}
+            state={
+              Object {
+                "buttonDisplay": true,
+                "fileURL": null,
+                "files": null,
+                "nameConflict": false,
+                "preview": null,
+                "required": false,
+                "status": "fade",
+              }
+            }
+          >
+            <form
+              onSubmit={[Function]}
+            >
+              <ul
+                className="form row p-10 mb-10"
+              >
+                <li
+                  className="col-12"
+                >
+                  <label>
+                    Recipe Name
+                  </label>
+                  <input
+                    className="col-12"
+                    id="inputRecipe"
+                    name="recipe"
+                    onFocus={[Function]}
+                    placeholder="Name of recipe"
+                    required={true}
+                    type="text"
+                  />
+                </li>
+                <li
+                  className="col-12"
+                >
+                  <label
+                    htmlFor="description"
+                  >
+                    Description
+                  </label>
+                  <TextareaAutosize
+                    className="col-12"
+                    id="description"
+                    maxLength={400}
+                    maxRows={20}
+                    minRows={1}
+                    name="description"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onHeightChange={[Function]}
+                    placeholder="a short description of your recipe (400 characters)"
+                    required={true}
+                    useCacheForDOMMeasurements={false}
+                  >
+                    <textarea
+                      className="col-12"
+                      id="description"
+                      maxLength={400}
+                      name="description"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="a short description of your recipe (400 characters)"
+                      required={true}
+                      style={
+                        Object {
+                          "height": -80,
+                        }
+                      }
+                    />
+                  </TextareaAutosize>
+                </li>
+                <li
+                  className="col-12"
+                >
+                  <label
+                    className="col-form-label"
+                    htmlFor="ingredients"
+                  >
+                    Ingredients
+                  </label>
+                  <TextareaAutosize
+                    className="col-12"
+                    id="ingredients"
+                    maxRows={10}
+                    minRows={1}
+                    name="ingredients"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onHeightChange={[Function]}
+                    placeholder="Add your ingredients and separate with a comma ','"
+                    required={true}
+                    useCacheForDOMMeasurements={false}
+                  >
+                    <textarea
+                      className="col-12"
+                      id="ingredients"
+                      name="ingredients"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="Add your ingredients and separate with a comma ','"
+                      required={true}
+                      style={
+                        Object {
+                          "height": -40,
+                        }
+                      }
+                    />
+                  </TextareaAutosize>
+                </li>
+                <li
+                  className="col-12"
+                >
+                  <label
+                    htmlFor="direction"
+                  >
+                    Direction
+                  </label>
+                  <TextareaAutosize
+                    className="col-12"
+                    id="direction"
+                    maxRows={20}
+                    minRows={1}
+                    name="direction"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onHeightChange={[Function]}
+                    placeholder="how to make it happen"
+                    required={true}
+                    useCacheForDOMMeasurements={false}
+                  >
+                    <textarea
+                      className="col-12"
+                      id="direction"
+                      name="direction"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="how to make it happen"
+                      required={true}
+                      style={
+                        Object {
+                          "height": -80,
+                        }
+                      }
+                    />
+                  </TextareaAutosize>
+                </li>
+                <li
+                  className="special col-12"
+                >
+                  <label>
+                    Category
+                  </label>
+                  <select
+                    className="col-12 "
+                    name="category"
+                    style={
+                      Object {
+                        "height": "50px",
+                      }
+                    }
+                  >
+                    <option
+                      className="text-capitalize"
+                      key="Breakfast"
+                      value="Breakfast"
+                    >
+                      Breakfast
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Brunch"
+                      value="Brunch"
+                    >
+                      Brunch
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Lunch"
+                      value="Lunch"
+                    >
+                      Lunch
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Snacks"
+                      value="Snacks"
+                    >
+                      Snacks
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Appetisers"
+                      value="Appetisers"
+                    >
+                      Appetisers
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Dinner"
+                      value="Dinner"
+                    >
+                      Dinner
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Soups"
+                      value="Soups"
+                    >
+                      Soups
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Noodles"
+                      value="Noodles"
+                    >
+                      Noodles
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Rice"
+                      value="Rice"
+                    >
+                      Rice
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Pasta"
+                      value="Pasta"
+                    >
+                      Pasta
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Meat"
+                      value="Meat"
+                    >
+                      Meat
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Poultry"
+                      value="Poultry"
+                    >
+                      Poultry
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Seafood"
+                      value="Seafood"
+                    >
+                      Seafood
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Vegetarian"
+                      value="Vegetarian"
+                    >
+                      Vegetarian
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Sides"
+                      value="Sides"
+                    >
+                      Sides
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Sauces"
+                      value="Sauces"
+                    >
+                      Sauces
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Baking"
+                      value="Baking"
+                    >
+                      Baking
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Desserts"
+                      value="Desserts"
+                    >
+                      Desserts
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Drinks"
+                      value="Drinks"
+                    >
+                      Drinks
+                    </option>
+                    <option
+                      className="text-capitalize"
+                      key="Salads"
+                      value="Salads"
+                    >
+                      Salads
+                    </option>
+                  </select>
+                </li>
+                <li
+                  className=" col-12 "
+                >
+                  <input
+                    className="bg-dark btn hovered"
+                    id="submit"
+                    type="submit"
+                    value="Submit"
+                  />
+                </li>
+              </ul>
+            </form>
+          </AddRecipeForm>
+        </div>
+      </div>
+    </section>
+  </AddRecipe>
+</MockRouter>
+`;
+
+exports[`Test suite for Add recipe page should call onFocused 1`] = `
+<AddRecipe
+  addRecipe={[Function]}
+  auth={
+    Object {
+      "allUsers": Object {
+        "success": true,
+        "users": Array [
+          Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "createdAt": "2018-03-13T05:04:37.443Z",
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+            "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+            "updatedAt": "2018-03-13T05:04:37.443Z",
+          },
+        ],
+      },
+      "authInfo": Object {
+        "isLoggedIn": true,
+        "userId": 1,
+        "username": "admin",
+      },
+      "isLoggedIn": true,
+      "message": null,
+      "userInfo": Object {
+        "data": Object {
+          "avatar": null,
+          "bio": null,
+          "country": "Nigeria",
+          "email": "emasysnd@gmail.com",
+          "firstName": "emmy",
+          "id": 1,
+          "lastName": "endy",
+          "moniker": "admin",
+        },
+        "success": true,
+      },
+      "userProfile": Object {
+        "data": Object {
+          "avatar": null,
+          "bio": null,
+          "country": null,
+          "email": "emasysnd@gmail.com",
+          "firstName": null,
+          "id": 1,
+          "lastName": null,
+          "moniker": "admin",
+        },
+        "success": true,
+      },
+    }
+  }
+  history={Object {}}
+  new_recipe={Object {}}
+>
+  <section
+    className="container "
+  >
+    <Connect(Navbar)
+      className="bg-dark fixed-top"
+    />
+    <div
+      className="row p-0 justify-content-center mt-80"
+      data-aos="fade-up"
+      data-duration="1000"
+    >
+      <div
+        className=" catalog-wrapper col-lg-6 col-md-9 p-0"
+      >
+        <div
+          className="col-12 text-center AuthInfo"
+        >
+          <img
+            alt="logo"
+            className="mt-30"
+            data-aos="flip-right"
+            data-aos-delay="1000"
+            data-dos-duration="1000"
+            height="200"
+            src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+            width="200"
+          />
+          <h3
+            className="text-white"
+          >
+            Hey 
+            admin
+          </h3>
+          <h4
+            className="mt-10 text-white p-10 "
+          >
+            “Cooking is not a science but an art, mistakes are okay, messes are fine—the pleasure is in the creating and the sharing of the result.” ― Lori Pollan
+          </h4>
+        </div>
+        <AddRecipeForm
+          handleForm={[Function]}
+          onFocus={[Function]}
+          state={
+            Object {
+              "buttonDisplay": true,
+              "fileURL": null,
+              "files": null,
+              "nameConflict": false,
+              "preview": null,
+              "required": false,
+              "status": "fade",
+            }
+          }
+        >
+          <form
+            onSubmit={[Function]}
+          >
+            <ul
+              className="form row p-10 mb-10"
+            >
+              <li
+                className="col-12"
+              >
+                <label>
+                  Recipe Name
+                </label>
+                <input
+                  className="col-12"
+                  id="inputRecipe"
+                  name="recipe"
+                  onFocus={[Function]}
+                  placeholder="Name of recipe"
+                  required={true}
+                  type="text"
+                />
+              </li>
+              <li
+                className="col-12"
+              >
+                <label
+                  htmlFor="description"
+                >
+                  Description
+                </label>
+                <TextareaAutosize
+                  className="col-12"
+                  id="description"
+                  maxLength={400}
+                  maxRows={20}
+                  minRows={1}
+                  name="description"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onHeightChange={[Function]}
+                  placeholder="a short description of your recipe (400 characters)"
+                  required={true}
+                  useCacheForDOMMeasurements={false}
+                >
+                  <textarea
+                    className="col-12"
+                    id="description"
+                    maxLength={400}
+                    name="description"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder="a short description of your recipe (400 characters)"
+                    required={true}
+                    style={
+                      Object {
+                        "height": -80,
+                      }
+                    }
+                  />
+                </TextareaAutosize>
+              </li>
+              <li
+                className="col-12"
+              >
+                <label
+                  className="col-form-label"
+                  htmlFor="ingredients"
+                >
+                  Ingredients
+                </label>
+                <TextareaAutosize
+                  className="col-12"
+                  id="ingredients"
+                  maxRows={10}
+                  minRows={1}
+                  name="ingredients"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onHeightChange={[Function]}
+                  placeholder="Add your ingredients and separate with a comma ','"
+                  required={true}
+                  useCacheForDOMMeasurements={false}
+                >
+                  <textarea
+                    className="col-12"
+                    id="ingredients"
+                    name="ingredients"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder="Add your ingredients and separate with a comma ','"
+                    required={true}
+                    style={
+                      Object {
+                        "height": -40,
+                      }
+                    }
+                  />
+                </TextareaAutosize>
+              </li>
+              <li
+                className="col-12"
+              >
+                <label
+                  htmlFor="direction"
+                >
+                  Direction
+                </label>
+                <TextareaAutosize
+                  className="col-12"
+                  id="direction"
+                  maxRows={20}
+                  minRows={1}
+                  name="direction"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onHeightChange={[Function]}
+                  placeholder="how to make it happen"
+                  required={true}
+                  useCacheForDOMMeasurements={false}
+                >
+                  <textarea
+                    className="col-12"
+                    id="direction"
+                    name="direction"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder="how to make it happen"
+                    required={true}
+                    style={
+                      Object {
+                        "height": -80,
+                      }
+                    }
+                  />
+                </TextareaAutosize>
+              </li>
+              <li
+                className="special col-12"
+              >
+                <label>
+                  Category
+                </label>
+                <select
+                  className="col-12 "
+                  name="category"
+                  style={
+                    Object {
+                      "height": "50px",
+                    }
+                  }
+                >
+                  <option
+                    className="text-capitalize"
+                    key="Breakfast"
+                    value="Breakfast"
+                  >
+                    Breakfast
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Brunch"
+                    value="Brunch"
+                  >
+                    Brunch
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Lunch"
+                    value="Lunch"
+                  >
+                    Lunch
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Snacks"
+                    value="Snacks"
+                  >
+                    Snacks
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Appetisers"
+                    value="Appetisers"
+                  >
+                    Appetisers
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Dinner"
+                    value="Dinner"
+                  >
+                    Dinner
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Soups"
+                    value="Soups"
+                  >
+                    Soups
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Noodles"
+                    value="Noodles"
+                  >
+                    Noodles
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Rice"
+                    value="Rice"
+                  >
+                    Rice
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Pasta"
+                    value="Pasta"
+                  >
+                    Pasta
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Meat"
+                    value="Meat"
+                  >
+                    Meat
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Poultry"
+                    value="Poultry"
+                  >
+                    Poultry
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Seafood"
+                    value="Seafood"
+                  >
+                    Seafood
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Vegetarian"
+                    value="Vegetarian"
+                  >
+                    Vegetarian
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Sides"
+                    value="Sides"
+                  >
+                    Sides
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Sauces"
+                    value="Sauces"
+                  >
+                    Sauces
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Baking"
+                    value="Baking"
+                  >
+                    Baking
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Desserts"
+                    value="Desserts"
+                  >
+                    Desserts
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Drinks"
+                    value="Drinks"
+                  >
+                    Drinks
+                  </option>
+                  <option
+                    className="text-capitalize"
+                    key="Salads"
+                    value="Salads"
+                  >
+                    Salads
+                  </option>
+                </select>
+              </li>
+              <li
+                className=" col-12 "
+              >
+                <input
+                  className="bg-dark btn hovered"
+                  id="submit"
+                  type="submit"
+                  value="Submit"
+                />
+              </li>
+            </ul>
+          </form>
+        </AddRecipeForm>
+      </div>
+    </div>
+  </section>
+</AddRecipe>
+`;

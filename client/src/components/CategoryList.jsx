@@ -29,11 +29,10 @@ export const list = [
 /**
  * Renders the category list
  *
- * @param {any} props
  *
  * @returns {JSX.Element} category list
  */
-const CategoryList = props => (
+const CategoryList = () => (
   <section className="mt-0 mb-20 text-center">
     <div className="category-wrapper container-fluid">
       <div>

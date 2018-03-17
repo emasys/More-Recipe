@@ -37,7 +37,7 @@ const FavoriteCategoryList = ({ list, filterList }) => {
       </div>
     );
   }
-  return 'Loading......';
+  return <p>Loading......</p>;
 };
 
 FavoriteCategoryList.propTypes = {

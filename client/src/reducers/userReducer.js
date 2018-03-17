@@ -65,7 +65,13 @@ export default (
       ...state,
       compareToken: action.payload
     };
-
+  case type.CLEAR_AUTH:
+    return {
+      ...state,
+      compareToken: null,
+      sendToken: null,
+      reset: null
+    };
   case type.IS_LOGGEDIN:
     return {
       ...state,

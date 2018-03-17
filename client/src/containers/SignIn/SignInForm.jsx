@@ -50,7 +50,7 @@ const SignInForm = props => {
           </Link>
         </li>
         <li className="col-lg-12 col-sm-12 text-center">
-          <span className="text-info hovered" onClick={props.resetForm}>
+          <span className="text-info hovered" id="forgotPassword" onClick={props.resetForm}>
             forgot password?
           </span>
         </li>
