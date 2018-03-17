@@ -159,6 +159,13 @@ export class Profile extends Component {
       })
     });
 
+  /**
+   *
+   * @returns {void}
+   * @memberof Profile
+   *
+   * @memberOf Profile
+   */
   hoverIn() {
     this.setState({ status: 'show' });
   }
@@ -275,9 +282,9 @@ export class Profile extends Component {
    * @memberof Profile
    */
   onBlur() {
-    this.setState({
-      display: 'd-block'
-    });
+    // this.setState({
+    //   display: 'd-block'
+    // });
   }
   /**
    *
@@ -300,6 +307,9 @@ export class Profile extends Component {
         edit: false
       });
     }
+    this.setState({
+      display: 'd-block'
+    });
   }
   /**
    *

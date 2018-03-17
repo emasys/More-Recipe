@@ -70,7 +70,7 @@ const ProfilePage = () => {
 
       it('Should delete a recipe', client => {
         client
-          .click('.delete-btn')
+          .click('.btn.btn-danger.btn-sm.delete-btn')
           .pause(2000)
           .click('.modal-footer .btn-danger')
           .pause(3000)

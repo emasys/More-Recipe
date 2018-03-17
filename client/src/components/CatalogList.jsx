@@ -138,6 +138,7 @@ export class CatalogList extends Component {
                     props.showDeleteBtn && (
                       <button
                         className="btn btn-danger btn-sm delete-btn"
+                        id="delete-recipe"
                         onClick={event => props.deleteRecipe(event, item)}
                         data-toggle="modal"
                         data-target="#deleteModal"
@@ -205,7 +206,7 @@ export class CatalogList extends Component {
    * @memberOf CatalogList
    */
   render() {
-    return <div>{this.generateList(this.props)}</div>;
+    return <div className="row justify-content-center">{this.generateList(this.props)}</div>;
   }
 }
 
