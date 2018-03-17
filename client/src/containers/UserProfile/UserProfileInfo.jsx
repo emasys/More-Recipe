@@ -56,6 +56,10 @@ const UserProfileInfo = props => {
 };
 
 UserProfileInfo.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object
+};
+
+UserProfileInfo.defaultProps = {
+  data: null
 };
 export default UserProfileInfo;
