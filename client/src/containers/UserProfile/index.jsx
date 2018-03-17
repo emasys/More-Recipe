@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
@@ -18,7 +17,7 @@ import UserProfileInfo from './UserProfileInfo';
  * @class UserProfile
  * @extends {Component}
  */
-class UserProfile extends Component {
+export class UserProfile extends Component {
   static propTypes = {
     userInfo: PropTypes.object.isRequired,
     getUserRecipes: PropTypes.func.isRequired,
@@ -42,6 +41,8 @@ class UserProfile extends Component {
       recipes: [],
       showMore: true
     };
+
+    this.viewMore = this.viewMore.bind(this);
   }
   /**
    *
@@ -84,7 +85,7 @@ class UserProfile extends Component {
    *
    * @memberof UserProfile
    */
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     this.props.clearRecipes();
   };
 
@@ -110,7 +111,7 @@ class UserProfile extends Component {
    * @returns {void}
    * @memberOf UserProfile
    */
-  viewMore = event => {
+  viewMore(event) {
     event.preventDefault();
     this.loadMore();
   };
@@ -171,14 +172,11 @@ class UserProfile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   recipes: state.recipes.userRecipes,
   userInfo: state.user.userInfo,
   count: state.recipes.userRecipesCount
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getUserInfo, getUserRecipes, clearRecipes }, dispatch)
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, { getUserInfo, getUserRecipes, clearRecipes })(UserProfile);

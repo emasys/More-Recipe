@@ -4,12 +4,13 @@ import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
 
 /**
+ * Render preloader bar when needed
  *
+ * @param {any} { isLoading }
  *
- * @class Preloader
- * @extends {Component}
+ * @returns {JSX.Element} React element
  */
-const Preloader = ({ isLoading }) => (
+export const Preloader = ({ isLoading }) => (
   <div className="fixed-top">
     {isLoading ? <Pace color="#f5b339" height={4} /> : null}
   </div>
@@ -18,7 +19,7 @@ const Preloader = ({ isLoading }) => (
 Preloader.propTypes = {
   isLoading: PropTypes.bool.isRequired
 };
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   isLoading: state.isLoading
 });
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { filter } from 'lodash';
@@ -39,6 +38,8 @@ export class Favorites extends Component {
       offset: 0,
       filterBy: 'Recipe'
     };
+
+    this.filterFavorites = this.filterFavorites.bind(this);
   }
 
   /**
@@ -103,7 +104,7 @@ export class Favorites extends Component {
    *
    * @memberOf Favorites
    */
-  filterFavorites = (event, category) => {
+  filterFavorites(event, category) {
     event.preventDefault();
     const setParams = {
       Recipe: { category }
@@ -111,7 +112,7 @@ export class Favorites extends Component {
     this.setState({
       filterBy: setParams
     });
-  };
+  }
   /**
    *
    *
@@ -133,7 +134,9 @@ export class Favorites extends Component {
                     data-tip="Total number of recipes added"
                     className="badge badge-dark"
                   >
-                    {this.props.favorites.favoriteCount}
+                    {this.props.favorites ?
+                      this.props.favorites.favoriteCount :
+                      null}
                   </span>
                 </h2>
               </div>
@@ -189,12 +192,8 @@ export class Favorites extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   favorites: state.favorite
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getFavorite, clearFavoriteList }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps, { getFavorite, clearFavoriteList })(Favorites);

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import 'react-responsive-modal/lib/react-responsive-modal.css';
-import Modal from 'react-responsive-modal/lib/css';
 import PropTypes from 'prop-types';
 
 // Actions
@@ -9,6 +7,7 @@ import { getAllUsers, deleteUser } from '../actions/userActions';
 
 //components
 import Navbar from './Navbar';
+import DeleteModal from '../containers/Profile/DeleteModal';
 
 /**
  * ManageUsers
@@ -17,7 +16,7 @@ import Navbar from './Navbar';
  *
  * @extends {Component}
  */
-class ManageUsers extends Component {
+export class ManageUsers extends Component {
   static propTypes = {
     users: PropTypes.object.isRequired,
     deleteUser: PropTypes.func.isRequired,
@@ -32,10 +31,6 @@ class ManageUsers extends Component {
    */
   constructor(props) {
     super(props);
-
-    this.state = {
-      open: false
-    };
 
     this.globalId = 0;
   }
@@ -55,29 +50,16 @@ class ManageUsers extends Component {
    * be deleted, then pass it to the globalId to be used in the api call
    *
    * @param {object} event
+   * @param {number} id
    *
    * @memberof ManageUsers
    *
    * @returns {void}
    *
    */
-  deleteUser = event => {
-    if (event.target.id) {
-      this.globalId = event.target.id;
-      this.onOpenModal();
-    }
-  };
-  /**
-   * Open modal
-   *
-   * @param {object} event
-   *
-   * @memberof ManageUsers
-   *
-   * @returns {void}
-   */
-  onOpenModal = event => {
-    this.setState({ open: true });
+  deleteUser = (event, id) => {
+    event.preventDefault();
+    this.globalId = id;
   };
   /**
    * Confirm deletion of a user
@@ -89,20 +71,8 @@ class ManageUsers extends Component {
    * @returns {void}
    */
   confirmDelete = event => {
-    if (event.target.id === 'yes') {
-      this.props.deleteUser(this.globalId);
-      this.onCloseModal();
-    }
-  };
-  /**
-   * Close modal
-   *
-   * @memberof ManageUsers
-   *
-   * @returns {void}
-   */
-  onCloseModal = () => {
-    this.setState({ open: false });
+    event.preventDefault();
+    this.props.deleteUser(this.globalId);
   };
   /**
    * Generate a list of users
@@ -116,20 +86,22 @@ class ManageUsers extends Component {
   generateTable = user => {
     if (user) {
       return user.users.map(item => (
-        <tbody key={item}>
+        <tbody key={item.id}>
           <tr>
             <th scope="row" name={item.id}>
               {item.id}
             </th>
             <td>{item.firstName}</td>
             <td>{item.lastName}</td>
-            <td>{item.moniker}</td>
+            <td className="moniker">{item.moniker}</td>
             <td>{item.email}</td>
             <td>
               <button
-                className="btn btn-danger"
+                className="btn btn-danger delete-user-btn"
                 id={item.id}
-                onClick={this.deleteUser}
+                onClick={event => this.deleteUser(event, item.id)}
+                data-toggle="modal"
+                data-target="#deleteModal"
               >
                 Delete
               </button>
@@ -146,31 +118,10 @@ class ManageUsers extends Component {
    * @memberof ManageUsers
    */
   render() {
-    const { open } = this.state;
-
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <Modal open={open} onClose={this.onCloseModal} little>
-          <div className="text-center mt-10">
-            <h4>Delete Recipe?</h4>
-            <h2 className="mt-5">Are you sure you want to delete this user?</h2>
-            <button
-              id="yes"
-              className="btn btn-block btn-success"
-              onClick={this.confirmDelete}
-            >
-              Yes
-            </button>
-            <button
-              id="no"
-              className="btn btn-block btn-danger"
-              onClick={this.onCloseModal}
-            >
-              No
-            </button>
-          </div>
-        </Modal>
+        <DeleteModal {...this.props} confirmDelete={this.confirmDelete} />
         <div className="container mt-80 mb-20">
           <div className="row">
             <div className="catalog-wrapper col-12">
@@ -195,9 +146,8 @@ class ManageUsers extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  users: state.user.allUsers,
-  deluser: state.user.delUser
+export const mapStateToProps = state => ({
+  users: state.user.allUsers
 });
 
 export default connect(mapStateToProps, { getAllUsers, deleteUser })(ManageUsers);

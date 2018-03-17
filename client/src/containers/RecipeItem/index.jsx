@@ -9,7 +9,8 @@ import {
   getRecipeItem,
   editRecipe,
   delRecipe,
-  clearRecipes
+  clearRecipes,
+  getRecipeReactions
 } from '../../actions/recipeActions';
 import { setFavorite } from '../../actions/favoriteAction';
 import { upvote, downvote } from '../../actions/voteActions';
@@ -32,7 +33,7 @@ import { update, notify, failedUpdate } from './helperFunctions';
  * @class RecipeItem
  * @extends {Component}
  */
-class RecipeItem extends Component {
+export class RecipeItem extends Component {
   static propTypes = {
     userInfo: PropTypes.object,
     uploadImg: PropTypes.func.isRequired,
@@ -88,9 +89,15 @@ class RecipeItem extends Component {
       ingredients: '',
       direction: '',
       description: '',
-      recipeItem: undefined,
+      recipeItem: this.props.recipes.recipeItem.recipe ?
+        this.props.recipes.recipeItem :
+        undefined,
       fetchRecipe: false
     };
+    this.delRecipe = this.delRecipe.bind(this);
+    this.favIt = this.favIt.bind(this);
+    this.upvote = this.upvote.bind(this);
+    this.downvote = this.downvote.bind(this);
   }
   /**
    * Invoked immediately after component is mounted
@@ -108,13 +115,16 @@ class RecipeItem extends Component {
   /**
    * Invoked before a mounted component receives new props.
    *
-   * @param {any} nextProps
-   * 
+   * @param {object} nextProps
+   *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
    */
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.recipes.del_recipe && nextProps.recipes.del_recipe.success) {
+      this.props.history.push('/catalog');
+    }
     this.setState({
       authInfo: nextProps.auth.authInfo,
       fetchRecipe: nextProps.auth.isLoggedIn
@@ -127,12 +137,13 @@ class RecipeItem extends Component {
         error: 'd-none'
       });
     }
-    if (nextProps.recipes.recipeItem.data) {
-      if (nextProps.recipes.recipeItem.status > 200) {
+    if (nextProps.recipes.recipeItem.message) {
+      if (nextProps.recipes.recipeItem.message === 'Not found') {
         nextProps.history.push('/NotFound');
       }
       this.setState({
-        error: 'd-block'
+        error: 'd-block',
+        editRecipeItem: true
       });
     }
     if (nextProps.recipes.recipeItem.recipe) {
@@ -170,14 +181,14 @@ class RecipeItem extends Component {
         return null;
       });
     }
-  }
+  };
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf RecipeItem
-   * 
+   *
    * @returns {void}
    */
   componentWillUnmount = () => {
@@ -185,91 +196,68 @@ class RecipeItem extends Component {
   };
 
   /**
-   * 
+   *
    * @param {object} event
-   * 
+   *
    * @memberOf RecipeItem
-   * 
+   *
    * @returns {void}
    */
-  deleteRecipeInit = event => {
+  deleteRecipeInit(event) {
     event.preventDefault();
-  };
- 
+  }
+
   /**
    *redirects a user back to catalog page after deletion
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
-   */
-  delRecipe = () => {
-    this.props
-      .delRecipe(this.props.match.params.id, this.state.authInfo.userId)
-      .then(() => {
-        if (this.props.recipes.del_recipe.success) {
-          this.props.history.push('/catalog');
-        }
-      });
-  };
-  /**
-   * sets modal display to true
    *
-   * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   * @returns {void}
    */
-  onOpenDeleteModal = () => {
-    this.setState({ deleteRecipe: true });
-  };
-  /**
-   * sets modal display to false
-   *
-   * @memberof RecipeItem
-   * 
-   * @returns {void} 
-   */
-  onCloseDeleteModal = () => {
-    this.setState({ deleteRecipe: false });
-  };
+  delRecipe() {
+    this.props.delRecipe(
+      this.props.match.params.id,
+      this.state.authInfo.userId
+    );
+  }
   /**
    * Add a recipe to user's favorite list
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
-  favIt = () => {
+  favIt() {
     this.props.setFavorite(this.props.match.params.id);
-  };
+  }
   /**
    * upvote a recipe
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
-  upvote = () => {
+  upvote() {
     this.props.upvote(this.props.match.params.id);
-  };
+  }
   /**
    * Downvote a recipe
    *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
-  downvote = () => {
+  downvote() {
     this.props.downvote(this.props.match.params.id);
-  };
+  }
   /**
-   * 
+   *
    * edit recipe helper function
-   * 
+   *
    * @param {any} data
-   * 
+   *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
    */
   edited = data => {
@@ -280,9 +268,9 @@ class RecipeItem extends Component {
    *
    * @param {event} event
    * @param {string} foodImg
-   * 
+   *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
    */
   handleSubmit = event => {
@@ -304,8 +292,23 @@ class RecipeItem extends Component {
 
   /**
    *
-   * @returns {void} 
-   * 
+   *
+   * @param {event} event
+   * @param {string} foodImg
+   *
+   * @memberof RecipeItem
+   *
+   * @returns {void}
+   */
+  goBack = event => {
+    event.preventDefault();
+    this.setState({ editRecipeItem: false });
+    this.props.getRecipeReactions(this.props.match.params.id);
+  };
+  /**
+   *
+   * @returns {void}
+   *
    * @memberof RecipeItem
    */
   hoverIn = () => {
@@ -314,7 +317,7 @@ class RecipeItem extends Component {
   /**
    *
    * @returns {void}
-   * 
+   *
    * @memberof RecipeItem
    */
   hoverOut = () => {
@@ -324,10 +327,10 @@ class RecipeItem extends Component {
    * Preview of image
    *
    * @param {any} files
-   * 
+   *
    * @memberof RecipeItem
-   * 
-   * @returns {void} 
+   *
+   * @returns {void}
    */
   handleDrop = files => {
     const [{ preview }] = files;
@@ -338,9 +341,9 @@ class RecipeItem extends Component {
    * upload image
    *
    * @memberof RecipeItem
-   * 
+   *
    * @returns {void}
-   * 
+   *
    */
   handleImg = () => {
     notify();
@@ -364,7 +367,7 @@ class RecipeItem extends Component {
    *
    *
    * @param {object} reactions
-   * 
+   *
    * @returns {JSX.Element} Jsx element
    * @memberof RecipeItem
    */
@@ -391,9 +394,9 @@ class RecipeItem extends Component {
   };
   /**
    * Set a new edit state
-   * 
+   *
    * @returns {void}
-   * 
+   *
    * @memberof RecipeItem
    */
   showEditForm = () => {
@@ -406,11 +409,13 @@ class RecipeItem extends Component {
    *
    *
    * @returns {JSX.Element} render elements
-   * 
+   *
    * @memberof RecipeItem
    */
   render() {
     const { recipeItem, edit, editRecipeItem } = this.state;
+    // const x = undefined;
+    // if()
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
@@ -429,7 +434,11 @@ class RecipeItem extends Component {
               {this.generateItems(recipeItem)}
             </div>
             {editRecipeItem && (
-              <EditForm handleSubmit={this.handleSubmit} state={this.state} />
+              <EditForm
+                handleSubmit={this.handleSubmit}
+                goBack={this.goBack}
+                state={this.state}
+              />
             )}
             {!editRecipeItem && (
               <RecipeIngredients
@@ -465,7 +474,7 @@ class RecipeItem extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   recipes: state.recipes,
   favorite: state.favorite,
   votes: state.votes,
@@ -484,11 +493,11 @@ const mapDispatchToProps = dispatch => ({
       uploadImg,
       downvote,
       delRecipe,
-      clearRecipes
+      clearRecipes,
+      getRecipeReactions
     },
     dispatch
   )
 });
 
-export { RecipeItem as DummyRecipeItem };
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeItem);

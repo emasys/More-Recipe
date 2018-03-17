@@ -1,0 +1,580 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for SignIn page sign in Should complete reset password form and submit 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <SignIn
+    clearAuthInfo={[Function]}
+    compareToken={[Function]}
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    msg="you cannot view this page"
+    reset={Object {}}
+    sendToken={[Function]}
+    signIn={[Function]}
+    signin={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+  >
+    <section
+      className="container mt-100 mb-100 "
+    >
+      <ToastContainer
+        autoClose={5000}
+        bodyClassName=""
+        className={null}
+        closeButton={<DefaultCloseButton />}
+        closeOnClick={true}
+        hideProgressBar={false}
+        newestOnTop={false}
+        pauseOnHover={true}
+        position="top-right"
+        progressClassName=""
+        style={null}
+        toastClassName=""
+        transition={[Function]}
+      >
+        <div />
+      </ToastContainer>
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <div
+        className="row p-0 justify-content-center"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <div
+          className="catalog-wrapper col-lg-6 col-md-9 p-0"
+        >
+          <div
+            className="AuthInfo col-12 text-center "
+          >
+            <img
+              alt="logo"
+              className="mt-30"
+              data-aos="flip-right"
+              data-aos-delay="1000"
+              data-dos-duration="1000"
+              height="200"
+              src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+              width="200"
+            />
+            <h1
+              className="text-white"
+            >
+              Welcome back!
+            </h1>
+            <h4
+              className="mt-10 text-white mb-10 pr-50 pl-50 pb-20"
+            >
+              We trust it has been an amazing experience for you so far... Keep adding spices to life!
+            </h4>
+          </div>
+          <div
+            className="col-12 pb-20 signin-form"
+          >
+            <ResetPasswordForm
+              generateToken={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              resetForm={[Function]}
+              resetPassword={[Function]}
+              state={
+                Object {
+                  "buttonName": "Send Token",
+                  "confirmPassword": "",
+                  "display": "d-none",
+                  "email": "",
+                  "hideForm": "d-none",
+                  "message": "you cannot view this page",
+                  "newPassword": "",
+                  "password": "",
+                  "recoveryEmail": "",
+                  "resetPass": true,
+                  "showErrMessage": "fade",
+                  "showProps": true,
+                  "showRubics": "d-none",
+                  "success": false,
+                  "tokenError": "d-none",
+                }
+              }
+            >
+              <form
+                className=""
+                name="form"
+                onSubmit={[Function]}
+              >
+                <ul
+                  className="form row"
+                >
+                  <li
+                    className="col-lg-12 col-sm-12"
+                  >
+                    <label>
+                      Email
+                    </label>
+                    <input
+                      className="col-lg-12 col-sm-12"
+                      id="recoveryEmail"
+                      name="recoveryEmail"
+                      onChange={[Function]}
+                      placeholder="example@example.com"
+                      required={true}
+                      type="email"
+                      value=""
+                    />
+                    <div
+                      className="text-danger d-none"
+                      id="recoverEmail_error"
+                    >
+                      This email address is not in our records
+                    </div>
+                    <button
+                      className="btn btn-info mt-5 btn-block btn-lg "
+                      id="sendToken"
+                      name="sendToken"
+                      onClick={[Function]}
+                    >
+                      Send Token
+                    </button>
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12 d-none d-none"
+                  >
+                    <label>
+                      New Password
+                    </label>
+                    <input
+                      className="col-lg-12 col-sm-12"
+                      id="newPassword"
+                      name="newPassword"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="min of 8 characters"
+                      required={true}
+                      type="password"
+                      value=""
+                    />
+                    <div
+                      className="rubics d-none"
+                    >
+                      <p
+                        className="text-danger"
+                        id="password_error"
+                      />
+                      <p
+                        className="alpha"
+                      >
+                        Should contain at least one alphabet
+                      </p>
+                      <p
+                        className="numbers"
+                        id="check_numbers"
+                      >
+                        Should contain at least one number
+                      </p>
+                      <p
+                        className="characters"
+                      >
+                        Should contain at least one special character
+                      </p>
+                      <p
+                        className="minLength"
+                      >
+                        Should not be less than 8 characters
+                      </p>
+                      <p
+                        className="maxLength"
+                      >
+                        Should not be greater than 20 characters
+                      </p>
+                    </div>
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12 d-none d-none"
+                  >
+                    <label>
+                      Confirm New Password
+                    </label>
+                    <input
+                      className="col-lg-12 col-sm-12"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      onChange={[Function]}
+                      placeholder="min of 8 characters"
+                      required={true}
+                      type="password"
+                    />
+                    <div
+                      className="text-danger"
+                      id="confirmPassword_error"
+                    />
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12 d-none d-none"
+                  >
+                    <label>
+                      Token
+                    </label>
+                    <input
+                      className="col-lg-12 col-sm-12 "
+                      name="token"
+                      onFocus={[Function]}
+                      placeholder="enter 4-digit token"
+                      required={true}
+                      type="text"
+                    />
+                    <div
+                      className="text-danger d-none"
+                      id="token_error"
+                    >
+                       Invalid Token
+                    </div>
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12 d-none d-none"
+                  >
+                    <button
+                      className="btn btn-dark btn-block btn-lg"
+                      type="submit"
+                    >
+                      Save New Password
+                    </button>
+                  </li>
+                  <li
+                    className="col-12 text-center"
+                  >
+                    <span
+                      className="text-info hovered"
+                      onClick={[Function]}
+                    >
+                      Go back to sign in
+                    </span>
+                  </li>
+                </ul>
+              </form>
+            </ResetPasswordForm>
+          </div>
+        </div>
+      </div>
+    </section>
+  </SignIn>
+</MockRouter>
+`;
+
+exports[`Test suite for SignIn page sign in Should render without errors 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <SignIn
+    clearAuthInfo={[Function]}
+    compareToken={[Function]}
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    msg="you cannot view this page"
+    reset={Object {}}
+    sendToken={[Function]}
+    signIn={[Function]}
+    signin={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+  >
+    <section
+      className="container mt-100 mb-100 "
+    >
+      <ToastContainer
+        autoClose={5000}
+        bodyClassName=""
+        className={null}
+        closeButton={<DefaultCloseButton />}
+        closeOnClick={true}
+        hideProgressBar={false}
+        newestOnTop={false}
+        pauseOnHover={true}
+        position="top-right"
+        progressClassName=""
+        style={null}
+        toastClassName=""
+        transition={[Function]}
+      >
+        <div />
+      </ToastContainer>
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <div
+        className="row p-0 justify-content-center"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <div
+          className="catalog-wrapper col-lg-6 col-md-9 p-0"
+        >
+          <div
+            className="AuthInfo col-12 text-center "
+          >
+            <img
+              alt="logo"
+              className="mt-30"
+              data-aos="flip-right"
+              data-aos-delay="1000"
+              data-dos-duration="1000"
+              height="200"
+              src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png"
+              width="200"
+            />
+            <h1
+              className="text-white"
+            >
+              Welcome back!
+            </h1>
+            <h4
+              className="mt-10 text-white mb-10 pr-50 pl-50 pb-20"
+            >
+              We trust it has been an amazing experience for you so far... Keep adding spices to life!
+            </h4>
+          </div>
+          <div
+            className="col-12 pb-20 signin-form"
+          >
+            <SignInForm
+              clearError={[Function]}
+              handleSubmit={[Function]}
+              resetForm={[Function]}
+              state={
+                Object {
+                  "buttonName": "Send Token",
+                  "confirmPassword": "",
+                  "display": "d-none",
+                  "email": "",
+                  "hideForm": "d-none",
+                  "message": "you cannot view this page",
+                  "newPassword": "",
+                  "password": "",
+                  "recoveryEmail": "",
+                  "resetPass": false,
+                  "showErrMessage": "fade",
+                  "showProps": true,
+                  "showRubics": "d-none",
+                  "success": false,
+                  "tokenError": "d-none",
+                }
+              }
+            >
+              <form
+                className="form-ite"
+                id="signin"
+                onSubmit={[Function]}
+              >
+                <ul
+                  className="form row"
+                >
+                  <li
+                    className="col-lg-12 col-sm-12"
+                  >
+                    <label>
+                      Email
+                    </label>
+                    <input
+                      className="col-lg-12 col-sm-12"
+                      id="inputEmail"
+                      name="email"
+                      onFocus={[Function]}
+                      placeholder="example@example.com"
+                      required={true}
+                      type="email"
+                    />
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12"
+                  >
+                    <label>
+                      Password
+                    </label>
+                    <input
+                      className="col-lg-12 col-sm-12"
+                      id="inputPassword"
+                      maxLength="20"
+                      name="pass"
+                      onFocus={[Function]}
+                      placeholder="**********"
+                      required={true}
+                      type="password"
+                    />
+                    <div
+                      className="text-danger fade"
+                      id="error"
+                    >
+                      Invalid email or password
+                    </div>
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12 text-center"
+                  >
+                    <button
+                      className="btn btn-dark btn-lg col-5"
+                      type="submit"
+                    >
+                      Sign in
+                    </button>
+                     
+                    <Link
+                      className="btn btn-dark btn-lg col-5"
+                      replace={false}
+                      to="/signup"
+                    >
+                      <a
+                        className="btn btn-dark btn-lg col-5"
+                        onClick={[Function]}
+                      >
+                        Sign up
+                      </a>
+                    </Link>
+                  </li>
+                  <li
+                    className="col-lg-12 col-sm-12 text-center"
+                  >
+                    <span
+                      className="text-info hovered"
+                      id="forgotPassword"
+                      onClick={[Function]}
+                    >
+                      forgot password?
+                    </span>
+                  </li>
+                </ul>
+              </form>
+            </SignInForm>
+          </div>
+        </div>
+      </div>
+    </section>
+  </SignIn>
+</MockRouter>
+`;

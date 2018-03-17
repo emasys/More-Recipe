@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 //actions
@@ -17,7 +16,7 @@ import config from '../../config';
  *
  * @extends {Component}
  */
-class AddRecipe extends Component {
+export class AddRecipe extends Component {
   static propTypes = {
     new_recipe: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
@@ -37,39 +36,69 @@ class AddRecipe extends Component {
       files: null,
       fileURL: null,
       status: 'fade',
-      isLoading: false
+      required: false,
+      nameConflict: false,
+      buttonDisplay: true
     };
   }
 
+  /**
+   * @returns {void}
+   *
+   *
+   * @memberOf AddRecipe
+   */
   componentDidMount = () => {
     window.scrollTo(0, 0);
   };
 
   /**
+   * @param {object} nextProps
    *
+   * @returns {void}
    *
-   * @memberof AddRecipe
-   * @returns {any}
-   * redirects to the recipe page if success
+   * @memberOf AddRecipe
    */
-  sendData = () => {
-    if (this.props.new_recipe.new_recipe) {
-      if (this.props.new_recipe.new_recipe.recipe) {
-        const { userId } = this.props.new_recipe.new_recipe.recipe;
-        this.props.history.push(`/profile/${userId}`);
+  componentWillReceiveProps = nextProps => {
+    console.log('dfsdfdf==>', nextProps.isLoading);
+    if (nextProps.isLoading) {
+      this.setState({
+        buttonDisplay: false
+      });
+    } else {
+      this.setState({
+        buttonDisplay: true
+      });
+    }
+    if (nextProps.new_recipe.new_recipe) {
+      if (nextProps.new_recipe.new_recipe.recipe) {
+        const { userId } = nextProps.new_recipe.new_recipe.recipe;
+        nextProps.history.push(`/profile/${userId}`);
+        this.setState({
+          nameConflict: false
+        });
       }
-      if (this.props.new_recipe.new_recipe.data) {
-        if (this.props.new_recipe.new_recipe.data.error) {
-          this.setState({
-            isLoading: false
-          });
-          document.querySelector('#recipe_error').innerHTML =
-            'You have already posted this recipe';
-        }
+      if (nextProps.new_recipe.new_recipe.error) {
+        this.setState({
+          nameConflict: true
+        });
       }
     }
   };
 
+  /**
+   * clear error messages on field focus
+   *
+   * @returns {void}
+   *
+   * @memberOf AddRecipe
+   */
+  onFocused = () => {
+    this.setState({
+      nameConflict: false,
+      required: false
+    });
+  };
   /**
    * Handle edit form
    *
@@ -80,6 +109,7 @@ class AddRecipe extends Component {
    * @memberOf AddRecipe
    */
   handleForm = event => {
+    console.log('hell yeah, something happened');
     event.preventDefault();
     let data = {
       name: event.target.elements.recipe.value.trim(),
@@ -89,27 +119,11 @@ class AddRecipe extends Component {
       category: event.target.elements.category.value,
       foodImg: config.DEFAULT_FOOD_IMG
     };
-    if (!data.name) {
-      document.querySelector('#recipe_error').innerHTML =
-        'This field is required';
-    }
-    if (!data.ingredients) {
-      document.querySelector('#ing_error').innerHTML = 'This field is required';
-    }
-    if (!data.direction) {
-      document.querySelector('#direction_error').innerHTML =
-        'This field is required';
-    }
-    if (!data.description) {
-      document.querySelector('#description_error').innerHTML =
-        'This field is required';
-    }
     if (data.name && data.description && data.direction && data.ingredients) {
+      this.props.addRecipe(data);
+    } else {
       this.setState({
-        isLoading: true
-      });
-      this.props.addRecipe(data).then(() => {
-        this.sendData();
+        required: true
       });
     }
   };
@@ -149,7 +163,11 @@ class AddRecipe extends Component {
                 result.” ― Lori Pollan
               </h4>
             </div>
-            <AddRecipeForm handleForm={this.handleForm} />
+            <AddRecipeForm
+              handleForm={this.handleForm}
+              onFocus={this.onFocused}
+              state={this.state}
+            />
           </div>
         </div>
       </section>
@@ -157,12 +175,10 @@ class AddRecipe extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   new_recipe: state.recipes,
-  auth: state.user
-});
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ addRecipe }, dispatch)
+  auth: state.user,
+  isLoading: state.isLoading
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);
+export default connect(mapStateToProps, { addRecipe })(AddRecipe);

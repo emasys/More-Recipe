@@ -77,6 +77,7 @@ export class Home extends Component {
                   className=" text-white bg-mirror pb-30"
                   data-aos="fade-up"
                   data-aos-duration="2000"
+                  id="welcome-note"
                 >
                   <p>
                     This is a platform for you to share the awesome and exciting
@@ -121,6 +122,7 @@ export class Home extends Component {
                 <h5 className="float-right">
                   <Link
                     to="/catalog"
+                    id="view-all-recipes"
                     className="btn btn-dark hvr-icon-wobble-horizontal"
                   >
                     see all recipes{` `}
@@ -152,5 +154,8 @@ export class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({ recipes: state.recipes, auth: state.user });
+export const mapStateToProps = state => ({
+  recipes: state.recipes,
+  auth: state.user
+});
 export default connect(mapStateToProps, { getHotRecipes })(Home);

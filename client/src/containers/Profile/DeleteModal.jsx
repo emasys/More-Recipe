@@ -21,7 +21,7 @@ const DeleteModal = props => (
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLongTitle">
-            Delete Recipe
+            Delete Item
           </h5>
           <button
             type="button"
@@ -33,7 +33,7 @@ const DeleteModal = props => (
           </button>
         </div>
         <div className="modal-body">
-          Are you sure you want to delete this recipe?
+          Are you sure you want to continue with this action?
         </div>
         <div className="modal-footer">
           <button
@@ -45,6 +45,7 @@ const DeleteModal = props => (
           </button>
           <button
             onClick={props.confirmDelete}
+            id="confirmDelete"
             type="button"
             data-dismiss="modal"
             className="btn btn-danger btn-lg"

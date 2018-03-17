@@ -1,0 +1,604 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Navbar component View as an authenticated user should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Navbar
+    auth={
+      Object {
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+      }
+    }
+    className="bg-dark"
+    getProfile={[Function]}
+    user={
+      Object {
+        "data": Object {
+          "avatar": "http:avatar.com",
+        },
+      }
+    }
+  >
+    <section
+      className="container-fluid m-0 p-0"
+    >
+      <nav
+        className="navbar navbar-expand-lg navbar-dark bg-dark"
+        data-aos="flip-up"
+      >
+        <div
+          className="container"
+        >
+          <Link
+            className="navbar-brand bolder ml-3 text-orange"
+            replace={false}
+            to="/"
+          >
+            <a
+              className="navbar-brand bolder ml-3 text-orange"
+              onClick={[Function]}
+            >
+              <span
+                className="nb"
+              >
+                More Recipes
+              </span>
+            </a>
+          </Link>
+          <button
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            className="navbar-toggler"
+            data-target="#navbarSupportedContent"
+            data-toggle="collapse"
+            type="button"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-bars fa-2x text-orange"
+            />
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarSupportedContent"
+          >
+            <ul
+              className="navbar-nav"
+            >
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="nav-link "
+                  data-tip="Search for recipes"
+                  to="/catalog"
+                >
+                  <Route
+                    path="/catalog"
+                  >
+                    <Link
+                      aria-current={false}
+                      className="nav-link "
+                      data-tip="Search for recipes"
+                      replace={false}
+                      to="/catalog"
+                    >
+                      <a
+                        aria-current={false}
+                        className="nav-link "
+                        data-tip="Search for recipes"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="material-icons fa-2x d-none d-lg-inline"
+                        >
+                          
+                        </i>
+                        <span
+                          className="d-lg-none pl-3"
+                        >
+                          Search
+                        </span>
+                      </a>
+                    </Link>
+                  </Route>
+                </NavLink>
+              </li>
+              <li
+                className="nav-item"
+              >
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="nav-link"
+                  data-tip="Catalog"
+                  to="/catalog"
+                >
+                  <Route
+                    path="/catalog"
+                  >
+                    <Link
+                      aria-current={false}
+                      className="nav-link"
+                      data-tip="Catalog"
+                      replace={false}
+                      to="/catalog"
+                    >
+                      <a
+                        aria-current={false}
+                        className="nav-link"
+                        data-tip="Catalog"
+                        onClick={[Function]}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="material-icons fa-2x  d-none d-lg-inline"
+                        >
+                          
+                        </i>
+                        <span
+                          className="d-lg-none pl-3"
+                        >
+                          Catalog
+                        </span>
+                      </a>
+                    </Link>
+                  </Route>
+                </NavLink>
+              </li>
+              <li
+                className="nav-item"
+              >
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="nav-link "
+                  data-tip="Your favorites"
+                  id="favorite"
+                  to="/favorites"
+                >
+                  <Route
+                    path="/favorites"
+                  >
+                    <Link
+                      aria-current={false}
+                      className="nav-link "
+                      data-tip="Your favorites"
+                      id="favorite"
+                      replace={false}
+                      to="/favorites"
+                    >
+                      <a
+                        aria-current={false}
+                        className="nav-link "
+                        data-tip="Your favorites"
+                        id="favorite"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="material-icons fa-2x red d-none d-lg-inline"
+                        >
+                          
+                        </i>
+                        <span
+                          className="d-lg-none pl-3"
+                        >
+                          Favorites
+                        </span>
+                      </a>
+                    </Link>
+                  </Route>
+                </NavLink>
+              </li>
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                >
+                  <img
+                    alt="avi"
+                    className="fa-2x img-icon rounded-circle"
+                    src="http:avatar.com"
+                  />
+                </a>
+                <div
+                  aria-labelledby="navbarDropdownMenuLink"
+                  className="dropdown-menu dropdown-menu-right custom-dropdown"
+                >
+                  <NavLinks
+                    user={
+                      Object {
+                        "authInfo": Object {
+                          "isLoggedIn": true,
+                          "userId": 1,
+                          "username": "admin",
+                        },
+                        "isLoggedIn": true,
+                      }
+                    }
+                  >
+                    <div>
+                      <h6
+                        className="dropdown-header text-center"
+                      >
+                        Signed in as admin
+                      </h6>
+                      <div
+                        className="dropdown-divider"
+                      />
+                      <Link
+                        className="dropdown-item bold"
+                        replace={false}
+                        to="/profile/1"
+                      >
+                        <a
+                          className="dropdown-item bold"
+                          onClick={[Function]}
+                        >
+                          Your profile
+                        </a>
+                      </Link>
+                      <Link
+                        className="dropdown-item bold"
+                        replace={false}
+                        to="/favorites"
+                      >
+                        <a
+                          className="dropdown-item bold"
+                          onClick={[Function]}
+                        >
+                          Your favorites
+                        </a>
+                      </Link>
+                      <Link
+                        className="dropdown-item bold"
+                        replace={false}
+                        to="/new"
+                      >
+                        <a
+                          className="dropdown-item bold"
+                          onClick={[Function]}
+                        >
+                          Add new recipe
+                        </a>
+                      </Link>
+                      <div
+                        className="dropdown-divider"
+                      />
+                      <a
+                        className="dropdown-item bold"
+                        href="/"
+                        id="logout"
+                        onClick={[Function]}
+                      >
+                        Logout
+                      </a>
+                    </div>
+                  </NavLinks>
+                </div>
+              </li>
+            </ul>
+            <ReactTooltip
+              effect="float"
+              insecure={true}
+              place="bottom"
+              resizeHide={true}
+              type="dark"
+              wrapper="div"
+            >
+              <div
+                className="__react_component_tooltip place-top type-dark "
+                data-id="tooltip"
+              />
+            </ReactTooltip>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </Navbar>
+</MockRouter>
+`;
+
+exports[`Test suite for Navbar component View as an unauthenticated user should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Navbar
+    auth={
+      Object {
+        "authInfo": Object {
+          "isLoggedIn": false,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": false,
+      }
+    }
+    className="bg-dark"
+    getProfile={[Function]}
+    user={null}
+  >
+    <section
+      className="container-fluid m-0 p-0"
+    >
+      <nav
+        className="navbar navbar-expand-lg navbar-dark bg-dark"
+        data-aos="flip-up"
+      >
+        <div
+          className="container"
+        >
+          <Link
+            className="navbar-brand bolder ml-3 text-orange"
+            replace={false}
+            to="/"
+          >
+            <a
+              className="navbar-brand bolder ml-3 text-orange"
+              onClick={[Function]}
+            >
+              <span
+                className="nb"
+              >
+                More Recipes
+              </span>
+            </a>
+          </Link>
+          <button
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            className="navbar-toggler"
+            data-target="#navbarSupportedContent"
+            data-toggle="collapse"
+            type="button"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-bars fa-2x text-orange"
+            />
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarSupportedContent"
+          >
+            <ul
+              className="navbar-nav"
+            >
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="nav-link "
+                  data-tip="Search for recipes"
+                  to="/catalog"
+                >
+                  <Route
+                    path="/catalog"
+                  >
+                    <Link
+                      aria-current={false}
+                      className="nav-link "
+                      data-tip="Search for recipes"
+                      replace={false}
+                      to="/catalog"
+                    >
+                      <a
+                        aria-current={false}
+                        className="nav-link "
+                        data-tip="Search for recipes"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="material-icons fa-2x d-none d-lg-inline"
+                        >
+                          
+                        </i>
+                        <span
+                          className="d-lg-none pl-3"
+                        >
+                          Search
+                        </span>
+                      </a>
+                    </Link>
+                  </Route>
+                </NavLink>
+              </li>
+              <li
+                className="nav-item"
+              >
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="nav-link"
+                  data-tip="Catalog"
+                  to="/catalog"
+                >
+                  <Route
+                    path="/catalog"
+                  >
+                    <Link
+                      aria-current={false}
+                      className="nav-link"
+                      data-tip="Catalog"
+                      replace={false}
+                      to="/catalog"
+                    >
+                      <a
+                        aria-current={false}
+                        className="nav-link"
+                        data-tip="Catalog"
+                        onClick={[Function]}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="material-icons fa-2x  d-none d-lg-inline"
+                        >
+                          
+                        </i>
+                        <span
+                          className="d-lg-none pl-3"
+                        >
+                          Catalog
+                        </span>
+                      </a>
+                    </Link>
+                  </Route>
+                </NavLink>
+              </li>
+              <li
+                className="nav-item"
+              >
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="nav-link "
+                  data-tip="Your favorites"
+                  id="favorite"
+                  to="/favorites"
+                >
+                  <Route
+                    path="/favorites"
+                  >
+                    <Link
+                      aria-current={false}
+                      className="nav-link "
+                      data-tip="Your favorites"
+                      id="favorite"
+                      replace={false}
+                      to="/favorites"
+                    >
+                      <a
+                        aria-current={false}
+                        className="nav-link "
+                        data-tip="Your favorites"
+                        id="favorite"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="material-icons fa-2x red d-none d-lg-inline"
+                        >
+                          
+                        </i>
+                        <span
+                          className="d-lg-none pl-3"
+                        >
+                          Favorites
+                        </span>
+                      </a>
+                    </Link>
+                  </Route>
+                </NavLink>
+              </li>
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link "
+                  data-toggle="dropdown"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                >
+                  <i
+                    className="material-icons fa-2x"
+                  >
+                    
+                  </i>
+                </a>
+                <div
+                  aria-labelledby="navbarDropdownMenuLink"
+                  className="dropdown-menu dropdown-menu-right custom-dropdown"
+                >
+                  <NavLinks
+                    user={
+                      Object {
+                        "authInfo": Object {
+                          "isLoggedIn": false,
+                          "userId": 1,
+                          "username": "admin",
+                        },
+                        "isLoggedIn": false,
+                      }
+                    }
+                  >
+                    <h6>
+                      <Link
+                        className="dropdown-item bold"
+                        id="signIn"
+                        replace={false}
+                        to="/signin"
+                      >
+                        <a
+                          className="dropdown-item bold"
+                          id="signIn"
+                          onClick={[Function]}
+                        >
+                          Sign in
+                        </a>
+                      </Link>
+                      <Link
+                        className="dropdown-item bold"
+                        id="signUp"
+                        replace={false}
+                        to="/signup"
+                      >
+                        <a
+                          className="dropdown-item bold"
+                          id="signUp"
+                          onClick={[Function]}
+                        >
+                          Sign up
+                        </a>
+                      </Link>
+                    </h6>
+                  </NavLinks>
+                </div>
+              </li>
+            </ul>
+            <ReactTooltip
+              effect="float"
+              insecure={true}
+              place="bottom"
+              resizeHide={true}
+              type="dark"
+              wrapper="div"
+            >
+              <div
+                className="__react_component_tooltip place-top type-dark "
+                data-id="tooltip"
+              />
+            </ReactTooltip>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </Navbar>
+</MockRouter>
+`;

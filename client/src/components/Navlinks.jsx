@@ -35,7 +35,7 @@ const NavLinks = ({ user }) => {
             Add new recipe
           </Link>
           <div className="dropdown-divider" />
-          <a className="dropdown-item bold" onClick={logout} href="/">
+          <a className="dropdown-item bold" id="logout" onClick={logout} href="/">
             Logout
           </a>
         </div>
@@ -43,10 +43,10 @@ const NavLinks = ({ user }) => {
     } else {
       return (
         <h6>
-          <Link className="dropdown-item bold" to="/signin">
+          <Link id="signIn" className="dropdown-item bold" to="/signin">
             Sign in
           </Link>
-          <Link className="dropdown-item bold" to="/signup">
+          <Link id="signUp" className="dropdown-item bold" to="/signup">
             Sign up
           </Link>
         </h6>

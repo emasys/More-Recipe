@@ -114,6 +114,7 @@ export const compareToken = data => dispatch => {
     .post(`/completereset`, data)
     .then(response => {
       dispatch({ type: type.COMPARE_TOKEN, payload: response.data });
+      dispatch(resetPassword(data));
       dispatch(isLoading(false));
     })
     .catch(err => {
@@ -121,3 +122,7 @@ export const compareToken = data => dispatch => {
       dispatch(isLoading(false));
     });
 };
+
+export const clearAuthInfo = () => {
+  return { type: type.CLEAR_AUTH, payload: [] }
+}

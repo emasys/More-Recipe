@@ -1,0 +1,272 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Big Navbar component View as an authenticated user should match snapshot 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Navbar
+    auth={
+      Object {
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+      }
+    }
+    className="bg-dark"
+    getProfile={[Function]}
+    user={
+      Object {
+        "data": Object {
+          "avatar": "http:avatar.com",
+        },
+      }
+    }
+  >
+    <section
+      className="container-fluid m-0 p-0"
+    >
+      <nav
+        className="navbar bg-transparent navbar-expand navbar-dark"
+        data-aos="flip-up"
+        style={
+          Object {
+            "height": "200px",
+            "zIndex": 1000,
+          }
+        }
+      >
+        <div
+          className="container"
+        >
+          <Link
+            className="navbar-brand bolder ml-3 text-orange"
+            replace={false}
+            to="/"
+          >
+            <a
+              className="navbar-brand bolder ml-3 text-orange"
+              onClick={[Function]}
+            >
+              <span
+                className="nb"
+              >
+                More Recipes
+              </span>
+            </a>
+          </Link>
+          <button
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            className="navbar-toggler"
+            data-target="#navbarSupportedContent"
+            data-toggle="collapse"
+            type="button"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-bars fa-2x text-orange"
+            />
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarSupportedContent"
+          >
+            <ul
+              className="navbar-nav bold"
+            >
+              <li
+                className="nav-item mt-5 pr-15 ml-3"
+              >
+                <Link
+                  className=" text-orange"
+                  id="greetings"
+                  replace={false}
+                  to="/profile/1"
+                >
+                  <a
+                    className=" text-orange"
+                    id="greetings"
+                    onClick={[Function]}
+                  >
+                    Hi 
+                    admin
+                    ,
+                  </a>
+                </Link>
+              </li>
+              <li
+                className="nav-item"
+              >
+                <a
+                  className="nav-link btn btn-outline-light btn-lg btn-sign "
+                  href="/"
+                  id="logout"
+                  onClick={[Function]}
+                >
+                  sign out
+                </a>
+              </li>
+            </ul>
+            <ReactTooltip
+              effect="float"
+              insecure={true}
+              place="bottom"
+              resizeHide={true}
+              type="dark"
+              wrapper="div"
+            >
+              <div
+                className="__react_component_tooltip place-top type-dark "
+                data-id="tooltip"
+              />
+            </ReactTooltip>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </Navbar>
+</MockRouter>
+`;
+
+exports[`Test suite for Big Navbar component View as an unauthenticated user Should render without errors 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Navbar
+    auth={
+      Object {
+        "authInfo": Object {
+          "isLoggedIn": false,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": false,
+      }
+    }
+    className="bg-dark"
+    getProfile={[Function]}
+  >
+    <section
+      className="container-fluid m-0 p-0"
+    >
+      <nav
+        className="navbar bg-transparent navbar-expand navbar-dark"
+        data-aos="flip-up"
+        style={
+          Object {
+            "height": "200px",
+            "zIndex": 1000,
+          }
+        }
+      >
+        <div
+          className="container"
+        >
+          <Link
+            className="navbar-brand bolder ml-3 text-orange"
+            replace={false}
+            to="/"
+          >
+            <a
+              className="navbar-brand bolder ml-3 text-orange"
+              onClick={[Function]}
+            >
+              <span
+                className="nb"
+              >
+                More Recipes
+              </span>
+            </a>
+          </Link>
+          <button
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            className="navbar-toggler"
+            data-target="#navbarSupportedContent"
+            data-toggle="collapse"
+            type="button"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-bars fa-2x text-orange"
+            />
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarSupportedContent"
+          >
+            <ul
+              className="navbar-nav bold"
+            >
+              <li
+                className="nav-item mt-5 pr-15 ml-3"
+              >
+                <Link
+                  className=" text-orange"
+                  id="attempt_greetings"
+                  replace={false}
+                  to="/"
+                >
+                  <a
+                    className=" text-orange"
+                    id="attempt_greetings"
+                    onClick={[Function]}
+                  >
+                    Hi there,
+                  </a>
+                </Link>
+              </li>
+              <li
+                className="nav-item"
+              >
+                <Link
+                  className="nav-link btn btn-outline-light btn-lg btn-sign"
+                  replace={false}
+                  to="/signin"
+                >
+                  <a
+                    className="nav-link btn btn-outline-light btn-lg btn-sign"
+                    onClick={[Function]}
+                  >
+                    sign in
+                  </a>
+                </Link>
+              </li>
+            </ul>
+            <ReactTooltip
+              effect="float"
+              insecure={true}
+              place="bottom"
+              resizeHide={true}
+              type="dark"
+              wrapper="div"
+            >
+              <div
+                className="__react_component_tooltip place-top type-dark "
+                data-id="tooltip"
+              />
+            </ReactTooltip>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </Navbar>
+</MockRouter>
+`;

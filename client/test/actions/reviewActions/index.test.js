@@ -44,6 +44,31 @@ describe('Test suite for review actions', () => {
     });
   });
 
+  it('should test for errors while fetching review for a particular recipe', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { success: false }
+      });
+    });
+
+    const expectedActions = [
+      {
+        type: type.GET_REVIEWS,
+        payload: { success: false }
+      },
+      { type: type.IS_LOADING, isLoading: false }
+    ];
+
+    const store = mockStore({ payload: {} });
+
+    return store.dispatch(actions.getReviews(1)).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
   it('should return an object containing an array of previous reviews and most recent', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
@@ -54,13 +79,40 @@ describe('Test suite for review actions', () => {
     });
 
     const expectedActions = [
-      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },      
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
       { type: type.IS_LOADING, isLoading: true },
       {
         type: type.REVIEW,
         payload: reviewMocks.postReview
       },
       { type: type.CLEAR_REVIEW, payload: [] }
+    ];
+
+    const store = mockStore({ payload: {} });
+
+    return store.dispatch(actions.postReview(1)).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should test for error while fetching previous reviews and most recent', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { success: false }
+      });
+    });
+
+    const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
+      { type: type.IS_LOADING, isLoading: true },
+      {
+        type: type.REVIEW,
+        payload: { success: false }
+      },
+      { type: type.IS_LOADING, isLoading: false }
     ];
 
     const store = mockStore({ payload: {} });
@@ -97,5 +149,42 @@ describe('Test suite for review actions', () => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });
+  });
+
+  it('should test for error while deleting a review', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { success: false }
+      });
+    });
+
+    const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
+      { type: type.IS_LOADING, isLoading: true },
+      {
+        type: type.DELETE_REVIEWS,
+        payload: { success: false }
+      },
+      { type: type.IS_LOADING, isLoading: false }
+    ];
+
+    const store = mockStore({ payload: {} });
+
+    return store.dispatch(actions.deleteReview(1)).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+
+describe('Clear review', () => {
+  it('should create an action to clear reviews', () => {
+    const expectedAction = {
+      type: type.CLEAR_REVIEW,
+      payload: []
+    };
+    expect(actions.clearReview()).toEqual(expectedAction);
   });
 });

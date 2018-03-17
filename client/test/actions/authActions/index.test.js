@@ -146,6 +146,8 @@ describe('Test suite for Authentication actions', () => {
         type: type.COMPARE_TOKEN,
         payload: { success: true }
       },
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
+      { type: type.IS_LOADING, isLoading: true },
       { type: type.IS_LOADING, isLoading: false }
     ];
 

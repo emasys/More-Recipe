@@ -61,7 +61,7 @@ const GenerateReviews = ({ review, deleteReview, auth }) => {
       </div>
     ));
   }
-  return 'Loading comments...';
+  return <p>Loading comments...</p>;
 };
 
 export default GenerateReviews;

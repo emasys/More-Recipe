@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render 404 page without errors 1`] = `
+exports[`Test suite for 404 page should match snapshot 1`] = `
 <div
   className="container"
 >
@@ -8,7 +8,7 @@ exports[`should render 404 page without errors 1`] = `
     className="bg-dark fixed-top"
   />
   <div
-    className=" row catalog-wrapper text-center justify-content-center  mt-80 mb-20"
+    className="row catalog-wrapper text-center justify-content-center  mt-80 mb-20"
   >
     <div
       className="col"
@@ -25,6 +25,7 @@ exports[`should render 404 page without errors 1`] = `
       </h2>
       <h2
         className="p-3 m-20"
+        id="error_msg"
       >
         The content you are looking for does not exist
       </h2>

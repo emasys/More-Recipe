@@ -1,0 +1,536 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for profile page component Should render with no recipe 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Favorites
+    clearFavoriteList={[Function]}
+    favorites={Object {}}
+    getFavorite={[Function]}
+  >
+    <div>
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <div
+        className="mt-80 mb-3"
+      >
+        <div
+          className=" catalog-wrapper-full-grid"
+          id="catalog"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="clearfix"
+            >
+              <h2
+                className=" float-left clearfix"
+              >
+                Favorite Recipes
+                 
+                <span
+                  className="badge badge-dark"
+                  data-tip="Total number of recipes added"
+                />
+              </h2>
+            </div>
+          </div>
+          <hr />
+          <div
+            className="row justify-content-center"
+          >
+            <div
+              className="col-lg-2 col-md-3 col-sm-4 col-12"
+            >
+              <FavoriteCategoryList
+                filterList={[Function]}
+              >
+                <p>
+                  Loading......
+                </p>
+              </FavoriteCategoryList>
+            </div>
+            <div
+              className="col-lg-10 col-md-9 col-sm-8 col-12"
+            >
+              <InfiniteScroll
+                disableBrowserPullToRefresh={true}
+                endMessage={
+                  <p
+                    style={
+                      Object {
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    <b>
+                      Thank you for being Awesome
+                    </b>
+                  </p>
+                }
+                hasMore={true}
+                loader={
+                  <div
+                    className="loader text-center"
+                  >
+                    <img
+                      alt="loading..."
+                      height="30"
+                      src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                      width="30"
+                    />
+                  </div>
+                }
+                next={[Function]}
+                pullDownToRefreshContent={
+                  <h3>
+                    Pull down to refresh
+                  </h3>
+                }
+                pullDownToRefreshThreshold={100}
+                releaseToRefreshContent={
+                  <h3>
+                    Release to refresh
+                  </h3>
+                }
+                scrollThreshold={0.5}
+              >
+                <div
+                  style={Object {}}
+                >
+                  <div
+                    className="infinite-scroll-component"
+                    style={
+                      Object {
+                        "WebkitOverflowScrolling": "touch",
+                        "height": "auto",
+                        "overflow": "auto",
+                      }
+                    }
+                  >
+                    <div
+                      className="row justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-duration="1000"
+                    >
+                      <FavoriteList
+                        favorites={Array []}
+                      >
+                        <div
+                          className="text-center error-message"
+                        >
+                          <div>
+                            <img
+                              alt="logo"
+                              src="../img/logo.png"
+                            />
+                            <h4
+                              className="p-3 m-2"
+                            >
+                              You do not have any favorite recipe yet
+                            </h4>
+                            <p
+                              className="p-3 m-2"
+                            >
+                              <Link
+                                className="btn btn-outline-dark"
+                                replace={false}
+                                to="/catalog"
+                              >
+                                <a
+                                  className="btn btn-outline-dark"
+                                  onClick={[Function]}
+                                >
+                                  check out amazing recipes
+                                </a>
+                              </Link>
+                            </p>
+                          </div>
+                        </div>
+                      </FavoriteList>
+                    </div>
+                    <div
+                      className="loader text-center"
+                      key="0"
+                    >
+                      <img
+                        alt="loading..."
+                        height="30"
+                        src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                        width="30"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </InfiniteScroll>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Favorites>
+</MockRouter>
+`;
+
+exports[`Test suite for profile page component Should render with one favorite recipe and filter list 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <Favorites
+    clearFavoriteList={[Function]}
+    favorites={
+      Object {
+        "favoriteCount": 1,
+        "userFavorites": Array [
+          Object {
+            "Recipe": Object {
+              "category": "Breakfast",
+              "comments": 0,
+              "createdAt": "2018-03-15T10:02:06.889Z",
+              "description": "sadasd",
+              "direction": "just do it",
+              "downvote": 0,
+              "favorite": 1,
+              "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+              "id": 5,
+              "ingredients": Array [
+                "water",
+                "salt",
+              ],
+              "name": "How to cook yam",
+              "reactionDown": Array [],
+              "reactionUp": Array [
+                1,
+              ],
+              "searchIng": "water, salt",
+              "updatedAt": "2018-03-15T12:02:24.578Z",
+              "upvote": 1,
+              "userId": 1,
+              "views": 0,
+            },
+            "recipeId": 5,
+          },
+        ],
+      }
+    }
+    getFavorite={[Function]}
+  >
+    <div>
+      <Connect(Navbar)
+        className="bg-dark fixed-top"
+      />
+      <div
+        className="mt-80 mb-3"
+      >
+        <div
+          className=" catalog-wrapper-full-grid"
+          id="catalog"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="clearfix"
+            >
+              <h2
+                className=" float-left clearfix"
+              >
+                Favorite Recipes
+                 
+                <span
+                  className="badge badge-dark"
+                  data-tip="Total number of recipes added"
+                >
+                  1
+                </span>
+              </h2>
+            </div>
+          </div>
+          <hr />
+          <div
+            className="row justify-content-center"
+          >
+            <div
+              className="col-lg-2 col-md-3 col-sm-4 col-12"
+            >
+              <FavoriteCategoryList
+                filterList={[Function]}
+                list={
+                  Array [
+                    Object {
+                      "Recipe": Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:06.889Z",
+                        "description": "sadasd",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 1,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 5,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "How to cook yam",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 1,
+                        "userId": 1,
+                        "views": 0,
+                      },
+                      "recipeId": 5,
+                    },
+                  ]
+                }
+              >
+                <div
+                  className="list-group favoriteList"
+                >
+                  <a
+                    className="list-group-item d-flex justify-content-between align-items-center"
+                    href="#"
+                    key="Breakfast"
+                    onClick={[Function]}
+                  >
+                    Breakfast
+                     
+                    <span
+                      className="badge badge-dark badge-pill"
+                      data-tip="Total number of recipes added"
+                    >
+                      1
+                    </span>
+                  </a>
+                </div>
+              </FavoriteCategoryList>
+            </div>
+            <div
+              className="col-lg-10 col-md-9 col-sm-8 col-12"
+            >
+              <InfiniteScroll
+                disableBrowserPullToRefresh={true}
+                endMessage={
+                  <p
+                    style={
+                      Object {
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    <b>
+                      Thank you for being Awesome
+                    </b>
+                  </p>
+                }
+                hasMore={true}
+                loader={
+                  <div
+                    className="loader text-center"
+                  >
+                    <img
+                      alt="loading..."
+                      height="30"
+                      src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                      width="30"
+                    />
+                  </div>
+                }
+                next={[Function]}
+                pullDownToRefreshContent={
+                  <h3>
+                    Pull down to refresh
+                  </h3>
+                }
+                pullDownToRefreshThreshold={100}
+                releaseToRefreshContent={
+                  <h3>
+                    Release to refresh
+                  </h3>
+                }
+                scrollThreshold={0.5}
+              >
+                <div
+                  style={Object {}}
+                >
+                  <div
+                    className="infinite-scroll-component"
+                    style={
+                      Object {
+                        "WebkitOverflowScrolling": "touch",
+                        "height": "auto",
+                        "overflow": "auto",
+                      }
+                    }
+                  >
+                    <div
+                      className="row justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-duration="1000"
+                    >
+                      <FavoriteList
+                        favorites={
+                          Array [
+                            Object {
+                              "Recipe": Object {
+                                "category": "Breakfast",
+                                "comments": 0,
+                                "createdAt": "2018-03-15T10:02:06.889Z",
+                                "description": "sadasd",
+                                "direction": "just do it",
+                                "downvote": 0,
+                                "favorite": 1,
+                                "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                                "id": 5,
+                                "ingredients": Array [
+                                  "water",
+                                  "salt",
+                                ],
+                                "name": "How to cook yam",
+                                "reactionDown": Array [],
+                                "reactionUp": Array [
+                                  1,
+                                ],
+                                "searchIng": "water, salt",
+                                "updatedAt": "2018-03-15T12:02:24.578Z",
+                                "upvote": 1,
+                                "userId": 1,
+                                "views": 0,
+                              },
+                              "recipeId": 5,
+                            },
+                          ]
+                        }
+                      >
+                        <div
+                          className="row"
+                          key="5"
+                        >
+                          <div
+                            className="col-lg-12 col-sm-12 mb-20 mt-50 col-md-12"
+                            data-aos="fade-up"
+                            data-aos-duration="2000"
+                          >
+                            <Link
+                              className="hvr-push"
+                              replace={false}
+                              to="/recipe/5"
+                            >
+                              <a
+                                className="hvr-push"
+                                onClick={[Function]}
+                              >
+                                <div
+                                  className="card animate"
+                                >
+                                  <img
+                                    alt="itemImage"
+                                    className="card-img-top img-box"
+                                    src="https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png"
+                                  />
+                                  <div
+                                    className="card-body p-0 text-center social-icons"
+                                  >
+                                    <span
+                                      className="tag bg-danger"
+                                    >
+                                      Breakfast
+                                    </span>
+                                    <h4
+                                      className="card-title custom-bg bg-dark p-2 m-0 text-truncate "
+                                    >
+                                      How to cook yam
+                                    </h4>
+                                    <div
+                                      className="card-body p-5 text-left bg-wheat text-dark"
+                                    >
+                                      <p
+                                        className="crop-text"
+                                      >
+                                        sadasd
+                                      </p>
+                                    </div>
+                                    <span>
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-heart-o"
+                                      />
+                                      1
+                                    </span>
+                                    <span>
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-thumbs-o-up"
+                                      />
+                                      1
+                                    </span>
+                                    <span>
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-thumbs-o-down"
+                                      />
+                                      0
+                                    </span>
+                                    <span>
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-eye"
+                                      />
+                                      0
+                                    </span>
+                                    <span>
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-comment-o"
+                                      />
+                                      0
+                                    </span>
+                                  </div>
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                      </FavoriteList>
+                    </div>
+                    <div
+                      className="loader text-center"
+                      key="0"
+                    >
+                      <img
+                        alt="loading..."
+                        height="30"
+                        src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                        width="30"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </InfiniteScroll>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Favorites>
+</MockRouter>
+`;

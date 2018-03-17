@@ -18,8 +18,8 @@ export const getReviews = (recipeId, limit = 1, offset = 0) => dispatch =>
       dispatch({ type: type.GET_REVIEWS, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.GET_REVIEWS, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.GET_REVIEWS, payload: error.response.data });
       dispatch(isLoading(false));
     });
 
@@ -29,8 +29,7 @@ export const getReviews = (recipeId, limit = 1, offset = 0) => dispatch =>
  *
  * @returns {object} empty array
  */
-export const clearReview = () => dispatch =>
-  dispatch({ type: type.CLEAR_REVIEW, payload: [] });
+export const clearReview = () => ({ type: type.CLEAR_REVIEW, payload: [] });
 
 // Post a review
 export const postReview = (data, id) => dispatch => {
@@ -42,8 +41,8 @@ export const postReview = (data, id) => dispatch => {
       dispatch(clearReview());
       dispatch(getReviews(id));
     })
-    .catch(err => {
-      dispatch({ type: type.REVIEW, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.REVIEW, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -66,8 +65,8 @@ export const deleteReview = (reviewId, recipeId) => dispatch => {
       dispatch(getReviews(recipeId, 1, 0));
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.DELETE_REVIEWS, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.DELETE_REVIEWS, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };

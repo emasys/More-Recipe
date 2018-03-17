@@ -46,6 +46,33 @@ describe('Test suite for vote actions', () => {
     });
   });
 
+  it('should test for errors while upvoting', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { success: false }
+      });
+    });
+
+    const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
+      { type: type.IS_LOADING, isLoading: true },
+      {
+        type: type.UPVOTE,
+        payload: { success: false }
+      },
+      { type: type.IS_LOADING, isLoading: false }
+    ];
+
+    const store = mockStore({ payload: {} });
+
+    return store.dispatch(actions.upvote(1)).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
   it('should return an object containing confirmation of downvote', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
@@ -61,6 +88,33 @@ describe('Test suite for vote actions', () => {
       {
         type: type.DOWNVOTE,
         payload: voteMocks.downvoteResponse
+      },
+      { type: type.IS_LOADING, isLoading: false }
+    ];
+
+    const store = mockStore({ payload: {} });
+
+    return store.dispatch(actions.downvote(1)).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should test for errors while downvoting', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { success: false }
+      });
+    });
+
+    const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: isLoggedInFalse },
+      { type: type.IS_LOADING, isLoading: true },
+      {
+        type: type.DOWNVOTE,
+        payload: { success: false }
       },
       { type: type.IS_LOADING, isLoading: false }
     ];

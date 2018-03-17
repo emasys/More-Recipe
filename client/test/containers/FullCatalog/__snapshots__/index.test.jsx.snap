@@ -1,0 +1,3604 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for full catalog page component Should render with no recipe 1`] = `
+<MockRouter
+  createHref={[Function]}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  replace={[Function]}
+  url=""
+>
+  <FullCatalog
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    clearRecipes={[Function]}
+    getProfile={[Function]}
+    getRecipes={[Function]}
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    recipes={
+      Object {
+        "allRecipes": Array [],
+      }
+    }
+    resetSearch={[Function]}
+    searchRecipes={[Function]}
+    user={
+      Object {
+        "data": Object {
+          "avatar": null,
+          "bio": null,
+          "country": null,
+          "email": "emasysnd@gmail.com",
+          "firstName": null,
+          "id": 1,
+          "lastName": null,
+          "moniker": "admin",
+        },
+        "success": true,
+      }
+    }
+  >
+    <div
+      className="container-fluid"
+    >
+      <section
+        className="container-fluid fixed"
+      >
+        <NavbarSearch
+          avatar={null}
+          onChanged={[Function]}
+          onSearch={[Function]}
+          search=""
+          user={
+            Object {
+              "allUsers": Object {
+                "success": true,
+                "users": Array [
+                  Object {
+                    "avatar": null,
+                    "bio": null,
+                    "country": null,
+                    "createdAt": "2018-03-13T05:04:37.443Z",
+                    "email": "emasysnd@gmail.com",
+                    "firstName": null,
+                    "id": 1,
+                    "lastName": null,
+                    "moniker": "admin",
+                    "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                    "updatedAt": "2018-03-13T05:04:37.443Z",
+                  },
+                ],
+              },
+              "authInfo": Object {
+                "isLoggedIn": true,
+                "userId": 1,
+                "username": "admin",
+              },
+              "isLoggedIn": true,
+              "message": null,
+              "userInfo": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": "Nigeria",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": "emmy",
+                  "id": 1,
+                  "lastName": "endy",
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+              "userProfile": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+            }
+          }
+        >
+          <nav
+            className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
+          >
+            <div
+              className="container"
+            >
+              <Link
+                className="navbar-brand bolder text-orange"
+                replace={false}
+                to="/"
+              >
+                <a
+                  className="navbar-brand bolder text-orange"
+                  onClick={[Function]}
+                >
+                  MoreRecipes
+                </a>
+              </Link>
+              <form
+                className=" col-lg-9 col-md-9 col-sm-9 text-center p-0 m-0"
+                onSubmit={[Function]}
+              >
+                <input
+                  autoComplete="off"
+                  id="search"
+                  name="search"
+                  onChange={[Function]}
+                  placeholder="search by ingredients or recipe title"
+                  type="search"
+                />
+              </form>
+              <button
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                className="navbar-toggler"
+                data-target="#navbarSupportedContent"
+                data-toggle="collapse"
+                type="button"
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa fa-bars fa-2x text-orange"
+                />
+              </button>
+              <div
+                className="collapse navbar-collapse justify-content-end"
+                id="navbarSupportedContent"
+              >
+                <ul
+                  className="navbar-nav"
+                >
+                  <li
+                    className="nav-item "
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link"
+                      data-tip="Add new recipe"
+                      to="/new"
+                    >
+                      <Route
+                        path="/new"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link"
+                          data-tip="Add new recipe"
+                          replace={false}
+                          to="/new"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link"
+                            data-tip="Add new recipe"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="material-icons fa-2x d-sm-none d-lg-inline"
+                            >
+                              add_to_photos
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Add new recipe
+                            </span>
+                            <ReactTooltip
+                              effect="float"
+                              insecure={true}
+                              place="bottom"
+                              resizeHide={true}
+                              type="dark"
+                              wrapper="div"
+                            >
+                              <div
+                                className="__react_component_tooltip place-top type-dark "
+                                data-id="tooltip"
+                              />
+                            </ReactTooltip>
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item "
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link"
+                      data-tip="Catalog"
+                      to="/catalog"
+                    >
+                      <Route
+                        path="/catalog"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link"
+                          data-tip="Catalog"
+                          replace={false}
+                          to="/catalog"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link"
+                            data-tip="Catalog"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="material-icons fa-2x  d-sm-none d-lg-inline"
+                            >
+                              
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Catalog
+                            </span>
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item"
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link "
+                      data-tip="Your favorites"
+                      to="/favorites"
+                    >
+                      <Route
+                        path="/favorites"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link "
+                          data-tip="Your favorites"
+                          replace={false}
+                          to="/favorites"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link "
+                            data-tip="Your favorites"
+                            onClick={[Function]}
+                          >
+                            <i
+                              className="material-icons fa-2x red d-sm-none d-lg-inline"
+                            >
+                              
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Favorites
+                            </span>
+                             
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item dropdown"
+                  >
+                    <a
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      className="nav-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                    >
+                      <img
+                        alt="avi"
+                        className="fa-2x img-icon rounded-circle"
+                        src="https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png"
+                      />
+                    </a>
+                    <div
+                      aria-labelledby="navbarDropdownMenuLink"
+                      className="dropdown-menu dropdown-menu-right custom-dropdown"
+                    >
+                      <NavLinks
+                        user={
+                          Object {
+                            "allUsers": Object {
+                              "success": true,
+                              "users": Array [
+                                Object {
+                                  "avatar": null,
+                                  "bio": null,
+                                  "country": null,
+                                  "createdAt": "2018-03-13T05:04:37.443Z",
+                                  "email": "emasysnd@gmail.com",
+                                  "firstName": null,
+                                  "id": 1,
+                                  "lastName": null,
+                                  "moniker": "admin",
+                                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                                },
+                              ],
+                            },
+                            "authInfo": Object {
+                              "isLoggedIn": true,
+                              "userId": 1,
+                              "username": "admin",
+                            },
+                            "isLoggedIn": true,
+                            "message": null,
+                            "userInfo": Object {
+                              "data": Object {
+                                "avatar": null,
+                                "bio": null,
+                                "country": "Nigeria",
+                                "email": "emasysnd@gmail.com",
+                                "firstName": "emmy",
+                                "id": 1,
+                                "lastName": "endy",
+                                "moniker": "admin",
+                              },
+                              "success": true,
+                            },
+                            "userProfile": Object {
+                              "data": Object {
+                                "avatar": null,
+                                "bio": null,
+                                "country": null,
+                                "email": "emasysnd@gmail.com",
+                                "firstName": null,
+                                "id": 1,
+                                "lastName": null,
+                                "moniker": "admin",
+                              },
+                              "success": true,
+                            },
+                          }
+                        }
+                      >
+                        <div>
+                          <h6
+                            className="dropdown-header text-center"
+                          >
+                            Signed in as admin
+                          </h6>
+                          <div
+                            className="dropdown-divider"
+                          />
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/profile/1"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Your profile
+                            </a>
+                          </Link>
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/favorites"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Your favorites
+                            </a>
+                          </Link>
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/new"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Add new recipe
+                            </a>
+                          </Link>
+                          <div
+                            className="dropdown-divider"
+                          />
+                          <a
+                            className="dropdown-item bold"
+                            href="/"
+                            id="logout"
+                            onClick={[Function]}
+                          >
+                            Logout
+                          </a>
+                        </div>
+                      </NavLinks>
+                    </div>
+                  </li>
+                </ul>
+                <ReactTooltip
+                  effect="float"
+                  insecure={true}
+                  place="bottom"
+                  resizeHide={true}
+                  type="dark"
+                  wrapper="div"
+                >
+                  <div
+                    className="__react_component_tooltip place-top type-dark "
+                    data-id="tooltip"
+                  />
+                </ReactTooltip>
+              </div>
+            </div>
+          </nav>
+        </NavbarSearch>
+      </section>
+      <div
+        className="category-bar fixed-top custom-fixed custom-bg-color"
+        style={
+          Object {
+            "zIndex": 900,
+          }
+        }
+      >
+        <NavbarCategory
+          dropdownCtrl={[Function]}
+          mostFavorited={[Function]}
+          mostUpvoted={[Function]}
+          mostViewed={[Function]}
+          recentlyAdded={[Function]}
+        >
+          <div>
+            <ul
+              className="nav justify-content-center"
+            >
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  onClick={[Function]}
+                  role="button"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-th"
+                  />
+                   categories
+                </a>
+              </li>
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  role="button"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-sort-amount-asc"
+                  />
+                   sort by
+                </a>
+                <div
+                  className="dropdown-menu custom-dropdown-menu"
+                >
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="recent"
+                    onClick={[Function]}
+                  >
+                    Recently Added
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="upvotes"
+                    onClick={[Function]}
+                  >
+                    Most Upvoted
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="favorites"
+                    onClick={[Function]}
+                  >
+                    Most Favorited
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="viewed"
+                    onClick={[Function]}
+                  >
+                    Most Viewed
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </NavbarCategory>
+      </div>
+      <section
+        className="mt-100"
+        id="catalog"
+      >
+        <div
+          className="row catalog-wrapper-full-grid justify-content-center"
+        >
+          <InfiniteScroll
+            disableBrowserPullToRefresh={true}
+            endMessage={
+              <p
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <b>
+                  Thank you for being Awesome
+                </b>
+                <br />
+                <button
+                  className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                  id="addMore"
+                  onClick={[Function]}
+                >
+                  Add More Recipes
+                </button>
+              </p>
+            }
+            hasMore={true}
+            loader={
+              <div
+                className="loader text-center"
+              >
+                <img
+                  alt="loading..."
+                  height="30"
+                  src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                  width="30"
+                />
+              </div>
+            }
+            next={[Function]}
+            pullDownToRefreshContent={
+              <h3>
+                Pull down to refresh
+              </h3>
+            }
+            pullDownToRefreshThreshold={100}
+            releaseToRefreshContent={
+              <h3>
+                Release to refresh
+              </h3>
+            }
+          >
+            <div
+              style={Object {}}
+            >
+              <div
+                className="infinite-scroll-component"
+                style={
+                  Object {
+                    "WebkitOverflowScrolling": "touch",
+                    "height": "auto",
+                    "overflow": "auto",
+                  }
+                }
+              >
+                <Connect(CatalogList)
+                  auth={
+                    Object {
+                      "allUsers": Object {
+                        "success": true,
+                        "users": Array [
+                          Object {
+                            "avatar": null,
+                            "bio": null,
+                            "country": null,
+                            "createdAt": "2018-03-13T05:04:37.443Z",
+                            "email": "emasysnd@gmail.com",
+                            "firstName": null,
+                            "id": 1,
+                            "lastName": null,
+                            "moniker": "admin",
+                            "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                            "updatedAt": "2018-03-13T05:04:37.443Z",
+                          },
+                        ],
+                      },
+                      "authInfo": Object {
+                        "isLoggedIn": true,
+                        "userId": 1,
+                        "username": "admin",
+                      },
+                      "isLoggedIn": true,
+                      "message": null,
+                      "userInfo": Object {
+                        "data": Object {
+                          "avatar": null,
+                          "bio": null,
+                          "country": "Nigeria",
+                          "email": "emasysnd@gmail.com",
+                          "firstName": "emmy",
+                          "id": 1,
+                          "lastName": "endy",
+                          "moniker": "admin",
+                        },
+                        "success": true,
+                      },
+                      "userProfile": Object {
+                        "data": Object {
+                          "avatar": null,
+                          "bio": null,
+                          "country": null,
+                          "email": "emasysnd@gmail.com",
+                          "firstName": null,
+                          "id": 1,
+                          "lastName": null,
+                          "moniker": "admin",
+                        },
+                        "success": true,
+                      },
+                    }
+                  }
+                  catalog={Array []}
+                  clearRecipes={[Function]}
+                  getProfile={[Function]}
+                  getRecipes={[Function]}
+                  history={
+                    Object {
+                      "push": [Function],
+                    }
+                  }
+                  recipes={
+                    Object {
+                      "allRecipes": Array [],
+                    }
+                  }
+                  resetSearch={[Function]}
+                  searchRecipes={[Function]}
+                  showDeleteBtn={false}
+                  user={
+                    Object {
+                      "data": Object {
+                        "avatar": null,
+                        "bio": null,
+                        "country": null,
+                        "email": "emasysnd@gmail.com",
+                        "firstName": null,
+                        "id": 1,
+                        "lastName": null,
+                        "moniker": "admin",
+                      },
+                      "success": true,
+                    }
+                  }
+                />
+                <div
+                  className="loader text-center"
+                  key="0"
+                >
+                  <img
+                    alt="loading..."
+                    height="30"
+                    src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                    width="30"
+                  />
+                </div>
+              </div>
+            </div>
+          </InfiniteScroll>
+        </div>
+      </section>
+    </div>
+  </FullCatalog>
+</MockRouter>
+`;
+
+exports[`Test suite for full catalog page component Should simulate click on add new recipe button 1`] = `
+<MockRouter
+  createHref={[Function]}
+  favorite={
+    Object {
+      "userFavorites": Array [],
+    }
+  }
+  isLoading={false}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  recipes={
+    Object {
+      "allRecipes": Array [
+        Object {
+          "category": "Breakfast",
+          "comments": 0,
+          "createdAt": "2018-03-15T10:02:06.889Z",
+          "description": "just do it",
+          "direction": "just do it",
+          "downvote": 0,
+          "favorite": 1,
+          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+          "id": 5,
+          "ingredients": Array [
+            "water",
+            "salt",
+          ],
+          "name": "how to cook yam",
+          "reactionDown": Array [],
+          "reactionUp": Array [
+            1,
+          ],
+          "searchIng": "water, salt",
+          "updatedAt": "2018-03-15T12:02:24.578Z",
+          "upvote": 1,
+          "userId": 1,
+          "views": 0,
+        },
+      ],
+      "category": Array [],
+      "count": 1,
+      "recipeItem": Object {},
+      "searchCount": 1,
+      "searchResult": Array [],
+      "success": true,
+      "updateRecipes": Object {},
+      "userRecipes": Array [],
+      "userRecipesCount": 0,
+    }
+  }
+  replace={[Function]}
+  review={
+    Object {
+      "fetch_reviews": Array [],
+      "review": Object {},
+    }
+  }
+  url=""
+  user={
+    Object {
+      "data": Object {
+        "avatar": null,
+        "bio": null,
+        "country": null,
+        "email": "emasysnd@gmail.com",
+        "firstName": null,
+        "id": 1,
+        "lastName": null,
+        "moniker": "admin",
+      },
+      "success": true,
+    }
+  }
+  votes={Object {}}
+>
+  <FullCatalog
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    clearRecipes={[Function]}
+    getProfile={[Function]}
+    getRecipes={[Function]}
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    recipes={
+      Object {
+        "allRecipes": Array [
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:07.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 4,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 2,
+            "userId": 1,
+            "views": 2,
+          },
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:06.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 3,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 2,
+            "userId": 1,
+            "views": 2,
+          },
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:06.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 1,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 5,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yam",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 1,
+            "userId": 1,
+            "views": 1,
+          },
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:03.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "count": 1,
+        "searchResult": Array [
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:03.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+      }
+    }
+    resetSearch={[Function]}
+    searchRecipes={[Function]}
+    user={
+      Object {
+        "data": Object {
+          "avatar": null,
+          "bio": null,
+          "country": null,
+          "email": "emasysnd@gmail.com",
+          "firstName": null,
+          "id": 1,
+          "lastName": null,
+          "moniker": "admin",
+        },
+        "success": true,
+      }
+    }
+  >
+    <div
+      className="container-fluid"
+    >
+      <section
+        className="container-fluid fixed"
+      >
+        <NavbarSearch
+          avatar={null}
+          onChanged={[Function]}
+          onSearch={[Function]}
+          search=""
+          user={
+            Object {
+              "allUsers": Object {
+                "success": true,
+                "users": Array [
+                  Object {
+                    "avatar": null,
+                    "bio": null,
+                    "country": null,
+                    "createdAt": "2018-03-13T05:04:37.443Z",
+                    "email": "emasysnd@gmail.com",
+                    "firstName": null,
+                    "id": 1,
+                    "lastName": null,
+                    "moniker": "admin",
+                    "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                    "updatedAt": "2018-03-13T05:04:37.443Z",
+                  },
+                ],
+              },
+              "authInfo": Object {
+                "isLoggedIn": true,
+                "userId": 1,
+                "username": "admin",
+              },
+              "isLoggedIn": true,
+              "message": null,
+              "userInfo": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": "Nigeria",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": "emmy",
+                  "id": 1,
+                  "lastName": "endy",
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+              "userProfile": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+            }
+          }
+        >
+          <nav
+            className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
+          >
+            <div
+              className="container"
+            >
+              <Link
+                className="navbar-brand bolder text-orange"
+                replace={false}
+                to="/"
+              >
+                <a
+                  className="navbar-brand bolder text-orange"
+                  onClick={[Function]}
+                >
+                  MoreRecipes
+                </a>
+              </Link>
+              <form
+                className=" col-lg-9 col-md-9 col-sm-9 text-center p-0 m-0"
+                onSubmit={[Function]}
+              >
+                <input
+                  autoComplete="off"
+                  id="search"
+                  name="search"
+                  onChange={[Function]}
+                  placeholder="search by ingredients or recipe title"
+                  type="search"
+                />
+              </form>
+              <button
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                className="navbar-toggler"
+                data-target="#navbarSupportedContent"
+                data-toggle="collapse"
+                type="button"
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa fa-bars fa-2x text-orange"
+                />
+              </button>
+              <div
+                className="collapse navbar-collapse justify-content-end"
+                id="navbarSupportedContent"
+              >
+                <ul
+                  className="navbar-nav"
+                >
+                  <li
+                    className="nav-item "
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link"
+                      data-tip="Add new recipe"
+                      to="/new"
+                    >
+                      <Route
+                        path="/new"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link"
+                          data-tip="Add new recipe"
+                          replace={false}
+                          to="/new"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link"
+                            data-tip="Add new recipe"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="material-icons fa-2x d-sm-none d-lg-inline"
+                            >
+                              add_to_photos
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Add new recipe
+                            </span>
+                            <ReactTooltip
+                              effect="float"
+                              insecure={true}
+                              place="bottom"
+                              resizeHide={true}
+                              type="dark"
+                              wrapper="div"
+                            >
+                              <div
+                                className="__react_component_tooltip place-top type-dark "
+                                data-id="tooltip"
+                              />
+                            </ReactTooltip>
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item "
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link"
+                      data-tip="Catalog"
+                      to="/catalog"
+                    >
+                      <Route
+                        path="/catalog"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link"
+                          data-tip="Catalog"
+                          replace={false}
+                          to="/catalog"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link"
+                            data-tip="Catalog"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="material-icons fa-2x  d-sm-none d-lg-inline"
+                            >
+                              
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Catalog
+                            </span>
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item"
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link "
+                      data-tip="Your favorites"
+                      to="/favorites"
+                    >
+                      <Route
+                        path="/favorites"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link "
+                          data-tip="Your favorites"
+                          replace={false}
+                          to="/favorites"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link "
+                            data-tip="Your favorites"
+                            onClick={[Function]}
+                          >
+                            <i
+                              className="material-icons fa-2x red d-sm-none d-lg-inline"
+                            >
+                              
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Favorites
+                            </span>
+                             
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item dropdown"
+                  >
+                    <a
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      className="nav-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                    >
+                      <img
+                        alt="avi"
+                        className="fa-2x img-icon rounded-circle"
+                        src="https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png"
+                      />
+                    </a>
+                    <div
+                      aria-labelledby="navbarDropdownMenuLink"
+                      className="dropdown-menu dropdown-menu-right custom-dropdown"
+                    >
+                      <NavLinks
+                        user={
+                          Object {
+                            "allUsers": Object {
+                              "success": true,
+                              "users": Array [
+                                Object {
+                                  "avatar": null,
+                                  "bio": null,
+                                  "country": null,
+                                  "createdAt": "2018-03-13T05:04:37.443Z",
+                                  "email": "emasysnd@gmail.com",
+                                  "firstName": null,
+                                  "id": 1,
+                                  "lastName": null,
+                                  "moniker": "admin",
+                                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                                },
+                              ],
+                            },
+                            "authInfo": Object {
+                              "isLoggedIn": true,
+                              "userId": 1,
+                              "username": "admin",
+                            },
+                            "isLoggedIn": true,
+                            "message": null,
+                            "userInfo": Object {
+                              "data": Object {
+                                "avatar": null,
+                                "bio": null,
+                                "country": "Nigeria",
+                                "email": "emasysnd@gmail.com",
+                                "firstName": "emmy",
+                                "id": 1,
+                                "lastName": "endy",
+                                "moniker": "admin",
+                              },
+                              "success": true,
+                            },
+                            "userProfile": Object {
+                              "data": Object {
+                                "avatar": null,
+                                "bio": null,
+                                "country": null,
+                                "email": "emasysnd@gmail.com",
+                                "firstName": null,
+                                "id": 1,
+                                "lastName": null,
+                                "moniker": "admin",
+                              },
+                              "success": true,
+                            },
+                          }
+                        }
+                      >
+                        <div>
+                          <h6
+                            className="dropdown-header text-center"
+                          >
+                            Signed in as admin
+                          </h6>
+                          <div
+                            className="dropdown-divider"
+                          />
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/profile/1"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Your profile
+                            </a>
+                          </Link>
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/favorites"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Your favorites
+                            </a>
+                          </Link>
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/new"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Add new recipe
+                            </a>
+                          </Link>
+                          <div
+                            className="dropdown-divider"
+                          />
+                          <a
+                            className="dropdown-item bold"
+                            href="/"
+                            id="logout"
+                            onClick={[Function]}
+                          >
+                            Logout
+                          </a>
+                        </div>
+                      </NavLinks>
+                    </div>
+                  </li>
+                </ul>
+                <ReactTooltip
+                  effect="float"
+                  insecure={true}
+                  place="bottom"
+                  resizeHide={true}
+                  type="dark"
+                  wrapper="div"
+                >
+                  <div
+                    className="__react_component_tooltip place-top type-dark "
+                    data-id="tooltip"
+                  />
+                </ReactTooltip>
+              </div>
+            </div>
+          </nav>
+        </NavbarSearch>
+      </section>
+      <div
+        className="category-bar fixed-top custom-fixed custom-bg-color"
+        style={
+          Object {
+            "zIndex": 900,
+          }
+        }
+      >
+        <NavbarCategory
+          dropdownCtrl={[Function]}
+          mostFavorited={[Function]}
+          mostUpvoted={[Function]}
+          mostViewed={[Function]}
+          recentlyAdded={[Function]}
+        >
+          <div>
+            <ul
+              className="nav justify-content-center"
+            >
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  onClick={[Function]}
+                  role="button"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-th"
+                  />
+                   categories
+                </a>
+              </li>
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  role="button"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-sort-amount-asc"
+                  />
+                   sort by
+                </a>
+                <div
+                  className="dropdown-menu custom-dropdown-menu"
+                >
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="recent"
+                    onClick={[Function]}
+                  >
+                    Recently Added
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="upvotes"
+                    onClick={[Function]}
+                  >
+                    Most Upvoted
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="favorites"
+                    onClick={[Function]}
+                  >
+                    Most Favorited
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="viewed"
+                    onClick={[Function]}
+                  >
+                    Most Viewed
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </NavbarCategory>
+      </div>
+      <section
+        className="mt-100"
+        id="catalog"
+      >
+        <div
+          className="row catalog-wrapper-full-grid justify-content-center"
+        >
+          <InfiniteScroll
+            disableBrowserPullToRefresh={true}
+            endMessage={
+              <p
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <b>
+                  Thank you for being Awesome
+                </b>
+                <br />
+                <button
+                  className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                  id="addMore"
+                  onClick={[Function]}
+                >
+                  Add More Recipes
+                </button>
+              </p>
+            }
+            hasMore={true}
+            loader={
+              <div
+                className="loader text-center"
+              >
+                <img
+                  alt="loading..."
+                  height="30"
+                  src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                  width="30"
+                />
+              </div>
+            }
+            next={[Function]}
+            pullDownToRefreshContent={
+              <h3>
+                Pull down to refresh
+              </h3>
+            }
+            pullDownToRefreshThreshold={100}
+            releaseToRefreshContent={
+              <h3>
+                Release to refresh
+              </h3>
+            }
+          >
+            <div
+              style={Object {}}
+            >
+              <div
+                className="infinite-scroll-component"
+                style={
+                  Object {
+                    "WebkitOverflowScrolling": "touch",
+                    "height": "auto",
+                    "overflow": "auto",
+                  }
+                }
+              >
+                <Connect(CatalogList)
+                  auth={
+                    Object {
+                      "allUsers": Object {
+                        "success": true,
+                        "users": Array [
+                          Object {
+                            "avatar": null,
+                            "bio": null,
+                            "country": null,
+                            "createdAt": "2018-03-13T05:04:37.443Z",
+                            "email": "emasysnd@gmail.com",
+                            "firstName": null,
+                            "id": 1,
+                            "lastName": null,
+                            "moniker": "admin",
+                            "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                            "updatedAt": "2018-03-13T05:04:37.443Z",
+                          },
+                        ],
+                      },
+                      "authInfo": Object {
+                        "isLoggedIn": true,
+                        "userId": 1,
+                        "username": "admin",
+                      },
+                      "isLoggedIn": true,
+                      "message": null,
+                      "userInfo": Object {
+                        "data": Object {
+                          "avatar": null,
+                          "bio": null,
+                          "country": "Nigeria",
+                          "email": "emasysnd@gmail.com",
+                          "firstName": "emmy",
+                          "id": 1,
+                          "lastName": "endy",
+                          "moniker": "admin",
+                        },
+                        "success": true,
+                      },
+                      "userProfile": Object {
+                        "data": Object {
+                          "avatar": null,
+                          "bio": null,
+                          "country": null,
+                          "email": "emasysnd@gmail.com",
+                          "firstName": null,
+                          "id": 1,
+                          "lastName": null,
+                          "moniker": "admin",
+                        },
+                        "success": true,
+                      },
+                    }
+                  }
+                  catalog={
+                    Array [
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:07.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 2,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 4,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yams",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 2,
+                        "userId": 1,
+                        "views": 2,
+                      },
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:06.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 2,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 3,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yams",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 2,
+                        "userId": 1,
+                        "views": 2,
+                      },
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:06.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 1,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 5,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yam",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 1,
+                        "userId": 1,
+                        "views": 1,
+                      },
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:03.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 2,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 1,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yams",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 0,
+                        "userId": 1,
+                        "views": 0,
+                      },
+                    ]
+                  }
+                  clearRecipes={[Function]}
+                  getProfile={[Function]}
+                  getRecipes={[Function]}
+                  history={
+                    Object {
+                      "push": [Function],
+                    }
+                  }
+                  recipes={
+                    Object {
+                      "allRecipes": Array [
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:07.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 4,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 2,
+                          "userId": 1,
+                          "views": 2,
+                        },
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:06.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 3,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 2,
+                          "userId": 1,
+                          "views": 2,
+                        },
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:06.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 1,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 5,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yam",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 1,
+                          "userId": 1,
+                          "views": 1,
+                        },
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:03.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 1,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 0,
+                          "userId": 1,
+                          "views": 0,
+                        },
+                      ],
+                      "count": 1,
+                      "searchResult": Array [
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:03.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 1,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 0,
+                          "userId": 1,
+                          "views": 0,
+                        },
+                      ],
+                    }
+                  }
+                  resetSearch={[Function]}
+                  searchRecipes={[Function]}
+                  showDeleteBtn={false}
+                  user={
+                    Object {
+                      "data": Object {
+                        "avatar": null,
+                        "bio": null,
+                        "country": null,
+                        "email": "emasysnd@gmail.com",
+                        "firstName": null,
+                        "id": 1,
+                        "lastName": null,
+                        "moniker": "admin",
+                      },
+                      "success": true,
+                    }
+                  }
+                />
+                <div
+                  className="loader text-center"
+                  key="0"
+                >
+                  <img
+                    alt="loading..."
+                    height="30"
+                    src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                    width="30"
+                  />
+                </div>
+              </div>
+            </div>
+          </InfiniteScroll>
+        </div>
+      </section>
+    </div>
+  </FullCatalog>
+</MockRouter>
+`;
+
+exports[`Test suite for full catalog page component Should simulate click on add new recipe button 2`] = `
+<MockRouter
+  createHref={[Function]}
+  favorite={
+    Object {
+      "userFavorites": Array [],
+    }
+  }
+  isLoading={false}
+  location=""
+  params={Object {}}
+  path=""
+  push={[Function]}
+  recipes={
+    Object {
+      "allRecipes": Array [
+        Object {
+          "category": "Breakfast",
+          "comments": 0,
+          "createdAt": "2018-03-15T10:02:06.889Z",
+          "description": "just do it",
+          "direction": "just do it",
+          "downvote": 0,
+          "favorite": 1,
+          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+          "id": 5,
+          "ingredients": Array [
+            "water",
+            "salt",
+          ],
+          "name": "how to cook yam",
+          "reactionDown": Array [],
+          "reactionUp": Array [
+            1,
+          ],
+          "searchIng": "water, salt",
+          "updatedAt": "2018-03-15T12:02:24.578Z",
+          "upvote": 1,
+          "userId": 1,
+          "views": 0,
+        },
+      ],
+      "category": Array [],
+      "count": 1,
+      "recipeItem": Object {},
+      "searchCount": 1,
+      "searchResult": Array [],
+      "success": true,
+      "updateRecipes": Object {},
+      "userRecipes": Array [],
+      "userRecipesCount": 0,
+    }
+  }
+  replace={[Function]}
+  review={
+    Object {
+      "fetch_reviews": Array [],
+      "review": Object {},
+    }
+  }
+  url=""
+  user={
+    Object {
+      "data": Object {
+        "avatar": null,
+        "bio": null,
+        "country": null,
+        "email": "emasysnd@gmail.com",
+        "firstName": null,
+        "id": 1,
+        "lastName": null,
+        "moniker": "admin",
+      },
+      "success": true,
+    }
+  }
+  votes={Object {}}
+>
+  <FullCatalog
+    auth={
+      Object {
+        "allUsers": Object {
+          "success": true,
+          "users": Array [
+            Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "createdAt": "2018-03-13T05:04:37.443Z",
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+              "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+              "updatedAt": "2018-03-13T05:04:37.443Z",
+            },
+          ],
+        },
+        "authInfo": Object {
+          "isLoggedIn": true,
+          "userId": 1,
+          "username": "admin",
+        },
+        "isLoggedIn": true,
+        "message": null,
+        "userInfo": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": "Nigeria",
+            "email": "emasysnd@gmail.com",
+            "firstName": "emmy",
+            "id": 1,
+            "lastName": "endy",
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+        "userProfile": Object {
+          "data": Object {
+            "avatar": null,
+            "bio": null,
+            "country": null,
+            "email": "emasysnd@gmail.com",
+            "firstName": null,
+            "id": 1,
+            "lastName": null,
+            "moniker": "admin",
+          },
+          "success": true,
+        },
+      }
+    }
+    clearRecipes={[Function]}
+    getProfile={[Function]}
+    getRecipes={[Function]}
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    recipes={
+      Object {
+        "allRecipes": Array [
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:07.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 4,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 2,
+            "userId": 1,
+            "views": 2,
+          },
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:06.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 3,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 2,
+            "userId": 1,
+            "views": 2,
+          },
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:06.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 1,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 5,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yam",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 1,
+            "userId": 1,
+            "views": 1,
+          },
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:03.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+        "count": 1,
+        "searchResult": Array [
+          Object {
+            "category": "Breakfast",
+            "comments": 0,
+            "createdAt": "2018-03-15T10:02:03.889Z",
+            "description": "just do it",
+            "direction": "just do it",
+            "downvote": 0,
+            "favorite": 2,
+            "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+            "id": 1,
+            "ingredients": Array [
+              "water",
+              "salt",
+            ],
+            "name": "how to cook yams",
+            "reactionDown": Array [],
+            "reactionUp": Array [
+              1,
+            ],
+            "searchIng": "water, salt",
+            "updatedAt": "2018-03-15T12:02:24.578Z",
+            "upvote": 0,
+            "userId": 1,
+            "views": 0,
+          },
+        ],
+      }
+    }
+    resetSearch={[Function]}
+    searchRecipes={[Function]}
+    user={
+      Object {
+        "data": Object {
+          "avatar": null,
+          "bio": null,
+          "country": null,
+          "email": "emasysnd@gmail.com",
+          "firstName": null,
+          "id": 1,
+          "lastName": null,
+          "moniker": "admin",
+        },
+        "success": true,
+      }
+    }
+  >
+    <div
+      className="container-fluid"
+    >
+      <section
+        className="container-fluid fixed"
+      >
+        <NavbarSearch
+          avatar={null}
+          onChanged={[Function]}
+          onSearch={[Function]}
+          search=""
+          user={
+            Object {
+              "allUsers": Object {
+                "success": true,
+                "users": Array [
+                  Object {
+                    "avatar": null,
+                    "bio": null,
+                    "country": null,
+                    "createdAt": "2018-03-13T05:04:37.443Z",
+                    "email": "emasysnd@gmail.com",
+                    "firstName": null,
+                    "id": 1,
+                    "lastName": null,
+                    "moniker": "admin",
+                    "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                    "updatedAt": "2018-03-13T05:04:37.443Z",
+                  },
+                ],
+              },
+              "authInfo": Object {
+                "isLoggedIn": true,
+                "userId": 1,
+                "username": "admin",
+              },
+              "isLoggedIn": true,
+              "message": null,
+              "userInfo": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": "Nigeria",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": "emmy",
+                  "id": 1,
+                  "lastName": "endy",
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+              "userProfile": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+            }
+          }
+        >
+          <nav
+            className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar"
+          >
+            <div
+              className="container"
+            >
+              <Link
+                className="navbar-brand bolder text-orange"
+                replace={false}
+                to="/"
+              >
+                <a
+                  className="navbar-brand bolder text-orange"
+                  onClick={[Function]}
+                >
+                  MoreRecipes
+                </a>
+              </Link>
+              <form
+                className=" col-lg-9 col-md-9 col-sm-9 text-center p-0 m-0"
+                onSubmit={[Function]}
+              >
+                <input
+                  autoComplete="off"
+                  id="search"
+                  name="search"
+                  onChange={[Function]}
+                  placeholder="search by ingredients or recipe title"
+                  type="search"
+                />
+              </form>
+              <button
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                className="navbar-toggler"
+                data-target="#navbarSupportedContent"
+                data-toggle="collapse"
+                type="button"
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa fa-bars fa-2x text-orange"
+                />
+              </button>
+              <div
+                className="collapse navbar-collapse justify-content-end"
+                id="navbarSupportedContent"
+              >
+                <ul
+                  className="navbar-nav"
+                >
+                  <li
+                    className="nav-item "
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link"
+                      data-tip="Add new recipe"
+                      to="/new"
+                    >
+                      <Route
+                        path="/new"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link"
+                          data-tip="Add new recipe"
+                          replace={false}
+                          to="/new"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link"
+                            data-tip="Add new recipe"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="material-icons fa-2x d-sm-none d-lg-inline"
+                            >
+                              add_to_photos
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Add new recipe
+                            </span>
+                            <ReactTooltip
+                              effect="float"
+                              insecure={true}
+                              place="bottom"
+                              resizeHide={true}
+                              type="dark"
+                              wrapper="div"
+                            >
+                              <div
+                                className="__react_component_tooltip place-top type-dark "
+                                data-id="tooltip"
+                              />
+                            </ReactTooltip>
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item "
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link"
+                      data-tip="Catalog"
+                      to="/catalog"
+                    >
+                      <Route
+                        path="/catalog"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link"
+                          data-tip="Catalog"
+                          replace={false}
+                          to="/catalog"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link"
+                            data-tip="Catalog"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="material-icons fa-2x  d-sm-none d-lg-inline"
+                            >
+                              
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Catalog
+                            </span>
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item"
+                  >
+                    <NavLink
+                      activeClassName="active"
+                      ariaCurrent="true"
+                      className="nav-link "
+                      data-tip="Your favorites"
+                      to="/favorites"
+                    >
+                      <Route
+                        path="/favorites"
+                      >
+                        <Link
+                          aria-current={false}
+                          className="nav-link "
+                          data-tip="Your favorites"
+                          replace={false}
+                          to="/favorites"
+                        >
+                          <a
+                            aria-current={false}
+                            className="nav-link "
+                            data-tip="Your favorites"
+                            onClick={[Function]}
+                          >
+                            <i
+                              className="material-icons fa-2x red d-sm-none d-lg-inline"
+                            >
+                              
+                            </i>
+                            <span
+                              className="d-lg-none"
+                              style={
+                                Object {
+                                  "verticalAlign": "top",
+                                }
+                              }
+                            >
+                              Favorites
+                            </span>
+                             
+                          </a>
+                        </Link>
+                      </Route>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item dropdown"
+                  >
+                    <a
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      className="nav-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                    >
+                      <img
+                        alt="avi"
+                        className="fa-2x img-icon rounded-circle"
+                        src="https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png"
+                      />
+                    </a>
+                    <div
+                      aria-labelledby="navbarDropdownMenuLink"
+                      className="dropdown-menu dropdown-menu-right custom-dropdown"
+                    >
+                      <NavLinks
+                        user={
+                          Object {
+                            "allUsers": Object {
+                              "success": true,
+                              "users": Array [
+                                Object {
+                                  "avatar": null,
+                                  "bio": null,
+                                  "country": null,
+                                  "createdAt": "2018-03-13T05:04:37.443Z",
+                                  "email": "emasysnd@gmail.com",
+                                  "firstName": null,
+                                  "id": 1,
+                                  "lastName": null,
+                                  "moniker": "admin",
+                                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                                },
+                              ],
+                            },
+                            "authInfo": Object {
+                              "isLoggedIn": true,
+                              "userId": 1,
+                              "username": "admin",
+                            },
+                            "isLoggedIn": true,
+                            "message": null,
+                            "userInfo": Object {
+                              "data": Object {
+                                "avatar": null,
+                                "bio": null,
+                                "country": "Nigeria",
+                                "email": "emasysnd@gmail.com",
+                                "firstName": "emmy",
+                                "id": 1,
+                                "lastName": "endy",
+                                "moniker": "admin",
+                              },
+                              "success": true,
+                            },
+                            "userProfile": Object {
+                              "data": Object {
+                                "avatar": null,
+                                "bio": null,
+                                "country": null,
+                                "email": "emasysnd@gmail.com",
+                                "firstName": null,
+                                "id": 1,
+                                "lastName": null,
+                                "moniker": "admin",
+                              },
+                              "success": true,
+                            },
+                          }
+                        }
+                      >
+                        <div>
+                          <h6
+                            className="dropdown-header text-center"
+                          >
+                            Signed in as admin
+                          </h6>
+                          <div
+                            className="dropdown-divider"
+                          />
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/profile/1"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Your profile
+                            </a>
+                          </Link>
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/favorites"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Your favorites
+                            </a>
+                          </Link>
+                          <Link
+                            className="dropdown-item bold"
+                            replace={false}
+                            to="/new"
+                          >
+                            <a
+                              className="dropdown-item bold"
+                              onClick={[Function]}
+                            >
+                              Add new recipe
+                            </a>
+                          </Link>
+                          <div
+                            className="dropdown-divider"
+                          />
+                          <a
+                            className="dropdown-item bold"
+                            href="/"
+                            id="logout"
+                            onClick={[Function]}
+                          >
+                            Logout
+                          </a>
+                        </div>
+                      </NavLinks>
+                    </div>
+                  </li>
+                </ul>
+                <ReactTooltip
+                  effect="float"
+                  insecure={true}
+                  place="bottom"
+                  resizeHide={true}
+                  type="dark"
+                  wrapper="div"
+                >
+                  <div
+                    className="__react_component_tooltip place-top type-dark "
+                    data-id="tooltip"
+                  />
+                </ReactTooltip>
+              </div>
+            </div>
+          </nav>
+        </NavbarSearch>
+      </section>
+      <div
+        className="category-bar fixed-top custom-fixed custom-bg-color"
+        style={
+          Object {
+            "zIndex": 900,
+          }
+        }
+      >
+        <NavbarCategory
+          dropdownCtrl={[Function]}
+          mostFavorited={[Function]}
+          mostUpvoted={[Function]}
+          mostViewed={[Function]}
+          recentlyAdded={[Function]}
+        >
+          <div>
+            <ul
+              className="nav justify-content-center"
+            >
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  onClick={[Function]}
+                  role="button"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-th"
+                  />
+                   categories
+                </a>
+              </li>
+              <li
+                className="nav-item dropdown"
+              >
+                <a
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  className="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  role="button"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-sort-amount-asc"
+                  />
+                   sort by
+                </a>
+                <div
+                  className="dropdown-menu custom-dropdown-menu"
+                >
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="recent"
+                    onClick={[Function]}
+                  >
+                    Recently Added
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="upvotes"
+                    onClick={[Function]}
+                  >
+                    Most Upvoted
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="favorites"
+                    onClick={[Function]}
+                  >
+                    Most Favorited
+                  </a>
+                  <div
+                    className="dropdown-divider"
+                  />
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    id="viewed"
+                    onClick={[Function]}
+                  >
+                    Most Viewed
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </NavbarCategory>
+      </div>
+      <section
+        className="mt-100"
+        id="catalog"
+      >
+        <div
+          className="row catalog-wrapper-full-grid justify-content-center"
+        >
+          <InfiniteScroll
+            disableBrowserPullToRefresh={true}
+            endMessage={
+              <p
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <b>
+                  Thank you for being Awesome
+                </b>
+                <br />
+                <button
+                  className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+                  id="addMore"
+                  onClick={[Function]}
+                >
+                  Add More Recipes
+                </button>
+              </p>
+            }
+            hasMore={true}
+            loader={
+              <div
+                className="loader text-center"
+              >
+                <img
+                  alt="loading..."
+                  height="30"
+                  src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                  width="30"
+                />
+              </div>
+            }
+            next={[Function]}
+            pullDownToRefreshContent={
+              <h3>
+                Pull down to refresh
+              </h3>
+            }
+            pullDownToRefreshThreshold={100}
+            releaseToRefreshContent={
+              <h3>
+                Release to refresh
+              </h3>
+            }
+          >
+            <div
+              style={Object {}}
+            >
+              <div
+                className="infinite-scroll-component"
+                style={
+                  Object {
+                    "WebkitOverflowScrolling": "touch",
+                    "height": "auto",
+                    "overflow": "auto",
+                  }
+                }
+              >
+                <Connect(CatalogList)
+                  auth={
+                    Object {
+                      "allUsers": Object {
+                        "success": true,
+                        "users": Array [
+                          Object {
+                            "avatar": null,
+                            "bio": null,
+                            "country": null,
+                            "createdAt": "2018-03-13T05:04:37.443Z",
+                            "email": "emasysnd@gmail.com",
+                            "firstName": null,
+                            "id": 1,
+                            "lastName": null,
+                            "moniker": "admin",
+                            "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                            "updatedAt": "2018-03-13T05:04:37.443Z",
+                          },
+                        ],
+                      },
+                      "authInfo": Object {
+                        "isLoggedIn": true,
+                        "userId": 1,
+                        "username": "admin",
+                      },
+                      "isLoggedIn": true,
+                      "message": null,
+                      "userInfo": Object {
+                        "data": Object {
+                          "avatar": null,
+                          "bio": null,
+                          "country": "Nigeria",
+                          "email": "emasysnd@gmail.com",
+                          "firstName": "emmy",
+                          "id": 1,
+                          "lastName": "endy",
+                          "moniker": "admin",
+                        },
+                        "success": true,
+                      },
+                      "userProfile": Object {
+                        "data": Object {
+                          "avatar": null,
+                          "bio": null,
+                          "country": null,
+                          "email": "emasysnd@gmail.com",
+                          "firstName": null,
+                          "id": 1,
+                          "lastName": null,
+                          "moniker": "admin",
+                        },
+                        "success": true,
+                      },
+                    }
+                  }
+                  catalog={
+                    Array [
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:07.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 2,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 4,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yams",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 2,
+                        "userId": 1,
+                        "views": 2,
+                      },
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:06.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 2,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 3,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yams",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 2,
+                        "userId": 1,
+                        "views": 2,
+                      },
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:06.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 1,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 5,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yam",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 1,
+                        "userId": 1,
+                        "views": 1,
+                      },
+                      Object {
+                        "category": "Breakfast",
+                        "comments": 0,
+                        "createdAt": "2018-03-15T10:02:03.889Z",
+                        "description": "just do it",
+                        "direction": "just do it",
+                        "downvote": 0,
+                        "favorite": 2,
+                        "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                        "id": 1,
+                        "ingredients": Array [
+                          "water",
+                          "salt",
+                        ],
+                        "name": "how to cook yams",
+                        "reactionDown": Array [],
+                        "reactionUp": Array [
+                          1,
+                        ],
+                        "searchIng": "water, salt",
+                        "updatedAt": "2018-03-15T12:02:24.578Z",
+                        "upvote": 0,
+                        "userId": 1,
+                        "views": 0,
+                      },
+                    ]
+                  }
+                  clearRecipes={[Function]}
+                  getProfile={[Function]}
+                  getRecipes={[Function]}
+                  history={
+                    Object {
+                      "push": [Function],
+                    }
+                  }
+                  recipes={
+                    Object {
+                      "allRecipes": Array [
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:07.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 4,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 2,
+                          "userId": 1,
+                          "views": 2,
+                        },
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:06.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 3,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 2,
+                          "userId": 1,
+                          "views": 2,
+                        },
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:06.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 1,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 5,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yam",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 1,
+                          "userId": 1,
+                          "views": 1,
+                        },
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:03.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 1,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 0,
+                          "userId": 1,
+                          "views": 0,
+                        },
+                      ],
+                      "count": 1,
+                      "searchResult": Array [
+                        Object {
+                          "category": "Breakfast",
+                          "comments": 0,
+                          "createdAt": "2018-03-15T10:02:03.889Z",
+                          "description": "just do it",
+                          "direction": "just do it",
+                          "downvote": 0,
+                          "favorite": 2,
+                          "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                          "id": 1,
+                          "ingredients": Array [
+                            "water",
+                            "salt",
+                          ],
+                          "name": "how to cook yams",
+                          "reactionDown": Array [],
+                          "reactionUp": Array [
+                            1,
+                          ],
+                          "searchIng": "water, salt",
+                          "updatedAt": "2018-03-15T12:02:24.578Z",
+                          "upvote": 0,
+                          "userId": 1,
+                          "views": 0,
+                        },
+                      ],
+                    }
+                  }
+                  resetSearch={[Function]}
+                  searchRecipes={[Function]}
+                  showDeleteBtn={false}
+                  user={
+                    Object {
+                      "data": Object {
+                        "avatar": null,
+                        "bio": null,
+                        "country": null,
+                        "email": "emasysnd@gmail.com",
+                        "firstName": null,
+                        "id": 1,
+                        "lastName": null,
+                        "moniker": "admin",
+                      },
+                      "success": true,
+                    }
+                  }
+                />
+                <div
+                  className="loader text-center"
+                  key="0"
+                >
+                  <img
+                    alt="loading..."
+                    height="30"
+                    src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+                    width="30"
+                  />
+                </div>
+              </div>
+            </div>
+          </InfiniteScroll>
+        </div>
+      </section>
+    </div>
+  </FullCatalog>
+</MockRouter>
+`;
+
+exports[`Test suite for full catalog page component should call componentWillReceiveProps and unmount 1`] = `
+<div
+  className="container-fluid"
+>
+  <section
+    className="container-fluid fixed"
+  >
+    <NavbarSearch
+      avatar={null}
+      onChanged={[Function]}
+      onSearch={[Function]}
+      search=""
+      user={
+        Object {
+          "allUsers": Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          },
+          "authInfo": Object {
+            "isLoggedIn": true,
+            "userId": 1,
+            "username": "admin",
+          },
+          "isLoggedIn": true,
+          "message": null,
+          "userInfo": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": "Nigeria",
+              "email": "emasysnd@gmail.com",
+              "firstName": "emmy",
+              "id": 1,
+              "lastName": "endy",
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+          "userProfile": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+        }
+      }
+    />
+  </section>
+  <div
+    className="category-bar fixed-top custom-fixed custom-bg-color"
+    style={
+      Object {
+        "zIndex": 900,
+      }
+    }
+  >
+    <NavbarCategory
+      dropdownCtrl={[Function]}
+      mostFavorited={[Function]}
+      mostUpvoted={[Function]}
+      mostViewed={[Function]}
+      recentlyAdded={[Function]}
+    />
+  </div>
+  <section
+    className="mt-100"
+    id="catalog"
+  >
+    <div
+      className="row catalog-wrapper-full-grid justify-content-center"
+    >
+      <InfiniteScroll
+        disableBrowserPullToRefresh={true}
+        endMessage={
+          <p
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            <b>
+              Thank you for being Awesome
+            </b>
+            <br />
+            <button
+              className="btn hovered btn-lg bg-orange bold my-5 text-white p-10 signUp-btn"
+              id="addMore"
+              onClick={[Function]}
+            >
+              Add More Recipes
+            </button>
+          </p>
+        }
+        hasMore={false}
+        loader={
+          <div
+            className="loader text-center"
+          >
+            <img
+              alt="loading..."
+              height="30"
+              src="https://res.cloudinary.com/emasys/image/upload/v1516647862/Facebook-0.9s-200px_sqqnu9.gif"
+              width="30"
+            />
+          </div>
+        }
+        next={[Function]}
+        pullDownToRefreshContent={
+          <h3>
+            Pull down to refresh
+          </h3>
+        }
+        pullDownToRefreshThreshold={100}
+        releaseToRefreshContent={
+          <h3>
+            Release to refresh
+          </h3>
+        }
+      >
+        <Connect(CatalogList)
+          auth={
+            Object {
+              "allUsers": Object {
+                "success": true,
+                "users": Array [
+                  Object {
+                    "avatar": null,
+                    "bio": null,
+                    "country": null,
+                    "createdAt": "2018-03-13T05:04:37.443Z",
+                    "email": "emasysnd@gmail.com",
+                    "firstName": null,
+                    "id": 1,
+                    "lastName": null,
+                    "moniker": "admin",
+                    "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                    "updatedAt": "2018-03-13T05:04:37.443Z",
+                  },
+                ],
+              },
+              "authInfo": Object {
+                "isLoggedIn": true,
+                "userId": 1,
+                "username": "admin",
+              },
+              "isLoggedIn": true,
+              "message": null,
+              "userInfo": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": "Nigeria",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": "emmy",
+                  "id": 1,
+                  "lastName": "endy",
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+              "userProfile": Object {
+                "data": Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                },
+                "success": true,
+              },
+            }
+          }
+          catalog={
+            Array [
+              Object {
+                "category": "Breakfast",
+                "comments": 0,
+                "createdAt": "2018-03-15T10:02:06.889Z",
+                "description": "just do it",
+                "direction": "just do it",
+                "downvote": 0,
+                "favorite": 1,
+                "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                "id": 5,
+                "ingredients": Array [
+                  "water",
+                  "salt",
+                ],
+                "name": "how to cook yam",
+                "reactionDown": Array [],
+                "reactionUp": Array [
+                  1,
+                ],
+                "searchIng": "water, salt",
+                "updatedAt": "2018-03-15T12:02:24.578Z",
+                "upvote": 1,
+                "userId": 1,
+                "views": 0,
+              },
+            ]
+          }
+          clearRecipes={[Function]}
+          favorite={
+            Object {
+              "userFavorites": Array [],
+            }
+          }
+          getProfile={[Function]}
+          getRecipes={[Function]}
+          history={
+            Object {
+              "push": [Function],
+            }
+          }
+          isLoading={false}
+          recipes={
+            Object {
+              "allRecipes": Array [
+                Object {
+                  "category": "Breakfast",
+                  "comments": 0,
+                  "createdAt": "2018-03-15T10:02:06.889Z",
+                  "description": "just do it",
+                  "direction": "just do it",
+                  "downvote": 0,
+                  "favorite": 1,
+                  "foodImg": "https://res.cloudinary.com/emasys/image/upload/v1514552968/thumb_image_not_available_dqr7h2.png",
+                  "id": 5,
+                  "ingredients": Array [
+                    "water",
+                    "salt",
+                  ],
+                  "name": "how to cook yam",
+                  "reactionDown": Array [],
+                  "reactionUp": Array [
+                    1,
+                  ],
+                  "searchIng": "water, salt",
+                  "updatedAt": "2018-03-15T12:02:24.578Z",
+                  "upvote": 1,
+                  "userId": 1,
+                  "views": 0,
+                },
+              ],
+              "category": Array [],
+              "count": 1,
+              "recipeItem": Object {},
+              "searchCount": 1,
+              "searchResult": Array [],
+              "success": true,
+              "updateRecipes": Object {},
+              "userRecipes": Array [],
+              "userRecipesCount": 0,
+            }
+          }
+          resetSearch={[Function]}
+          review={
+            Object {
+              "fetch_reviews": Array [],
+              "review": Object {},
+            }
+          }
+          searchRecipes={[Function]}
+          showDeleteBtn={false}
+          user={
+            Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+              },
+              "success": true,
+            }
+          }
+          votes={Object {}}
+        />
+      </InfiniteScroll>
+    </div>
+  </section>
+</div>
+`;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { isAuthenticated, flashMessage } from '../../actions';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   auth: state.user
 });
 
@@ -31,7 +31,7 @@ const Composer = WrappedComponent => {
       }
     };
 
-    componentWillUpdate = (nextProps) => {
+    componentWillUpdate = nextProps => {
       if (!nextProps.auth.isLoggedIn) {
         this.props.flashMessage(this.props.location.pathname);
         this.props.history.push('/signin');

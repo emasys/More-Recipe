@@ -1,5 +1,5 @@
 import * as type from '../types';
-import instance from '../../config/axios'
+import instance from '../../config/axios';
 import { isLoading } from '../index';
 
 /**
@@ -18,7 +18,7 @@ export const upvote = id => dispatch => {
       dispatch(isLoading(false));
     })
     .catch(err => {
-      dispatch({ type: type.UPVOTE, payload: err.response });
+      dispatch({ type: type.UPVOTE, payload: err.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -39,7 +39,7 @@ export const downvote = id => dispatch => {
       dispatch(isLoading(false));
     })
     .catch(err => {
-      dispatch({ type: type.DOWNVOTE, payload: err.response });
+      dispatch({ type: type.DOWNVOTE, payload: err.response.data });
       dispatch(isLoading(false));
     });
 };

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for routes should match snapshot 1`] = `
+<BrowserRouter>
+  <div>
+    <Connect(Preloader) />
+    <Switch>
+      <Route
+        component={[Function]}
+        path="/signin"
+      />
+      <Route
+        component={[Function]}
+        path="/signup"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/catalog"
+      />
+      <Route
+        component={[Function]}
+        path="/recipe/:id"
+      />
+      <Route
+        component={[Function]}
+        path="/user/:id"
+      />
+      <Route
+        component={[Function]}
+        path="/manageUsers"
+      />
+      <Route
+        component={[Function]}
+        path="/favorites"
+      />
+      <Route
+        component={[Function]}
+        path="/new"
+      />
+      <Route
+        component={[Function]}
+        path="/profile/:id"
+      />
+      <Route
+        component={[Function]}
+        path="/category/:cat"
+      />
+      <Route
+        component={[Function]}
+        path="*"
+      />
+    </Switch>
+    <Footer />
+  </div>
+</BrowserRouter>
+`;

@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Reviews component Render component with one review should match snapshot 1`] = `
+<div
+  className="row justify-content-center mt-2 catalog-wrapper"
+>
+  <div
+    className="col-12"
+  >
+    <h5
+      className="text-center text-muted"
+    >
+      Reviews
+       
+      <span
+        className="badge badge-dark"
+        data-tip="Total number of reviews"
+      >
+        1
+      </span>
+    </h5>
+    <hr />
+  </div>
+  <div
+    className="col-lg-7 col-sm-12 recipe-image"
+  >
+    <form
+      className="text-center"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-md-12 col-sm-12"
+        >
+          <TextareaAutosize
+            className="textarea col-12"
+            id="reviewField"
+            name="reviewBox"
+            onChange={[Function]}
+            onHeightChange={[Function]}
+            placeholder="leave a review"
+            useCacheForDOMMeasurements={false}
+            value=""
+          />
+        </div>
+      </div>
+      <button
+        className="btn btn-dark  btn-lg col-lg-4 col-md-6 col-sm-12"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+  <div
+    className="col-lg-8 col-sm-12 "
+  >
+    <GenerateReviews
+      auth={
+        Object {
+          "allUsers": Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          },
+          "authInfo": Object {
+            "isLoggedIn": true,
+            "userId": 1,
+            "username": "admin",
+          },
+          "isLoggedIn": true,
+          "message": null,
+          "userInfo": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": "Nigeria",
+              "email": "emasysnd@gmail.com",
+              "firstName": "emmy",
+              "id": 1,
+              "lastName": "endy",
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+          "userProfile": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+        }
+      }
+      deleteReview={[Function]}
+      review={
+        Object {
+          "count_reviews": 1,
+          "fetch_reviews": Array [
+            Object {
+              "User": Object {
+                "avatar": null,
+                "moniker": "admin",
+              },
+              "content": "new comment",
+              "createdAt": "2018-03-15T08:03:50.868Z",
+              "id": 1,
+              "recipeId": 1,
+              "updatedAt": "2018-03-15T08:03:50.868Z",
+              "userId": 1,
+            },
+          ],
+          "review": Object {},
+        }
+      }
+    />
+  </div>
+</div>
+`;

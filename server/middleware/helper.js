@@ -94,16 +94,10 @@ export const mailer = (moniker = null, email, message) => {
     // sender address
     from: 'MoreRecipes <morerecipe23@gmail.com>',
     to: email,
-    subject: '[Alert] MoreRecipe',
+    subject: 'MoreRecipes notifications',
     html: emailTemplate(moniker, message)
   };
 
-  // `
-  //   <p>
-  //   <img src="https://res.cloudinary.com/emasys/image/upload/v1516439649/mR_2_jwnuce.png" width="250" height="250" alt="logo"/>
-  //   </p>
-  //   <h4>${moniker} <b>${message} </b></h4>
-  //   `
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {

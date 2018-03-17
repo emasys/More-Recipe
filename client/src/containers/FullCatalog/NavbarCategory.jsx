@@ -36,19 +36,39 @@ const NavbarCategory = props => (
           <i className="fa fa-sort-amount-asc" aria-hidden="true" /> sort by
         </a>
         <div className="dropdown-menu custom-dropdown-menu">
-          <a href="#" className="dropdown-item" onClick={props.recentlyAdded}>
+          <a
+            href="#"
+            id="recent"
+            className="dropdown-item"
+            onClick={props.recentlyAdded}
+          >
             Recently Added
           </a>
           <div className="dropdown-divider" />
-          <a href="#" className="dropdown-item" onClick={props.mostUpvoted}>
+          <a
+            href="#"
+            id="upvotes"
+            className="dropdown-item"
+            onClick={props.mostUpvoted}
+          >
             Most Upvoted
           </a>
           <div className="dropdown-divider" />
-          <a href="#" className="dropdown-item" onClick={props.mostFavorited}>
+          <a
+            href="#"
+            id="favorites"
+            className="dropdown-item"
+            onClick={props.mostFavorited}
+          >
             Most Favorited
           </a>
           <div className="dropdown-divider" />
-          <a href="#" className="dropdown-item" onClick={props.mostViewed}>
+          <a
+            href="#"
+            id="viewed"
+            className="dropdown-item"
+            onClick={props.mostViewed}
+          >
             Most Viewed
           </a>
         </div>

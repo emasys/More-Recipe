@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="1"
+            tests="1">
+
+  <testsuite name="signup"
+    errors="1" failures="1" hostname="" id="" package="signup" skipped="0"
+    tests="1" time="15.01" timestamp="Mon, 12 Mar 2018 14:24:17 GMT">
+  
+    <testcase name="SignUp page test" classname="signup" time="15.01" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+      <failure message="Testing if element &lt;.btn-sign&gt; is visible. Element could not be located.">    at Object.SignUpPageTest [as SignUp page test] (/Users/andeladeveloper/Documents/Documents/More-Recipe/e2e_test/signup.js:28:15)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    at process._tickCallback (internal/process/next_tick.js:180:9)</failure>
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Home Page / Homepage test]:
+
+  ReferenceError: before is not defined
+    at Timeout.setTimeout (/Users/andeladeveloper/Documents/Documents/More-Recipe/e2e_test/homePage.js:8:3)
+    at ontimeout (timers.js:475:11)
+    at tryOnTimeout (timers.js:310:5)
+    at Timer.listOnTimeout (timers.js:270:5)
+ERROR: Unable to locate element: &#34;.btn-sign&#34; using: css selector
+    at F.command (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/api/assertions/visible.js:42:21)
+    at F.module.exports.BaseAssertion._scheduleAssertion (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/assertion.js:87:17)
+    at F.module.exports.BaseAssertion._executeCommand (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/assertion.js:82:17)
+    at AssertionInstance.commandFn [as _commandFn] (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/assertion.js:180:21)
+    at AsyncTree.runCommand (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:154:30)
+    at AsyncTree.runChildNode (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:114:8)
+    at AsyncTree.walkDown (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:80:10)
+    at AsyncTree.walkUp (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:97:8)
+    at AsyncTree.walkDown (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:90:12)
+    at AsyncTree.traverse (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:73:8)
+    at F.onCommandComplete (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/core/queue.js:131:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:106:13)
+    at F.emit (events.js:208:7)
+    at Timeout._onTimeout (/Users/andeladeveloper/Documents/Documents/More-Recipe/node_modules/nightwatch/lib/api/client-commands/pause.js:40:10)
+    at ontimeout (timers.js:475:11)
+    at tryOnTimeout (timers.js:310:5)
+    at Timer.listOnTimeout (timers.js:270:5)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

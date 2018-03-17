@@ -33,6 +33,7 @@ const GenerateRecipeItem = props => {
         <button
           className={`btn btn-success mb-5 ${save}`}
           onClick={props.handleImg}
+          id="upload-image-btn"
         >
           Upload Image
         </button>
@@ -65,6 +66,7 @@ const GenerateRecipeItem = props => {
         <span className="text-center card-link" onClick={props.favIt}>
           <i
             data-tip="Add to favorites"
+            id="favorite-recipe"
             className={`material-icons hovered ${
               favoriteStatus ? ' red animated bounceIn flash' : 'gray'
             }`}

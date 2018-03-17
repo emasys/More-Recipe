@@ -17,8 +17,8 @@ export const getUserInfo = id => dispatch => {
       dispatch({ type: type.USER_INFO, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.USER_INFO, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.USER_INFO, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -40,8 +40,8 @@ export const getUserRecipes = (id, limit, offset) => dispatch => {
       dispatch({ type: type.USER_RECIPES, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.USER_RECIPES, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.USER_RECIPES, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -61,8 +61,8 @@ export const getProfile = id => dispatch => {
       dispatch({ type: type.USER_PROFILE, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.USER_PROFILE, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.USER_PROFILE, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -80,8 +80,8 @@ export const getAllUsers = () => dispatch => {
       dispatch({ type: type.ALL_USERS, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.ALL_USERS, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.ALL_USERS, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -102,8 +102,8 @@ export const deleteUser = id => dispatch => {
       dispatch(getAllUsers());
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.DELETE_USER, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.DELETE_USER, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -122,11 +122,12 @@ export const updateUser = (id, data) => dispatch => {
     .put(`/users/${id}`, data)
     .then(response => {
       dispatch({ type: type.UPDATE_USER, payload: response.data });
-      dispatch(isLoading(false));
       dispatch(getProfile(id));
+      dispatch(getUserInfo(id));
+      dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.UPDATE_USER, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.UPDATE_USER, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };

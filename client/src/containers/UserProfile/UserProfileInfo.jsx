@@ -52,7 +52,7 @@ const UserProfileInfo = props => {
       </div>
     );
   }
-  return 'loading...';
+  return <p id="loading">loading...</p>;
 };
 
 UserProfileInfo.propTypes = {
