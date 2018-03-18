@@ -1,0 +1,316 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`higher-order component withHoc should render with unauthenticated data without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(Authenticate)
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+    location={
+      Object {
+        "pathname": "/signin",
+      }
+    }
+  >
+    <Authenticate
+      auth={
+        Object {
+          "allUsers": Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          },
+          "authInfo": Object {
+            "isLoggedIn": true,
+            "userId": 1,
+            "username": "admin",
+          },
+          "isLoggedIn": false,
+          "message": null,
+          "userInfo": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": "Nigeria",
+              "email": "emasysnd@gmail.com",
+              "firstName": "emmy",
+              "id": 1,
+              "lastName": "endy",
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+          "userProfile": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+        }
+      }
+      flashMessage={[Function]}
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
+      isAuthenticated={[Function]}
+      location={
+        Object {
+          "pathname": "/signin",
+        }
+      }
+    >
+      <MockComponent
+        auth={
+          Object {
+            "allUsers": Object {
+              "success": true,
+              "users": Array [
+                Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "createdAt": "2018-03-13T05:04:37.443Z",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                },
+              ],
+            },
+            "authInfo": Object {
+              "isLoggedIn": true,
+              "userId": 1,
+              "username": "admin",
+            },
+            "isLoggedIn": false,
+            "message": null,
+            "userInfo": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": "Nigeria",
+                "email": "emasysnd@gmail.com",
+                "firstName": "emmy",
+                "id": 1,
+                "lastName": "endy",
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+            "userProfile": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+          }
+        }
+        flashMessage={[Function]}
+        history={
+          Object {
+            "push": [Function],
+          }
+        }
+        isAuthenticated={[Function]}
+        location={
+          Object {
+            "pathname": "/signin",
+          }
+        }
+      >
+        <div>
+          Component
+        </div>
+      </MockComponent>
+    </Authenticate>
+  </Connect(Authenticate)>
+</Provider>
+`;
+
+exports[`higher-order component withHoc should render without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(Authenticate)>
+    <Authenticate
+      auth={
+        Object {
+          "allUsers": Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          },
+          "authInfo": Object {
+            "isLoggedIn": true,
+            "userId": 1,
+            "username": "admin",
+          },
+          "isLoggedIn": true,
+          "message": null,
+          "userInfo": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": "Nigeria",
+              "email": "emasysnd@gmail.com",
+              "firstName": "emmy",
+              "id": 1,
+              "lastName": "endy",
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+          "userProfile": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+        }
+      }
+      flashMessage={[Function]}
+      isAuthenticated={[Function]}
+    >
+      <MockComponent
+        auth={
+          Object {
+            "allUsers": Object {
+              "success": true,
+              "users": Array [
+                Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "createdAt": "2018-03-13T05:04:37.443Z",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                },
+              ],
+            },
+            "authInfo": Object {
+              "isLoggedIn": true,
+              "userId": 1,
+              "username": "admin",
+            },
+            "isLoggedIn": true,
+            "message": null,
+            "userInfo": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": "Nigeria",
+                "email": "emasysnd@gmail.com",
+                "firstName": "emmy",
+                "id": 1,
+                "lastName": "endy",
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+            "userProfile": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+          }
+        }
+        flashMessage={[Function]}
+        isAuthenticated={[Function]}
+      >
+        <div>
+          Component
+        </div>
+      </MockComponent>
+    </Authenticate>
+  </Connect(Authenticate)>
+</Provider>
+`;

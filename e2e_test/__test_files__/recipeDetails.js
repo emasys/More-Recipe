@@ -4,6 +4,7 @@ const RecipeDetails = () => {
       it('Should find and click on reaction buttons', (client) => {
         client
           .url('http://localhost:8080/recipe/1')
+          // .maximizeWindow()
           .waitForElementVisible('body', 2000)
           .assert.containsText('h2.text-capitalize', 'How To Cook Yam')
           .click('.reaction-pane span:first-child')

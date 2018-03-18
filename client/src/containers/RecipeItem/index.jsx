@@ -25,7 +25,7 @@ import GenerateItems from './GenerateRecipeItems';
 import DeleteModal from '../Profile/DeleteModal';
 
 //Helper functions
-import { update, notify, failedUpdate } from './helperFunctions';
+import { update, notify, failedUpdate, sessionExpired } from './helperFunctions';
 
 /**
  *
@@ -106,7 +106,7 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   componentDidMount = () => {
-    if (!this.props.recipes.recipeItem.success) {
+    if (!this.props.recipes.recipeItem.message) {
       this.props.getRecipeItem(this.props.match.params.id);
     }
     window.scrollTo(0, 0);
@@ -122,6 +122,12 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   componentWillReceiveProps = nextProps => {
+    if (!nextProps.auth.isLoggedIn) {
+      sessionExpired();
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
+    }
     if (nextProps.recipes.del_recipe && nextProps.recipes.del_recipe.success) {
       this.props.history.push('/catalog');
     }
@@ -228,7 +234,10 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   favIt() {
-    this.props.setFavorite(this.props.match.params.id);
+    console.log("=======>", this.props);
+    if (this.props.auth.isLoggedIn) {
+      this.props.setFavorite(this.props.match.params.id);
+    }
   }
   /**
    * upvote a recipe

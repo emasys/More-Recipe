@@ -1,19 +1,7 @@
 require('babel-register');
-const models = require('../../server/models');
 
 const SignUpTest = () => {
   describe('Test suite for Signup page', () => {
-    before((client, done) => {
-      models.sequelize
-        .sync({ force: true })
-        .then(() => {
-          done(null);
-        })
-        .catch((errors) => {
-          done(errors);
-        });
-    });
-
     describe('Fill up form and register a user', () => {
       it('Should check if page is signup page', (client) => {
         client
@@ -71,7 +59,7 @@ const SignUpTest = () => {
     describe('Redirect to home page', () => {
       it('Should check if it is in home page', (client) => {
         client
-          .setWindowPosition(0, 0)
+          // .setWindowPosition(0, 0)
           .pause(2000)
           .assert.containsText(
             '.bg-mirror',
@@ -83,7 +71,9 @@ const SignUpTest = () => {
           )
           .assert.containsText('h4.header-title', 'Top Recipes')
           .assert.containsText('h5.float-right', 'see all recipes')
-          .assert.visible('.signUp-btn');
+          .click('.signUp-btn')
+          .pause(2000);
+        // .assert.visible('.signUp-btn');
       });
     });
   });

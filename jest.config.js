@@ -9,7 +9,7 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   // roots: ['client'],
   coveragePathIgnorePatterns: [
-    'client/src/components/HOC/',
+    // 'client/src/components/HOC/',
     'client/src/containers/validator',
     'client/src/containers/RecipeItem/helperFunctions.js',
     'client/src/containers/Profile/helper.js',

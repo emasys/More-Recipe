@@ -4,6 +4,7 @@ const ProfilePage = () => {
       it('Should display all the required information including a recipe card', (client) => {
         client
           .url('http://localhost:8080/profile/1')
+          // .maximizeWindow()
           .waitForElementVisible('body', 2000)
           .assert.containsText('.profile-wrapper h2', 'sample007')
           .assert.containsText(
@@ -74,7 +75,10 @@ const ProfilePage = () => {
           .pause(2000)
           .click('.modal-footer .btn-danger')
           .pause(3000)
-          .assert.elementNotPresent('h4.card-title.custom-bg.bg-dark.p-2.m-0');
+          .assert.elementNotPresent('h4.card-title.custom-bg.bg-dark.p-2.m-0')
+          .click('.nb')
+          .pause(2000)
+          .end();
       });
     });
   });
