@@ -13,6 +13,10 @@ const RecipeDetails = () => {
           .pause(2000)
           .click('.reaction-pane span:nth-child(3)')
           .pause(2000)
+          .moveToElement('#floating-delete', 10, 10)
+          .pause(2000)
+          .moveToElement('#floating-edit', 10, 10)
+          .pause(2000)
           .click('#floating-edit')
           .pause(3000);
       });
@@ -60,6 +64,8 @@ const RecipeDetails = () => {
 
       it('Should delete a review', (client) => {
         client
+          .moveToElement('.delete-review-btn', 10, 10)
+          .pause(2000)
           .click('.delete-review-btn')
           .pause(3000)
           .assert.elementNotPresent('.comments p');
@@ -67,8 +73,10 @@ const RecipeDetails = () => {
 
       it('Should upload an image', (client) => {
         client
-          .moveToElement('.changeDp', 100, 100, () => {
-            client.waitForElementVisible('.dropzone-dp', 1000, () => {
+          .execute('scrollTo(0, 0)')
+          .pause(2000)
+          .moveToElement('.changeDp', 10, 10, () => {
+            client.waitForElementVisible('.dropzone-dp', 3000, () => {
               client.click('.dropzone-dp', () => {
                 /* eslint-disable */
                 client.setValue(

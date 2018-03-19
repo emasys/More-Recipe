@@ -23,6 +23,7 @@ exports[`Test suite for Big Navbar component View as an authenticated user shoul
     }
     className="bg-dark"
     getProfile={[Function]}
+    signOut={[Function]}
     user={
       Object {
         "data": Object {
@@ -107,14 +108,13 @@ exports[`Test suite for Big Navbar component View as an authenticated user shoul
               <li
                 className="nav-item"
               >
-                <a
-                  className="nav-link btn btn-outline-light btn-lg btn-sign "
-                  href="/"
+                <span
+                  className="nav-link btn btn-outline-light btn-lg btn-sign hovered"
                   id="logout"
                   onClick={[Function]}
                 >
                   sign out
-                </a>
+                </span>
               </li>
             </ul>
             <ReactTooltip

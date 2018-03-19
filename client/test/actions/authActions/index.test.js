@@ -84,6 +84,7 @@ describe('Test suite for Authentication actions', () => {
     const expectedActions = [
       { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
       { type: type.IS_LOADING, isLoading: true },
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
       {
         type: type.SIGN_IN,
         payload: authMocks.signin

@@ -16,7 +16,9 @@ const ProfilePage = () => {
       });
       it('Should upload a profile picture', (client) => {
         client
-          .moveToElement('.changeDp', 100, 100, () => {
+          .getLocationInView('.nb')
+          .pause(2000)
+          .moveToElement('.changeDp', 10, 10, () => {
             client.waitForElementVisible('.dropzone-dp', 1000, () => {
               client.click('.dropzone-dp', () => {
                 /* eslint-disable */

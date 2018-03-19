@@ -86,6 +86,13 @@ export default (
       path: action.path
     };
 
+  case type.SIGN_OUT:
+    return {
+      ...state,
+      message: null,
+      path: null
+    };
+
   default:
     return state;
   }

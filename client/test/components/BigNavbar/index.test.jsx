@@ -5,9 +5,9 @@ import Router from 'react-mock-router';
 // Component
 import { BigNavbar, mapStateToProps } from '../../../src/components/BigNavbar';
 import * as props from '../../__mocks__/navbarMocks';
-import Auth from '../../../src/components/auth';
+// import Auth from '../../../src/components/auth';
 
-const logout = jest.spyOn(Auth, 'logout');
+// const logout = jest.spyOn(Auth, 'logout');
 
 let wrapper = null;
 let wrapperAuthenticated = null;
@@ -35,7 +35,6 @@ describe('Test suite for Big Navbar component', () => {
       expect(wrapperAuthenticated.find('.nb').text()).toMatch('More Recipes');
       expect(wrapperAuthenticated.find('#greetings a').text()).toMatch('Hi admin,');
       wrapperAuthenticated.find('#logout').simulate('click');
-      expect(logout).toBeCalled();
     });
 
     it('should match snapshot', () => {

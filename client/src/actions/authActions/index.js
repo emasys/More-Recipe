@@ -1,6 +1,6 @@
 import * as type from '../types';
 import instance from '../../config/axios';
-import { isLoading } from '../index';
+import { isLoading, isAuthenticated } from '../index';
 
 /**
  * Create a new user
@@ -38,6 +38,7 @@ export const signUp = data => dispatch => {
  * @return {object} success status and jwt token
  */
 export const signIn = data => dispatch => {
+  console.log("signed in");
   dispatch(isLoading(true));
   return instance
     .post(`/users/signin`, data)
@@ -45,6 +46,7 @@ export const signIn = data => dispatch => {
       window.localStorage.setItem('token', response.data.token);
       const jwtToken = window.localStorage.getItem('token');
       if (jwtToken.length > 9) {
+        dispatch(isAuthenticated());
         dispatch({ type: type.SIGN_IN, payload: response.data });
         dispatch(isLoading(false));
         return;
@@ -56,6 +58,13 @@ export const signIn = data => dispatch => {
       dispatch(isLoading(false));
       dispatch({ type: type.SIGN_IN, payload: error.response });
     });
+};
+
+export const signOut = () => dispatch => {
+  window.localStorage.removeItem('token');
+  dispatch(isLoading(true));
+  dispatch(isLoading(false));
+  return dispatch({ type: type.SIGN_OUT, payload: {} });
 };
 
 /**

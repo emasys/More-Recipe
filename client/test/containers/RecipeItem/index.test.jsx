@@ -45,7 +45,7 @@ describe('Test suite for recipe detail page', () => {
     beforeEach(() => {
       wrapper = mount(<Router>
         <RecipeItem {...props} />
-                      </Router>);
+      </Router>);
     });
 
     it('Should render without errors', () => {
@@ -79,7 +79,7 @@ describe('Test suite for recipe detail page', () => {
     beforeEach(() => {
       wrapper = mount(<Router>
         <RecipeItem {...props} />
-                      </Router>);
+      </Router>);
     });
 
     it('Should render without errors', () => {
@@ -96,7 +96,7 @@ describe('Test suite for recipe detail page', () => {
       const deleteRecipe = jest.spyOn(RecipeItem.prototype, 'delRecipe');
       const app = mount(<Router>
         <RecipeItem {...props} />
-                        </Router>);
+      </Router>);
       expect(app.find('a.text-dark.rounded').text()).toMatch('Lunch');
       app.setState({ edit: true });
       expect(app).toMatchSnapshot();
@@ -126,7 +126,9 @@ describe('Test suite for recipe detail page', () => {
         setFavorite: jest.fn(),
         editRecipe: jest.fn(),
         delRecipe: jest.fn(),
+        flashMessage: jest.fn(),
         history: { push: jest.fn() },
+        location: { pathname: '/' },
         recipes: { recipeItem: { message: 'Not found' } },
         getRecipeItem: jest.fn(),
         match: { params: { id: 1 } },
@@ -154,7 +156,7 @@ describe('Test suite for recipe detail page', () => {
 
       const app = mount(<Router>
         <RecipeItem {...props} />
-                        </Router>);
+      </Router>);
       expect(app).toMatchSnapshot();
       // expect(app.find('a.text-dark.rounded').text()).toMatch('Lunch');
       app.find('i#favorite-recipe').simulate('click');

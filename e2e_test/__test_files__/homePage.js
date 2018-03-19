@@ -19,8 +19,8 @@ const HomePageTest = () => {
       it('Checks for element visibility and texts on page', (client) => {
         client
           .url('http://localhost:8080')
-          // .maximizeWindow()
           .waitForElementVisible('body', 2000)
+          .pause(3000)
           .assert.title('More Recipe')
           .assert.containsText('.nb', 'More Recipes')
           .waitForElementVisible('.navbar', 2000)

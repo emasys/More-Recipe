@@ -10,6 +10,7 @@ import {
   searchRecipes,
   resetSearch
 } from '../../actions/recipeActions';
+import { signOut } from '../../actions/authActions/index';
 import { getProfile } from '../../actions/userActions';
 
 // Components
@@ -25,15 +26,20 @@ import Navbar from './NavbarSearch';
 export class FullCatalog extends Component {
   static propTypes = {
     recipes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     getRecipes: PropTypes.func.isRequired,
     searchRecipes: PropTypes.func.isRequired,
     getProfile: PropTypes.func.isRequired,
     resetSearch: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
-    clearRecipes: PropTypes.func.isRequired
+    clearRecipes: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired
   };
+
+  static defaultProps = {
+    user: null
+  }
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
@@ -288,6 +294,18 @@ export class FullCatalog extends Component {
     this.props.searchRecipes(this.searchInput, 4, this.state.searchOffset + 4);
   }
   /**
+   * Sign a user out of the app
+   *
+   * @returns {void}
+   *
+   * @param {object} event
+   *
+   * @memberof FullCatalog
+   */
+  logOut = () => {
+    this.props.signOut();
+  }
+  /**
    *
    *
    * @returns {JSX.Element}
@@ -312,6 +330,7 @@ export class FullCatalog extends Component {
             avatar={avatar}
             onChanged={this.searchBar}
             user={this.props.auth}
+            logOut={this.logOut}
           />
         </section>
         <div
@@ -403,5 +422,6 @@ export default connect(mapStateToProps, {
   getProfile,
   searchRecipes,
   clearRecipes,
-  resetSearch
+  resetSearch,
+  signOut
 })(FullCatalog);

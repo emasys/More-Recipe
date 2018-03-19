@@ -138,7 +138,7 @@ const NavbarSearch = props => (
               className="dropdown-menu dropdown-menu-right custom-dropdown"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <Navlinks user={props.user} />
+              <Navlinks user={props.user} logOut={props.logOut} />
             </div>
           </li>
         </ul>
@@ -152,7 +152,8 @@ NavbarSearch.propTypes = {
   user: PropTypes.object.isRequired,
   avatar: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
-  onChanged: PropTypes.func.isRequired
+  onChanged: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired
 };
 
 NavbarSearch.defaultProps = {

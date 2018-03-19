@@ -35,3 +35,4 @@ export const RESET_SEARCH = 'reset search payload';
 export const FLASH_MESSAGE = ' flash message';
 export const CLEAR_REVIEW = 'clear review array';
 export const CLEAR_AUTH = 'clear auth data';
+export const SIGN_OUT = 'sign out';
