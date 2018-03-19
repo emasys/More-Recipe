@@ -19,15 +19,21 @@ import UserProfileInfo from './UserProfileInfo';
  */
 export class UserProfile extends Component {
   static propTypes = {
-    userInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object,
     getUserRecipes: PropTypes.func.isRequired,
     clearRecipes: PropTypes.func.isRequired,
-    user: PropTypes.array.isRequired,
+    user: PropTypes.array,
     getUserInfo: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
     count: PropTypes.number.isRequired,
-    recipes: PropTypes.object.isRequired
+    recipes: PropTypes.array.isRequired
   };
+
+  static defaultProps = {
+    user: null,
+    userInfo: null,
+
+  }
   /**
    * Creates an instance of UserProfile.
    * @param {object} props
@@ -87,7 +93,7 @@ export class UserProfile extends Component {
    */
   componentWillUnmount() {
     this.props.clearRecipes();
-  };
+  }
 
   /**
    * Fetch more recipes
@@ -114,7 +120,7 @@ export class UserProfile extends Component {
   viewMore(event) {
     event.preventDefault();
     this.loadMore();
-  };
+  }
   /**
    *
    *

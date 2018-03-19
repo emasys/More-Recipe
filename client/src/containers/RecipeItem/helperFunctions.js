@@ -28,3 +28,9 @@ export const failedUpdate = () =>
       transition: 'transform 0.6s'
     })
   });
+
+export const sessionExpired = () => {
+  if (!toast.isActive(toastId)) {
+    toastId = toast.error('Sorry, session expired', { autoClose: 3000 });
+  }
+};

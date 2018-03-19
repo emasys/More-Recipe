@@ -19,6 +19,7 @@ export const propsAuth = {
   },
   className: 'bg-dark',
   getProfile: jest.fn(),
+  signOut: jest.fn(),
   auth: {
     authInfo: {
       isLoggedIn: true,

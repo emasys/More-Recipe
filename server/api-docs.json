@@ -312,7 +312,7 @@
         }
       }
     },
-    "/recipes/user/:id": {
+    "/recipes/user/13": {
       "get": {
         "description": "Fetch all the recipe from a particular user.\nparams: recipeId, limit, offset",
         "summary": "fetch all recipe of a particular user",
@@ -546,7 +546,7 @@
         }
       }
     },
-    "recipes/:id": {
+    "recipes/13": {
       "get": {
         "description": "Fetch single recipe from the database.\nparams: recipeId",
         "summary": "Fetch single recipe",
@@ -644,7 +644,7 @@
         }
       }
     },
-    "/recipes/reaction/:id": {
+    "/recipes/reaction/13": {
       "get": {
         "description": "Get the reaction status of a single recipe.\nchecks for vote count and favorite count",
         "summary": "Get the status of a single recipe",
@@ -742,7 +742,7 @@
         }
       }
     },
-    "/reviews/:id": {
+    "/reviews/13": {
       "get": {
         "description": "Fetch all the reviews associated with a single recipe",
         "summary": "Get all the reviews for a particular recipe",
@@ -845,7 +845,7 @@
         }
       }
     },
-    "/reviews/delete/:id": {
+    "/reviews/delete/13": {
       "delete": {
         "description": "Delete a review recently added.\nA user can only delete a review he/she added",
         "summary": "Delete review",
@@ -920,7 +920,7 @@
         }
       }
     },
-    "/recipes/:id": {
+    "/recipes/13": {
       "delete": {
         "description": "Delete a recipe.\nOnly the creator of a recipe can delete it.",
         "summary": "Delete a recipe",
@@ -995,7 +995,7 @@
         }
       }
     },
-    "/recipes/upvote/:id": {
+    "/recipes/upvote/13": {
       "post": {
         "description": "Upvote a recipe, if the route is accessed twice, it will first upvote a recipe, then cancel the vote the second time.\n\nparams: recipeId",
         "summary": "Upvote a recipe",
@@ -1095,7 +1095,7 @@
         }
       }
     },
-    "/recipes/downvote/:id": {
+    "/recipes/downvote/13": {
       "post": {
         "description": "Downvote a recipe.\nparams: recipeId",
         "summary": "Downvote a recipe",
@@ -1196,7 +1196,7 @@
         }
       }
     },
-    "/recipes/:id": {
+    "/recipes/13": {
       "put": {
         "description": "Update a recipe.\nOnly the creator of the recipe can edit it.\nparams: recipeId",
         "summary": "Update a recipe",
@@ -1321,7 +1321,7 @@
         }
       }
     },
-    "/recipes/:id/favorite": {
+    "/recipes/13/favorite": {
       "post": {
         "description": "Let a user add a recipe to his/her list of favorite recipes",
         "summary": "Add a recipe to user favorite",
@@ -1429,7 +1429,7 @@
         }
       }
     },
-    "/recipes/:id/reviews": {
+    "/recipes/13/reviews": {
       "post": {
         "description": "Allows an authenticated user post a review about a particular recipe",
         "summary": "Add a review",
@@ -2075,7 +2075,7 @@
         }
       }
     },
-    "/users/:id": {
+    "/users/13": {
       "put": {
         "description": "Update user data",
         "summary": "Update user",
@@ -2183,7 +2183,7 @@
         }
       }
     },
-    "/users/:id": {
+    "/users/13": {
       "delete": {
         "description": "Delete a user, including all his recipes. This is only available to the admin",
         "summary": "Delete a user",

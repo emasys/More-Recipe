@@ -2,12 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Auth from './auth';
-
-const logout = () => {
-  Auth.logout();
-};
-
 /**
  * Extra links in the navbar
  *
@@ -15,7 +9,7 @@ const logout = () => {
  * @returns {JSX.Element}
  * render react element into the DOM
  */
-const NavLinks = ({ user }) => {
+const NavLinks = ({ user, logOut }) => {
   if (user.authInfo) {
     const { authInfo: { userId, username }, isLoggedIn } = user;
     if (isLoggedIn) {
@@ -35,9 +29,9 @@ const NavLinks = ({ user }) => {
             Add new recipe
           </Link>
           <div className="dropdown-divider" />
-          <a className="dropdown-item bold" id="logout" onClick={logout} href="/">
+          <Link className="dropdown-item bold" id="logout" onClick={logOut} to="/">
             Logout
-          </a>
+          </Link>
         </div>
       );
     } else {

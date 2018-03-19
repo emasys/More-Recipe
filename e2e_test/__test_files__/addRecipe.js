@@ -4,6 +4,7 @@ const AddRecipeTest = () => {
       it('Should check if page is AddRecipe page', (client) => {
         client
           .url('http://localhost:8080/new')
+          // .resizeWindow(1440, 826)
           .waitForElementVisible('body', 2000)
           .assert.containsText('h3.text-white', 'Hey sample007');
       });

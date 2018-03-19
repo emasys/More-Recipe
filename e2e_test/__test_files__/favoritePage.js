@@ -4,6 +4,7 @@ const FavoritePage = () => {
       it('Should display all the required infomation including a recipe card', (client) => {
         client
           .url('http://localhost:8080/favorites')
+          // .maximizeWindow()
           .waitForElementVisible('body', 2000)
           .assert.containsText('h2.float-left', 'Favorite Recipes')
           .assert.containsText(

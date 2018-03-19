@@ -60,7 +60,6 @@ export class AddRecipe extends Component {
    * @memberOf AddRecipe
    */
   componentWillReceiveProps = nextProps => {
-    console.log('dfsdfdf==>', nextProps.isLoading);
     if (nextProps.isLoading) {
       this.setState({
         buttonDisplay: false
@@ -109,7 +108,6 @@ export class AddRecipe extends Component {
    * @memberOf AddRecipe
    */
   handleForm = event => {
-    console.log('hell yeah, something happened');
     event.preventDefault();
     let data = {
       name: event.target.elements.recipe.value.trim(),

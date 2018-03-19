@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { uniqBy } from 'lodash';
 
@@ -13,13 +12,6 @@ import { uniqBy } from 'lodash';
  * @extends {Component}
  */
 export class CatalogList extends Component {
-  // static propTypes = {
-  //   showDeleteBtn: PropTypes.bool.isRequired,
-  //   catalog: PropTypes.object.isRequired,
-  //   auth: PropTypes.object.isRequired,
-  //   isLoading: PropTypes.bool.isRequired
-  // };
-
   /**
    * Creates an instance of CatalogList.
    * @param {object} props
@@ -138,6 +130,7 @@ export class CatalogList extends Component {
                     props.showDeleteBtn && (
                       <button
                         className="btn btn-danger btn-sm delete-btn"
+                        id="delete-recipe"
                         onClick={event => props.deleteRecipe(event, item)}
                         data-toggle="modal"
                         data-target="#deleteModal"
@@ -205,7 +198,7 @@ export class CatalogList extends Component {
    * @memberOf CatalogList
    */
   render() {
-    return <div>{this.generateList(this.props)}</div>;
+    return <div className="row justify-content-center">{this.generateList(this.props)}</div>;
   }
 }
 

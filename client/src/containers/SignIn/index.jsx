@@ -32,7 +32,6 @@ export class SignIn extends Component {
   static propTypes = {
     msg: PropTypes.string,
     reset: PropTypes.object,
-    // resetPassword: PropTypes.func.isRequired,
     signin: PropTypes.object.isRequired,
     signIn: PropTypes.func.isRequired,
     compareToken: PropTypes.func.isRequired,
@@ -100,10 +99,11 @@ export class SignIn extends Component {
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.signin.compareToken && !nextProps.signin.compareToken.success) {
+    if (nextProps.signin.compareToken &&
+      !nextProps.signin.compareToken.success) {
       this.setState({ tokenError: 'd-block' });
-    } 
-    
+    }
+
     if (nextProps.tokenStatus) {
       this.handleTokenDispatch();
     }
@@ -130,7 +130,7 @@ export class SignIn extends Component {
           resetPass: false,
           success: true
         });
-      } 
+      }
     }
   }
 
@@ -151,7 +151,7 @@ export class SignIn extends Component {
     }
     return true;
   }
-  
+
   tokenSent = () =>
     toast('Token Sent! check your email', {
       type: toast.TYPE.SUCCESS,
@@ -160,16 +160,16 @@ export class SignIn extends Component {
 
   /**
    * Clear error on focus in login form
-   * 
+   *
    * @returns {void}
-   * 
+   *
    * @memberOf SignIn
    */
   clearError() {
     this.setState({
       showErrMessage: 'fade'
     });
-  };
+  }
 
   /**
    * Change value of button
@@ -248,9 +248,8 @@ export class SignIn extends Component {
    * @memberOf SignIn
    */
   onBlur() {
-    console.log("I have been called ====> blur");
     this.setState({ showRubics: 'd-none' });
-    this.setState({tokenError: 'd-none'})
+    this.setState({ tokenError: 'd-none' });
   }
   /**
    *
@@ -259,7 +258,7 @@ export class SignIn extends Component {
    * @returns {void}
    */
   resetForm = () => {
-    this.props.clearAuthInfo();    
+    this.props.clearAuthInfo();
     if (!this.state.resetPass) {
       this.setState({
         resetPass: true,
@@ -293,7 +292,7 @@ export class SignIn extends Component {
     if (errorMessages()) {
       this.props.compareToken(data);
     }
-  };
+  }
 
   /**
    * Generate Token
@@ -308,9 +307,8 @@ export class SignIn extends Component {
     event.preventDefault();
     if (validate(this.state.recoveryEmail)) {
       this.props.sendToken({ email: this.state.recoveryEmail });
-      // this.handleTokenDispatch();
     }
-  };
+  }
 
 
   /**
@@ -331,7 +329,7 @@ export class SignIn extends Component {
     if (data.email && data.password) {
       this.props.signIn(data);
     }
-  };
+  }
   /**
    *
    *

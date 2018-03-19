@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 // actions
 import { getProfile } from '../actions/userActions';
+import { signOut } from '../actions/authActions/index';
 
 // components
 import Navlinks from './Navlinks';
@@ -71,6 +72,18 @@ export class Navbar extends Component {
       });
     }
   };
+  /**
+   * Sign a user out of the app
+   *
+   * @returns {void}
+   *
+   * @param {object} event
+   *
+   * @memberOf Navbar
+   */
+  logOut = () => {
+    this.props.signOut();
+  }
   /**
    *
    * @returns {JSX.Element}
@@ -184,7 +197,7 @@ export class Navbar extends Component {
                     className="dropdown-menu dropdown-menu-right custom-dropdown"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    <Navlinks user={this.props.auth} />
+                    <Navlinks user={this.props.auth} logOut={this.logOut} />
                   </div>
                 </li>
               </ul>
@@ -202,4 +215,4 @@ const mapStateToProps = state => ({
   user: state.user.userProfile
 });
 
-export default connect(mapStateToProps, { getProfile })(Navbar);
+export default connect(mapStateToProps, { getProfile, signOut })(Navbar);

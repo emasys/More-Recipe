@@ -47,12 +47,6 @@ export class Profile extends Component {
     count: PropTypes.number.isRequired,
     delRecipe: PropTypes.func.isRequired
   };
-
-  // static defaultProps = {
-  //   userInfo: {
-  //     id: 1
-  //   }
-  // };
   /**
    * Creates an instance of Profile.
    * @param {any} props
@@ -159,6 +153,13 @@ export class Profile extends Component {
       })
     });
 
+  /**
+   *
+   * @returns {void}
+   * @memberof Profile
+   *
+   * @memberOf Profile
+   */
   hoverIn() {
     this.setState({ status: 'show' });
   }
@@ -240,7 +241,6 @@ export class Profile extends Component {
         save: 'd-none',
         status: 'fade'
       });
-      // });
     });
   };
   /**
@@ -275,9 +275,6 @@ export class Profile extends Component {
    * @memberof Profile
    */
   onBlur() {
-    this.setState({
-      display: 'd-block'
-    });
   }
   /**
    *
@@ -300,6 +297,9 @@ export class Profile extends Component {
         edit: false
       });
     }
+    this.setState({
+      display: 'd-block'
+    });
   }
   /**
    *

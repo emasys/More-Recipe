@@ -23,6 +23,7 @@ exports[`Test suite for Navbar component View as an authenticated user should ma
     }
     className="bg-dark"
     getProfile={[Function]}
+    signOut={[Function]}
     user={
       Object {
         "data": Object {
@@ -225,6 +226,7 @@ exports[`Test suite for Navbar component View as an authenticated user should ma
                   className="dropdown-menu dropdown-menu-right custom-dropdown"
                 >
                   <NavLinks
+                    logOut={[Function]}
                     user={
                       Object {
                         "authInfo": Object {
@@ -284,14 +286,21 @@ exports[`Test suite for Navbar component View as an authenticated user should ma
                       <div
                         className="dropdown-divider"
                       />
-                      <a
+                      <Link
                         className="dropdown-item bold"
-                        href="/"
                         id="logout"
                         onClick={[Function]}
+                        replace={false}
+                        to="/"
                       >
-                        Logout
-                      </a>
+                        <a
+                          className="dropdown-item bold"
+                          id="logout"
+                          onClick={[Function]}
+                        >
+                          Logout
+                        </a>
+                      </Link>
                     </div>
                   </NavLinks>
                 </div>
@@ -537,6 +546,7 @@ exports[`Test suite for Navbar component View as an unauthenticated user should 
                   className="dropdown-menu dropdown-menu-right custom-dropdown"
                 >
                   <NavLinks
+                    logOut={[Function]}
                     user={
                       Object {
                         "authInfo": Object {

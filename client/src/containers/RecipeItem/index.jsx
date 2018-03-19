@@ -14,7 +14,7 @@ import {
 } from '../../actions/recipeActions';
 import { setFavorite } from '../../actions/favoriteAction';
 import { upvote, downvote } from '../../actions/voteActions';
-import { uploadImg } from '../../actions';
+import { uploadImg, flashMessage } from '../../actions';
 
 // components
 import RecipeIngredients from './Ingredients';
@@ -25,7 +25,7 @@ import GenerateItems from './GenerateRecipeItems';
 import DeleteModal from '../Profile/DeleteModal';
 
 //Helper functions
-import { update, notify, failedUpdate } from './helperFunctions';
+import { update, notify, failedUpdate, sessionExpired } from './helperFunctions';
 
 /**
  *
@@ -47,7 +47,9 @@ export class RecipeItem extends Component {
     getRecipeItem: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
     clearRecipes: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    getRecipeReactions: PropTypes.func.isRequired,
+    flashMessage: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -106,10 +108,10 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   componentDidMount = () => {
-    if (!this.props.recipes.recipeItem.success) {
+    window.scrollTo(0, 0);
+    if (this.props.auth.isLoggedIn) {
       this.props.getRecipeItem(this.props.match.params.id);
     }
-    window.scrollTo(0, 0);
   };
 
   /**
@@ -122,6 +124,10 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   componentWillReceiveProps = nextProps => {
+    if (!nextProps.auth.isLoggedIn) {
+      nextProps.flashMessage(nextProps.location.pathname);
+      nextProps.history.push('/signin');
+    }
     if (nextProps.recipes.del_recipe && nextProps.recipes.del_recipe.success) {
       this.props.history.push('/catalog');
     }
@@ -228,7 +234,9 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   favIt() {
-    this.props.setFavorite(this.props.match.params.id);
+    if (this.props.auth.isLoggedIn) {
+      this.props.setFavorite(this.props.match.params.id);
+    }
   }
   /**
    * upvote a recipe
@@ -414,8 +422,6 @@ export class RecipeItem extends Component {
    */
   render() {
     const { recipeItem, edit, editRecipeItem } = this.state;
-    // const x = undefined;
-    // if()
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
@@ -494,7 +500,8 @@ const mapDispatchToProps = dispatch => ({
       downvote,
       delRecipe,
       clearRecipes,
-      getRecipeReactions
+      getRecipeReactions,
+      flashMessage
     },
     dispatch
   )

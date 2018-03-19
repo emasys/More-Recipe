@@ -47,4 +47,14 @@ describe('Test suite for review reducer', () => {
       }
     });
   });
+
+  it('should handle CLEAR_REVIEWS', () => {
+    expect(reducer(initialState, {
+      type: types.CLEAR_REVIEW,
+      payload: []
+    })).toEqual({
+      ...initialState,
+      fetch_reviews: []
+    });
+  });
 });

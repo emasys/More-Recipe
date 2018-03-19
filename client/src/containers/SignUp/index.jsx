@@ -72,18 +72,15 @@ export class SignUp extends Component {
       if (nextProps.user.signUp.success) {
         nextProps.history.push('/');
       }
-      if (nextProps.user.signUp.data) {
-        switch (nextProps.user.signUp.data.error[0].path) {
+      if (nextProps.user.signUp.error) {
+        switch (nextProps.user.signUp.error[0].path) {
         case 'email':
           this.setState({ emailError: 'd-block' });
           this.setState({ monikerError: 'd-none' });
-          // document.querySelector('#email_error').innerHTML = `Your email address already exist.`;
           break;
         case 'moniker':
           this.setState({ monikerError: 'd-block' });
           this.setState({ emailError: 'd-none' });
-          // document.querySelector('#moniker_error').innerHTML =
-          //     'username already taken';
           break;
         }
       }
@@ -147,7 +144,7 @@ export class SignUp extends Component {
         }
       }
     );
-  };
+  }
   /**
    * Submit form
    *

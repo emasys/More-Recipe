@@ -1,0 +1,419 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`higher-order component withHoc should render with unauthenticated data without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(Authenticate)
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+  >
+    <Authenticate
+      auth={
+        Object {
+          "allUsers": Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          },
+          "authInfo": Object {
+            "isLoggedIn": true,
+            "userId": 1,
+            "username": "admin",
+          },
+          "isLoggedIn": false,
+          "message": null,
+          "userInfo": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": "Nigeria",
+              "email": "emasysnd@gmail.com",
+              "firstName": "emmy",
+              "id": 1,
+              "lastName": "endy",
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+          "userProfile": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+        }
+      }
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
+      isAuthenticated={[Function]}
+    >
+      <Footer
+        auth={
+          Object {
+            "allUsers": Object {
+              "success": true,
+              "users": Array [
+                Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "createdAt": "2018-03-13T05:04:37.443Z",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                },
+              ],
+            },
+            "authInfo": Object {
+              "isLoggedIn": true,
+              "userId": 1,
+              "username": "admin",
+            },
+            "isLoggedIn": false,
+            "message": null,
+            "userInfo": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": "Nigeria",
+                "email": "emasysnd@gmail.com",
+                "firstName": "emmy",
+                "id": 1,
+                "lastName": "endy",
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+            "userProfile": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+          }
+        }
+        history={
+          Object {
+            "push": [Function],
+          }
+        }
+        isAuthenticated={[Function]}
+      >
+        <div>
+          <footer
+            className="container-fluid footer-main bg-dark"
+          >
+            <div
+              className="container "
+            >
+              <div
+                className="row "
+              >
+                <div
+                  className="col-12 footer-social text-center mt-20"
+                >
+                  <a
+                    href="https://web.facebook.com/emasys23"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-facebook-square text-white fa-2x"
+                    />
+                  </a>
+                   
+                  <a
+                    href="https://twitter.com/emasys_nd"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-twitter-square text-white fa-2x"
+                    />
+                  </a>
+                   
+                  <a
+                    href="https://github.com/emasys"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-github-square text-white fa-2x"
+                    />
+                  </a>
+                  <p
+                    className="text-center text-white"
+                  >
+                    © 
+                    2018
+                  </p>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </Footer>
+    </Authenticate>
+  </Connect(Authenticate)>
+</Provider>
+`;
+
+exports[`higher-order component withHoc should render without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(Authenticate)
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+  >
+    <Authenticate
+      auth={
+        Object {
+          "allUsers": Object {
+            "success": true,
+            "users": Array [
+              Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "createdAt": "2018-03-13T05:04:37.443Z",
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+                "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                "updatedAt": "2018-03-13T05:04:37.443Z",
+              },
+            ],
+          },
+          "authInfo": Object {
+            "isLoggedIn": true,
+            "userId": 1,
+            "username": "admin",
+          },
+          "isLoggedIn": true,
+          "message": null,
+          "userInfo": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": "Nigeria",
+              "email": "emasysnd@gmail.com",
+              "firstName": "emmy",
+              "id": 1,
+              "lastName": "endy",
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+          "userProfile": Object {
+            "data": Object {
+              "avatar": null,
+              "bio": null,
+              "country": null,
+              "email": "emasysnd@gmail.com",
+              "firstName": null,
+              "id": 1,
+              "lastName": null,
+              "moniker": "admin",
+            },
+            "success": true,
+          },
+        }
+      }
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
+      isAuthenticated={[Function]}
+    >
+      <Footer
+        auth={
+          Object {
+            "allUsers": Object {
+              "success": true,
+              "users": Array [
+                Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "createdAt": "2018-03-13T05:04:37.443Z",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                },
+              ],
+            },
+            "authInfo": Object {
+              "isLoggedIn": true,
+              "userId": 1,
+              "username": "admin",
+            },
+            "isLoggedIn": true,
+            "message": null,
+            "userInfo": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": "Nigeria",
+                "email": "emasysnd@gmail.com",
+                "firstName": "emmy",
+                "id": 1,
+                "lastName": "endy",
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+            "userProfile": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+          }
+        }
+        history={
+          Object {
+            "push": [Function],
+          }
+        }
+        isAuthenticated={[Function]}
+      >
+        <div>
+          <footer
+            className="container-fluid footer-main bg-dark"
+          >
+            <div
+              className="container "
+            >
+              <div
+                className="row "
+              >
+                <div
+                  className="col-12 footer-social text-center mt-20"
+                >
+                  <a
+                    href="https://web.facebook.com/emasys23"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-facebook-square text-white fa-2x"
+                    />
+                  </a>
+                   
+                  <a
+                    href="https://twitter.com/emasys_nd"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-twitter-square text-white fa-2x"
+                    />
+                  </a>
+                   
+                  <a
+                    href="https://github.com/emasys"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-github-square text-white fa-2x"
+                    />
+                  </a>
+                  <p
+                    className="text-center text-white"
+                  >
+                    © 
+                    2018
+                  </p>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </Footer>
+    </Authenticate>
+  </Connect(Authenticate)>
+</Provider>
+`;

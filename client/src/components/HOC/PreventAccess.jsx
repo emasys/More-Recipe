@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { isAuthenticated } from '../../actions';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   auth: state.user
 });
 
@@ -19,15 +19,13 @@ const Composer = WrappedComponent => {
   class Authenticate extends Component {
     static propTypes = {
       isAuthenticated: PropTypes.func.isRequired,
-      auth: PropTypes.bool.isRequired,
+      auth: PropTypes.object.isRequired,
       history: PropTypes.object.isRequired,
       location: PropTypes.object.isRequired
     };
     componentWillMount = () => {
-      if (this.props.auth) {
-        if (this.props.auth.isLoggedIn) {
-          this.props.history.push('/');
-        }
+      if (this.props.auth.isLoggedIn) {
+        this.props.history.push('/');
       }
     };
 

@@ -105,6 +105,7 @@ exports[`Test suite for full catalog page component Should render with no recipe
       >
         <NavbarSearch
           avatar={null}
+          logOut={[Function]}
           onChanged={[Function]}
           onSearch={[Function]}
           search=""
@@ -392,6 +393,7 @@ exports[`Test suite for full catalog page component Should render with no recipe
                       className="dropdown-menu dropdown-menu-right custom-dropdown"
                     >
                       <NavLinks
+                        logOut={[Function]}
                         user={
                           Object {
                             "allUsers": Object {
@@ -496,14 +498,21 @@ exports[`Test suite for full catalog page component Should render with no recipe
                           <div
                             className="dropdown-divider"
                           />
-                          <a
+                          <Link
                             className="dropdown-item bold"
-                            href="/"
                             id="logout"
                             onClick={[Function]}
+                            replace={false}
+                            to="/"
                           >
-                            Logout
-                          </a>
+                            <a
+                              className="dropdown-item bold"
+                              id="logout"
+                              onClick={[Function]}
+                            >
+                              Logout
+                            </a>
+                          </Link>
                         </div>
                       </NavLinks>
                     </div>
@@ -1113,6 +1122,7 @@ exports[`Test suite for full catalog page component Should simulate click on add
       >
         <NavbarSearch
           avatar={null}
+          logOut={[Function]}
           onChanged={[Function]}
           onSearch={[Function]}
           search=""
@@ -1400,6 +1410,7 @@ exports[`Test suite for full catalog page component Should simulate click on add
                       className="dropdown-menu dropdown-menu-right custom-dropdown"
                     >
                       <NavLinks
+                        logOut={[Function]}
                         user={
                           Object {
                             "allUsers": Object {
@@ -1504,14 +1515,21 @@ exports[`Test suite for full catalog page component Should simulate click on add
                           <div
                             className="dropdown-divider"
                           />
-                          <a
+                          <Link
                             className="dropdown-item bold"
-                            href="/"
                             id="logout"
                             onClick={[Function]}
+                            replace={false}
+                            to="/"
                           >
-                            Logout
-                          </a>
+                            <a
+                              className="dropdown-item bold"
+                              id="logout"
+                              onClick={[Function]}
+                            >
+                              Logout
+                            </a>
+                          </Link>
                         </div>
                       </NavLinks>
                     </div>
@@ -2353,6 +2371,7 @@ exports[`Test suite for full catalog page component Should simulate click on add
       >
         <NavbarSearch
           avatar={null}
+          logOut={[Function]}
           onChanged={[Function]}
           onSearch={[Function]}
           search=""
@@ -2640,6 +2659,7 @@ exports[`Test suite for full catalog page component Should simulate click on add
                       className="dropdown-menu dropdown-menu-right custom-dropdown"
                     >
                       <NavLinks
+                        logOut={[Function]}
                         user={
                           Object {
                             "allUsers": Object {
@@ -2744,14 +2764,21 @@ exports[`Test suite for full catalog page component Should simulate click on add
                           <div
                             className="dropdown-divider"
                           />
-                          <a
+                          <Link
                             className="dropdown-item bold"
-                            href="/"
                             id="logout"
                             onClick={[Function]}
+                            replace={false}
+                            to="/"
                           >
-                            Logout
-                          </a>
+                            <a
+                              className="dropdown-item bold"
+                              id="logout"
+                              onClick={[Function]}
+                            >
+                              Logout
+                            </a>
+                          </Link>
                         </div>
                       </NavLinks>
                     </div>
@@ -3300,6 +3327,7 @@ exports[`Test suite for full catalog page component should call componentWillRec
   >
     <NavbarSearch
       avatar={null}
+      logOut={[Function]}
       onChanged={[Function]}
       onSearch={[Function]}
       search=""

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// const onFocus = () => {
-//   document.querySelector('.rubics').classList.add('d-block');
-// };
 
 const ResetPasswordForm = props => {
   const {
@@ -13,7 +10,8 @@ const ResetPasswordForm = props => {
     generateToken,
     resetForm,
     state: {
-      recoveryEmail, newPassword, display, buttonName, hideForm, showRubics, tokenError
+      recoveryEmail, newPassword, display, buttonName,
+      hideForm, showRubics, tokenError
     }
   } = props;
   return (

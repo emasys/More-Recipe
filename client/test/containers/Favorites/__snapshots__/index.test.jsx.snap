@@ -11,9 +11,15 @@ exports[`Test suite for profile page component Should render with no recipe 1`] 
   url=""
 >
   <Favorites
+    auth={
+      Object {
+        "isLoggedIn": true,
+      }
+    }
     clearFavoriteList={[Function]}
     favorites={Object {}}
     getFavorite={[Function]}
+    isLoggedIn={true}
   >
     <div>
       <Connect(Navbar)
@@ -192,6 +198,11 @@ exports[`Test suite for profile page component Should render with one favorite r
   url=""
 >
   <Favorites
+    auth={
+      Object {
+        "isLoggedIn": true,
+      }
+    }
     clearFavoriteList={[Function]}
     favorites={
       Object {

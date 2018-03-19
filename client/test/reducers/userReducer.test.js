@@ -142,6 +142,18 @@ describe('Test suite for user reducer', () => {
     });
   });
 
+  it('should handle CLEAR_AUTH', () => {
+    expect(reducer(initialState, {
+      type: types.CLEAR_AUTH,
+      payload: null
+    })).toEqual({
+      ...initialState,
+      compareToken: null,
+      sendToken: null,
+      reset: null
+    });
+  });
+
   it('should handle authentication status', () => {
     expect(reducer(initialState, {
       type: types.IS_LOGGEDIN,

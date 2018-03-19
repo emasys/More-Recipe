@@ -23,7 +23,8 @@ export class Favorites extends Component {
   static propTypes = {
     favorites: PropTypes.object.isRequired,
     getFavorite: PropTypes.func.isRequired,
-    clearFavoriteList: PropTypes.func.isRequired
+    clearFavoriteList: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
   };
   /**
    * Creates an instance of Favorites.
@@ -49,7 +50,9 @@ export class Favorites extends Component {
    * @returns {void}
    */
   componentDidMount = () => {
-    this.loadMoreRecipes();
+    if (this.props.auth.isLoggedIn) {
+      this.loadMoreRecipes();
+    }
   };
 
   /**
@@ -193,7 +196,8 @@ export class Favorites extends Component {
 }
 
 export const mapStateToProps = state => ({
-  favorites: state.favorite
+  favorites: state.favorite,
+  auth: state.user
 });
 
 export default connect(mapStateToProps, { getFavorite, clearFavoriteList })(Favorites);

@@ -1,23 +1,22 @@
-const email = (moniker, message) =>{
-    let passwordReset = '';
-    let recipeReviewed = '';
-    let first = '';
-    let second = '';
-    let button = ''
-    console.log(message);
-    if(moniker && message){
-        recipeReviewed = `Your recipe <b>${message.name}</b> has been reviewed by ${moniker}`
-        first = 'RECIPE';
-        second = 'REVIEWED';
-        button = 'click to view recipe';
-    } else {
-        passwordReset = 'You requested for a new password, copy the code below to continue';
-        first = 'RESET';
-        second = 'PASSWORD';
-        button = message
-    }
+const email = (moniker, message) => {
+  let passwordReset = '';
+  let recipeReviewed = '';
+  let first = '';
+  let second = '';
+  let button = '';
+  if (moniker && message) {
+    recipeReviewed = `Your recipe <b>${message.name}</b> has been reviewed by ${moniker}`;
+    first = 'RECIPE';
+    second = 'REVIEWED';
+    button = 'click to view recipe';
+  } else {
+    passwordReset = 'You requested for a new password, copy the code below to continue';
+    first = 'RESET';
+    second = 'PASSWORD';
+    button = message;
+  }
 
-    return `
+  return `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 
@@ -309,6 +308,6 @@ const email = (moniker, message) =>{
 
 </html>
 `;
-}
+};
 
 export default email;

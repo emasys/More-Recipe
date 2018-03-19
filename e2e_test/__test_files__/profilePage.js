@@ -4,6 +4,7 @@ const ProfilePage = () => {
       it('Should display all the required information including a recipe card', (client) => {
         client
           .url('http://localhost:8080/profile/1')
+          // .maximizeWindow()
           .waitForElementVisible('body', 2000)
           .assert.containsText('.profile-wrapper h2', 'sample007')
           .assert.containsText(
@@ -15,7 +16,9 @@ const ProfilePage = () => {
       });
       it('Should upload a profile picture', (client) => {
         client
-          .moveToElement('.changeDp', 100, 100, () => {
+          .getLocationInView('.nb')
+          .pause(2000)
+          .moveToElement('.changeDp', 10, 10, () => {
             client.waitForElementVisible('.dropzone-dp', 1000, () => {
               client.click('.dropzone-dp', () => {
                 /* eslint-disable */
@@ -70,11 +73,14 @@ const ProfilePage = () => {
 
       it('Should delete a recipe', client => {
         client
-          .click('.delete-btn')
+          .click('.btn.btn-danger.btn-sm.delete-btn')
           .pause(2000)
           .click('.modal-footer .btn-danger')
           .pause(3000)
-          .assert.elementNotPresent('h4.card-title.custom-bg.bg-dark.p-2.m-0');
+          .assert.elementNotPresent('h4.card-title.custom-bg.bg-dark.p-2.m-0')
+          .click('.nb')
+          .pause(2000)
+          .end();
       });
     });
   });

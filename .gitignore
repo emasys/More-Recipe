@@ -47,3 +47,5 @@ webpack.prod.config.js
 client/public/css/custom-style.css
 server/controllers/helper.js
 client/src/components/Category/docs.js
+client/public/bundle.js.map
+selenium-debug.log

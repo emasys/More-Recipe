@@ -74,13 +74,13 @@ describe('Test suite for Add recipe page', () => {
     const compWRP = jest.spyOn(instance, 'componentWillReceiveProps');
     const newProps = {
       user: {
-        signUp: { data: { success: false, error: [{ path: 'email' }] } }
+        signUp: { success: false, error: [{ path: 'email' }] }
       },
       history: {}
     };
     const errorProps = {
       user: {
-        signUp: { data: { success: false, error: [{ path: 'moniker' }] } }
+        signUp: { success: false, error: [{ path: 'moniker' }] }
       },
       history: {}
     };

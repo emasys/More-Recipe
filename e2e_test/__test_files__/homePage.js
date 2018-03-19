@@ -15,10 +15,12 @@ const HomePageTest = () => {
           });
       });
 
+
       it('Checks for element visibility and texts on page', (client) => {
         client
           .url('http://localhost:8080')
           .waitForElementVisible('body', 2000)
+          .pause(3000)
           .assert.title('More Recipe')
           .assert.containsText('.nb', 'More Recipes')
           .waitForElementVisible('.navbar', 2000)
@@ -54,9 +56,6 @@ const HomePageTest = () => {
           .click('.signUp-btn')
           .assert.containsText('h1.text-white', 'Just one last step')
           .pause(2000);
-          // .click('.nb')
-          // .pause(2000);
-        // .end();
       });
     });
   });
