@@ -29,4 +29,15 @@ describe('Test suite for favorite reducer', () => {
     expect(userFavorites).toEqual(getFavorites.favorites);
     expect(favoriteCount).toEqual(getFavorites.count);
   });
+
+  it('should clear all recipes in user favorite list', () => {
+    const { userFavorites } = reducer(
+      { userFavorites: [] },
+      {
+        type: types.CLEAR_RECIPES,
+        payload: []
+      }
+    );
+    expect(userFavorites).toEqual([]);
+  });
 });

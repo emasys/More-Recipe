@@ -33,11 +33,6 @@ export default (
       ...state,
       hotRecipes: action.payload.recipes
     };
-    // case type.SET_FAVORITE:
-    //   return {
-    //     ...state,
-    //     recipeItem: action.payload
-    //   };
   case type.SINGLE_RECIPE:
   case type.UPVOTE:
   case type.DOWNVOTE:

@@ -50,6 +50,18 @@ describe('Test suite for recipe reducers', () => {
     });
   });
 
+  it('should handle SINGLE_RECIPE_REACTION', () => {
+    expect(reducer(
+      {},
+      {
+        type: types.SINGLE_RECIPE_REACTION,
+        payload: mockData.singleRecipe
+      }
+    )).toEqual({
+      recipeItem: mockData.singleRecipe
+    });
+  });
+
   it('should handle USER_RECIPE', () => {
     expect(reducer(initialState, {
       type: types.USER_RECIPES,
@@ -94,6 +106,16 @@ describe('Test suite for recipe reducers', () => {
     });
   });
 
+  it('should handle RESET_SEARCH', () => {
+    expect(reducer(initialState, {
+      type: types.RESET_SEARCH,
+      payload: []
+    })).toEqual({
+      ...initialState,
+      searchResult: []
+    });
+  });
+
   it('should handle DELETE_RECIPE', () => {
     expect(reducer(initialState, {
       type: types.DELETE_RECIPE,
@@ -128,6 +150,19 @@ describe('Test suite for recipe reducers', () => {
     })).toEqual({
       ...initialState,
       uploadedImg: 'https://example.com'
+    });
+  });
+
+  it('should clear recipe list', () => {
+    expect(reducer(initialState, {
+      type: types.CLEAR_RECIPES,
+      payload: []
+    })).toEqual({
+      ...initialState,
+      allRecipes: [],
+      userRecipes: [],
+      recipeItem: {},
+      del_recipe: { success: false }
     });
   });
 });

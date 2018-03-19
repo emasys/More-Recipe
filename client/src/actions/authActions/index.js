@@ -24,8 +24,8 @@ export const signUp = data => dispatch => {
       window.localStorage.removeItem('token');
       dispatch({ type: type.SIGN_UP, payload: response.data });
     })
-    .catch(err => {
-      dispatch({ type: type.SIGN_UP, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.SIGN_UP, payload: error.response.data });
       dispatch(isLoading(false));
     });
 };
@@ -52,9 +52,9 @@ export const signIn = data => dispatch => {
       window.localStorage.removeItem('token');
       dispatch({ type: type.SIGN_IN, payload: response.data });
     })
-    .catch(err => {
+    .catch(error => {
       dispatch(isLoading(false));
-      dispatch({ type: type.SIGN_IN, payload: err.response });
+      dispatch({ type: type.SIGN_IN, payload: error.response });
     });
 };
 
@@ -73,8 +73,8 @@ export const resetPassword = data => dispatch => {
       dispatch({ type: type.RESET_PASSWORD, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.RESET_PASSWORD, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.RESET_PASSWORD, payload: error.response });
       dispatch(isLoading(false));
     });
 };
@@ -95,8 +95,8 @@ export const sendToken = data => dispatch => {
       dispatch({ type: type.SEND_TOKEN, payload: response.data });
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.SEND_TOKEN, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.SEND_TOKEN, payload: error.response });
       dispatch(isLoading(false));
     });
 };
@@ -117,12 +117,10 @@ export const compareToken = data => dispatch => {
       dispatch(resetPassword(data));
       dispatch(isLoading(false));
     })
-    .catch(err => {
-      dispatch({ type: type.COMPARE_TOKEN, payload: err.response });
+    .catch(error => {
+      dispatch({ type: type.COMPARE_TOKEN, payload: error.response });
       dispatch(isLoading(false));
     });
 };
 
-export const clearAuthInfo = () => {
-  return { type: type.CLEAR_AUTH, payload: [] }
-}
+export const clearAuthInfo = () => ({ type: type.CLEAR_AUTH, payload: [] });

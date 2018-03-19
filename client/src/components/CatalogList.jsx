@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import approx from 'approximate-number';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { uniqBy } from 'lodash';
 
@@ -13,13 +12,6 @@ import { uniqBy } from 'lodash';
  * @extends {Component}
  */
 export class CatalogList extends Component {
-  // static propTypes = {
-  //   showDeleteBtn: PropTypes.bool.isRequired,
-  //   catalog: PropTypes.object.isRequired,
-  //   auth: PropTypes.object.isRequired,
-  //   isLoading: PropTypes.bool.isRequired
-  // };
-
   /**
    * Creates an instance of CatalogList.
    * @param {object} props

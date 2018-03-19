@@ -32,7 +32,6 @@ export class SignIn extends Component {
   static propTypes = {
     msg: PropTypes.string,
     reset: PropTypes.object,
-    // resetPassword: PropTypes.func.isRequired,
     signin: PropTypes.object.isRequired,
     signIn: PropTypes.func.isRequired,
     compareToken: PropTypes.func.isRequired,
@@ -249,7 +248,6 @@ export class SignIn extends Component {
    * @memberOf SignIn
    */
   onBlur() {
-    console.log("I have been called ====> blur");
     this.setState({ showRubics: 'd-none' });
     this.setState({ tokenError: 'd-none' });
   }
@@ -309,7 +307,6 @@ export class SignIn extends Component {
     event.preventDefault();
     if (validate(this.state.recoveryEmail)) {
       this.props.sendToken({ email: this.state.recoveryEmail });
-      // this.handleTokenDispatch();
     }
   }
 

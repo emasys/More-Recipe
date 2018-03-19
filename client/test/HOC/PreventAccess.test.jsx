@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { createMockStore } from 'redux-test-utils';
 
-import withHoc from '../../src/components/HOC/index';
+import withHoc from '../../src/components/HOC/PreventAccess';
 import fakeStore, { unauthenticatedFakeStore } from '../__mocks__/fakeStore';
 import Footer from '../../src/components/Footer';
 
@@ -17,8 +17,11 @@ describe('higher-order component', () => {
   });
 
   test('withHoc should render without crashing', () => {
+    const props = {
+      history: { push: jest.fn() }
+    };
     const wrapper = mount(<Provider store={store}>
-      <WrapperComponent />
+      <WrapperComponent {...props} />
     </Provider>);
     expect(wrapper).toMatchSnapshot();
   });
@@ -26,7 +29,6 @@ describe('higher-order component', () => {
   test('withHoc should render with unauthenticated data without crashing', () => {
     store = createMockStore(unauthenticatedFakeStore);
     const props = {
-      location: { pathname: '/signin' },
       history: { push: jest.fn() }
     };
     const wrapper = mount(<Provider store={store} >

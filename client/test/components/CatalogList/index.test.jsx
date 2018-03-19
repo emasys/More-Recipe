@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import Router from 'react-mock-router';
-import sinon from 'sinon';
 
 // Component
 import {
@@ -10,7 +9,6 @@ import {
 } from '../../../src/components/CatalogList';
 import fakeStore from '../../__mocks__/fakeStore';
 
-// onHoverIn = jest.fn();
 
 let wrapper = null;
 

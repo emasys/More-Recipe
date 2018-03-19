@@ -20,11 +20,6 @@ exports[`higher-order component withHoc should render with unauthenticated data 
         "push": [Function],
       }
     }
-    location={
-      Object {
-        "pathname": "/signin",
-      }
-    }
   >
     <Authenticate
       auth={
@@ -82,18 +77,12 @@ exports[`higher-order component withHoc should render with unauthenticated data 
           },
         }
       }
-      flashMessage={[Function]}
       history={
         Object {
           "push": [Function],
         }
       }
       isAuthenticated={[Function]}
-      location={
-        Object {
-          "pathname": "/signin",
-        }
-      }
     >
       <Footer
         auth={
@@ -151,18 +140,12 @@ exports[`higher-order component withHoc should render with unauthenticated data 
             },
           }
         }
-        flashMessage={[Function]}
         history={
           Object {
             "push": [Function],
           }
         }
         isAuthenticated={[Function]}
-        location={
-          Object {
-            "pathname": "/signin",
-          }
-        }
       >
         <div>
           <footer
@@ -240,7 +223,13 @@ exports[`higher-order component withHoc should render without crashing 1`] = `
     }
   }
 >
-  <Connect(Authenticate)>
+  <Connect(Authenticate)
+    history={
+      Object {
+        "push": [Function],
+      }
+    }
+  >
     <Authenticate
       auth={
         Object {
@@ -297,7 +286,11 @@ exports[`higher-order component withHoc should render without crashing 1`] = `
           },
         }
       }
-      flashMessage={[Function]}
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
       isAuthenticated={[Function]}
     >
       <Footer
@@ -356,7 +349,11 @@ exports[`higher-order component withHoc should render without crashing 1`] = `
             },
           }
         }
-        flashMessage={[Function]}
+        history={
+          Object {
+            "push": [Function],
+          }
+        }
         isAuthenticated={[Function]}
       >
         <div>

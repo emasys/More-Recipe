@@ -47,12 +47,6 @@ export class Profile extends Component {
     count: PropTypes.number.isRequired,
     delRecipe: PropTypes.func.isRequired
   };
-
-  // static defaultProps = {
-  //   userInfo: {
-  //     id: 1
-  //   }
-  // };
   /**
    * Creates an instance of Profile.
    * @param {any} props
@@ -247,7 +241,6 @@ export class Profile extends Component {
         save: 'd-none',
         status: 'fade'
       });
-      // });
     });
   };
   /**
@@ -282,9 +275,6 @@ export class Profile extends Component {
    * @memberof Profile
    */
   onBlur() {
-    // this.setState({
-    //   display: 'd-block'
-    // });
   }
   /**
    *

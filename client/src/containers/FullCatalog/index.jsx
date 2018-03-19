@@ -43,7 +43,6 @@ export class FullCatalog extends Component {
     super(props);
     this.searchInput = null;
     this.increment = 0;
-    // this.hasMore = true;
     this.state = {
       search: '',
       page_limit: 12,

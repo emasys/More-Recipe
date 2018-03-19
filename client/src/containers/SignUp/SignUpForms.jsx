@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
  * @returns {JSX.Element} React element
  */
 const SignUpForm = props => {
-  console.log("======>", props);
   const { state: { display, emailError, monikerError } } = props;
   return (
     <form onSubmit={props.handleSubmit}>
@@ -108,7 +107,10 @@ const SignUpForm = props => {
 
 SignUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
+  onFocused: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired
 };
 
 export default SignUpForm;

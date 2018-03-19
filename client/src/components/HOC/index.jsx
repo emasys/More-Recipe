@@ -31,13 +31,6 @@ const Composer = WrappedComponent => {
       }
     };
 
-    // componentWillUpdate = nextProps => {
-    //   if (!nextProps.auth.isLoggedIn) {
-    //     this.props.flashMessage(this.props.location.pathname);
-    //     this.props.history.push('/signin');
-    //   }
-    // };
-
     /**
      *
      *

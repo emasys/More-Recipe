@@ -45,6 +45,33 @@ describe('Test suite for Authentication actions', () => {
     });
   });
 
+  it('should test for errors while signing up', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { success: false }
+      });
+    });
+
+    const expectedActions = [
+      { type: type.IS_LOGGEDIN, payload: authMocks.isLoggedInTrue },
+      { type: type.IS_LOADING, isLoading: true },
+      {
+        type: type.SIGN_UP,
+        payload: { success: false }
+      },
+      { type: type.IS_LOADING, isLoading: false }
+    ];
+
+    const store = mockStore({ payload: {} });
+
+    return store.dispatch(actions.signUp(authMocks.signUpData)).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
   it('should return an object containing token after sign in', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();

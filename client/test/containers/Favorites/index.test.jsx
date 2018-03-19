@@ -14,6 +14,8 @@ describe('Test suite for profile page component', () => {
   it('Should render with no recipe', () => {
     const props = {
       favorites: {},
+      isLoggedIn: true,
+      auth: { isLoggedIn: true },
       getFavorite: jest.fn(),
       clearFavoriteList: jest.fn()
     };
@@ -30,6 +32,7 @@ describe('Test suite for profile page component', () => {
   it('Should render with one favorite recipe and filter list', () => {
     const filter = jest.spyOn(Favorites.prototype, 'filterFavorites');
     const props = {
+      auth: { isLoggedIn: true },
       favorites: {
         userFavorites: [
           {
@@ -61,7 +64,7 @@ describe('Test suite for profile page component', () => {
             }
           }
         ],
-        favoriteCount: 1
+        favoriteCount: 1,
       },
       getFavorite: jest.fn(),
       clearFavoriteList: jest.fn()
@@ -80,6 +83,7 @@ describe('Test suite for profile page component', () => {
 
   it('should call componentWillReceiveProps and unmount', () => {
     const props = {
+      auth: { isLoggedIn: true },
       favorites: {
         userFavorites: [
           {
@@ -131,8 +135,5 @@ describe('Test suite for profile page component', () => {
       favorite: {}
     };
     expect(mapStateToProps(initialState).favorites).toEqual({});
-  });
-  it('should match snapshot', () => {
-    // expect(wrapper).toMatchSnapshot();
   });
 });

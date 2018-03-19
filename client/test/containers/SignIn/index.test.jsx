@@ -27,7 +27,7 @@ describe('Test suite for SignIn page', () => {
     beforeEach(() => {
       wrapper = mount(<Router>
         <SignIn {...props} />
-      </Router>);
+                      </Router>);
     });
 
     it('Should render without errors', () => {
@@ -103,8 +103,11 @@ describe('Test suite for SignIn page', () => {
     const app = shallow(<SignIn {...props} />);
     const instance = app.instance();
     const compWRP = jest.spyOn(instance, 'componentWillReceiveProps');
+
     const newProps = {
-      user: {
+      signin: {
+        path: '/',
+        signIn: { success: true },
         compareToken: { success: true },
         reset: {
           success: true,
@@ -114,9 +117,7 @@ describe('Test suite for SignIn page', () => {
     };
 
     const nextProps = {
-      user: {
-        signIn: { tokenStatus: true }
-      }
+      tokenStatus: {}
     };
 
     app.setProps(newProps);
@@ -127,3 +128,24 @@ describe('Test suite for SignIn page', () => {
     expect(compWRP).toHaveBeenCalled();
   });
 });
+
+it('should call handleToken method', () => {
+  const app = shallow(<SignIn {...props} />);
+  const instance = app.instance();
+  instance.handleTokenDispatch();
+  expect(instance.state.display).toBe('d-block');
+
+  const nextProps = {
+    tokenStatus: {}
+  };
+  app.setProps(nextProps);
+  instance.handleTokenDispatch();
+  expect(instance.state.display).toBe('d-none');
+});
+// {
+//   "sendToken": {
+//     "data": {
+//       "success": false,
+//       "message": "Not found"
+//     }
+// }

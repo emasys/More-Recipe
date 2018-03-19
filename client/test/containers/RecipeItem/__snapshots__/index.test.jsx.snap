@@ -71,6 +71,7 @@ exports[`Test suite for recipe detail page Render component with complete props 
     downvote={[Function]}
     editRecipe={[Function]}
     getRecipeItem={[Function]}
+    getRecipeReactions={[Function]}
     history={
       Object {
         "push": [Function],
@@ -1207,6 +1208,7 @@ exports[`Test suite for recipe detail page Render component with complete props 
     downvote={[Function]}
     editRecipe={[Function]}
     getRecipeItem={[Function]}
+    getRecipeReactions={[Function]}
     history={
       Object {
         "push": [Function],
@@ -1885,6 +1887,7 @@ exports[`Test suite for recipe detail page Render component with complete props 
     downvote={[Function]}
     editRecipe={[Function]}
     getRecipeItem={[Function]}
+    getRecipeReactions={[Function]}
     history={
       Object {
         "push": [Function],

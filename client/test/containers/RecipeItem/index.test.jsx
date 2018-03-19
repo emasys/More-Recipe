@@ -5,6 +5,7 @@ import Router from 'react-mock-router';
 // Component
 import {
   RecipeItem,
+  mapStateToProps
 } from '../../../src/containers/RecipeItem/index';
 import fakeStore from '../../__mocks__/fakeStore';
 
@@ -44,7 +45,7 @@ describe('Test suite for recipe detail page', () => {
     beforeEach(() => {
       wrapper = mount(<Router>
         <RecipeItem {...props} />
-      </Router>);
+                      </Router>);
     });
 
     it('Should render without errors', () => {
@@ -72,12 +73,13 @@ describe('Test suite for recipe detail page', () => {
       getRecipeItem: jest.fn(),
       match: { params: { id: 1 } },
       clearRecipes: jest.fn(),
-      auth: fakeStore.user
+      auth: fakeStore.user,
+      getRecipeReactions: jest.fn()
     };
     beforeEach(() => {
       wrapper = mount(<Router>
         <RecipeItem {...props} />
-      </Router>);
+                      </Router>);
     });
 
     it('Should render without errors', () => {
@@ -94,7 +96,7 @@ describe('Test suite for recipe detail page', () => {
       const deleteRecipe = jest.spyOn(RecipeItem.prototype, 'delRecipe');
       const app = mount(<Router>
         <RecipeItem {...props} />
-      </Router>);
+                        </Router>);
       expect(app.find('a.text-dark.rounded').text()).toMatch('Lunch');
       app.setState({ edit: true });
       expect(app).toMatchSnapshot();
@@ -115,6 +117,34 @@ describe('Test suite for recipe detail page', () => {
       });
       expect(deleteRecipeInit).toHaveBeenCalled();
       expect(app).toMatchSnapshot();
+
+      const newProps = {
+        userInfo: fakeStore.user.userInfo,
+        uploadImg: jest.fn(),
+        downvote: jest.fn(),
+        upvote: jest.fn(),
+        setFavorite: jest.fn(),
+        editRecipe: jest.fn(),
+        delRecipe: jest.fn(),
+        history: { push: jest.fn() },
+        recipes: { recipeItem: { message: 'Not found' } },
+        getRecipeItem: jest.fn(),
+        match: { params: { id: 1 } },
+        clearRecipes: jest.fn(),
+        auth: {
+          message: null,
+          authInfo: {
+            isLoggedIn: false,
+            userId: 1,
+            username: 'admin'
+          },
+          isLoggedIn: false,
+        }
+      };
+
+      app.setProps(newProps);
+      expect(compWRP).toHaveBeenCalled();
+      app.unmount();
     });
 
     it('should simulate click on all the reaction buttons', () => {
@@ -124,7 +154,7 @@ describe('Test suite for recipe detail page', () => {
 
       const app = mount(<Router>
         <RecipeItem {...props} />
-      </Router>);
+                        </Router>);
       expect(app).toMatchSnapshot();
       // expect(app.find('a.text-dark.rounded').text()).toMatch('Lunch');
       app.find('i#favorite-recipe').simulate('click');
@@ -141,14 +171,35 @@ describe('Test suite for recipe detail page', () => {
       const instance = app.instance();
       const compWRP = jest.spyOn(instance, 'componentWillReceiveProps');
       const showEditForm = jest.spyOn(instance, 'showEditForm');
+      instance.goBack({
+        preventDefault: () => {}
+      });
+      expect(instance.state.editRecipeItem).toBe(false);
       app.setProps(props);
+      instance.hoverIn();
+      expect(instance.state.status).toBe('show');
+      instance.hoverOut();
+      expect(instance.state.status).toBe('fade');
       expect(compWRP).toHaveBeenCalled();
-      // expect(instance.state.edit).tobe(true);
       app.find('i#floating-edit').simulate('click', {
         preventDefault: () => {}
       });
+
       expect(showEditForm).toHaveBeenCalled();
       expect(app).toMatchSnapshot();
+    });
+
+    it('should test mapStateToProps', () => {
+      const initialState = {
+        favorite: {},
+        votes: {},
+        review: {},
+        recipes: {},
+        user: { userInfo: {} }
+      };
+      expect(mapStateToProps(initialState).auth).toEqual({ userInfo: {} });
+      expect(mapStateToProps(initialState).recipes).toEqual({});
+      expect(mapStateToProps(initialState).review).toEqual({});
     });
   });
 });

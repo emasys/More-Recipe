@@ -47,7 +47,8 @@ export class RecipeItem extends Component {
     getRecipeItem: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
     clearRecipes: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    getRecipeReactions: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -234,7 +235,6 @@ export class RecipeItem extends Component {
    * @returns {void}
    */
   favIt() {
-    console.log("=======>", this.props);
     if (this.props.auth.isLoggedIn) {
       this.props.setFavorite(this.props.match.params.id);
     }
@@ -423,8 +423,6 @@ export class RecipeItem extends Component {
    */
   render() {
     const { recipeItem, edit, editRecipeItem } = this.state;
-    // const x = undefined;
-    // if()
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />

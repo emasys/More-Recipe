@@ -30,9 +30,9 @@ export class Reviews extends Component {
     auth: PropTypes.object.isRequired
   };
 
-  // static defaultProps = {
-  //   review: { status: 'no comment' }
-  // };
+  static defaultProps = {
+    review: { status: 'no comment' }
+  };
   /**
    * Creates an instance of Reviews.
    * @param {any} props
@@ -174,7 +174,6 @@ export class Reviews extends Component {
                   className="textarea col-12"
                   id="reviewField"
                   name="reviewBox"
-                  // rows="4"
                   placeholder="leave a review"
                   onChange={this.textChanged}
                   value={content}
