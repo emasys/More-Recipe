@@ -38,7 +38,6 @@ export const signUp = data => dispatch => {
  * @return {object} success status and jwt token
  */
 export const signIn = data => dispatch => {
-  console.log("signed in");
   dispatch(isLoading(true));
   return instance
     .post(`/users/signin`, data)

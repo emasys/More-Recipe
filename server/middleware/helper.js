@@ -8,7 +8,7 @@ dotenv.config();
 
 export const signToken = data =>
   jwt.sign(data, process.env.JWT_SECRET, {
-    expiresIn: '365d'
+    expiresIn: '1d'
   });
 /**
  *

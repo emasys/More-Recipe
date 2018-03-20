@@ -158,7 +158,6 @@ describe('Test suite for recipe detail page', () => {
         <RecipeItem {...props} />
       </Router>);
       expect(app).toMatchSnapshot();
-      // expect(app.find('a.text-dark.rounded').text()).toMatch('Lunch');
       app.find('i#favorite-recipe').simulate('click');
       expect(favRecipe).toHaveBeenCalled();
       app.find('i#like').simulate('click');
