@@ -69,7 +69,8 @@ describe('Test suite for recipe reducers', () => {
     })).toEqual({
       ...initialState,
       userRecipes: mockData.userRecipes.recipes,
-      userRecipesCount: mockData.userRecipes.count
+      userRecipesCount: mockData.userRecipes.count,
+      new_recipe: []
     });
   });
   it('should handle EDIT_RECIPE', () => {

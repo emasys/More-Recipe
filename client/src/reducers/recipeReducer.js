@@ -49,7 +49,8 @@ export default (
     return {
       ...state,
       userRecipes: [...state.userRecipes, ...action.payload.recipes],
-      userRecipesCount: action.payload.count
+      userRecipesCount: action.payload.count,
+      new_recipe: []
     };
   case type.EDIT_RECIPE:
     return {
