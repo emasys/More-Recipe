@@ -68,6 +68,9 @@ export class SignUp extends Component {
    * @memberOf SignUp
    */
   componentWillReceiveProps = nextProps => {
+    if (nextProps.user.isLoggedIn) {
+      nextProps.history.push('/');
+    }
     if (nextProps.user.signUp) {
       if (nextProps.user.signUp.success) {
         nextProps.history.push('/');

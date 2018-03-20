@@ -96,9 +96,13 @@ export class SignIn extends Component {
    * invoked before a mounted component
    * receives new props
    * @param {object} nextProps
+   *
    * @memberof SignIn
    */
   componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isLoggedIn) {
+      nextProps.history.push('/');
+    }
     if (nextProps.signin.compareToken &&
       !nextProps.signin.compareToken.success) {
       this.setState({ tokenError: 'd-block' });
@@ -420,7 +424,8 @@ export const mapStateToProps = state => ({
   signin: state.user,
   reset: state.user.reset,
   isLoading: state.isLoading,
-  tokenStatus: state.user.sendToken
+  tokenStatus: state.user.sendToken,
+  auth: state.user
 });
 
 

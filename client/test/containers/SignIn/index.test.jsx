@@ -27,7 +27,7 @@ describe('Test suite for SignIn page', () => {
     beforeEach(() => {
       wrapper = mount(<Router>
         <SignIn {...props} />
-                      </Router>);
+      </Router>);
     });
 
     it('Should render without errors', () => {
@@ -105,6 +105,7 @@ describe('Test suite for SignIn page', () => {
     const compWRP = jest.spyOn(instance, 'componentWillReceiveProps');
 
     const newProps = {
+      auth: { isLoggedIn: true },
       signin: {
         path: '/',
         signIn: { success: true },
@@ -136,6 +137,7 @@ it('should call handleToken method', () => {
   expect(instance.state.display).toBe('d-block');
 
   const nextProps = {
+    auth: { isLoggedIn: true },
     tokenStatus: {}
   };
   app.setProps(nextProps);
