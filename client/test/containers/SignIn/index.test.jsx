@@ -144,10 +144,4 @@ it('should call handleToken method', () => {
   instance.handleTokenDispatch();
   expect(instance.state.display).toBe('d-none');
 });
-// {
-//   "sendToken": {
-//     "data": {
-//       "success": false,
-//       "message": "Not found"
-//     }
-// }
+

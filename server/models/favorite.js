@@ -10,10 +10,6 @@ export default (sequelize, DataTypes) => {
     }
   });
   Favorite.associate = (models) => {
-    Favorite.belongsTo(models.Users, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE'
-    });
     Favorite.belongsTo(models.Recipes, {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE'
