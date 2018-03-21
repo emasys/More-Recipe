@@ -7,9 +7,7 @@ module.exports = {
   ],
   collectCoverageFrom: ['**/client/src/**/*.{js,jsx}'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  // roots: ['client'],
   coveragePathIgnorePatterns: [
-    // 'client/src/components/HOC/',
     'client/src/containers/validator',
     'client/src/containers/RecipeItem/helperFunctions.js',
     'client/src/containers/Profile/helper.js',
@@ -21,13 +19,6 @@ module.exports = {
   ],
   modulePathIgnorePatterns: [
     'server'
-    // 'client/src/containers/validator',
-    // 'client/src/app.jsx',
-    // 'client/src/store.js',
-    // 'client/src/containers/Profile/helper.js',
-    // 'client/src/playground',
-    // 'client/src/components/HOC/',
-    // 'client/src/components/CountryList.js'
   ],
   verbose: false
 };

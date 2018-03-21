@@ -273,7 +273,9 @@ describe('Test suite for full catalog page component', () => {
     const onChange = jest.spyOn(FullCatalog.prototype, 'searchBar');
     const onSearch = jest.spyOn(FullCatalog.prototype, 'onSearch');
 
-    const app = mount(<Router><FullCatalog {...propswithSearchResult} /></Router>);
+    const app = mount(<Router>
+      <FullCatalog {...propswithSearchResult} />
+                      </Router>);
 
     app.find('a#recent').simulate('click', {
       preventDefault: () => {}
@@ -359,22 +361,15 @@ describe('Test suite for full catalog page component', () => {
 
     const app = mount(<Router>
       <FullCatalog {...propswithSearchResult} />
-    </Router>);
-    // const app = shallow(<FullCatalog {...props} />);
-    // const instance = app.instance();
-    // const addMore = jest.spyOn(instance, 'addMore');
+                      </Router>);
+
 
     app.setProps(newProps);
     expect(app).toMatchSnapshot();
-    // expect(compWRP).toHaveBeenCalled();
 
     app.setState({ searching: false });
     app.update();
-    // app.setProps(nextProps);
     expect(app).toMatchSnapshot();
-
-
-    // expect(addMore).toHaveBeenCalled();
   });
 
   it('should test mapStateToProps', () => {

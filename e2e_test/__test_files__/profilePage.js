@@ -4,7 +4,6 @@ const ProfilePage = () => {
       it('Should display all the required information including a recipe card', (client) => {
         client
           .url('http://localhost:8080/profile/1')
-          // .maximizeWindow()
           .waitForElementVisible('body', 2000)
           .assert.containsText('.profile-wrapper h2', 'sample007')
           .assert.containsText(
