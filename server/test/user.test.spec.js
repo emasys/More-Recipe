@@ -1,10 +1,12 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import app from '../index';
+import signUp from './auth';
 
 let firstToken = null;
 
 describe('Test suite for user controller', () => {
+  signUp();
   describe('Sign in a new user to generate token', () => {
     it('should return status code 200 if a user is successfully logged in', (done) => {
       request(app)

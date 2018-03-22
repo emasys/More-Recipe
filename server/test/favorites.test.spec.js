@@ -1,10 +1,12 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import app from '../index';
+import signUp from './auth';
 
 let firstToken = null;
 
 describe('Generate token', () => {
+  signUp();
   describe('sign in a user to generate token', () => {
     it('should return status code 200 if a user is successfully logged in', (done) => {
       request(app)
@@ -21,34 +23,6 @@ describe('Generate token', () => {
   });
 });
 describe('Test suite for favorite controller', () => {
-  describe('Add a recipe to the database', () => {
-    it('should return a status code of 201 if user is authenticated and query is successful', (done) => {
-      request(app)
-        .post('/api/v1/recipes')
-        .send({
-          name: 'fried yam',
-          direction: 'how to cook it',
-          description: 'regular food',
-          category: 'pasta',
-          foodImg: 'http://example.com',
-          ingredients: 'water, salt'
-        })
-        .set('more-recipe-access', firstToken)
-        .expect(201)
-        .expect((res) => {
-          expect(res.body).to.include({ success: true });
-          expect(res.body.recipe).to.be.an('object');
-          expect(res.body.recipe.name).to.equal('fried yam');
-          expect(res.body.recipe.direction).to.equal('how to cook it');
-          expect(res.body.recipe.description).to.equal('regular food');
-          expect(res.body.recipe.category).to.equal('pasta');
-          expect(res.body.recipe.ingredients).to.be.an('array');
-          expect(res.body.recipe.ingredients).to.have.lengthOf(2);
-          expect(res.body.recipe.ingredients).to.contain('water', 'salt');
-        })
-        .end(done);
-    });
-  });
   describe('Favorite a recipe', () => {
     it('should return check if a recipe is successfully added into user favorite list', (done) => {
       request(app)

@@ -1,11 +1,13 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import app from '../index';
+import signUp from './auth';
 
 
 let firstToken = null;
 let secondToken = null;
 describe('Test suite for recipe controller:', () => {
+  signUp();
   describe('sign in the first new user to generate token', () => {
     it('should return status code 200 if a user is successfully logged in', (done) => {
       request(app)
@@ -323,6 +325,57 @@ describe('Test suite for recipe controller:', () => {
               ]
             }
           });
+        })
+        .end(done);
+    });
+  });
+
+  describe('Get all the reviews of a particular recipe', () => {
+    it('should return a status code of 200 if reviews are successfully fetched', (done) => {
+      request(app)
+        .get('/api/v1/reviews/1?limit=1&offset=0')
+        .set('more-recipe-access', firstToken)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ count: 1 });
+          expect(res.body.count).to.be.equals(1);
+          expect(res.body.reviews).to.be.an('array');
+        })
+        .end(done);
+    });
+  });
+
+  describe('Delete a review,', () => {
+    it('should try to delete a review added by another user', (done) => {
+      request(app)
+        .delete('/api/v1/reviews/delete/1')
+        .set('more-recipe-access', secondToken)
+        .expect(401)
+        .expect((res) => {
+          expect(res.body).to.include({ error: 'cannot delete review' });
+        })
+        .end(done);
+    });
+    it('should delete a review added by a user', (done) => {
+      request(app)
+        .delete('/api/v1/reviews/delete/1')
+        .set('more-recipe-access', firstToken)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ success: true });
+          expect(res.body.message).to.equal('review deleted');
+        })
+        .end(done);
+    });
+
+    it('should return an empty array if there\'s no review', (done) => {
+      request(app)
+        .get('/api/v1/reviews/1?limit=1&offset=0')
+        .set('more-recipe-access', firstToken)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).to.include({ message: 'no review' });
+          expect(res.body.reviews).to.be.an('array').with.lengthOf(0);
         })
         .end(done);
     });
