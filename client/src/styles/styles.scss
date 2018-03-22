@@ -570,7 +570,7 @@ footer {
 .direction {
   box-sizing: border-box;
   background: rgb(252, 252, 252);
-  overflow-wrap: break-word; 
+  overflow-wrap: break-word;
   -webkit-transition: 400ms ease-in;
   -moz-transition: 400ms ease-in;
   transition: 400ms ease-in;
@@ -1035,7 +1035,7 @@ input[type='search'] {
         font-size: 16px;
       }
       input[type='text'] {
-        padding: 12px; 
+        padding: 12px;
         margin: 0 !important;
         font-size: 16px;
       }
@@ -1069,11 +1069,23 @@ select {
   background: transparent;
 }
 
-.not-found-logo{
+.not-found-logo {
   max-height: 50rem;
   max-width: 50rem;
 }
 
 .hideForm {
   // display: none !important;
+}
+
+.fixed {
+  @include minWidth(769) {
+    position: fixed;
+    left: 0;
+    top: 8rem;
+  }
+}
+
+.mh-50 {
+  min-height: 50rem;
 }

@@ -132,9 +132,11 @@ export class UserProfile extends Component {
     return (
       <div>
         <Navbar className="bg-dark fixed-top" />
-        <section className="container-fluid profile catalog-wrapper-full-grid mt-80">
+        <section className="container-fluid profile catalog-wrapper-full-grid mt-70">
           <div className="row justify-content-center">
-            <UserProfileInfo data={this.props.userInfo} />
+            <div className="col-lg-3 col-md-4 col-sm-12 mh-50">
+              <UserProfileInfo data={this.props.userInfo} />
+            </div>
             <div className="col-lg-9 col-md-8 col-sm-12 recipe-lists">
               <div className="clearfix">
                 <h4 className="header-title float-left clearfix">

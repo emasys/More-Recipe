@@ -55,7 +55,7 @@ exports[`Test suite for profile page component Should render with no recipe 1`] 
             className="row justify-content-center"
           >
             <div
-              className="col-lg-2 col-md-3 col-sm-4 col-12"
+              className="col-lg-2 col-md-3 col-sm-4 col-12 fixed mt-80"
             >
               <FavoriteCategoryList
                 filterList={[Function]}
@@ -277,7 +277,7 @@ exports[`Test suite for profile page component Should render with one favorite r
             className="row justify-content-center"
           >
             <div
-              className="col-lg-2 col-md-3 col-sm-4 col-12"
+              className="col-lg-2 col-md-3 col-sm-4 col-12 fixed mt-80"
             >
               <FavoriteCategoryList
                 filterList={[Function]}

@@ -146,7 +146,7 @@ export class Favorites extends Component {
             </div>
             <hr />
             <div className="row justify-content-center">
-              <div className="col-lg-2 col-md-3 col-sm-4 col-12">
+              <div className="col-lg-2 col-md-3 col-sm-4 col-12 fixed mt-80">
                 <FavoriteCategoryList
                   list={this.props.favorites.userFavorites}
                   filterList={this.filterFavorites}

@@ -336,18 +336,20 @@ export class Profile extends Component {
         <section className="container-fluid profile catalog-wrapper-full-grid mt-70">
           <div className="row justify-content-center">
             <DeleteModal {...this.props} confirmDelete={this.confirmDelete} />
-            <UserInfo
-              state={this.state}
-              data={userInfo}
-              count={this.props.count}
-              showForm={this.showForm}
-              hoverIn={this.hoverIn}
-              hoverOut={this.hoverOut}
-              handleDrop={this.handleDrop}
-              handleImg={this.handleImg}
-              notify={this.notify}
-              auth={this.props.auth}
-            />
+            <div className="col-lg-3 col-md-4 col-sm-12 mb-20 mh-50">
+              <UserInfo
+                state={this.state}
+                data={userInfo}
+                count={this.props.count}
+                showForm={this.showForm}
+                hoverIn={this.hoverIn}
+                hoverOut={this.hoverOut}
+                handleDrop={this.handleDrop}
+                handleImg={this.handleImg}
+                notify={this.notify}
+                auth={this.props.auth}
+              />
+            </div>
             {edit && (
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <UserEditForm
@@ -360,7 +362,7 @@ export class Profile extends Component {
               </div>
             )}
             {!edit && (
-              <div className="col-lg-10 col-md-9 col-sm-6 col-12 recipe-lists">
+              <div className="col-lg-9 col-md-8 col-sm-12 recipe-lists">
                 <div className="clearfix">
                   <h2 className=" float-left clearfix">
                     Recipes{' '}
