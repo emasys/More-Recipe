@@ -21,6 +21,10 @@ export const isAuthenticated = () => {
     const decoded = jwtDecode(jwtToken);
     userId = decoded.id;
     username = decoded.moniker;
+    if (decoded.exp < Date.now() / 1000) {
+      localStorage.clear();
+      isLoggedIn = false;
+    }
   }
   return {
     type: type.IS_LOGGEDIN,
