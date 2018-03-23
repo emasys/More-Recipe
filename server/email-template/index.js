@@ -10,7 +10,7 @@ const email = (moniker, message) => {
     second = 'REVIEWED';
     button = 'click to view recipe';
   } else {
-    passwordReset = 'You requested for a new password, copy the code below to continue';
+    passwordReset = 'You requested for a new password, copy the code below to continue. Token will be invalid after an hour';
     first = 'RESET';
     second = 'PASSWORD';
     button = message;

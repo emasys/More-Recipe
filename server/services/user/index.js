@@ -117,12 +117,16 @@ export const sendGeneratedToken = (res, request) => {
           mailer(null, user.email, token);
           return setStatus(res, { success: true, status: 'token sent' }, 200);
         });
+      // delete token after an hour
+      setTimeout(() => {
+        user.destroy();
+      }, 3600000);
     })
     .catch(() =>
       setStatus(res, { success: true, status: 'user not found' }, 404));
 };
 
-export const getGeneratedToken = (res, request) => {
+export const getGeneratedToken = (res, request) =>
   TokenGen.findOne({ where: { email: request.email, token: request.token } })
     .then((user) => {
       if (!user) return setStatus(res, { success: false }, 404);
@@ -130,4 +134,3 @@ export const getGeneratedToken = (res, request) => {
     })
     .catch(() =>
       setStatus(res, { success: false, error: 'server error' }, 500));
-};
