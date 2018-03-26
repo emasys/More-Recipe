@@ -6,6 +6,10 @@ export default (sequelize, DataTypes) => {
     }
   });
   Reviews.associate = (models) => {
+    Reviews.hasMany(models.ReviewsReply, {
+      foreignKey: 'reviewId',
+      as: 'reviewsreply'
+    });
     Reviews.belongsTo(models.Users, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
