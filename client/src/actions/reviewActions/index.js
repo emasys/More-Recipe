@@ -30,23 +30,39 @@ export const getReviews = (recipeId, limit = 1, offset = 0) => dispatch =>
  */
 export const clearReview = () => ({ type: type.CLEAR_REVIEW, payload: [] });
 
+export const getReply = reviewId => dispatch => {
+  dispatch(isLoading(true));
+  return instance
+    .get(`recipes/reviews/${reviewId}`)
+    .then(response => {
+      dispatch({ type: type.GET_REPLIES, payload: response.data });
+      console.log('reviews=====>', response.data);
+      dispatch(isLoading(false));
+    })
+    .catch(error => {
+      dispatch({ type: type.GET_REPLIES, payload: error.response.data });
+      dispatch(isLoading(false));
+    });
+};
 /**
  * Fetch all the  replies of a review
  *
  * @param {object} data
  * @param {number} reviewId
  * @param {number} recipeId
+ * @param {number} limit
  *
  * @returns {object} list of requested reviews
  */
-export const postReply = (data, reviewId, recipeId) => dispatch => {
+export const postReply = (data, reviewId, recipeId, limit) => dispatch => {
   dispatch(isLoading(true));
   return instance
     .post(`recipes/reviews/${reviewId}`, data)
     .then(response => {
       dispatch({ type: type.POST_REPLY, payload: response.data });
       dispatch(clearReview());
-      dispatch(getReviews(recipeId));
+      dispatch(getReviews(recipeId, limit, 0));
+      dispatch(getReply(reviewId));
       dispatch(isLoading(false));
     })
     .catch(error => {

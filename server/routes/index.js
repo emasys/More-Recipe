@@ -39,6 +39,12 @@ router.get(
   middleware.verifyToken,
   Reviews.getReplyReview
 );
+router.get(
+  '/recipes/review/:reviewId',
+  middleware.checkParams,
+  middleware.verifyToken,
+  Reviews.findReview
+);
 router.delete(
   '/reviews/delete/:reviewId',
   middleware.checkParams,

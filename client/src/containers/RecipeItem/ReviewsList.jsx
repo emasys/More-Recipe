@@ -4,9 +4,11 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Textarea from 'react-textarea-autosize';
+import { connect } from 'react-redux';
 
 import Replies from './GenerateReply';
 import config from '../../config';
+import { getReply } from '../../actions/reviewActions';
 
 /**
  *
@@ -15,7 +17,7 @@ import config from '../../config';
  * @class ReviewsList
  * @extends {Component}
  */
-export default class ReviewsList extends Component {
+export class ReviewsList extends Component {
   static propTypes = {
     comment: PropTypes.object.isRequired,
     deleteReview: PropTypes.func.isRequired,
@@ -48,13 +50,17 @@ export default class ReviewsList extends Component {
    */
   showReview = (event, reviewId) => {
     event.preventDefault();
-    console.log('action triggered');
     if (this.state.showReply) {
+      if (reviewId) {
+        this.props.getReply(reviewId);
+      }
       this.setState({ showReply: false, showForm: false });
     } else {
+      if (reviewId) {
+        this.props.getReply(reviewId);
+      }
       this.setState({ showReply: true, showForm: false });
     }
-    // this.props.deleteReview(reviewId, recipeId);
   };
 
   /**
@@ -65,7 +71,6 @@ export default class ReviewsList extends Component {
    */
   handleReplyForm = event => {
     event.preventDefault();
-    console.log('action triggered for reply form');
     if (this.state.showForm) {
       this.setState({ showForm: false, showReply: false });
     } else {
@@ -86,7 +91,8 @@ export default class ReviewsList extends Component {
       auth,
       handleForm,
       handleChange,
-      reply
+      reply,
+      reviewReply
     } = this.props;
     const { showForm, showReply } = this.state;
     return (
@@ -140,13 +146,23 @@ export default class ReviewsList extends Component {
                 )}
               {!showReply &&
                 comment.reviewsreply.length > 1 && (
-                  <a onClick={this.showReview}>
+                  <a
+                    onClick={event => {
+                      this.showReview(event, comment.id);
+                    }}
+                  >
                     &nbsp;View all {comment.reviewsreply.length} replies{' '}
                   </a>
                 )}
               {!showReply &&
                 comment.reviewsreply.length === 1 && (
-                  <a onClick={this.showReview}>&nbsp;View 1 reply </a>
+                  <a
+                    onClick={event => {
+                      this.showReview(event, comment.id);
+                    }}
+                  >
+                    &nbsp;View 1 reply{' '}
+                  </a>
                 )}
               {!showReply &&
                 comment.reviewsreply.length === 0 && <a> No reply </a>}
@@ -189,9 +205,11 @@ export default class ReviewsList extends Component {
               </button>
             </form>
           )}
-          {showReply && <Replies reply={comment.reviewsreply} />}
+          {showReply && <Replies reply={reviewReply} />}
         </div>
       </div>
     );
   }
 }
+
+export default connect(null, { getReply })(ReviewsList);

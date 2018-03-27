@@ -42,6 +42,29 @@ export default class ReviewRecipe {
       .then(reviews => fetchReview(res, req, reviews))
       .catch(error => serverErrorDispatcher(res, error));
   }
+
+  /**
+   *
+   *
+   * @static
+   *
+   * @param {object} req
+   * @param {object} res
+   *
+   * @returns { object } the value of a single recipe
+   *
+   * @memberOf ReviewRecipe
+   */
+  static findReview(req, res) {
+    return Reviews.findById(req.params.reviewId)
+      .then((review) => {
+        if (!review) {
+          return notFoundDispatcher(res);
+        }
+        return setStatus(res, { review }, 200);
+      })
+      .catch(error => serverErrorDispatcher(res, error));
+  }
   /**
    *
    * Delete a review
@@ -144,10 +167,10 @@ export default class ReviewRecipe {
    */
   static getReplyReview(req, res) {
     return ReviewsReply.findAndCountAll({
-      reviewId: req.params.reviewId,
-      include: [
-        { model: Users, attributes: ['moniker', 'avatar', 'email', 'id'] }
-      ]
+      where: { reviewId: req.params.reviewId }
+      // include: [
+      //   { model: Users, attributes: ['moniker', 'avatar', 'email', 'id'] }
+      // ]
     })
       .then(review =>
         setStatus(res, { reviews: review.rows, count: review.count }, 200))

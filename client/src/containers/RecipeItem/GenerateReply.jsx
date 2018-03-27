@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  */
 const GenerateReply = ({ reply }) => {
   if (reply) {
-    return reply.map(replies => (
+    return reply.reviews.map(replies => (
       <div key={replies.id}>
         <div className="comment-wrapper row justify-content-end">
           <div className="bg-light rounded mt-1 col-11 p-15 my-2">

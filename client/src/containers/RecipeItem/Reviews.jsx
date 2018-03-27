@@ -164,8 +164,8 @@ export class Reviews extends Component {
     event.preventDefault();
     const data = { content: this.state.reply };
     if (data.content.trim()) {
-      this.setState({ offset: 1 });
-      this.props.postReply(data, reviewId, id);
+      // this.setState({ offset: 1 });
+      this.props.postReply(data, reviewId, id, this.state.offset);
     }
     this.resetState();
   };
@@ -235,6 +235,7 @@ export class Reviews extends Component {
             handleForm={this.handleReplyForm}
             handleChange={this.handleReplyFormChange}
             reply={reply}
+            reviewReply={this.props.reply}
           />
           {showMore && (
             <button
@@ -253,7 +254,8 @@ export class Reviews extends Component {
 export const mapStateToProps = state => ({
   review: state.review,
   recipes: state.recipes,
-  auth: state.user
+  auth: state.user,
+  reply: state.review.reply
 });
 
 export default connect(mapStateToProps, {

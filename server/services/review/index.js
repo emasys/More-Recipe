@@ -19,7 +19,7 @@ export const postReview = (res, req) => {
         const emailBody = {
           name,
           recipeId: recipe.id
-        }
+        };
         mailer(moniker, email, emailBody);
         return setStatus(res, { success: true, reviewedRecipe, recipe }, 201);
       });
