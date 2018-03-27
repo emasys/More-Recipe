@@ -33,9 +33,10 @@ export default class ReviewRecipe {
       offset: req.query.offset,
       where: { recipeId: req.params.recipeId },
       order: [['createdAt', 'DESC']],
+      distinct: true,
       include: [
-        { model: Users, attributes: ['moniker', 'avatar'] }
-        // { model: ReviewsReply, as: 'reviewsreply' }
+        { model: Users, attributes: ['moniker', 'avatar'] },
+        { model: ReviewsReply, as: 'reviewsreply' }
       ]
     })
       .then(reviews => fetchReview(res, req, reviews))
@@ -112,7 +113,10 @@ export default class ReviewRecipe {
     if (validator.passes()) {
       return ReviewsReply.create({
         content: request.content,
-        reviewId: req.params.reviewId
+        reviewId: req.params.reviewId,
+        userId: req.decoded.id,
+        moniker: req.decoded.moniker,
+        avatar: req.decoded.avatar
       })
         .then(review => setStatus(res, { success: true, review }, 201))
         .catch(error =>
@@ -140,7 +144,10 @@ export default class ReviewRecipe {
    */
   static getReplyReview(req, res) {
     return ReviewsReply.findAndCountAll({
-      reviewId: req.params.reviewId
+      reviewId: req.params.reviewId,
+      include: [
+        { model: Users, attributes: ['moniker', 'avatar', 'email', 'id'] }
+      ]
     })
       .then(review =>
         setStatus(res, { reviews: review.rows, count: review.count }, 200))

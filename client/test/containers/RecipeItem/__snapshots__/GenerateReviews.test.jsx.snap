@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test suite for GenerateReview component  Render component with empty props should match snapshot 1`] = `
-<p>
-  Loading comments...
-</p>
+<div>
+  <p>
+    Loading comments...
+  </p>
+</div>
 `;
 
 exports[`Test suite for GenerateReview component  Render component with props should match snapshot 1`] = `
@@ -86,6 +88,7 @@ exports[`Test suite for GenerateReview component  Render component with props sh
             "createdAt": "2018-03-15T08:03:50.868Z",
             "id": 1,
             "recipeId": 1,
+            "reviewsreply": Array [],
             "updatedAt": "2018-03-15T08:03:50.868Z",
             "userId": 1,
           },
@@ -94,78 +97,198 @@ exports[`Test suite for GenerateReview component  Render component with props sh
       }
     }
   >
-    <div
-      className="comment-wrapper"
-      data-aos="fade-left"
-      data-aos-offset="20"
-      key="1"
-    >
-      <div
-        className="direction rounded mt-50 p-15 my-2"
+    <div>
+      <ReviewsList
+        auth={
+          Object {
+            "allUsers": Object {
+              "success": true,
+              "users": Array [
+                Object {
+                  "avatar": null,
+                  "bio": null,
+                  "country": null,
+                  "createdAt": "2018-03-13T05:04:37.443Z",
+                  "email": "emasysnd@gmail.com",
+                  "firstName": null,
+                  "id": 1,
+                  "lastName": null,
+                  "moniker": "admin",
+                  "password": "$2a$10$47oncNYPerLpBX2BfrUSpeUo4KMIU5dsHkJo3hRUWw1n58K6muoUS",
+                  "updatedAt": "2018-03-13T05:04:37.443Z",
+                },
+              ],
+            },
+            "authInfo": Object {
+              "isLoggedIn": true,
+              "userId": 1,
+              "username": "admin",
+            },
+            "isLoggedIn": true,
+            "message": null,
+            "userInfo": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": "Nigeria",
+                "email": "emasysnd@gmail.com",
+                "firstName": "emmy",
+                "id": 1,
+                "lastName": "endy",
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+            "userProfile": Object {
+              "data": Object {
+                "avatar": null,
+                "bio": null,
+                "country": null,
+                "email": "emasysnd@gmail.com",
+                "firstName": null,
+                "id": 1,
+                "lastName": null,
+                "moniker": "admin",
+              },
+              "success": true,
+            },
+          }
+        }
+        comment={
+          Object {
+            "User": Object {
+              "avatar": null,
+              "moniker": "admin",
+            },
+            "content": "new comment",
+            "createdAt": "2018-03-15T08:03:50.868Z",
+            "id": 1,
+            "recipeId": 1,
+            "reviewsreply": Array [],
+            "updatedAt": "2018-03-15T08:03:50.868Z",
+            "userId": 1,
+          }
+        }
+        deleteReview={[Function]}
+        key="1"
+        review={
+          Object {
+            "count_reviews": 1,
+            "fetch_reviews": Array [
+              Object {
+                "User": Object {
+                  "avatar": null,
+                  "moniker": "admin",
+                },
+                "content": "new comment",
+                "createdAt": "2018-03-15T08:03:50.868Z",
+                "id": 1,
+                "recipeId": 1,
+                "reviewsreply": Array [],
+                "updatedAt": "2018-03-15T08:03:50.868Z",
+                "userId": 1,
+              },
+            ],
+            "review": Object {},
+          }
+        }
       >
         <div
-          className="commentTitle "
+          className="comment-wrapper direction"
+          key="1"
         >
           <div
-            className="float-left  mr-5"
+            data-aos="fade-left"
+            data-aos-offset="20"
           >
-            <img
-              alt="dp"
-              className="img-icon-review rounded-circle"
-              src="https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png"
-            />
-          </div>
-          <div
-            className="clearfix mb-10"
-          >
-            <Link
-              className="text-dark bolder moniker"
-              replace={false}
-              to="/user/1"
-            >
-              <a
-                className="text-dark bolder moniker"
-                onClick={[Function]}
-              >
-                admin
-              </a>
-            </Link>
-            <p
-              className="text-dark date"
-            >
-              in a year
-            </p>
-            <i
-              className="fa fa-times-circle delete-review-btn hvr-buzz-out fa-2x"
-              data-tip="Delete this review"
-              onClick={[Function]}
-            />
-            <ReactTooltip
-              effect="float"
-              insecure={true}
-              place="bottom"
-              resizeHide={true}
-              type="dark"
-              wrapper="div"
+            <div
+              className=" rounded mt-50 p-15 my-2"
             >
               <div
-                className="__react_component_tooltip place-top type-dark "
-                data-id="tooltip"
-              />
-            </ReactTooltip>
+                className="commentTitle "
+              >
+                <div
+                  className="float-left  mr-5"
+                >
+                  <img
+                    alt="dp"
+                    className="img-icon-review rounded-circle"
+                    src="https://res.cloudinary.com/emasys/image/upload/v1512284260/mejglndrmulkudy2feug.png"
+                  />
+                </div>
+                <div
+                  className="clearfix mb-10"
+                >
+                  <Link
+                    className="text-dark bolder moniker"
+                    replace={false}
+                    to="/user/1"
+                  >
+                    <a
+                      className="text-dark bolder moniker"
+                      onClick={[Function]}
+                    >
+                      admin
+                    </a>
+                  </Link>
+                  <p
+                    className="text-dark date"
+                  >
+                    in a year
+                  </p>
+                  <i
+                    className="fa fa-times-circle delete-review-btn hvr-buzz-out fa-2x "
+                    data-tip="Delete this review"
+                    onClick={[Function]}
+                  />
+                  <ReactTooltip
+                    effect="float"
+                    insecure={true}
+                    place="bottom"
+                    resizeHide={true}
+                    type="dark"
+                    wrapper="div"
+                  >
+                    <div
+                      className="__react_component_tooltip place-top type-dark "
+                      data-id="tooltip"
+                    />
+                  </ReactTooltip>
+                </div>
+                <hr />
+              </div>
+              <div
+                className="comments ml-10"
+              >
+                <p
+                  className="mb-0 text-dark"
+                >
+                  new comment
+                </p>
+              </div>
+              <div
+                className="reply mt-15 text-dark hovered"
+              >
+                <a
+                  onClick={[Function]}
+                >
+                  Reply 
+                </a>
+                 |
+                <a>
+                   No reply 
+                </a>
+                <i
+                  className="fa fa-chevron-down"
+                />
+              </div>
+            </div>
           </div>
-          <hr />
+          <div
+            className="container reply-container"
+          />
         </div>
-        <div
-          className="comments ml-10"
-        >
-          <p
-            className="mb-0 text-dark"
-          >
-            new comment
-          </p>
-        </div>
-      </div>
+      </ReviewsList>
     </div>
   </GenerateReviews>
 </MockRouter>

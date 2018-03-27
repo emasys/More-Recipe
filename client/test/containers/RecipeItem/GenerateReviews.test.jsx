@@ -42,6 +42,7 @@ describe('Test suite for GenerateReview component ', () => {
             updatedAt: '2018-03-15T08:03:50.868Z',
             recipeId: 1,
             userId: 1,
+            reviewsreply: [],
             User: {
               moniker: 'admin',
               avatar: null

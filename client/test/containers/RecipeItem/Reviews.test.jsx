@@ -31,6 +31,7 @@ describe('Test suite for Reviews component', () => {
             updatedAt: '2018-03-15T08:03:50.868Z',
             recipeId: 1,
             userId: 1,
+            reviewsreply: [],
             User: {
               moniker: 'admin',
               avatar: null
@@ -69,7 +70,9 @@ describe('Test suite for Reviews component', () => {
     });
 
     it('should delete a review and unmount', () => {
-      const app = mount(<Router><Reviews {...props} /></Router>);
+      const app = mount(<Router>
+        <Reviews {...props} />
+      </Router>);
       app.find('i.delete-review-btn').simulate('click');
       app.unmount();
       expect(props.clearReview).toBeCalled();
@@ -143,4 +146,3 @@ describe('Test suite for Reviews component', () => {
     });
   });
 });
-

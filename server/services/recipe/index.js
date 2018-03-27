@@ -1,5 +1,5 @@
 import { Users, Recipes } from '../../models';
-import { setStatus, notFoundDispatcher } from '../../middleware/helper';
+import { setStatus } from '../../middleware/helper';
 
 const convertToArray = (input) => {
   if (input) {

@@ -8,7 +8,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      moniker: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       reviewId: {
         type: Sequelize.INTEGER,
