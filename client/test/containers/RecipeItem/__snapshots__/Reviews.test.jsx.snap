@@ -116,6 +116,7 @@ exports[`Test suite for Reviews component Render component with one review shoul
       deleteReview={[Function]}
       handleChange={[Function]}
       handleForm={[Function]}
+      increment={0}
       reply=""
       review={
         Object {

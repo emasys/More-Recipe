@@ -36,7 +36,6 @@ export const getReply = reviewId => dispatch => {
     .get(`recipes/reviews/${reviewId}`)
     .then(response => {
       dispatch({ type: type.GET_REPLIES, payload: response.data });
-      console.log('reviews=====>', response.data);
       dispatch(isLoading(false));
     })
     .catch(error => {
@@ -60,8 +59,8 @@ export const postReply = (data, reviewId, recipeId, limit) => dispatch => {
     .post(`recipes/reviews/${reviewId}`, data)
     .then(response => {
       dispatch({ type: type.POST_REPLY, payload: response.data });
-      dispatch(clearReview());
-      dispatch(getReviews(recipeId, limit, 0));
+      // dispatch(clearReview());
+      // dispatch(getReviews(recipeId, limit, 0));
       dispatch(getReply(reviewId));
       dispatch(isLoading(false));
     })

@@ -37,7 +37,8 @@ export class ReviewsList extends Component {
     super(props);
     this.state = {
       showForm: false,
-      showReply: false
+      showReply: false,
+      increment: 0
     };
   }
   /**
@@ -77,6 +78,13 @@ export class ReviewsList extends Component {
       this.setState({ showForm: true, showReply: false });
     }
   };
+
+  incrementCounter = event => {
+    this.handleReplyForm(event);
+    this.setState(prevState => ({
+      increment: prevState.increment + 1
+    }));
+  };
   /**
    *
    *
@@ -94,7 +102,7 @@ export class ReviewsList extends Component {
       reply,
       reviewReply
     } = this.props;
-    const { showForm, showReply } = this.state;
+    const { showForm, showReply, increment } = this.state;
     return (
       <div key={comment.id} className="comment-wrapper direction">
         <div data-aos="fade-left" data-aos-offset="20">
@@ -137,25 +145,27 @@ export class ReviewsList extends Component {
               {showReply &&
                 comment.reviewsreply.length > 1 && (
                   <a onClick={this.showReview}>
-                    &nbsp;Hide all {comment.reviewsreply.length} replies{' '}
+                    &nbsp;Hide all {comment.reviewsreply.length + increment}{' '}
+                    replies{' '}
                   </a>
                 )}
               {showReply &&
-                comment.reviewsreply.length === 1 && (
+                comment.reviewsreply.length + increment === 1 && (
                   <a onClick={this.showReview}>&nbsp;Hide reply </a>
                 )}
               {!showReply &&
-                comment.reviewsreply.length > 1 && (
+                comment.reviewsreply.length + increment > 1 && (
                   <a
                     onClick={event => {
                       this.showReview(event, comment.id);
                     }}
                   >
-                    &nbsp;View all {comment.reviewsreply.length} replies{' '}
+                    &nbsp;View all {comment.reviewsreply.length + increment}{' '}
+                    replies{' '}
                   </a>
                 )}
               {!showReply &&
-                comment.reviewsreply.length === 1 && (
+                comment.reviewsreply.length + increment === 1 && (
                   <a
                     onClick={event => {
                       this.showReview(event, comment.id);
@@ -165,7 +175,9 @@ export class ReviewsList extends Component {
                   </a>
                 )}
               {!showReply &&
-                comment.reviewsreply.length === 0 && <a> No reply </a>}
+                comment.reviewsreply.length + increment === 0 && (
+                  <a> No reply </a>
+                )}
               {!showReply && <i className="fa fa-chevron-down" />}
               {showReply && <i className="fa fa-chevron-up" />}
             </div>
@@ -176,6 +188,7 @@ export class ReviewsList extends Component {
             <form
               onSubmit={event => {
                 handleForm(event, comment.id);
+                this.incrementCounter(event);
               }}
               className="text-center clearfix"
             >

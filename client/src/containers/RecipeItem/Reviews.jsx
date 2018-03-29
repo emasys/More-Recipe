@@ -49,7 +49,8 @@ export class Reviews extends Component {
       offset: 1,
       showMore: false,
       reply: '',
-      replyArea: false
+      replyArea: false,
+      increment: 0
     };
   }
 
@@ -165,6 +166,9 @@ export class Reviews extends Component {
     const data = { content: this.state.reply };
     if (data.content.trim()) {
       // this.setState({ offset: 1 });
+      this.setState(prevState => ({
+        increment: prevState.increment + 1
+      }));
       this.props.postReply(data, reviewId, id, this.state.offset);
     }
     this.resetState();
@@ -190,7 +194,9 @@ export class Reviews extends Component {
    * @memberof Reviews
    */
   render() {
-    const { content, showMore, reply } = this.state;
+    const {
+      content, showMore, reply, increment
+    } = this.state;
     return (
       <div className="row justify-content-center mt-2 catalog-wrapper">
         <div className="col-12">
@@ -236,6 +242,7 @@ export class Reviews extends Component {
             handleChange={this.handleReplyFormChange}
             reply={reply}
             reviewReply={this.props.reply}
+            increment={increment}
           />
           {showMore && (
             <button

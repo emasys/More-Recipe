@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 /**
  *
  *
- * @param {object} { review, deleteReview, auth }
+ * @param {object} { reply }
  * @returns {JSX.Element} React element
  */
 const GenerateReply = ({ reply }) => {
@@ -51,7 +51,7 @@ const GenerateReply = ({ reply }) => {
 };
 
 GenerateReply.propTypes = {
-  reply: PropTypes.array.isRequired
+  reply: PropTypes.object.isRequired
 };
 
 export default GenerateReply;
