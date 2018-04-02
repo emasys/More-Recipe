@@ -198,7 +198,11 @@ export class CatalogList extends Component {
    * @memberOf CatalogList
    */
   render() {
-    return <div className="row justify-content-center">{this.generateList(this.props)}</div>;
+    return (
+      <div className="row justify-content-center">
+        {this.generateList(this.props)}
+      </div>
+    );
   }
 }
 
