@@ -1,6 +1,6 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.removeColumn(
+    return queryInterface.addColumn(
       'ReviewsReplies',
       'avatar',
       Sequelize.STRING
