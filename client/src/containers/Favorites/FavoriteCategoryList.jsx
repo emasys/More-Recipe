@@ -17,7 +17,7 @@ const FavoriteCategoryList = ({ list, filterList }) => {
     });
     const orderedListWithBadge = countBy(orderedList);
     return (
-      <div className="list-group favoriteList">
+      <div className="list-group favoriteList sticky-col">
         {Object.keys(orderedListWithBadge).map(key => (
           <a
             key={key}

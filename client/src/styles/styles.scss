@@ -1087,6 +1087,12 @@ select {
   }
 }
 
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8rem;
+}
+
 .mh-50 {
   min-height: 50rem;
 }
