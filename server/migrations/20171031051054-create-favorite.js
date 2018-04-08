@@ -1,6 +1,6 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Favorites', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Favorites', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -19,13 +19,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-          as: 'userId'
-        }
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -35,7 +29,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
-  },
+    }),
   down: queryInterface => queryInterface.dropTable('Favorites')
 };

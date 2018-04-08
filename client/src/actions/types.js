@@ -36,3 +36,5 @@ export const FLASH_MESSAGE = ' flash message';
 export const CLEAR_REVIEW = 'clear review array';
 export const CLEAR_AUTH = 'clear auth data';
 export const SIGN_OUT = 'sign out';
+export const GET_REPLIES = 'fetch all replies';
+export const POST_REPLY = 'post reply';

@@ -114,6 +114,10 @@ exports[`Test suite for Reviews component Render component with one review shoul
         }
       }
       deleteReview={[Function]}
+      handleChange={[Function]}
+      handleForm={[Function]}
+      increment={0}
+      reply=""
       review={
         Object {
           "count_reviews": 1,
@@ -127,6 +131,7 @@ exports[`Test suite for Reviews component Render component with one review shoul
               "createdAt": "2018-03-15T08:03:50.868Z",
               "id": 1,
               "recipeId": 1,
+              "reviewsreply": Array [],
               "updatedAt": "2018-03-15T08:03:50.868Z",
               "userId": 1,
             },

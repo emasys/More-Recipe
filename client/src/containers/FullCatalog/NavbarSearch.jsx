@@ -15,7 +15,7 @@ import Navlinks from '../../components/Navlinks';
  * @returns {void}
  */
 const NavbarSearch = props => (
-  <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-navbar">
+  <nav className=" navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div className="container">
       <Link className="navbar-brand bolder text-orange" to="/">
         MoreRecipes

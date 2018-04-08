@@ -328,6 +328,7 @@
 .delete-review-btn {
   position: absolute;
   bottom: 0;
+  height: 2rem;
   right: 1rem;
   color: rgba(0, 0, 0, 0.411);
   top: 1rem;
@@ -1086,6 +1087,31 @@ select {
   }
 }
 
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8rem;
+}
+
 .mh-50 {
   min-height: 50rem;
 }
+
+.reply {
+  position: absolute;
+  bottom: .2rem;
+  right: 1rem;
+  color: rgba(0, 0, 0, 0.411); // top: 1rem;
+  z-index: 2;
+  font-size: 1rem;
+  color: darkgray;
+}
+
+.reply-container {
+  max-height: 40rem;
+  overflow: scroll;
+}
+
+// .reply-wrapper {
+//   background: 
+// }

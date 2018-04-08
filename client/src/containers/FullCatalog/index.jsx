@@ -39,7 +39,7 @@ export class FullCatalog extends Component {
 
   static defaultProps = {
     user: null
-  }
+  };
   /**
    * Creates an instance of FullCatalog.
    * @param {any} props
@@ -304,7 +304,7 @@ export class FullCatalog extends Component {
    */
   logOut = () => {
     this.props.signOut();
-  }
+  };
   /**
    *
    *
@@ -323,16 +323,14 @@ export class FullCatalog extends Component {
     } = this.state;
     return (
       <div className="container-fluid">
-        <section className="container-fluid fixed">
-          <Navbar
-            onSearch={this.onSearch}
-            search={search}
-            avatar={avatar}
-            onChanged={this.searchBar}
-            user={this.props.auth}
-            logOut={this.logOut}
-          />
-        </section>
+        <Navbar
+          onSearch={this.onSearch}
+          search={search}
+          avatar={avatar}
+          onChanged={this.searchBar}
+          user={this.props.auth}
+          logOut={this.logOut}
+        />
         <div
           className="category-bar fixed-top custom-fixed custom-bg-color"
           style={{ zIndex: 900 }}

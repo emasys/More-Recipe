@@ -2,3 +2,4 @@ node_modules
 /validators.js
 .nyc_output
 coverage
+client/test

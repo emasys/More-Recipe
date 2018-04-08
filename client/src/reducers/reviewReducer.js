@@ -29,6 +29,11 @@ export default (
       ...state,
       delete_reviews: action.payload
     };
+  case type.GET_REPLIES:
+    return {
+      ...state,
+      reply: action.payload
+    };
   default:
     return state;
   }

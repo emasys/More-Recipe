@@ -8,7 +8,8 @@ import {
   postReview,
   deleteReview,
   getReviews,
-  clearReview
+  clearReview,
+  postReply
 } from '../../actions/reviewActions';
 
 // Component
@@ -27,7 +28,10 @@ export class Reviews extends Component {
     recipes: PropTypes.object.isRequired,
     deleteReview: PropTypes.func.isRequired,
     review: PropTypes.object,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    getReviews: PropTypes.func.isRequired,
+    postReply: PropTypes.func.isRequired,
+    clearReview: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -43,7 +47,10 @@ export class Reviews extends Component {
     this.state = {
       content: '',
       offset: 1,
-      showMore: false
+      showMore: false,
+      reply: '',
+      replyArea: false,
+      increment: 0
     };
   }
 
@@ -96,7 +103,8 @@ export class Reviews extends Component {
    */
   resetState = () => {
     this.setState({
-      content: ''
+      content: '',
+      reply: ''
     });
   };
 
@@ -146,12 +154,49 @@ export class Reviews extends Component {
   };
   /**
    *
+   * @param {number} event
+   * @param {number} reviewId
+   *
+   * @returns {void}
+   * @memberOf Reviews
+   */
+  handleReplyForm = (event, reviewId) => {
+    const { id } = this.props.recipes.recipeItem.recipe;
+    event.preventDefault();
+    const data = { content: this.state.reply };
+    if (data.content.trim()) {
+      // this.setState({ offset: 1 });
+      this.setState(prevState => ({
+        increment: prevState.increment + 1
+      }));
+      this.props.postReply(data, reviewId, id, this.state.offset);
+    }
+    this.resetState();
+  };
+
+  /**
+   * handle form input state
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   * @memberOf Reviews
+   */
+  handleReplyFormChange = event => {
+    this.setState({
+      reply: event.target.value
+    });
+  };
+  /**
+   *
    *
    * @returns {JSX.Element} React element
    * @memberof Reviews
    */
   render() {
-    const { content, showMore } = this.state;
+    const {
+      content, showMore, reply, increment
+    } = this.state;
     return (
       <div className="row justify-content-center mt-2 catalog-wrapper">
         <div className="col-12">
@@ -193,6 +238,11 @@ export class Reviews extends Component {
             review={this.props.review}
             deleteReview={this.deleteReview}
             auth={this.props.auth}
+            handleForm={this.handleReplyForm}
+            handleChange={this.handleReplyFormChange}
+            reply={reply}
+            reviewReply={this.props.reply}
+            increment={increment}
           />
           {showMore && (
             <button
@@ -211,12 +261,14 @@ export class Reviews extends Component {
 export const mapStateToProps = state => ({
   review: state.review,
   recipes: state.recipes,
-  auth: state.user
+  auth: state.user,
+  reply: state.review.reply
 });
 
 export default connect(mapStateToProps, {
   postReview,
   deleteReview,
   getReviews,
-  clearReview
+  clearReview,
+  postReply
 })(Reviews);

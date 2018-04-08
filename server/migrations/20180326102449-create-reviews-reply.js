@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('Reviews', {
+    queryInterface.createTable('ReviewsReplies', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -8,27 +8,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
-        type: Sequelize.TEXT,
-        allowNull: false
+        type: Sequelize.TEXT
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-          as: 'userId'
-        }
+        allowNull: false
       },
-      recipeId: {
+      moniker: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      reviewId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'CASCADE',
         references: {
-          model: 'Recipes',
+          model: 'Reviews',
           key: 'id',
-          as: 'recipeId'
+          as: 'reviewId'
         }
       },
       createdAt: {
@@ -40,5 +37,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('Reviews')
+  down: queryInterface => queryInterface.dropTable('ReviewsReplies')
 };
